@@ -1,0 +1,42 @@
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ContentComponent } from "./components/content/content.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { FooterComponent } from "./components/footer/footer.component";
+import { LoginComponent } from "./components/login/login.component";
+import { SharedRoutingModule } from "./shared-routing.module";
+import { HomeComponent } from '../public-portal/home/home.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
+
+@NgModule({
+  declarations: [
+    ContentComponent,
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    LoginComponent
+  ],
+  imports: [
+    CommonModule, 
+    SharedRoutingModule,
+    
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatNativeDateModule
+  ],
+  exports: [
+    ContentComponent,
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    LoginComponent    
+  ]
+})
+export class SharedModule {}
