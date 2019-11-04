@@ -5,11 +5,13 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './add-notary.component.html',
   styleUrls: ['./add-notary.component.css']
 })
+
 export class AddNotaryComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

@@ -12,6 +12,7 @@ import { MatRippleModule, MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { SharedModule } from "./shared/shared.module";
 import { PublicPortalModule } from "./public-portal/public-portal.module";
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,8 @@ import { PublicPortalModule } from "./public-portal/public-portal.module";
     MatInputModule,
     MatRippleModule,
     MatNativeDateModule,
+    MatIconModule,
+
     SharedModule,
     PublicPortalModule
   ],

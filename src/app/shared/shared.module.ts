@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import { ContentComponent } from "./components/content/content.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { LoginComponent } from "./components/login/login.component";
 import { SharedRoutingModule } from "./shared-routing.module";
 import { HomeComponent } from '../public-portal/home/home.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -17,8 +16,7 @@ import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
     ContentComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent,
-    LoginComponent
+    FooterComponent
   ],
   imports: [
     CommonModule, 
@@ -36,7 +34,6 @@ import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    LoginComponent    
   ]
 })
 export class SharedModule {}

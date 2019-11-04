@@ -2,14 +2,48 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PublicPortalRoutingModule } from './public-portal-routing.module';
 import { AddNotaryComponent } from './notary-registration/add-notary/add-notary.component';
+import { LoginComponent } from './login/login.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent],
+  declarations: [AddNotaryComponent,LoginComponent],
   imports: [
     CommonModule,
-    PublicPortalRoutingModule
+    PublicPortalRoutingModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatFileUploadModule
+  ],
+  exports: [
+    LoginComponent,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatFileUploadModule
   ]
 })
 export class PublicPortalModule { }

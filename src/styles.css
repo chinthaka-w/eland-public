@@ -66,6 +66,18 @@ p {
     line-height: 30px;
 }
 
+.m0 { margin: 0 !important; }
+.mb-10 { margin-bottom: 10px !important; }
+.mb-20 { margin-bottom: 20px !important; }
+.mb-30 { margin-bottom: 30px !important; }
+.mb-40 { margin-bottom: 40px !important; }
+.mb-50 { margin-bottom: 50px !important; }
+.mb-60 { margin-bottom: 60px !important; }
+.mb-70 { margin-bottom: 70px !important; }
+.mb-80 { margin-bottom: 80px !important; }
+.mb-90 { margin-bottom: 90px !important; }
+.mb-100 { margin-bottom: 100px !important; }
+
 /**/
 .landing-header {
     display: block;
@@ -516,6 +528,405 @@ button.theme-light.mat-raised-button:hover {
     padding: 10px;
     text-align: center;
     font-size: 12px;
+}
+
+/* Login */
+.hc-component-wrapper {
+    display: table;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.hc-component-content {
+    display: table-cell;
+    width: 50%;
+    height: 100vh;
+    min-height: 500px;
+    padding-bottom: 100px;
+    position: relative;
+}
+
+.hc-component-img {
+    display: table-cell;
+    width: 50%;
+    height: 100vh;
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hc-component-inner-col {
+    display: block;
+    position: absolute;
+    width: 100%;
+    max-width: 560px;
+    padding: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hc-mat-input-wp {
+    display: block;
+    position: relative;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.09);
+    margin-bottom: 20px;
+}
+
+.hc-component-inner-col h1 {
+    font-size: 40px;
+    line-height: 42px;
+    color: #24303C;
+    margin: 0 0 10px 0;
+}
+
+.hc-component-inner-col p {
+    margin: 0 0 40px 0;
+}
+
+.hc-mat-input-wp .mat-form-field {
+    display: block;
+    padding: 10px 25px;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.mat-form-field-wrapper {
+    padding: 0;
+}
+
+.hcf-inner-row {
+    display: block;
+    margin: 0;
+}
+
+.hcf-inner-row .mat-raised-button {
+    float: right;
+}
+
+.hcf-inner-row a,
+.hcf-inner-row a:link,
+.hcf-inner-row a:visited {
+    display: inline-block;
+    color: #A7A6A6;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 16px;
+    text-decoration: none;
+    padding: 10px 0;
+}
+
+.hcf-inner-row a:active,
+.hcf-inner-row a:hover {
+    color: #1581eb;
+}
+
+.mat-form-field-label {
+    color: #A7A6A6;
+}
+
+.hc-component-bottom {
+    display: block;
+    position: absolute;
+    padding: 20px;
+    bottom: 20px;
+    left: 50%;
+    width: 100%;
+    max-width: 560px;
+    transform: translateX(-50%);
+    color: #A7A6A6;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.hc-component-bottom a,
+.hc-component-bottom a:link,
+.hc-component-bottom a:visited,
+.hc-component-bottom a:active,
+.hc-component-bottom a:hover {
+    color: #1581eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+/**/
+.page-header-default {
+    display: block;
+    position: relative;
+    min-height: 360px;
+    background: #1582eb;
+    text-align: center;
+    color: #fff;
+    padding: 100px 10% 120px 10%;
+}
+
+.page-header-default h2 {
+    color: #fff;
+    font-size: 38px;
+    line-height: 40px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.page-header-default p {
+    color: #fff;
+    margin: 0;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.phd-back-btn,
+.phd-back-btn:link,
+.phd-back-btn:visited,
+.phd-back-btn:active,
+.phd-back-btn:hover {
+    display: block;
+    position: absolute;
+    color: #fff;
+    top: 10%;
+}
+
+.phd-back-btn .material-icons,
+.phd-back-btn:link .material-icons,
+.phd-back-btn:visited .material-icons,
+.phd-back-btn:active .material-icons,
+.phd-back-btn:hover .material-icons {
+    font-size: 50px;
+    line-height: 50px;
+}
+
+/**/
+.page-content-wrapper {
+    display: block;
+    position: relative;
+    padding: 50px 30px;
+}
+
+.page-content-inner-wrapper {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 500px;
+    margin: -160px auto 0 auto;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 50px;
+}
+
+/* ---------- */
+.pg-inner-row {
+    display: table;
+    width: 100%;
+    margin: 0;
+}
+
+.pg-inner-col {
+    display: table-cell;
+    width: 50%;
+    vertical-align: middle;
+}
+
+.pg-inner-col.left {
+    text-align: left;
+}
+
+.pg-inner-col.right {
+    text-align: right;
+}
+
+.pg-inner-col:nth-of-type(1) {
+    padding-right: 15px;
+}
+
+.pg-inner-col:nth-of-type(2) {
+    padding-left: 15px;
+}
+
+.default-input-wrapper {
+    display: table;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.default-input-wrapper > label {
+    display: table-cell;
+    width: 30%;
+    text-align: left;
+    padding-right: 15px;
+    padding-top: 10px;
+    vertical-align: top;
+}
+
+.default-input-feild {
+    display: table-cell;
+    margin: 0;
+    vertical-align: middle;
+}
+
+h5.uw-title {
+    display: block;
+    position: relative;
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 30px;
+}
+
+h5.uw-title span {
+    display: inline-block;
+    position: relative;
+    background: #fff;
+    padding-right: 10px;
+}
+
+h5.uw-title:before {
+    display: block;
+    position: absolute;
+    content: "";
+    background: #d7d7d7;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    bottom: 5px;
+}
+
+
+/* --- mat form field style - Start --- */
+.mat-form-field {
+    display: block !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline,
+.mat-form-field-appearance-outline .mat-form-field-outline:hover {
+    color: #BDBDBD;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 17px 0 10px 2px;
+}
+
+.mat-form-field-infix {
+    padding: .5em 0;
+    border-top: 0 solid transparent;
+}
+
+.mat-form-field-type-mat-native-select .mat-form-field-infix::after {
+    color: rgb(189, 189, 189);
+}
+
+.mat-form-field-type-mat-native-select.mat-form-field-appearance-outline .mat-form-field-infix::after {
+    margin-top: 0 !important;
+}
+
+/* Radio button */
+.mat-radio-button {
+    margin-right: 25px;
+}
+
+.mat-radio-outer-circle {
+    border-color: #1582eb;
+    top: -1px;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #1582eb;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #1582eb;
+}
+
+.mat-radio-group.mat-radio-group {
+    display: block;
+    margin: 15px 0;
+}
+
+.mat-radio-label-content {
+    color: #4F4F4F;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+/* Checkbox */
+.mat-checkbox-frame {
+    border-color: #1582eb;
+}
+
+.mat-checkbox-inner-container {
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.mat-checkbox-layout {
+    margin-right: 25px;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #1582eb;
+}
+
+.mat-checkbox-checkmark-path {
+    stroke: #ffffff !important;
+}
+
+.default-input-wrapper.full-row {
+    display: block;
+    width: 100%;
+}
+
+
+/* --- mat form field style - End --- */
+
+.full-row.default-input-wrapper > label {
+    display: block;
+    width: 100%;
+    padding: 0;
+}
+
+.full-row .default-input-feild {
+    display: block;
+}
+
+.default-input-wrapper.m0.rac-col {
+    width: auto;
+    float: right;
+}
+
+.rac-col.default-input-wrapper > label {
+    width: 100px;
+    padding-top: 4px;
+    font-size: 14px;
+    padding-right: 10px;
+}
+
+.default-input-feild.date-feild {
+    padding-right: 55px;
+    position: relative;
+}
+
+.date-feild .mat-raised-button {
+    border-radius: 5px !important;
+    min-width: 50px !important;
+    padding: 0 10px !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.separator {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background: #e0e0e0;
+    margin-bottom: 30px;
 }
 
 
