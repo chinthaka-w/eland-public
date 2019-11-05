@@ -13,6 +13,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -31,7 +32,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    ReactiveFormsModule
   ],
   exports: [
     LoginComponent,
