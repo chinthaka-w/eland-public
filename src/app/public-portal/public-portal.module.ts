@@ -13,12 +13,15 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { VerificationComponent } from './notary-registration/verification/verification.component';
+import { PaymentComponent } from './notary-registration/payment/payment.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent],
+  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
