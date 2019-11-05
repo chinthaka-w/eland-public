@@ -100,7 +100,7 @@
         </div>
 
         <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
+            <div class="pg-inner-col-3">
                 <div class="default-input-wrapper full-row">
                     <label>Permenent address (English):</label>
                     <div class="default-input-feild">
@@ -110,9 +110,19 @@
                     </div>
                 </div>
             </div>
-            <div class="pg-inner-col">
+            <div class="pg-inner-col-3">
                 <div class="default-input-wrapper full-row">
                     <label>Permenent address (Sinhala):</label>
+                    <div class="default-input-feild">
+                        <mat-form-field appearance="outline">
+                            <textarea matInput rows="5"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="pg-inner-col-3">
+                <div class="default-input-wrapper full-row">
+                    <label>Permenent address (Tamil):</label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
                             <textarea matInput rows="5"></textarea>
@@ -123,7 +133,7 @@
         </div>
 
         <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
+            <div class="pg-inner-col-3">
                 <div class="default-input-wrapper full-row">
                     <label>Current address (English):</label>
                     <div class="default-input-feild">
@@ -133,9 +143,19 @@
                     </div>
                 </div>
             </div>
-            <div class="pg-inner-col">
+            <div class="pg-inner-col-3">
                 <div class="default-input-wrapper full-row">
                     <label>Current address (Sinhala):</label>
+                    <div class="default-input-feild">
+                        <mat-form-field appearance="outline">
+                            <textarea matInput rows="5"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="pg-inner-col-3">
+                <div class="default-input-wrapper full-row">
+                    <label>Current address (Tamil):</label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
                             <textarea matInput rows="5"></textarea>
@@ -317,7 +337,7 @@
             </div>
         </div>
 
-        <div class="default-input-wrapper full-row">
+        <div class="default-input-wrapper full-row mb-30">
             <label>The medium you have passed the subject of convayancing:</label>
             <div class="default-input-feild">
                 <section class="example-section">
@@ -328,9 +348,37 @@
             </div>
         </div>
 
+        <div class="default-input-wrapper full-row">
+            <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist Republic of Sri Lanka</label>
+            <div class="default-input-feild">
+                <button mat-raised-button class="f-uploader">
+                    <i class="material-icons">cloud_upload</i> Upload
+                </button>
+            </div>
+        </div>
+
+        <div class="default-input-wrapper full-row">
+            <label>Copy of the National Identity Card</label>
+            <div class="default-input-feild">
+                <button mat-raised-button class="f-uploader">
+                    <i class="material-icons">cloud_upload</i> Upload
+                </button>
+            </div>
+        </div>
         
 
+        <div class="separator">&nbsp;</div>
 
+        <div class="pg-inner-row mb-0">
+            <div class="pg-inner-col">
+                <div class="f-captcha">
+                    <img src="../../../../assets/images/captcha.jpg" />
+                </div>
+            </div>
+            <div class="pg-inner-col right">
+                <button mat-raised-button class="lg-button">Submit</button>
+            </div>
+        </div>
         
     </div>
 </div>

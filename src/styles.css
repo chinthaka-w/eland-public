@@ -749,6 +749,24 @@ button.theme-light.mat-raised-button:hover {
     padding-left: 15px;
 }
 
+.pg-inner-col-3 {
+    display: table-cell;
+}
+
+.pg-inner-col-3:nth-of-type(1) {
+    padding-right: 15px;
+}
+
+.pg-inner-col-3:nth-of-type(2) {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.pg-inner-col-3:nth-of-type(3) {
+    padding-left: 15px;
+}
+
+
 .default-input-wrapper {
     display: table;
     width: 100%;
@@ -880,6 +898,11 @@ h5.uw-title:before {
     width: 100%;
 }
 
+.mat-raised-button.lg-button {
+    padding: 5px 40px !important;
+    font-size: 18px !important;
+}
+
 
 /* --- mat form field style - End --- */
 
@@ -929,6 +952,22 @@ h5.uw-title:before {
     margin-bottom: 30px;
 }
 
+/**/
+.f-uploader.mat-raised-button {
+    border-radius: 5px !important;
+    background: transparent !important;
+    border: 2px solid #3a9af7;
+    margin: 10px 0;
+}
+
+.f-uploader span.mat-button-wrapper {
+    color: #4f4f4f;
+}
+
+.f-uploader .material-icons {
+    color: #228aef;
+    padding-right: 5px;
+}
 
 /* Extra large devices - large desktops */
 @media (max-width: 1500px) {
@@ -1023,6 +1062,55 @@ h5.uw-title:before {
     .footer-col:nth-of-type(4) {
         margin-right: 0;
         margin-bottom: 0;
+    }
+
+    /**/
+    .pg-inner-col-3 {
+        display: block;
+    }
+    
+    .pg-inner-col-3:nth-of-type(1) {
+        padding-right: 0;
+    }
+    
+    .pg-inner-col-3:nth-of-type(2) {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .pg-inner-col-3:nth-of-type(3) {
+        padding-left: 0;
+    }
+
+    /**/
+    .pg-inner-col {
+        display: block;
+        width: 100%;
+    }
+    
+    .pg-inner-col.left {
+        text-align: left;
+    }
+    
+    .pg-inner-col.right {
+        text-align: left;
+    }
+    
+    .pg-inner-col:nth-of-type(1) {
+        padding-right: 0;
+    }
+    
+    .pg-inner-col:nth-of-type(2) {
+        padding-left: 0;
+    }
+    
+    /**/
+    .pg-inner-col h4.m0 {
+        margin-bottom: 30px !important;
+    }
+
+    .default-input-wrapper.m0.rac-col {
+        float: none;
     }
 
 }
