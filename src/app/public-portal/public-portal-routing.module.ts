@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { VerificationComponent } from './notary-registration/verification/verification.component';
 import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent
+  },
+  {
+    path: "edit-profile",
+    component: ProfileEditComponent
   }
 ];
 

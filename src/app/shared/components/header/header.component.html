@@ -1,4 +1,5 @@
 <!-- Header Home page -->
+
 <!-- <div class="landing-header">
     <div class="header transparent">
         <div class="header-inner">
@@ -8,7 +9,11 @@
                 </a>
             </div>
             <div class="header-right">
-                <div class="navigation">
+                <div class="navigation" [ngClass]="status ? 'active' : 'in-active'">
+                    <button class="mobile-nav-btn" (click)="clickEvent()">
+                        <i class="material-icons nav">reorder</i>
+                        <i class="material-icons close">close</i>
+                    </button>
                     <ul>
                         <li>
                             <a href="#">News</a>
@@ -26,6 +31,17 @@
                 </div>
                 <div class="hr-button-wrapper">
                     <button mat-raised-button [routerLink]="['/login']">Login</button>
+                    <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
+                            <span class="user-title" (click)="clickDropdown()">Yohani Gamage <i class="material-icons">arrow_drop_down</i></span>
+                            <ul class="up-dropdown">
+                                <li>
+                                    <a href="#">Edit Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
                 </div>          
             </div>
         </div>
@@ -52,8 +68,12 @@
                 <img src="../../assets/images/logo-dark.png" alt="E-Land Logo" />
             </a>
         </div>
-        <div class="header-right">
-            <div class="navigation">
+        <div class="header-right" >
+            <div class="navigation" [ngClass]="status ? 'active' : 'in-active'">
+                <button class="mobile-nav-btn" (click)="clickEvent()">
+                    <i class="material-icons nav">reorder</i>
+                    <i class="material-icons close">close</i>
+                </button>
                 <ul>
                     <li>
                         <a href="#">News</a>
@@ -70,44 +90,19 @@
                 </ul>
             </div>
             <div class="hr-button-wrapper">
-                <button mat-raised-button [routerLink]="['/login']">Login</button>
+                <!-- <button mat-raised-button [routerLink]="['/login']">Login</button> -->
+                <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
+                    <span class="user-title" (click)="clickDropdown()">Yohani Gamage <i class="material-icons">arrow_drop_down</i></span>
+                    <ul class="up-dropdown">
+                        <li>
+                            <a href="" [routerLink]="['/edit-profile']">Edit Profile</a>
+                        </li>
+                        <li>
+                            <a href="" [routerLink]="['/login']">Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>          
         </div>
     </div>
 </div>
-
-
-
-
-<!-- ###### Default Header after loged ###### -->
-
-<!-- <div class="header default user-profile">
-    <div class="header-inner">
-        <div class="header-left">
-            <a href="#" class="logo">
-                <img src="../../assets/images/logo-dark.png" alt="E-Land Logo" />
-            </a>
-        </div>
-        <div class="header-right">
-            <div class="navigation">
-                <ul>
-                    <li>
-                        <a href="#">News</a>
-                    </li>
-                    <li>
-                        <a href="#">Gallery</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="hr-button-wrapper">
-                <button mat-raised-button [routerLink]="['/login']">Login</button>
-            </div>          
-        </div>
-    </div>
-</div> -->
