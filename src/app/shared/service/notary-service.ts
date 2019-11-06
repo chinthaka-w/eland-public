@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Notary} from '../../shared/model/notary';
+import {Notary} from '../model/notary';
 import {Observable} from 'rxjs';
 
 @Injectable()

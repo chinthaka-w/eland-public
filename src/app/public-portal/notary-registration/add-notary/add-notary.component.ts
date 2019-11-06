@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {Notary} from '../../../shared/model/notary';
-import {NotaryService} from '../notary-service';
-import {GnDivisionService} from '../gn-division-service';
+import {NotaryService} from '../../../shared/service/notary-service';
+import {GnDivisionService} from '../../../shared/service/gn-division-service';
 import {GnDivision} from '../../../shared/model/gn-division';
 import {DsDivision} from '../../../shared/model/ds-division';
 import {LandRegistry} from '../../../shared/model/land-registry';
-import {DsDivisionService} from '../ds-division-service';
-import {LandRegistryService} from '../land-registry-service';
+import {DsDivisionService} from '../../../shared/service/ds-division-service';
+import {LandRegistryService} from '../../../shared/service/land-registry-service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-add-notary',
@@ -22,11 +23,14 @@ export class AddNotaryComponent implements OnInit {
   public dsDivision: DsDivision[];
   public landRegistry: LandRegistry[];
   submitted = false;
+  uploadSuccess: boolean;
+
   constructor(private fb: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
               private dsDivisionService: DsDivisionService,
-              private landRegistryService: LandRegistryService) { }
+              private landRegistryService: LandRegistryService,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.notaryForm = new FormGroup({
@@ -96,7 +100,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   saveNotaryDetails(notaryId: number, titleEng: string, initialsEng: string, initialsSin: string, initialsTam: string, fullNameEng: string,
-                    fullNameSin: string, fullNameTam: string, nic: number, email: string, languages: string, dateOfEnrolment: Date, dateOfPassed: Date,
+                    fullNameSin: string, fullNameTam: string, nic: string, email: string, languages: string, dateOfEnrolment: Date, dateOfPassed: Date,
                     dateOfBirth: Date, judicialZone: string, permenentAddressEng: string, permenentAddressSin: string, permenentAddressTam: string,
                     currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: number, telephoneNo: number, landRegistryId: number,
                     divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: string) {

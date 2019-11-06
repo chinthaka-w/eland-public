@@ -14,11 +14,11 @@ import { SharedModule } from './shared/shared.module';
 import { PublicPortalModule } from './public-portal/public-portal.module';
 import { MatIconModule } from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
-import {NotaryService} from './public-portal/notary-registration/notary-service';
+import {NotaryService} from './shared/service/notary-service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {GnDivisionService} from "./public-portal/notary-registration/gn-division-service";
-import {DsDivisionService} from "./public-portal/notary-registration/ds-division-service";
-import {LandRegistryService} from "./public-portal/notary-registration/land-registry-service";
+import {GnDivisionService} from "./shared/service/gn-division-service";
+import {DsDivisionService} from "./shared/service/ds-division-service";
+import {LandRegistryService} from "./shared/service/land-registry-service";
 
 @NgModule({
   declarations: [AppComponent],

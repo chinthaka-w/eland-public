@@ -8,7 +8,7 @@ export class Notary {
      fullNameEng: string,
      fullNameSin: string,
      fullNameTam: string,
-     nic: number,
+     nic: string,
      email: string,
      languages: string,
      dateOfEnrolment: Date,

@@ -1,17 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {GnDivision} from '../../shared/model/gn-division';
+import {GnDivision} from '../model/gn-division';
 import {Observable} from 'rxjs';
 
 @Injectable()
-export class GnDivisionService {
-  public BASE_URL = '';
+export class LandRegistryService {
+  public BASE_URL = 'http://localhost:9292/api/landRegistries';
   private headers;
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private gnDivision: GnDivision;
   public constructor(private httpClient: HttpClient) {}
 
-  getAllGnDivisions(): Observable<Object> {
-    return this.httpClient.get('http://localhost:9292/api/gnDivision/', {headers: this.headers} );
+  // tslint:disable-next-line:ban-types
+  getAllLandRegistry(): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + '/', {headers: this.headers} );
   }
 }

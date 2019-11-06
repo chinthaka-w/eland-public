@@ -32,12 +32,15 @@
 
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
-          <mat-radio-group formControlName="title"  class="form-control">
-            <mat-radio-button value="Mr">Mr.</mat-radio-button>
-            <mat-radio-button value="Mrs">Mrs.</mat-radio-button>
-            <mat-radio-button value="Miss">Miss</mat-radio-button>
-          </mat-radio-group>
-          <mat-error *ngIf="hasError('title', 'required')">Required</mat-error>
+          <mat-form-field appearance="outline">
+            <select matNativeControl required  formControlName="title"  class="form-control">
+              <option value="">Select</option>
+              <option value="option-1">Mr</option>
+              <option value="option-2">Mrs</option>
+              <option value="option-3">Miss</option>
+            </select>
+          </mat-form-field>
+          <mat-error *ngIf="hasError('title', 'required')">Title is required</mat-error>
         </div>
         <div class="pg-inner-col right">
           <div class="default-input-wrapper m0 rac-col">
@@ -412,7 +415,7 @@
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Submit</button>
+          <button mat-raised-button class="lg-button">Continue</button>
         </div>
       </div>
 
