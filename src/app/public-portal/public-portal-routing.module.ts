@@ -6,6 +6,7 @@ import { VerificationComponent } from './notary-registration/verification/verifi
 import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
+import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: "payment",
     component: PaymentComponent
+  },
+  {
+    path: "payment-method",
+    component: PaymentMethodComponent
   },
   {
     path: "dashboard",

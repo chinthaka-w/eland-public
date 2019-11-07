@@ -23,66 +23,6 @@
                 </div>
             </div>
 
-            <!-- Bank Transfer Infomations -->
-            <div class="payment-info-wrapper">
-                <div class="pg-inner-row mb-20">
-                    <div class="pg-inner-col">
-                        <div class="default-input-wrapper full-row">
-                            <label>Bank:</label>
-                            <div class="default-input-feild">
-                                <mat-form-field appearance="outline">
-                                    <select matNativeControl required>
-                                        <option value="">Select</option>
-                                        <option value="option-1">Option 01</option>
-                                        <option value="option-2">Option 02</option>
-                                        <option value="option-3">Option 03</option>
-                                    </select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pg-inner-col">
-                        <div class="default-input-wrapper full-row">
-                            <label>Date:</label>
-                            <div class="default-input-feild date-feild">
-                                <mat-form-field appearance="outline">
-                                    <input matInput [matDatepicker]="picker">
-                                    <mat-datepicker #picker></mat-datepicker>
-                                </mat-form-field>
-                                <button mat-raised-button (click)="picker.open()">
-                                    <i class="material-icons">calendar_today</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pg-inner-row mb-20">
-                    <div class="pg-inner-col">
-                        <div class="default-input-wrapper full-row">
-                            <label>Reference No:</label>
-                            <div class="default-input-feild">
-                                <mat-form-field appearance="outline">
-                                    <input matInput>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pg-inner-col">
-                        <div class="default-input-wrapper full-row">
-                            <label>Bank slip:</label>
-                            <div class="default-input-feild">
-                                <button mat-raised-button class="f-uploader">
-                                    <i class="material-icons">cloud_upload</i> Upload
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-
-            </div>
-
             <div class="default-input-wrapper full-row mb-0 t-right">
                 <div class="payment-summary">
                     <dl>
@@ -103,7 +43,7 @@
 
         <div class="hc-component-bottom">
             <span class="bt-line">&nbsp;</span>
-            <button mat-raised-button class="lg-button green" [routerLink]="['/dashboard']">Continue</button>
+            <button mat-raised-button class="lg-button green" [routerLink]="['/payment-method']">Continue</button>
         </div>
     </div>
 </div>

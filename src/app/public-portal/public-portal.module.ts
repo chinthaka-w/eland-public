@@ -24,12 +24,13 @@ import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-i
 import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
+import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent],
+  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
