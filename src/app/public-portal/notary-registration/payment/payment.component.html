@@ -1,0 +1,49 @@
+<div class="hc-component-wrapper payment">
+    <div class="hc-component-img" style="background-image: url('../../../assets/images/temp_img_004.jpg')"></div>
+    <div class="hc-component-content">
+        <div class="pce-container">
+            <div class="default-input-wrapper full-row mb-30">
+                <label><strong>License Issue</strong>In which way you like to receive the license?</label>
+                <div class="default-input-feild">
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin">By Hand</mat-checkbox>
+                        <mat-checkbox class="example-margin">By Post (Normal)</mat-checkbox>
+                        <mat-checkbox class="example-margin">By Post (Registered)</mat-checkbox>
+                    </section>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row mb-30">
+                <label><strong>Payment</strong>Payment method</label>
+                <div class="default-input-feild">
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin">Online</mat-checkbox>
+                        <mat-checkbox class="example-margin">Bank Transfer</mat-checkbox>
+                        <mat-checkbox class="example-margin">Front Counter</mat-checkbox>
+                    </section>
+                </div>
+            </div>
+
+            <div class="default-input-wrapper full-row mb-0 t-right">
+                <div class="payment-summary">
+                    <dl>
+                        <dt>Amount</dt>
+                        <dd>1,000.00 (LKR)</dd>
+                    </dl>
+                    <dl>
+                        <dt>Issue (Post)</dt>
+                        <dd>100.00 (LKR)</dd>
+                    </dl>
+                    <dl class="total">
+                        <dt>Total</dt>
+                        <dd>1,100.00 (LKR)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="hc-component-bottom">
+            <span class="bt-line">&nbsp;</span>
+            <button mat-raised-button class="lg-button green" [routerLink]="['/payment-method']">Continue</button>
+        </div>
+    </div>
+</div>

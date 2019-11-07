@@ -13,12 +13,24 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import {MatTabsModule} from '@angular/material/tabs';
+
+import { VerificationComponent } from './notary-registration/verification/verification.component';
+import { PaymentComponent } from './notary-registration/payment/payment.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
+import { ApplicationComponent } from './dashboard/profile/profile-edit/application/application.component';
+import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-info/payment-info.component';
+import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
+import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
+import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
+import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent],
+  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
@@ -31,7 +43,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatTabsModule
   ],
   exports: [
     LoginComponent,
@@ -43,7 +56,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatTabsModule
   ]
 })
 export class PublicPortalModule { }
