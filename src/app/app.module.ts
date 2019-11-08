@@ -13,6 +13,9 @@ import { MatInputModule } from "@angular/material/input";
 import { SharedModule } from "./shared/shared.module";
 import { PublicPortalModule } from "./public-portal/public-portal.module";
 import { MatIconModule } from '@angular/material/icon';
+import {CommonModule} from '@angular/common';
+import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,9 +30,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatRippleModule,
     MatNativeDateModule,
     MatIconModule,
-
+    CommonModule,
     SharedModule,
-    PublicPortalModule
+    PublicPortalModule,
+    HttpModule,
+    HttpClientModule,
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
