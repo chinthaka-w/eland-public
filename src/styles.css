@@ -1136,7 +1136,8 @@ h5.uw-title:before {
 .default-input-wrapper.full-row.mb-0.t-right {
     text-align: right;
     margin: 0;
-    padding-top: 15px;
+    background: #f4f4f4;
+    padding: 20px 20px 10px 20px;
 }
 
 .payment-summary {
@@ -1413,6 +1414,274 @@ ul.up-dropdown li a:hover {
 
 .transparent span.user-title {
     color: #fff;
+}
+
+.b-acc-info {
+    display: block;
+    position: relative;
+    background: linear-gradient(157.31deg, #45A1FA 0%, #0074E4 100%);
+    padding: 20px 40px;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.b-acc-info dl {
+    display: table;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.b-acc-info dl.total {
+    font-size: 20px;
+}
+
+.b-acc-info dl dt {
+    display: table-cell;
+    width: 200px;
+}
+
+.b-acc-info dl dd {
+    display: table-cell;
+    font-weight: 200;
+}
+
+/**/
+.drag-drop {
+    display: block;
+    position: relative;
+    border: 1px solid #BDBDBD;
+    padding: 10px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.drag-drop-inner {
+    display: block;
+    position: relative;
+    border: 1px dashed #BDBDBD;
+    background: rgba(8, 132, 251, 0.1);
+    padding: 30px;
+    color: #24303C;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 700;
+}
+
+.drag-drop-inner .material-icons {
+    display: block;
+    font-size: 40px;
+    color: #3295f4;
+}
+
+/**/
+.p-info-card {
+    display: block;
+    position: relative;
+    background: linear-gradient(157.31deg, #45A1FA 0%, #0074E4 100%);
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.p-info-card h4 {
+    display: block;
+    position: relative;
+    font-size: 30px;
+    line-height: 32px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.p-info-card h4 span {
+    display: block;
+    position: relative;
+    float: right;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.p-info-card h5 {
+    font-size: 18px;
+    line-height: 22px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.p-info-card dl {
+    display: table;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.p-info-card dl dt {
+    display: table-cell;
+    width: 150px;
+}
+
+.p-info-card dl dd {
+    display: table-cell;
+}
+
+.p-info-card-bottom {
+    display: block;
+    position: relative;
+    margin-top: 40px;
+    text-align: right;
+}
+
+.p-info-card-bottom span {
+    font-size: 32px;
+    line-height: 35px;
+    font-weight: 600;
+}
+
+a.pdf-link,
+a.pdf-link:link,
+a.pdf-link:visited {
+    display: inline-block;
+    position: relative;
+    color: #3e9df8;
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 500;
+    vertical-align: top;
+}
+
+.pdf-link .material-icons {
+    top: 7px;
+    position: relative;
+}
+
+/**/
+.remark-col {
+    display: block;
+    position: relative;
+    border: 2px solid #0884FB;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.remark-col::before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 250px;
+    height: 100%;
+    background: linear-gradient(157.31deg, #45A1FA 0%, #0074E4 100%);
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.remark-col dl {
+    display: table;
+    position: relative;
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.remark-col dl dt {
+    display: table-cell;
+    width: 250px;
+    color: #fff;
+    padding: 5px 0 5px 30px;
+}
+
+.remark-col dl dd {
+    display: table-cell;
+    padding: 5px 20px 5px 30px;
+}
+
+/* History */
+.h-application-col {
+    display: block;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.h-application-col h4 {
+    display: block;
+    position: relative;
+    color: #585858;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+.h-application-col h4 span {
+    display: inline-block;
+    background: #fff;
+    padding-right: 7px;
+}
+
+.h-application-col h4::before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #585858;
+    bottom: 4px;
+    z-index: -1;
+}
+
+.h-application-col ul {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.h-application-col ul li {
+    display: block;
+    position: relative;
+    padding-left: 50px;
+    padding-bottom: 10px;
+}
+
+.h-application-col ul li::before {
+    display: block;
+    position: absolute;
+    content: "";
+    border: 3px solid #0CC27E;
+    background: #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    left: 10px;
+    top: 22px;
+    z-index: 1;
+}
+
+.h-application-col ul li::after {
+    display: block;
+    position: absolute;
+    content: "";
+    height: 100%;
+    border-left: 4px dotted #c1c1c1;
+    left: 16px;
+    top: 30px;
+}
+
+.h-application-col ul li:last-child::after {
+    display: none;
+}
+
+.ha-info-row {
+    display: table;
+    width: 100%;
+}
+
+.ha-info-row .ha-info-col {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px 0;
 }
 
 

@@ -12,7 +12,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-// import { MatFileUploadModule } from 'angular-material-fileupload';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import { VerificationComponent } from './notary-registration/verification/verification.component';
@@ -26,12 +26,13 @@ import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-cl
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
+import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, ChangeJudicialComponent],
+  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent, ChangeJudicialComponent],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
@@ -44,7 +45,7 @@ import {HttpModule} from '@angular/http';
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    // MatFileUploadModule,
+    MatFileUploadModule,
     MatTabsModule,
     HttpModule,
   ],
@@ -58,7 +59,7 @@ import {HttpModule} from '@angular/http';
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    // MatFileUploadModule,
+    MatFileUploadModule,
     MatTabsModule
   ]
 })
