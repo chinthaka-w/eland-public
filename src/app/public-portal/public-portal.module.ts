@@ -12,7 +12,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatFileUploadModule } from 'angular-material-fileupload';
+// import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import { VerificationComponent } from './notary-registration/verification/verification.component';
@@ -24,12 +24,14 @@ import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-i
 import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
+import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
+import {HttpModule} from '@angular/http';
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent],
+  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, ChangeJudicialComponent],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
@@ -42,8 +44,9 @@ import { HistoryComponent } from './dashboard/profile/profile-edit/history/histo
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatFileUploadModule,
-    MatTabsModule
+    // MatFileUploadModule,
+    MatTabsModule,
+    HttpModule,
   ],
   exports: [
     LoginComponent,
@@ -55,7 +58,7 @@ import { HistoryComponent } from './dashboard/profile/profile-edit/history/histo
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatFileUploadModule,
+    // MatFileUploadModule,
     MatTabsModule
   ]
 })

@@ -6,6 +6,7 @@ import { VerificationComponent } from './notary-registration/verification/verifi
 import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
+import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: "edit-profile",
     component: ProfileEditComponent
+  }
+  ,
+  {
+    path: "change-judicial",
+    component: ChangeJudicialComponent
   }
 ];
 
