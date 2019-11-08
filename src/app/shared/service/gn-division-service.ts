@@ -15,4 +15,8 @@ export class GnDivisionService {
   getAllGnDivisions(): Observable<Object> {
     return this.httpClient.get(this.BASE_URL + '/', {headers: this.headers} );
   }
+
+  getAllGnDivisionsByDsDivisionId(dsDivisionId: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + '/get/' + dsDivisionId, {headers: this.headers} );
+  }
 }

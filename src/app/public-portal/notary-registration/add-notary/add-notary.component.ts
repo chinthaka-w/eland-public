@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, NgModel, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {Notary} from '../../../shared/model/notary';
 import {NotaryService} from '../../../shared/service/notary-service';
@@ -10,6 +10,11 @@ import {LandRegistry} from '../../../shared/model/land-registry';
 import {DsDivisionService} from '../../../shared/service/ds-division-service';
 import {LandRegistryService} from '../../../shared/service/land-registry-service';
 import {HttpClient} from '@angular/common/http';
+import {NotaryAddressDTO} from '../../../shared/model/new-notary-address';
+import {NewNotaryNameDTO} from '../../../shared/model/new-notary-name';
+import {NewNotaryGnDivisionDTO} from '../../../shared/model/new-notary-gn-division';
+import {NameTitleDTO} from '../../../shared/model/name-title';
+
 
 @Component({
   selector: 'app-add-notary',
@@ -23,8 +28,10 @@ export class AddNotaryComponent implements OnInit {
   public dsDivision: DsDivision[];
   public landRegistry: LandRegistry[];
   submitted = false;
-  uploadSuccess: boolean;
+  selected: any[];
 
+
+  uploadSuccess: boolean;
   constructor(private fb: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -66,82 +73,52 @@ export class AddNotaryComponent implements OnInit {
     this.getDsDivisions();
     this.getLandRegistries();
   }
+
+  equals(objOne, objTwo) {
+    if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
+      return objOne.id === objTwo.id;
+    }
+  }
+
   public hasError = (controlName: string, errorName: string) => {
     return this.notaryForm.controls[controlName].hasError(errorName);
   }
 
   onFormSubmit(): void {
     this.submitted = true;
-
-    // if (this.notaryForm.invalid) {
-    //   return;
-    // }
-    Swal.fire({
-      title: 'Are you sure, you want to submit the notary details?',
-      text: '',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-
-    }).then((result) => {
-      if (result.value) {
-        this.saveNotaryDetails(this.notaryForm.value.notary, this.notaryForm.value.title, this.notaryForm.value.englishNameWithInitials,
+    this.saveNotaryDetails(this.notaryForm.value.notary, this.notaryForm.value.title, this.notaryForm.value.englishNameWithInitials,
           this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials, this.notaryForm.value.fullNameInEnglish,
           this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil, this.notaryForm.value.nic,
           this.notaryForm.value.email, this.notaryForm.value.languages, this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate,
-          this.notaryForm.value.dateOfBirth, this.notaryForm.value.courtZone, this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
+          this.notaryForm.value.dateOfBirth, this.notaryForm.value.courtZone, this.notaryForm.value.permenentAddressInEnglish,
+          this.notaryForm.value.permenentAddressInSinhala,
           this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.currentAddressInTamil,
           this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo, this.notaryForm.value.landRegistry, this.notaryForm.value.secretariatDivision,
           this.notaryForm.value.gramaNiladhariDivision, this.notaryForm.value.medium);
 
-      } else {
-        Swal.fire('Already Existing', '', 'warning');
-      }
-    });
   }
 
-  saveNotaryDetails(notaryId: number, titleEng: string, initialsEng: string, initialsSin: string, initialsTam: string, fullNameEng: string,
-                    fullNameSin: string, fullNameTam: string, nic: string, email: string, languages: string, dateOfEnrolment: Date, dateOfPassed: Date,
-                    dateOfBirth: Date, judicialZone: string, permenentAddressEng: string, permenentAddressSin: string, permenentAddressTam: string,
-                    currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: number, telephoneNo: number, landRegistryId: number,
-                    divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: string) {
+  saveNotaryDetails(notaryId: number, titleEng: number, initialsEng: string, initialsSin: string, initialsTam: string, fullNameEng: string,
+                    fullNameSin: string, fullNameTam: string, nic: string, email: string, languages: number, dateOfEnrolment: Date, dateOfPassed: Date,
+                    dateOfBirth: Date, judicialZone: number, permenentAddressEng: string, permenentAddressSin: string, permenentAddressTam: string,
+                    currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: string, telephoneNo: string, landRegistryId: number,
+                    divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number): void {
 
-    const notary = new Notary(notaryId, titleEng, initialsEng, initialsSin, initialsTam, fullNameEng, fullNameSin, fullNameTam, nic, email, languages, dateOfEnrolment, dateOfPassed,
-      dateOfBirth, judicialZone, permenentAddressEng, permenentAddressSin, permenentAddressTam, currentAddressEng, currentAddressSin, currentAddressTam, mobileNo, telephoneNo,
-      landRegistryId, divisionSecretariatDivision, gramaNiladhariDivision, medium);
+    const nameTitle = new NameTitleDTO(titleEng, 'english', 'sinhala', 'tamil', 'status', new Date(), 'Ishani');
 
-    console.log(notaryId);
-    console.log(titleEng);
-    console.log(initialsEng);
-    console.log(initialsSin);
-    console.log(initialsTam);
-    console.log(fullNameEng);
-    console.log(fullNameSin);
-    console.log(fullNameTam);
-    console.log(nic);
-    console.log(email);
-    console.log(languages);
-    console.log(dateOfEnrolment);
-    console.log(dateOfPassed);
-    console.log(dateOfBirth);
-    console.log(judicialZone);
-    console.log(permenentAddressEng);
-    console.log(permenentAddressSin);
-    console.log(permenentAddressTam);
-    console.log(currentAddressEng);
-    console.log(currentAddressSin);
-    console.log(currentAddressTam);
-    console.log(mobileNo);
-    console.log(telephoneNo);
-    console.log(landRegistryId);
-    console.log(divisionSecretariatDivision);
-    console.log(gramaNiladhariDivision);
-    console.log(medium);
+    const newNotaryAddress = new NotaryAddressDTO(0, permenentAddressEng, currentAddressSin, languages, 'status', 0);
 
-    //   this.notaryService.saveNotaryDetails(notary).subscribe(
-    //     (success: string) => {
-    //       Swal.fire('Success', 'Details submitted successfully', 'success');
-    //     });
-    // }
+    const newNotaryName = new NewNotaryNameDTO(0, fullNameEng, initialsEng, languages, 'status', nameTitle, 0);
+
+    const newNotaryGnDivision = new NewNotaryGnDivisionDTO(0, 'status', new Date(), divisionSecretariatDivision, gramaNiladhariDivision, 0);
+
+    const notary = new Notary(0, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo, newNotaryAddress, newNotaryName,
+      judicialZone, landRegistryId, newNotaryGnDivision, dateOfEnrolment, dateOfPassed, medium, 'status', new Date());
+    this.notaryService.saveNotaryDetails(notary).subscribe(
+      (success: string) => {
+        alert('sucesss....');
+      }
+    );
   }
 
   private getGnDivisions(): void {
@@ -156,6 +133,14 @@ export class AddNotaryComponent implements OnInit {
     this.dsDivisionService.getAllDsDivisions().subscribe(
       (data: DsDivision[]) => {
         this.dsDivision = data;
+      }
+    );
+  }
+
+  public change($event): void {
+    this.gnDivisionService.getAllGnDivisionsByDsDivisionId(this.notaryForm.value.secretariatDivision).subscribe(
+      (data: GnDivision[]) => {
+        this.gnDivision = data;
       }
     );
   }

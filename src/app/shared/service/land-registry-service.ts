@@ -11,8 +11,9 @@ export class LandRegistryService {
   private gnDivision: GnDivision;
   public constructor(private httpClient: HttpClient) {}
 
+
   // tslint:disable-next-line:ban-types
   getAllLandRegistry(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL + '/', {headers: this.headers} );
+   return this.httpClient.get(this.BASE_URL + '/', {headers: this.headers} );
   }
 }

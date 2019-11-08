@@ -9,23 +9,23 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
-    path: "notary-registration",
+    path: 'notary-registration',
     component: AddNotaryComponent
   },
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent
   },
   {
-    path: "verification",
+    path: 'verification',
     component: VerificationComponent
   },
   {
-    path: "payment",
+    path: 'payment',
     component: PaymentComponent
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent
   }
 ];

@@ -16,7 +16,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { VerificationComponent } from './notary-registration/verification/verification.component';
 import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -36,7 +36,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     LoginComponent,
