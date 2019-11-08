@@ -25,6 +25,19 @@ body {
     font-size: .01em;
 }
 
+a,
+a:link,
+a:visited,
+a:active,
+a:hover {
+    text-decoration: none;
+    outline: 0;
+    -webkit-transition: all 0.35s linear;
+    -moz-transition: all 0.35s linear;
+    -o-transition: all 0.35s linear;
+    transition: all 0.35s linear;
+}
+
 h2 {
     color: #24303C;
     font-size: 38px;
@@ -229,6 +242,12 @@ p {
 .header.default .navigation ul li a:active, 
 .header.default .navigation ul li a:hover {
     color: #2a8ff2;
+}
+
+.mobile-nav-btn,
+.mobile-nav-btn:hover {
+    display: none;
+    position: relative;
 }
 
 
@@ -595,6 +614,10 @@ button.theme-light.mat-raised-button:hover {
     border-bottom: 1px solid #F5F5F5;
 }
 
+.form-wp .hc-mat-input-wp .mat-form-field {
+    padding: 20px 25px;
+}
+
 .mat-form-field-wrapper {
     padding: 0;
 }
@@ -908,6 +931,19 @@ h5.uw-title:before {
     background-color: #3194f3;
 }
 
+.mat-tab-label-content {
+    color: #1d1d1e;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    text-shadow: none;
+    letter-spacing: 0.5px;
+}
+
+.mat-tab-body-content {
+    padding: 32px 0 15px 0;
+}
+
 /* --- mat form field style - End --- */
 
 .full-row.default-input-wrapper > label {
@@ -1100,7 +1136,8 @@ h5.uw-title:before {
 .default-input-wrapper.full-row.mb-0.t-right {
     text-align: right;
     margin: 0;
-    padding-top: 15px;
+    background: #f4f4f4;
+    padding: 20px 20px 10px 20px;
 }
 
 .payment-summary {
@@ -1141,7 +1178,7 @@ h5.uw-title:before {
     display: table;
     position: relative;
     width: 100%;
-    min-height: 600px;
+    min-height: 680px;
 }
 
 .db-left-col {
@@ -1260,10 +1297,20 @@ dl.db-card-info dd {
     width: 31.33%;
     text-align: center;
     margin: 1%;
-    border: 1px solid #24303c;
+    border: 2px solid #24303c;
     border-radius: 5px;
     padding: 20px;
     background: #fff;
+    color: #24303C;
+    vertical-align: top;
+    -webkit-transition: all 0.35s linear;
+    -moz-transition: all 0.35s linear;
+    -o-transition: all 0.35s linear;
+    transition: all 0.35s linear;
+}
+
+.db-link-tile:hover {
+    box-shadow: 0 0 8px -1px rgba(0,0,0,0.4);
 }
 
 .db-link-tile span.icon {
@@ -1280,12 +1327,364 @@ dl.db-card-info dd {
     display: block;
     color: inherit;
     text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 40px;
 }
 
 .db-link-tile a {
     color: inherit;
     text-decoration: none;
 }
+
+.db-link-tile.c1 { color: #EB5757; border-color: #EB5757; }
+.db-link-tile.c2 { color: #4763F7; border-color: #4763F7; }
+.db-link-tile.c3 { color: #FF8D60; border-color: #FF8D60; }
+.db-link-tile.c4 { color: #0CC27E; border-color: #0CC27E; }
+.db-link-tile.c5 { color: #F90081; border-color: #F90081; }
+
+
+/**/
+.user-profile {
+    display: block;
+    position: relative;
+}
+
+span.user-title {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    padding: 6px 0;
+}
+
+.user-title .material-icons {
+    display: inline-block;
+    position: relative;
+    padding: 1px 0;
+    vertical-align: top;
+}
+
+ul.up-dropdown {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    background: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.1);
+    list-style: none;
+    width: 200px;
+    right: 0;
+    top: 57px;
+    margin: 0;
+    text-align: left;
+    -webkit-transition: all 0.35s linear;
+    -moz-transition: all 0.35s linear;
+    -o-transition: all 0.35s linear;
+    transition: all 0.35s linear;
+}
+
+.active ul.up-dropdown {
+    display: block;
+    opacity: 1;
+}
+
+ul.up-dropdown li {
+    display: block;
+    position: relative;
+    padding: 5px 0;
+}
+
+ul.up-dropdown li a,
+ul.up-dropdown li a:link,
+ul.up-dropdown li a:visited {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+}
+ 
+ul.up-dropdown li a:active, 
+ul.up-dropdown li a:hover {
+    color: #3194f4;
+}
+
+.transparent .material-icons {
+    color: #fff;
+}
+
+.transparent span.user-title {
+    color: #fff;
+}
+
+.b-acc-info {
+    display: block;
+    position: relative;
+    background: linear-gradient(157.31deg, #45A1FA 0%, #0074E4 100%);
+    padding: 20px 40px;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.b-acc-info dl {
+    display: table;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.b-acc-info dl.total {
+    font-size: 20px;
+}
+
+.b-acc-info dl dt {
+    display: table-cell;
+    width: 200px;
+}
+
+.b-acc-info dl dd {
+    display: table-cell;
+    font-weight: 200;
+}
+
+/**/
+.drag-drop {
+    display: block;
+    position: relative;
+    border: 1px solid #BDBDBD;
+    padding: 10px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.drag-drop-inner {
+    display: block;
+    position: relative;
+    border: 1px dashed #BDBDBD;
+    background: rgba(8, 132, 251, 0.1);
+    padding: 30px;
+    color: #24303C;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 700;
+}
+
+.drag-drop-inner .material-icons {
+    display: block;
+    font-size: 40px;
+    color: #3295f4;
+}
+
+/**/
+.p-info-card {
+    display: block;
+    position: relative;
+    background: linear-gradient(157.31deg, #45A1FA 0%, #0074E4 100%);
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.p-info-card h4 {
+    display: block;
+    position: relative;
+    font-size: 30px;
+    line-height: 32px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.p-info-card h4 span {
+    display: block;
+    position: relative;
+    float: right;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.p-info-card h5 {
+    font-size: 18px;
+    line-height: 22px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.p-info-card dl {
+    display: table;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.p-info-card dl dt {
+    display: table-cell;
+    width: 150px;
+}
+
+.p-info-card dl dd {
+    display: table-cell;
+}
+
+.p-info-card-bottom {
+    display: block;
+    position: relative;
+    margin-top: 40px;
+    text-align: right;
+}
+
+.p-info-card-bottom span {
+    font-size: 32px;
+    line-height: 35px;
+    font-weight: 600;
+}
+
+a.pdf-link,
+a.pdf-link:link,
+a.pdf-link:visited {
+    display: inline-block;
+    position: relative;
+    color: #3e9df8;
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 500;
+    vertical-align: top;
+}
+
+.pdf-link .material-icons {
+    top: 7px;
+    position: relative;
+}
+
+/**/
+.remark-col {
+    display: block;
+    position: relative;
+    border: 2px solid #0884FB;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.remark-col::before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 250px;
+    height: 100%;
+    background: linear-gradient(157.31deg, #45A1FA 0%, #0074E4 100%);
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.remark-col dl {
+    display: table;
+    position: relative;
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.remark-col dl dt {
+    display: table-cell;
+    width: 250px;
+    color: #fff;
+    padding: 5px 0 5px 30px;
+}
+
+.remark-col dl dd {
+    display: table-cell;
+    padding: 5px 20px 5px 30px;
+}
+
+/* History */
+.h-application-col {
+    display: block;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.h-application-col h4 {
+    display: block;
+    position: relative;
+    color: #585858;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+.h-application-col h4 span {
+    display: inline-block;
+    background: #fff;
+    padding-right: 7px;
+}
+
+.h-application-col h4::before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #585858;
+    bottom: 4px;
+    z-index: -1;
+}
+
+.h-application-col ul {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.h-application-col ul li {
+    display: block;
+    position: relative;
+    padding-left: 50px;
+    padding-bottom: 10px;
+}
+
+.h-application-col ul li::before {
+    display: block;
+    position: absolute;
+    content: "";
+    border: 3px solid #0CC27E;
+    background: #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    left: 10px;
+    top: 22px;
+    z-index: 1;
+}
+
+.h-application-col ul li::after {
+    display: block;
+    position: absolute;
+    content: "";
+    height: 100%;
+    border-left: 4px dotted #c1c1c1;
+    left: 16px;
+    top: 30px;
+}
+
+.h-application-col ul li:last-child::after {
+    display: none;
+}
+
+.ha-info-row {
+    display: table;
+    width: 100%;
+}
+
+.ha-info-row .ha-info-col {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px 0;
+}
+
+
 
 /* Extra large devices - large desktops */
 @media (max-width: 1500px) {
@@ -1449,6 +1848,120 @@ dl.db-card-info dd {
         display: none;
     }
 
+    /**/
+    .mobile-nav-btn,
+    .mobile-nav-btn:hover {
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        background: none;
+        height: 27px;
+        outline: 0;
+        border: none;
+    }
+
+    .navigation ul {
+        display: none;
+        position: absolute;
+        background: #fff;
+        top: 52px;
+        left: 0;
+        box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.1);
+        width: 170px;
+        padding: 0;
+        opacity: 0;
+        -webkit-transition: all 0.35s linear;
+        -moz-transition: all 0.35s linear;
+        -o-transition: all 0.35s linear;
+        transition: all 0.35s linear;
+    }
+
+    .mobile-nav-btn .material-icons.close {
+        display: none;
+        opacity: 0;
+        -webkit-transition: all 0.35s linear;
+        -moz-transition: all 0.35s linear;
+        -o-transition: all 0.35s linear;
+        transition: all 0.35s linear;
+    }
+
+    .mobile-nav-btn .material-icons.nav {
+        display: block;
+        opacity: 1;
+        -webkit-transition: all 0.35s linear;
+        -moz-transition: all 0.35s linear;
+        -o-transition: all 0.35s linear;
+        transition: all 0.35s linear;
+    }
+
+    .active .mobile-nav-btn .material-icons.close {
+        display: block;
+        opacity: 1;
+    }
+
+    .active  .mobile-nav-btn .material-icons.nav {
+        display: none;
+        opacity: 0;
+    }
+
+    .active.navigation ul {
+        display: block;
+        opacity: 1;
+    }
+
+    .navigation ul li {
+        display: block;
+        text-align: left;
+        border-bottom: 1px solid #e7e7e7;
+        padding: 0;
+    }
+
+    .navigation ul li:last-child {
+        border-bottom: none;
+    }
+
+    .navigation ul li a, 
+    .navigation ul li a:link, 
+    .navigation ul li a:visited {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+        padding: 12px 20px;
+        color: #4f4f4f;
+    }
+
+    .navigation ul li a:active,
+    .navigation ul li a:hover {
+        background: #1582eb;
+        color: #fff !important;
+    }
+
+    .hr-button-wrapper {
+        padding-left: 30px;
+    }
+
+    /**/
+    .dashboard-inner-container {
+        display: block;
+    }
+    
+    .db-left-col {
+        display: block;
+        width: 100%;
+        min-height: 400px;
+    }
+    
+    .db-right-col {
+        display: block;
+        padding: 100px 50px 50px 50px;
+        width: 100%;
+    }
+
+    .db-search {
+        top: 430px;
+    }
+
+
 }
 
 
@@ -1482,6 +1995,16 @@ dl.db-card-info dd {
         width: 75%;
     }
 
+    .hr-button-wrapper {
+        padding-left: 10px;
+    }
+
+    .db-link-tile {
+        width: 46%;
+        margin: 2%;
+    }
+
+
 }
 
 
@@ -1498,6 +2021,12 @@ dl.db-card-info dd {
     .footer-col:nth-of-type(4) {
         margin-bottom: 40px;
     }
+
+    .db-link-tile {
+        width: 94%;
+        margin: 3%;
+    }
+
 }
 
 

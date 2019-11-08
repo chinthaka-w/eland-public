@@ -1,0 +1,231 @@
+<div class="page-header-default">
+  <h2>APPLICATION FOR CHANGING THE JUDICIAL ZONE </h2>
+  <p>Please fill in the following information to<br />register in the system</p>
+  <a href="" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
+</div>
+<div class="page-content-wrapper">
+  <div class="page-content-inner-wrapper">
+    <div class="pg-inner-row mb-40">
+      <div class="pg-inner-col">
+        <h5><span><b><ul>APPLICATION FOR CHANGING THE JUDICIAL ZONE</ul></b></span></h5>
+        <div class="separator">&nbsp;</div>
+      </div>
+
+    </div>
+
+
+    <div class="pg-inner-row mb-20">
+
+      <div class="pg-inner-col right">
+        <div class="default-input-wrapper m0 rac-col">
+          <label>Language:</label>
+          <div class="default-input-feild">
+            <section class="example-section">
+              <mat-checkbox class="example-margin">Sinhala</mat-checkbox>
+              <mat-checkbox class="example-margin">English</mat-checkbox>
+              <mat-checkbox class="example-margin">Tamil</mat-checkbox>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+          <label>Permenent address in new judicial zone (English):</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <textarea matInput rows="5"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+          <label>Permenent address in new judicial zone (Sinhala):</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <textarea matInput rows="5"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+          <label>Permenent address in new judicial zone (Tamil):</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <textarea matInput rows="5"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <label>Starting Date of Notarial Work:</label>
+          <div class="default-input-feild date-feild">
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="picker1">
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <button mat-raised-button (click)="picker1.open()">
+              <i class="material-icons">calendar_today</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <label>In which year, you get the certificate of High Court lastly? </label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <label>Name of the LR handed over duplicates currently?</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <label>Have you handed over all duplicate returns attested by you?</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <label>If you have stopped stop Notarial work temporarily, Please specify the period: </label>
+          <div class="default-input-feild date-feild">
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="picker">
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button mat-raised-button (click)="picker.open()">
+              <i class="material-icons">calendar_today</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-col"></div>
+    </div>
+
+    <div class="separator">&nbsp;</div>
+
+    <label>Please give the following details regarding new judicial zone </label>
+    <div>&nbsp;</div>
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col label" >
+        <label>Judicial Division:</label></div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <select name="judicialDivision" matNativeControl formControlName="judicialDivision" class="form-control">
+                <option value="" [selected]="true">Select</option>
+                <option *ngFor="let jud of judicialZone" [value]="jud.highCourtZoneId">{{ jud.nameEng }}
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col label">
+        <label>Land Registry:</label></div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <select name="landRegistry" matNativeControl formControlName="landRegistry" class="form-control">
+                <option value="" [selected]="true">Select</option>
+                <option *ngFor="let reg of landRegistry" [value]="reg.landRegistryId">{{ reg.name }}
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col label" style="width: 15%;">
+        <label>Divisional Secretarial Division:</label></div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <select matNativeControl required>
+                <option value="">Select</option>
+                <option value="option-1">Option 01</option>
+                <option value="option-2">Option 02</option>
+                <option value="option-3">Option 03</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col label" style="width: 15%;">
+        <label>Grama Niladhari Division:</label></div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <select matNativeControl required>
+                <option value="">Select</option>
+                <option value="option-1">Option 01</option>
+                <option value="option-2">Option 02</option>
+                <option value="option-3">Option 03</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="separator">&nbsp;</div>
+
+    <div class="pg-inner-row mb-0">
+      <div class="pg-inner-col">
+        <div class="f-captcha">
+          <img src="../../../../assets/images/captcha.jpg" />
+        </div>
+      </div>
+      <div class="pg-inner-col right">
+        <button mat-raised-button class="lg-button" [routerLink]="['/verification']">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>
