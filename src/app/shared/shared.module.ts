@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatRippleModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatRadioModule
   ],
   exports: [
     ContentComponent,

@@ -41,7 +41,10 @@ import {HttpModule} from '@angular/http';
     PaymentInfoComponent, 
     RemarkComponent, 
     NotaryClerkComponent, 
-    HistoryComponent, PublicRegistrationComponent, AddUserComponent
+    HistoryComponent, 
+    PublicRegistrationComponent, 
+    AddUserComponent,
+    ChangeJudicialComponent
   ],
   imports: [
     CommonModule,
