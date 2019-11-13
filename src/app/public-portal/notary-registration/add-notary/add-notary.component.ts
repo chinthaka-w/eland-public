@@ -106,7 +106,7 @@ export class AddNotaryComponent implements OnInit {
                     currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: string, telephoneNo: string, landRegistryId: number,
                     divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number): void {
 
-    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO(0, 'status', new Date(), divisionSecretariatDivision, gramaNiladhariDivision, 0);
+    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO(0, 'status', new Date(), divisionSecretariatDivision, [gramaNiladhariDivision], 0);
     this.notaryDetails = new Notary(0, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
       permenentAddressEng, currentAddressEng, permenentAddressSin, currentAddressSin, permenentAddressTam, currentAddressTam,
       fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
