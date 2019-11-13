@@ -28,21 +28,20 @@ const routes: Routes = [
     component: PaymentComponent
   },
   {
-    path: 'dashboard',
-    path: "payment-method",
+    path: 'payment-method',
     component: PaymentMethodComponent
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent
   },
   {
-    path: "edit-profile",
+    path: 'edit-profile',
     component: ProfileEditComponent
   }
   ,
   {
-    path: "change-judicial",
+    path: 'change-judicial',
     component: ChangeJudicialComponent
   }
 ];

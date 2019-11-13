@@ -1,3 +1,4 @@
+<form class="form-horizontal" [formGroup]="paymentForm">
 <div class="hc-component-wrapper payment">
     <div class="hc-component-img" style="background-image: url('../../../assets/images/temp_img_004.jpg')"></div>
     <div class="hc-component-content">
@@ -5,21 +6,21 @@
             <div class="default-input-wrapper full-row mb-30">
                 <label><strong>License Issue</strong>In which way you like to receive the license?</label>
                 <div class="default-input-feild">
-                    <section class="example-section">
-                        <mat-checkbox class="example-margin">By Hand</mat-checkbox>
-                        <mat-checkbox class="example-margin">By Post (Normal)</mat-checkbox>
-                        <mat-checkbox class="example-margin">By Post (Registered)</mat-checkbox>
-                    </section>
+                  <mat-radio-group formControlName="licenseMethod" class="form-control">
+                    <mat-radio-button class="example-margin" value="1">By Hand</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="2">By Post (Normal)</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="3">By Post (Registered)</mat-radio-button>
+                  </mat-radio-group>
                 </div>
             </div>
             <div class="default-input-wrapper full-row mb-30">
                 <label><strong>Payment</strong>Payment method</label>
                 <div class="default-input-feild">
-                    <section class="example-section">
-                        <mat-checkbox class="example-margin">Online</mat-checkbox>
-                        <mat-checkbox class="example-margin">Bank Transfer</mat-checkbox>
-                        <mat-checkbox class="example-margin">Front Counter</mat-checkbox>
-                    </section>
+                  <mat-radio-group formControlName="paymentMethod" class="form-control">
+                    <mat-radio-button class="example-margin" value="1">Online</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="2">Bank Transfer</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="3">Front Counter</mat-radio-button>
+                  </mat-radio-group>
                 </div>
             </div>
 
@@ -47,3 +48,4 @@
         </div>
     </div>
 </div>
+</form>

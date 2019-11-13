@@ -18,7 +18,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { VerificationComponent } from './notary-registration/verification/verification.component';
 import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 import { ApplicationComponent } from './dashboard/profile/profile-edit/application/application.component';
 import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-info/payment-info.component';
@@ -33,7 +33,7 @@ import { PaymentMethodComponent } from './notary-registration/payment/payment-me
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent, ChangeJudicialComponent],
+  declarations: [AddNotaryComponent, LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent, ChangeJudicialComponent],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
@@ -48,8 +48,7 @@ import { PaymentMethodComponent } from './notary-registration/payment/payment-me
     MatDatepickerModule,
     MatFileUploadModule,
     ReactiveFormsModule,
-    FormsModule
-    MatFileUploadModule,
+    FormsModule,
     MatTabsModule,
     HttpModule,
   ],
