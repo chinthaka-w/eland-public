@@ -112,11 +112,12 @@ export class AddNotaryComponent implements OnInit {
       fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
       1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(), 'Ishani');
 
-    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
-      (success: string) => {
-        alert('sucesss....');
-      }
-    );
+    this.notaryService.setNotaryDetails(this.notaryDetails);
+    // this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
+    //   (success: string) => {
+    //     alert('sucesss....');
+    //   }
+    // );
   }
 
   private getGnDivisions(): void {

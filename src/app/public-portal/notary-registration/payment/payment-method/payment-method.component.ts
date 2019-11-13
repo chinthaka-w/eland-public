@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../../shared/model/notary';
 import {AddNotaryComponent} from '../../add-notary/add-notary.component';
 import {NotaryService} from '../../../../shared/service/notary-service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-payment-method',
@@ -10,12 +11,12 @@ import {NotaryService} from '../../../../shared/service/notary-service';
   styleUrls: ['./payment-method.component.css']
 })
 export class PaymentMethodComponent implements OnInit {
-  @ViewChild(AddNotaryComponent , {static: false})
-  @Input() notaryDetails: Notary;
+  public  notaryDetails: Notary;
   private addNotaryComponent: AddNotaryComponent;
   public paymentMethodForm: FormGroup;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
+              private dataRoute: ActivatedRoute
               ) { }
 
   ngOnInit() {
@@ -27,11 +28,12 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   savePayment() {
-    // this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
-    //   (success: string) => {
-    //     alert('sucesss....');
-    //   }
-    // );
+    this.notaryDetails = this.notaryService.getNotaryDetails();
+    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
+      (success: string) => {
+        alert('sucesss....');
+      }
+    );
   }
 
 }

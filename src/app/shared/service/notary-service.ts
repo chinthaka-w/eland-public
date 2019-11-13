@@ -8,6 +8,7 @@ import {Observable, of, throwError} from 'rxjs';
 export class NotaryService {
   public BASE_URL = 'http://localhost:9292/api/new-notary';
   private headers;
+  public notaryDetails: Notary;
 
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private notary: Notary;
@@ -22,5 +23,13 @@ export class NotaryService {
   // tslint:disable-next-line:ban-types
   findIfNotaryExist(nic: string): Observable<Object> {
     return this.httpClient.get(this.BASE_URL + '/find/' + nic , {headers: this.headers} );
+  }
+
+  setNotaryDetails(notaryDetails: Notary) {
+    this.notaryDetails = notaryDetails;
+  }
+
+  getNotaryDetails() {
+    return this.notaryDetails;
   }
 }
