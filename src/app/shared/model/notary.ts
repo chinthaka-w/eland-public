@@ -1,6 +1,6 @@
-import {NotaryAddressDTO} from './new-notary-address';
-import {NewNotaryNameDTO} from './new-notary-name';
-import {NewNotaryGnDivisionDTO} from './new-notary-gn-division';
+import {NotaryAddressDTO} from '../dto/new-notary-address-dto';
+import {NewNotaryNameDTO} from '../dto/new-notary-name';
+import {NewNotaryGnDivisionDTO} from '../dto/new-notary-gn-division';
 
 export class Notary {
    constructor(

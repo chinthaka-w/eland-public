@@ -8,14 +8,16 @@ import {DsDivision} from '../../../shared/model/ds-division';
 import {LandRegistry} from '../../../shared/model/land-registry';
 import {DsDivisionService} from '../../../shared/service/ds-division-service';
 import {LandRegistryService} from '../../../shared/service/land-registry-service';
-import {NewNotaryGnDivisionDTO} from '../../../shared/model/new-notary-gn-division';
+import {NewNotaryGnDivisionDTO} from '../../../shared/dto/new-notary-gn-division';
 import {PatternValidation} from '../../../shared/pattern-validation.enum';
+import {JudicialZoneService} from '../../../shared/service/judicial-zone.service';
+import {JudicialZoneModel} from '../../../shared/custom-model/judicial-zone.model';
+import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
 
 
 @Component({
   selector: 'app-add-notary',
   templateUrl: './add-notary.component.html',
- // template: '<app-payment-method [notaryDetails] = notaryDetails></app-payment-method>',
   styleUrls: ['./add-notary.component.css']
 })
 
@@ -24,7 +26,9 @@ export class AddNotaryComponent implements OnInit {
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
   public landRegistry: LandRegistry[];
+  public judicialZones: JudicialZoneModel[];
   public notaryDetails: Notary;
+  public gnDivisionDetails: GnDivisionDTO;
   public newNotaryGnDivision: NewNotaryGnDivisionDTO;
   submitted = false;
   selected: any[];
@@ -33,7 +37,8 @@ export class AddNotaryComponent implements OnInit {
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
               private dsDivisionService: DsDivisionService,
-              private landRegistryService: LandRegistryService) { }
+              private landRegistryService: LandRegistryService,
+              private judicialZoneService: JudicialZoneService) { }
 
   ngOnInit() {
     this.notaryForm = new FormGroup({
@@ -68,6 +73,7 @@ export class AddNotaryComponent implements OnInit {
     this.getGnDivisions();
     this.getDsDivisions();
     this.getLandRegistries();
+    this.getJudicialZones();
   }
 
   equals(objOne, objTwo) {
@@ -106,18 +112,14 @@ export class AddNotaryComponent implements OnInit {
                     currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: string, telephoneNo: string, landRegistryId: number,
                     divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number): void {
 
-    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO(0, 'status', new Date(), divisionSecretariatDivision, [gramaNiladhariDivision], 0);
+    this.gnDivisionDetails = new GnDivisionDTO(gramaNiladhariDivision, null, null, null, null, null, divisionSecretariatDivision, 'ACT', null);
+    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( divisionSecretariatDivision, 'asd', [this.gnDivisionDetails]);
     this.notaryDetails = new Notary(0, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
       permenentAddressEng, currentAddressEng, permenentAddressSin, currentAddressSin, permenentAddressTam, currentAddressTam,
       fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
       1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(), 'Ishani');
 
     this.notaryService.setNotaryDetails(this.notaryDetails);
-    // this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
-    //   (success: string) => {
-    //     alert('sucesss....');
-    //   }
-    // );
   }
 
   private getGnDivisions(): void {
@@ -132,6 +134,14 @@ export class AddNotaryComponent implements OnInit {
     this.dsDivisionService.getAllDsDivisions().subscribe(
       (data: DsDivision[]) => {
         this.dsDivision = data;
+      }
+    );
+  }
+
+  private getJudicialZones(): void {
+    this.judicialZoneService.getAllJudicialZone().subscribe(
+      (data: JudicialZoneModel[]) => {
+        this.judicialZones = data;
       }
     );
   }

@@ -22,6 +22,7 @@ import {LandRegistryService} from './shared/service/land-registry-service';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import {JudicialZoneService} from "./shared/service/judicial-zone.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,9 +49,10 @@ import {HttpClientModule} from '@angular/common/http';
   providers: [MatDatepickerModule,
     HttpClient,
     NotaryService,
-   GnDivisionService,
-   DsDivisionService,
-   LandRegistryService],
+    GnDivisionService,
+    DsDivisionService,
+    LandRegistryService,
+    JudicialZoneService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
