@@ -10,13 +10,26 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
+import { VerificationComponent } from './components/verification/verification.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentMethodComponent } from './components/payment/payment-method/payment-method.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     ContentComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    VerificationComponent,
+    PaymentComponent,
+    PaymentMethodComponent
   ],
   imports: [
     CommonModule, 
@@ -27,13 +40,25 @@ import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
   ],
   exports: [
     ContentComponent,
     HomeComponent,
     HeaderComponent,
     FooterComponent,
+    VerificationComponent,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatFileUploadModule,
+    MatTabsModule
   ]
 })
 export class SharedModule {}
