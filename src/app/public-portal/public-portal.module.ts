@@ -24,6 +24,8 @@ import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-cl
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
 import { PublicRegistrationComponent } from './public-registration/public-registration.component';
 import { AddUserComponent } from './public-registration/add-user/add-user.component';
+import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
+import {HttpModule} from '@angular/http';
 
 
 
@@ -53,7 +55,8 @@ import { AddUserComponent } from './public-registration/add-user/add-user.compon
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
-    MatTabsModule
+    MatTabsModule,
+    HttpModule,
   ],
   exports: [
     LoginComponent,

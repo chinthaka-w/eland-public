@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 import { AddUserComponent } from './public-registration/add-user/add-user.component';
+import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: "user-registration",
     component: AddUserComponent
+  }
+  ,
+  {
+    path: "change-judicial",
+    component: ChangeJudicialComponent
   }
 ];
 
