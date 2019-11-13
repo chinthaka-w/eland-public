@@ -95,6 +95,17 @@ p {
 .mb-90 { margin-bottom: 90px !important; }
 .mb-100 { margin-bottom: 100px !important; }
 
+.mt-10 { margin-top: 10px !important; }
+.mt-20 { margin-top: 20px !important; }
+.mt-30 { margin-top: 30px !important; }
+.mt-40 { margin-top: 40px !important; }
+.mt-50 { margin-top: 50px !important; }
+.mt-60 { margin-top: 60px !important; }
+.mt-70 { margin-top: 70px !important; }
+.mt-80 { margin-top: 80px !important; }
+.mt-90 { margin-top: 90px !important; }
+.mt-100 { margin-top: 100px !important; }
+
 /**/
 .landing-header {
     display: block;
@@ -1688,6 +1699,94 @@ a.pdf-link:visited {
     padding: 10px 0;
 }
 
+/**/
+.default-input-wrapper.full-row.half-cols {
+    display: table;
+    vertical-align: middle;
+}
+
+.half-cols.full-row.default-input-wrapper > label {
+    display: table-cell;
+    vertical-align: top;
+    width: 50%;
+    padding-top: 12px;
+}
+
+.full-row.half-cols .default-input-feild {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.half-cols.full-row.default-input-wrapper > label span {
+    color: #ff3e3e;
+}
+
+.half-cols.full-row.default-input-wrapper > label.mw-200 {
+    width: 200px;
+}
+
+.default-input-wrapper.full-row.sc-half-cols {
+    display: table;
+    vertical-align: middle;
+    width: 100%;
+    max-width: 500px;
+}
+
+.sc-half-cols.full-row.default-input-wrapper > label {
+    display: table-cell;
+    vertical-align: middle;
+    width: 150px;
+}
+
+.sc-half-cols.half-cols .default-input-feild {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.gray .mat-form-field-outline {
+    background: #F2F2F2;
+}
+
+.din-info-col {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 20px;
+    font-size: 13px;
+    font-weight: 200;
+    text-align: center;
+    width: 300px;
+}
+
+.upload-col-3 .pg-inner-col-3 {
+    width: 33.33%;
+}
+
+.upload-col-3 .pg-inner-col-3 label {
+    min-height: 62px;
+    text-align: center;
+}
+
+.upload-col-3 .pg-inner-col-3 label span {
+    color: #ff3e3e;
+}
+
+.pg-inner-row.mb-0.pg-form-bottom-3-col .pg-inner-col {
+    width: 33.33%;
+}
+
+.pg-inner-row.mb-0.pg-form-bottom-3-col .pg-inner-col.middle {
+    text-align: left;
+    width: 45%;
+    padding: 0 10px;
+}
+
+.pg-inner-col a, 
+.pg-inner-col a:link, 
+.pg-inner-col a:visited, 
+.pg-inner-col a:active, 
+.pg-inner-col a:hover {
+    color: #278df0;
+}
 
 
 /* Extra large devices - large desktops */
@@ -1965,6 +2064,49 @@ a.pdf-link:visited {
         top: 430px;
     }
 
+    /**/
+    .upload-col-3 .pg-inner-col-3 {
+        width: 100%;
+    }
+
+    .default-input-wrapper.full-row.half-cols {
+        display: block;
+    }
+    
+    .half-cols.full-row.default-input-wrapper > label {
+        display: block;
+        width: 100%;
+        padding-top: 0;
+        padding-bottom: 5px;
+    }
+    
+    .full-row.half-cols .default-input-feild {
+        display: block;
+        width: 100%;
+    }
+
+    .half-cols.full-row.default-input-wrapper > label.mw-200 {
+        width: 100%;
+    }
+
+    .din-info-col {
+        display: block;
+        padding-left: 0;
+        font-size: 12px;
+        font-weight: 200;
+        text-align: left;
+        width: 100%;
+    }
+
+    /**/
+    .pg-inner-row.mb-0.pg-form-bottom-3-col .pg-inner-col {
+        width: 100%;
+    }
+
+    .pg-inner-row.mb-0.pg-form-bottom-3-col .pg-inner-col.middle {
+        width: 100%;
+        padding: 10px 0;
+    }
 
 }
 
