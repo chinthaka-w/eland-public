@@ -18,20 +18,22 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { VerificationComponent } from './notary-registration/verification/verification.component';
 import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 import { ApplicationComponent } from './dashboard/profile/profile-edit/application/application.component';
 import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-info/payment-info.component';
 import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
+import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
+import {HttpModule} from '@angular/http';
 import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
-import {ReactiveFormsModule} from "@angular/forms";
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent],
+  declarations: [AddNotaryComponent, LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent, ChangeJudicialComponent],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
@@ -45,8 +47,10 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatTabsModule,
-    ReactiveFormsModule
+    HttpModule,
   ],
   exports: [
     LoginComponent,

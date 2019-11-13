@@ -3,15 +3,19 @@
 * {
     box-sizing: border-box;
 }
- 
+
 html {
     width: 100%;
     min-height: 100%;
 }
 
-body { 
-    margin: 0; 
-    font-family: 'Poppins', sans-serif; 
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.redtxt {
+  color: #DA1B1B;
 }
 
 .clear {
@@ -239,7 +243,7 @@ p {
     color: #24303C;
 }
 
-.header.default .navigation ul li a:active, 
+.header.default .navigation ul li a:active,
 .header.default .navigation ul li a:hover {
     color: #2a8ff2;
 }
@@ -252,9 +256,9 @@ p {
 
 
 /* Button Style */
-.mat-fab, 
-.mat-flat-button, 
-.mat-mini-fab, 
+.mat-fab,
+.mat-flat-button,
+.mat-mini-fab,
 .mat-raised-button {
     color: #fff;
     background: linear-gradient(158.53deg, #45A1FA 0%, #0074E4 100%);
@@ -1063,19 +1067,19 @@ h5.uw-title:before {
     letter-spacing: 10px;
 }
 
-.mat-input-element::-webkit-input-placeholder { 
+.mat-input-element::-webkit-input-placeholder {
     color: #c7c7c7;
 }
 
-.mat-input-element::-moz-placeholder { 
+.mat-input-element::-moz-placeholder {
     color: #c7c7c7;
 }
 
-.mat-input-element:-ms-input-placeholder { 
+.mat-input-element:-ms-input-placeholder {
     color: #c7c7c7;
 }
 
-.mat-input-element:-moz-placeholder { 
+.mat-input-element:-moz-placeholder {
     color: #c7c7c7;
 }
 
@@ -1087,7 +1091,7 @@ h5.uw-title:before {
 .pce-container {
     display: block;
     position: relative;
-    padding: 8% 8% 0 8%; 
+    padding: 8% 8% 0 8%;
 }
 
 .pce-container .default-input-wrapper label strong {
@@ -1402,8 +1406,8 @@ ul.up-dropdown li a:visited {
     line-height: 16px;
     font-weight: 600;
 }
- 
-ul.up-dropdown li a:active, 
+
+ul.up-dropdown li a:active,
 ul.up-dropdown li a:hover {
     color: #3194f4;
 }
@@ -1756,13 +1760,13 @@ a.pdf-link:visited {
     .hm-section-4 {
         display: block;
     }
-    
+
     .hms-left-image {
         display: block;
         width: 100%;
         min-height: 300px;
     }
-    
+
     .hms-right-content {
         display: block;
         width: 100%;
@@ -1774,7 +1778,7 @@ a.pdf-link:visited {
         margin-right: 4%;
         margin-bottom: 40px;
     }
-    
+
     .footer-col:nth-of-type(2),
     .footer-col:nth-of-type(4) {
         margin-right: 0;
@@ -1785,11 +1789,11 @@ a.pdf-link:visited {
     .pg-inner-col-3 {
         display: block;
     }
-    
+
     .pg-inner-col-3:nth-of-type(1) {
         padding-right: 0;
     }
-    
+
     .pg-inner-col-3:nth-of-type(2) {
         padding-right: 0;
         padding-left: 0;
@@ -1804,23 +1808,23 @@ a.pdf-link:visited {
         display: block;
         width: 100%;
     }
-    
+
     .pg-inner-col.left {
         text-align: left;
     }
-    
+
     .pg-inner-col.right {
         text-align: left;
     }
-    
+
     .pg-inner-col:nth-of-type(1) {
         padding-right: 0;
     }
-    
+
     .pg-inner-col:nth-of-type(2) {
         padding-left: 0;
     }
-    
+
     /**/
     .pg-inner-col h4.m0 {
         margin-bottom: 30px !important;
@@ -1835,7 +1839,7 @@ a.pdf-link:visited {
         display: block;
         width: 100%;
     }
-    
+
     .hc-component-content {
         display: block;
         width: 100%;
@@ -1843,7 +1847,7 @@ a.pdf-link:visited {
         min-height: 500px;
         padding-bottom: 100px;
     }
-    
+
     .hc-component-img {
         display: none;
     }
@@ -1920,8 +1924,8 @@ a.pdf-link:visited {
         border-bottom: none;
     }
 
-    .navigation ul li a, 
-    .navigation ul li a:link, 
+    .navigation ul li a,
+    .navigation ul li a:link,
     .navigation ul li a:visited {
         font-weight: 400;
         font-size: 16px;
@@ -1944,13 +1948,13 @@ a.pdf-link:visited {
     .dashboard-inner-container {
         display: block;
     }
-    
+
     .db-left-col {
         display: block;
         width: 100%;
         min-height: 400px;
     }
-    
+
     .db-right-col {
         display: block;
         padding: 100px 50px 50px 50px;
@@ -2016,7 +2020,7 @@ a.pdf-link:visited {
         margin-right: 0;
         margin-bottom: 40px;
     }
-    
+
     .footer-col:nth-of-type(2),
     .footer-col:nth-of-type(4) {
         margin-bottom: 40px;

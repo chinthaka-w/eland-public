@@ -6,37 +6,43 @@ import { VerificationComponent } from './notary-registration/verification/verifi
 import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
+import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
 import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
 
 
 const routes: Routes = [
   {
-    path: "notary-registration",
+    path: 'notary-registration',
     component: AddNotaryComponent
   },
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent
   },
   {
-    path: "verification",
+    path: 'verification',
     component: VerificationComponent
   },
   {
-    path: "payment",
+    path: 'payment',
     component: PaymentComponent
   },
   {
-    path: "payment-method",
+    path: 'payment-method',
     component: PaymentMethodComponent
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent
   },
   {
-    path: "edit-profile",
+    path: 'edit-profile',
     component: ProfileEditComponent
+  }
+  ,
+  {
+    path: 'change-judicial',
+    component: ChangeJudicialComponent
   }
 ];
 

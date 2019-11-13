@@ -1,25 +1,26 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Notary} from '../model/notary';
-import {Observable} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
+
 
 @Injectable()
 export class NotaryService {
-  public BASE_URL = '';
+  public BASE_URL = 'http://localhost:9292/api/new-notary';
   private headers;
+
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private notary: Notary;
   public constructor(private httpClient: HttpClient) {}
 
-  // saveNotaryDetails(notaries: Notary): Observable<Object> {
-  //   // return this.httpClient.post(this.BASE_URL + 'user/save/', notaries, {responseType: 'text', headers: this.headers});
-  // }
-
-  getAllDsDivisions(): Observable<Object> {
-    return this.httpClient.get('api/dsDivision/all', {headers: this.headers} );
+  // tslint:disable-next-line:ban-types
+  saveNotaryDetails(notaries: Notary): Observable<Object> {
+    console.log(notaries);
+    return this.httpClient.post(this.BASE_URL + '/', notaries, {responseType: 'text', headers: this.headers});
   }
 
-  getAllLandRegistries(): Observable<Object> {
-    return this.httpClient.get('api/landRegistries/', {headers: this.headers} );
+  // tslint:disable-next-line:ban-types
+  findIfNotaryExist(nic: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + '/find/' + nic , {headers: this.headers} );
   }
 }

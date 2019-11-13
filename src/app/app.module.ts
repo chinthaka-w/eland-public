@@ -15,10 +15,13 @@ import { PublicPortalModule } from './public-portal/public-portal.module';
 import { MatIconModule } from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NotaryService} from './shared/service/notary-service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {GnDivisionService} from "./shared/service/gn-division-service";
-import {DsDivisionService} from "./shared/service/ds-division-service";
-import {LandRegistryService} from "./shared/service/land-registry-service";
+import {HttpClient} from '@angular/common/http';
+import {GnDivisionService} from './shared/service/gn-division-service';
+import {DsDivisionService} from './shared/service/ds-division-service';
+import {LandRegistryService} from './shared/service/land-registry-service';
+import {CommonModule} from '@angular/common';
+import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,8 +39,11 @@ import {LandRegistryService} from "./shared/service/land-registry-service";
     ReactiveFormsModule,
     HttpClientModule,
 
+    CommonModule,
     SharedModule,
-    PublicPortalModule
+    PublicPortalModule,
+    HttpModule,
+    HttpClientModule,
   ],
   providers: [MatDatepickerModule,
     HttpClient,
