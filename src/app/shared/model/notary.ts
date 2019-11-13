@@ -1,0 +1,33 @@
+export class Notary {
+   constructor(
+     notaryId: number,
+     titleEng: string,
+     initialsEng: string,
+     initialsSin: string,
+     initialsTam: string,
+     fullNameEng: string,
+     fullNameSin: string,
+     fullNameTam: string,
+     nic: string,
+     email: string,
+     languages: string,
+     dateOfEnrolment: Date,
+     dateOfPassed: Date,
+     dateOfBirth: Date,
+     judicialZone: string,
+     permenentAddressEng: string,
+     permenentAddressSin: string,
+     permenentAddressTam: string,
+     currentAddressEng: string,
+     currentAddressSin: string,
+     currentAddressTam: string,
+     mobileNo: number,
+     telephoneNo: number,
+  //  user: string,
+     landRegistryId: number,
+     divisionSecretariatDivision: number,
+     gramaNiladhariDivision: number,
+     medium: string,
+   ) {
+   }
+}

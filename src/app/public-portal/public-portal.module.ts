@@ -25,6 +25,7 @@ import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
 import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -44,7 +45,8 @@ import { PaymentMethodComponent } from './notary-registration/payment/payment-me
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
-    MatTabsModule
+    MatTabsModule,
+    ReactiveFormsModule
   ],
   exports: [
     LoginComponent,
