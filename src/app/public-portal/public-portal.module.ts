@@ -13,12 +13,39 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import {MatTabsModule} from '@angular/material/tabs';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
+import { ApplicationComponent } from './dashboard/profile/profile-edit/application/application.component';
+import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-info/payment-info.component';
+import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
+import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
+import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
+import { PublicRegistrationComponent } from './public-registration/public-registration.component';
+import { AddUserComponent } from './public-registration/add-user/add-user.component';
+import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
+import {HttpModule} from '@angular/http';
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent,LoginComponent],
+  declarations: [
+    AddNotaryComponent,
+    LoginComponent, 
+    DashboardComponent, 
+    ProfileEditComponent, 
+    ApplicationComponent, 
+    PaymentInfoComponent, 
+    RemarkComponent, 
+    NotaryClerkComponent, 
+    HistoryComponent, 
+    PublicRegistrationComponent, 
+    AddUserComponent,
+    ChangeJudicialComponent
+  ],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
@@ -31,7 +58,11 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTabsModule,
+    HttpModule,
   ],
   exports: [
     LoginComponent,
@@ -43,7 +74,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatGridListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatTabsModule
   ]
 })
 export class PublicPortalModule { }
