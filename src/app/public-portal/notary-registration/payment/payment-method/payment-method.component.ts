@@ -4,6 +4,7 @@ import {Notary} from '../../../../shared/model/notary';
 import {AddNotaryComponent} from '../../add-notary/add-notary.component';
 import {NotaryService} from '../../../../shared/service/notary-service';
 import {ActivatedRoute} from '@angular/router';
+import {SnackBarService} from "../../../../shared/service/snack-bar.service";
 
 @Component({
   selector: 'app-payment-method',
@@ -16,7 +17,8 @@ export class PaymentMethodComponent implements OnInit {
   public paymentMethodForm: FormGroup;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
-              private dataRoute: ActivatedRoute
+              private dataRoute: ActivatedRoute,
+              private snackBar: SnackBarService
               ) { }
 
   ngOnInit() {
@@ -31,7 +33,10 @@ export class PaymentMethodComponent implements OnInit {
     this.notaryDetails = this.notaryService.getNotaryDetails();
     this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
       (success: string) => {
-        alert('sucesss....');
+        this.snackBar.success('Notary Registration Success');
+      },
+      error => {
+        this.snackBar.error('Failed');
       }
     );
   }
