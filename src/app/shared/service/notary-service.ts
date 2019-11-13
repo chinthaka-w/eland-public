@@ -15,19 +15,12 @@ export class NotaryService {
 
   // tslint:disable-next-line:ban-types
   saveNotaryDetails(notaries: Notary): Observable<Object> {
-    alert(notaries);
-    console.log(notaries)
+    console.log(notaries);
     return this.httpClient.post(this.BASE_URL + '/', notaries, {responseType: 'text', headers: this.headers});
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
-  private log(message: string) {
-
+  // tslint:disable-next-line:ban-types
+  findIfNotaryExist(nic: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + '/find/' + nic , {headers: this.headers} );
   }
 }
