@@ -1,9 +1,9 @@
 <div class="page-header-default">
-    <h2>Notary Services Registration</h2>
-    <p>Please fill in the following information to<br />register in the system</p>
-    <a href="" class="phd-back-btn">
-        <i class="material-icons">keyboard_backspace</i>
-    </a>
+  <h2>Notary Services Registration</h2>
+  <p>Please fill in the following information to<br />register in the system</p>
+  <a href="" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
 </div>
 <form class="form-horizontal" [formGroup]="notaryForm">
   <div class="page-content-wrapper">
@@ -24,7 +24,7 @@
               </mat-form-field>
               <div *ngIf="f.notary.touched && f.notary.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.notary.errors.required" class="errors">Required</mat-error>
+                <mat-error *ngIf="f.notary.errors.required" class="errors">Required</mat-error>
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
           </mat-form-field>
           <div *ngIf="f.title.touched && f.title.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.title.errors.required" class="errors">Title is required</mat-error>
+            <mat-error *ngIf="f.title.errors.required" class="errors">Title is required</mat-error>
           </div>
         </div>
         <div class="pg-inner-col right">
@@ -59,7 +59,7 @@
               </mat-radio-group>
               <div *ngIf="f.languages.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.languages.errors.required" class="errors">Required</mat-error>
+                <mat-error *ngIf="f.languages.errors.required" class="errors">Required</mat-error>
               </div>
             </div>
           </div>
@@ -74,8 +74,8 @@
           </mat-form-field>
           <div *ngIf="f.fullNameInEnglish.touched && f.fullNameInEnglish.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.fullNameInEnglish.errors.required" class="errors">Full name (English) is required</mat-error>
-          <mat-error *ngIf="f.fullNameInEnglish.errors.pattern" class="errors">Full name (English) is Invalid</mat-error>
+            <mat-error *ngIf="f.fullNameInEnglish.errors.required" class="errors">Full name (English) is required</mat-error>
+            <mat-error *ngIf="f.fullNameInEnglish.errors.pattern" class="errors">Full name (English) is Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -87,8 +87,8 @@
           </mat-form-field>
           <div *ngIf="f.fullNameInSinhala.touched && f.fullNameInSinhala.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.fullNameInSinhala.errors.required" class="errors">Full name (Sinhala) is required</mat-error>
-          <mat-error *ngIf="f.fullNameInSinhala.errors.pattern" class="errors">Full name (Sinhala) is Invalid</mat-error>
+            <mat-error *ngIf="f.fullNameInSinhala.errors.required" class="errors">Full name (Sinhala) is required</mat-error>
+            <mat-error *ngIf="f.fullNameInSinhala.errors.pattern" class="errors">Full name (Sinhala) is Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -100,8 +100,8 @@
           </mat-form-field>
           <div *ngIf="f.fullNameInTamil.touched && f.fullNameInTamil.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.fullNameInTamil.errors.required" class="errors">Full name (Tamil) is required</mat-error>
-          <mat-error *ngIf="f.fullNameInTamil.errors.pattern" class="errors">Full name (Tamil) is Invalid</mat-error>
+            <mat-error *ngIf="f.fullNameInTamil.errors.required" class="errors">Full name (Tamil) is required</mat-error>
+            <mat-error *ngIf="f.fullNameInTamil.errors.pattern" class="errors">Full name (Tamil) is Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -113,8 +113,8 @@
           </mat-form-field>
           <div *ngIf="f.englishNameWithInitials.touched && f.englishNameWithInitials.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.englishNameWithInitials.errors.required" class="errors">Name with initials (English) is required</mat-error>
-          <mat-error *ngIf="f.englishNameWithInitials.errors.pattern" class="errors">Name with initials (English) is Invalid</mat-error>
+            <mat-error *ngIf="f.englishNameWithInitials.errors.required" class="errors">Name with initials (English) is required</mat-error>
+            <mat-error *ngIf="f.englishNameWithInitials.errors.pattern" class="errors">Name with initials (English) is Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -126,8 +126,8 @@
           </mat-form-field>
           <div *ngIf="f.sinhalaNameWithInitials.touched && f.sinhalaNameWithInitials.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.sinhalaNameWithInitials.errors.required" class="errors">Name with initials (Sinhala) is required</mat-error>
-          <mat-error *ngIf="f.sinhalaNameWithInitials.errors.pattern" class="errors">Name with initials (Sinhala) is Invalid</mat-error>
+            <mat-error *ngIf="f.sinhalaNameWithInitials.errors.required" class="errors">Name with initials (Sinhala) is required</mat-error>
+            <mat-error *ngIf="f.sinhalaNameWithInitials.errors.pattern" class="errors">Name with initials (Sinhala) is Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -139,8 +139,8 @@
           </mat-form-field>
           <div *ngIf="f.tamilNameWithInitials.touched && f.tamilNameWithInitials.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.tamilNameWithInitials.errors.required" class="errors">Name with initials (Tamil) is required</mat-error>
-          <mat-error *ngIf="f.tamilNameWithInitials.errors.pattern" class="pattern">Name with initials (Tamil) is Invalid</mat-error>
+            <mat-error *ngIf="f.tamilNameWithInitials.errors.required" class="errors">Name with initials (Tamil) is required</mat-error>
+            <mat-error *ngIf="f.tamilNameWithInitials.errors.pattern" class="pattern">Name with initials (Tamil) is Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@
               </mat-form-field>
               <div *ngIf="f.permenentAddressInEnglish.touched && f.permenentAddressInEnglish.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.permenentAddressInEnglish.errors.required" class="errors">Permenent address (English) is required</mat-error>
+                <mat-error *ngIf="f.permenentAddressInEnglish.errors.required" class="errors">Permenent address (English) is required</mat-error>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@
               </mat-form-field>
               <div *ngIf="f.permenentAddressInSinhala.touched && f.permenentAddressInSinhala.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.permenentAddressInSinhala.errors.required" class="errors">Permenent address (Sinhala) is required</mat-error>
+                <mat-error *ngIf="f.permenentAddressInSinhala.errors.required" class="errors">Permenent address (Sinhala) is required</mat-error>
               </div>
             </div>
           </div>
@@ -183,7 +183,7 @@
               </mat-form-field>
               <div *ngIf="f.permenentAddressInTamil.touched && f.permenentAddressInTamil.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.permenentAddressInTamil.errors.required" class="errors">Permenent address (Tamil) is required</mat-error>
+                <mat-error *ngIf="f.permenentAddressInTamil.errors.required" class="errors">Permenent address (Tamil) is required</mat-error>
               </div>
             </div>
           </div>
@@ -200,7 +200,7 @@
               </mat-form-field>
               <div *ngIf="f.currentAddressInEnglish.touched && f.currentAddressInEnglish.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.currentAddressInEnglish.errors.required" class="errors">Current address (English) is required</mat-error>
+                <mat-error *ngIf="f.currentAddressInEnglish.errors.required" class="errors">Current address (English) is required</mat-error>
               </div>
             </div>
           </div>
@@ -214,7 +214,7 @@
               </mat-form-field>
               <div *ngIf="f.currentAddressInSinhala.touched && f.currentAddressInSinhala.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.currentAddressInSinhala.errors.required" class="errors">Current address (Sinhala) is required</mat-error>
+                <mat-error *ngIf="f.currentAddressInSinhala.errors.required" class="errors">Current address (Sinhala) is required</mat-error>
               </div>
             </div>
           </div>
@@ -228,7 +228,7 @@
               </mat-form-field>
               <div *ngIf="f.currentAddressInTamil.touched && f.currentAddressInTamil.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.currentAddressInTamil.errors.required" class="errors">Current address (Tamil) is required</mat-error>
+                <mat-error *ngIf="f.currentAddressInTamil.errors.required" class="errors">Current address (Tamil) is required</mat-error>
               </div>
             </div>
           </div>
@@ -247,7 +247,7 @@
               </mat-form-field>
               <div *ngIf="f.dateOfBirth.touched && f.dateOfBirth.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.dateOfBirth.errors.required" class="errors">Date of Birth is required</mat-error>
+                <mat-error *ngIf="f.dateOfBirth.errors.required" class="errors">Date of Birth is required</mat-error>
               </div>
               <button mat-raised-button (click)="picker.open()">
                 <i class="material-icons">calendar_today</i>
@@ -264,8 +264,8 @@
               </mat-form-field>
               <div *ngIf="f.nic.touched && f.nic.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.nic.errors.required" class="errors">National Identity Card No is required</mat-error>
-              <mat-error *ngIf="f.nic.errors.pattern" class="errors">National Identity Card No is Invalid</mat-error>
+                <mat-error *ngIf="f.nic.errors.required" class="errors">National Identity Card No is required</mat-error>
+                <mat-error *ngIf="f.nic.errors.pattern" class="errors">National Identity Card No is Invalid</mat-error>
               </div>
             </div>
           </div>
@@ -282,8 +282,8 @@
               </mat-form-field>
               <div *ngIf="f.contactNo.touched && f.contactNo.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.contactNo.errors.required" class="errors">Contact No. (Residential) is required</mat-error>
-              <mat-error *ngIf="f.contactNo.errors.pattern" class="errors">Contact No. (Residential) is Invalid</mat-error>
+                <mat-error *ngIf="f.contactNo.errors.required" class="errors">Contact No. (Residential) is required</mat-error>
+                <mat-error *ngIf="f.contactNo.errors.pattern" class="errors">Contact No. (Residential) is Invalid</mat-error>
               </div>
             </div>
           </div>
@@ -297,7 +297,7 @@
               </mat-form-field>
               <div *ngIf="f.mobileNo.touched && f.mobileNo.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.mobileNo.errors.pattern" class="errors">Mobile is Invalid</mat-error>
+                <mat-error *ngIf="f.mobileNo.errors.pattern" class="errors">Mobile is Invalid</mat-error>
               </div>
             </div>
           </div>
@@ -314,8 +314,8 @@
               </mat-form-field>
               <div *ngIf="f.email.touched && f.email.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.email.errors.required" class="errors">Email is required</mat-error>
-              <mat-error *ngIf="f.email.errors.pattern" class="errors">Email is Invalid</mat-error>
+                <mat-error *ngIf="f.email.errors.required" class="errors">Email is required</mat-error>
+                <mat-error *ngIf="f.email.errors.pattern" class="errors">Email is Invalid</mat-error>
               </div>
             </div>
           </div>
@@ -338,65 +338,82 @@
               </mat-form-field>
               <div *ngIf="f.courtZone.touched && f.courtZone.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.courtZone.errors.required" class="errors">High Court Zone is required</mat-error>
+                <mat-error *ngIf="f.courtZone.errors.required" class="errors">High Court Zone is required</mat-error>
               </div>
             </div>
           </div>
         </div>
         <div class="pg-inner-col">
-                  <div class="default-input-wrapper full-row">
-                    <label>Land Registry:<span class="redtxt">*</span></label>
-                    <div class="default-input-feild">
-                      <mat-form-field appearance="outline">
-                        <select matNativeControl required  formControlName="landRegistry" class="form-control" >
-                          <option value="">Select</option>
-                          <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{ landRegistries.nameEng }}</option>
-                        </select>
-                      </mat-form-field>
-                      <div *ngIf="f.landRegistry.touched && f.landRegistry.errors"
-                           class="invalid-feedback">
-                      <mat-error *ngIf="f.landRegistry.errors.required" class="errors">Land Registry is required</mat-error>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div class="default-input-wrapper full-row">
+            <label>Land Registry:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select matNativeControl required  formControlName="landRegistry" class="form-control" >
+                  <option value="">Select</option>
+                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{ landRegistries.nameEng }}</option>
+                </select>
+              </mat-form-field>
+              <div *ngIf="f.landRegistry.touched && f.landRegistry.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.landRegistry.errors.required" class="errors">Land Registry is required</mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Divisional Secretariat Division:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="secretariatDivision" class="form-control"  (change)="changes($event)">
-                  <option value="">Select</option>
-                  <option *ngFor="let dsDivisions of dsDivision" [value]="dsDivisions.dsDivisionId">{{ dsDivisions.description }}</option>
-                </select>
-              </mat-form-field>
-              <div *ngIf="f.secretariatDivision.touched && f.secretariatDivision.errors"
-                   class="invalid-feedback">
-              <mat-error *ngIf="f.secretariatDivision.errors.required" class="errors">Divisional Secretariat Division is required</mat-error>
+      <div class="rp-row">
+        <div class="pg-inner-row mb-20"  *ngFor="let location of locationList; let i = index">
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>GS Division:<span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-select
+                  class="form-control"
+                  [(ngModel)]="secretariatDivision"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                  <mat-option
+                    *ngFor="let dsDivisions of dsDivision"
+                    [value]="dsDivisions.dsDivisionId"
+                  >{{ dsDivisions.description }}</mat-option
+                  >
+                </mat-select>
               </div>
             </div>
           </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Grama Niladhari Division:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="gramaNiladhariDivision"  class="form-control">
-                  <option value="">Select</option>
-                  <option *ngFor="let gnDivisions of gnDivision" [value]="gnDivisions.gnDivisionId">{{ gnDivisions.description }}</option>
-                </select>
-              </mat-form-field>
-              <div *ngIf="f.gramaNiladhariDivision.touched && f.gramaNiladhariDivision.errors"
-                   class="invalid-feedback">
-              <mat-error *ngIf="f.gramaNiladhariDivision.errors.required" class="errors">Grama Niladhari Division is required</mat-error>
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>GN Division:<span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-select
+                  multiple
+                  class="form-control"
+                  [(ngModel)]="gramaNiladhariDivision"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="selectGnDivision($event.target.value)"
+                >
+                  <ng-container *ngFor="let gnDivisions of gnDivision">
+                    <mat-option
+                      [value]="gnDivisions.gnDivisionId"
+                    >{{ gnDivisions.description }}</mat-option
+                    >
+                  </ng-container>
+                </mat-select>
               </div>
             </div>
           </div>
+          <div class="pg-inner-col">
+            <button  mat-icon-button
+                     color="warn"
+                     (click)="removeLocation(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
         </div>
+        <button class="ml-3 mb-3 add-row" mat-flat-button color="accent" (click)="addLocation()" >
+          Add <i class="material-icons">add_circle_outline</i>
+        </button>
       </div>
 
       <div class="pg-inner-row mb-20">
@@ -411,7 +428,7 @@
               </mat-form-field>
               <div *ngIf="f.enrolledDate.touched && f.enrolledDate.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.enrolledDate.errors.required" class="errors">Required</mat-error>
+                <mat-error *ngIf="f.enrolledDate.errors.required" class="errors">Required</mat-error>
               </div>
               <button mat-raised-button (click)="picker2.open()">
                 <i class="material-icons">calendar_today</i>
@@ -430,7 +447,7 @@
               </mat-form-field>
               <div *ngIf="f.passedDate.touched && f.passedDate.errors"
                    class="invalid-feedback">
-              <mat-error *ngIf="f.passedDate.errors.required" class="errors">Required</mat-error>
+                <mat-error *ngIf="f.passedDate.errors.required" class="errors">Required</mat-error>
               </div>
               <button mat-raised-button (click)="picker3.open()">
                 <i class="material-icons">calendar_today</i>
@@ -450,7 +467,7 @@
           </mat-radio-group>
           <div *ngIf="f.medium.touched && f.medium.errors"
                class="invalid-feedback">
-          <mat-error *ngIf="f.medium.errors.required" class="errors">Required</mat-error>
+            <mat-error *ngIf="f.medium.errors.required" class="errors">Required</mat-error>
           </div>
         </div>
       </div>

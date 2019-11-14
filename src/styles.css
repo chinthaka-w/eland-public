@@ -2048,4 +2048,30 @@ a.pdf-link:visited {
     color: white;
 }
 
+/**/
+.mat-select {
+  border: 1px solid #bcbcbc;
+  padding: 10px;
+}
+
+.mat-select-value-text span {
+  color: #4f4f4f;
+}
+
+.rp-row {
+  display: block;
+  position: relative;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.rp-row .add-row.mat-button-base {
+  display: block;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  color: #fff;
+  min-width: 100px;
+  padding: 0 15px;
+}
 

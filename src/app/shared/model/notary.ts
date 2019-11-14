@@ -5,6 +5,7 @@ import {NewNotaryGnDivisionDTO} from '../dto/new-notary-gn-division';
 export class Notary {
    constructor(
      public newNotaryId: number,
+     public notaryType: number,
      public newNotaryRegistrationRequestId: number,
      public newNotaryCode: string,
      public nic: string,

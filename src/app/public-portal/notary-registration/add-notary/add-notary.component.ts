@@ -34,9 +34,45 @@ export class AddNotaryComponent implements OnInit {
   public notaryDetails: Notary;
   public gnDivisionDetails: GnDivisionDTO;
   public newNotaryGnDivision: NewNotaryGnDivisionDTO;
+
+  public locationDto: any = {};
+  public locationList: NewNotaryGnDivisionDTO[] = [];
+
+  public gsDivisions: any[] = [
+    {
+      id: 1,
+      description: 'Sample 01'
+    },
+    {
+      id: 2,
+      description: 'Sample 02'
+    },
+    {
+      id: 3,
+      description: 'Sample 03'
+    }
+  ];
+
+  public gnDivisions: any[] = [
+    {
+      id: 1,
+      description: 'Sample 01'
+    },
+    {
+      id: 2,
+      description: 'Sample 02'
+    },
+    {
+      id: 3,
+      description: 'Sample 03'
+    }
+  ];
+
   submitted = false;
   selected: any[];
   uploadSuccess: boolean;
+  gramaNiladhariDivision: any;
+  secretariatDivision: any;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -81,6 +117,15 @@ export class AddNotaryComponent implements OnInit {
     this.getJudicialZones();
   }
 
+  addLocation() {
+    this.locationList.push(this.locationDto);
+    this.locationDto = {};
+  }
+
+  removeLocation(index) {
+    this.locationList.splice(index, 1);
+  }
+
   equals(objOne, objTwo) {
     if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
       return objOne.id === objTwo.id;
@@ -92,6 +137,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   public onFormSubmit() {
+    alert('1' + this.notaryForm.get('secretariatDivision').value);
     this.notaryService.findIfNotaryExist(this.notaryForm.value.nic).subscribe(
       (data) => {
         if (data != null) {
@@ -104,8 +150,8 @@ export class AddNotaryComponent implements OnInit {
             this.notaryForm.value.dateOfBirth, this.notaryForm.value.courtZone, this.notaryForm.value.permenentAddressInEnglish,
             this.notaryForm.value.permenentAddressInSinhala,
             this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.currentAddressInTamil,
-            this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo, this.notaryForm.value.landRegistry, this.notaryForm.value.secretariatDivision,
-            this.notaryForm.value.gramaNiladhariDivision, this.notaryForm.value.medium, this.notaryForm.value.userName);
+            this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo, this.notaryForm.value.landRegistry, this.notaryForm.get('secretariatDivision').value,
+            this.notaryForm.get('gramaNiladhariDivision').value, this.notaryForm.value.medium, this.notaryForm.value.userName);
         }
       }
     );
@@ -119,7 +165,7 @@ export class AddNotaryComponent implements OnInit {
 
     this.gnDivisionDetails = new GnDivisionDTO(gramaNiladhariDivision, null, null, null, null, null, divisionSecretariatDivision, 'ACT', null);
     this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( divisionSecretariatDivision, 'asd', [this.gnDivisionDetails]);
-    this.notaryDetails = new Notary(0, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
+    this.notaryDetails = new Notary(0, notaryId, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
       permenentAddressEng, currentAddressEng, permenentAddressSin, currentAddressSin, permenentAddressTam, currentAddressTam,
       fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
       1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(), 'Ishani', userName);
@@ -173,7 +219,6 @@ export class AddNotaryComponent implements OnInit {
 
   onChange(event: MatRadioChange) {
     if (event.value === '1') {
-
       this.notaryForm = this.formBuilder.group({
         notary: new FormControl('', [Validators.required]),
         title: new FormControl('', [Validators.required]),
@@ -185,7 +230,7 @@ export class AddNotaryComponent implements OnInit {
         fullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
         nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
         email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-        languages: new FormControl(''),
+        languages: new FormControl(event.value),
         enrolledDate: new FormControl(new Date(), [Validators.required]),
         passedDate: new FormControl(new Date(), [Validators.required]),
         dateOfBirth: new FormControl(new Date(), [Validators.required]),
@@ -217,7 +262,7 @@ export class AddNotaryComponent implements OnInit {
         fullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
         nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
         email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-        languages: new FormControl(''),
+        languages: new FormControl(event.value),
         enrolledDate: new FormControl(new Date(), [Validators.required]),
         passedDate: new FormControl(new Date(), [Validators.required]),
         dateOfBirth: new FormControl(new Date(), [Validators.required]),
@@ -249,17 +294,17 @@ export class AddNotaryComponent implements OnInit {
         fullNameInTamil: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
         nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
         email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-        languages: new FormControl(''),
+        languages: new FormControl(event.value),
         enrolledDate: new FormControl(new Date(), [Validators.required]),
         passedDate: new FormControl(new Date(), [Validators.required]),
         dateOfBirth: new FormControl(new Date(), [Validators.required]),
         courtZone: new FormControl('', [Validators.required]),
         permenentAddressInEnglish: new FormControl('', [Validators.required]),
         permenentAddressInSinhala: new FormControl(''),
-        permenentAddressInTamil: new FormControl('' ,[Validators.required]),
+        permenentAddressInTamil: new FormControl('' , [Validators.required]),
         currentAddressInEnglish: new FormControl('', [Validators.required]),
         currentAddressInSinhala: new FormControl(''),
-        currentAddressInTamil: new FormControl('' ,[Validators.required]),
+        currentAddressInTamil: new FormControl('' , [Validators.required]),
         mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
         contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
         landRegistry: new FormControl('', [Validators.required]),
