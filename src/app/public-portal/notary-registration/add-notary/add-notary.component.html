@@ -5,380 +5,407 @@
         <i class="material-icons">keyboard_backspace</i>
     </a>
 </div>
-<div class="page-content-wrapper">
+<form class="form-horizontal" [formGroup]="notaryForm">
+  <div class="page-content-wrapper">
     <div class="page-content-inner-wrapper">
-        <div class="pg-inner-row mb-40">
-            <div class="pg-inner-col">
-                <h4 class="m0">Notary Registration</h4>
-            </div>
-            <div class="pg-inner-col right">
-                <div class="default-input-wrapper m0">
-                    <label>Register as a:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <select matNativeControl required>
-                                <option value="notary">Notary</option>
-                                <option value="attorny-at-law">Attorny at Law</option>
-                            </select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
+      <div class="pg-inner-row mb-40">
+        <div class="pg-inner-col">
+          <h4 class="m0">Notary Registration</h4>
         </div>
-        
-        <h5 class="uw-title"><span>Application For A Notarial Warrant</span></h5>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
-                <mat-radio-group formControlName="floatLabel">
-                    <mat-radio-button value="Mr">Mr.</mat-radio-button>
-                    <mat-radio-button value="Mrs">Mrs.</mat-radio-button>
-                    <mat-radio-button value="Miss">Miss</mat-radio-button>
-                </mat-radio-group>
-            </div>
-            <div class="pg-inner-col right">
-                <div class="default-input-wrapper m0 rac-col">
-                    <label>Language:</label>
-                    <div class="default-input-feild">
-                        <section class="example-section">
-                            <mat-checkbox class="example-margin">Sinhala</mat-checkbox>
-                            <mat-checkbox class="example-margin">English</mat-checkbox>
-                            <mat-checkbox class="example-margin">Tamil</mat-checkbox>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="default-input-wrapper full-row">
-            <label>Full name (English):</label>
+        <div class="pg-inner-col right">
+          <div class="default-input-wrapper m0">
+            <label>Register as a:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <select matNativeControl required formControlName="notary"  class="form-control">
+                  <option value="1">Notary</option>
+                  <option value="2">Attorny at Law</option>
+                </select>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('notary', 'required')">Required</mat-error>
             </div>
+          </div>
         </div>
-        <div class="default-input-wrapper full-row">
-            <label>Full name (Sinhala):</label>
+      </div>
+
+      <h5 class="uw-title"><span>Application For A Notarial Warrant</span></h5>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <mat-form-field appearance="outline">
+            <select matNativeControl required  formControlName="title"  class="form-control">
+              <option value="">Select</option>
+              <option value="Mr">Mr</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Miss">Miss</option>
+            </select>
+          </mat-form-field>
+          <mat-error *ngIf="hasError('title', 'required')">Title is required</mat-error>
+        </div>
+        <div class="pg-inner-col right">
+          <div class="default-input-wrapper m0 rac-col">
+            <label>Language:<span class="redtxt">*</span></label>
+            <div class="default-input-feild" >
+              <mat-radio-group  class="form-control" formControlName="languages">
+                <mat-radio-button value="1">Sinhala</mat-radio-button>
+                <mat-radio-button value="2">English</mat-radio-button>
+                <mat-radio-button class="example-margin" value="3">Tamil</mat-radio-button>
+              </mat-radio-group>
+              <mat-error *ngIf="hasError('languages', 'required')">Required</mat-error>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="default-input-wrapper full-row">
+        <label>Full name (English):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="fullNameInEnglish"   class="form-control" >
+          </mat-form-field>
+          <mat-error *ngIf="hasError('fullNameInEnglish', 'required')">Full name (English) is required</mat-error>
+          <mat-error *ngIf="hasError('fullNameInEnglish', 'pattern')">Full name (English) is Invalid</mat-error>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>Full name (Sinhala):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="fullNameInSinhala"   class="form-control">
+          </mat-form-field>
+          <mat-error *ngIf="hasError('fullNameInSinhala', 'pattern')">Full name (Sinhala) is Invalid</mat-error>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>Full name (Tamil):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="fullNameInTamil"   class="form-control">
+          </mat-form-field>
+          <mat-error *ngIf="hasError('fullNameInTamil', 'pattern')">Full name (Tamil) is Invalid</mat-error>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>Name with initials (English):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="englishNameWithInitials"   class="form-control" >
+          </mat-form-field>
+          <mat-error *ngIf="hasError('englishNameWithInitials', 'required')">Name with initials (English) is required</mat-error>
+          <mat-error *ngIf="hasError('englishNameWithInitials', 'pattern')">Name with initials (English) is Invalid</mat-error>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>Name with initials (Sinhala):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="sinhalaNameWithInitials"   class="form-control" >
+          </mat-form-field>
+          <mat-error *ngIf="hasError('sinhalaNameWithInitials', 'required')">Name with initials (Sinhala) is required</mat-error>
+          <mat-error *ngIf="hasError('sinhalaNameWithInitials', 'pattern')">Name with initials (Sinhala) is Invalid</mat-error>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>Name with initials (Tamil):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="tamilNameWithInitials"   class="form-control">
+          </mat-form-field>
+          <mat-error *ngIf="hasError('tamilNameWithInitials', 'required')">Name with initials (Tamil) is required</mat-error>
+          <mat-error *ngIf="hasError('tamilNameWithInitials', 'pattern')">Name with initials (Tamil) is Invalid</mat-error>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Permenent address (English):</label>
             <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5" formControlName="permenentAddressInEnglish"   class="form-control"></textarea>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('permenentAddressInEnglish', 'required')">Permenent address (English) is required</mat-error>
             </div>
+          </div>
         </div>
-        <div class="default-input-wrapper full-row">
-            <label>Full name (Tamil):</label>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Permenent address (Sinhala):</label>
             <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5" formControlName="permenentAddressInSinhala"  class="form-control"></textarea>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('permenentAddressInSinhala', 'required')">Permenent address (Sinhala) is required</mat-error>
             </div>
+          </div>
         </div>
-        <div class="default-input-wrapper full-row">
-            <label>Name with initials (English):</label>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Permenent address (Tamil):</label>
             <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5" formControlName="permenentAddressInTamil"    class="form-control"></textarea>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('permenentAddressInTamil', 'required')">Permenent address (Tamil) is required</mat-error>
             </div>
+          </div>
         </div>
-        <div class="default-input-wrapper full-row">
-            <label>Name with initials (Sinhala):</label>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Current address (English):</label>
             <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5" formControlName="currentAddressInEnglish"  class="form-control"></textarea>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('currentAddressInEnglish', 'required')">Current address (English) is required</mat-error>
             </div>
+          </div>
         </div>
-        <div class="default-input-wrapper full-row">
-            <label>Name with initials (Tamil):</label>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Current address (Sinhala):</label>
             <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5" formControlName="currentAddressInSinhala"  class="form-control"></textarea>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('currentAddressInSinhala', 'required')">Current address (Sinhala) is required</mat-error>
             </div>
+          </div>
         </div>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Permenent address (English):</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <textarea matInput rows="5"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Permenent address (Sinhala):</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <textarea matInput rows="5"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Permenent address (Tamil):</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <textarea matInput rows="5"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Current address (English):</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <textarea matInput rows="5"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Current address (Sinhala):</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <textarea matInput rows="5"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Current address (Tamil):</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <textarea matInput rows="5"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="default-input-wrapper full-row">
-            <label>If Notarial Warrant is sought for Tamil language, state herin full name and address in the same language:</label>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Current address (Tamil):</label>
             <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <textarea matInput rows="5"></textarea>
-                </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5" formControlName="currentAddressInTamil"   class="form-control"></textarea>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('currentAddressInTamil', 'required')">Current address (Tamil) is required</mat-error>
             </div>
+          </div>
         </div>
+      </div>
 
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>Date of Birth:</label>
-                    <div class="default-input-feild date-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput [matDatepicker]="picker">
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                        <button mat-raised-button (click)="picker.open()">
-                            <i class="material-icons">calendar_today</i>
-                        </button>
-                    </div>
-                </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Date of Birth:<span class="redtxt">*</span></label>
+            <div class="default-input-feild date-feild">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="picker"  formControlName="dateOfBirth" class="form-control" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('dateOfBirth', 'required')">Date of Birth is required</mat-error>
+              <button mat-raised-button (click)="picker.open()">
+                <i class="material-icons">calendar_today</i>
+              </button>
             </div>
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>National Identity Card No:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>Contact No. (Residential):</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>Mobile:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>Email:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col"></div>
-        </div>
-
-        <div class="separator">&nbsp;</div>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>High Court Zone:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <select matNativeControl required>
-                                <option value="">Select</option>
-                                <option value="option-1">Option 01</option>
-                                <option value="option-2">Option 02</option>
-                                <option value="option-3">Option 03</option>
-                            </select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>Divisional Secretariat Division:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <select matNativeControl required>
-                                <option value="">Select</option>
-                                <option value="option-1">Option 01</option>
-                                <option value="option-2">Option 02</option>
-                                <option value="option-3">Option 03</option>
-                            </select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>Land Registry:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <select matNativeControl required>
-                                <option value="">Select</option>
-                                <option value="option-1">Option 01</option>
-                                <option value="option-2">Option 02</option>
-                                <option value="option-3">Option 03</option>
-                            </select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>Grama Niladhari Division:</label>
-                    <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <select matNativeControl required>
-                                <option value="">Select</option>
-                                <option value="option-1">Option 01</option>
-                                <option value="option-2">Option 02</option>
-                                <option value="option-3">Option 03</option>
-                            </select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pg-inner-row mb-20">
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label>The day you were enrolled as an Attorney at LAW of the Supreme Court of the Democratic Socialist Republic of Sri Lanka</label>
-                    <div class="default-input-feild date-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput [matDatepicker]="picker2">
-                            <mat-datepicker #picker2></mat-datepicker>
-                        </mat-form-field>
-                        <button mat-raised-button (click)="picker.open()">
-                            <i class="material-icons">calendar_today</i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                    <label style="min-height: 50px;">The day you have passed the subject of conveyancing:</label>
-                    <div class="default-input-feild date-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput [matDatepicker]="picker3">
-                            <mat-datepicker #picker3></mat-datepicker>
-                        </mat-form-field>
-                        <button mat-raised-button (click)="picker.open()">
-                            <i class="material-icons">calendar_today</i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="default-input-wrapper full-row mb-30">
-            <label>The medium you have passed the subject of convayancing:</label>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>National Identity Card No:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-                <section class="example-section">
-                    <mat-checkbox class="example-margin">Sinhala</mat-checkbox>
-                    <mat-checkbox class="example-margin">English</mat-checkbox>
-                    <mat-checkbox class="example-margin">Tamil</mat-checkbox>
-                </section>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="nic"  class="form-control">
+              </mat-form-field>
+              <mat-error *ngIf="hasError('nic', 'required')">National Identity Card No is required</mat-error>
+              <mat-error *ngIf="hasError('nic', 'pattern')">National Identity Card No is Invalid</mat-error>
             </div>
+          </div>
         </div>
+      </div>
 
-        <div class="default-input-wrapper full-row">
-            <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist Republic of Sri Lanka</label>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Contact No. (Residential):<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-                <button mat-raised-button class="f-uploader">
-                    <i class="material-icons">cloud_upload</i> Upload
-                </button>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="contactNo"  class="form-control" >
+              </mat-form-field>
+              <mat-error *ngIf="hasError('contactNo', 'required')">Contact No. (Residential) is required</mat-error>
+              <mat-error *ngIf="hasError('contactNo', 'pattern')">Contact No. (Residential) is Invalid</mat-error>
             </div>
+          </div>
         </div>
-
-        <div class="default-input-wrapper full-row">
-            <label>Copy of the National Identity Card</label>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Mobile:</label>
             <div class="default-input-feild">
-                <button mat-raised-button class="f-uploader">
-                    <i class="material-icons">cloud_upload</i> Upload
-                </button>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="mobileNo"  class="form-control" >
+              </mat-form-field>
+              <mat-error *ngIf="hasError('mobileNo', 'pattern')">Mobile is Invalid</mat-error>
             </div>
+          </div>
         </div>
-        
+      </div>
 
-        <div class="separator">&nbsp;</div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Email:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput  formControlName="email" class="form-control">
+              </mat-form-field>
+              <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+              <mat-error *ngIf="hasError('email', 'pattern')">Email is Invalid</mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col"></div>
+      </div>
 
-        <div class="pg-inner-row mb-0">
-            <div class="pg-inner-col">
-                <div class="f-captcha">
-                    <img src="../../../../assets/images/captcha.jpg" />
+      <div class="separator">&nbsp;</div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>High Court Zone:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select matNativeControl required  formControlName="courtZone"  class="form-control">
+                  <option value="">Select</option>
+                  <option value="1">Option 01</option>
+                  <option value="2">Option 02</option>
+                  <option value="3">Option 03</option>
+                </select>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('courtZone', 'required')">High Court Zone is required</mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+                  <div class="default-input-wrapper full-row">
+                    <label>Land Registry:<span class="redtxt">*</span></label>
+                    <div class="default-input-feild">
+                      <mat-form-field appearance="outline">
+                        <select matNativeControl required  formControlName="landRegistry" class="form-control" >
+                          <option value="">Select</option>
+                          <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{ landRegistries.nameEng }}</option>
+                        </select>
+                      </mat-form-field>
+                      <mat-error *ngIf="hasError('landRegistry', 'required')">Land Registry is required</mat-error>
+                    </div>
+                  </div>
                 </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Divisional Secretariat Division:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select matNativeControl required formControlName="secretariatDivision" class="form-control"  (change)="change($event)">
+                  <option value="">Select</option>
+                  <option *ngFor="let dsDivisions of dsDivision" [value]="dsDivisions.dsDivisionId">{{ dsDivisions.description }}</option>
+                </select>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('secretariatDivision', 'required')">Divisional Secretariat Division is required</mat-error>
             </div>
-            <div class="pg-inner-col right">
-                <button mat-raised-button class="lg-button" [routerLink]="['/verification']">Submit</button>
-            </div>
+          </div>
         </div>
-        
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Grama Niladhari Division:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select matNativeControl required formControlName="gramaNiladhariDivision"  class="form-control">
+                  <option value="">Select</option>
+                  <option *ngFor="let gnDivisions of gnDivision" [value]="gnDivisions.gnDivisionId">{{ gnDivisions.description }}</option>
+                </select>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('gramaNiladhariDivision', 'required')">Grama Niladhari Division is required</mat-error>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>The day you were enrolled as an Attorney at LAW of the Supreme Court of the Democratic Socialist Republic of Sri Lanka<span class="redtxt">*</span></label>
+            <div class="default-input-feild date-feild">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="picker2" formControlName="enrolledDate"  class="form-control">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('enrolledDate', 'required')">Required</mat-error>
+              <button mat-raised-button (click)="picker2.open()">
+                <i class="material-icons">calendar_today</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label style="min-height: 50px;">The day you have passed the subject of conveyancing:<span class="redtxt">*</span></label>
+            <div class="default-input-feild date-feild">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="picker3" formControlName="passedDate"  class="form-control">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="hasError('passedDate', 'required')">Required</mat-error>
+              <button mat-raised-button (click)="picker3.open()">
+                <i class="material-icons">calendar_today</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="default-input-wrapper full-row mb-30">
+        <label>The medium you have passed the subject of convayancing:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-radio-group  class="form-control" formControlName="medium" >
+            <mat-radio-button  value="1">Sinhala</mat-radio-button>
+            <mat-radio-button  value="2">English</mat-radio-button>
+            <mat-radio-button  value="3">Tamil</mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="hasError('medium', 'required')">Required</mat-error>
+        </div>
+      </div>
+
+      <div class="default-input-wrapper full-row">
+        <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist Republic of Sri Lanka</label>
+        <div class="default-input-feild">
+          <button mat-raised-button class="f-uploader">
+            <i class="material-icons">cloud_upload</i> Upload
+          </button>
+        </div>
+      </div>
+
+      <div class="default-input-wrapper full-row">
+        <label>Copy of the National Identity Card</label>
+        <div class="default-input-feild">
+          <button mat-raised-button class="f-uploader">
+            <i class="material-icons">cloud_upload</i> Upload
+          </button>
+        </div>
+      </div>
+
+
+      <div class="separator">&nbsp;</div>
+
+      <div class="pg-inner-row mb-0">
+        <div class="pg-inner-col">
+          <div class="f-captcha">
+            <img src="../../../../assets/images/captcha.jpg" />
+          </div>
+        </div>
+        <div class="pg-inner-col right">
+          <button mat-raised-button class="lg-button"   (click)="onFormSubmit()">Continue</button>
+        </div>
+      </div>
+
     </div>
-</div>
+  </div>
+</form>

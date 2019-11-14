@@ -10,11 +10,11 @@ import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judici
 
 const routes: Routes = [
   {
-    path: "notary-registration",
+    path: 'notary-registration',
     component: AddNotaryComponent
   },
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent
   },
   {
@@ -22,16 +22,15 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: "edit-profile",
+    path: 'edit-profile',
     component: ProfileEditComponent
   },
   {
     path: "user-registration",
     component: AddUserComponent
-  }
-  ,
+  },
   {
-    path: "change-judicial",
+    path: 'change-judicial',
     component: ChangeJudicialComponent
   }
 ];

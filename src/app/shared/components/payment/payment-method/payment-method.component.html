@@ -1,3 +1,4 @@
+<form  class="form-horizontal" [formGroup]="paymentMethodForm">
 <div class="hc-component-wrapper payment">
     <div class="hc-component-img" style="background-image: url('../../../assets/images/temp_img_004.jpg')"></div>
     <div class="hc-component-content">
@@ -23,7 +24,7 @@
                     <label>Bank:</label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
-                            <select matNativeControl required>
+                            <select matNativeControl  formControlName="bank" class="form-control">
                                 <option value="">Select</option>
                                 <option value="option-1">Option 01</option>
                                 <option value="option-2">Option 02</option>
@@ -36,7 +37,7 @@
                     <label>Date:</label>
                     <div class="default-input-feild date-feild">
                         <mat-form-field appearance="outline">
-                            <input matInput [matDatepicker]="picker">
+                            <input matInput [matDatepicker]="picker" formControlName="date" class="form-control">
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
                         <button mat-raised-button (click)="picker.open()">
@@ -47,8 +48,8 @@
                 <div class="default-input-wrapper full-row">
                     <label>Reference No:</label>
                     <div class="default-input-feild">
-                        <mat-form-field appearance="outline">
-                            <input matInput>
+                        <mat-form-field appearance="outline" >
+                            <input matInput formControlName="referenceNo" class="form-control">
                         </mat-form-field>
                     </div>
                 </div>
@@ -61,14 +62,15 @@
                             </div>
                         </div>
                     </div>
-                </div>        
+                </div>
             </div>
 
         </div>
 
         <div class="hc-component-bottom">
             <span class="bt-line">&nbsp;</span>
-            <button mat-raised-button class="lg-button green" [routerLink]="['/login']">Continue</button>
+            <button mat-raised-button class="lg-button green" (click)="savePayment()">Continue</button>
         </div>
     </div>
 </div>
+</form>
