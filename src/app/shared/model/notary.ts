@@ -37,6 +37,7 @@ export class Notary {
      public status: string,
      public createdTime: Date,
      public lastUpdatedUser: string,
+     public userName: string,
    ) {
    }
 }

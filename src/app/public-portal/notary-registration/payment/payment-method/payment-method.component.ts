@@ -4,7 +4,7 @@ import {Notary} from '../../../../shared/model/notary';
 import {AddNotaryComponent} from '../../add-notary/add-notary.component';
 import {NotaryService} from '../../../../shared/service/notary-service';
 import {ActivatedRoute} from '@angular/router';
-import {SnackBarService} from "../../../../shared/service/snack-bar.service";
+import {SnackBarService} from '../../../../shared/service/snack-bar.service';
 
 @Component({
   selector: 'app-payment-method',

@@ -41,7 +41,7 @@ export class AddNotaryComponent implements OnInit {
               private judicialZoneService: JudicialZoneService) { }
 
   ngOnInit() {
-    this.notaryForm = new FormGroup({
+    this.notaryForm = this.formBuilder.group({
       notary: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
       englishNameWithInitials: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
@@ -52,7 +52,7 @@ export class AddNotaryComponent implements OnInit {
       fullNameInTamil: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
       nic: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nicValidation)]),
       email: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.emailValidation)]),
-      languages: new FormControl('' , [Validators.required]),
+      languages: new FormControl('' ),
       enrolledDate: new FormControl(new Date(), [Validators.required]),
       passedDate: new FormControl(new Date(), [Validators.required]),
       dateOfBirth: new FormControl(new Date(), [Validators.required]),
@@ -69,6 +69,7 @@ export class AddNotaryComponent implements OnInit {
       secretariatDivision: new FormControl('', [Validators.required]),
       gramaNiladhariDivision: new FormControl('', [Validators.required]),
       medium: new FormControl('' , [Validators.required]),
+      userName: new FormControl('', [Validators.required]),
     });
     this.getGnDivisions();
     this.getDsDivisions();
@@ -100,7 +101,7 @@ export class AddNotaryComponent implements OnInit {
             this.notaryForm.value.permenentAddressInSinhala,
             this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.currentAddressInTamil,
             this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo, this.notaryForm.value.landRegistry, this.notaryForm.value.secretariatDivision,
-            this.notaryForm.value.gramaNiladhariDivision, this.notaryForm.value.medium);
+            this.notaryForm.value.gramaNiladhariDivision, this.notaryForm.value.medium, this.notaryForm.value.userName);
         }
       }
     );
@@ -110,14 +111,14 @@ export class AddNotaryComponent implements OnInit {
                     fullNameSin: string, fullNameTam: string, nic: string, email: string, languages: number, dateOfEnrolment: Date, dateOfPassed: Date,
                     dateOfBirth: Date, judicialZone: number, permenentAddressEng: string, permenentAddressSin: string, permenentAddressTam: string,
                     currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: string, telephoneNo: string, landRegistryId: number,
-                    divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number): void {
+                    divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number, userName: string): void {
 
     this.gnDivisionDetails = new GnDivisionDTO(gramaNiladhariDivision, null, null, null, null, null, divisionSecretariatDivision, 'ACT', null);
     this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( divisionSecretariatDivision, 'asd', [this.gnDivisionDetails]);
     this.notaryDetails = new Notary(0, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
       permenentAddressEng, currentAddressEng, permenentAddressSin, currentAddressSin, permenentAddressTam, currentAddressTam,
       fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
-      1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(), 'Ishani');
+      1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(), 'Ishani', userName);
 
     this.notaryService.setNotaryDetails(this.notaryDetails);
   }
@@ -160,5 +161,36 @@ export class AddNotaryComponent implements OnInit {
         this.landRegistry = data;
       }
     );
+  }
+
+  public getLanguage(): void {
+    if (this.notaryForm.get('languages').value === '2') {
+      alert('a');
+      this.notaryForm = this.formBuilder.group({
+        englishNameWithInitials: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
+        permenentAddressInEnglish: new FormControl('', [Validators.required]),
+        currentAddressInEnglish: new FormControl('', [Validators.required]),
+      });
+    } else if (this.notaryForm.get('languages').value === '1') {
+      alert('b');
+      this.notaryForm = this.formBuilder.group({
+        sinhalaNameWithInitials: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInSinhala: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
+        permenentAddressInSinhala: new FormControl('', [Validators.required]),
+        currentAddressInSinhala: new FormControl('', [Validators.required]),
+      });
+    } else if (this.notaryForm.get('languages').value === '3') {
+      alert('c');
+      this.notaryForm = this.formBuilder.group({
+        tamilNameWithInitials: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInTamil: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
+        permenentAddressInTamil: new FormControl('', [Validators.required]),
+        currentAddressInTamil: new FormControl('', [Validators.required]),
+      });
+    }
+  }
+  get f() {
+    return this.notaryForm.controls;
   }
 }
