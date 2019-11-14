@@ -15,8 +15,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatTabsModule} from '@angular/material/tabs';
 
-import { VerificationComponent } from './notary-registration/verification/verification.component';
-import { PaymentComponent } from './notary-registration/payment/payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
@@ -25,15 +23,29 @@ import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-i
 import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
+import { PublicRegistrationComponent } from './public-registration/public-registration.component';
+import { AddUserComponent } from './public-registration/add-user/add-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
-import { PaymentMethodComponent } from './notary-registration/payment/payment-method/payment-method.component';
 
 
 
 
 @NgModule({
-  declarations: [AddNotaryComponent, LoginComponent, VerificationComponent, PaymentComponent, DashboardComponent, ProfileEditComponent, ApplicationComponent, PaymentInfoComponent, RemarkComponent, NotaryClerkComponent, HistoryComponent, PaymentMethodComponent, ChangeJudicialComponent],
+  declarations: [
+    AddNotaryComponent,
+    LoginComponent, 
+    DashboardComponent, 
+    ProfileEditComponent, 
+    ApplicationComponent, 
+    PaymentInfoComponent, 
+    RemarkComponent, 
+    NotaryClerkComponent, 
+    HistoryComponent, 
+    PublicRegistrationComponent, 
+    AddUserComponent,
+    ChangeJudicialComponent
+  ],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
