@@ -23,7 +23,6 @@ import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-i
 import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
-import { PublicUserRegistrationComponent } from './public-user-registration/public-user-registration.component';
 import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
@@ -31,7 +30,8 @@ import { PublicProfileEditComponent } from './dashboard/profile/public-profile-e
 import {MatDialogModule} from '@angular/material/dialog';
 import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/notary-details/notary-details.component';
 import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit/account-details/account-details.component';
-
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha';
 
 
 
@@ -46,7 +46,6 @@ import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit
     RemarkComponent, 
     NotaryClerkComponent, 
     HistoryComponent, 
-    PublicUserRegistrationComponent, 
     AddPublicUserComponent,
     ChangeJudicialComponent,
     PublicProfileEditComponent,
@@ -72,6 +71,8 @@ import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit
     FormsModule,
     MatTabsModule,
     HttpModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   exports: [
     LoginComponent,
@@ -89,6 +90,12 @@ import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit
   ],
   entryComponents:[
     PublicProfileEditComponent
-  ]
+  ],
+  providers: [{
+    provide: RECAPTCHA_SETTINGS,
+    useValue: {
+      siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+    } as RecaptchaSettings,
+  }]
 })
 export class PublicPortalModule { }

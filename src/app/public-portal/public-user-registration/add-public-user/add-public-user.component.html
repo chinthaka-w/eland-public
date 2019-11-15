@@ -1,175 +1,230 @@
 <div class="page-header-default">
-    <h2>Registration</h2>
-    <p>Please fill in the following information to<br />register in the system</p>
-    <a href="" class="phd-back-btn">
-        <i class="material-icons">keyboard_backspace</i>
-    </a>
+  <h2>Registration</h2>
+  <p>Please fill in the following information to<br />register in the system</p>
+  <a href="" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
 </div>
 <div class="page-content-wrapper">
-    <div class="page-content-inner-wrapper">
-        <div class="default-input-wrapper full-row half-cols">
-            <label>The land registry nearest to the applicant address <span>*</span></label>
-            <div class="default-input-feild gray">
-                <mat-form-field appearance="outline">
-                    <select matNativeControl required>
-                        <option value="">Select</option>
-                        <option value="option-1">Option 01</option>
-                        <option value="option-2">Option 02</option>
-                        <option value="option-3">Option 03</option>
-                    </select>
-                </mat-form-field>
-            </div>
+  <div class="page-content-inner-wrapper">
+    <form [formGroup]="publicUserForm">
+      <div class="default-input-wrapper full-row half-cols">
+        <label
+          >The land registry nearest to the applicant address
+          <span>*</span></label
+        >
+        <div class="default-input-feild gray">
+          <mat-form-field appearance="outline">
+            <select matNativeControl formControlName="nearestLr" required>
+              <option value="">Select</option>
+              <option value="option-1">Option 01</option>
+              <option value="option-2">Option 02</option>
+              <option value="option-3">Option 03</option>
+            </select>
+          </mat-form-field>
         </div>
+      </div>
 
-        <div class="default-input-wrapper full-row sc-half-cols">
-            <label>User Type <span>*</span></label>
-            <div class="default-input-feild gray">
-                <mat-form-field appearance="outline">
-                    <select matNativeControl required>
-                        <option value="">Select</option>
-                        <option value="option-1">Option 01</option>
-                        <option value="option-2">Option 02</option>
-                        <option value="option-3">Option 03</option>
-                    </select>
-                </mat-form-field>
-            </div>
+      <div class="default-input-wrapper full-row sc-half-cols">
+        <label>User Type <span>*</span></label>
+        <div class="default-input-feild gray">
+          <mat-form-field appearance="outline">
+            <select matNativeControl formControlName="type" required>
+              <option value="">Select</option>
+              <option value="option-1">Option 01</option>
+              <option value="option-2">Option 02</option>
+              <option value="option-3">Option 03</option>
+            </select>
+          </mat-form-field>
         </div>
-        
-        <div class="separator mt-30">&nbsp;</div>
+      </div>
 
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200">Applicant Name <span>*</span></label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="Applicant Name">
-                </mat-form-field>
-            </div>
-        </div>
+      <div class="separator mt-30">&nbsp;</div>
 
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200">Address</label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="Address Line 1">
-                </mat-form-field>
-            </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Applicant Name <span>*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Applicant Name"
+              formControlName="name"
+            />
+          </mat-form-field>
         </div>
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200"></label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="Address Line 2">
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200"></label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="Address Line 3">
-                </mat-form-field>
-            </div>
-        </div>
+      </div>
 
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200">NIC/Passport/ Driving license Number <span>*</span></label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="NIC/Passport">
-                </mat-form-field>
-            </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Address</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Address Line 1"
+              formControlName="address1"
+            />
+          </mat-form-field>
         </div>
+      </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200"></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Address Line 2"
+              formControlName="address2"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200"></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Address Line 3"
+              formControlName="address3"
+            />
+          </mat-form-field>
+        </div>
+      </div>
 
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200">Telephone Number <span>*</span></label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="Telephone Number(Primary)">
-                </mat-form-field>
-            </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200"
+          >NIC/Passport/ Driving license Number <span>*</span></label
+        >
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="NIC/Passport" formControlName="nic" />
+          </mat-form-field>
         </div>
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200">Telephone Number </label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="Telephone Number(Secondary)">
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200">Email Address <span>*</span></label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <input matInput placeholder="Email Address">
-                </mat-form-field>
-            </div>
-            <div class="din-info-col">(Notifications will send to this email)</div>
-        </div>
-        <div class="default-input-wrapper full-row half-cols">
-            <label class="mw-200">Reason for application </label>
-            <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                    <textarea matInput rows="5" placeholder="Reason"></textarea>
-                </mat-form-field>
-            </div>
-        </div>
+      </div>
 
-        <div class="separator mt-30">&nbsp;</div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Telephone Number <span>*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Telephone Number(Primary)"
+              formControlName="primaryContact"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Telephone Number </label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Telephone Number(Secondary)"
+              formControlName="secondaryContact"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Email Address <span>*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Email Address"
+              formControlName="email"
+            />
+          </mat-form-field>
+        </div>
+        <div class="din-info-col">(Notifications will send to this email)</div>
+      </div>
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Reason for application </label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea
+              matInput
+              rows="5"
+              placeholder="Reason"
+              formControlName="reason"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
 
-        <div class="pg-inner-row mb-20 upload-col-3">
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Last obtained copy of Notary's renewal certificate <span>*</span></label>
-                    <div class="default-input-feild">
-                        <div class="drag-drop">
-                            <div class="drag-drop-inner">
-                                <i class="material-icons">cloud_upload</i> Upload
-                            </div>
-                        </div>
-                    </div>
+      <div class="separator mt-30">&nbsp;</div>
+
+      <div class="pg-inner-row mb-20 upload-col-3">
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label
+              >Last obtained copy of Notary's renewal certificate
+              <span>*</span></label
+            >
+
+            <div class="default-input-feild">
+              <div class="drag-drop">
+                <div class="drag-drop-inner">
+                  <input type="file" formControlName="renewalCertificate" />
+                  <i class="material-icons">cloud_upload</i> Upload
                 </div>
+              </div>
             </div>
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>NIC/ Passport/ Driving License <span>*</span></label>
-                    <div class="default-input-feild">
-                        <div class="drag-drop">
-                            <div class="drag-drop-inner">
-                                <i class="material-icons">cloud_upload</i> Upload
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                    <label>Speciment signature and Official seal <span>*</span></label>
-                    <div class="default-input-feild">
-                        <div class="drag-drop">
-                            <div class="drag-drop-inner">
-                                <i class="material-icons">cloud_upload</i> Upload
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>        
-
-        <div class="separator">&nbsp;</div>
-
-        <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
-            <div class="pg-inner-col">
-                <div class="f-captcha">
-                    <img src="../../../../assets/images/captcha.jpg" />
-                </div>
-            </div>
-            <div class="pg-inner-col middle">
-                By signing up, you agree to E-Land's <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> , and <a href="#">Privacy Policy</a> .
-            </div>
-            <div class="pg-inner-col right">
-                <button mat-raised-button class="lg-button" [routerLink]="['/verification']">Submit</button>
-            </div>
+          </div>
         </div>
-        
-    </div>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>NIC/ Passport/ Driving License <span>*</span></label>
+            <div class="default-input-feild">
+              <div class="drag-drop">
+                <div class="drag-drop-inner">
+                  <input type="file" formControlName="nicCopy" />
+                  <i class="material-icons">cloud_upload</i> Upload
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Speciment signature and Official seal <span>*</span></label>
+            <div class="default-input-feild">
+              <div class="drag-drop">
+                <div class="drag-drop-inner">
+                  <input type="file" formControlName="signatureAndSeal" />
+                  <i class="material-icons">cloud_upload</i> Upload
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="separator">&nbsp;</div>
+
+      <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
+        <div class="pg-inner-col">
+          <!-- <div class="f-captcha">
+            <img src="../../../../assets/images/captcha.jpg" />
+          </div> -->
+          <re-captcha formControlName="recaptcha"></re-captcha>
+        </div>
+        <div class="pg-inner-col middle">
+          By signing up, you agree to E-Land's
+          <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
+          and <a href="#">Privacy Policy</a> .
+        </div>
+        <div class="pg-inner-col right">
+          <button
+            mat-raised-button
+            class="lg-button"
+            [disabled]="publicUserForm.invalid"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
