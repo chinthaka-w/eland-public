@@ -2264,4 +2264,19 @@ button.lg-button.no-bg.mat-raised-button.mat-button-base {
 
 }
 
+.snackbar-success{
+    background-color: rgba(0, 128, 0, 0.750);
+    color: white;
+}
+
+.snackbar-error{
+    background-color: rgba(255, 0, 0, 0.750);
+    color: white;
+}
+
+.snackbar-warn{
+    background-color: rgba(255, 166, 0, 0.750);
+    color: white;
+}
+
 

@@ -51,7 +51,8 @@ import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit
     ChangeJudicialComponent,
     PublicProfileEditComponent,
     NotaryDetailsComponent,
-    AccountDetailsComponent
+    AccountDetailsComponent,
+    ChangeJudicialComponent
   ],
   imports: [
     CommonModule,
