@@ -27,6 +27,10 @@ import { PublicRegistrationComponent } from './public-registration/public-regist
 import { AddUserComponent } from './public-registration/add-user/add-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
+import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/notary-details/notary-details.component';
+import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit/account-details/account-details.component';
 
 
 
@@ -44,6 +48,10 @@ import {HttpModule} from '@angular/http';
     HistoryComponent, 
     PublicRegistrationComponent, 
     AddUserComponent,
+    ChangeJudicialComponent,
+    PublicProfileEditComponent,
+    NotaryDetailsComponent,
+    AccountDetailsComponent,
     ChangeJudicialComponent
   ],
   imports: [
@@ -59,6 +67,7 @@ import {HttpModule} from '@angular/http';
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
     MatTabsModule,
@@ -75,7 +84,11 @@ import {HttpModule} from '@angular/http';
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule
+  ],
+  entryComponents:[
+    PublicProfileEditComponent
   ]
 })
 export class PublicPortalModule { }

@@ -1,0 +1,144 @@
+<div class="pg-inner-row">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Name in Full:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>NIC:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pg-inner-row">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Mobile Phone Number:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Email Address:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pg-inner-row">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Permenent Office Address:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput rows="3"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Current Office Address:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput rows="3"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pg-inner-row">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Land Registry:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <select matNativeControl required>
+                        <option value="">Select</option>
+                        <option value="option-1">Option 01</option>
+                        <option value="option-2">Option 02</option>
+                        <option value="option-3">Option 03</option>
+                    </select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Date of Birth:</label>
+            <div class="default-input-feild date-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="picker2">
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                <button mat-raised-button (click)="picker.open()">
+                    <i class="material-icons">calendar_today</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pg-inner-row">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Name of the Notary Clerk:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="default-input-wrapper full-row">
+            <label>NIC of the Notary Clerk:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <dl class="profile-image-uploader">
+                <dt>
+                    <div class="pic-wrapper">
+                        <img src="../../../../../../assets/images/profile-pic.png" />
+                    </div>
+                </dt>
+                <dd>
+                    <div class="default-input-feild">
+                        <button mat-raised-button class="f-uploader">
+                            <i class="material-icons">cloud_upload</i> Upload
+                        </button>
+                        <span>Image has to be a passport size</span>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div class="pg-inner-row mb-0 mt-20">
+    <div class="pg-inner-col right">
+        <button mat-raised-button class="lg-button no-bg">Cancel</button>
+        <button mat-raised-button class="lg-button">Update</button>
+    </div>
+</div>

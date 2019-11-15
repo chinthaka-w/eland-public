@@ -28,8 +28,7 @@ const routes: Routes = [
   {
     path: "user-registration",
     component: AddUserComponent
-  }
-  ,
+  },
   {
     path: 'change-judicial',
     component: ChangeJudicialComponent
