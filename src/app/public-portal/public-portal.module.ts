@@ -23,8 +23,8 @@ import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-i
 import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
-import { PublicRegistrationComponent } from './public-registration/public-registration.component';
-import { AddUserComponent } from './public-registration/add-user/add-user.component';
+import { PublicUserRegistrationComponent } from './public-user-registration/public-user-registration.component';
+import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
 import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
@@ -46,8 +46,8 @@ import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit
     RemarkComponent, 
     NotaryClerkComponent, 
     HistoryComponent, 
-    PublicRegistrationComponent, 
-    AddUserComponent,
+    PublicUserRegistrationComponent, 
+    AddPublicUserComponent,
     ChangeJudicialComponent,
     PublicProfileEditComponent,
     NotaryDetailsComponent,
