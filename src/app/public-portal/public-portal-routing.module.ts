@@ -6,6 +6,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
+import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
+import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
+import { ExtractComponent } from './dashboard/extract/extract.component';
+import { RequestsComponent } from './dashboard/requests/requests.component';
 
 
 const routes: Routes = [
@@ -32,6 +36,22 @@ const routes: Routes = [
   {
     path: 'change-judicial',
     component: ChangeJudicialComponent
+  },
+  {
+    path: 'edit-public-profile',
+    component: PublicProfileEditComponent
+  },
+  {
+    path: 'search-document',
+    component: SearchDocumentComponent
+  },
+  {
+    path: 'extract',
+    component: ExtractComponent
+  },
+  {
+    path: 'requests',
+    component: RequestsComponent
   }
 ];
 

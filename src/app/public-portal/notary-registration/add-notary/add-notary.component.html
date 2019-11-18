@@ -281,19 +281,19 @@
           </div>
         </div>
         <div class="pg-inner-col">
-                  <div class="default-input-wrapper full-row">
-                    <label>Land Registry:<span class="redtxt">*</span></label>
-                    <div class="default-input-feild">
-                      <mat-form-field appearance="outline">
-                        <select matNativeControl required  formControlName="landRegistry" class="form-control" >
-                          <option value="">Select</option>
-                          <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{ landRegistries.nameEng }}</option>
-                        </select>
-                      </mat-form-field>
-                      <mat-error *ngIf="hasError('landRegistry', 'required')">Land Registry is required</mat-error>
-                    </div>
-                  </div>
-                </div>
+            <div class="default-input-wrapper full-row">
+              <label>Land Registry:<span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                  <select matNativeControl required  formControlName="landRegistry" class="form-control" >
+                    <option value="">Select</option>
+                    <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{ landRegistries.nameEng }}</option>
+                  </select>
+                </mat-form-field>
+                <mat-error *ngIf="hasError('landRegistry', 'required')">Land Registry is required</mat-error>
+              </div>
+            </div>
+          </div>
       </div>
 
       <div class="pg-inner-row mb-20">

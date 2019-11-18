@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -32,6 +33,10 @@ import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/
 import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit/account-details/account-details.component';
 import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha';
+import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
+import { ExtractComponent } from './dashboard/extract/extract.component';
+import { RequestsComponent } from './dashboard/requests/requests.component';
+
 
 
 
@@ -51,7 +56,9 @@ import { RecaptchaFormsModule } from 'ng-recaptcha';
     PublicProfileEditComponent,
     NotaryDetailsComponent,
     AccountDetailsComponent,
-    ChangeJudicialComponent
+    SearchDocumentComponent,
+    ExtractComponent,
+    RequestsComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +74,7 @@ import { RecaptchaFormsModule } from 'ng-recaptcha';
     MatDatepickerModule,
     MatFileUploadModule,
     MatDialogModule,
+    MatTableModule,
     ReactiveFormsModule,
     FormsModule,
     MatTabsModule,
@@ -86,7 +94,8 @@ import { RecaptchaFormsModule } from 'ng-recaptcha';
     MatDatepickerModule,
     MatFileUploadModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule
   ],
   entryComponents:[
     PublicProfileEditComponent
