@@ -9,20 +9,10 @@ import { PublicProfileEditComponent } from './profile/public-profile-edit/public
 })
 export class DashboardComponent implements OnInit {
 
-  userType = 'notary';
-  // userType = 'public';
+  // userType = 'notary';
+  userType = 'public';
 
-  constructor(public dialog: MatDialog) {}
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(PublicProfileEditComponent, {
-      width: '1200px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
+  constructor() {}
 
   ngOnInit() {
   }

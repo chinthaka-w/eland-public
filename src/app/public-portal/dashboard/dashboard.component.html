@@ -43,7 +43,7 @@
 
             <div class="db-main-wp">
                 <div class="db-link-tile c1" *ngIf="userType == 'notary'">
-                    <a href="change-judicial">
+                    <a  [routerLink]="['/change-judicial']">
                         <span class="icon">
                             <i class="material-icons">room</i>
                         </span>
@@ -93,7 +93,7 @@
 
                 <!---->
                 <div class="db-link-tile c1" *ngIf="userType == 'public'">
-                    <a href="change-judicial">
+                    <a [routerLink]="['/search-document']">
                         <span class="icon">
                             <i class="material-icons">search</i>
                         </span>
@@ -101,7 +101,7 @@
                     </a>
                 </div>
                 <div class="db-link-tile c4" *ngIf="userType == 'public'">
-                    <a href="#">
+                    <a [routerLink]="['/extract']">
                         <span class="icon">
                             <i class="material-icons">dns</i>
                         </span>
@@ -109,7 +109,7 @@
                     </a>
                 </div>
                 <div class="db-link-tile c3" *ngIf="userType == 'public'">
-                    <a href="#">
+                    <a [routerLink]="['/requests']">
                         <span class="icon">
                             <i class="material-icons">feedback</i>
                         </span>
@@ -125,9 +125,6 @@
                     </a>
                 </div>
             </div>
-
-            <button mat-button (click)="openDialog()">Open dialog</button>
-
             <!-- Search -->
             <div class="db-search">
                 <div class="default-input-feild">
