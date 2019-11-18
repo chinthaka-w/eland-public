@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Notary} from '../model/notary';
 import {Observable, of, throwError} from 'rxjs';
 import {PaymentDto} from '../dto/payment-dto';
-import {NotaryPaymentDto} from "../dto/notary-payment.dto";
+import {NotaryPaymentDto} from '../dto/notary-payment.dto';
 
 
 @Injectable()
@@ -20,12 +20,6 @@ export class NotaryService {
   saveNotaryDetails(notaries: NotaryPaymentDto): Observable<Object> {
     console.log(notaries);
     return this.httpClient.post(this.BASE_URL + '/' , notaries, {responseType: 'text', headers: this.headers});
-  }
-
-  // tslint:disable-next-line:ban-types
-  saveNotaryPayment(payment: PaymentDto): Observable<Object> {
-    console.log(payment + '....');
-    return this.httpClient.post(this.BASE_URL + '/payment' , payment, {responseType: 'text', headers: this.headers});
   }
 
   // tslint:disable-next-line:ban-types

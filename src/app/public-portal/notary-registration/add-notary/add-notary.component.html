@@ -310,7 +310,7 @@
             <label>Email:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <input matInput  formControlName="email" class="form-control">
+                <input matInput  formControlName="email" class="form-control" (ngModelChange)="inputEmail($event)">
               </mat-form-field>
               <div *ngIf="f.email.touched && f.email.errors"
                    class="invalid-feedback">
@@ -350,7 +350,7 @@
               <mat-form-field appearance="outline">
                 <select matNativeControl required  formControlName="landRegistry" class="form-control" >
                   <option value="">Select</option>
-                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{ landRegistries.nameEng }}</option>
+                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
                 </select>
               </mat-form-field>
               <div *ngIf="f.landRegistry.touched && f.landRegistry.errors"
@@ -366,11 +366,12 @@
         <div class="pg-inner-row mb-20"  *ngFor="let location of locationList; let i = index">
           <div class="pg-inner-col">
             <div class="default-input-wrapper full-row">
-              <label>GS Division:<span class="redtxt">*</span></label>
+              <label>DS Division:<span class="redtxt">*</span></label>
               <div class="default-input-feild">
                 <mat-select
                   class="form-control"
                   formControlName="secretariatDivision"
+                  (ngModelChange)="changes($event)"
                 >
                   <mat-option
                     *ngFor="let dsDivisions of dsDivision"
@@ -389,7 +390,6 @@
                   multiple
                   class="form-control"
                   formControlName="gramaNiladhariDivision"
-                  (change)="selectGnDivision($event.target.value)"
                 >
                   <ng-container *ngFor="let gnDivisions of gnDivision">
                     <mat-option

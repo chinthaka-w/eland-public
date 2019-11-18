@@ -26,6 +26,7 @@ import {JudicialZoneService} from './shared/service/judicial-zone.service';
 import {BankService} from './shared/service/bank.service';
 import {BankBranchService} from './shared/service/bank-branch.service';
 import {PaymentService} from "./shared/service/payment.service";
+import {ParameterService} from "./shared/service/parameter.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -58,7 +59,8 @@ import {PaymentService} from "./shared/service/payment.service";
     JudicialZoneService,
     BankService,
     BankBranchService,
-    PaymentService],
+    PaymentService,
+    ParameterService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

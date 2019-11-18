@@ -86,7 +86,6 @@ export class AddNotaryComponent implements OnInit {
 
   addLocation() {
     this.locationList.push(this.locationDto);
-    alert(this.locationList.length);
     this.locationDto = {};
   }
 
@@ -95,7 +94,6 @@ export class AddNotaryComponent implements OnInit {
   }
 
   public onFormSubmit() {
-    alert('1' + this.notaryForm.get('secretariatDivision').value);
     this.notaryService.findIfNotaryExist(this.notaryForm.value.nic).subscribe(
       (data) => {
         if (data != null) {
@@ -161,7 +159,6 @@ export class AddNotaryComponent implements OnInit {
       }
     );
   }
-
   private getLandRegistries(): void {
     this.landRegistryService.getAllLandRegistry().subscribe(
       (data: LandRegistry[]) => {
@@ -172,6 +169,10 @@ export class AddNotaryComponent implements OnInit {
 
   get f() {
     return this.notaryForm.controls;
+  }
+
+  inputEmail($event): void {
+    this.notaryForm.get('userName').setValue(this.notaryForm.get('email').value);
   }
 
   onChange(event: MatRadioChange) {
