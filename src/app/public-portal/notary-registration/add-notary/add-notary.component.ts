@@ -38,41 +38,6 @@ export class AddNotaryComponent implements OnInit {
   public locationDto: any = {};
   public locationList: NewNotaryGnDivisionDTO[] = [];
 
-  public gsDivisions: any[] = [
-    {
-      id: 1,
-      description: 'Sample 01'
-    },
-    {
-      id: 2,
-      description: 'Sample 02'
-    },
-    {
-      id: 3,
-      description: 'Sample 03'
-    }
-  ];
-
-  public gnDivisions: any[] = [
-    {
-      id: 1,
-      description: 'Sample 01'
-    },
-    {
-      id: 2,
-      description: 'Sample 02'
-    },
-    {
-      id: 3,
-      description: 'Sample 03'
-    }
-  ];
-
-  submitted = false;
-  selected: any[];
-  uploadSuccess: boolean;
-  gramaNiladhariDivision: any;
-  secretariatDivision: any;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -115,25 +80,18 @@ export class AddNotaryComponent implements OnInit {
     this.getDsDivisions();
     this.getLandRegistries();
     this.getJudicialZones();
+    this.locationList.push(this.locationDto);
+    this.locationDto = {};
   }
 
   addLocation() {
     this.locationList.push(this.locationDto);
+    alert(this.locationList.length);
     this.locationDto = {};
   }
 
   removeLocation(index) {
     this.locationList.splice(index, 1);
-  }
-
-  equals(objOne, objTwo) {
-    if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
-      return objOne.id === objTwo.id;
-    }
-  }
-
-  public hasError = (controlName: string, errorName: string) => {
-    return this.notaryForm.controls[controlName].hasError(errorName);
   }
 
   public onFormSubmit() {
@@ -150,8 +108,8 @@ export class AddNotaryComponent implements OnInit {
             this.notaryForm.value.dateOfBirth, this.notaryForm.value.courtZone, this.notaryForm.value.permenentAddressInEnglish,
             this.notaryForm.value.permenentAddressInSinhala,
             this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.currentAddressInTamil,
-            this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo, this.notaryForm.value.landRegistry, this.notaryForm.get('secretariatDivision').value,
-            this.notaryForm.get('gramaNiladhariDivision').value, this.notaryForm.value.medium, this.notaryForm.value.userName);
+            this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo, this.notaryForm.value.landRegistry, this.notaryForm.value.secretariatDivision,
+            this.notaryForm.value.gramaNiladhariDivision, this.notaryForm.value.medium, this.notaryForm.value.userName);
         }
       }
     );

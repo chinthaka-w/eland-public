@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {PaymentService} from '../../service/payment.service';
 
 @Component({
   selector: 'app-payment',
@@ -9,7 +10,8 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 export class PaymentComponent implements OnInit {
   public paymentForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private paymentService: PaymentService) { }
 
   ngOnInit() {
     this.paymentForm = new FormGroup({
@@ -17,5 +19,10 @@ export class PaymentComponent implements OnInit {
       paymentMethod: new FormControl(0)
     });
   }
+
+  getPayementFormDetails() {
+    this.paymentService.setPaymentMethod(this.paymentForm.get('paymentMethod').value);
+  }
+
 
 }

@@ -1,9 +1,10 @@
 import { GnDivision} from '../model/gn-division';
+import {GnDivisionDTO} from './gn-division-dto';
 
 export class NewNotaryGnDivisionDTO {
   constructor(
     public dsDivisionId: number,
     public dsDivisionDescription: string,
-    public gnDivisions: GnDivision [] = [],
+    public gnDivisions: GnDivisionDTO [] = [],
   ) {}
 }

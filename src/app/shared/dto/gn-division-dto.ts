@@ -1,4 +1,4 @@
-export class GnDivisionDTO{
+export class GnDivisionDTO {
   constructor(
     public gnDivisionId: number,
     public dsDivision: string,

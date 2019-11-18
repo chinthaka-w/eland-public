@@ -370,8 +370,7 @@
               <div class="default-input-feild">
                 <mat-select
                   class="form-control"
-                  [(ngModel)]="secretariatDivision"
-                  [ngModelOptions]="{ standalone: true }"
+                  formControlName="secretariatDivision"
                 >
                   <mat-option
                     *ngFor="let dsDivisions of dsDivision"
@@ -389,8 +388,7 @@
                 <mat-select
                   multiple
                   class="form-control"
-                  [(ngModel)]="gramaNiladhariDivision"
-                  [ngModelOptions]="{ standalone: true }"
+                  formControlName="gramaNiladhariDivision"
                   (change)="selectGnDivision($event.target.value)"
                 >
                   <ng-container *ngFor="let gnDivisions of gnDivision">
