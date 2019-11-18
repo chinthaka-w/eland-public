@@ -24,14 +24,15 @@ import { PaymentInfoComponent } from './dashboard/profile/profile-edit/payment-i
 import { RemarkComponent } from './dashboard/profile/profile-edit/remark/remark.component';
 import { NotaryClerkComponent } from './dashboard/profile/profile-edit/notary-clerk/notary-clerk.component';
 import { HistoryComponent } from './dashboard/profile/profile-edit/history/history.component';
-import { PublicRegistrationComponent } from './public-registration/public-registration.component';
-import { AddUserComponent } from './public-registration/add-user/add-user.component';
+import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
 import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/notary-details/notary-details.component';
 import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit/account-details/account-details.component';
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
 import { RequestsComponent } from './dashboard/requests/requests.component';
@@ -50,8 +51,7 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
     RemarkComponent, 
     NotaryClerkComponent, 
     HistoryComponent, 
-    PublicRegistrationComponent, 
-    AddUserComponent,
+    AddPublicUserComponent,
     ChangeJudicialComponent,
     PublicProfileEditComponent,
     NotaryDetailsComponent,
@@ -79,6 +79,8 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
     FormsModule,
     MatTabsModule,
     HttpModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   exports: [
     LoginComponent,
@@ -96,7 +98,13 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
     MatTableModule
   ],
   entryComponents:[
-    
-  ]
+    PublicProfileEditComponent
+  ],
+  providers: [{
+    provide: RECAPTCHA_SETTINGS,
+    useValue: {
+      siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+    } as RecaptchaSettings,
+  }]
 })
 export class PublicPortalModule { }
