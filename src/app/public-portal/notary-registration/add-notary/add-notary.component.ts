@@ -127,7 +127,6 @@ export class AddNotaryComponent implements OnInit {
       permenentAddressEng, currentAddressEng, permenentAddressSin, currentAddressSin, permenentAddressTam, currentAddressTam,
       fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
       1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(), 'Ishani', userName);
-
     this.notaryService.setNotaryDetails(this.notaryDetails);
   }
 

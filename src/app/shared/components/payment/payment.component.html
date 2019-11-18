@@ -14,9 +14,9 @@
                 </div>
             </div>
             <div class="default-input-wrapper full-row mb-30">
-                <label><strong>Payment</strong>Payment method</label>
+                <label><strong>PaymentDto</strong>Payment method</label>
                 <div class="default-input-feild">
-                  <mat-radio-group formControlName="paymentMethod" class="form-control">
+                  <mat-radio-group formControlName="paymentMethod" class="form-control" (change)="getPayementFormDetails()">
                     <mat-radio-button class="example-margin" value="1">Online</mat-radio-button>
                     <mat-radio-button class="example-margin" value="2">Bank Transfer</mat-radio-button>
                   </mat-radio-group>

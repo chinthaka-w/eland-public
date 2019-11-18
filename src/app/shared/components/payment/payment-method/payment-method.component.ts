@@ -9,9 +9,9 @@ import {BankService} from '../../../service/bank.service';
 import {Bank} from '../../../model/bank';
 import {BankBranchService} from '../../../service/bank-branch.service';
 import {BankBranch} from '../../../model/bank-branch';
-import {PaymentComponent} from '../payment.component';
-import {Payment} from '../../../model/payment';
+import {PaymentDto} from '../../../dto/payment-dto';
 import {PaymentService} from '../../../service/payment.service';
+import {NotaryPaymentDto} from '../../../dto/notary-payment.dto';
 
 
 @Component({
@@ -25,7 +25,8 @@ export class PaymentMethodComponent implements OnInit {
   public paymentMethodForm: FormGroup;
   public bankDetails: Bank[];
   public branchDetails: BankBranch[];
-  public payment: Payment;
+  public payment: PaymentDto;
+  public notaryPaymentDTO: NotaryPaymentDto;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private dataRoute: ActivatedRoute,
@@ -46,16 +47,12 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   savePayment() {
-    this.payment = new  Payment(0, this.paymentService.getPaymentMethod(), this.paymentMethodForm.get('referenceNo').value, this.paymentMethodForm.get('date').value,
-      10000, 'ACT', new Date(), new Date(), [''], this.paymentMethodForm.get('bank').value, this.paymentMethodForm.get('branch').value, 'USER');
     this.notaryDetails = this.notaryService.getNotaryDetails();
-    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
+    this.payment = new  PaymentDto( this.paymentService.getPaymentMethod(), this.paymentMethodForm.get('referenceNo').value, this.paymentMethodForm.get('date').value,
+      10000, 'ACT', new Date(), new Date(),  this.paymentMethodForm.get('bank').value, this.paymentMethodForm.get('branch').value, 'USER');
+    const notaryPayment = new NotaryPaymentDto(this.notaryDetails, this.payment);
+    this.notaryService.saveNotaryDetails(notaryPayment).subscribe(
       (success: string) => {
-        this.notaryService.saveNotaryPayment(this.payment).subscribe(
-          (succss: string) => {
-            this.snackBar.success('Notary Payment Success');
-          }
-        );
         this.snackBar.success('Notary Registration Success');
       },
       error => {
