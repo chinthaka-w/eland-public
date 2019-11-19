@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 import { AddUserComponent } from './public-registration/add-user/add-user.component';
 import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
+import {RequestForCorrectionComponent} from "./request_for_correction/request-for-correction/request-for-correction.component";
 
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'change-judicial',
     component: ChangeJudicialComponent
+  },
+  {
+    path:'request_for_correction',
+    component:RequestForCorrectionComponent
   }
 ];
 

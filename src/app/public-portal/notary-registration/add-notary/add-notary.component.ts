@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Notary} from '../../../shared/model/notary';
-import {NotaryService} from '../../../shared/service/notary-service';
-import {GnDivisionService} from '../../../shared/service/gn-division-service';
-import {GnDivision} from '../../../shared/model/gn-division';
-import {DsDivision} from '../../../shared/model/ds-division';
-import {LandRegistry} from '../../../shared/model/land-registry';
-import {DsDivisionService} from '../../../shared/service/ds-division-service';
-import {LandRegistryService} from '../../../shared/service/land-registry-service';
-import {NewNotaryGnDivisionDTO} from '../../../shared/model/new-notary-gn-division';
-import {PatternValidation} from '../../../shared/pattern-validation.enum';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Notary } from '../../../shared/model/notary';
+import { NotaryService } from '../../../shared/service/notary-service';
+import { GnDivisionService } from '../../../shared/service/gn-division-service';
+import { GnDivision } from '../../../shared/model/gn-division';
+import { DsDivision } from '../../../shared/model/ds-division';
+import { LandRegistry } from '../../../shared/model/land-registry';
+import { DsDivisionService } from '../../../shared/service/ds-division-service';
+import { LandRegistryService } from '../../../shared/service/land-registry-service';
+import { NewNotaryGnDivisionDTO } from '../../../shared/model/new-notary-gn-division';
+import { PatternValidation } from '../../../shared/pattern-validation.enum';
 
 
 @Component({
   selector: 'app-add-notary',
   templateUrl: './add-notary.component.html',
- // template: '<app-payment-method [notaryDetails] = notaryDetails></app-payment-method>',
+  // template: '<app-payment-method [notaryDetails] = notaryDetails></app-payment-method>',
   styleUrls: ['./add-notary.component.css']
 })
 
@@ -30,24 +30,24 @@ export class AddNotaryComponent implements OnInit {
   selected: any[];
   uploadSuccess: boolean;
   constructor(private formBuilder: FormBuilder,
-              private notaryService: NotaryService,
-              private gnDivisionService: GnDivisionService,
-              private dsDivisionService: DsDivisionService,
-              private landRegistryService: LandRegistryService) { }
+    private notaryService: NotaryService,
+    private gnDivisionService: GnDivisionService,
+    private dsDivisionService: DsDivisionService,
+    private landRegistryService: LandRegistryService) { }
 
   ngOnInit() {
     this.notaryForm = new FormGroup({
       notary: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
-      englishNameWithInitials: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
+      englishNameWithInitials: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
       sinhalaNameWithInitials: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
       tamilNameWithInitials: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
-      fullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      fullNameInSinhala: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
-      fullNameInTamil: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
-      nic: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nicValidation)]),
-      email: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.emailValidation)]),
-      languages: new FormControl('' , [Validators.required]),
+      fullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+      fullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+      fullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+      nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+      languages: new FormControl('', [Validators.required]),
       enrolledDate: new FormControl(new Date(), [Validators.required]),
       passedDate: new FormControl(new Date(), [Validators.required]),
       dateOfBirth: new FormControl(new Date(), [Validators.required]),
@@ -59,11 +59,11 @@ export class AddNotaryComponent implements OnInit {
       currentAddressInSinhala: new FormControl(''),
       currentAddressInTamil: new FormControl(''),
       mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      contactNo: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.contactNumberValidation)]),
+      contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
       landRegistry: new FormControl('', [Validators.required]),
       secretariatDivision: new FormControl('', [Validators.required]),
       gramaNiladhariDivision: new FormControl('', [Validators.required]),
-      medium: new FormControl('' , [Validators.required]),
+      medium: new FormControl('', [Validators.required]),
     });
     this.getGnDivisions();
     this.getDsDivisions();
@@ -101,10 +101,10 @@ export class AddNotaryComponent implements OnInit {
   }
 
   saveNotaryDetails(notaryId: number, titleEng: string, initialsEng: string, initialsSin: string, initialsTam: string, fullNameEng: string,
-                    fullNameSin: string, fullNameTam: string, nic: string, email: string, languages: number, dateOfEnrolment: Date, dateOfPassed: Date,
-                    dateOfBirth: Date, judicialZone: number, permenentAddressEng: string, permenentAddressSin: string, permenentAddressTam: string,
-                    currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: string, telephoneNo: string, landRegistryId: number,
-                    divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number): void {
+    fullNameSin: string, fullNameTam: string, nic: string, email: string, languages: number, dateOfEnrolment: Date, dateOfPassed: Date,
+    dateOfBirth: Date, judicialZone: number, permenentAddressEng: string, permenentAddressSin: string, permenentAddressTam: string,
+    currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: string, telephoneNo: string, landRegistryId: number,
+    divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number): void {
 
     this.newNotaryGnDivision = new NewNotaryGnDivisionDTO(0, 'status', new Date(), divisionSecretariatDivision, gramaNiladhariDivision, 0);
     this.notaryDetails = new Notary(0, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
@@ -122,8 +122,8 @@ export class AddNotaryComponent implements OnInit {
   private getGnDivisions(): void {
     this.gnDivisionService.getAllGnDivisions().subscribe(
       (data: GnDivision[]) => {
-        this.gnDivision = data ;
-        }
+        this.gnDivision = data;
+      }
     );
   }
 

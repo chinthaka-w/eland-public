@@ -27,6 +27,7 @@ import { PublicRegistrationComponent } from './public-registration/public-regist
 import { AddUserComponent } from './public-registration/add-user/add-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
+import { RequestForCorrectionComponent } from './request_for_correction/request-for-correction/request-for-correction.component';
 
 
 
@@ -44,7 +45,8 @@ import {HttpModule} from '@angular/http';
     HistoryComponent, 
     PublicRegistrationComponent, 
     AddUserComponent,
-    ChangeJudicialComponent
+    ChangeJudicialComponent,
+    RequestForCorrectionComponent
   ],
   imports: [
     CommonModule,
