@@ -1,4 +1,4 @@
-import {NewNotaryGnDivisionDTO} from '../dto/new-notary-gn-division';
+import {NewNotaryGnDivisionDTO} from './new-notary-gn-division';
 
 export class Notary {
    constructor(

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {PaymentService} from '../../service/payment.service';
-import {Parameters} from '../../parameters';
+import {ParametersEnum} from '../../enum/parameters.enum';
 import {ParameterService} from '../../service/parameter.service';
 
 @Component({
@@ -25,8 +25,8 @@ export class PaymentComponent implements OnInit {
       licenseMethod: new FormControl(0),
       paymentMethod: new FormControl(0)
     });
-    this.amount = Parameters.AMOUNT;
-    this.issue = Parameters.ISSUE_POST;
+    this.amount = ParametersEnum.AMOUNT;
+    this.issue = ParametersEnum.ISSUE_POST;
     this.total = this.amount;
   }
 

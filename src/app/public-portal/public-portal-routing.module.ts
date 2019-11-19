@@ -22,7 +22,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent
   },
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
     component: ProfileEditComponent
   },
   {
-    path: "user-registration",
+    path: 'user-registration',
     component: AddPublicUserComponent
   },
   {

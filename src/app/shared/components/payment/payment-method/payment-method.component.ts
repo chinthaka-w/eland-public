@@ -9,9 +9,9 @@ import {BankService} from '../../../service/bank.service';
 import {Bank} from '../../../model/bank';
 import {BankBranchService} from '../../../service/bank-branch.service';
 import {BankBranch} from '../../../model/bank-branch';
-import {PaymentDto} from '../../../dto/payment-dto';
+import {PaymentDto} from '../../../model/payment-dto';
 import {PaymentService} from '../../../service/payment.service';
-import {NotaryPaymentDto} from '../../../dto/notary-payment.dto';
+import {NotaryPaymentDto} from '../../../model/notary-payment.dto';
 
 
 @Component({

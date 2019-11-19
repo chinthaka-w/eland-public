@@ -9,5 +9,5 @@ export class GnDivision {
     dsDivisionId: number,
     state: string,
     lastUpdatedUser: string,
-  ){}
+  ) {}
 }

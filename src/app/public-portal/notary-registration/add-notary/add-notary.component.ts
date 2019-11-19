@@ -8,14 +8,14 @@ import {DsDivision} from '../../../shared/model/ds-division';
 import {LandRegistry} from '../../../shared/model/land-registry';
 import {DsDivisionService} from '../../../shared/service/ds-division-service';
 import {LandRegistryService} from '../../../shared/service/land-registry-service';
-import {NewNotaryGnDivisionDTO} from '../../../shared/dto/new-notary-gn-division';
-import {PatternValidation} from '../../../shared/pattern-validation.enum';
+import {NewNotaryGnDivisionDTO} from '../../../shared/model/new-notary-gn-division';
+import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {JudicialZoneService} from '../../../shared/service/judicial-zone.service';
 import {JudicialZoneModel} from '../../../shared/custom-model/judicial-zone.model';
-import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
+import {GnDivisionDTO} from '../../../shared/model/gn-division-dto';
 import {MatRadioChange} from '@angular/material/radio';
 import {DomSanitizer} from '@angular/platform-browser';
-import {TokenStorageService} from "../../../shared/auth/token-storage.service";
+import {TokenStorageService} from '../../../shared/auth/token-storage.service';
 
 
 @Component({

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Notary} from '../model/notary';
 import {Observable, of, throwError} from 'rxjs';
-import {PaymentDto} from '../dto/payment-dto';
-import {NotaryPaymentDto} from '../dto/notary-payment.dto';
+import {PaymentDto} from '../model/payment-dto';
+import {NotaryPaymentDto} from '../model/notary-payment.dto';
 
 
 @Injectable()
