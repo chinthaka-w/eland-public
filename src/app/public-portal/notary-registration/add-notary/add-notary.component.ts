@@ -183,7 +183,7 @@ export class AddNotaryComponent implements OnInit {
     );
   }
 
-  get f() {
+  get FormControls() {
     return this.notaryForm.controls;
   }
 
