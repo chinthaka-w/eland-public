@@ -701,7 +701,7 @@ button.theme-light.mat-raised-button:hover {
     background: #1582eb;
     text-align: center;
     color: #fff;
-    padding: 100px 10% 120px 10%;
+    padding: 100px 10% 140px 10%;
 }
 
 .page-header-default h2 {
@@ -710,6 +710,7 @@ button.theme-light.mat-raised-button:hover {
     line-height: 40px;
     font-weight: 700;
     margin: 0 0 20px 0;
+    padding: 0 5%;
 }
 
 .page-header-default p {
@@ -900,7 +901,7 @@ h5.uw-title:before {
 
 .mat-radio-group.mat-radio-group {
     display: block;
-    margin: 15px 0;
+    margin: 0;
 }
 
 .mat-radio-label-content {
@@ -2028,6 +2029,126 @@ span.t-status {
 .db-main-wp h4 .material-icons {
     top: 5px;
     position: relative;
+}
+
+/**/
+.db-card-full.r-col {
+    display: inline-block;
+    width: 40%;
+    min-width: 260px;
+    max-width: 320px;
+    border: none;
+    margin-right: 5%;
+    margin-bottom: 5%;
+}
+
+.db-card-full.r-col .db-card-header {
+    text-align: center;
+}
+
+.db-card-full.r-col .db-card-header::before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+}
+
+.db-card-full.r-col .db-card-header span {
+    display: block;
+    position: absolute;
+    min-width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.db-card-full.r-col .db-card-header span .material-icons {
+    position: relative;
+    top: 5px;
+}
+
+.db-card-full.r-col dl.db-card-info {
+    width: 100%;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
+}
+
+.db-card-full.r-col dl.db-card-info dt {
+    min-width: 90px;
+    font-weight: 600;
+}
+
+
+/* Mat Table */
+.mat-table-wrapper {
+    display: block;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.mat-table-wrapper table.mat-table {
+    box-shadow: none !important;
+    border: 1px solid #fff !important;
+    background: #fff !important;
+    width: 100% !important;
+}
+
+.mat-table-wrapper table.mat-table .mat-cell, 
+.mat-table-wrapper table.mat-table .mat-footer-cell {
+    color: #4f4f4f !important;
+    font-size: 13px !important;
+    line-height: 15px !important;
+    border-bottom: 1px solid #ededed !important;
+}
+
+.mat-table-wrapper table.mat-table .mat-header-cell {
+    color: #4f4f4f !important;
+    font-weight: 700 !important;
+    font-size: 17px !important;
+    line-height: 18px !important;
+    border-bottom: 2px solid #ededed !important;
+}
+
+span.orange {
+    display: inline-block;
+    position: relative;
+    background: #F2994A;
+    color: #fff;
+    padding: 3px 15px;
+    border-radius: 20px;
+}
+
+span.green {
+    display: inline-block;
+    position: relative;
+    background: #34A853;
+    color: #fff;
+    padding: 3px 15px;
+    border-radius: 20px;
+}
+
+.model-button-col {
+    display: block;
+    position: relative;
+    padding: 10px 0;
+    text-align: right;
+}
+
+.model-button-col.center {
+    text-align: center;
+}
+
+.model-button-col .mat-raised-button {
+    border-radius: 5px !important;
 }
 
 /* Extra large devices - large desktops */

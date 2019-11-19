@@ -10,6 +10,11 @@ import { PublicProfileEditComponent } from './dashboard/profile/public-profile-e
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
 import { RequestsComponent } from './dashboard/requests/requests.component';
+import { ChangeTheNameComponent } from './dashboard/change-the-name/change-the-name.component';
+import { LanguageChangeComponent } from './dashboard/language-change/language-change.component';
+import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.component';
+import { ResignationComponent } from './dashboard/resignation/resignation.component';
+import { ApplicationsComponent } from './dashboard/applications/applications.component';
 
 
 const routes: Routes = [
@@ -52,6 +57,26 @@ const routes: Routes = [
   {
     path: 'requests',
     component: RequestsComponent
+  },
+  {
+    path: 'change-the-name',
+    component: ChangeTheNameComponent
+  },
+  {
+    path: 'language-change',
+    component: LanguageChangeComponent
+  },
+  {
+    path: 'leave-request',
+    component: LeaveRequestComponent
+  },
+  {
+    path: 'resignation',
+    component: ResignationComponent
+  },
+  {
+    path: 'applications',
+    component: ApplicationsComponent
   }
 ];
 
