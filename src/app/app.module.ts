@@ -22,6 +22,11 @@ import {LandRegistryService} from './shared/service/land-registry-service';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import {JudicialZoneService} from './shared/service/judicial-zone.service';
+import {BankService} from './shared/service/bank.service';
+import {BankBranchService} from './shared/service/bank-branch.service';
+import {PaymentService} from "./shared/service/payment.service";
+import {ParameterService} from "./shared/service/parameter.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,9 +53,14 @@ import {HttpClientModule} from '@angular/common/http';
   providers: [MatDatepickerModule,
     HttpClient,
     NotaryService,
-   GnDivisionService,
-   DsDivisionService,
-   LandRegistryService],
+    GnDivisionService,
+    DsDivisionService,
+    LandRegistryService,
+    JudicialZoneService,
+    BankService,
+    BankBranchService,
+    PaymentService,
+    ParameterService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,9 +1,9 @@
 <div class="page-header-default">
-    <h2>Notary Services Registration</h2>
-    <p>Please fill in the following information to<br />register in the system</p>
-    <a href="" class="phd-back-btn">
-        <i class="material-icons">keyboard_backspace</i>
-    </a>
+  <h2>Notary Services Registration</h2>
+  <p>Please fill in the following information to<br />register in the system</p>
+  <a href="" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
 </div>
 <form class="form-horizontal" [formGroup]="notaryForm">
   <div class="page-content-wrapper">
@@ -22,7 +22,10 @@
                   <option value="2">Attorny at Law</option>
                 </select>
               </mat-form-field>
-              <mat-error *ngIf="hasError('notary', 'required')">Required</mat-error>
+              <div *ngIf="f.notary.touched && f.notary.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.notary.errors.required" class="errors">Required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -40,18 +43,24 @@
               <option value="Miss">Miss</option>
             </select>
           </mat-form-field>
-          <mat-error *ngIf="hasError('title', 'required')">Title is required</mat-error>
+          <div *ngIf="f.title.touched && f.title.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.title.errors.required" class="errors">Title is required</mat-error>
+          </div>
         </div>
         <div class="pg-inner-col right">
           <div class="default-input-wrapper m0 rac-col">
             <label>Language:<span class="redtxt">*</span></label>
             <div class="default-input-feild" >
-              <mat-radio-group  class="form-control" formControlName="languages">
+              <mat-radio-group  class="form-control" formControlName="languages"  (change) = "onChange($event)">
                 <mat-radio-button value="1">Sinhala</mat-radio-button>
                 <mat-radio-button value="2">English</mat-radio-button>
                 <mat-radio-button class="example-margin" value="3">Tamil</mat-radio-button>
               </mat-radio-group>
-              <mat-error *ngIf="hasError('languages', 'required')">Required</mat-error>
+              <div *ngIf="f.languages.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.languages.errors.required" class="errors">Required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -61,19 +70,26 @@
         <label>Full name (English):</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput formControlName="fullNameInEnglish"   class="form-control" >
+            <input matInput required formControlName="fullNameInEnglish"   class="form-control" >
           </mat-form-field>
-          <mat-error *ngIf="hasError('fullNameInEnglish', 'required')">Full name (English) is required</mat-error>
-          <mat-error *ngIf="hasError('fullNameInEnglish', 'pattern')">Full name (English) is Invalid</mat-error>
+          <div *ngIf="f.fullNameInEnglish.touched && f.fullNameInEnglish.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.fullNameInEnglish.errors.required" class="errors">Full name (English) is required</mat-error>
+            <mat-error *ngIf="f.fullNameInEnglish.errors.pattern" class="errors">Full name (English) is Invalid</mat-error>
+          </div>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
         <label>Full name (Sinhala):</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput formControlName="fullNameInSinhala"   class="form-control">
+            <input matInput  formControlName="fullNameInSinhala"   class="form-control">
           </mat-form-field>
-          <mat-error *ngIf="hasError('fullNameInSinhala', 'pattern')">Full name (Sinhala) is Invalid</mat-error>
+          <div *ngIf="f.fullNameInSinhala.touched && f.fullNameInSinhala.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.fullNameInSinhala.errors.required" class="errors">Full name (Sinhala) is required</mat-error>
+            <mat-error *ngIf="f.fullNameInSinhala.errors.pattern" class="errors">Full name (Sinhala) is Invalid</mat-error>
+          </div>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
@@ -82,7 +98,11 @@
           <mat-form-field appearance="outline">
             <input matInput formControlName="fullNameInTamil"   class="form-control">
           </mat-form-field>
-          <mat-error *ngIf="hasError('fullNameInTamil', 'pattern')">Full name (Tamil) is Invalid</mat-error>
+          <div *ngIf="f.fullNameInTamil.touched && f.fullNameInTamil.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.fullNameInTamil.errors.required" class="errors">Full name (Tamil) is required</mat-error>
+            <mat-error *ngIf="f.fullNameInTamil.errors.pattern" class="errors">Full name (Tamil) is Invalid</mat-error>
+          </div>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
@@ -91,28 +111,37 @@
           <mat-form-field appearance="outline">
             <input matInput formControlName="englishNameWithInitials"   class="form-control" >
           </mat-form-field>
-          <mat-error *ngIf="hasError('englishNameWithInitials', 'required')">Name with initials (English) is required</mat-error>
-          <mat-error *ngIf="hasError('englishNameWithInitials', 'pattern')">Name with initials (English) is Invalid</mat-error>
+          <div *ngIf="f.englishNameWithInitials.touched && f.englishNameWithInitials.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.englishNameWithInitials.errors.required" class="errors">Name with initials (English) is required</mat-error>
+            <mat-error *ngIf="f.englishNameWithInitials.errors.pattern" class="errors">Name with initials (English) is Invalid</mat-error>
+          </div>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
         <label>Name with initials (Sinhala):</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput formControlName="sinhalaNameWithInitials"   class="form-control" >
+            <input matInput   formControlName="sinhalaNameWithInitials"   class="form-control" >
           </mat-form-field>
-          <mat-error *ngIf="hasError('sinhalaNameWithInitials', 'required')">Name with initials (Sinhala) is required</mat-error>
-          <mat-error *ngIf="hasError('sinhalaNameWithInitials', 'pattern')">Name with initials (Sinhala) is Invalid</mat-error>
+          <div *ngIf="f.sinhalaNameWithInitials.touched && f.sinhalaNameWithInitials.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.sinhalaNameWithInitials.errors.required" class="errors">Name with initials (Sinhala) is required</mat-error>
+            <mat-error *ngIf="f.sinhalaNameWithInitials.errors.pattern" class="errors">Name with initials (Sinhala) is Invalid</mat-error>
+          </div>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
         <label>Name with initials (Tamil):</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput formControlName="tamilNameWithInitials"   class="form-control">
+            <input matInput  formControlName="tamilNameWithInitials"   class="form-control">
           </mat-form-field>
-          <mat-error *ngIf="hasError('tamilNameWithInitials', 'required')">Name with initials (Tamil) is required</mat-error>
-          <mat-error *ngIf="hasError('tamilNameWithInitials', 'pattern')">Name with initials (Tamil) is Invalid</mat-error>
+          <div *ngIf="f.tamilNameWithInitials.touched && f.tamilNameWithInitials.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.tamilNameWithInitials.errors.required" class="errors">Name with initials (Tamil) is required</mat-error>
+            <mat-error *ngIf="f.tamilNameWithInitials.errors.pattern" class="pattern">Name with initials (Tamil) is Invalid</mat-error>
+          </div>
         </div>
       </div>
 
@@ -124,7 +153,10 @@
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="permenentAddressInEnglish"   class="form-control"></textarea>
               </mat-form-field>
-              <mat-error *ngIf="hasError('permenentAddressInEnglish', 'required')">Permenent address (English) is required</mat-error>
+              <div *ngIf="f.permenentAddressInEnglish.touched && f.permenentAddressInEnglish.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.permenentAddressInEnglish.errors.required" class="errors">Permenent address (English) is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -133,9 +165,12 @@
             <label>Permenent address (Sinhala):</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="permenentAddressInSinhala"  class="form-control"></textarea>
+                <textarea  matInput  rows="5" formControlName="permenentAddressInSinhala"  class="form-control"></textarea>
               </mat-form-field>
-              <mat-error *ngIf="hasError('permenentAddressInSinhala', 'required')">Permenent address (Sinhala) is required</mat-error>
+              <div *ngIf="f.permenentAddressInSinhala.touched && f.permenentAddressInSinhala.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.permenentAddressInSinhala.errors.required" class="errors">Permenent address (Sinhala) is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -146,7 +181,10 @@
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="permenentAddressInTamil"    class="form-control"></textarea>
               </mat-form-field>
-              <mat-error *ngIf="hasError('permenentAddressInTamil', 'required')">Permenent address (Tamil) is required</mat-error>
+              <div *ngIf="f.permenentAddressInTamil.touched && f.permenentAddressInTamil.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.permenentAddressInTamil.errors.required" class="errors">Permenent address (Tamil) is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -160,7 +198,10 @@
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="currentAddressInEnglish"  class="form-control"></textarea>
               </mat-form-field>
-              <mat-error *ngIf="hasError('currentAddressInEnglish', 'required')">Current address (English) is required</mat-error>
+              <div *ngIf="f.currentAddressInEnglish.touched && f.currentAddressInEnglish.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.currentAddressInEnglish.errors.required" class="errors">Current address (English) is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -169,9 +210,12 @@
             <label>Current address (Sinhala):</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="currentAddressInSinhala"  class="form-control"></textarea>
+                <textarea matInput  rows="5" formControlName="currentAddressInSinhala"  class="form-control"></textarea>
               </mat-form-field>
-              <mat-error *ngIf="hasError('currentAddressInSinhala', 'required')">Current address (Sinhala) is required</mat-error>
+              <div *ngIf="f.currentAddressInSinhala.touched && f.currentAddressInSinhala.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.currentAddressInSinhala.errors.required" class="errors">Current address (Sinhala) is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -182,7 +226,10 @@
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="currentAddressInTamil"   class="form-control"></textarea>
               </mat-form-field>
-              <mat-error *ngIf="hasError('currentAddressInTamil', 'required')">Current address (Tamil) is required</mat-error>
+              <div *ngIf="f.currentAddressInTamil.touched && f.currentAddressInTamil.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.currentAddressInTamil.errors.required" class="errors">Current address (Tamil) is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -198,7 +245,10 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-              <mat-error *ngIf="hasError('dateOfBirth', 'required')">Date of Birth is required</mat-error>
+              <div *ngIf="f.dateOfBirth.touched && f.dateOfBirth.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.dateOfBirth.errors.required" class="errors">Date of Birth is required</mat-error>
+              </div>
               <button mat-raised-button (click)="picker.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
@@ -212,8 +262,11 @@
               <mat-form-field appearance="outline">
                 <input matInput formControlName="nic"  class="form-control">
               </mat-form-field>
-              <mat-error *ngIf="hasError('nic', 'required')">National Identity Card No is required</mat-error>
-              <mat-error *ngIf="hasError('nic', 'pattern')">National Identity Card No is Invalid</mat-error>
+              <div *ngIf="f.nic.touched && f.nic.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.nic.errors.required" class="errors">National Identity Card No is required</mat-error>
+                <mat-error *ngIf="f.nic.errors.pattern" class="errors">National Identity Card No is Invalid</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -227,8 +280,11 @@
               <mat-form-field appearance="outline">
                 <input matInput formControlName="contactNo"  class="form-control" >
               </mat-form-field>
-              <mat-error *ngIf="hasError('contactNo', 'required')">Contact No. (Residential) is required</mat-error>
-              <mat-error *ngIf="hasError('contactNo', 'pattern')">Contact No. (Residential) is Invalid</mat-error>
+              <div *ngIf="f.contactNo.touched && f.contactNo.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.contactNo.errors.required" class="errors">Contact No. (Residential) is required</mat-error>
+                <mat-error *ngIf="f.contactNo.errors.pattern" class="errors">Contact No. (Residential) is Invalid</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -239,7 +295,10 @@
               <mat-form-field appearance="outline">
                 <input matInput formControlName="mobileNo"  class="form-control" >
               </mat-form-field>
-              <mat-error *ngIf="hasError('mobileNo', 'pattern')">Mobile is Invalid</mat-error>
+              <div *ngIf="f.mobileNo.touched && f.mobileNo.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.mobileNo.errors.pattern" class="errors">Mobile is Invalid</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -251,10 +310,13 @@
             <label>Email:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <input matInput  formControlName="email" class="form-control">
+                <input matInput  formControlName="email" class="form-control" (ngModelChange)="inputEmail($event)">
               </mat-form-field>
-              <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
-              <mat-error *ngIf="hasError('email', 'pattern')">Email is Invalid</mat-error>
+              <div *ngIf="f.email.touched && f.email.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.email.errors.required" class="errors">Email is required</mat-error>
+                <mat-error *ngIf="f.email.errors.pattern" class="errors">Email is Invalid</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -266,65 +328,90 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>High Court Zone:<span class="redtxt">*</span></label>
+            <label>Judicial Zone:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl required  formControlName="courtZone"  class="form-control">
                   <option value="">Select</option>
-                  <option value="1">Option 01</option>
-                  <option value="2">Option 02</option>
-                  <option value="3">Option 03</option>
+                  <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}</option>
                 </select>
               </mat-form-field>
-              <mat-error *ngIf="hasError('courtZone', 'required')">High Court Zone is required</mat-error>
+              <div *ngIf="f.courtZone.touched && f.courtZone.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.courtZone.errors.required" class="errors">High Court Zone is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
         <div class="pg-inner-col">
-                  <div class="default-input-wrapper full-row">
-                    <label>Land Registry:<span class="redtxt">*</span></label>
-                    <div class="default-input-feild">
-                      <mat-form-field appearance="outline">
-                        <select matNativeControl required  formControlName="landRegistry" class="form-control" >
-                          <option value="">Select</option>
-                          <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{ landRegistries.nameEng }}</option>
-                        </select>
-                      </mat-form-field>
-                      <mat-error *ngIf="hasError('landRegistry', 'required')">Land Registry is required</mat-error>
-                    </div>
-                  </div>
-                </div>
+          <div class="default-input-wrapper full-row">
+            <label>Land Registry:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select matNativeControl required  formControlName="landRegistry" class="form-control" >
+                  <option value="">Select</option>
+                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
+                </select>
+              </mat-form-field>
+              <div *ngIf="f.landRegistry.touched && f.landRegistry.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.landRegistry.errors.required" class="errors">Land Registry is required</mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Divisional Secretariat Division:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="secretariatDivision" class="form-control"  (change)="change($event)">
-                  <option value="">Select</option>
-                  <option *ngFor="let dsDivisions of dsDivision" [value]="dsDivisions.dsDivisionId">{{ dsDivisions.description }}</option>
-                </select>
-              </mat-form-field>
-              <mat-error *ngIf="hasError('secretariatDivision', 'required')">Divisional Secretariat Division is required</mat-error>
+      <div class="rp-row">
+        <div class="pg-inner-row mb-20"  *ngFor="let location of locationList; let i = index">
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>DS Division:<span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-select
+                  class="form-control"
+                  formControlName="secretariatDivision"
+                  (ngModelChange)="changes($event)"
+                >
+                  <mat-option
+                    *ngFor="let dsDivisions of dsDivision"
+                    [value]="dsDivisions.dsDivisionId"
+                  >{{ dsDivisions.description }}</mat-option
+                  >
+                </mat-select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Grama Niladhari Division:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="gramaNiladhariDivision"  class="form-control">
-                  <option value="">Select</option>
-                  <option *ngFor="let gnDivisions of gnDivision" [value]="gnDivisions.gnDivisionId">{{ gnDivisions.description }}</option>
-                </select>
-              </mat-form-field>
-              <mat-error *ngIf="hasError('gramaNiladhariDivision', 'required')">Grama Niladhari Division is required</mat-error>
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>GN Division:<span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-select
+                  multiple
+                  class="form-control"
+                  formControlName="gramaNiladhariDivision"
+                >
+                  <ng-container *ngFor="let gnDivisions of gnDivision">
+                    <mat-option
+                      [value]="gnDivisions.gnDivisionId"
+                    >{{ gnDivisions.description }}</mat-option
+                    >
+                  </ng-container>
+                </mat-select>
+              </div>
             </div>
           </div>
+          <div class="pg-inner-col">
+            <button  mat-icon-button
+                     color="warn"
+                     (click)="removeLocation(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
         </div>
+        <button class="ml-3 mb-3 add-row" mat-flat-button color="accent" (click)="addLocation()" >
+          Add <i class="material-icons">add_circle_outline</i>
+        </button>
       </div>
 
       <div class="pg-inner-row mb-20">
@@ -337,7 +424,10 @@
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
               </mat-form-field>
-              <mat-error *ngIf="hasError('enrolledDate', 'required')">Required</mat-error>
+              <div *ngIf="f.enrolledDate.touched && f.enrolledDate.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.enrolledDate.errors.required" class="errors">Required</mat-error>
+              </div>
               <button mat-raised-button (click)="picker2.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
@@ -353,7 +443,10 @@
                 <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                 <mat-datepicker #picker3></mat-datepicker>
               </mat-form-field>
-              <mat-error *ngIf="hasError('passedDate', 'required')">Required</mat-error>
+              <div *ngIf="f.passedDate.touched && f.passedDate.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.passedDate.errors.required" class="errors">Required</mat-error>
+              </div>
               <button mat-raised-button (click)="picker3.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
@@ -370,7 +463,10 @@
             <mat-radio-button  value="2">English</mat-radio-button>
             <mat-radio-button  value="3">Tamil</mat-radio-button>
           </mat-radio-group>
-          <mat-error *ngIf="hasError('medium', 'required')">Required</mat-error>
+          <div *ngIf="f.medium.touched && f.medium.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="f.medium.errors.required" class="errors">Required</mat-error>
+          </div>
         </div>
       </div>
 
@@ -402,8 +498,26 @@
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button"   (click)="onFormSubmit()">Continue</button>
+          <button mat-raised-button class="lg-button"    [routerLink]="['/payment']" (click)="onFormSubmit()">Continue</button>
         </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>UserName:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput  formControlName="userName" class="form-control">
+              </mat-form-field>
+              <div *ngIf="f.userName.touched && f.userName.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="f.userName.errors.required" class="errors">UserName is required</mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col"></div>
       </div>
 
     </div>

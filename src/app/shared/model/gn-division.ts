@@ -1,14 +1,13 @@
 export class GnDivision {
   constructor(
-    gnDivisionId: number,
+    divisionId: number,
+    dsDivision: string,
     gnDivisionCode: string,
     description: string,
-    descriptionSin: string,
-    descriptionTam: string,
-    status: string,
-    lastUpdatedTime: Date,
-    createdTime: Date,
-    lastUpdatedUser: string,
+    descriptionSinhala: string,
+    descriptionTamil: string,
     dsDivisionId: number,
+    state: string,
+    lastUpdatedUser: string,
   ){}
 }
