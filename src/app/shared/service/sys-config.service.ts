@@ -1,20 +1,23 @@
-import { Injectable } from '@angular/core';
-import { config } from 'rxjs';
-import { AppConfig } from '../model/app-config.model';
+import { Injectable, EventEmitter } from "@angular/core";
+import { Observable } from "rxjs";
+import { AppConfig } from "../model/app-config.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
-
 export class SysConfigService {
 
-  private config: AppConfig;
+  getConfig = new EventEmitter<AppConfig>();
 
-  constructor() { }
+  constructor() {
+  }
 
-  appBarConfig(){
+  set config(value) {
+    window.sessionStorage.setItem('appConfig', JSON.stringify(value));
+    this.getConfig.emit(value);
+  }
 
-    // this.config.color = 'blue';
-    return config;
+  get config(): any | Observable<any> {
+    return  JSON.parse(window.sessionStorage.getItem('appConfig'));
   }
 }

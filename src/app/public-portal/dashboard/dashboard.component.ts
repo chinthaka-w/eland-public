@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PublicProfileEditComponent } from './profile/public-profile-edit/public-profile-edit.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  // userType = 'notary';
+  userType = 'public';
+
+  constructor() {}
 
   ngOnInit() {
   }

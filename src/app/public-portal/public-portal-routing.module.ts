@@ -4,8 +4,12 @@ import { AddNotaryComponent } from './notary-registration/add-notary/add-notary.
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
-import { AddUserComponent } from './public-registration/add-user/add-user.component';
+import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
+import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
+import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
+import { ExtractComponent } from './dashboard/extract/extract.component';
+import { RequestsComponent } from './dashboard/requests/requests.component';
 
 
 const routes: Routes = [
@@ -27,12 +31,27 @@ const routes: Routes = [
   },
   {
     path: "user-registration",
-    component: AddUserComponent
-  }
-  ,
+    component: AddPublicUserComponent
+  },
   {
     path: 'change-judicial',
     component: ChangeJudicialComponent
+  },
+  {
+    path: 'edit-public-profile',
+    component: PublicProfileEditComponent
+  },
+  {
+    path: 'search-document',
+    component: SearchDocumentComponent
+  },
+  {
+    path: 'extract',
+    component: ExtractComponent
+  },
+  {
+    path: 'requests',
+    component: RequestsComponent
   }
 ];
 

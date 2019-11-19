@@ -10,6 +10,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @Input()
+  public appConfig: AppConfig;
+
   public loginForm: FormGroup;
 
   get username() {
@@ -26,7 +29,8 @@ export class LoginComponent implements OnInit {
     private snackBar: SnackBarService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public sysConfigService: SysConfigService
   ) {}
 
   ngOnInit() {
@@ -39,21 +43,27 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.loginForm.value).subscribe(
       response => {
-        this.snackBar.success('Login Successful');
-        // setSession
-        // setPermission
+        this.snackBar.success("Login Successful");
+        //setSession
+        //setPermission
+        this.sysConfigService.getConfig.emit({
+          color: "red",
+          user: true,
+          header: true,
+          footer: true
+        });
         this.router.navigate([`/dashboard`], { relativeTo: this.route });
       },
       error => {
         if (error.error.status === 500) {
-          this.formError = 'Internal server error';
+          this.formError = "Internal server error";
           this.loginForm.setErrors({ serverError: true });
         } else {
-          this.formError = 'Invalid Credentials';
+          this.formError = "Invalid Credentials";
           this.loginForm.setErrors({ invalidLogin: true });
         }
 
-        this.snackBar.error('Login Failed');
+        this.snackBar.error("Login Failed");
       }
     );
   }
