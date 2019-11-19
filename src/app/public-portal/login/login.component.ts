@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import {AppConfig} from '../../shared/model/app-config.model';
+import {SysConfigService} from "../../shared/service/sys-config.service";
 
 @Component({
   selector: 'app-login',
@@ -43,11 +45,11 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.loginForm.value).subscribe(
       response => {
-        this.snackBar.success("Login Successful");
-        //setSession
-        //setPermission
+        this.snackBar.success('Login Successful');
+        // setSession
+        // setPermission
         this.sysConfigService.getConfig.emit({
-          color: "red",
+          color: 'red',
           user: true,
           header: true,
           footer: true
@@ -56,14 +58,14 @@ export class LoginComponent implements OnInit {
       },
       error => {
         if (error.error.status === 500) {
-          this.formError = "Internal server error";
+          this.formError = 'Internal server error';
           this.loginForm.setErrors({ serverError: true });
         } else {
-          this.formError = "Invalid Credentials";
+          this.formError = 'Invalid Credentials';
           this.loginForm.setErrors({ invalidLogin: true });
         }
 
-        this.snackBar.error("Login Failed");
+        this.snackBar.error('Login Failed');
       }
     );
   }

@@ -43,14 +43,14 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
 @NgModule({
   declarations: [
     AddNotaryComponent,
-    LoginComponent, 
-    DashboardComponent, 
-    ProfileEditComponent, 
-    ApplicationComponent, 
-    PaymentInfoComponent, 
-    RemarkComponent, 
-    NotaryClerkComponent, 
-    HistoryComponent, 
+    LoginComponent,
+    DashboardComponent,
+    ProfileEditComponent,
+    ApplicationComponent,
+    PaymentInfoComponent,
+    RemarkComponent,
+    NotaryClerkComponent,
+    HistoryComponent,
     AddPublicUserComponent,
     ChangeJudicialComponent,
     PublicProfileEditComponent,
@@ -97,7 +97,7 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
     MatDialogModule,
     MatTableModule
   ],
-  entryComponents:[
+  entryComponents: [
     PublicProfileEditComponent
   ],
   providers: [{
