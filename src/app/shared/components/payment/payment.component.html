@@ -6,19 +6,19 @@
             <div class="default-input-wrapper full-row mb-30">
                 <label><strong>License Issue</strong>In which way you like to receive the license?</label>
                 <div class="default-input-feild">
-                  <mat-radio-group formControlName="licenseMethod" class="form-control" (change)="getParameterValue()">
+                  <mat-radio-group formControlName="licenseMethod" class="form-control" (change)="getParameterValue($event)">
                     <mat-radio-button class="example-margin" value="BY_HAND">By Hand</mat-radio-button>
                     <mat-radio-button class="example-margin" value="BY_NORMAL_POST">By Post (Normal)</mat-radio-button>
-                    <mat-radio-button class="example-margin" value="BY_REGISTERED_POST">By Post (Registered)</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="REGISTERED_POST">By Post (Registered)</mat-radio-button>
                   </mat-radio-group>
                 </div>
             </div>
             <div class="default-input-wrapper full-row mb-30">
                 <label><strong>Payment</strong>Payment method</label>
                 <div class="default-input-feild">
-                  <mat-radio-group formControlName="paymentMethod" class="form-control" (change)="getPayementFormDetails()">
-                    <mat-radio-button class="example-margin" value="1">Online</mat-radio-button>
-                    <mat-radio-button class="example-margin" value="2">Bank Transfer</mat-radio-button>
+                  <mat-radio-group formControlName="paymentMethod" class="form-control">
+                    <mat-radio-button class="example-margin" value="ONLINE">Online</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="BANK_TRANSFER">Bank Transfer</mat-radio-button>
                   </mat-radio-group>
                 </div>
             </div>

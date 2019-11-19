@@ -27,6 +27,7 @@ import {BankService} from './shared/service/bank.service';
 import {BankBranchService} from './shared/service/bank-branch.service';
 import {PaymentService} from "./shared/service/payment.service";
 import {ParameterService} from "./shared/service/parameter.service";
+import {TokenStorageService} from "./shared/auth/token-storage.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -60,7 +61,8 @@ import {ParameterService} from "./shared/service/parameter.service";
     BankService,
     BankBranchService,
     PaymentService,
-    ParameterService],
+    ParameterService,
+    TokenStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

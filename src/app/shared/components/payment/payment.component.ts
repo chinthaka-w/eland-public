@@ -27,17 +27,14 @@ export class PaymentComponent implements OnInit {
     });
     this.amount = Parameters.AMOUNT;
     this.issue = Parameters.ISSUE_POST;
-    this.total = Parameters.TOTAL;
+    this.total = this.amount;
   }
 
-  getPayementFormDetails() {
-    this.paymentService.setPaymentMethod(this.paymentForm.get('paymentMethod').value);
-  }
-
-  getParameterValue(value: string) {
-    this.parameterService.getParameterValue(value).subscribe(
-      (res) => {
-        alert(res);
+  getParameterValue(value: string): void {
+    this.parameterService.getParameterValue(this.paymentForm.get('licenseMethod').value).subscribe(
+      (res: number) => {
+       this.issue = res;
+       this.total = (this.issue + this.amount);
       }
     );
   }

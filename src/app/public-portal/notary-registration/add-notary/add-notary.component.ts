@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../shared/model/notary';
 import {NotaryService} from '../../../shared/service/notary-service';
@@ -14,6 +14,8 @@ import {JudicialZoneService} from '../../../shared/service/judicial-zone.service
 import {JudicialZoneModel} from '../../../shared/custom-model/judicial-zone.model';
 import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
 import {MatRadioChange} from '@angular/material/radio';
+import {DomSanitizer} from '@angular/platform-browser';
+import {TokenStorageService} from "../../../shared/auth/token-storage.service";
 
 
 @Component({
@@ -25,6 +27,16 @@ import {MatRadioChange} from '@angular/material/radio';
 export class AddNotaryComponent implements OnInit {
   @Output()
   change: EventEmitter<MatRadioChange>;
+  @Input()
+  files: File[] = [];
+  @Input()
+  file: File[] = [];
+  @Input()
+  deleteButtonLabel;
+  @Input()
+  deleteButtonIcon = 'close';
+  @Input()
+  showUploadInfo;
 
   public notaryForm: FormGroup;
   public gnDivision: GnDivision[];
@@ -37,13 +49,17 @@ export class AddNotaryComponent implements OnInit {
 
   public locationDto: any = {};
   public locationList: NewNotaryGnDivisionDTO[] = [];
-
+  fileUpload: ElementRef;
+  fileUploads: ElementRef;
+  inputFileName: string;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
               private dsDivisionService: DsDivisionService,
               private landRegistryService: LandRegistryService,
-              private judicialZoneService: JudicialZoneService) { }
+              private judicialZoneService: JudicialZoneService,
+              private sanitizer: DomSanitizer,
+              private tokenStorageService: TokenStorageService) { }
 
   ngOnInit() {
     this.notaryForm = this.formBuilder.group({
@@ -124,7 +140,7 @@ export class AddNotaryComponent implements OnInit {
     this.notaryDetails = new Notary(0, notaryId, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
       permenentAddressEng, currentAddressEng, permenentAddressSin, currentAddressSin, permenentAddressTam, currentAddressTam,
       fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
-      1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(), 'Ishani', userName);
+      1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(),  this.tokenStorageService.getUserObjectToken().username, userName);
     this.notaryService.setNotaryDetails(this.notaryDetails);
   }
 
@@ -272,5 +288,68 @@ export class AddNotaryComponent implements OnInit {
         userName: new FormControl('', [Validators.required]),
       });
     }
+  }
+  onClick(event) {
+    if (this.fileUpload) {
+      this.fileUpload.nativeElement.click();
+    }
+  }
+
+  onInput(event) {
+
+  }
+
+  onFileSelected(event) {
+    const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+    console.log('event::::::', event);
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+      this.files.push(files[i]);
+    }
+  }
+
+  removeFile(event, file) {
+    let ix;
+    if (this.files && -1 !== (ix = this.files.indexOf(file))) {
+      this.files.splice(ix, 1);
+      this.clearInputElement();
+    }
+  }
+
+  onClicks(event) {
+    if (this.fileUploads) {
+      this.fileUploads.nativeElement.click();
+    }
+  }
+
+  onInputs(event) {
+
+  }
+
+  onFileSelecteds(event) {
+    const file = event.dataTransfer ? event.dataTransfer.file : event.target.file;
+    console.log('event::::::', event);
+    for (let i = 0; i < file.length; i++) {
+      const filesList = file[i];
+      filesList.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file[i])));
+      this.files.push(file[i]);
+    }
+  }
+
+  removeFiles(event, file) {
+    let ix;
+    if (this.file && -1 !== (ix = this.file.indexOf(file))) {
+      this.file.splice(ix, 1);
+      this.clearInputElements();
+    }
+  }
+
+  clearInputElement() {
+    this.fileUpload.nativeElement.value = '';
+  }
+
+  clearInputElements() {
+    this.fileUploads.nativeElement.value = '';
   }
 }

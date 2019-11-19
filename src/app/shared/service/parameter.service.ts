@@ -10,7 +10,7 @@ export class ParameterService {
   public constructor(private httpClient: HttpClient) {}
 
   // tslint:disable-next-line:ban-types
-  getParameterValue(code: string): Observable<Object> {
+  getParameterValue(code: string) {
     return this.httpClient.get(this.BASE_URL + '/' + code, {headers: this.headers} );
   }
 
