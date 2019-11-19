@@ -22,9 +22,10 @@ import {LandRegistryService} from './shared/service/land-registry-service';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import { GridComponent } from './grid/grid.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GridComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
