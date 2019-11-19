@@ -31,13 +31,28 @@
           <mat-form-field appearance="outline">
             <select matNativeControl formControlName="type" required>
               <option value="">Select</option>
-              <option value="option-1">Option 01</option>
-              <option value="option-2">Option 02</option>
-              <option value="option-3">Option 03</option>
+              <option value="{{PublicUserType.CITIZEN}}">Citizen</option>
+              <option value="{{PublicUserType.BANK}}">Bank</option>
+              <option value="{{PublicUserType.LAWYER}}">Lawyer/Low firm</option>
+              <option value="{{PublicUserType.STATE}}">State Institution</option>
+              <option value="{{PublicUserType.OTHER}}">Other Institution</option>
             </select>
           </mat-form-field>
         </div>
       </div>
+
+      <div *ngIf="publicUserType.value == PublicUserType.LAWYER" class="default-input-wrapper full-row half-cols">
+          <label class="mw-200">Notary ID <span>*</span></label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Notary ID"
+                formControlName="notaryId"
+              />
+            </mat-form-field>
+          </div>
+        </div>
 
       <div class="separator mt-30">&nbsp;</div>
 
@@ -49,6 +64,19 @@
               matInput
               placeholder="Applicant Name"
               formControlName="name"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Bank Name <span>*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="Bank Name"
+              formControlName="bankName"
             />
           </mat-form-field>
         </div>

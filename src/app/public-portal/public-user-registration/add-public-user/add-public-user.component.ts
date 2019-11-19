@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
 
 @Component({
   selector: 'app-add-public-user',
@@ -9,14 +10,22 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class AddPublicUserComponent implements OnInit {
 
   public publicUserForm: FormGroup;
+  public PublicUserType = PublicUserType;
+
+  get publicUserType(){
+    // console.log(this.publicUserForm.get('type'));
+    return this.publicUserForm.get('type');
+  }
 
   constructor() { }
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl('', [Validators.required]),
-      type: new FormControl('', [Validators.required]),
+      type: new FormControl(PublicUserType.CITIZEN, [Validators.required]),
+      notaryId: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
+      bankName: new FormControl('', [Validators.required]),
       address1: new FormControl('', [Validators.required]),
       address2: new FormControl('', [Validators.required]),
       address3: new FormControl('', [Validators.required]),
