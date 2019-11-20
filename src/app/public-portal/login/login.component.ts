@@ -4,7 +4,7 @@ import { SnackBarService } from "src/app/shared/service/snack-bar.service";
 import { AuthService } from "src/app/shared/service/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SysConfigService } from "src/app/shared/service/sys-config.service";
-import { AppConfig } from "src/app/shared/model/app-config.model";
+import { AppConfig } from "src/app/shared/dto/app-config.model";
 
 @Component({
   selector: "app-login",
@@ -45,16 +45,22 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.loginForm.value).subscribe(
       response => {
-        this.snackBar.success("Login Successful");
-        //setSession
-        //setPermission
-        this.sysConfigService.getConfig.emit({
-          color: "red",
-          user: true,
-          header: true,
-          footer: true
-        });
-        this.router.navigate([`/dashboard`], { relativeTo: this.route });
+        if(response['success']){
+          this.snackBar.success("Login Successful");
+          window.sessionStorage.setItem('user',JSON.stringify(response['user']));
+          this.sysConfigService.getConfig.emit({
+            color: "red",
+            user: true,
+            header: true,
+            footer: true
+          });
+          //setPermission
+          this.router.navigate([`/dashboard`], { relativeTo: this.route });
+        }
+        else{
+          this.formError = "Invalid Credentials";
+          this.loginForm.setErrors({ invalidLogin: true });
+        }
       },
       error => {
         if (error.error.status === 500) {

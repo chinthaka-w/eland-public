@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { Observable } from "rxjs";
-import { AppConfig } from "../model/app-config.model";
+import { AppConfig } from "../dto/app-config.model";
 
 @Injectable({
   providedIn: "root"

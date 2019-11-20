@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Notary} from '../../../shared/model/notary';
+import {Notary} from '../../../shared/dto/notary';
 import {NotaryService} from '../../../shared/service/notary-service';
 import {GnDivisionService} from '../../../shared/service/gn-division-service';
-import {GnDivision} from '../../../shared/model/gn-division';
-import {DsDivision} from '../../../shared/model/ds-division';
-import {LandRegistry} from '../../../shared/model/land-registry';
+import {GnDivision} from '../../../shared/dto/gn-division';
+import {DsDivision} from '../../../shared/dto/ds-division';
+import {LandRegistry} from '../../../shared/dto/land-registry';
 import {DsDivisionService} from '../../../shared/service/ds-division-service';
 import {LandRegistryService} from '../../../shared/service/land-registry-service';
-import {NewNotaryGnDivisionDTO} from '../../../shared/model/new-notary-gn-division';
+import {NewNotaryGnDivisionDTO} from '../../../shared/dto/new-notary-gn-division';
 import {PatternValidation} from '../../../shared/pattern-validation.enum';
 
 
