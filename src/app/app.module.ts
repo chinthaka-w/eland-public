@@ -22,6 +22,7 @@ import {LandRegistryService} from './shared/service/land-registry.service';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import { GridComponent } from './grid/grid.component';
 import {JudicialZoneService} from './shared/service/judicial-zone.service';
 import {BankService} from './shared/service/bank.service';
 import {BankBranchService} from './shared/service/bank-branch.service';
@@ -30,7 +31,7 @@ import {ParameterService} from "./shared/service/parameter.service";
 import {TokenStorageService} from "./shared/auth/token-storage.service";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GridComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

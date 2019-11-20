@@ -36,6 +36,12 @@ import { RecaptchaFormsModule } from 'ng-recaptcha';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
 import { RequestsComponent } from './dashboard/requests/requests.component';
+import { ChangeTheNameComponent } from './dashboard/change-the-name/change-the-name.component';
+import { LanguageChangeComponent } from './dashboard/language-change/language-change.component';
+import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.component';
+import { ResignationComponent } from './dashboard/resignation/resignation.component';
+import { ApplicationsComponent } from './dashboard/applications/applications.component';
+import { RequestViewComponent } from './dashboard/requests/request-view/request-view.component';
 import {SharedModule} from "../shared/shared.module";
 
 
@@ -59,7 +65,13 @@ import {SharedModule} from "../shared/shared.module";
     AccountDetailsComponent,
     SearchDocumentComponent,
     ExtractComponent,
-    RequestsComponent
+    RequestsComponent,
+    ChangeTheNameComponent,
+    LanguageChangeComponent,
+    LeaveRequestComponent,
+    ResignationComponent,
+    ApplicationsComponent,
+    RequestViewComponent
   ],
   imports: [
     CommonModule,
@@ -99,7 +111,8 @@ import {SharedModule} from "../shared/shared.module";
     MatDialogModule,
     MatTableModule
   ],
-  entryComponents: [
+  entryComponents:[
+    RequestViewComponent,
     PublicProfileEditComponent
   ],
   providers: [{

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { GridComponent } from './grid/grid.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./public-portal/public-portal.module').then(m => m.PublicPortalModule)
+  },
+  {
+    path: "grid",
+    component: GridComponent
   }
 ];
 
