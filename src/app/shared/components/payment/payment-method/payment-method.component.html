@@ -3,36 +3,30 @@
     <div class="hc-component-img" style="background-image: url('../../../assets/images/temp_img_004.jpg')"></div>
     <div class="hc-component-content">
         <div class="pce-container">
-            <div class="b-acc-info">
-                <dl>
-                    <dt>Bank Name</dt>
-                    <dd>Bank of Ceylon</dd>
-                </dl>
-                <dl>
-                    <dt>Account No</dt>
-                    <dd>1234 5678 9012</dd>
-                </dl>
-                <dl class="total">
-                    <dt>Total Amount</dt>
-                    <dd><strong>Rs. 1100.00</strong></dd>
-                </dl>
-            </div>
-
             <!-- Bank Transfer Infomations -->
             <div class="payment-info-wrapper">
                 <div class="default-input-wrapper full-row">
                     <label>Bank:</label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
-                            <select matNativeControl  formControlName="bank" class="form-control">
+                            <select matNativeControl  formControlName="bank" class="form-control" (change)="getBankBranch($event)">
                                 <option value="">Select</option>
-                                <option value="option-1">Option 01</option>
-                                <option value="option-2">Option 02</option>
-                                <option value="option-3">Option 03</option>
+                                <option *ngFor="let banks of bankDetails" [value]="banks.bankId">{{ banks.bankName }}</option>
                             </select>
                         </mat-form-field>
                     </div>
                 </div>
+              <div class="default-input-wrapper full-row">
+                <label>Bank Branch:</label>
+                <div class="default-input-feild">
+                  <mat-form-field appearance="outline">
+                    <select matNativeControl  formControlName="branch" class="form-control">
+                      <option value="">Select</option>
+                      <option *ngFor="let branches of branchDetails" [value]="branches.bankBranchId">{{ branches.description }}</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+              </div>
                 <div class="default-input-wrapper full-row">
                     <label>Date:</label>
                     <div class="default-input-feild date-feild">
@@ -69,7 +63,7 @@
 
         <div class="hc-component-bottom">
             <span class="bt-line">&nbsp;</span>
-            <button mat-raised-button class="lg-button green" (click)="savePayment()">Continue</button>
+            <button mat-raised-button class="lg-button green" (click)="savePayment(this.paymentMethodForm)">Continue</button>
         </div>
     </div>
 </div>

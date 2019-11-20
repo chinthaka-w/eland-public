@@ -36,6 +36,7 @@ import { RecaptchaFormsModule } from 'ng-recaptcha';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
 import { RequestsComponent } from './dashboard/requests/requests.component';
+import {SharedModule} from "../shared/shared.module";
 
 
 
@@ -43,14 +44,14 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
 @NgModule({
   declarations: [
     AddNotaryComponent,
-    LoginComponent, 
-    DashboardComponent, 
-    ProfileEditComponent, 
-    ApplicationComponent, 
-    PaymentInfoComponent, 
-    RemarkComponent, 
-    NotaryClerkComponent, 
-    HistoryComponent, 
+    LoginComponent,
+    DashboardComponent,
+    ProfileEditComponent,
+    ApplicationComponent,
+    PaymentInfoComponent,
+    RemarkComponent,
+    NotaryClerkComponent,
+    HistoryComponent,
     AddPublicUserComponent,
     ChangeJudicialComponent,
     PublicProfileEditComponent,
@@ -81,6 +82,7 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
     HttpModule,
     RecaptchaModule,
     RecaptchaFormsModule,
+    SharedModule,
   ],
   exports: [
     LoginComponent,
@@ -97,7 +99,7 @@ import { RequestsComponent } from './dashboard/requests/requests.component';
     MatDialogModule,
     MatTableModule
   ],
-  entryComponents:[
+  entryComponents: [
     PublicProfileEditComponent
   ],
   providers: [{
