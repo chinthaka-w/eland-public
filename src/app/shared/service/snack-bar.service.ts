@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   MatSnackBar,
   MatSnackBarConfig,
   MatSnackBarVerticalPosition,
   MatSnackBarHorizontalPosition
-} from "@angular/material/snack-bar";
+} from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SnackBarService {
   constructor(
@@ -31,14 +31,14 @@ export class SnackBarService {
   }
 
   success(message: string) {
-    this.snackBar.open(message, "", {duration: 2000, horizontalPosition: "right", verticalPosition: "bottom", panelClass: 'snackbar-success'});
+    this.snackBar.open(message, '', {duration: 2000, horizontalPosition: 'right', verticalPosition: 'bottom', panelClass: 'snackbar-success'});
   }
 
   error(message: string) {
-    this.snackBar.open(message, "", {duration: 2000, horizontalPosition: "right", verticalPosition: "bottom", panelClass: 'snackbar-error'});
+    this.snackBar.open(message, '', {duration: 2000, horizontalPosition: 'right', verticalPosition: 'bottom', panelClass: 'snackbar-error'});
   }
 
   warn(message: string) {
-    this.snackBar.open(message, "", {duration: 2000, horizontalPosition: "right", verticalPosition: "bottom", panelClass: 'snackbar-warn'});
+    this.snackBar.open(message, '', {duration: 2000, horizontalPosition: 'right', verticalPosition: 'bottom', panelClass: 'snackbar-warn'});
   }
 }

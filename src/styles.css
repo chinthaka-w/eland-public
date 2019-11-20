@@ -1150,39 +1150,12 @@ h5.uw-title:before {
     padding: 32px 0 15px 0;
 }
 
-.mat-dialog-container {
-    background: #ffffff;
-    color: #fff;
-    border-radius: 15px !important;
-    padding: 45px 40px 20px 40px !important;
-}
-
-.mat-tab-group.mat-primary .mat-ink-bar, 
-.mat-tab-nav-bar.mat-primary .mat-ink-bar {
-    background-color: #1582eb;
-}
-
-.mat-tab-label.mat-tab-label-active,
-.mat-tab-label.mat-tab-label-active:focus {
-    background: #fff !important;
-}
-
-.mat-input-element {
-    color: #4f4f4f !important;
-}
-
-.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
-    color: #bdbdbd;
-    background: #fafafa;
-}
-
 /* --- mat form field style - End --- */
 
 .full-row.default-input-wrapper > label {
     display: block;
     width: 100%;
     padding: 0;
-    color: #4f4f4f;
 }
 
 .full-row .default-input-feild {
@@ -1231,6 +1204,17 @@ h5.uw-title:before {
     background: transparent !important;
     border: 2px solid #3a9af7;
     margin: 10px 0;
+    position: relative;
+}
+
+.f-uploader.mat-raised-button .input_fileupload--hidden {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 
 .f-uploader span.mat-button-wrapper {
@@ -1998,10 +1982,10 @@ a.pdf-link:visited {
     padding: 0 10px;
 }
 
-.pg-inner-col a, 
-.pg-inner-col a:link, 
-.pg-inner-col a:visited, 
-.pg-inner-col a:active, 
+.pg-inner-col a,
+.pg-inner-col a:link,
+.pg-inner-col a:visited,
+.pg-inner-col a:active,
 .pg-inner-col a:hover {
     color: #278df0;
 }
@@ -2200,10 +2184,10 @@ span.t-status {
     position: relative;
 }
 
-.db-right-col.inner-sd .phd-back-btn, 
-.db-right-col.inner-sd .phd-back-btn:link, 
-.db-right-col.inner-sd .phd-back-btn:visited, 
-.db-right-col.inner-sd .phd-back-btn:active, 
+.db-right-col.inner-sd .phd-back-btn,
+.db-right-col.inner-sd .phd-back-btn:link,
+.db-right-col.inner-sd .phd-back-btn:visited,
+.db-right-col.inner-sd .phd-back-btn:active,
 .db-right-col.inner-sd .phd-back-btn:hover {
     color: #24303c;
     top: 90px;
@@ -2643,14 +2627,14 @@ span.green {
     .default-input-wrapper.full-row.half-cols {
         display: block;
     }
-    
+
     .half-cols.full-row.default-input-wrapper > label {
         display: block;
         width: 100%;
         padding-top: 0;
         padding-bottom: 5px;
     }
-    
+
     .full-row.half-cols .default-input-feild {
         display: block;
         width: 100%;
@@ -2683,7 +2667,7 @@ span.green {
     .wf-img-container {
         padding-left: 0;
     }
-    
+
     .wf-img-wrapper {
         display: none;
     }

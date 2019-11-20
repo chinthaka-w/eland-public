@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ContentComponent } from "./components/content/content.component";
-import { HeaderComponent } from "./components/header/header.component";
-import { FooterComponent } from "./components/footer/footer.component";
-import { SharedRoutingModule } from "./shared-routing.module";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ContentComponent } from './components/content/content.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SharedRoutingModule } from './shared-routing.module';
 import { HomeComponent } from '../public-portal/home/home.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,7 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PaymentMethodComponent
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     SharedRoutingModule,
     MatDatepickerModule,
     MatButtonModule,
@@ -63,7 +63,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
-    MatTabsModule
+    MatTabsModule,
+    PaymentComponent,
+    PaymentMethodComponent
   ]
 })
 export class SharedModule {}
