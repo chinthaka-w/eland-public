@@ -2,10 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Notary} from '../dto/notary.model';
 import {Observable, of, throwError} from 'rxjs';
-import {PaymentDto} from '../dto/payment-dto';
-import {NotaryPaymentDto} from '../dto/notary-payment.dto';
-
-
 @Injectable()
 export class NotaryService {
   public BASE_URL = 'http://localhost:9292/api/new-notary';
