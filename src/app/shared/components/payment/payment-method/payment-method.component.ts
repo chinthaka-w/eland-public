@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Notary} from '../../../../shared/model/notary';
+import {Notary} from '../../../dto/notary';
 import {NotaryService} from '../../../../shared/service/notary-service';
 import { AddNotaryComponent } from 'src/app/public-portal/notary-registration/add-notary/add-notary.component';
 

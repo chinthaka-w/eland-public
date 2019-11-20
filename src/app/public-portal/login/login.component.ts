@@ -39,10 +39,16 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.loginForm.value).subscribe(
       response => {
-        this.snackBar.success("Login Successful");
-        //setSession
-        //setPermission
-        this.router.navigate([`/dashboard`], { relativeTo: this.route });
+        if(response['success']){
+          this.snackBar.success("Login Successful");
+          window.sessionStorage.setItem('user',JSON.stringify(response['user']));
+          //setPermission
+          this.router.navigate([`/dashboard`], { relativeTo: this.route });
+        }
+        else{
+          this.formError = "Invalid Credentials";
+          this.loginForm.setErrors({ invalidLogin: true });
+        }
       },
       error => {
         if (error.error.status === 500) {

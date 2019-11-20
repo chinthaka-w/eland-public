@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { config } from 'rxjs';
-import { AppConfig } from '../model/app-config.model';
+import { AppConfig } from '../dto/app-config.model';
 
 @Injectable({
   providedIn: 'root'
