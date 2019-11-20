@@ -6,7 +6,7 @@ import { SysConfigService } from './sys-config.service';
 
 @Injectable()
 export class GnDivisionService {
-  public BASE_URL = SysConfigService.BASE_URL+'/gnDivision';
+  public BASE_URL = SysConfigService.BASE_URL+'gnDivision';
   private headers;
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private gnDivision: GnDivision;
