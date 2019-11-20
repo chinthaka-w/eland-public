@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../dto/notary.model';
 import {NotaryService} from '../../../../shared/service/notary-service';
@@ -12,6 +12,7 @@ import {BankBranch} from '../../../dto/bank-branch.model';
 import {PaymentDto} from '../../../dto/payment-dto';
 import {PaymentService} from '../../../service/payment.service';
 import {NotaryPaymentDto} from '../../../dto/notary-payment.dto';
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -21,19 +22,29 @@ import {NotaryPaymentDto} from '../../../dto/notary-payment.dto';
 })
 export class PaymentMethodComponent implements OnInit {
   @Output() responseValue = new EventEmitter();
+  @Input()
+  file: File[] = [];
+  @Input()
+  deleteButtonLabel;
+  @Input()
+  deleteButtonIcon = 'close';
+  @Input()
+  showUploadInfo;
   public paymentMethodForm: FormGroup;
   public bankDetails: Bank[];
   public branchDetails: BankBranch[];
   public payment: PaymentDto;
   public isSubmitted: boolean;
   public paymentId: number;
+  fileUploads: ElementRef;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private dataRoute: ActivatedRoute,
               private snackBar: SnackBarService,
               private bankService: BankService,
               private branchService: BankBranchService,
-              private paymentService: PaymentService
+              private paymentService: PaymentService,
+              private sanitizer: DomSanitizer,
               ) { }
 
   ngOnInit() {
@@ -80,4 +91,37 @@ export class PaymentMethodComponent implements OnInit {
   getBankBranch($event) {
     this.getAllBankBranchByBankId(this.paymentMethodForm.get('bank').value);
   }
+
+  onClicks(event) {
+    if (this.fileUploads) {
+      this.fileUploads.nativeElement.click();
+    }
+  }
+
+  onInputs(event) {
+
+  }
+
+  onFileSelecteds(event) {
+    const file = event.dataTransfer ? event.dataTransfer.file : event.target.file;
+    console.log('event::::::', event);
+    for (let i = 0; i < file.length; i++) {
+      const filesList = file[i];
+      filesList.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file[i])));
+      this.file.push(file[i]);
+    }
+  }
+
+  removeFiles(event, file) {
+    let ix;
+    if (this.file && -1 !== (ix = this.file.indexOf(file))) {
+      this.file.splice(ix, 1);
+      this.clearInputElement();
+    }
+  }
+
+  clearInputElement() {
+    this.fileUploads.nativeElement.value = '';
+  }
+
 }
