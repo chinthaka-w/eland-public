@@ -15,6 +15,7 @@ import { LanguageChangeComponent } from './dashboard/language-change/language-ch
 import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.component';
 import { ResignationComponent } from './dashboard/resignation/resignation.component';
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
+import {ViewNotaryComponent} from "./dashboard/view-notary/view-notary.component";
 
 
 const routes: Routes = [
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: 'applications',
     component: ApplicationsComponent
+  },
+  {
+    path: 'view-notary',
+    component: ViewNotaryComponent
   }
 ];
 

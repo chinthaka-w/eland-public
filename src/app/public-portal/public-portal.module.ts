@@ -43,6 +43,10 @@ import { ResignationComponent } from './dashboard/resignation/resignation.compon
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 import { RequestViewComponent } from './dashboard/requests/request-view/request-view.component';
 import {SharedModule} from "../shared/shared.module";
+import { ViewNotaryComponent } from './dashboard/view-notary/view-notary.component';
+import { NotaryApplicationComponent } from './dashboard/view-notary/notary-application/notary-application.component';
+import { NotaryPaymentInfoComponent } from './dashboard/view-notary/notary-payment-info/notary-payment-info.component';
+import { NotaryRemarkComponent } from './dashboard/view-notary/notary-remark/notary-remark.component';
 
 
 
@@ -71,7 +75,11 @@ import {SharedModule} from "../shared/shared.module";
     LeaveRequestComponent,
     ResignationComponent,
     ApplicationsComponent,
-    RequestViewComponent
+    RequestViewComponent,
+    ViewNotaryComponent,
+    NotaryApplicationComponent,
+    NotaryPaymentInfoComponent,
+    NotaryRemarkComponent
   ],
   imports: [
     CommonModule,
