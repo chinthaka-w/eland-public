@@ -2,12 +2,12 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../shared/dto/notary.model';
 import {NotaryService} from '../../../shared/service/notary-service';
-import {GnDivisionService} from '../../../shared/service/gn-division-service';
+import {GnDivisionService} from '../../../shared/service/gn-division.service';
 import {GnDivision} from '../../../shared/dto/gn-division.model';
 import {DsDivision} from '../../../shared/dto/ds-division.model';
 import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
-import {DsDivisionService} from '../../../shared/service/ds-division-service';
-import {LandRegistryService} from '../../../shared/service/land-registry-service';
+import {DsDivisionService} from '../../../shared/service/ds-division.service';
+import {LandRegistryService} from '../../../shared/service/land-registry.service';
 import {NewNotaryGnDivisionDTO} from '../../../shared/dto/new-notary-gn-division.model';
 import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {JudicialZoneService} from '../../../shared/service/judicial-zone.service';
