@@ -1,22 +1,17 @@
 export class correctionReq {
     constructor(
-        folioCorrectionReqId: number,
-        landRegId: number,
+     
+        landRegId: string,
         deedNo: string,
         attestedDate: string,
         notaryName: string,
         folioNumbers: string,
         natureOfTheCorrection: string,
-        equestedCorrection: string,
-        judicialZoneId: string,
+        requestedCorrection: string,
+        judicialZoneId: number,
         citizenId: number,
-        newNotaryId: string,
         workflowStageCode: string,
         remark: string,
-        status: string,
-        lastUpdatedTime: string,
-        lastUpdatedUser: string,
-        createdTime: string
 
 
     ) { }

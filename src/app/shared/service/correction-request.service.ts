@@ -38,8 +38,8 @@ export class CorrectionRequestService {
 
  // save correction request
  saveNotaryDetails(corrReq: correctionReq): Observable<Object> {
-  console.log(corrReq);
-  return this.httpClient.post(this.BASE_URL_WITH_CORRECTION_REQ + '/', corrReq, {responseType: 'text', headers: this.headers});
+  console.log(JSON.parse(JSON.stringify(corrReq)));
+  return this.httpClient.post(this.BASE_URL_WITH_CORRECTION_REQ + '/' ,JSON.stringify(corrReq), {responseType: 'text', headers: this.headersJson});
 }
 
 

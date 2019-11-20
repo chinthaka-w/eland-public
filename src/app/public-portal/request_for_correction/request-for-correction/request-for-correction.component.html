@@ -20,8 +20,8 @@
             <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
            
             <div class="default-input-feild">
-              <mat-select multiple>
-                <mat-option [value]="item.nameEng" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
+              <mat-select multiple formControlName="landRegId">
+                <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
               </mat-select>
             </div>
           </div>
@@ -72,9 +72,8 @@
             <label>Notary Judicial Division<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <select matNativeControl required class="form-control">
-                  <option>--select--</option>
-                  <option *ngFor="let item of judicialzone" [value]="item.nameEng">{{item.nameEng}}</option>
+                <select matNativeControl required class="form-control" formControlName="judicialZoneId">
+                  <option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</option>
                 </select>
               </mat-form-field>
             </div>
@@ -86,10 +85,8 @@
           <div class="default-input-wrapper full-row">
             <label>Folio(s) Which Correction to be Made<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-select multiple>
-                <mat-option [value]="1">options</mat-option>
-                <mat-option [value]="2">options</mat-option>
-                <mat-option [value]="3">options</mat-option>
+              <mat-select multiple formControlName="folioNumbers">
+                <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
               </mat-select>
             </div>
           </div>
@@ -99,7 +96,7 @@
             <label>Nature of the Correction</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <textarea matInput rows="3" formControlName="natureOfCorrection" class="form-control"></textarea>
+                <textarea matInput rows="3" formControlName="natureOfTheCorrection" class="form-control"></textarea>
               </mat-form-field>
             </div>
           </div>
@@ -111,7 +108,7 @@
             <label>Requested Correction to be Made<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <textarea matInput rows="3" formControlName="reqCorrectiontobeMade" class="form-control"></textarea>
+                <textarea matInput rows="3" formControlName="requestedCorrection" class="form-control"></textarea>
               </mat-form-field>
             </div>
           </div>
@@ -126,10 +123,10 @@
           <div class="default-input-wrapper full-row">
             <label>Deed Related to the Correction<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput value="test.pdf" class="form-control">
+              <!-- <mat-form-field appearance="outline">
+                <input matInput value="test.pdf" class="form-control" formControlName="relatedCorrection">
                 <mat-icon matSuffix style="color: #A7A6A6;">clear</mat-icon>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
           </div>
         </div>

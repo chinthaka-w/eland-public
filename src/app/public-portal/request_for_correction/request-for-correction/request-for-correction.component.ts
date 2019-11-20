@@ -29,16 +29,24 @@ export class RequestForCorrectionComponent implements OnInit {
 
   ngOnInit() {
     this.reqForCorrectionForm = new FormGroup({
-      reqCorrectiontobeMade: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+      // folioCorrectionReqId:new FormControl(),
+      requestedCorrection: new FormControl('', [Validators.required]),
       notaryName: new FormControl('', [Validators.required]),
+      landRegId:new FormControl('', [Validators.required]),
+      judicialZoneId:new FormControl('', [Validators.required]),
+      folioNumbers:new FormControl('', [Validators.required]),
       deedNo: new FormControl('', [Validators.required]),
-      passedDate: new FormControl(new Date(), [Validators.required]),
       attestedDate: new FormControl(new Date(), [Validators.required]),
-      natureOfCorrection: new FormControl(''),
-      mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      NearestRegtotheAplcnt: new FormControl('', [Validators.required])
+      natureOfTheCorrection: new FormControl(''),
+      citizenId:new FormControl('1'),
+      workflowStageCode:new FormControl('status'),
+      remark:new FormControl('test remark'),
+
+
+
+
     });
-    this.getGnDivisions();
+    this.getjudicialZone();
     this.getLandRegistries();
     this.getAllCorrectionsToBeMade();
   }
@@ -48,7 +56,7 @@ export class RequestForCorrectionComponent implements OnInit {
   }
 
 
-  private getGnDivisions(): void {
+  private getjudicialZone(): void {
     this.correctionRequestService.getAllJudicialZones().subscribe(res => {
       this.judicialzone = res;
     });
@@ -66,15 +74,14 @@ export class RequestForCorrectionComponent implements OnInit {
     });
   }
 
-  // saveCorrectionReqDetails(
-  //   folioCorrectionReqId: string, landRegistryId: string, deedNo: string, attestedDate: string,
-  //   notaryName: string, foliosNum: string, natureOfTheCorrection: string, requestedCorrection: string,
-  //   judicialZoneId: number, citizendId: number, newNotaryId: number, workFlowStageCode: string, remark: string,
-  //   status: string, lastUpdateTime: string, lastUpdateUser: string, createdTime: string
-  // ): void {
 
+  onFormSubmit() {
+    this.correctionRequestService.saveNotaryDetails(this.reqForCorrectionForm.value)
+      .subscribe( res => {
+        console.log("result ",res);
+      });
+  }
 
-  //  }
 
 
 }
