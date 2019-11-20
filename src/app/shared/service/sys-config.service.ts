@@ -6,18 +6,27 @@ import { AppConfig } from "../dto/app-config.model";
   providedIn: "root"
 })
 export class SysConfigService {
+  public static APP_ENDPOINT = "api/";
+  public static APP_IP = "localhost:";
+  public static APP_PROTOCOL = "http://";
+  public static APP_PORT = "9292/";
+
+  public static readonly BASE_URL =
+    SysConfigService.APP_PROTOCOL +
+    SysConfigService.APP_IP +
+    SysConfigService.APP_PORT +
+    SysConfigService.APP_ENDPOINT;
 
   getConfig = new EventEmitter<AppConfig>();
 
-  constructor() {
-  }
+  constructor() {}
 
   set config(value) {
-    window.sessionStorage.setItem('appConfig', JSON.stringify(value));
+    window.sessionStorage.setItem("appConfig", JSON.stringify(value));
     this.getConfig.emit(value);
   }
 
   get config(): any | Observable<any> {
-    return  JSON.parse(window.sessionStorage.getItem('appConfig'));
+    return JSON.parse(window.sessionStorage.getItem("appConfig"));
   }
 }

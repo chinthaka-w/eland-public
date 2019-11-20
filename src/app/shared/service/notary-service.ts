@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Notary} from '../dto/notary';
 import {Observable, of, throwError} from 'rxjs';
+import { SysConfigService } from './sys-config.service';
 
 
 @Injectable()
 export class NotaryService {
-  public BASE_URL = 'http://localhost:9292/api/new-notary';
+  public BASE_URL = SysConfigService.BASE_URL+'/new-notary';
   private headers;
 
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
