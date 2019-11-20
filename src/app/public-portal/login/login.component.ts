@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import {AppConfig} from '../../shared/model/app-config.model';
+import {AppConfig} from '../../shared/dto/app-config.model';
 import {SysConfigService} from "../../shared/service/sys-config.service";
 
 @Component({

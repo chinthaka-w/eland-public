@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input } from "@angular/core";
 import { SysConfigService } from "../../service/sys-config.service";
-import { AppConfig } from "../../model/app-config.model";
+import { AppConfig } from "../../dto/app-config.model";
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({

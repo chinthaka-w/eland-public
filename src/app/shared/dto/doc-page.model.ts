@@ -1,5 +1,5 @@
-import {DocPageMetaData} from './doc-page-meta-data';
-import {NewNotaryDoc} from './new-notary-doc';
+import {DocPageMetaData} from './doc-page-meta-data.model';
+import {NewNotaryDoc} from './new-notary-doc.model';
 
 export class DocPage {
   pageName: string;

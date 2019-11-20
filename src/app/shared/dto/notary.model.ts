@@ -1,4 +1,4 @@
-import {NewNotaryGnDivisionDTO} from './new-notary-gn-division';
+import {NewNotaryGnDivisionDTO} from './new-notary-gn-division.model';
 
 export class Notary {
    constructor(
@@ -37,6 +37,7 @@ export class Notary {
      public createdTime: Date,
      public lastUpdatedUser: string,
      public userName: string,
+     public paymentId: number,
    ) {
    }
 }

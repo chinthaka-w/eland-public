@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {UserDetails} from '../custom-model/user-details.model';
+import {UserDetails} from '../dto/user-details.model';
 
 const TOKEN_KEY = 'AuthToken';
 const REFRESH_TOKEN = 'AuthToken';

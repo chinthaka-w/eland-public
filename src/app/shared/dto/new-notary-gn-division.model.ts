@@ -1,4 +1,4 @@
-import { GnDivision} from './gn-division';
+import { GnDivision} from './gn-division.model';
 import {GnDivisionDTO} from './gn-division-dto';
 
 export class NewNotaryGnDivisionDTO {

@@ -1,4 +1,4 @@
-import {DocPage} from './doc-page';
+import {DocPage} from './doc-page.model';
 
 export class Doc {
   filePath: string;

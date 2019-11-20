@@ -1,28 +1,25 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Notary} from '../../../shared/model/notary';
+import {Notary} from '../../../shared/dto/notary.model';
 import {NotaryService} from '../../../shared/service/notary-service';
 import {GnDivisionService} from '../../../shared/service/gn-division-service';
-import {GnDivision} from '../../../shared/model/gn-division';
-import {DsDivision} from '../../../shared/model/ds-division';
-import {LandRegistry} from '../../../shared/model/land-registry';
+import {GnDivision} from '../../../shared/dto/gn-division.model';
+import {DsDivision} from '../../../shared/dto/ds-division.model';
+import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
 import {DsDivisionService} from '../../../shared/service/ds-division-service';
 import {LandRegistryService} from '../../../shared/service/land-registry-service';
-import {NewNotaryGnDivisionDTO} from '../../../shared/model/new-notary-gn-division';
+import {NewNotaryGnDivisionDTO} from '../../../shared/dto/new-notary-gn-division.model';
 import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {JudicialZoneService} from '../../../shared/service/judicial-zone.service';
-import {JudicialZoneModel} from '../../../shared/custom-model/judicial-zone.model';
-import {GnDivisionDTO} from '../../../shared/model/gn-division-dto';
+import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
+import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
 import {MatRadioChange} from '@angular/material/radio';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TokenStorageService} from '../../../shared/auth/token-storage.service';
-import {NotaryPaymentDto} from "../../../shared/model/notary-payment.dto";
-import {PaymentDto} from "../../../shared/model/payment-dto";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {PaymentService} from "../../../shared/service/payment.service";
 import {PaymentComponent} from "../../../shared/components/payment/payment.component";
 import {PaymentMethodComponent} from "../../../shared/components/payment/payment-method/payment-method.component";
-
 
 @Component({
   selector: 'app-add-notary',
@@ -48,12 +45,12 @@ export class AddNotaryComponent implements OnInit {
   public payment: any;
   public paymentData: any;
   public paymentValue: FormGroup;
-  public paymentDataValue: FormGroup;
+  public paymentDataValue: number;
 
   public notaryForm: FormGroup;
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
-  public landRegistry: LandRegistry[];
+  public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
   public notaryDetails: Notary;
   public gnDivisionDetails: GnDivisionDTO;
@@ -148,14 +145,12 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, 'Miss', 'Ms',
       1, this.notaryForm.value.landRegistry, [this.newNotaryGnDivision], this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName);
+      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentDataValue);
 
     this.notaryService.setNotaryDetails(this.notaryDetails);
     this.notaryDetails = this.notaryService.getNotaryDetails();
-    this.payment = new  PaymentDto(this.paymentService.getPaymentMethod(), this.paymentDataValue.value.referenceNo, this.paymentDataValue.value.date,
-      10000, 'ACT', new Date(), new Date(),  this.paymentDataValue.value.bank, this.paymentDataValue.value.branch, 'USER');
-    const notaryPayment = new NotaryPaymentDto(this.notaryDetails, this.payment);
-    this.notaryService.saveNotaryDetails(notaryPayment).subscribe(
+
+    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
       (success: string) => {
         this.snackBar.success('Notary Registration Success');
       },
@@ -198,7 +193,7 @@ export class AddNotaryComponent implements OnInit {
   }
   private getLandRegistries(): void {
     this.landRegistryService.getAllLandRegistry().subscribe(
-      (data: LandRegistry[]) => {
+      (data: LandRegistryModel[]) => {
         this.landRegistry = data;
       }
     );

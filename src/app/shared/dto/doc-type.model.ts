@@ -1,5 +1,5 @@
-import {DocPage} from './doc-page';
-import {MetaData} from './meta-data';
+import {DocPage} from './doc-page.model';
+import {MetaData} from './meta-data.model';
 
 export class DocType {
   description: string;

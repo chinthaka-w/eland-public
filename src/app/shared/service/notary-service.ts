@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Notary} from '../model/notary';
+import {Notary} from '../dto/notary.model';
 import {Observable, of, throwError} from 'rxjs';
-import {PaymentDto} from '../model/payment-dto';
-import {NotaryPaymentDto} from '../model/notary-payment.dto';
+import {PaymentDto} from '../dto/payment-dto';
+import {NotaryPaymentDto} from '../dto/notary-payment.dto';
 
 
 @Injectable()
@@ -17,7 +17,7 @@ export class NotaryService {
   public constructor(private httpClient: HttpClient) {}
 
   // tslint:disable-next-line:ban-types
-  saveNotaryDetails(notaries: NotaryPaymentDto): Observable<Object> {
+  saveNotaryDetails(notaries: Notary): Observable<Object> {
     console.log(notaries);
     return this.httpClient.post(this.BASE_URL + '/' , notaries, {responseType: 'text', headers: this.headers});
   }

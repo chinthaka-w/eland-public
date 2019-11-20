@@ -1,4 +1,4 @@
-import {DocPageMetaData} from './doc-page-meta-data';
+import {DocPageMetaData} from './doc-page-meta-data.model';
 
 export class MetaData {
   metaKey: string;
