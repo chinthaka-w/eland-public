@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../../shared/model/notary';
 import {NotaryService} from '../../../../shared/service/notary-service';
@@ -20,13 +20,12 @@ import {NotaryPaymentDto} from '../../../model/notary-payment.dto';
   styleUrls: ['./payment-method.component.css']
 })
 export class PaymentMethodComponent implements OnInit {
-  public  notaryDetails: Notary;
-  private addNotaryComponent: AddNotaryComponent;
+  @Output() responseValue = new EventEmitter();
   public paymentMethodForm: FormGroup;
   public bankDetails: Bank[];
   public branchDetails: BankBranch[];
   public payment: PaymentDto;
-  public notaryPaymentDTO: NotaryPaymentDto;
+  public isSubmitted: boolean;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private dataRoute: ActivatedRoute,
@@ -46,19 +45,10 @@ export class PaymentMethodComponent implements OnInit {
     this.getAllBanks();
   }
 
-  savePayment() {
-    this.notaryDetails = this.notaryService.getNotaryDetails();
-    this.payment = new  PaymentDto( this.paymentService.getPaymentMethod(), this.paymentMethodForm.get('referenceNo').value, this.paymentMethodForm.get('date').value,
-      10000, 'ACT', new Date(), new Date(),  this.paymentMethodForm.get('bank').value, this.paymentMethodForm.get('branch').value, 'USER');
-    const notaryPayment = new NotaryPaymentDto(this.notaryDetails, this.payment);
-    this.notaryService.saveNotaryDetails(notaryPayment).subscribe(
-      (success: string) => {
-        this.snackBar.success('Notary Registration Success');
-      },
-      error => {
-        this.snackBar.error('Failed');
-      }
-    );
+  savePayment(paymentMethodForm: FormGroup) {
+
+     this.responseValue.emit(paymentMethodForm);
+     this.isSubmitted = true;
   }
 
   private getAllBanks(): void {

@@ -5,7 +5,7 @@
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
-<form class="form-horizontal" [formGroup]="notaryForm">
+<form *ngIf="!isPayment && !isPaymentMethod" class="form-horizontal" [formGroup]="notaryForm">
   <div class="page-content-wrapper">
     <div class="page-content-inner-wrapper">
       <div class="pg-inner-row mb-40">
@@ -363,7 +363,7 @@
       </div>
 
       <div class="rp-row">
-        <div class="pg-inner-row mb-20"  *ngFor="let location of locationList; let i = index">
+        <div class="pg-inner-row"  *ngFor="let location of locationList; let i = index">
           <div class="pg-inner-col">
             <div class="default-input-wrapper full-row">
               <label>DS Division:<span class="redtxt">*</span></label>
@@ -382,7 +382,7 @@
               </div>
             </div>
           </div>
-          <div class="pg-inner-col">
+          <div class="pg-inner-col has-btn">
             <div class="default-input-wrapper full-row">
               <label>GN Division:<span class="redtxt">*</span></label>
               <div class="default-input-feild">
@@ -400,8 +400,6 @@
                 </mat-select>
               </div>
             </div>
-          </div>
-          <div class="pg-inner-col">
             <button  mat-icon-button
                      color="warn"
                      (click)="removeLocation(i)">
@@ -409,7 +407,7 @@
             </button>
           </div>
         </div>
-        <button class="ml-3 mb-3 add-row" mat-flat-button color="accent" (click)="addLocation()" >
+        <button class="ml-3 mb-30 add-row" mat-flat-button color="accent" (click)="addLocation()" >
           Add <i class="material-icons">add_circle_outline</i>
         </button>
       </div>
@@ -480,16 +478,17 @@
                    class="input_fileupload--hidden"
                    (input)="onInput($event)"
                    (change)="onFileSelected($event)">
-            <div *ngFor="let f of files">
-              <span>{{f.name}}</span>
-              <button mat-icon-button
-                      color="primary"
-                      [attr.title]="deleteButtonLabel?deleteButtonLabel:null"
-                      (click)="removeFile(event,f)">
-                <mat-icon>{{deleteButtonIcon}}</mat-icon>
-              </button>
-            </div>
+
           </button>
+          <div *ngFor="let f of files">
+            <span>{{f.name}}</span>
+            <button mat-icon-button
+                    color="primary"
+                    [attr.title]="deleteButtonLabel?deleteButtonLabel:null"
+                    (click)="removeFile(event,f)">
+              <mat-icon>{{deleteButtonIcon}}</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -503,16 +502,16 @@
                    class="input_fileupload--hidden"
                    (input)="onInputs($event)"
                    (change)="onFileSelecteds($event)">
-            <div *ngFor="let f of file">
-              <span>{{f.name}}</span>
-              <button mat-icon-button
-                      color="primary"
-                      [attr.title]="deleteButtonLabel?deleteButtonLabel:null"
-                      (click)="removeFiles(event,f)">
-                <mat-icon>{{deleteButtonIcon}}</mat-icon>
-              </button>
-            </div>
           </button>
+          <div *ngFor="let f of file">
+            <span>{{f.name}}</span>
+            <button mat-icon-button
+                    color="primary"
+                    [attr.title]="deleteButtonLabel?deleteButtonLabel:null"
+                    (click)="removeFiles(event,f)">
+              <mat-icon>{{deleteButtonIcon}}</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -526,7 +525,7 @@
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button"    [routerLink]="['/payment']" (click)="onFormSubmit()">Continue</button>
+          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Continue</button>
         </div>
       </div>
 
@@ -550,3 +549,9 @@
     </div>
   </div>
 </form>
+<div *ngIf="isPayment" class="container">
+  <app-payment (response)="getPaymentData($event)"></app-payment>
+</div>
+<div *ngIf="isPaymentMethod" class="container">
+  <app-payment-method (responseValue)="getPaymentMethodData($event)"></app-payment-method>
+</div>

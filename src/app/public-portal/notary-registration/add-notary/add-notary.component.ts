@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../shared/model/notary';
 import {NotaryService} from '../../../shared/service/notary-service';
@@ -16,6 +16,12 @@ import {GnDivisionDTO} from '../../../shared/model/gn-division-dto';
 import {MatRadioChange} from '@angular/material/radio';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TokenStorageService} from '../../../shared/auth/token-storage.service';
+import {NotaryPaymentDto} from "../../../shared/model/notary-payment.dto";
+import {PaymentDto} from "../../../shared/model/payment-dto";
+import {SnackBarService} from "../../../shared/service/snack-bar.service";
+import {PaymentService} from "../../../shared/service/payment.service";
+import {PaymentComponent} from "../../../shared/components/payment/payment.component";
+import {PaymentMethodComponent} from "../../../shared/components/payment/payment-method/payment-method.component";
 
 
 @Component({
@@ -37,6 +43,12 @@ export class AddNotaryComponent implements OnInit {
   deleteButtonIcon = 'close';
   @Input()
   showUploadInfo;
+  @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
+  @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
+  public payment: any;
+  public paymentData: any;
+  public paymentValue: FormGroup;
+  public paymentDataValue: FormGroup;
 
   public notaryForm: FormGroup;
   public gnDivision: GnDivision[];
@@ -52,6 +64,8 @@ export class AddNotaryComponent implements OnInit {
   fileUpload: ElementRef;
   fileUploads: ElementRef;
   inputFileName: string;
+  isPayment: boolean = false;
+  isPaymentMethod: boolean = false;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -59,7 +73,9 @@ export class AddNotaryComponent implements OnInit {
               private landRegistryService: LandRegistryService,
               private judicialZoneService: JudicialZoneService,
               private sanitizer: DomSanitizer,
-              private tokenStorageService: TokenStorageService) { }
+              private tokenStorageService: TokenStorageService,
+              private snackBar: SnackBarService,
+              private paymentService: PaymentService) { }
 
   ngOnInit() {
     this.notaryForm = this.formBuilder.group({
@@ -115,33 +131,38 @@ export class AddNotaryComponent implements OnInit {
         if (data != null) {
           alert('Already Exists...');
         } else {
-          this.saveNotaryDetails(this.notaryForm.value.notary, this.notaryForm.value.title, this.notaryForm.value.englishNameWithInitials,
-            this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials, this.notaryForm.value.fullNameInEnglish,
-            this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil, this.notaryForm.value.nic,
-            this.notaryForm.value.email, this.notaryForm.value.languages, this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate,
-            this.notaryForm.value.dateOfBirth, this.notaryForm.value.courtZone, this.notaryForm.value.permenentAddressInEnglish,
-            this.notaryForm.value.permenentAddressInSinhala,
-            this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.currentAddressInTamil,
-            this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo, this.notaryForm.value.landRegistry, this.notaryForm.value.secretariatDivision,
-            this.notaryForm.value.gramaNiladhariDivision, this.notaryForm.value.medium, this.notaryForm.value.userName);
+          this.isPayment = true;
+          this.isPaymentMethod = false;
         }
-      }
-    );
+      });
   }
 
-  saveNotaryDetails(notaryId: number, titleEng: string, initialsEng: string, initialsSin: string, initialsTam: string, fullNameEng: string,
-                    fullNameSin: string, fullNameTam: string, nic: string, email: string, languages: number, dateOfEnrolment: Date, dateOfPassed: Date,
-                    dateOfBirth: Date, judicialZone: number, permenentAddressEng: string, permenentAddressSin: string, permenentAddressTam: string,
-                    currentAddressEng: string, currentAddressSin: string, currentAddressTam: string, mobileNo: string, telephoneNo: string, landRegistryId: number,
-                    divisionSecretariatDivision: number, gramaNiladhariDivision: number, medium: number, userName: string): void {
+    saveNotaryDetails(): void {
+    this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
+    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', [this.gnDivisionDetails]);
+    this.notaryDetails = new Notary(0, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
+      this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
+      this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
+      this.notaryForm.value.currentAddressInSinhala,  this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
+      this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
+      this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
+      this.notaryForm.value.title, 'Miss', 'Ms',
+      1, this.notaryForm.value.landRegistry, [this.newNotaryGnDivision], this.notaryForm.value.languages,
+      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName);
 
-    this.gnDivisionDetails = new GnDivisionDTO(gramaNiladhariDivision, null, null, null, null, null, divisionSecretariatDivision, 'ACT', null);
-    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( divisionSecretariatDivision, 'asd', [this.gnDivisionDetails]);
-    this.notaryDetails = new Notary(0, notaryId, 0, null, nic, email, dateOfBirth, mobileNo, telephoneNo,
-      permenentAddressEng, currentAddressEng, permenentAddressSin, currentAddressSin, permenentAddressTam, currentAddressTam,
-      fullNameEng, fullNameSin, fullNameTam, initialsEng, initialsSin, initialsTam, titleEng, 'Miss', 'Ms',
-      1, landRegistryId, [this.newNotaryGnDivision], languages, dateOfEnrolment, dateOfPassed, medium, 'status', new Date(),  this.tokenStorageService.getUserObjectToken().username, userName);
     this.notaryService.setNotaryDetails(this.notaryDetails);
+    this.notaryDetails = this.notaryService.getNotaryDetails();
+    this.payment = new  PaymentDto(this.paymentService.getPaymentMethod(), this.paymentDataValue.value.referenceNo, this.paymentDataValue.value.date,
+      10000, 'ACT', new Date(), new Date(),  this.paymentDataValue.value.bank, this.paymentDataValue.value.branch, 'USER');
+    const notaryPayment = new NotaryPaymentDto(this.notaryDetails, this.payment);
+    this.notaryService.saveNotaryDetails(notaryPayment).subscribe(
+      (success: string) => {
+        this.snackBar.success('Notary Registration Success');
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
   }
 
   private getGnDivisions(): void {
@@ -333,7 +354,7 @@ export class AddNotaryComponent implements OnInit {
     for (let i = 0; i < file.length; i++) {
       const filesList = file[i];
       filesList.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file[i])));
-      this.files.push(file[i]);
+      this.file.push(file[i]);
     }
   }
 
@@ -351,5 +372,20 @@ export class AddNotaryComponent implements OnInit {
 
   clearInputElements() {
     this.fileUploads.nativeElement.value = '';
+  }
+
+  getPaymentData(paymentData){
+    this.isPayment = false;
+    this.isPaymentMethod = true;
+    this.paymentValue = paymentData;
+    console.log('Payment Data: ',this.paymentComponent.isSubmitted);
+  }
+
+  getPaymentMethodData(paymentMethodData) {
+    this.isPayment = false;
+    this.isPaymentMethod = false;
+    this.paymentDataValue = paymentMethodData;
+    this.saveNotaryDetails();
+    console.log('Payment Method Data: ',this.paymentDataValue);
   }
 }

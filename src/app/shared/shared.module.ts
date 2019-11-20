@@ -63,7 +63,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
-    MatTabsModule
+    MatTabsModule,
+    PaymentComponent,
+    PaymentMethodComponent
   ]
 })
 export class SharedModule {}

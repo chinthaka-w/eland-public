@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {PaymentService} from '../../service/payment.service';
 import {ParametersEnum} from '../../enum/parameters.enum';
@@ -10,11 +10,13 @@ import {ParameterService} from '../../service/parameter.service';
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
+  @Output() response = new EventEmitter();
   public paymentForm: FormGroup;
   public amount: number;
   public issue: number;
   public total: number;
   public issueValue: string;
+  public isSubmitted: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private paymentService: PaymentService,
@@ -30,6 +32,10 @@ export class PaymentComponent implements OnInit {
     this.total = this.amount;
   }
 
+  setPaymentMethod(payment: number){
+    this.paymentService.setPaymentMethod(payment);
+  }
+
   getParameterValue(value: string): void {
     this.parameterService.getParameterValue(this.paymentForm.get('licenseMethod').value).subscribe(
       (res: number) => {
@@ -37,6 +43,10 @@ export class PaymentComponent implements OnInit {
        this.total = (this.issue + this.amount);
       }
     );
+  }
+  continue(paymentForm: FormGroup) {
+    this.response.emit(paymentForm);
+    this.isSubmitted = true;
   }
 
 
