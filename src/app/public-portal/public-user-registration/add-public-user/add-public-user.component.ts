@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-add-public-user",
@@ -11,7 +10,7 @@ export class AddPublicUserComponent implements OnInit {
   public publicUserForm: FormGroup;
   fileList = {};
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor() {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
