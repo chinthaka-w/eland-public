@@ -20,9 +20,11 @@
             <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
            
             <div class="default-input-feild">
-              <mat-select multiple formControlName="landRegId">
+              <mat-select formControlName="landRegId">
                 <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
               </mat-select>
+
+
             </div>
           </div>
         </div>
@@ -71,11 +73,15 @@
           <div class="default-input-wrapper full-row">
             <label>Notary Judicial Division<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required class="form-control" formControlName="judicialZoneId">
-                  <option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</option>
-                </select>
-              </mat-form-field>
+              
+            
+             
+
+                <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
+                  <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
+                </mat-select>
+
+            
             </div>
           </div>
         </div>
@@ -88,6 +94,7 @@
               <mat-select multiple formControlName="folioNumbers">
                 <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
               </mat-select>
+              
             </div>
           </div>
         </div>

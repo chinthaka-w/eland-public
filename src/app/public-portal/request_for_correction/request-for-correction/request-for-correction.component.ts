@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators,FormArray} from '@angular/forms';
 import { LandRegistry } from '../../../shared/model/land-registry';
 import { PatternValidation } from '../../../shared/pattern-validation.enum';
 import { CorrectionRequestService } from 'src/app/shared/service/correction-request.service';
 import { judicialZone } from 'src/app/shared/model/judicialZone';
 import { correctionReq } from 'src/app/shared/model/correctionReq.model';
+import {
+  MatSnackBar,
+  MatSnackBarConfig,
+  MatSnackBarVerticalPosition,
+  MatSnackBarHorizontalPosition
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-request-for-correction',
@@ -25,14 +31,32 @@ export class RequestForCorrectionComponent implements OnInit {
   judicialzone: any;
   landRegs: any;
 
-  constructor(private correctionRequestService: CorrectionRequestService, ) { }
+
+  message: string = 'Successfully Added';
+  actionButtonLabel: string = 'Retry';
+  action: boolean = true;
+  setAutoHide: boolean = true;
+  autoHide: number = 2000;
+  horizontalPosition: 'right';
+  verticalPosition: 'bottom';
+  panelClass: 'snackbar-success';
+
+  
+  constructor(private correctionRequestService: CorrectionRequestService, private snackBar: MatSnackBar ) { }
+
+  open() {
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
+    this.snackBar.open(this.message, this.action ? this.actionButtonLabel : undefined, config);
+  }
 
   ngOnInit() {
     this.reqForCorrectionForm = new FormGroup({
-      // folioCorrectionReqId:new FormControl(),
       requestedCorrection: new FormControl('', [Validators.required]),
       notaryName: new FormControl('', [Validators.required]),
-      landRegId:new FormControl('', [Validators.required]),
+      landRegId:new FormControl( Array(['']), [Validators.required]),
       judicialZoneId:new FormControl('', [Validators.required]),
       folioNumbers:new FormControl('', [Validators.required]),
       deedNo: new FormControl('', [Validators.required]),
@@ -41,10 +65,6 @@ export class RequestForCorrectionComponent implements OnInit {
       citizenId:new FormControl('1'),
       workflowStageCode:new FormControl('status'),
       remark:new FormControl('test remark'),
-
-
-
-
     });
     this.getjudicialZone();
     this.getLandRegistries();
@@ -79,6 +99,7 @@ export class RequestForCorrectionComponent implements OnInit {
     this.correctionRequestService.saveNotaryDetails(this.reqForCorrectionForm.value)
       .subscribe( res => {
         console.log("result ",res);
+      this.open();
       });
   }
 
