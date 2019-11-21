@@ -9,9 +9,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 })
 export class AddPublicUserComponent implements OnInit {
   public publicUserForm: FormGroup;
-  files: File[] = [];
   fileList = {};
-  fileUpload: ElementRef;
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -35,28 +33,7 @@ export class AddPublicUserComponent implements OnInit {
     });
   }
 
-  onFileSelected(event, fileType) {
-    const files = event.dataTransfer
-      ? event.dataTransfer.files
-      : event.target.files;
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      file.objectURL = this.sanitizer.bypassSecurityTrustUrl(
-        window.URL.createObjectURL(files[i])
-      );
-      this.files.push(files[i]);
-    }
-    this.fileList[fileType] = this.files;
-    this.files = [];
-  }
-
-  removeFile(fileType, index) {
-    this.fileList[fileType].splice(index, 1);
-  }
-
-  onClick(event) {
-    if (this.fileUpload) {
-      this.fileUpload.nativeElement.click();
-    }
+  setFiles(files, key){
+    this.fileList[key] = files;
   }
 }
