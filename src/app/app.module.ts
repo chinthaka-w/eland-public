@@ -16,20 +16,22 @@ import { MatIconModule } from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NotaryService} from './shared/service/notary-service';
 import {HttpClient} from '@angular/common/http';
-import {GnDivisionService} from './shared/service/gn-division-service';
-import {DsDivisionService} from './shared/service/ds-division-service';
-import {LandRegistryService} from './shared/service/land-registry-service';
+import {GnDivisionService} from './shared/service/gn-division.service';
+import {DsDivisionService} from './shared/service/ds-division.service';
+import {LandRegistryService} from './shared/service/land-registry.service';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import { GridComponent } from './grid/grid.component';
 import {JudicialZoneService} from './shared/service/judicial-zone.service';
 import {BankService} from './shared/service/bank.service';
 import {BankBranchService} from './shared/service/bank-branch.service';
 import {PaymentService} from "./shared/service/payment.service";
 import {ParameterService} from "./shared/service/parameter.service";
+import {TokenStorageService} from "./shared/auth/token-storage.service";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GridComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,7 +62,8 @@ import {ParameterService} from "./shared/service/parameter.service";
     BankService,
     BankBranchService,
     PaymentService,
-    ParameterService],
+    ParameterService,
+    TokenStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

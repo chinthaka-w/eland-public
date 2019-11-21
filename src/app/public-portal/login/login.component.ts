@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import {AppConfig} from '../../shared/dto/app-config.model';
+import {SysConfigService} from "../../shared/service/sys-config.service";
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @Input()
+  public appConfig: AppConfig;
+
   public loginForm: FormGroup;
 
   get username() {
@@ -26,7 +31,8 @@ export class LoginComponent implements OnInit {
     private snackBar: SnackBarService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public sysConfigService: SysConfigService
   ) {}
 
   ngOnInit() {
@@ -42,6 +48,12 @@ export class LoginComponent implements OnInit {
         this.snackBar.success('Login Successful');
         // setSession
         // setPermission
+        this.sysConfigService.getConfig.emit({
+          color: 'red',
+          user: true,
+          header: true,
+          footer: true
+        });
         this.router.navigate([`/dashboard`], { relativeTo: this.route });
       },
       error => {

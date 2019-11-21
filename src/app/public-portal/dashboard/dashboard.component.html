@@ -37,53 +37,53 @@
                     <div class="clear">&nbsp;</div>
                 </div>
                 <div class="db-card-bottom">
-                        <button mat-raised-button class="green">View</button>
+                    <button mat-raised-button class="green" [routerLink]="['/edit-profile']">View</button>
                 </div>
             </div> -->
 
             <div class="db-main-wp">
-                <div class="db-link-tile c1">
-                    <a href="change-judicial">
+                <div class="db-link-tile c1" *ngIf="userType == 'notary'">
+                    <a  [routerLink]="['/change-judicial']">
                         <span class="icon">
                             <i class="material-icons">room</i>
                         </span>
                         <span class="title">Change Judicial Zone</span>
                     </a>
                 </div>
-                <div class="db-link-tile c2">
-                    <a href="#">
+                <div class="db-link-tile c2" *ngIf="userType == 'notary'">
+                    <a [routerLink]="['/change-the-name']">
                         <span class="icon">
                             <i class="material-icons">cached</i>
                         </span>
                         <span class="title">Change The Name</span>
                     </a>
                 </div>
-                <div class="db-link-tile c3">
-                    <a href="#">
+                <div class="db-link-tile c3" *ngIf="userType == 'notary'">
+                    <a [routerLink]="['/resignation']">
                         <span class="icon">
                             <i class="material-icons">label</i>
                         </span>
                         <span class="title">Resignation</span>
                     </a>
                 </div>
-                <div class="db-link-tile c4">
-                    <a href="#">
+                <div class="db-link-tile c4" *ngIf="userType == 'notary'">
+                    <a [routerLink]="['/language-change']">
                         <span class="icon">
                             <i class="material-icons">speaker_notes</i>
                         </span>
                         <span class="title">Language Change</span>
                     </a>
                 </div>
-                <div class="db-link-tile c5">
-                    <a href="#">
+                <div class="db-link-tile c5" *ngIf="userType == 'notary'">
+                    <a [routerLink]="['/leave-request']">
                         <span class="icon">
                             <i class="material-icons">date_range</i>
                         </span>
                         <span class="title">Request for leave</span>
                     </a>
                 </div>
-                <div class="db-link-tile">
-                    <a href="#">
+                <div class="db-link-tile" *ngIf="userType == 'notary'">
+                    <a [routerLink]="['/applications']">
                         <span class="icon">
                             <i class="material-icons">insert_drive_file</i>
                         </span>
@@ -102,6 +102,40 @@
             </div>
 
 
+                <!---->
+                <div class="db-link-tile c1" *ngIf="userType == 'public'">
+                    <a [routerLink]="['/search-document']">
+                        <span class="icon">
+                            <i class="material-icons">search</i>
+                        </span>
+                        <span class="title">Search</span>
+                    </a>
+                </div>
+                <div class="db-link-tile c4" *ngIf="userType == 'public'">
+                    <a [routerLink]="['/extract']">
+                        <span class="icon">
+                            <i class="material-icons">dns</i>
+                        </span>
+                        <span class="title">Extract</span>
+                    </a>
+                </div>
+                <div class="db-link-tile c3" *ngIf="userType == 'public'">
+                    <a [routerLink]="['/requests']">
+                        <span class="icon">
+                            <i class="material-icons">feedback</i>
+                        </span>
+                        <span class="title">Requests</span>
+                    </a>
+                </div>
+                <div class="db-link-tile c2" *ngIf="userType == 'public'">
+                    <a href="#">
+                        <span class="icon">
+                            <i class="material-icons">label</i>
+                        </span>
+                        <span class="title">Request for Corections of Resignation</span>
+                    </a>
+                </div>
+            </div>
             <!-- Search -->
             <div class="db-search">
                 <div class="default-input-feild">

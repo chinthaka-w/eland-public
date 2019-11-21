@@ -1,0 +1,334 @@
+<div class="wf-img-container">
+    <div class="wf-img-wrapper" style="background-image: url('../../../../assets/images/temp_img_005.jpg')">&nbsp;</div>
+    <div class="wf-content-wrapper">
+        <a href="" class="phd-back-btn"><i class="material-icons">keyboard_backspace</i></a>
+        <h4>Search</h4>
+        <div class="wf-form-wp">
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Land Registry:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                            <select matNativeControl required  class="form-control">
+                                <option value="">Select</option>
+                                <option value="1">Option 01</option>
+                                <option value="2">Option 02</option>
+                                <option value="3">Option 03</option>
+                            </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Doc type:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <select matNativeControl required class="form-control" >
+                                    <option value="">Folio Document</option>
+                                    <option value="">Deed Document</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Name of the Notary public who attested by the deed:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>District or station where he practiced at that time:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Number of the deed:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Nature of the deed:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <span class="mb-10" style="display: block;">Date or probable period</span>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>From:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild date-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput [matDatepicker]="picker">
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <button mat-raised-button (click)="picker.open()">
+                                <i class="material-icons">calendar_today</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>To:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild date-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput [matDatepicker]="picker2">
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                            <button mat-raised-button (click)="picker.open()">
+                                <i class="material-icons">calendar_today</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Name of the grantor / Transferor:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Name of the grantee / transferee:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Village:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Name of the land:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Extent:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Korale:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Pattu:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>DS Division:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>GN Division:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="form-control" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Reason for search of deed as:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <select matNativeControl required class="form-control" >
+                                    <option value="">Owner of the land</option>
+                                    <option value="">Regarding a court case</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <span class="mb-10" style="display: block;">Registers required for search</span>
+
+            <div class="b-table-wrapper">
+                <table class="b-table" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th>Division</th>
+                        <th>Vol No</th>
+                        <th>Folio No</th>
+                        <th>No. of years </th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="t-status">Available on the system</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="default-input-feild">
+                                <mat-form-field appearance="outline">
+                                    <input matInput class="form-control" >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <button class="tar-btn">
+                                <i class="material-icons">add</i>
+                                </button>
+                            </td>
+                        </tr>
+                </table>
+            </div>
+
+            <div class="separator">&nbsp;</div>
+
+            <div class="pg-inner-row mb-0">
+                <div class="pg-inner-col right space">
+                    <button mat-raised-button class="lg-button">Continue</button>
+                    <button mat-raised-button class="lg-button" disabled><i class="material-icons">refresh</i> Reset</button>
+                    <button mat-raised-button class="lg-button green" disabled>Submit Search Request</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
