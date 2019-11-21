@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<div class="dashboard-container" *ngIf="isApplicationDetails && !isNotaryDetails">
     <div class="dashboard-inner-container">
         <div class="db-left-col" style="background-image: url('../../../assets/images/temp_img_005.jpg')">&nbsp;</div>
         <div class="db-right-col inner-sd">
@@ -36,7 +36,7 @@
                         <div class="clear">&nbsp;</div>
                     </div>
                     <div class="db-card-bottom">
-                        <button mat-raised-button class="green" [routerLink]="['/view-notary']">View</button>
+                        <button mat-raised-button class="green"   (click)="getNotaryDetails()">View</button>
                     </div>
                 </div>
 
@@ -55,4 +55,7 @@
             </div>
         </div>
     </div>
+</div>
+<div *ngIf="isNotaryDetails" class="container">
+  <app-view-notary></app-view-notary>
 </div>
