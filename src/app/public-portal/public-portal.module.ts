@@ -32,8 +32,7 @@ import { PublicProfileEditComponent } from './dashboard/profile/public-profile-e
 import {MatDialogModule} from '@angular/material/dialog';
 import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/notary-details/notary-details.component';
 import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit/account-details/account-details.component';
-import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
-import { RecaptchaFormsModule } from 'ng-recaptcha';
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaFormsModule } from 'ng-recaptcha';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
 import { RequestsComponent } from './dashboard/requests/requests.component';
@@ -72,7 +71,8 @@ import {SharedModule} from "../shared/shared.module";
     LeaveRequestComponent,
     ResignationComponent,
     ApplicationsComponent,
-    RequestViewComponent
+    RequestViewComponent,
+    RequestForCorrectionComponent
   ],
   imports: [
     CommonModule,

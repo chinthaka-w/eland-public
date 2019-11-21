@@ -46,9 +46,14 @@ const routes: Routes = [
   {
     path:'request_for_correction',
     component:RequestForCorrectionComponent
-    path: 'edit-public-profile',
-    component: PublicProfileEditComponent
+   
   },
+{
+
+  path: 'edit-public-profile',
+  component: PublicProfileEditComponent
+
+},
   {
     path: 'search-document',
     component: SearchDocumentComponent

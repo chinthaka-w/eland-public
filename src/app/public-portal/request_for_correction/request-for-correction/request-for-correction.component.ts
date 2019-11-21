@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators,FormArray} from '@angular/forms';
-import { LandRegistry } from '../../../shared/model/land-registry';
-import { PatternValidation } from '../../../shared/pattern-validation.enum';
+// import { LandRegistry } from '../../../shared/model/land-registry';
+// import { PatternValidation } from '../../../shared/pattern-validation.enum';
 import { CorrectionRequestService } from 'src/app/shared/service/correction-request.service';
-import { judicialZone } from 'src/app/shared/model/judicialZone';
-import { correctionReq } from 'src/app/shared/model/correctionReq.model';
+// import { judicialZone } from 'src/app/shared/model/judicialZone';
+// import { correctionReq } from 'src/app/shared/model/correctionReq.model';
 import {
   MatSnackBar,
   MatSnackBarConfig,
   MatSnackBarVerticalPosition,
   MatSnackBarHorizontalPosition
 } from '@angular/material/snack-bar';
+import { judicialZone } from 'src/app/shared/dto/judicialZone';
+import { correctionReq } from 'src/app/shared/dto/correctionReq.model';
+import { LandRegistryModel } from 'src/app/shared/dto/land-registry.model.';
 
 @Component({
   selector: 'app-request-for-correction',
@@ -21,7 +24,7 @@ export class RequestForCorrectionComponent implements OnInit {
 
   public reqForCorrectionForm: FormGroup;
   public correctioReq: judicialZone[];
-  public landReg: LandRegistry[];
+  public landReg: LandRegistryModel[];
   public correctionReqDetails: correctionReq;
   submitted = false;
   selected: any[];
