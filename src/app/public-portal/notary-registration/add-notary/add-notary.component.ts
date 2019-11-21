@@ -12,7 +12,7 @@ import {NewNotaryGnDivisionDTO} from '../../../shared/dto/new-notary-gn-division
 import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {JudicialZoneService} from '../../../shared/service/judicial-zone.service';
 import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
-import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
+import {GnDivisionDTO} from '../../../shared/dto/gn-division.dto';
 import {MatRadioChange} from '@angular/material/radio';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TokenStorageService} from '../../../shared/auth/token-storage.service';
