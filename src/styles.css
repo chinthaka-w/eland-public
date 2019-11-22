@@ -966,7 +966,7 @@ h5.uw-title:before {
     padding: 45px 40px 20px 40px !important;
 }
 
-.mat-tab-group.mat-primary .mat-ink-bar, 
+.mat-tab-group.mat-primary .mat-ink-bar,
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: #1582eb;
 }
@@ -1807,10 +1807,10 @@ a.pdf-link:visited {
     padding: 0 10px;
 }
 
-.pg-inner-col a, 
-.pg-inner-col a:link, 
-.pg-inner-col a:visited, 
-.pg-inner-col a:active, 
+.pg-inner-col a,
+.pg-inner-col a:link,
+.pg-inner-col a:visited,
+.pg-inner-col a:active,
 .pg-inner-col a:hover {
     color: #278df0;
 }
@@ -1960,6 +1960,11 @@ table.b-table tr:last-child td {
     border-bottom: none !important;
 }
 
+table.b-table .default-input-feild {
+  display: block;
+  width: 100%;
+}
+
 .b-table-wrapper {
     display: block;
     position: relative;
@@ -2009,10 +2014,10 @@ span.t-status {
     position: relative;
 }
 
-.db-right-col.inner-sd .phd-back-btn, 
-.db-right-col.inner-sd .phd-back-btn:link, 
-.db-right-col.inner-sd .phd-back-btn:visited, 
-.db-right-col.inner-sd .phd-back-btn:active, 
+.db-right-col.inner-sd .phd-back-btn,
+.db-right-col.inner-sd .phd-back-btn:link,
+.db-right-col.inner-sd .phd-back-btn:visited,
+.db-right-col.inner-sd .phd-back-btn:active,
 .db-right-col.inner-sd .phd-back-btn:hover {
     color: #24303c;
     top: 90px;
@@ -2313,14 +2318,14 @@ span.t-status {
     .default-input-wrapper.full-row.half-cols {
         display: block;
     }
-    
+
     .half-cols.full-row.default-input-wrapper > label {
         display: block;
         width: 100%;
         padding-top: 0;
         padding-bottom: 5px;
     }
-    
+
     .full-row.half-cols .default-input-feild {
         display: block;
         width: 100%;
@@ -2353,7 +2358,7 @@ span.t-status {
     .wf-img-container {
         padding-left: 0;
     }
-    
+
     .wf-img-wrapper {
         display: none;
     }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Notary} from '../model/notary';
+import {Notary} from '../dto/notary';
 import {Observable, of, throwError} from 'rxjs';
 
 

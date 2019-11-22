@@ -4,7 +4,7 @@ import { SnackBarService } from "src/app/shared/service/snack-bar.service";
 import { AuthService } from "src/app/shared/service/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SysConfigService } from "src/app/shared/service/sys-config.service";
-import { AppConfig } from "src/app/shared/model/app-config.model";
+import { AppConfig } from "src/app/shared/dto/app-config.model";
 
 @Component({
   selector: "app-login",
