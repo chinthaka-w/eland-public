@@ -1,6 +1,6 @@
 export class NewNotaryRequestsCategorySearchDto {
   constructor(
-    public requestID: string,
+    public requestID: number,
     public type: string,
   ){}
 

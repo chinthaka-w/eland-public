@@ -73,7 +73,7 @@ export class NotaryApplicationComponent implements OnInit {
     //   this.searchType.requestID = params.get('id')
     // });
 
-    this.searchType = new NewNotaryRequestsCategorySearchDto("1","1");
+    this.searchType = new NewNotaryRequestsCategorySearchDto(1,"1");
     this.newNotaryDataVarificationService.getNotaryDetails(this.searchType).subscribe(
       (result: NewNotaryViewDto) => {
         this.result = result;
