@@ -31,7 +31,7 @@
                         <dd>Yohani Gamage</dd>
                     </dl>
                     <dl class="db-card-info">
-                        <dt>Payment:</dt>
+                        <dt>PaymentDto:</dt>
                         <dd>Online</dd>
                     </dl>
                     <div class="clear">&nbsp;</div>
@@ -51,7 +51,7 @@
                     </a>
                 </div>
                 <div class="db-link-tile c2" *ngIf="userType == 'notary'">
-                    <a href="#">
+                    <a [routerLink]="['/change-the-name']">
                         <span class="icon">
                             <i class="material-icons">cached</i>
                         </span>
@@ -59,7 +59,7 @@
                     </a>
                 </div>
                 <div class="db-link-tile c3" *ngIf="userType == 'notary'">
-                    <a href="#">
+                    <a [routerLink]="['/resignation']">
                         <span class="icon">
                             <i class="material-icons">label</i>
                         </span>
@@ -67,7 +67,7 @@
                     </a>
                 </div>
                 <div class="db-link-tile c4" *ngIf="userType == 'notary'">
-                    <a href="#">
+                    <a [routerLink]="['/language-change']">
                         <span class="icon">
                             <i class="material-icons">speaker_notes</i>
                         </span>
@@ -75,7 +75,7 @@
                     </a>
                 </div>
                 <div class="db-link-tile c5" *ngIf="userType == 'notary'">
-                    <a href="#">
+                    <a [routerLink]="['/leave-request']">
                         <span class="icon">
                             <i class="material-icons">date_range</i>
                         </span>
@@ -83,7 +83,7 @@
                     </a>
                 </div>
                 <div class="db-link-tile" *ngIf="userType == 'notary'">
-                    <a href="#">
+                    <a [routerLink]="['/applications']">
                         <span class="icon">
                             <i class="material-icons">insert_drive_file</i>
                         </span>
