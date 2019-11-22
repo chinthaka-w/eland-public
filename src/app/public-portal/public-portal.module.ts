@@ -47,6 +47,7 @@ import { ViewNotaryComponent } from './dashboard/view-notary/view-notary.compone
 import { NotaryApplicationComponent } from './dashboard/view-notary/notary-application/notary-application.component';
 import { NotaryPaymentInfoComponent } from './dashboard/view-notary/notary-payment-info/notary-payment-info.component';
 import { NotaryRemarkComponent } from './dashboard/view-notary/notary-remark/notary-remark.component';
+import { DsGnDivisionTableComponent } from './dashboard/view-notary/notary-application/ds-gn-division-table/ds-gn-division-table.component';
 
 
 
@@ -79,7 +80,8 @@ import { NotaryRemarkComponent } from './dashboard/view-notary/notary-remark/not
     ViewNotaryComponent,
     NotaryApplicationComponent,
     NotaryPaymentInfoComponent,
-    NotaryRemarkComponent
+    NotaryRemarkComponent,
+    DsGnDivisionTableComponent
   ],
   imports: [
     CommonModule,

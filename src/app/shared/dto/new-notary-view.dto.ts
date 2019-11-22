@@ -21,7 +21,7 @@ export class NewNotaryViewDto {
   public judicialZone: string,
   public landRegistryId: number,
   public landRegistry: string,
-  public newNotaryDsDivisionDTO: NewNotaryGnDivisionDTO,
+  public newNotaryDsDivisionDTO: NewNotaryGnDivisionDTO[]=[],
   public language: string,
   public enrolledDate: Date,
   public subjectPassedDate: Date,

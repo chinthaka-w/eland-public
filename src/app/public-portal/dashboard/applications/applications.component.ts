@@ -18,6 +18,7 @@ export class ApplicationsComponent implements OnInit {
   public type: string;
   public isNotaryDetails: boolean = false;
   public isApplicationDetails: boolean = true;
+  public nic: string;
 
   constructor(private newNotaryDataVarificationService: NewNotaryDataVarificationService) { }
 
@@ -27,21 +28,5 @@ export class ApplicationsComponent implements OnInit {
   getNotaryDetails(): void{
     this.requestID = "1";
     this.type = "1";
-
-    this.newNotary = new NewNotaryRequestsCategorySearchDto(1,"1");
-    this.newNotaryDataVarificationService.getNotaryDetails(this.newNotary).subscribe(
-      (res: NewNotaryViewDto) => {
-        console.log(res);
-        this.viewNotaryDetails = res;
-        this.isNotaryDetails = true;
-        this.isApplicationDetails = false;
-        this.newNotaryDataVarificationService.getRemarkDetailsByNotary(this.viewNotaryDetails.nic).subscribe(
-          (res: NewNotaryRegistrationRequest[]) => {
-            this.newNotaryRegistrationRequests = res;
-          }
-        );
-        this.newNotaryDataVarificationService.setNotaryDetails(this.viewNotaryDetails,this.newNotaryRegistrationRequests);
-      }
-    );
   }
 }

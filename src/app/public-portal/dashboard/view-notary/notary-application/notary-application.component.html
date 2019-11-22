@@ -1,26 +1,27 @@
+<form class="form-horizontal" [formGroup]="notaryForm">
 <div class="page-header-default">
   <h2>Notary Registration</h2>
   <a href="" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
-<form class="form-horizontal" [formGroup]="notaryForm">
+
   <div class="page-content-wrapper">
     <div class="page-content-inner-wrapper">
-      <div *ngIf="this.requestDetails">
+      <div *ngIf="!this.hasRemarks">
         <div class="default-input-wrapper full-row">
-          <div class="remark-col">
+          <div class="remark-col" *ngFor="let remarks of this.requestList">
             <dl>
               <dt>Remarks for:</dt>
               <dd>Title</dd>
             </dl>
             <dl>
               <dt>Remark:</dt>
-              <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit egestas leo pellentesque arcu congue. Bibendum sit nunc sed lectus odio tellus. Amet egestas orci pharetra eget. Feugiat congue pulvinar luctus faucibus gravida odio nulla ultricies. Morbi viverra aliquam id at nunc. Vel urna turpis non risus.</dd>
+              <dd>{{remarks[1]}}</dd>
             </dl>
             <dl>
               <dt>Remarks by:</dt>
-              <dd>Name</dd>
+              <dd>{{this.notaryDetails.fullName.english}}</dd>
             </dl>
             <dl>
               <dt>Remarks date:</dt>
@@ -254,10 +255,10 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Divisional Secretariat Division:</label>
+            <label>Land Registry:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <select matNativeControl required  formControlName="secretariatDivision">
+                <select matNativeControl required formControlName="landRegistry" class="form-control" >
                   <option value="">Select</option>
                   <option value="option-1">Option 01</option>
                   <option value="option-2">Option 02</option>
@@ -272,10 +273,10 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Land Registry:</label>
+            <label>Divisional Secretariat Division:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="landRegistry" class="form-control" >
+                <select matNativeControl required  formControlName="secretariatDivision">
                   <option value="">Select</option>
                   <option value="option-1">Option 01</option>
                   <option value="option-2">Option 02</option>
@@ -300,6 +301,10 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <app-ds-gn-division-table [dsGnDivisions]="dsGnDivisions"></app-ds-gn-division-table>
       </div>
 
       <div class="pg-inner-row mb-20">
@@ -375,7 +380,6 @@
         </div>
         <div class="pg-inner-col"></div>
       </div>
-
     </div>
 
   </div>
