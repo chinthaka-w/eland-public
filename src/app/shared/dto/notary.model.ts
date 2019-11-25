@@ -28,7 +28,7 @@ export class Notary {
      public titleTam: string,
      public judicialZoneId: number,
      public landRegistryId: number,
-     public newNotaryGnDivisionDTO: NewNotaryGnDivisionDTO [] = [],
+     public newNotaryDsDivisionDTO: NewNotaryGnDivisionDTO [] = [],
      public language: number,
      public enrolledDate: Date,
      public subjectPassedDate: Date,

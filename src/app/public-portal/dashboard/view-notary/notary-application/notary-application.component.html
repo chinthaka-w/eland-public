@@ -240,67 +240,88 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Judicial Zone:</label>
+            <label>Judicial Zone:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl required  formControlName="courtZone"  class="form-control">
                   <option value="">Select</option>
-                  <option value="option-1">Option 01</option>
-                  <option value="option-2">Option 02</option>
-                  <option value="option-3">Option 03</option>
+                  <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}</option>
                 </select>
               </mat-form-field>
+              <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">High Court Zone is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Land Registry:</label>
+            <label>Land Registry:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="landRegistry" class="form-control" >
+                <select matNativeControl required  formControlName="landRegistry" class="form-control" >
                   <option value="">Select</option>
-                  <option value="option-1">Option 01</option>
-                  <option value="option-2">Option 02</option>
-                  <option value="option-3">Option 03</option>
+                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
                 </select>
               </mat-form-field>
+              <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Land Registry is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Divisional Secretariat Division:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required  formControlName="secretariatDivision">
-                  <option value="">Select</option>
-                  <option value="option-1">Option 01</option>
-                  <option value="option-2">Option 02</option>
-                  <option value="option-3">Option 03</option>
-                </select>
-              </mat-form-field>
+      <div class="rp-row">
+        <div class="pg-inner-row"  *ngFor="let location of locationList; let i = index">
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>DS Division:<span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-select
+                  class="form-control"
+                  formControlName="secretariatDivision"
+                  (ngModelChange)="changes($event)"
+                >
+                  <mat-option
+                    *ngFor="let dsDivisions of dsDivision"
+                    [value]="dsDivisions.dsDivisionId"
+                  >{{ dsDivisions.description }}</mat-option
+                  >
+                </mat-select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Grama Niladhari Division:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="gramaNiladhariDivision">
-                  <option value="">Select</option>
-                  <option value="option-1">Option 01</option>
-                  <option value="option-2">Option 02</option>
-                  <option value="option-3">Option 03</option>
-                </select>
-              </mat-form-field>
+          <div class="pg-inner-col has-btn">
+            <div class="default-input-wrapper full-row">
+              <label>GN Division:<span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-select
+                  multiple
+                  class="form-control"
+                  formControlName="gramaNiladhariDivision"
+                >
+                  <ng-container *ngFor="let gnDivisions of gnDivision">
+                    <mat-option
+                      [value]="gnDivisions.gnDivisionId"
+                    >{{ gnDivisions.description }}</mat-option
+                    >
+                  </ng-container>
+                </mat-select>
+              </div>
             </div>
+            <button  mat-icon-button
+                     color="warn"
+                     (click)="removeLocation(i)">
+              <mat-icon>close</mat-icon>
+            </button>
           </div>
         </div>
+        <button class="ml-3 mb-30 add-row" mat-flat-button color="accent" (click)="addLocation()" >
+          Add <i class="material-icons">add_circle_outline</i>
+        </button>
       </div>
 
       <div class="pg-inner-row mb-20">
@@ -379,6 +400,17 @@
           </div>
         </div>
         <div class="pg-inner-col"></div>
+      </div>
+
+      <div class="pg-inner-row mb-0">
+        <div class="pg-inner-col">
+          <div class="f-captcha">
+            <img src="../../../../assets/images/captcha.jpg" />
+          </div>
+        </div>
+        <div class="pg-inner-col right">
+          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Continue</button>
+        </div>
       </div>
     </div>
 

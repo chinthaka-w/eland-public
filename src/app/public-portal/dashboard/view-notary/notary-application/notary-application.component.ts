@@ -7,6 +7,22 @@ import {NewNotaryRegistrationRequest} from "../../../../shared/dto/new-notary-re
 import {NewNotaryGnDivisionDTO} from "../../../../shared/dto/new-notary-gn-division.model";
 import {ActivatedRoute} from "@angular/router";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
+import {NotaryService} from "../../../../shared/service/notary-service";
+import {GnDivisionDTO} from "../../../../shared/dto/gn-division.dto";
+import {Notary} from "../../../../shared/dto/notary.model";
+import {GnDivision} from "../../../../shared/dto/gn-division.model";
+import {DsDivision} from "../../../../shared/dto/ds-division.model";
+import {JudicialZoneModel} from "../../../../shared/dto/judicial-zone.model";
+import {LandRegistryModel} from "../../../../shared/dto/land-registry.model.";
+import {GnDivisionService} from "../../../../shared/service/gn-division.service";
+import {DsDivisionService} from "../../../../shared/service/ds-division.service";
+import {LandRegistryService} from "../../../../shared/service/land-registry.service";
+import {JudicialZoneService} from "../../../../shared/service/judicial-zone.service";
+import {DomSanitizer} from "@angular/platform-browser";
+import {TokenStorageService} from "../../../../shared/auth/token-storage.service";
+import {SnackBarService} from "../../../../shared/service/snack-bar.service";
+import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
+import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
 
 @Component({
   selector: 'app-notary-application',
@@ -15,11 +31,24 @@ import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-not
 })
 export class NotaryApplicationComponent implements OnInit {
   public notaryForm: FormGroup;
-  public notaryDetails: NewNotaryViewDto;
+  public notaryViewDetails: NewNotaryViewDto;
   public requestDetails:NewNotaryRegistrationRequest[];
   searchType: NewNotaryRequestsCategorySearchDto ;
   dsGnDivisions: NewNotaryGnDivisionDTO[] = [];
   result: NewNotaryViewDto;
+  public gnDivision: GnDivision[];
+  public dsDivision: DsDivision[];
+  public landRegistry: LandRegistryModel[];
+  public judicialZones: JudicialZoneModel[];
+  public notaryDetails: Notary;
+  public gnDivisionDetails: GnDivisionDTO;
+  public newNotaryGnDivision: NewNotaryGnDivisionDTO;
+  paymentDetails: NewNotaryPaymentDetailDto[] = [];
+  paymentId: number;
+  newNotaryId: number;
+
+  public locationDto: any = {};
+  public locationList: NewNotaryGnDivisionDTO[] = [];
   notaryTitle: string = '';
   subjectPassedLan: string = '';
   public date: Date;
@@ -31,10 +60,18 @@ export class NotaryApplicationComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private notaryService: NotaryService,
+              private gnDivisionService: GnDivisionService,
+              private dsDivisionService: DsDivisionService,
+              private landRegistryService: LandRegistryService,
+              private judicialZoneService: JudicialZoneService,
+              private sanitizer: DomSanitizer,
+              private tokenStorageService: TokenStorageService,
+              private snackBar: SnackBarService) { }
 
   ngOnInit() {
-    this.notaryDetails = this.newNotaryDataVarificationService.ViewNotaryDetails();
+    this.notaryViewDetails = this.newNotaryDataVarificationService.ViewNotaryDetails();
 
     this.notaryForm = this.formBuilder.group({
       title: new FormControl([Validators.required]),
@@ -66,7 +103,25 @@ export class NotaryApplicationComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
     });
     this.getApplicationDetails();
+    this.getPaymentDetails();
+    this.getGnDivisions();
+    this.getDsDivisions();
+    this.getLandRegistries();
+    this.getJudicialZones();
+    this.locationList.push(this.locationDto);
+    this.locationDto = {};
   }
+
+
+  addLocation() {
+    this.locationList.push(this.locationDto);
+    this.locationDto = {};
+  }
+
+  removeLocation(index) {
+    this.locationList.splice(index, 1);
+  }
+
 
   getApplicationDetails() {
     // this.route.paramMap.subscribe(params => {
@@ -107,6 +162,8 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryTitle = this.result.nametitle.english;
         this.subjectPassedLan = this.result.subjectMedium;
         this.dsGnDivisions = this.result.newNotaryDsDivisionDTO;
+        this.newNotaryId = this.result.newNotaryId;
+        alert(this.newNotaryId);
 
         this.setWorkflowStage();
       },
@@ -116,9 +173,99 @@ export class NotaryApplicationComponent implements OnInit {
     );
   }
 
+  getPaymentDetails() {
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    // this.route.paramMap.subscribe(params => {
+    //   searchType.requestID = params.get('id')
+    // });
+    searchType.type = ApplicationRequestDataType.PAYMENT;
+    this.newNotaryDataVarificationService.getPaymentDetails(searchType).subscribe(
+      (result: NewNotaryPaymentDetailDto[]) => {
+        this.paymentDetails = result;
+        this.paymentId = this.paymentDetails[0].paymentId;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
   setWorkflowStage(){
     let stageCode: string = this.result.workflowStageCode;
     this.newNotaryDataVarificationService.setWorkflowStage(stageCode);
   }
+
+  public onFormSubmit() {
+    this.saveNotaryDetails();
+  }
+  saveNotaryDetails(): void {
+    this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
+    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', [this.gnDivisionDetails]);
+    this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
+      this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
+      this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
+      this.notaryForm.value.currentAddressInSinhala,  this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
+      this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
+      this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
+      this.notaryForm.value.title, 'Miss', 'Ms',
+      1, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
+      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentId);
+
+    this.notaryService.setNotaryDetails(this.notaryDetails);
+    this.notaryDetails = this.notaryService.getNotaryDetails();
+
+    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
+      (success: string) => {
+        this.snackBar.success('Notary Registration Success');
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
+
+  private getGnDivisions(): void {
+    this.gnDivisionService.getAllGnDivisions().subscribe(
+      (data: GnDivision[]) => {
+        this.gnDivision = data ;
+      }
+    );
+  }
+
+  private getDsDivisions(): void {
+    this.dsDivisionService.getAllDsDivisions().subscribe(
+      (data: DsDivision[]) => {
+        this.dsDivision = data;
+      }
+    );
+  }
+
+  private getJudicialZones(): void {
+    this.judicialZoneService.getAllJudicialZone().subscribe(
+      (data: JudicialZoneModel[]) => {
+        this.judicialZones = data;
+      }
+    );
+  }
+
+  public changes($event): void {
+    this.gnDivisionService.getAllGnDivisionsByDsDivisionId(this.notaryForm.value.secretariatDivision).subscribe(
+      (data: GnDivision[]) => {
+        this.gnDivision = data;
+      }
+    );
+  }
+  private getLandRegistries(): void {
+    this.landRegistryService.getAllLandRegistry().subscribe(
+      (data: LandRegistryModel[]) => {
+        this.landRegistry = data;
+      }
+    );
+  }
+
+  get FormControls() {
+    return this.notaryForm.controls;
+  }
+
 
 }

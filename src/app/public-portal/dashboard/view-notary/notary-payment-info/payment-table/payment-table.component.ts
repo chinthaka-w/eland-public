@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NewNotaryRequestsCategorySearchDto} from "../../../../../shared/dto/new-notary-requests-category-search.dto";
 import {ActivatedRoute} from "@angular/router";
 import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
-import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail-dto";
+import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
 import {ApplicationRequestDataType} from "../../../../../shared/enum/application-request-data-type.enum";
 
 @Component({

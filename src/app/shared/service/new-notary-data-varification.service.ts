@@ -5,7 +5,8 @@ import {NewNotaryRequestsCategorySearchDto} from "../dto/new-notary-requests-cat
 import {Observable} from "rxjs";
 import {NewNotaryViewDto} from "../dto/new-notary-view.dto";
 import {NewNotaryRegistrationRequest} from "../dto/new-notary-registration-request.model";
-import {NewNotaryPaymentDetailDto} from "../dto/new-notary-payment-detail-dto";
+import {NewNotaryPaymentDetailDto} from "../dto/new-notary-payment-detail.dto";
+import {NotaryRegistrationHistoryDto} from "../dto/notary-registration-history.dto";
 
 @Injectable()
 export class NewNotaryDataVarificationService {
@@ -27,6 +28,10 @@ export class NewNotaryDataVarificationService {
     return this.httpClient.post<NewNotaryPaymentDetailDto[]>(this.BASE_URL + '/payment', searchType);
   }
 
+  /** load all history details of registered notary*/
+  getHistoryDetails(searchType: NewNotaryRequestsCategorySearchDto): Observable<NotaryRegistrationHistoryDto[]>{
+    return this.httpClient.post<NotaryRegistrationHistoryDto[]>(this.BASE_URL + '/history', searchType);
+  }
 
   setNotaryDetails(viewDetails: NewNotaryViewDto) {
     this.viewNotaryDetails = viewDetails;
