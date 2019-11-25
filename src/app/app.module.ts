@@ -29,6 +29,7 @@ import {BankBranchService} from './shared/service/bank-branch.service';
 import {PaymentService} from "./shared/service/payment.service";
 import {ParameterService} from "./shared/service/parameter.service";
 import {TokenStorageService} from "./shared/auth/token-storage.service";
+import {CitizenService} from "./shared/service/citizen.service";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -62,6 +63,7 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
     BankService,
     BankBranchService,
     PaymentService,
+    CitizenService,
     ParameterService,
     TokenStorageService],
   bootstrap: [AppComponent]

@@ -1,0 +1,30 @@
+export class CitizenDTO {
+  id: number;
+  landRegistry: number;
+  userType: number;
+  identificationNoType: number;
+  nic: string;
+  passportNo: string;
+  drivingLicenceNo: string;
+  nameEng: string;
+  nameTam: string;
+  nameSin: string;
+  addressSin: string;
+  addressEng: string;
+  addressTam: string;
+  residentialTelephone: string;
+  mobileNo: string;
+  email: string;
+  reason: string;
+  workFlowStageCode: string;
+  status: string;
+  remark: string;
+  username: string;
+  paymentType: number;
+  amount: number;
+  paymentDate: string;
+  bankReceiptNo: string;
+  bankId: number;
+  bankBranchId: number;
+  user: string;
+}
