@@ -9,14 +9,12 @@
   <div class="page-content-inner-wrapper">
 
     <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-            <h5 class="mb-20"><i class="material-icons">description</i>
+        <h5 class="mb-20"><i class="material-icons">description</i>
               APPLICATION FOR CHANGING THE JUDICIAL ZONE
             </h5>
             <div class="separator">&nbsp;</div>
-        </div>
-    </div>
-
+     </div>
+    <form [formGroup]="judicialChangeForm" class="form pb-5">
     <div class="pg-inner-row mb-20">
 
       <div class="pg-inner-col right">
@@ -122,14 +120,33 @@
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
           <label>If you have stopped stop Notarial work temporarily, Please specify the period: </label>
+
+          <!--<div class="col-md-7">-->
+            <!--<input placeholder="&#45;&#45; Select date range &#45;&#45;"-->
+                   <!--[style.width]="'585px'"-->
+                   <!--formControlName="dateTimeRange"-->
+                   <!--name="dateTimeRange"-->
+                   <!--[(ngModel)]="dateTimeRange"-->
+                   <!--[selectMode]="'range'"-->
+                   <!--[owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1">-->
+            <!--<owl-date-time style="font-size:1.5rem;" #dtRange1 [pickerType]=" 'calendar' " ></owl-date-time>-->
+          <!--</div>-->
+
           <div class="default-input-feild date-feild">
-            <mat-form-field appearance="outline">
-              <input matInput [matDatepicker]="picker">
-              <mat-datepicker #picker></mat-datepicker>
+            <!--<mat-form-field appearance="outline">-->
+              <!--<input matInput [matDatepicker]="picker" [selectMode]="'range'">-->
+              <!--<mat-datepicker #picker></mat-datepicker>-->
+            <!--</mat-form-field>-->
+            <mat-form-field>
+              <input matInput [matRangeDatepicker]="resultPicker">
+              <mat-range-datepicker
+                #resultPicker
+                [rangeMode]="true">
+              </mat-range-datepicker>
             </mat-form-field>
-            <button mat-raised-button (click)="picker.open()">
-              <i class="material-icons">calendar_today</i>
-            </button>
+            <!--<button mat-raised-button (click)="picker.open()">-->
+              <!--<i class="material-icons">calendar_today</i>-->
+            <!--</button>-->
           </div>
         </div>
       </div>
@@ -148,7 +165,7 @@
 
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
-              <select name="judicialDivision" matNativeControl formControlName="judicialDivision" class="form-control">
+              <select name="judicialDivision" matNativeControl  class="form-control">
                 <option value="" [selected]="true">Select</option>
                 <option *ngFor="let jud of judicialZone" [value]="jud.highCourtZoneId">{{ jud.nameEng }}
                 </option>
@@ -165,7 +182,7 @@
         <div class="default-input-wrapper full-row">
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
-              <select name="landRegistry" matNativeControl formControlName="landRegistry" class="form-control">
+              <select name="landRegistry" matNativeControl class="form-control">
                 <option value="" [selected]="true">Select</option>
                 <option *ngFor="let reg of landRegistry" [value]="reg.landRegistryId">{{ reg.name }}
                 </option>
@@ -176,42 +193,70 @@
       </div>
     </div>
 
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col label" style="width: 15%;">
-        <label>Divisional Secretarial Division:</label></div>
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <select matNativeControl required>
-                <option value="">Select</option>
-                <option value="option-1">Option 01</option>
-                <option value="option-2">Option 02</option>
-                <option value="option-3">Option 03</option>
-              </select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div>
+      <table class="table mat-elevation-z4">
+        <thead>
+        <tr>
+          <th>DS Division</th>
+          <th>GN Division</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let location of locationList; let i = index">
+          <td>
+            <mat-select
+              class="form-control"
+              ngModel [ngModelOptions]="{standalone: true}"
+              (selectionChange)="selectGsDivision($event.value, i)"
 
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col label" style="width: 15%;">
-        <label>Grama Niladhari Division:</label></div>
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <select matNativeControl required>
-                <option value="">Select</option>
-                <option value="option-1">Option 01</option>
-                <option value="option-2">Option 02</option>
-                <option value="option-3">Option 03</option>
-              </select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
+            >
+              <mat-option
+                *ngFor="let gsDivision of gsDivisions"
+                value="{{gsDivision.dsDivisionId}}"
+                [disabled]="gsDivision.isSelected"
+              >{{ gsDivision.description }}</mat-option
+              >
+            </mat-select>
+          </td>
+          <td>
+            <mat-select
+              multiple
+              class="form-control"
+              id="gnDivisionSelect"
+              (selectionChange)="selectGnDivision($event.value,i)"
+            >
+              <ng-container *ngFor="let gnDivision of gnDivisions">
+                <mat-option
+                  *ngIf="!gnDivision.isSelected"
+                  value="{{gnDivision.gnDivisionId}}"
+
+
+                >{{ gnDivision.description }}</mat-option
+                >
+              </ng-container>
+            </mat-select>
+          </td>
+          <td>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="removeLocation(i)"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+        <button
+          class="ml-3 mb-3"
+          mat-flat-button
+          color="accent"
+          (click)="addLocation()"
+        >
+          + Add
+        </button>
+      </table>
     </div>
 
 
@@ -227,6 +272,6 @@
         <button mat-raised-button class="lg-button" [routerLink]="['/verification']">Submit</button>
       </div>
     </div>
-
+    </form>
   </div>
 </div>

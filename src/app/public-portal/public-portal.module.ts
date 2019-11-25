@@ -43,6 +43,9 @@ import { ResignationComponent } from './dashboard/resignation/resignation.compon
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 import { RequestViewComponent } from './dashboard/requests/request-view/request-view.component';
 import {SharedModule} from "../shared/shared.module";
+import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
+import {MatRangeDatepickerModule, MatRangeNativeDateModule} from 'mat-range-datepicker';
 
 
 
@@ -71,7 +74,8 @@ import {SharedModule} from "../shared/shared.module";
     LeaveRequestComponent,
     ResignationComponent,
     ApplicationsComponent,
-    RequestViewComponent
+    RequestViewComponent,
+    ChangeJudicialRequestListComponent,
   ],
   imports: [
     CommonModule,
@@ -95,6 +99,10 @@ import {SharedModule} from "../shared/shared.module";
     RecaptchaModule,
     RecaptchaFormsModule,
     SharedModule,
+    MatPaginatorModule,
+    MatNativeDateModule,
+    MatRangeDatepickerModule,
+    MatRangeNativeDateModule
   ],
   exports: [
     LoginComponent,
