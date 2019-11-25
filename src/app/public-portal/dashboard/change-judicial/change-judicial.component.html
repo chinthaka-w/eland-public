@@ -121,32 +121,11 @@
         <div class="default-input-wrapper full-row">
           <label>If you have stopped stop Notarial work temporarily, Please specify the period: </label>
 
-          <!--<div class="col-md-7">-->
-            <!--<input placeholder="&#45;&#45; Select date range &#45;&#45;"-->
-                   <!--[style.width]="'585px'"-->
-                   <!--formControlName="dateTimeRange"-->
-                   <!--name="dateTimeRange"-->
-                   <!--[(ngModel)]="dateTimeRange"-->
-                   <!--[selectMode]="'range'"-->
-                   <!--[owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1">-->
-            <!--<owl-date-time style="font-size:1.5rem;" #dtRange1 [pickerType]=" 'calendar' " ></owl-date-time>-->
-          <!--</div>-->
-
-          <div class="default-input-feild date-feild">
-            <!--<mat-form-field appearance="outline">-->
-              <!--<input matInput [matDatepicker]="picker" [selectMode]="'range'">-->
-              <!--<mat-datepicker #picker></mat-datepicker>-->
-            <!--</mat-form-field>-->
-            <mat-form-field>
-              <input matInput [matRangeDatepicker]="resultPicker">
-              <mat-range-datepicker
-                #resultPicker
-                [rangeMode]="true">
-              </mat-range-datepicker>
-            </mat-form-field>
-            <!--<button mat-raised-button (click)="picker.open()">-->
-              <!--<i class="material-icons">calendar_today</i>-->
-            <!--</button>-->
+          <div class="form-group">
+            <!--<input type="text" name="daterange"-->
+                   <!--[locale]="{applyLabel: 'Apply', format: 'YYYY/MM/DD'}"-->
+                   <!--ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"-->
+                   <!--[minDate]="getMinDate()" [maxDate]="getMaxDate()"  />-->
           </div>
         </div>
       </div>
@@ -208,9 +187,7 @@
             <mat-select
               class="form-control"
               ngModel [ngModelOptions]="{standalone: true}"
-              (selectionChange)="selectGsDivision($event.value, i)"
-
-            >
+              (selectionChange)="selectGsDivision($event.value, i)" >
               <mat-option
                 *ngFor="let gsDivision of gsDivisions"
                 value="{{gsDivision.dsDivisionId}}"
@@ -224,16 +201,13 @@
               multiple
               class="form-control"
               id="gnDivisionSelect"
-              (selectionChange)="selectGnDivision($event.value,i)"
-            >
+              (selectionChange)="selectGnDivision($event.value,i)">
               <ng-container *ngFor="let gnDivision of gnDivisions">
                 <mat-option
                   *ngIf="!gnDivision.isSelected"
-                  value="{{gnDivision.gnDivisionId}}"
-
-
-                >{{ gnDivision.description }}</mat-option
-                >
+                  value="{{gnDivision.gnDivisionId}}">
+                  {{ gnDivision.description }}
+                </mat-option>
               </ng-container>
             </mat-select>
           </td>
@@ -262,15 +236,41 @@
 
     <div class="separator">&nbsp;</div>
 
-    <div class="pg-inner-row mb-0">
-      <div class="pg-inner-col">
-        <div class="f-captcha">
-          <img src="../../../../assets/images/captcha.jpg" />
+
+      <div class="pg-inner-row mb-20 upload-col-3" >
+        <ng-container *ngFor="let document of docList">
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label
+            >{{document.description}}
+              <span *ngIf="document.required == true">*</span>
+            </label>
+            <file-upload-input (change)="setFiles($event, document.docTypeId)"></file-upload-input>
+          </div>
         </div>
-      </div>
-      <div class="pg-inner-col right">
-        <button mat-raised-button class="lg-button" [routerLink]="['/verification']">Submit</button>
-      </div>
+        </ng-container>
+       </div>
+
+
+      <div class="separator">&nbsp;</div>
+
+      <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
+        <div class="pg-inner-col">
+          <re-captcha></re-captcha>
+        </div>
+        <div class="pg-inner-col middle">
+          By signing up, you agree to E-Land's
+          <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
+          and <a href="#">Privacy Policy</a> .
+        </div>
+        <div class="pg-inner-col right">
+          <button
+            mat-raised-button
+            class="lg-button"
+          >
+            Submit
+          </button>
+        </div>
     </div>
     </form>
   </div>
