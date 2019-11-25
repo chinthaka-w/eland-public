@@ -7,6 +7,7 @@ import {NewNotaryViewDto} from "../dto/new-notary-view.dto";
 import {NewNotaryRegistrationRequest} from "../dto/new-notary-registration-request.model";
 import {NewNotaryPaymentDetailDto} from "../dto/new-notary-payment-detail.dto";
 import {NotaryRegistrationHistoryDto} from "../dto/notary-registration-history.dto";
+import {NewNotarySupportingDocDetailDto} from "../dto/new-notary-supporting-doc-detail.dto";
 
 @Injectable()
 export class NewNotaryDataVarificationService {
@@ -16,6 +17,9 @@ export class NewNotaryDataVarificationService {
   public viewNotaryDetails: NewNotaryViewDto;
   public requestDetails: NewNotaryRegistrationRequest[];
   workflowStage = new EventEmitter<string>();
+  supportingDocDetails = new EventEmitter<NewNotarySupportingDocDetailDto[]>();
+  loadDocImages = new EventEmitter<string[]>();
+
   public constructor(private httpClient: HttpClient) {}
 
   /**  get application details of the relevant notary */
@@ -32,6 +36,24 @@ export class NewNotaryDataVarificationService {
   getHistoryDetails(searchType: NewNotaryRequestsCategorySearchDto): Observable<NotaryRegistrationHistoryDto[]>{
     return this.httpClient.post<NotaryRegistrationHistoryDto[]>(this.BASE_URL + '/history', searchType);
   }
+
+  /** Load Latest Remark of registered notary */
+  getLatestReamrk(searchType: NewNotaryRequestsCategorySearchDto): Observable<NotaryRegistrationHistoryDto[]> {
+    return  this.httpClient.post<NotaryRegistrationHistoryDto[]>(this.BASE_URL + '/remark' ,searchType);
+  }
+  /**
+   * Load document details for notary registration
+   * @param {NotaryApplicationCategorySearchDto} searchType
+   * @returns {Observable<NewNotarySupportingDocDetailDto[]>}
+   */
+  getDocumentDetails(searchType: NewNotaryRequestsCategorySearchDto): Observable<NewNotarySupportingDocDetailDto[]>{
+    return this.httpClient.post<NewNotarySupportingDocDetailDto[]>(this.BASE_URL + '/supportDoc', searchType);
+  }
+
+  verifySupportingDocuments(supportDocs: NewNotarySupportingDocDetailDto[]){
+    this.supportingDocDetails.emit(supportDocs);
+  }
+
 
   setNotaryDetails(viewDetails: NewNotaryViewDto) {
     this.viewNotaryDetails = viewDetails;

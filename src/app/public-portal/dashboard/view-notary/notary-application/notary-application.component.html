@@ -1,419 +1,415 @@
 <form class="form-horizontal" [formGroup]="notaryForm">
-<div class="page-header-default">
-  <h2>Notary Registration</h2>
-  <a href="" class="phd-back-btn">
-    <i class="material-icons">keyboard_backspace</i>
-  </a>
-</div>
-
-  <div class="page-content-wrapper">
-    <div class="page-content-inner-wrapper">
-      <div *ngIf="!this.hasRemarks">
-        <div class="default-input-wrapper full-row">
-          <div class="remark-col" *ngFor="let remarks of this.requestList">
-            <dl>
-              <dt>Remarks for:</dt>
-              <dd>Title</dd>
-            </dl>
-            <dl>
-              <dt>Remark:</dt>
-              <dd>{{remarks[1]}}</dd>
-            </dl>
-            <dl>
-              <dt>Remarks by:</dt>
-              <dd>{{this.notaryDetails.fullName.english}}</dd>
-            </dl>
-            <dl>
-              <dt>Remarks date:</dt>
-              <dd>07/11/2019 12:00PM</dd>
-            </dl>
-          </div>
-        </div>
-
+  <div *ngIf="hasRemarks">
+    <div class="default-input-wrapper full-row">
+      <div class="remark-col">
+        <dl>
+          <dt>Remarks for:</dt>
+          <dd>Title</dd>
+        </dl>
+        <dl>
+          <dt>Remark:</dt>
+          <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit egestas leo pellentesque arcu congue. Bibendum sit nunc sed lectus odio tellus. Amet egestas orci pharetra eget. Feugiat congue pulvinar luctus faucibus gravida odio nulla ultricies. Morbi viverra aliquam id at nunc. Vel urna turpis non risus.</dd>
+        </dl>
+        <dl>
+          <dt>Remarks by:</dt>
+          <dd>Name</dd>
+        </dl>
+        <dl>
+          <dt>Remarks date:</dt>
+          <dd>07/11/2019 12:00PM</dd>
+        </dl>
       </div>
-    <!-- -->
-      <h5 class="uw-title"><span>Application For A Notarial Warrant</span></h5>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <mat-radio-group formControlName="title"  class="form-control">
-            <mat-radio-button value="Mr">Mr.</mat-radio-button>
-            <mat-radio-button value="Mrs">Mrs.</mat-radio-button>
-            <mat-radio-button value="Miss">Miss</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div class="pg-inner-col right">
-          <div class="default-input-wrapper m0 rac-col">
-            <label>Language:</label>
-            <div class="default-input-feild">
-              <mat-radio-group class="example-section" class="form-control" formControlName="languages">
-                <mat-radio-button value="1">Sinhala</mat-radio-button>
-                <mat-radio-button value="2">English</mat-radio-button>
-                <mat-radio-button class="example-margin" value="3">Tamil</mat-radio-button>
-              </mat-radio-group>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="default-input-wrapper full-row"  >
-        <label>Full name (English):</label>
+    </div>
+  </div>
+  <h5 class="uw-title"><span>Application For A Notarial Warrant</span></h5>
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <mat-radio-group formControlName="title" class="form-control">
+        <mat-radio-button value="Mr">Mr.</mat-radio-button>
+        <mat-radio-button value="Mrs">Mrs.</mat-radio-button>
+        <mat-radio-button value="Miss">Miss</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="pg-inner-col right">
+      <div class="default-input-wrapper m0 rac-col">
+        <label>Language:</label>
         <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="fullNameInEnglish"   class="form-control" >
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row" >
-        <label>Full name (Sinhala):</label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="fullNameInSinhala"   class="form-control" >
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row" >
-        <label>Full name (Tamil):</label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="fullNameInTamil"   class="form-control" >
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row" >
-        <label>Name with initials (English):</label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="englishNameWithInitials"   class="form-control" >
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row">
-        <label>Name with initials (Sinhala):</label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="sinhalaNameWithInitials"   class="form-control" >
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row">
-        <label>Name with initials (Tamil):</label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput  formControlName="tamilNameWithInitials"   class="form-control" >
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label>Permenent address (English):</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="permenentAddressInEnglish"   class="form-control" ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label>Permenent address (Sinhala):</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="permenentAddressInSinhala"  class="form-control"></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label>Permenent address (Tamil):</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="permenentAddressInTamil"  class="form-control" ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label>Current address (English):</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="currentAddressInEnglish"  class="form-control" ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label>Current address (Sinhala):</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="currentAddressInSinhala"  class="form-control" ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label>Current address (Tamil):</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="5" formControlName="currentAddressInTamil"   class="form-control" ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Date of Birth:</label>
-            <div class="default-input-feild date-feild">
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" class="form-control" >
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <button mat-raised-button (click)="picker.open()">
-                <i class="material-icons">calendar_today</i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>National Identity Card No:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="nic"  class="form-control" maxlength="12">
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Contact No. (Residential):</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="contactNo"  class="form-control">
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Mobile:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="mobileNo"  class="form-control" >
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Email:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="email" class="form-control">
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col"></div>
-      </div>
-
-      <div class="separator">&nbsp;</div>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Judicial Zone:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required  formControlName="courtZone"  class="form-control">
-                  <option value="">Select</option>
-                  <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}</option>
-                </select>
-              </mat-form-field>
-              <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
-                   class="invalid-feedback">
-                <mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">High Court Zone is required</mat-error>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Land Registry:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required  formControlName="landRegistry" class="form-control" >
-                  <option value="">Select</option>
-                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
-                </select>
-              </mat-form-field>
-              <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
-                   class="invalid-feedback">
-                <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Land Registry is required</mat-error>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rp-row">
-        <div class="pg-inner-row"  *ngFor="let location of locationList; let i = index">
-          <div class="pg-inner-col">
-            <div class="default-input-wrapper full-row">
-              <label>DS Division:<span class="redtxt">*</span></label>
-              <div class="default-input-feild">
-                <mat-select
-                  class="form-control"
-                  formControlName="secretariatDivision"
-                  (ngModelChange)="changes($event)"
-                >
-                  <mat-option
-                    *ngFor="let dsDivisions of dsDivision"
-                    [value]="dsDivisions.dsDivisionId"
-                  >{{ dsDivisions.description }}</mat-option
-                  >
-                </mat-select>
-              </div>
-            </div>
-          </div>
-          <div class="pg-inner-col has-btn">
-            <div class="default-input-wrapper full-row">
-              <label>GN Division:<span class="redtxt">*</span></label>
-              <div class="default-input-feild">
-                <mat-select
-                  multiple
-                  class="form-control"
-                  formControlName="gramaNiladhariDivision"
-                >
-                  <ng-container *ngFor="let gnDivisions of gnDivision">
-                    <mat-option
-                      [value]="gnDivisions.gnDivisionId"
-                    >{{ gnDivisions.description }}</mat-option
-                    >
-                  </ng-container>
-                </mat-select>
-              </div>
-            </div>
-            <button  mat-icon-button
-                     color="warn"
-                     (click)="removeLocation(i)">
-              <mat-icon>close</mat-icon>
-            </button>
-          </div>
-        </div>
-        <button class="ml-3 mb-30 add-row" mat-flat-button color="accent" (click)="addLocation()" >
-          Add <i class="material-icons">add_circle_outline</i>
-        </button>
-      </div>
-
-      <div class="pg-inner-row mb-20">
-        <app-ds-gn-division-table [dsGnDivisions]="dsGnDivisions"></app-ds-gn-division-table>
-      </div>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>The day you were enrolled as an Attorney at LAW of the Supreme Court of the Democratic Socialist Republic of Sri Lanka</label>
-            <div class="default-input-feild date-feild">
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker2" formControlName="enrolledDate"  class="form-control">
-                <mat-datepicker #picker2></mat-datepicker>
-              </mat-form-field>
-              <button mat-raised-button (click)="picker.open()">
-                <i class="material-icons">calendar_today</i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label style="min-height: 50px;">The day you have passed the subject of conveyancing:</label>
-            <div class="default-input-feild date-feild">
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker3"  formControlName="passedDate"  class="form-control">
-                <mat-datepicker #picker3></mat-datepicker>
-              </mat-form-field>
-              <button mat-raised-button (click)="picker.open()">
-                <i class="material-icons">calendar_today</i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="default-input-wrapper full-row mb-30">
-        <label>The medium you have passed the subject of convayancing:</label>
-        <div class="default-input-feild">
-          <mat-radio-group   formControlName="medium" class="form-control">
-            <mat-radio-button  value="1">Sinhala</mat-radio-button>
-            <mat-radio-button  value="2">English</mat-radio-button>
-            <mat-radio-button  value="3">Tamil</mat-radio-button>
+          <mat-radio-group class="example-section" class="form-control" formControlName="languages">
+            <mat-radio-button value="1">Sinhala</mat-radio-button>
+            <mat-radio-button value="2">English</mat-radio-button>
+            <mat-radio-button class="example-margin" value="3">Tamil</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
+    </div>
+  </div>
 
+  <div class="default-input-wrapper full-row">
+    <label>Full name (English):</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="fullNameInEnglish" class="form-control">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="default-input-wrapper full-row">
+    <label>Full name (Sinhala):</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="fullNameInSinhala" class="form-control">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="default-input-wrapper full-row">
+    <label>Full name (Tamil):</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="fullNameInTamil" class="form-control">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="default-input-wrapper full-row">
+    <label>Name with initials (English):</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="englishNameWithInitials" class="form-control">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="default-input-wrapper full-row">
+    <label>Name with initials (Sinhala):</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="sinhalaNameWithInitials" class="form-control">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="default-input-wrapper full-row">
+    <label>Name with initials (Tamil):</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="tamilNameWithInitials" class="form-control">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col-3">
       <div class="default-input-wrapper full-row">
-        <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist Republic of Sri Lanka</label>
+        <label>Permenent address (English):</label>
         <div class="default-input-feild">
-          <button mat-raised-button class="f-uploader">
-            <i class="material-icons">cloud_upload</i> Upload
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="permenentAddressInEnglish" class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Permenent address (Sinhala):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="permenentAddressInSinhala" class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Permenent address (Tamil):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="permenentAddressInTamil" class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Current address (English):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="currentAddressInEnglish" class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Current address (Sinhala):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="currentAddressInSinhala" class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Current address (Tamil):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="currentAddressInTamil" class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Date of Birth:</label>
+        <div class="default-input-feild date-feild">
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" class="form-control">
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <button mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
           </button>
         </div>
       </div>
-
+    </div>
+    <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Copy of the National Identity Card</label>
+        <label>National Identity Card No:</label>
         <div class="default-input-feild">
-          <button mat-raised-button class="f-uploader">
-            <i class="material-icons">cloud_upload</i> Upload
-          </button>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="nic" class="form-control" maxlength="12">
+          </mat-form-field>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>UserName:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput  formControlName="userName" class="form-control">
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col"></div>
-      </div>
-
-      <div class="pg-inner-row mb-0">
-        <div class="pg-inner-col">
-          <div class="f-captcha">
-            <img src="../../../../assets/images/captcha.jpg" />
-          </div>
-        </div>
-        <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Continue</button>
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Contact No. (Residential):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="contactNo" class="form-control">
+          </mat-form-field>
         </div>
       </div>
     </div>
 
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Mobile:</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="mobileNo" class="form-control">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Email:</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="email" class="form-control">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col"></div>
+  </div>
+
+  <div class="separator">&nbsp;</div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Judicial Zone:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl required formControlName="courtZone" class="form-control">
+              <option value="">Select</option>
+              <option *ngFor="let judicialZone of judicialZones"
+                      [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}</option>
+            </select>
+          </mat-form-field>
+          <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">High Court Zone is required
+            </mat-error>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Land Registry:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl required formControlName="landRegistry" class="form-control">
+              <option value="">Select</option>
+              <option *ngFor="let landRegistries of landRegistry"
+                      [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
+            </select>
+          </mat-form-field>
+          <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Land Registry is required
+            </mat-error>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rp-row">
+    <div class="pg-inner-row" *ngFor="let location of locationList; let i = index">
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <label>DS Division:<span class="redtxt">*</span></label>
+          <div class="default-input-feild">
+            <mat-select
+              class="form-control"
+              formControlName="secretariatDivision"
+              (ngModelChange)="changes($event)"
+            >
+              <mat-option
+                *ngFor="let dsDivisions of dsDivision"
+                [value]="dsDivisions.dsDivisionId"
+              >{{ dsDivisions.description }}</mat-option
+              >
+            </mat-select>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-col has-btn">
+        <div class="default-input-wrapper full-row">
+          <label>GN Division:<span class="redtxt">*</span></label>
+          <div class="default-input-feild">
+            <mat-select
+              multiple
+              class="form-control"
+              formControlName="gramaNiladhariDivision"
+            >
+              <ng-container *ngFor="let gnDivisions of gnDivision">
+                <mat-option
+                  [value]="gnDivisions.gnDivisionId"
+                >{{ gnDivisions.description }}</mat-option
+                >
+              </ng-container>
+            </mat-select>
+          </div>
+        </div>
+        <button mat-icon-button
+                color="warn"
+                (click)="removeLocation(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <button class="ml-3 mb-30 add-row" mat-flat-button color="accent" (click)="addLocation()">
+      Add <i class="material-icons">add_circle_outline</i>
+    </button>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <app-ds-gn-division-table [dsGnDivisions]="dsGnDivisions"></app-ds-gn-division-table>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>The day you were enrolled as an Attorney at LAW of the Supreme Court of the Democratic Socialist
+          Republic of Sri Lanka</label>
+        <div class="default-input-feild date-feild">
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker2" formControlName="enrolledDate" class="form-control">
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          <button mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label style="min-height: 50px;">The day you have passed the subject of conveyancing:</label>
+        <div class="default-input-feild date-feild">
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker3" formControlName="passedDate" class="form-control">
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+          <button mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="default-input-wrapper full-row mb-30">
+    <label>The medium you have passed the subject of convayancing:</label>
+    <div class="form-check">
+      <input class="form-check-input"
+             type="radio"
+             id="medium"
+             value="1"
+             [checked]="true"
+             formControlName="medium">
+      <label class="form-check-label"
+             for="medium">
+        {{subjectPassedLan}}
+      </label>
+    </div>
+  </div>
+
+  <div class="default-input-wrapper full-row">
+    <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist
+      Republic of Sri Lanka</label>
+    <div class="default-input-feild">
+      <button mat-raised-button class="f-uploader">
+        <i class="material-icons">cloud_upload</i> Upload
+      </button>
+    </div>
+  </div>
+
+  <div class="default-input-wrapper full-row">
+    <label>Copy of the National Identity Card</label>
+    <div class="default-input-feild">
+      <button mat-raised-button class="f-uploader">
+        <i class="material-icons">cloud_upload</i> Upload
+      </button>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>UserName:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="userName" class="form-control">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col"></div>
+  </div>
+
+  <div class="pg-inner-row mb-0">
+    <div class="pg-inner-col">
+      <div class="f-captcha">
+        <img src="../../../../assets/images/captcha.jpg"/>
+      </div>
+    </div>
+    <div class="pg-inner-col right">
+      <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Continue</button>
+    </div>
   </div>
 </form>
 

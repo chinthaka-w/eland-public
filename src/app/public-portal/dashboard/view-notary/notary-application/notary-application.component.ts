@@ -23,6 +23,8 @@ import {TokenStorageService} from "../../../../shared/auth/token-storage.service
 import {SnackBarService} from "../../../../shared/service/snack-bar.service";
 import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
+import {NotaryRegistrationHistoryDto} from "../../../../shared/dto/notary-registration-history.dto";
+import {fakeAsync} from "@angular/core/testing";
 
 @Component({
   selector: 'app-notary-application',
@@ -44,8 +46,10 @@ export class NotaryApplicationComponent implements OnInit {
   public gnDivisionDetails: GnDivisionDTO;
   public newNotaryGnDivision: NewNotaryGnDivisionDTO;
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
+  notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto[] = [];
   paymentId: number;
   newNotaryId: number;
+  userName: string;
 
   public locationDto: any = {};
   public locationList: NewNotaryGnDivisionDTO[] = [];
@@ -55,7 +59,7 @@ export class NotaryApplicationComponent implements OnInit {
   public requestID: string;
   public type: string;
   public data: any;
-  public hasRemarks: boolean = true;
+  public hasRemarks: boolean = false;
   public requestList = [];
 
   constructor(private formBuilder: FormBuilder,
@@ -108,8 +112,10 @@ export class NotaryApplicationComponent implements OnInit {
     this.getDsDivisions();
     this.getLandRegistries();
     this.getJudicialZones();
+    this.getLatestRemark();
     this.locationList.push(this.locationDto);
     this.locationDto = {};
+
   }
 
 
@@ -157,6 +163,7 @@ export class NotaryApplicationComponent implements OnInit {
             mobileNo: this.result.mobile,
             contactNo: this.result.contactNo,
             landRegistry: this.result.landRegistry,
+            userName: this.result.lastUpdatedUser,
           }
         );
         this.notaryTitle = this.result.nametitle.english;
@@ -267,5 +274,23 @@ export class NotaryApplicationComponent implements OnInit {
     return this.notaryForm.controls;
   }
 
-
+  getLatestRemark() {
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    this.newNotaryDataVarificationService.getLatestReamrk(searchType).subscribe(
+      (result: NotaryRegistrationHistoryDto[]) => {
+        if(result != null){
+          alert('1');
+          this.notaryRequestHistoryByRemark = result;
+          console.log(this.notaryRequestHistoryByRemark+"...");
+          this.hasRemarks = true;
+        }else{
+          alert('2');
+          this.hasRemarks = false;
+        }
+      },
+      error1 => {
+        console.log(error1);
+      }
+    )
+  }
 }

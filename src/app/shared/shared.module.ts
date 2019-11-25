@@ -23,6 +23,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    ImageViewerModule
   ],
   exports: [
     ContentComponent,
@@ -67,6 +70,7 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
     MatDatepickerModule,
     MatFileUploadModule,
     MatTabsModule,
+    MatCardModule,
     PaymentComponent,
     PaymentMethodComponent,
     FileUploadInputComponent

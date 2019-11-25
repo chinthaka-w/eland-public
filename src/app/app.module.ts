@@ -30,6 +30,8 @@ import {PaymentService} from "./shared/service/payment.service";
 import {ParameterService} from "./shared/service/parameter.service";
 import {TokenStorageService} from "./shared/auth/token-storage.service";
 import {NewNotaryDataVarificationService} from "./shared/service/new-notary-data-varification.service";
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -44,6 +46,7 @@ import {NewNotaryDataVarificationService} from "./shared/service/new-notary-data
     MatRippleModule,
     MatNativeDateModule,
     MatIconModule,
+    MatCardModule,
     ReactiveFormsModule,
     HttpClientModule,
 
@@ -52,6 +55,9 @@ import {NewNotaryDataVarificationService} from "./shared/service/new-notary-data
     PublicPortalModule,
     HttpModule,
     HttpClientModule,
+    ImageViewerModule
+
+
   ],
   providers: [MatDatepickerModule,
     HttpClient,

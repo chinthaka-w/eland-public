@@ -50,6 +50,10 @@ import { NotaryRemarkComponent } from './dashboard/view-notary/notary-remark/not
 import { DsGnDivisionTableComponent } from './dashboard/view-notary/notary-application/ds-gn-division-table/ds-gn-division-table.component';
 import { PaymentTableComponent } from './dashboard/view-notary/notary-payment-info/payment-table/payment-table.component';
 import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk-table/remrk-table.component';
+import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
+import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
+import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
+import {ImageViewerModule} from "ngx-image-viewer";
 
 
 
@@ -85,7 +89,10 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
     NotaryRemarkComponent,
     DsGnDivisionTableComponent,
     PaymentTableComponent,
-    RemrkTableComponent
+    RemrkTableComponent,
+    SupportingDocDetailComponent,
+    DocumentTableComponent,
+    DocumentPreviewComponent
   ],
   imports: [
     CommonModule,
@@ -109,6 +116,7 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
     RecaptchaModule,
     RecaptchaFormsModule,
     SharedModule,
+    ImageViewerModule
   ],
   exports: [
     LoginComponent,
@@ -123,7 +131,8 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
     MatFileUploadModule,
     MatTabsModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+
   ],
   entryComponents:[
     RequestViewComponent,
