@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ContentComponent } from "./components/content/content.component";
-import { HeaderComponent } from "./components/header/header.component";
-import { FooterComponent } from "./components/footer/footer.component";
-import { SharedRoutingModule } from "./shared-routing.module";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ContentComponent } from './components/content/content.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SharedRoutingModule } from './shared-routing.module';
 import { HomeComponent } from '../public-portal/home/home.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +22,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +32,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     VerificationComponent,
     PaymentComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    FileUploadInputComponent
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     SharedRoutingModule,
     MatDatepickerModule,
     MatButtonModule,
@@ -46,7 +48,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatIconModule
   ],
   exports: [
     ContentComponent,
@@ -63,7 +66,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatDatepickerModule,
     MatFileUploadModule,
-    MatTabsModule
+    MatTabsModule,
+    PaymentComponent,
+    PaymentMethodComponent,
+    FileUploadInputComponent
   ]
 })
 export class SharedModule {}
