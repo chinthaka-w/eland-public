@@ -9,10 +9,8 @@
   <div class="page-content-inner-wrapper">
     <form [formGroup]="publicUserForm">
       <div class="default-input-wrapper full-row half-cols">
-        <label
-          >The land registry nearest to the applicant address
-          <span>*</span></label
-        >
+        <label>The land registry nearest to the applicant address
+          <span>*</span></label>
         <div class="default-input-feild gray">
           <mat-form-field appearance="outline">
             <select matNativeControl formControlName="nearestLr" required>
@@ -42,17 +40,13 @@
       </div>
 
       <div *ngIf="publicUserType.value == PublicUserType.LAWYER" class="default-input-wrapper full-row half-cols">
-          <label class="mw-200">Notary ID <span>*</span></label>
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <input
-                matInput
-                placeholder="Notary ID"
-                formControlName="notaryId"
-              />
-            </mat-form-field>
-          </div>
+        <label class="mw-200">Notary ID <span>*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Notary ID" formControlName="notaryId" />
+          </mat-form-field>
         </div>
+      </div>
 
       <div class="separator mt-30">&nbsp;</div>
 
@@ -60,11 +54,7 @@
         <label class="mw-200">Applicant Name <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Applicant Name"
-              formControlName="name"
-            />
+            <input matInput placeholder="Applicant Name" formControlName="name" />
           </mat-form-field>
         </div>
       </div>
@@ -73,11 +63,7 @@
         <label class="mw-200">Bank Name <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Bank Name"
-              formControlName="bankName"
-            />
+            <input matInput placeholder="Bank Name" formControlName="bankName" />
           </mat-form-field>
         </div>
       </div>
@@ -86,11 +72,7 @@
         <label class="mw-200">Address</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Address Line 1"
-              formControlName="address1"
-            />
+            <input matInput placeholder="Address Line 1" formControlName="address1" />
           </mat-form-field>
         </div>
       </div>
@@ -98,11 +80,7 @@
         <label class="mw-200"></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Address Line 2"
-              formControlName="address2"
-            />
+            <input matInput placeholder="Address Line 2" formControlName="address2" />
           </mat-form-field>
         </div>
       </div>
@@ -110,19 +88,13 @@
         <label class="mw-200"></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Address Line 3"
-              formControlName="address3"
-            />
+            <input matInput placeholder="Address Line 3" formControlName="address3" />
           </mat-form-field>
         </div>
       </div>
 
       <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200"
-          >NIC/Passport/ Driving license Number <span>*</span></label
-        >
+        <label class="mw-200">NIC/Passport/ Driving license Number <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput placeholder="NIC/Passport" formControlName="nic" />
@@ -134,11 +106,7 @@
         <label class="mw-200">Telephone Number <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Telephone Number(Primary)"
-              formControlName="primaryContact"
-            />
+            <input matInput placeholder="Telephone Number(Primary)" formControlName="primaryContact" />
           </mat-form-field>
         </div>
       </div>
@@ -146,11 +114,7 @@
         <label class="mw-200">Telephone Number </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Telephone Number(Secondary)"
-              formControlName="secondaryContact"
-            />
+            <input matInput placeholder="Telephone Number(Secondary)" formControlName="secondaryContact" />
           </mat-form-field>
         </div>
       </div>
@@ -158,11 +122,7 @@
         <label class="mw-200">Email Address <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Email Address"
-              formControlName="email"
-            />
+            <input matInput placeholder="Email Address" formControlName="email" />
           </mat-form-field>
         </div>
         <div class="din-info-col">(Notifications will send to this email)</div>
@@ -171,12 +131,7 @@
         <label class="mw-200">Reason for application </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <textarea
-              matInput
-              rows="5"
-              placeholder="Reason"
-              formControlName="reason"
-            ></textarea>
+            <textarea matInput rows="5" placeholder="Reason" formControlName="reason"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -186,10 +141,8 @@
       <div class="pg-inner-row mb-20 upload-col-3">
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label
-              >Last obtained copy of Notary's renewal certificate
-              <span>*</span></label
-            >
+            <label>Last obtained copy of Notary's renewal certificate
+              <span>*</span></label>
 
             <div class="default-input-feild">
               <div class="drag-drop">
@@ -244,11 +197,7 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         <div class="pg-inner-col right">
-          <button
-            mat-raised-button
-            class="lg-button"
-            [disabled]="publicUserForm.invalid"
-          >
+          <button mat-raised-button class="lg-button" [disabled]="publicUserForm.invalid">
             Submit
           </button>
         </div>

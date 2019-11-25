@@ -12,8 +12,7 @@ export class AddPublicUserComponent implements OnInit {
   public publicUserForm: FormGroup;
   public PublicUserType = PublicUserType;
 
-  get publicUserType(){
-    // console.log(this.publicUserForm.get('type'));
+  get publicUserType() {
     return this.publicUserForm.get('type');
   }
 
