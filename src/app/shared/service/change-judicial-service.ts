@@ -9,6 +9,7 @@ import { SysConfigService } from 'src/app/shared/service/sys-config.service';
 export class JudicialService {
 
   public BASE_URL = SysConfigService.BASE_URL;
+  private headers;
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
 
   constructor(private httpClient: HttpClient) {
@@ -18,8 +19,20 @@ export class JudicialService {
     return this.httpClient.get(this.BASE_URL + 'landRegistries/get' );
   }
 
+  getDsDivision(): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'dsDivision/findAll' );
+  }
+
+  getGnDivision(): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'gnDivision/find' );
+  }
+
   getAllJudicialZone(): Observable<any> {
-    return this.httpClient.get(this.BASE_URL + 'judicial/' );
+    return this.httpClient.get(this.BASE_URL + 'judicial-zone/' );
+  }
+
+  getJudicialChangeRequest(notaryId: number): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + 'judicial-zone/changeRequest/' , notaryId, {headers: this.headers} );
   }
 
 }
