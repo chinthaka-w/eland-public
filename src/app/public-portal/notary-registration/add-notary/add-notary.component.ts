@@ -137,7 +137,8 @@ export class AddNotaryComponent implements OnInit {
   }
 
   selectGnDivision(gsDivisionId, index) {
-    this.gnDivi.push(this.notaryForm.value.gramaNiladhariDivision,null,null,this.notaryForm.value.secretariatDivision,null,null,this.notaryForm.value.secretariatDivision,null,null);
+    const gnModel: GnDivisionDTO = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision,null,null,this.notaryForm.value.secretariatDivision,null,null,this.notaryForm.value.secretariatDivision,null,null);
+    this.gnDivi.push(gnModel);
     const model: NewNotaryDsDivisionDTO = new NewNotaryDsDivisionDTO(this.notaryForm.value.secretariatDivision,this.notaryForm.value.secretariatDivision,this.gnDivi);
     this.dsGnList.push(model);
     console.log(this.dsGnList);

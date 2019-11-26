@@ -32,6 +32,7 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
 import {NewNotaryDataVarificationService} from "./shared/service/new-notary-data-varification.service";
 import {MatCardModule} from "@angular/material/card";
 import {ImageViewerModule} from "ngx-image-viewer";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -47,6 +48,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
     MatNativeDateModule,
     MatIconModule,
     MatCardModule,
+    MatTableModule,
     ReactiveFormsModule,
     HttpClientModule,
 

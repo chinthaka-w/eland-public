@@ -1,24 +1,34 @@
-<div class="default-input-wrapper full-row">
-<table class="table">
-  <thead>
-  <tr >
-    <th  style="min-width: 40%">Application No</th>
-    <th  style="min-width: 50%">Payment Method</th>
-    <th  style="min-width: 50%">Amount</th>
-    <th  style="min-width: 10%">Payment ID</th>
-    <th  style="min-width: 50%">Payment Date</th>
-    <th  style="min-width: 50%">Status</th>
-  </tr>
-  </thead>
-  <tbody >
-  <tr *ngFor="let item of paymentDetails; let i=index">
-    <td  style="min-width: 40%">{{item.applicationNo}}</td>
-    <td  style="min-width: 50%">{{item.paymentType}}</td>
-    <td  style="min-width: 50%">{{item.amount}}</td>
-    <td  style="min-width: 10%">{{item.paymentId}}</td>
-    <td  style="min-width: 50%">{{item.paymentDate}}</td>
-    <td  style="min-width: 50%">{{item.status}}</td>
-  </tr>
-  </tbody>
+<table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="Application No">
+    <th mat-header-cell *matHeaderCellDef>Application No</th>
+    <td mat-cell *matCellDef="let row"> {{row.applicationNo}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Payment Method">
+    <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+    <td mat-cell *matCellDef="let row"> {{row.paymentType}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Amount">
+    <th mat-header-cell *matHeaderCellDef>Amount</th>
+    <td mat-cell *matCellDef="let row"> {{row.amount}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Payment ID">
+    <th mat-header-cell *matHeaderCellDef>Payment ID</th>
+    <td mat-cell *matCellDef="let row"> {{row.paymentId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Payment Date">
+    <th mat-header-cell *matHeaderCellDef>Payment Date</th>
+    <td mat-cell *matCellDef="let row"> {{row.paymentDate}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Status">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let row"> {{row.status}}</td>
+  </ng-container>
+
+  <tr mat-header-row  *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-</div>
