@@ -55,9 +55,12 @@ export class AddNotaryComponent implements OnInit {
   public notaryDetails: Notary;
   public gnDivisionDetails: GnDivisionDTO;
   public newNotaryGnDivision: NewNotaryGnDivisionDTO;
+  public previousSelections: any[] = [];
 
   public locationDto: any = {};
-  public locationList: NewNotaryGnDivisionDTO[] = [];
+  public locationList: any[] = [];
+  public dsGnList: NewNotaryGnDivisionDTO[];
+  public gnDivi: GnDivisionDTO[] = [];
   fileUpload: ElementRef;
   fileUploads: ElementRef;
   inputFileName: string;
@@ -110,16 +113,24 @@ export class AddNotaryComponent implements OnInit {
     this.getLandRegistries();
     this.getJudicialZones();
     this.locationList.push(this.locationDto);
+    this.previousSelections.push(-1);
     this.locationDto = {};
   }
 
   addLocation() {
     this.locationList.push(this.locationDto);
+    this.previousSelections.push(-1);
     this.locationDto = {};
   }
 
   removeLocation(index) {
+    // this.gnDivision.forEach(gsDivision => {
+    //   if (gsDivision.divisionId == this.locationList[index].gsDivision) {
+    //     this.isSelected = false;
+    //   }
+    // });
     this.locationList.splice(index, 1);
+    this.previousSelections.splice(index, 1);
   }
 
   public onFormSubmit() {
@@ -135,8 +146,9 @@ export class AddNotaryComponent implements OnInit {
   }
 
     saveNotaryDetails(): void {
-    this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
-    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', [this.gnDivisionDetails]);
+    alert('dfkg');
+//    this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
+    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', this.gnDivi);
     this.notaryDetails = new Notary(0, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
       this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
       this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
@@ -147,15 +159,15 @@ export class AddNotaryComponent implements OnInit {
       1, this.notaryForm.value.landRegistry, [this.newNotaryGnDivision], this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentDataValue);
 
-    this.notaryService.setNotaryDetails(this.notaryDetails);
-    this.notaryDetails = this.notaryService.getNotaryDetails();
+  //  this.notaryService.setNotaryDetails(this.notaryDetails);
+  //  this.notaryDetails = this.notaryService.getNotaryDetails();
 
     this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
       (success: string) => {
-        this.snackBar.success('Notary Registration Success');
+        alert('Notary Registration Success');
       },
       error => {
-        this.snackBar.error('Failed');
+        alert('Failed');
       }
     );
   }
@@ -190,7 +202,18 @@ export class AddNotaryComponent implements OnInit {
         this.gnDivision = data;
       }
     );
+    // @ts-ignore
+  //  this.previousSelections[index] = this.notaryForm.value.secretariatDivision;
   }
+
+  selectGnDivision(gsDivisionId) {
+    // console.log(gsDivisionId);
+    let num=gsDivisionId as number;
+    const mode: GnDivisionDTO = new GnDivisionDTO(num,null,null,null,null,null,0,null,null);
+    this.gnDivi.push(mode);
+    console.log(mode);
+  }
+
   private getLandRegistries(): void {
     this.landRegistryService.getAllLandRegistry().subscribe(
       (data: LandRegistryModel[]) => {
