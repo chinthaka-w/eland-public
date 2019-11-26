@@ -47,7 +47,7 @@ import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/ch
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatRangeDatepickerModule, MatRangeNativeDateModule} from 'mat-range-datepicker';
 
-
+import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
 
 @NgModule({
@@ -102,7 +102,9 @@ import {MatRangeDatepickerModule, MatRangeNativeDateModule} from 'mat-range-date
     MatPaginatorModule,
     MatNativeDateModule,
     MatRangeDatepickerModule,
-    MatRangeNativeDateModule
+    MatRangeNativeDateModule,
+    SatDatepickerModule, 
+    SatNativeDateModule
   ],
   exports: [
     LoginComponent,
@@ -117,7 +119,9 @@ import {MatRangeDatepickerModule, MatRangeNativeDateModule} from 'mat-range-date
     MatFileUploadModule,
     MatTabsModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    SatDatepickerModule, 
+    SatNativeDateModule
   ],
   entryComponents:[
     RequestViewComponent,

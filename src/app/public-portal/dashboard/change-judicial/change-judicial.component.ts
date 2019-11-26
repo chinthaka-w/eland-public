@@ -8,7 +8,6 @@ import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
 import {WorkflowStageEnum} from '../../../shared/enum/workflow-stage.enum';
-import {Languages} from '../../../shared/enum/languages.enum';
 
 @Component({
   selector: 'app-change-judicial',
@@ -27,6 +26,8 @@ export class ChangeJudicialComponent implements OnInit {
   judicialChangeForm: FormGroup;
   public docList: WorkflowStageDocDto[];
   fileList = {};
+  public locationList: any[] = [];
+  public locationDto: any = {};
   public notaryId: number;
   public langArr: number[];
   public languages: Languages;
@@ -47,6 +48,7 @@ export class ChangeJudicialComponent implements OnInit {
       description: "Tamil"
     }
   ];
+
 
   constructor(private judicialService: JudicialService) { }
 

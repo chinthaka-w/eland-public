@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~saturn-datepicker/bundle.css';
 
 * {
     box-sizing: border-box;
@@ -2411,6 +2413,74 @@ span.green {
     line-height: 25px;
     color: #d92525;
 }
+
+/**/
+.mat-select {
+    display: block;
+    width: 100%;
+    outline: 0;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+}
+
+.mat-select-trigger {
+    height: 40px;
+}
+
+.mat-select-value {
+    color: #4f4f4f !important;
+    vertical-align: middle;
+    padding-left: 15px;
+}
+
+.mat-select-arrow-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 5px;
+}
+
+.mat-select-arrow {
+    color: #bdbdbd;
+}
+
+.mat-select-panel {
+    background: #ffffff;
+}
+
+.mat-option.mat-active {
+    background: rgba(201, 201, 201, 0.04);
+    color: #9c9c9c;
+}
+
+.mat-option {
+    color: #424242;
+}
+
+.mat-pseudo-checkbox {
+    width: 14px;
+    height: 14px;
+    border: 1px solid;
+}
+
+.mat-pseudo-checkbox {
+    color: #b1b1b1;
+}
+
+.mat-pseudo-checkbox-indeterminate {
+    background: #a0d1ff;
+}
+
+/**/
+.pg-inner-row {
+    position: relative;
+}
+
+button.row-close {
+    position: absolute;
+    right: 0;
+    top: 23px;
+}
+
 
 /* Extra large devices - large desktops */
 @media (max-width: 1500px) {
