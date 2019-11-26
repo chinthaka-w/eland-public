@@ -35,4 +35,12 @@ export class JudicialService {
     return this.httpClient.post(this.BASE_URL + 'judicial-zone/changeRequest/' , notaryId, {headers: this.headers} );
   }
 
+  getDocuments(workflowCode: string): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'supportingDocument/' +  workflowCode, {headers: this.headers} );
+  }
+
+  getLanguages(notaryId: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'new-notary/getNotaryLanguage/' + notaryId.toString() , {headers: this.headers});
+  }
+
 }

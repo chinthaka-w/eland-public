@@ -16,20 +16,15 @@
      </div>
     <form [formGroup]="judicialChangeForm" class="form pb-5">
     <div class="pg-inner-row mb-20">
-
-      <div class="pg-inner-col right">
-        <div class="default-input-wrapper m0 rac-col">
-          <label>Language:</label>
-          <div class="default-input-feild">
-            <section class="example-section">
-              <mat-checkbox class="example-margin">Sinhala</mat-checkbox>
-              <mat-checkbox class="example-margin">English</mat-checkbox>
-              <mat-checkbox class="example-margin">Tamil</mat-checkbox>
-            </section>
-          </div>
+        <div>
+            <label style="margin-right: 2%;">
+              Language :
+            </label>
+            <mat-checkbox [checked]="isEnglish">English</mat-checkbox>
+            <mat-checkbox [checked]="isSinhala">Sinhala</mat-checkbox>
+            <mat-checkbox [checked]="isTamil">Tamil</mat-checkbox>
         </div>
-      </div>
-    </div>
+     </div>
     <div>&nbsp;</div>
     <div>&nbsp;</div>
 
