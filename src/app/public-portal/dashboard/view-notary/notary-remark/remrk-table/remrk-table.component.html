@@ -1,20 +1,25 @@
-<table class="table table-responsive text-center table-bordered">
-  <thead class="table-dark">
-  <tr>
-    <th>#</th>
-    <th>Workflow Stage</th>
-    <th>Remark</th>
-    <th>Created Time</th>
-    <th>Created User</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item of notaryRequestHistory; let i = index">
-    <td>{{i+1}}</td>
-    <td>{{item.workflowStage}}</td>
-    <td>{{item.remark}}</td>
-    <td>{{item.createdTime}}</td>
-    <td>{{item.createdUser}}</td>
-  </tr>
-  </tbody>
+<table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="Workflow Stage">
+    <th mat-header-cell *matHeaderCellDef>Workflow Stage</th>
+    <td mat-cell *matCellDef="let row"> {{row.workflowStage}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Remark">
+    <th mat-header-cell *matHeaderCellDef>Remark</th>
+    <td mat-cell *matCellDef="let row"> {{row.remark}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Created Time">
+    <th mat-header-cell *matHeaderCellDef>Created Time</th>
+    <td mat-cell *matCellDef="let row"> {{row.createdTime}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Created User">
+    <th mat-header-cell *matHeaderCellDef>Created User</th>
+    <td mat-cell *matCellDef="let row"> {{row.createdUser}}</td>
+  </ng-container>
+
+  <tr mat-header-row  *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
