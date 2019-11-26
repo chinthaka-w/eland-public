@@ -52,8 +52,7 @@ export class PaymentMethodComponent implements OnInit {
       10000, 'ACT', new Date(),'USER', new Date());
     this.paymentService.savePayment(this.payment).subscribe(
       (res) => {
-        alert(res+"////");
-       alert('Notary Payment Success');
+        this.snackBar.success('Notary Payment Success');
         this.paymentId = res;
         this.responseValue.emit(this.paymentId);
         this.isSubmitted = true;

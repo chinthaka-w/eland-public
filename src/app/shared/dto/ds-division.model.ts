@@ -1,6 +1,6 @@
 export class DsDivision {
   constructor(
-    dsDivisionId: number,
-    description: string,
+  public  dsDivisionId: number,
+  public  description: string,
   ){}
 }

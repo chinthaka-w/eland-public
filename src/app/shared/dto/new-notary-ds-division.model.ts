@@ -1,6 +1,6 @@
 import {GnDivisionDTO} from './gn-division.dto';
 
-export class NewNotaryGnDivisionDTO {
+export class NewNotaryDsDivisionDTO {
   constructor(
     public dsDivisionId: number,
     public dsDivisionDescription: string,

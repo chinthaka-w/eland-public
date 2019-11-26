@@ -45,8 +45,9 @@ export class PaymentComponent implements OnInit {
     );
   }
   continue(paymentForm: FormGroup) {
-    this.response.emit(paymentForm);
     this.isSubmitted = true;
+    this.response.emit(paymentForm);
+
   }
 
 

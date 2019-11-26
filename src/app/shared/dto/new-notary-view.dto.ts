@@ -1,4 +1,4 @@
-import {NewNotaryGnDivisionDTO} from "./new-notary-gn-division.model";
+import {NewNotaryDsDivisionDTO} from "./new-notary-ds-division.model";
 import {LanguageDescriptionDto} from "./language-description.dto";
 
 export class NewNotaryViewDto {
@@ -21,7 +21,7 @@ export class NewNotaryViewDto {
   public judicialZone: string,
   public landRegistryId: number,
   public landRegistry: string,
-  public newNotaryDsDivisionDTO: NewNotaryGnDivisionDTO[]=[],
+  public newNotaryDsDivisionDTO: NewNotaryDsDivisionDTO[]=[],
   public language: string,
   public enrolledDate: Date,
   public subjectPassedDate: Date,

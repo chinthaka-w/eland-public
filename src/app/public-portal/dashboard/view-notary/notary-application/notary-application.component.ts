@@ -4,7 +4,7 @@ import {PatternValidation} from "../../../../shared/enum/pattern-validation.enum
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
 import {NewNotaryViewDto} from "../../../../shared/dto/new-notary-view.dto";
 import {NewNotaryRegistrationRequest} from "../../../../shared/dto/new-notary-registration-request.model";
-import {NewNotaryGnDivisionDTO} from "../../../../shared/dto/new-notary-gn-division.model";
+import {NewNotaryDsDivisionDTO} from "../../../../shared/dto/new-notary-ds-division.model";
 import {ActivatedRoute} from "@angular/router";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
 import {NotaryService} from "../../../../shared/service/notary-service";
@@ -36,7 +36,7 @@ export class NotaryApplicationComponent implements OnInit {
   public notaryViewDetails: NewNotaryViewDto;
   public requestDetails:NewNotaryRegistrationRequest[];
   searchType: NewNotaryRequestsCategorySearchDto ;
-  dsGnDivisions: NewNotaryGnDivisionDTO[] = [];
+  dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   result: NewNotaryViewDto;
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
@@ -44,7 +44,7 @@ export class NotaryApplicationComponent implements OnInit {
   public judicialZones: JudicialZoneModel[];
   public notaryDetails: Notary;
   public gnDivisionDetails: GnDivisionDTO;
-  public newNotaryGnDivision: NewNotaryGnDivisionDTO;
+  public newNotaryGnDivision: NewNotaryDsDivisionDTO;
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
   notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto[] = [];
   paymentId: number;
@@ -52,7 +52,7 @@ export class NotaryApplicationComponent implements OnInit {
   userName: string;
 
   public locationDto: any = {};
-  public locationList: NewNotaryGnDivisionDTO[] = [];
+  public locationList: NewNotaryDsDivisionDTO[] = [];
   notaryTitle: string = '';
   subjectPassedLan: string = '';
   public date: Date;
@@ -206,8 +206,8 @@ export class NotaryApplicationComponent implements OnInit {
     this.saveNotaryDetails();
   }
   saveNotaryDetails(): void {
-    this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
-    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', [this.gnDivisionDetails]);
+    //this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
+  //  this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', [this.gnDivisionDetails]);
     this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
       this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
       this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
@@ -279,12 +279,10 @@ export class NotaryApplicationComponent implements OnInit {
     this.newNotaryDataVarificationService.getLatestReamrk(searchType).subscribe(
       (result: NotaryRegistrationHistoryDto[]) => {
         if(result != null){
-          alert('1');
           this.notaryRequestHistoryByRemark = result;
           console.log(this.notaryRequestHistoryByRemark+"...");
           this.hasRemarks = true;
         }else{
-          alert('2');
           this.hasRemarks = false;
         }
       },

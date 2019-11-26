@@ -371,7 +371,7 @@
                 <mat-select
                   class="form-control"
                   formControlName="secretariatDivision"
-                  (ngModelChange)="changes($event)"
+                  (selectionChange)="selectGsDivision($event.value, i)"
                 >
                   <mat-option
                     *ngFor="let dsDivisions of dsDivision"
@@ -389,8 +389,9 @@
                 <mat-select
                   multiple
                   class="form-control"
-                  formControlName="gramaNiladhariDivision"
-                  (ngModelChange)="selectGnDivision($event)"
+                 formControlName="gramaNiladhariDivision"
+                  id="gnDivisionSelect"
+                  (selectionChange)="selectGnDivision($event.value,i)"
                 >
                   <ng-container *ngFor="let gnDivisions of gnDivision">
                     <mat-option

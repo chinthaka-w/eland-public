@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NewNotaryGnDivisionDTO} from "../../../../../shared/dto/new-notary-gn-division.model";
+import {NewNotaryDsDivisionDTO} from "../../../../../shared/dto/new-notary-ds-division.model";
 
 @Component({
   selector: 'app-ds-gn-division-table',
@@ -7,7 +7,7 @@ import {NewNotaryGnDivisionDTO} from "../../../../../shared/dto/new-notary-gn-di
   styleUrls: ['./ds-gn-division-table.component.css']
 })
 export class DsGnDivisionTableComponent implements OnInit {
-  @Input() dsGnDivisions: NewNotaryGnDivisionDTO[] = [];
+  @Input() dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
 
   constructor() { }
 
