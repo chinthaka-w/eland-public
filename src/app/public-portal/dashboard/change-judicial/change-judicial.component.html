@@ -9,247 +9,271 @@
   <div class="page-content-inner-wrapper">
 
     <div class="pg-inner-row mb-20">
-        <h5 class="mb-20"><i class="material-icons">description</i>
-              APPLICATION FOR CHANGING THE JUDICIAL ZONE
-            </h5>
-            <div class="separator">&nbsp;</div>
-     </div>
+      <h5 class="mb-20"><i class="material-icons">description</i>
+        APPLICATION FOR CHANGING THE JUDICIAL ZONE
+      </h5>
+      <div class="separator">&nbsp;</div>
+    </div>
     <form [formGroup]="judicialChangeForm" class="form pb-5">
-    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-row mb-20">
 
-      <div class="pg-inner-col right">
-        <div class="default-input-wrapper m0 rac-col">
-          <label>Language:</label>
-          <div class="default-input-feild">
-            <section class="example-section">
-              <mat-checkbox class="example-margin">Sinhala</mat-checkbox>
-              <mat-checkbox class="example-margin">English</mat-checkbox>
-              <mat-checkbox class="example-margin">Tamil</mat-checkbox>
-            </section>
+        <div class="pg-inner-col right">
+          <div class="default-input-wrapper m0 rac-col">
+            <label>Language:</label>
+            <div class="default-input-feild">
+              <section class="example-section">
+                <mat-checkbox class="example-margin">Sinhala</mat-checkbox>
+                <mat-checkbox class="example-margin">English</mat-checkbox>
+                <mat-checkbox class="example-margin">Tamil</mat-checkbox>
+              </section>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
 
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col-3">
-        <div class="default-input-wrapper full-row">
-          <label>Permenent address in new judicial zone (English):</label>
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <textarea matInput rows="5"></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-col-3">
-        <div class="default-input-wrapper full-row">
-          <label>Permenent address in new judicial zone (Sinhala):</label>
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <textarea matInput rows="5"></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-col-3">
-        <div class="default-input-wrapper full-row">
-          <label>Permenent address in new judicial zone (Tamil):</label>
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <textarea matInput rows="5"></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <label>Starting Date of Notarial Work:</label>
-          <div class="default-input-feild date-feild">
-            <mat-form-field appearance="outline">
-              <input matInput [matDatepicker]="picker1">
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-            <button mat-raised-button (click)="picker1.open()">
-              <i class="material-icons">calendar_today</i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <label>In which year, you get the certificate of High Court lastly? </label>
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <input matInput>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <label>Name of the LR handed over duplicates currently?</label>
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <input matInput>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <label>Have you handed over all duplicate returns attested by you?</label>
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <input matInput>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <label>If you have stopped stop Notarial work temporarily, Please specify the period: </label>
-
-          <div class="form-group">
-            <!--<input type="text" name="daterange"-->
-                   <!--[locale]="{applyLabel: 'Apply', format: 'YYYY/MM/DD'}"-->
-                   <!--ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"-->
-                   <!--[minDate]="getMinDate()" [maxDate]="getMaxDate()"  />-->
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-col"></div>
-    </div>
-
-    <div class="separator">&nbsp;</div>
-
-    <label>Please give the following details regarding new judicial zone </label>
-    <div>&nbsp;</div>
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col label" >
-        <label>Judicial Division:</label></div>
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <select name="judicialDivision" matNativeControl  class="form-control">
-                <option value="" [selected]="true">Select</option>
-                <option *ngFor="let jud of judicialZone" [value]="jud.highCourtZoneId">{{ jud.nameEng }}
-                </option>
-              </select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col label">
-        <label>Land Registry:</label></div>
-      <div class="pg-inner-col">
-        <div class="default-input-wrapper full-row">
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <select name="landRegistry" matNativeControl class="form-control">
-                <option value="" [selected]="true">Select</option>
-                <option *ngFor="let reg of landRegistry" [value]="reg.landRegistryId">{{ reg.name }}
-                </option>
-              </select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <table class="table mat-elevation-z4">
-        <thead>
-        <tr>
-          <th>DS Division</th>
-          <th>GN Division</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let location of locationList; let i = index">
-          <td>
-            <mat-select
-              class="form-control"
-              ngModel [ngModelOptions]="{standalone: true}"
-              (selectionChange)="selectGsDivision($event.value, i)" >
-              <mat-option
-                *ngFor="let gsDivision of gsDivisions"
-                value="{{gsDivision.dsDivisionId}}"
-                [disabled]="gsDivision.isSelected"
-              >{{ gsDivision.description }}</mat-option
-              >
-            </mat-select>
-          </td>
-          <td>
-            <mat-select
-              multiple
-              class="form-control"
-              id="gnDivisionSelect"
-              (selectionChange)="selectGnDivision($event.value,i)">
-              <ng-container *ngFor="let gnDivision of gnDivisions">
-                <mat-option
-                  *ngIf="!gnDivision.isSelected"
-                  value="{{gnDivision.gnDivisionId}}">
-                  {{ gnDivision.description }}
-                </mat-option>
-              </ng-container>
-            </mat-select>
-          </td>
-          <td>
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="removeLocation(i)"
-            >
-              <mat-icon>close</mat-icon>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-        <button
-          class="ml-3 mb-3"
-          mat-flat-button
-          color="accent"
-          (click)="addLocation()"
-        >
-          + Add
-        </button>
-      </table>
-    </div>
-
-
-    <div class="separator">&nbsp;</div>
-
-
-      <div class="pg-inner-row mb-20 upload-col-3" >
-        <ng-container *ngFor="let document of docList">
+      <div class="pg-inner-row mb-20">
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label
-            >{{document.description}}
-              <span *ngIf="document.required == true">*</span>
-            </label>
-            <file-upload-input (change)="setFiles($event, document.docTypeId)"></file-upload-input>
+            <label>Permenent address in new judicial zone (English):</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5"></textarea>
+              </mat-form-field>
+            </div>
           </div>
         </div>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Permenent address in new judicial zone (Sinhala):</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label>Permenent address in new judicial zone (Tamil):</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="5"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Starting Date of Notarial Work:</label>
+            <div class="default-input-feild date-feild">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="picker1">
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <button mat-raised-button (click)="picker1.open()">
+                <i class="material-icons">calendar_today</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>In which year, you get the certificate of High Court lastly? </label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Name of the LR handed over duplicates currently?</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Have you handed over all duplicate returns attested by you?</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>If you have stopped stop Notarial work temporarily, Please specify the period: </label>
+            <div class="default-input-feild date-feild">
+              <mat-form-field appearance="outline">
+                <input matInput [satDatepicker]="picker2" formControlName="date">
+                <sat-datepicker #picker2 [rangeMode]="true">
+                </sat-datepicker>
+              </mat-form-field>
+              <button mat-raised-button (click)="picker2.open()">
+                <i class="material-icons">calendar_today</i>
+              </button>
+            </div>
+            <div class="form-group">
+              <!--<input type="text" name="daterange"-->
+              <!--[locale]="{applyLabel: 'Apply', format: 'YYYY/MM/DD'}"-->
+              <!--ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"-->
+              <!--[minDate]="getMinDate()" [maxDate]="getMaxDate()"  />-->
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col"></div>
+      </div>
+
+      <div class="separator">&nbsp;</div>
+
+      <label>Please give the following details regarding new judicial zone </label>
+      <div>&nbsp;</div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col label">
+          <label>Judicial Division:</label></div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select name="judicialDivision" matNativeControl class="form-control">
+                  <option value="" [selected]="true">Select</option>
+                  <option *ngFor="let jud of judicialZone" [value]="jud.highCourtZoneId">{{ jud.nameEng }}
+                  </option>
+                </select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col label">
+          <label>Land Registry:</label></div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select name="landRegistry" matNativeControl class="form-control">
+                  <option value="" [selected]="true">Select</option>
+                  <option *ngFor="let reg of landRegistry" [value]="reg.landRegistryId">{{ reg.name }}
+                  </option>
+                </select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20 pr-40">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>DS Division:</label>
+            <div class="default-input-feild">
+              <mat-select class="form-control" ngModel [ngModelOptions]="{standalone: true}"
+                (selectionChange)="selectGsDivision($event.value, i)">
+                <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.dsDivisionId}}"
+                  [disabled]="gsDivision.isSelected">{{ gsDivision.description }}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>GN Division:</label>
+            <div class="default-input-feild">
+              <mat-select multiple class="form-control" id="gnDivisionSelect"
+                (selectionChange)="selectGnDivision($event.value,i)">
+                <ng-container *ngFor="let gnDivision of gnDivisions">
+                  <mat-option *ngIf="!gnDivision.isSelected" value="{{gnDivision.gnDivisionId}}">
+                    {{ gnDivision.description }}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <button class="row-close" mat-icon-button color="warn" (click)="removeLocation(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <button class="ml-3 mb-3" mat-flat-button (click)="addLocation()">
+          + Add
+        </button>
+      </div>
+
+      <!-- <div>
+        <table class="table mat-elevation-z4">
+          <thead>
+            <tr>
+              <th>DS Division</th>
+              <th>GN Division</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let location of locationList; let i = index">
+              <td>
+                <mat-select class="form-control" ngModel [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="selectGsDivision($event.value, i)">
+                  <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.dsDivisionId}}"
+                    [disabled]="gsDivision.isSelected">{{ gsDivision.description }}</mat-option>
+                </mat-select>
+              </td>
+              <td>
+                <mat-select multiple class="form-control" id="gnDivisionSelect"
+                  (selectionChange)="selectGnDivision($event.value,i)">
+                  <ng-container *ngFor="let gnDivision of gnDivisions">
+                    <mat-option *ngIf="!gnDivision.isSelected" value="{{gnDivision.gnDivisionId}}">
+                      {{ gnDivision.description }}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+              </td>
+              <td>
+                <button mat-icon-button color="warn" (click)="removeLocation(i)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <button class="ml-3 mb-3" mat-flat-button color="accent" (click)="addLocation()">
+            + Add
+          </button>
+        </table>
+      </div> -->
+
+
+      <div class="separator">&nbsp;</div>
+
+
+      <div class="pg-inner-row mb-20 upload-col-3">
+        <ng-container *ngFor="let document of docList">
+          <div class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+              <label>{{document.description}}
+                <span *ngIf="document.required == true">*</span>
+              </label>
+              <file-upload-input (change)="setFiles($event, document.docTypeId)"></file-upload-input>
+            </div>
+          </div>
         </ng-container>
-       </div>
+      </div>
 
 
       <div class="separator">&nbsp;</div>
@@ -264,14 +288,11 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         <div class="pg-inner-col right">
-          <button
-            mat-raised-button
-            class="lg-button"
-          >
+          <button mat-raised-button class="lg-button">
             Submit
           </button>
         </div>
-    </div>
+      </div>
     </form>
   </div>
 </div>

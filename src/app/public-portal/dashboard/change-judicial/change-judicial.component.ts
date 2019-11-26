@@ -6,8 +6,8 @@ import {DsDivision} from '../../../shared/dto/ds-division.model';
 import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
 import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
-import {WorkflowStageEnum} from '../../../shared/enum/workflow-stage.enum';
+// import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
+// import {WorkflowStageEnum} from '../../../shared/enum/workflow-stage.enum';
 
 @Component({
   selector: 'app-change-judicial',
@@ -24,10 +24,8 @@ export class ChangeJudicialComponent implements OnInit {
   public gnDivisions: GnDivisionDTO[];
   public isSelected: boolean;
   judicialChangeForm: FormGroup;
-  public docList: WorkflowStageDocDto[];
+  // public docList: WorkflowStageDocDto[];
   fileList = {};
-  public locationList: any[] = [];
-  public locationDto: any = {};
 
   constructor(private judicialService: JudicialService) { }
 
@@ -38,7 +36,7 @@ export class ChangeJudicialComponent implements OnInit {
     this.getJudicialZone();
     this.getDsDivision();
     this.getGnDivision();
-    this.getDocumentList();
+    // this.getDocumentList();
     this.locationList.push(this.locationDto);
   }
 
@@ -74,13 +72,13 @@ export class ChangeJudicialComponent implements OnInit {
     );
   }
 
-  private getDocumentList(): void {
-    this.judicialService.getDocuments(WorkflowStageEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED).subscribe(
-      (data: WorkflowStageDocDto[]) => {
-        this.docList = data;
-      }
-    );
-  }
+  // private getDocumentList(): void {
+  //   this.judicialService.getDocuments(WorkflowStageEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED).subscribe(
+  //     (data: WorkflowStageDocDto[]) => {
+  //       this.docList = data;
+  //     }
+  //   );
+  // }
 
   addLocation() {
     this.locationList.push(this.locationDto);
