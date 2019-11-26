@@ -1,5 +1,5 @@
 export enum Languages {
-  ENGLISH = 1 ,
-  SINHALA = 2,
-  TAMIL = 3,
+  ENGLISH = 3 ,
+  SINHALA = 1,
+  TAMIL = 2,
 }

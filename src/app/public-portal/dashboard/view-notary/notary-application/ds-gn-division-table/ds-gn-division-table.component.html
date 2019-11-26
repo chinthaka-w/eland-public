@@ -9,12 +9,29 @@
   </thead>
   <tbody>
   <tr *ngFor="let dsDiv of dsGnDivisions; let i=index">
-    <td style="width: 100px">{{i+1}}</td>
-    <td  style="width: 400px">{{dsDiv.dsDivisionDescription}}</td>
-    <td  style="width: 500px">
+    <td style="width: 100px;text-align: center">{{i+1}}</td>
+    <td  style="width: 400px;text-align: center">{{dsDiv.dsDivisionDescription}}</td>
+    <td  style="width: 500px;text-align: center">
       <span class="gn-div" *ngFor="let gnDiv of dsDiv.gnDivisions">{{gnDiv.description}}</span>
     </td>
   </tr>
   </tbody>
 </table>
 </div>
+
+<!--<table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="mat-elevation-z8">-->
+<!--  <ng-container matColumnDef="DS Division">-->
+<!--    <th mat-header-cell *matHeaderCellDef>DS Division</th>-->
+<!--    <td mat-cell *matCellDef="let row"> {{row.dsDivisionDescription}}</td>-->
+<!--  </ng-container>-->
+
+<!--  <ng-container matColumnDef="GN Division">-->
+<!--    <th mat-header-cell *matHeaderCellDef>GN Division</th>-->
+<!--    <td mat-cell *matCellDef="let row"> {{row.gnDivisions.description}}</td>-->
+<!--  </ng-container>-->
+
+<!--  <tr mat-header-row  *matHeaderRowDef="displayedColumns"></tr>-->
+<!--  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--</table>-->
+
+

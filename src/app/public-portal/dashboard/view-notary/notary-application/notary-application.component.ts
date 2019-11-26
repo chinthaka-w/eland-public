@@ -32,27 +32,24 @@ import {fakeAsync} from "@angular/core/testing";
   styleUrls: ['./notary-application.component.css']
 })
 export class NotaryApplicationComponent implements OnInit {
-  public notaryForm: FormGroup;
-  public notaryViewDetails: NewNotaryViewDto;
-  public requestDetails:NewNotaryRegistrationRequest[];
-  searchType: NewNotaryRequestsCategorySearchDto ;
   dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
-  result: NewNotaryViewDto;
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
   public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
-  public notaryDetails: Notary;
-  public gnDivisionDetails: GnDivisionDTO;
-  public newNotaryGnDivision: NewNotaryDsDivisionDTO;
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
   notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto[] = [];
+  public locationList: NewNotaryDsDivisionDTO[] = [];
+  public locationDto: any = {};
+
+  public notaryForm: FormGroup;
+  result: NewNotaryViewDto;
+  public notaryViewDetails: NewNotaryViewDto;
+  searchType: NewNotaryRequestsCategorySearchDto ;
+  public notaryDetails: Notary;
   paymentId: number;
   newNotaryId: number;
   userName: string;
-
-  public locationDto: any = {};
-  public locationList: NewNotaryDsDivisionDTO[] = [];
   notaryTitle: string = '';
   subjectPassedLan: string = '';
   public date: Date;
@@ -60,7 +57,6 @@ export class NotaryApplicationComponent implements OnInit {
   public type: string;
   public data: any;
   public hasRemarks: boolean = false;
-  public requestList = [];
 
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
@@ -116,10 +112,10 @@ export class NotaryApplicationComponent implements OnInit {
     this.locationList.push(this.locationDto);
     this.locationDto = {};
 
+
   }
 
-
-  addLocation() {
+    addLocation() {
     this.locationList.push(this.locationDto);
     this.locationDto = {};
   }
@@ -170,8 +166,6 @@ export class NotaryApplicationComponent implements OnInit {
         this.subjectPassedLan = this.result.subjectMedium;
         this.dsGnDivisions = this.result.newNotaryDsDivisionDTO;
         this.newNotaryId = this.result.newNotaryId;
-        alert(this.newNotaryId);
-
         this.setWorkflowStage();
       },
       error1 => {
@@ -206,8 +200,6 @@ export class NotaryApplicationComponent implements OnInit {
     this.saveNotaryDetails();
   }
   saveNotaryDetails(): void {
-    //this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
-  //  this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', [this.gnDivisionDetails]);
     this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
       this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
       this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
@@ -280,7 +272,6 @@ export class NotaryApplicationComponent implements OnInit {
       (result: NotaryRegistrationHistoryDto[]) => {
         if(result != null){
           this.notaryRequestHistoryByRemark = result;
-          console.log(this.notaryRequestHistoryByRemark+"...");
           this.hasRemarks = true;
         }else{
           this.hasRemarks = false;
