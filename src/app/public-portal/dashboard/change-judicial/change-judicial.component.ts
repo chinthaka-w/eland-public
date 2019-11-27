@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {LandRegistryModel} from '../../../shared/dto/land-registry.model';
+
 import {JudicialService} from './change-judicial-service';
 import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
+import {LandRegistryModel} from "../../../shared/dto/land-registry.model.";
 
 @Component({
   selector: 'app-change-judicial',

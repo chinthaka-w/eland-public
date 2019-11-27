@@ -1,0 +1,45 @@
+<div class="pg-inner-row mb-0">
+    <div class="pg-inner-col mb-0">
+        <h5 class="mb-20"><i class="material-icons">description</i>Requests</h5>
+        <div class="separator mb-20">&nbsp;</div>
+    </div>
+</div>
+
+<div class="mat-table-wrapper">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="division">
+            <th mat-header-cell *matHeaderCellDef> Division </th>
+            <td mat-cell *matCellDef="let element"> {{element.division}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="volNo">
+            <th mat-header-cell *matHeaderCellDef> Vol No </th>
+            <td mat-cell *matCellDef="let element"> {{element.volNo}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="folioNo">
+            <th mat-header-cell *matHeaderCellDef> Folio No </th>
+            <td mat-cell *matCellDef="let element"> {{element.folioNo}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef style="width: 150px;"> Status </th>
+            <td mat-cell *matCellDef="let element">
+                <span class="orange">{{element.status}}</span>
+                <!-- <span class="green">{{element.status}}</span> -->
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<div class="model-button-col center">
+    <button mat-raised-button class="lg-button" (click)="onNoClick()">Close</button>
+</div>
