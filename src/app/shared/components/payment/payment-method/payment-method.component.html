@@ -6,29 +6,29 @@
             <!-- Bank Transfer Infomations -->
             <div class="payment-info-wrapper">
                 <div class="default-input-wrapper full-row">
-                    <label>Bank:</label>
+                    <label>Bank: <span class="redtxt">*</span></label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
-                            <select matNativeControl  formControlName="bank" class="form-control" (change)="getBankBranch($event)">
+                            <select matNativeControl  formControlName="bank" class="form-control" (change)="onChangeBank($event.target.value)">
                                 <option value="">Select</option>
-                                <option *ngFor="let banks of bankDetails" [value]="banks.bankId">{{ banks.bankName }}</option>
+                                <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
                             </select>
                         </mat-form-field>
                     </div>
                 </div>
               <div class="default-input-wrapper full-row">
-                <label>Bank Branch:</label>
+                <label>Bank Branch: <span class="redtxt">*</span></label>
                 <div class="default-input-feild">
                   <mat-form-field appearance="outline">
                     <select matNativeControl  formControlName="branch" class="form-control">
                       <option value="">Select</option>
-                      <option *ngFor="let branches of branchDetails" [value]="branches.bankBranchId">{{ branches.description }}</option>
+                      <option *ngFor="let branch of branches" [value]="branch.bankBranchId">{{ branch.description }}</option>
                     </select>
                   </mat-form-field>
                 </div>
               </div>
                 <div class="default-input-wrapper full-row">
-                    <label>Date:</label>
+                    <label>Date: <span class="redtxt">*</span></label>
                     <div class="default-input-feild date-feild">
                         <mat-form-field appearance="outline">
                             <input matInput [matDatepicker]="picker" formControlName="date" class="form-control">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="default-input-wrapper full-row">
-                    <label>Reference No:</label>
+                    <label>Reference No: <span class="redtxt">*</span></label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline" >
                             <input matInput formControlName="referenceNo" class="form-control">
@@ -48,13 +48,10 @@
                     </div>
                 </div>
                 <div class="default-input-wrapper full-row">
-                    <label>Bank slip:</label>
+                    <label>Bank Receipt: <span class="redtxt">*</span></label>
                     <div class="default-input-feild">
-                        <div class="drag-drop">
-                            <div class="drag-drop-inner">
-                                <i class="material-icons">cloud_upload</i> Upload
-                            </div>
-                        </div>
+                      <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
+                      <mat-error *ngIf="false">Please add bank receipt.</mat-error>
                     </div>
                 </div>
             </div>
@@ -63,7 +60,7 @@
 
         <div class="hc-component-bottom">
             <span class="bt-line">&nbsp;</span>
-            <button mat-raised-button class="lg-button green" (click)="savePayment(this.paymentMethodForm)">Continue</button>
+            <button mat-raised-button class="lg-button green" (click)="savePayment()">Continue</button>
         </div>
     </div>
 </div>

@@ -43,6 +43,7 @@ import { ResignationComponent } from './dashboard/resignation/resignation.compon
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 import { RequestViewComponent } from './dashboard/requests/request-view/request-view.component';
 import {SharedModule} from "../shared/shared.module";
+import {MatProgressSpinnerModule} from '@angular/material';
 
 
 
@@ -88,6 +89,7 @@ import {SharedModule} from "../shared/shared.module";
     MatFileUploadModule,
     MatDialogModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     FormsModule,
     MatTabsModule,
