@@ -137,8 +137,11 @@ export class AddNotaryComponent implements OnInit {
   }
 
   selectGnDivision(gsDivisionId, index) {
-    const gnModel: GnDivisionDTO = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision,null,null,this.notaryForm.value.secretariatDivision,null,null,this.notaryForm.value.secretariatDivision,null,null);
+    console.log(gsDivisionId[0]);
+    const gnModel: GnDivisionDTO = new GnDivisionDTO(gsDivisionId[0],null,null,this.notaryForm.value.secretariatDivision,null,null,this.notaryForm.value.secretariatDivision,null,null);
     this.gnDivi.push(gnModel);
+
+    console.log(this.gnDivi);
     const model: NewNotaryDsDivisionDTO = new NewNotaryDsDivisionDTO(this.notaryForm.value.secretariatDivision,this.notaryForm.value.secretariatDivision,this.gnDivi);
     this.dsGnList.push(model);
     console.log(this.dsGnList);
@@ -170,9 +173,6 @@ export class AddNotaryComponent implements OnInit {
   }
 
     saveNotaryDetails(): void {
-//    this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
-  //  this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', this.gnDivi);
-    console.log(this.dsGnList);
     this.notaryDetails = new Notary(0, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
       this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
       this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
@@ -182,9 +182,6 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.title, 'Miss', 'Ms',
       1, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentDataValue);
-
-  //  this.notaryService.setNotaryDetails(this.notaryDetails);
-  //  this.notaryDetails = this.notaryService.getNotaryDetails();
 
     this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
       (success: string) => {
