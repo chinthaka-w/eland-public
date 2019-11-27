@@ -19,9 +19,9 @@ export class DocumentPreviewComponent implements OnInit {
   getDocumentPreview(): void{
     this.notaryService.loadDocImages.subscribe(
       (result:string[])=> {
+        console.log(result);
         this.documentImages = result;
       }
     );
   }
-
 }

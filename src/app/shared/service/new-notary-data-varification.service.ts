@@ -42,10 +42,7 @@ export class NewNotaryDataVarificationService {
     return  this.httpClient.post<NotaryRegistrationHistoryDto[]>(this.BASE_URL + '/remark' ,searchType);
   }
   /**
-   * Load document details for notary registration
-   * @param {NotaryApplicationCategorySearchDto} searchType
-   * @returns {Observable<NewNotarySupportingDocDetailDto[]>}
-   */
+   * Load document details for notary registration*/
   getDocumentDetails(searchType: NewNotaryRequestsCategorySearchDto): Observable<NewNotarySupportingDocDetailDto[]>{
     return this.httpClient.post<NewNotarySupportingDocDetailDto[]>(this.BASE_URL + '/supportDoc', searchType);
   }

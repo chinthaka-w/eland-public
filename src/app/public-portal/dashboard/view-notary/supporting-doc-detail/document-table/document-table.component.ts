@@ -6,11 +6,24 @@ import {NewNotaryRequestsCategorySearchDto} from "../../../../../shared/dto/new-
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {MatTableDataSource} from "@angular/material/table";
+import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
 
 @Component({
   selector: 'app-document-table',
   templateUrl: './document-table.component.html',
-  styleUrls: ['./document-table.component.css']
+  styleUrls: ['./document-table.component.css'],
+  animations: [
+    trigger("detailExpand", [
+      state("collapsed", style({ height: "0px", minHeight: "0" })),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      )
+    ])
+  ]
 })
 export class DocumentTableComponent implements OnInit {
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
@@ -19,6 +32,8 @@ export class DocumentTableComponent implements OnInit {
 
   supportingDocuments: NewNotarySupportingDocDetailDto[] = [];
   supportingDocForm: FormGroup;
+  displayedColumns: string[] = ['Document Name', 'Remark'];
+  dataSource = new MatTableDataSource<NewNotarySupportingDocDetailDto>(this.supportingDocuments);
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -48,6 +63,7 @@ export class DocumentTableComponent implements OnInit {
     this.notaryService.getDocumentDetails(searchType).subscribe(
       (result: NewNotarySupportingDocDetailDto[]) => {
         this.supportingDocuments = result;
+        this.dataSource.data = this.supportingDocuments;
         console.log('Documents...'+this.supportingDocuments);
         this.notaryService.loadDocImages.emit(result[0].document);
       },

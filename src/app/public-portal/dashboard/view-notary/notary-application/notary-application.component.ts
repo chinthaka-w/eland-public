@@ -50,6 +50,7 @@ export class NotaryApplicationComponent implements OnInit {
   paymentId: number;
   newNotaryId: number;
   userName: string;
+  newNotaryRegistrationRequestId: number;
   notaryTitle: string = '';
   subjectPassedLan: string = '';
   public date: Date;
@@ -166,6 +167,7 @@ export class NotaryApplicationComponent implements OnInit {
         this.subjectPassedLan = this.result.subjectMedium;
         this.dsGnDivisions = this.result.newNotaryDsDivisionDTO;
         this.newNotaryId = this.result.newNotaryId;
+        this.newNotaryRegistrationRequestId = this.result.newNotaryRegistrationRequestId;
         this.setWorkflowStage();
       },
       error1 => {
@@ -200,7 +202,8 @@ export class NotaryApplicationComponent implements OnInit {
     this.saveNotaryDetails();
   }
   saveNotaryDetails(): void {
-    this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
+    alert(this.paymentId)
+    this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId, null, this.notaryForm.value.nic, this.notaryForm.value.email,
       this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
       this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
       this.notaryForm.value.currentAddressInSinhala,  this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
