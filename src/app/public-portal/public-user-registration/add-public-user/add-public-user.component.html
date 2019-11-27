@@ -37,7 +37,19 @@
         </div>
       </div>
 
-      <div *ngIf="publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.STATE || publicUserType.value == PublicUserType.OTHER" class="default-input-wrapper full-row half-cols">
+      <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Bank User Type <span>*</span></label>
+        <div class="default-input-feild gray">
+          <mat-form-field appearance="outline">
+            <select matNativeControl required (change)="getCurrentBankUserType($event)">
+              <option value="" disabled>Select Bank User Type</option>
+              <option *ngFor="let bankUserType of bankUserTypes" [value]="bankUserType.id">{{bankUserType.type}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div *ngIf="publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.STATE || publicUserType.value == PublicUserType.OTHER || bankUserTypeId == 2" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Notary ID <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
@@ -82,6 +94,24 @@
         </div>
       </div>
 
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Date of birth <span>*</span></label>
+        <div class="default-input-feild date-feild">
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker"  formControlName="dateOfBirth" class="form-control" >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+<!--          <div *ngIf="FormControls.dateOfBirth.touched && FormControls.dateOfBirth.errors"-->
+<!--               class="invalid-feedback">-->
+<!--            <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">Date of Birth is required</mat-error>-->
+<!--          </div>-->
+          <button mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
+        </div>
+      </div>
+
       <div *ngIf="publicUserType.value == PublicUserType.STATE" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Officer's Designation <span>*</span></label>
         <div class="default-input-feild">
@@ -110,9 +140,12 @@
 
       <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Bank Name <span>*</span></label>
-        <div class="default-input-feild">
+        <div class="default-input-feild gray">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Bank Name" formControlName="bankName" />
+            <select matNativeControl required (change)="getCurrentBank($event)">
+              <option value="" disabled>Select Bank Name</option>
+              <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
+            </select>
           </mat-form-field>
         </div>
       </div>
@@ -142,11 +175,23 @@
         </div>
       </div>
 
+
+      <div class="default-input-wrapper full-row half-cols">
+        <label class="mw-200">Identification Type <span>*</span></label>
+        <div class="default-input-feild gray">
+          <mat-form-field appearance="outline">
+            <select matNativeControl required (change)="getCurrentIdentificationType($event)">
+              <option value="" disabled>Select Identification Type</option>
+              <option *ngFor="let identificationType of identificationTypes" [value]="identificationType.id">{{identificationType.type}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
       <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200">NIC/Passport/ Driving license Number <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="NIC/Passport" formControlName="nic" />
+            <input matInput placeholder="Identification No" formControlName="identificationNo" />
           </mat-form-field>
         </div>
       </div>
@@ -189,40 +234,57 @@
         <label class="mw-200">User Name </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Username" formControlName="userName" />
+            <input matInput placeholder="Username" formControlName="userName" (input)="onSearchChange($event.target.value)" />
           </mat-form-field>
+          <div *ngIf="publicUserExist == true" class="invalid-feedback">
+            <mat-error *ngIf="publicUserExist == true" class="errors">User Name Exist</mat-error>
+          </div>
         </div>
       </div>
 
       <div class="separator mt-30">&nbsp;</div>
 
       <div class="pg-inner-row mb-20 upload-col-3">
-        <div class="pg-inner-col-3">
+        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.CITIZEN">
           <div class="default-input-wrapper full-row">
             <label
               >Last obtained copy of Notary's renewal certificate
               <span>*</span></label>
-            <file-upload-input (change)="setFiles($event, 'renewalCertificate')"></file-upload-input>
+            <file-upload-input (response)="setFiles($event, '1')"></file-upload-input>
           </div>
         </div>
-        <div class="pg-inner-col-3">
+        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.CITIZEN || publicUserType.value == PublicUserType.BANK || publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.OTHER">
           <div class="default-input-wrapper full-row">
             <label>NIC/ Passport/ Driving License <span>*</span></label>
-            <file-upload-input (change)="setFiles($event, 'nicCopy')"></file-upload-input>
+            <file-upload-input (response)="setFiles($event, '2')"></file-upload-input>
           </div>
         </div>
 
-        <div class="pg-inner-col-3">
+        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.CITIZEN || publicUserType.value == PublicUserType.BANK || publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.OTHER">
           <div class="default-input-wrapper full-row">
             <label>Speciment signature and Official seal <span>*</span></label>
-            <file-upload-input (change)="setFiles($event, 'signatureAndSeal')"></file-upload-input>
+            <file-upload-input (response)="setFiles($event, '3')"></file-upload-input>
           </div>
         </div>
 
-        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.BANK">
+        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.BANK || publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.OTHER">
           <div class="default-input-wrapper full-row">
             <label>Authorized letter from the bank <span>*</span></label>
-            <file-upload-input (change)="setFiles($event, 'signatureAndSeal')"></file-upload-input>
+            <file-upload-input (response)="setFiles($event, '4')"></file-upload-input>
+          </div>
+        </div>
+
+        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.STATE">
+          <div class="default-input-wrapper full-row">
+            <label>Comfirmation letter issued by Head of Institution <span>*</span></label>
+            <file-upload-input (response)="setFiles($event, '5')"></file-upload-input>
+          </div>
+        </div>
+
+        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.OTHER">
+          <div class="default-input-wrapper full-row">
+            <label>Business Registration <span>*</span></label>
+            <file-upload-input (response)="setFiles($event, '6')"></file-upload-input>
           </div>
         </div>
 

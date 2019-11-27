@@ -3,7 +3,9 @@ export class CitizenDTO {
   landRegistry: number;
   userType: number;
   identificationNoType: number;
-  nic: string;
+  notaryId: string;
+  bankUserType: number;
+  identificationNo: string;
   passportNo: string;
   drivingLicenceNo: string;
   nameEng: string;
@@ -27,4 +29,5 @@ export class CitizenDTO {
   bankId: number;
   bankBranchId: number;
   user: string;
+  dateOfBirth: string;
 }
