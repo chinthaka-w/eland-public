@@ -1,0 +1,269 @@
+<div class="page-header-default">
+    <h2>Request for Resignation</h2>
+    <p>Please fill in the following information to<br />register in the system</p>
+    <a href="" class="phd-back-btn">
+        <i class="material-icons">keyboard_backspace</i>
+    </a>
+</div>
+<form class="form-horizontal">
+    <div class="page-content-wrapper">
+        <div class="page-content-inner-wrapper">
+
+            <h5 class="uw-title"><span>Application</span></h5>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <mat-radio-group>
+                        <mat-radio-button value="Mr">Mr.</mat-radio-button>
+                        <mat-radio-button value="Mrs">Mrs.</mat-radio-button>
+                        <mat-radio-button value="Miss">Miss</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="pg-inner-col right"></div>
+            </div>
+
+            <div class="default-input-wrapper full-row">
+                <label>Full name (English):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row">
+                <label>Full name (Sinhala):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row">
+                <label>Full name (Tamil):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row">
+                <label>Name with initials (English):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row">
+                <label>Name with initials (Sinhala):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row">
+                <label>Name with initials (Tamil):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col-3">
+                    <div class="default-input-wrapper full-row">
+                        <label>Permenent address (English):</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <textarea matInput rows="5"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col-3">
+                    <div class="default-input-wrapper full-row">
+                        <label>Permenent address (Sinhala):</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <textarea matInput rows="5"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col-3">
+                    <div class="default-input-wrapper full-row">
+                        <label>Permenent address (Tamil):</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <textarea matInput rows="5"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col-3">
+                    <div class="default-input-wrapper full-row">
+                        <label>Current address (English):</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <textarea matInput rows="5"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col-3">
+                    <div class="default-input-wrapper full-row">
+                        <label>Current address (Sinhala):</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <textarea matInput rows="5"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col-3">
+                    <div class="default-input-wrapper full-row">
+                        <label>Current address (Tamil):</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <textarea matInput rows="5"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="default-input-wrapper full-row">
+                <label>Reasons for resignation :</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <textarea matInput rows="5"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Date of Birth:</label>
+                        <div class="default-input-feild date-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput [matDatepicker]="picker22">
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                            <button mat-raised-button (click)="picker.open()">
+                                <i class="material-icons">calendar_today</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>National Identity Card No:</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>High Court Zone:</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <select matNativeControl required>
+                                    <option value="">Select</option>
+                                    <option value="option-1">Option 01</option>
+                                    <option value="option-2">Option 02</option>
+                                    <option value="option-3">Option 03</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Divisional Secretariat Division:</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <select matNativeControl required>
+                                    <option value="">Select</option>
+                                    <option value="option-1">Option 01</option>
+                                    <option value="option-2">Option 02</option>
+                                    <option value="option-3">Option 03</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Land Registry:</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <select matNativeControl required>
+                                    <option value="">Select</option>
+                                    <option value="option-1">Option 01</option>
+                                    <option value="option-2">Option 02</option>
+                                    <option value="option-3">Option 03</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Grama Niladhari Division:</label>
+                        <div class="default-input-feild">
+                            <mat-form-field appearance="outline">
+                                <select matNativeControl required>
+                                    <option value="">Select</option>
+                                    <option value="option-1">Option 01</option>
+                                    <option value="option-2">Option 02</option>
+                                    <option value="option-3">Option 03</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator">&nbsp;</div>
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <div class="default-input-wrapper full-row">
+                        <label>Resignation Letter</label>
+                        <div class="default-input-feild">
+                            <button mat-raised-button class="f-uploader">
+                                <i class="material-icons">cloud_upload</i> Upload
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="pg-inner-col"></div>
+            </div>
+
+            <div class="separator">&nbsp;</div>
+
+            <div class="pg-inner-row mb-0">
+                <div class="pg-inner-col"></div>
+                <div class="pg-inner-col right">
+                    <button mat-raised-button class="lg-button">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

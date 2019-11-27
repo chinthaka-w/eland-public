@@ -4,8 +4,17 @@ import { AddNotaryComponent } from './notary-registration/add-notary/add-notary.
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
-import { AddUserComponent } from './public-registration/add-user/add-user.component';
+import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
+import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
+import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
+import { ExtractComponent } from './dashboard/extract/extract.component';
+import { RequestsComponent } from './dashboard/requests/requests.component';
+import { ChangeTheNameComponent } from './dashboard/change-the-name/change-the-name.component';
+import { LanguageChangeComponent } from './dashboard/language-change/language-change.component';
+import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.component';
+import { ResignationComponent } from './dashboard/resignation/resignation.component';
+import { ApplicationsComponent } from './dashboard/applications/applications.component';
 
 
 const routes: Routes = [
@@ -18,7 +27,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent
   },
   {
@@ -26,13 +35,48 @@ const routes: Routes = [
     component: ProfileEditComponent
   },
   {
-    path: "user-registration",
-    component: AddUserComponent
-  }
-  ,
+    path: 'user-registration',
+    component: AddPublicUserComponent
+  },
   {
     path: 'change-judicial',
     component: ChangeJudicialComponent
+  },
+  {
+    path: 'edit-public-profile',
+    component: PublicProfileEditComponent
+  },
+  {
+    path: 'search-document',
+    component: SearchDocumentComponent
+  },
+  {
+    path: 'extract',
+    component: ExtractComponent
+  },
+  {
+    path: 'requests',
+    component: RequestsComponent
+  },
+  {
+    path: 'change-the-name',
+    component: ChangeTheNameComponent
+  },
+  {
+    path: 'language-change',
+    component: LanguageChangeComponent
+  },
+  {
+    path: 'leave-request',
+    component: LeaveRequestComponent
+  },
+  {
+    path: 'resignation',
+    component: ResignationComponent
+  },
+  {
+    path: 'applications',
+    component: ApplicationsComponent
   }
 ];
 
