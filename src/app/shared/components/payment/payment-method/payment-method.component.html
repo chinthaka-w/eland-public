@@ -9,7 +9,7 @@
                     <label>Bank: <span class="redtxt">*</span></label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
-                            <select matNativeControl  formControlName="bank" class="form-control" (change)="getBankBranch($event.target.value)">
+                            <select matNativeControl  formControlName="bank" class="form-control" (change)="onChangeBank($event.target.value)">
                                 <option value="">Select</option>
                                 <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
                             </select>
@@ -22,7 +22,7 @@
                   <mat-form-field appearance="outline">
                     <select matNativeControl  formControlName="branch" class="form-control">
                       <option value="">Select</option>
-                      <option *ngFor="let branch of branchs" [value]="branch.bankBranchId">{{ branch.description }}</option>
+                      <option *ngFor="let branch of branches" [value]="branch.bankBranchId">{{ branch.description }}</option>
                     </select>
                   </mat-form-field>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="default-input-wrapper full-row">
                     <label>Bank Receipt: <span class="redtxt">*</span></label>
                     <div class="default-input-feild">
-                      <file-upload-input (change)="onChangeFileInput($event)"></file-upload-input>
+                      <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
                       <mat-error *ngIf="false">Please add bank receipt.</mat-error>
                     </div>
                 </div>

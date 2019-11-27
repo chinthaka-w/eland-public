@@ -4,14 +4,12 @@ import {Notary} from '../../../dto/notary.model';
 import {NotaryService} from '../../../../shared/service/notary-service';
 import {ActivatedRoute} from '@angular/router';
 import {SnackBarService} from '../../../../shared/service/snack-bar.service';
-import {AddNotaryComponent} from '../../../../public-portal/notary-registration/add-notary/add-notary.component';
 import {BankService} from '../../../service/bank.service';
 import {Bank} from '../../../dto/bank.model';
 import {BankBranchService} from '../../../service/bank-branch.service';
 import {BankBranch} from '../../../dto/bank-branch.model';
 import {PaymentDto} from '../../../dto/payment-dto';
 import {PaymentService} from '../../../service/payment.service';
-import {NotaryPaymentDto} from '../../../dto/notary-payment.dto';
 import {PaymentResponse} from '../../../dto/payment-response.model';
 
 
@@ -26,7 +24,7 @@ export class PaymentMethodComponent implements OnInit {
   public paymentMethodForm: FormGroup;
 
   public banks: Bank[] = [];
-  public branchs: BankBranch[] = [];
+  public branches: BankBranch[] = [];
 
   public payment: PaymentDto;
 
@@ -46,7 +44,7 @@ export class PaymentMethodComponent implements OnInit {
       referenceNo: new FormControl(''),
       branch: new FormControl('')
     });
-    this.laodBanks();
+    this.loadBanks();
   }
 
   savePayment() {
@@ -64,7 +62,7 @@ export class PaymentMethodComponent implements OnInit {
 
   }
 
-  private laodBanks(): void {
+  private loadBanks(): void {
     this.bankService.findAll().subscribe(
       (data: Bank[]) => {
           this.banks = data;
@@ -72,20 +70,21 @@ export class PaymentMethodComponent implements OnInit {
     );
   }
 
-  private getAllBankBranchByBankId(branch: number) {
-    this.branchService.getAllBankBranchByBankId(branch).subscribe(
+  private getAllBranchByBankId(bankId: number) {
+    this.branchService.findAllByBankId(bankId).subscribe(
       (data: BankBranch []) => {
-        this.branchs = data;
+        this.branches = data;
       }
     );
   }
 
-  getBankBranch(data: any) {
-    console.log(data);
-    this.getAllBankBranchByBankId(data);
-  }
 
   onChangeFileInput(data: any) {
     console.log('data:',data);
   }
+
+  onChangeBank(data: any) {
+    this.getAllBranchByBankId(data);
+  }
+
 }

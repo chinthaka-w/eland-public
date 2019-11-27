@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {SysConfigService} from './sys-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaththuwaService {
-  public BASE_URL = 'http://localhost:9292/api/paththuwa';
+  public BASE_URL = SysConfigService.BASE_URL +'paththuwa';
 
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
 
