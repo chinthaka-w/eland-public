@@ -144,7 +144,7 @@
             <label
               >Last obtained copy of Notary's renewal certificate
               <span>*</span></label>
-            <file-upload-input (change)="setFiles($event, 'renewalCertificate')"></file-upload-input>
+            <file-upload-input (response)="setFiles($event, 'renewalCertificate')"></file-upload-input>
           </div>
         </div>
         <div class="pg-inner-col-3">

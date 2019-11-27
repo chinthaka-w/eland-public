@@ -9,7 +9,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class FileUploadInputComponent implements OnInit {
 
   @Output()
-  change = new EventEmitter;
+  response = new EventEmitter;
   files: File[] = [];
   fileUpload: ElementRef;
 
@@ -18,6 +18,7 @@ export class FileUploadInputComponent implements OnInit {
   ngOnInit() {}
 
   onFileSelected(event) {
+    // console.log('files: ',event.target.files);
     this.files = [];
     const files = event.dataTransfer
       ? event.dataTransfer.files
@@ -29,12 +30,12 @@ export class FileUploadInputComponent implements OnInit {
       );
       this.files.push(files[i]);
     }
-    this.change.emit(this.files);
+    this.response.emit(this.files);
   }
 
   removeFile(index) {
     this.files.splice(index, 1);
-    this.change.emit(this.files);
+    this.response.emit(this.files);
   }
 
   onClick() {
