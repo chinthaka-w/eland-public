@@ -22,6 +22,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     VerificationComponent,
     PaymentComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    FileUploadInputComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatIconModule
   ],
   exports: [
     ContentComponent,
@@ -65,7 +68,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFileUploadModule,
     MatTabsModule,
     PaymentComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    FileUploadInputComponent
   ]
 })
 export class SharedModule {}

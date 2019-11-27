@@ -2334,6 +2334,141 @@ span.green {
     background: #c48e27;
 }
 
+/**/
+.drag-drop-inner .file-upload {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.drag-drop-inner {
+    padding: 0;
+}
+
+.drag-drop .f-uploader {
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 30px !important;
+    background: transparent;
+    outline: 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.drag-drop .f-uploader .input_fileupload--hidden {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.uploaded-file {
+    display: block;
+    position: relative;
+    margin: 10px 20px 20px 20px;
+    padding: 5px;
+    padding-right: 25px;
+    background: #d5e4f2;
+    border-radius: 3px;
+}
+
+.uploaded-file span {
+    display: block;
+    position: relative;
+    font-size: 12px;
+    line-height: 13px;
+    font-weight: 500;
+    text-align: justify;
+}
+
+.uploaded-file button {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    border: none;
+    outline: 0;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    background: transparent;
+    margin-top: -12px;
+}
+
+.uploaded-file button .material-icons {
+    display: inline-block;
+    font-size: 23px;
+    line-height: 25px;
+    color: #d92525;
+}
+
+/**/
+.mat-select {
+    display: block;
+    width: 100%;
+    outline: 0;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+}
+
+.mat-select-trigger {
+    height: 40px;
+}
+
+.mat-select-value {
+    color: #4f4f4f !important;
+    vertical-align: middle;
+    padding-left: 15px;
+}
+
+.mat-select-arrow-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 5px;
+}
+
+.mat-select-arrow {
+    color: #bdbdbd;
+}
+
+.mat-select-panel {
+    background: #ffffff;
+}
+
+.mat-option.mat-active {
+    background: rgba(201, 201, 201, 0.04);
+    color: #9c9c9c;
+}
+
+.mat-option {
+    color: #424242;
+}
+
+.mat-pseudo-checkbox {
+    width: 14px;
+    height: 14px;
+    border: 1px solid;
+}
+
+.mat-pseudo-checkbox {
+    color: #b1b1b1;
+}
+
+.mat-pseudo-checkbox-indeterminate {
+    background: #a0d1ff;
+}
+
+
 /* Extra large devices - large desktops */
 @media (max-width: 1500px) {
     .hm-section-1-inner {
