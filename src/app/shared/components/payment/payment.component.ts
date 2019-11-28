@@ -12,6 +12,7 @@ import {PaymentResponse} from '../../dto/payment-response.model';
 import {PaymentStatus} from '../../enum/payment-status.enum';
 import {PaymentDto} from '../../dto/payment-dto';
 import {HttpErrorResponse} from '@angular/common/http';
+import {CommonStatus} from '../../enum/common-status.enum';
 
 @Component({
   selector: 'app-payment',
@@ -136,6 +137,7 @@ export class PaymentComponent implements OnInit {
       this.paymentDTO.totalAmount = this.totalAmount;
       this.paymentDTO.paymentMethod = this.paymentMethod;
       if (this.paymentMethod == this.PaymentMethod.FRONT_COUNTER) {
+      this.paymentDTO.status = CommonStatus.PENDING;
         this.savePayment();
       } else {
         this.isContinueToPayment = true;
