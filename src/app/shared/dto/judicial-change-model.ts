@@ -23,5 +23,6 @@ export class JudicialChange {
   public toDate: string,
   public newNotaryId: number,
   public dsGnList: DsGnDivisionDTO[] = [],
+  public paymentId: number,
 ) {}
 }
