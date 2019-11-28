@@ -23,6 +23,8 @@ import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {PaymentResponse} from '../../../shared/dto/payment-response.model';
+import {Parameters} from '../../../shared/enum/parameters.enum';
+import {Workflow} from '../../../shared/enum/workflow.enum';
 
 
 @Component({
@@ -33,6 +35,8 @@ import {PaymentResponse} from '../../../shared/dto/payment-response.model';
 export class SearchDocumentComponent implements OnInit {
 
   SearchRequestType = SearchRequestType;
+  Parameters = Parameters;
+  WorkflowCode = Workflow;
 
   public isContinueToPayment: boolean = false;
 
@@ -232,11 +236,12 @@ export class SearchDocumentComponent implements OnInit {
 
 
   onPaymentResponse(data: PaymentResponse) {
-    if (data.paymentMethod == PaymentMethod.FRONT_COUNTER) {
-      this.isContinueToPayment = false;
-      this.searchRequestForm.disable();
-      this.folioForm.disable();
-    }
+    this.isContinueToPayment = false;
+
+  }
+
+  onBack(data: boolean) {
+    this.isContinueToPayment = !data;
   }
 }
 

@@ -5,7 +5,11 @@ export class PaymentDto {
   public bankBranchId: number;
   public referenceNo: string;
   public paymentDate: Date;
-  public amount: number;
+  public applicationAmount: number;
+  public deliveryType: number;
+  public deliveryAmount: number;
+  public totalAmount: number;
+  public files:File[];
   public status: string;
   public lastUpdatedTime: Date;
   public lastUpdatedUser: string;

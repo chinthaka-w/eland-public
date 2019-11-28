@@ -23,7 +23,7 @@
             <mat-radio-group formControlName="paymentMethod" class="form-control"
                              (change)="onChangePaymentMethod($event);">
               <!--(change)="setPaymentMethod(this.paymentForm.value.paymentMethod)"-->
-              <mat-radio-button class="example-margin" [value]="PaymentMethod.ONLINE">Online</mat-radio-button>
+              <mat-radio-button class="example-margin" disabled [value]="PaymentMethod.ONLINE">Online</mat-radio-button>
               <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">Bank Transfer or Deposit
               </mat-radio-button>
               <!--<mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_SLIP">Bank Slip</mat-radio-button>-->
@@ -53,6 +53,7 @@
 
       <div class="hc-component-bottom">
         <span class="bt-line">&nbsp;</span>
+        <button mat-raised-button class="lg-button" (click)="onClickBack()">Back</button>
         <button mat-raised-button class="lg-button green" (click)="onClickContinue()">Continue</button>
       </div>
     </div>
@@ -63,4 +64,5 @@
 <app-payment-method
   *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
   (response)="onPaymentResponseFromBankSlip($event)"
+  [paymentDTO]="paymentDTO"
 ></app-payment-method>

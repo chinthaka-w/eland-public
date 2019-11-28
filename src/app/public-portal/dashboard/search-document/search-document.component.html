@@ -394,6 +394,8 @@
   </div>
 </div>
 <app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
-             [applicationFeeCode]=""
+             (back)="onBack($event)"
+             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
              [hasFrontCounterPayment]="true"
-             [isDocumentCollect]="false"></app-payment>
+             [isDocumentCollect]="true"
+             [workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>
