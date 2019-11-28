@@ -7,7 +7,6 @@ import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
 import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
-import {WorkflowStageEnum} from '../../../shared/enum/workflow-stage.enum';
 import {Languages} from '../../../shared/enum/languages.enum';
 import {JudicialChange} from '../../../shared/dto/judicial-change-model';
 import {SnackBarService} from '../../../shared/service/snack-bar.service';
@@ -17,6 +16,7 @@ import {Parameters} from '../../../shared/enum/parameters.enum';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {DocumentDto} from '../../../shared/dto/document-list';
 import {PaymentDto} from '../../../shared/dto/payment-dto';
+import {WorkflowStages} from '../../../shared/enum/workflow-stages.enum';
 
 @Component({
   selector: 'app-change-judicial',
@@ -132,7 +132,7 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
   private getDocumentList(): void {
-    this.judicialService.getDocuments(WorkflowStageEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED).subscribe(
+    this.judicialService.getDocuments(WorkflowStages.JUDICIAL_CHANGE_REQUEST_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }
