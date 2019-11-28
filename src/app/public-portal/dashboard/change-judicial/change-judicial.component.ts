@@ -11,8 +11,11 @@ import {WorkflowStageEnum} from '../../../shared/enum/workflow-stage.enum';
 import {Languages} from '../../../shared/enum/languages.enum';
 import {JudicialChange} from '../../../shared/dto/judicial-change-model';
 import {SnackBarService} from '../../../shared/service/snack-bar.service';
-import {FileModel} from '../../../shared/dto/file.dto';
 import {DsGnDivisionDTO} from '../../../shared/dto/gs-gn-model';
+import {PaymentResponse} from '../../../shared/dto/payment-response.model';
+import {Parameters} from '../../../shared/enum/parameters.enum';
+import {Workflow} from '../../../shared/enum/workflow.enum';
+import {DocumentDto} from '../../../shared/dto/document-list';
 
 @Component({
   selector: 'app-change-judicial',
@@ -30,7 +33,6 @@ export class ChangeJudicialComponent implements OnInit {
   public isSelected: boolean;
   judicialChangeForm: FormGroup;
   public docList: WorkflowStageDocDto[];
-  fileList = {};
   public notaryId: number;
   public langArr: number[];
   public isSinhala: boolean;
@@ -40,12 +42,14 @@ export class ChangeJudicialComponent implements OnInit {
   public fromDate: string;
   public toDate: string;
   public dsDivisionId: number;
-  public gsGn: DsGnDivisionDTO;
-  public gnDivi: string[];
   public dsGnList: DsGnDivisionDTO[] = [];
-  @Input()
-  response = new EventEmitter;
-  fileToUpload: File = null;
+  public isContinueToPayment: boolean = false;
+  Parameters = Parameters;
+  WorkflowCode = Workflow;
+  public paymentId: number;
+  public isPaymentSuccess: boolean;
+  public files: File[] = [];
+  public documentList: DocumentDto[] = [];
   public languages: any[] = [
     {
       id: Languages.ENGLISH,
@@ -87,7 +91,8 @@ export class ChangeJudicialComponent implements OnInit {
     this.getDocumentList();
     this.locationList.push(this.locationDto);
     this.getLanguages();
-
+    this.isPaymentSuccess = false;
+    this.isContinueToPayment = false;
 
 
   }
@@ -179,21 +184,9 @@ export class ChangeJudicialComponent implements OnInit {
    this.dsGnList.push(new DsGnDivisionDTO(1, 2));
   }
 
-  setFiles(event) {
-    // console.log('ok...............',event);
-    // if (event.target.files && event.target.files[0]) {
-    //   var filesAmount = event.target.files.length;
-    //   for (let i = 0; i < filesAmount; i++) {
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(event.target.files[i]);
-    //   }
-    //   this.filedata = event.target.files;
-    //   let uploadFile: File = this.filedata.item(0);
-    //   const formdata: FormData = new FormData();
-    //   formdata.append('file', uploadFile);
-    //   this.fileDtoList.push(formdata);
-    //
-    // }
+  setFiles(data: any, docTyprId: number) {
+    this.files = data;
+    this.documentList.push(new DocumentDto(this.files, docTyprId));
   }
 
   submitForm() {
@@ -218,9 +211,17 @@ export class ChangeJudicialComponent implements OnInit {
       this.toDate,
       this.notaryId,
       this.dsGnList,
+      this.paymentId,
      );
 
-    this.judicialService.save(judicial).subscribe(
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(judicial));
+    formData.append('file',this.files[0]);
+    // this.documentList.forEach(doc => {
+    //   formData.append(doc.fileType, doc.files);
+    // });
+
+    this.judicialService.save(formData).subscribe(
       (success: string) => {
         this.snackBar.success('Judicial Change Request Success');
       },
@@ -237,6 +238,24 @@ export class ChangeJudicialComponent implements OnInit {
 
   get FormControls() {
     return this.judicialChangeForm.controls;
+  }
+
+  onClickSubmitSearchRequest() {
+    this.isContinueToPayment = !this.isContinueToPayment;
+  }
+
+  onPaymentResponse(data: PaymentResponse) {
+    if (data.paymentStatusCode === 2  || data.paymentId === undefined || data.paymentId === 0) {
+      this.snackBar.error('Failed');
+    } else {
+      this.paymentId = data.paymentId;
+      this.isContinueToPayment = false;
+      this.isPaymentSuccess = true;
+    }
+ }
+
+  onBack(data: boolean) {
+    this.isContinueToPayment = !data;
   }
 
  }

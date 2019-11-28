@@ -1,11 +1,11 @@
-<div class="page-header-default">
+<div class="page-header-default" *ngIf="!isContinueToPayment">
   <h2>APPLICATION FOR CHANGING THE JUDICIAL ZONE </h2>
   <p>Please fill in the following information to<br />register in the system</p>
   <a href="" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
-<div class="page-content-wrapper">
+<div class="page-content-wrapper" *ngIf="!isContinueToPayment">
   <div class="page-content-inner-wrapper">
 
     <div class="pg-inner-row mb-20">
@@ -270,7 +270,7 @@
               <label>{{document.description}}
                 <span *ngIf="document.required == true">*</span>
               </label>
-              <file-upload-input (response)="setFiles($event)"></file-upload-input>
+              <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
             </div>
           </div>
         </ng-container>
@@ -288,7 +288,12 @@
           <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
           and <a href="#">Privacy Policy</a> .
         </div>
-        <div class="pg-inner-col right">
+        <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
+          <button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
+            Continue
+          </button>
+        </div>
+        <div class="pg-inner-col right" *ngIf="isPaymentSuccess">
           <button mat-raised-button class="lg-button" (click)="submitForm()">
             Submit
           </button>
@@ -297,3 +302,9 @@
     </form>
   </div>
 </div>
+<app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
+             (back)="onBack($event)"
+             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+             [hasFrontCounterPayment]="true"
+             [isDocumentCollect]="true"
+             [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"></app-payment>

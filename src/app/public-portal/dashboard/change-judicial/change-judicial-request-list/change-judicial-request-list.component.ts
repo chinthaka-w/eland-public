@@ -49,15 +49,4 @@ export class ChangeJudicialRequestListComponent implements OnInit {
     );
   }
 
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(RequestViewComponent, {
-  //     width: '800px'
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
-
-
 }
