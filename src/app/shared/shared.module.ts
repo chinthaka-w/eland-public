@@ -23,6 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
+import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
     VerificationComponent,
     PaymentComponent,
     PaymentMethodComponent,
-    FileUploadInputComponent
+    FileUploadInputComponent,
+    OnlineMethodComponent
   ],
   imports: [
     CommonModule,
