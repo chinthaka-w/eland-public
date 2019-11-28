@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { SysConfigService } from 'src/app/shared/service/sys-config.service';
+import {JudicialChange} from '../dto/judicial-change-model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class JudicialService {
     return this.httpClient.get(this.BASE_URL + 'dsDivision/findAll' );
   }
 
-  getGnDivision(): Observable<any> {
-    return this.httpClient.get(this.BASE_URL + 'gnDivision/find' );
+  getGnDivision(dsDivisionId: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'gnDivision/get/' + dsDivisionId , {headers: this.headers});
   }
 
   getAllJudicialZone(): Observable<any> {
@@ -41,6 +42,10 @@ export class JudicialService {
 
   getLanguages(notaryId: number): Observable<any> {
     return this.httpClient.get(this.BASE_URL + 'new-notary/getNotaryLanguage/' + notaryId.toString() , {headers: this.headers});
+  }
+
+  save(judicialChange: JudicialChange): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + 'judicial-zone/submitChangeRequest/' , judicialChange, {headers: this.headers} );
   }
 
 }
