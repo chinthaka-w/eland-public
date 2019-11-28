@@ -103,8 +103,8 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     MatNativeDateModule,
     MatRangeDatepickerModule,
     MatRangeNativeDateModule,
-    SatDatepickerModule, 
-    SatNativeDateModule
+    SatDatepickerModule,
+    SatNativeDateModule,
   ],
   exports: [
     LoginComponent,
@@ -120,7 +120,7 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     MatTabsModule,
     MatDialogModule,
     MatTableModule,
-    SatDatepickerModule, 
+    SatDatepickerModule,
     SatNativeDateModule
   ],
   entryComponents:[
