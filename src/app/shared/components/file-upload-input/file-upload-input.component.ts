@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, Output, EventEmitter } from "@angular/core";
+import {Component, OnInit, ElementRef, Output, EventEmitter, Input} from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
+import {FormControlName, FormGroup} from '@angular/forms';
 
 @Component({
   selector: "file-upload-input",
@@ -9,7 +10,8 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class FileUploadInputComponent implements OnInit {
 
   @Output()
-  change = new EventEmitter;
+  response = new EventEmitter;
+
   files: File[] = [];
   fileUpload: ElementRef;
 
@@ -29,12 +31,12 @@ export class FileUploadInputComponent implements OnInit {
       );
       this.files.push(files[i]);
     }
-    this.change.emit(this.files);
+    this.response.emit(this.files);
   }
 
   removeFile(index) {
     this.files.splice(index, 1);
-    this.change.emit(this.files);
+    this.response.emit(this.files);
   }
 
   onClick() {

@@ -86,6 +86,16 @@ p {
 }
 
 .m0 { margin: 0 !important; }
+.m-10 { margin: 10px !important; }
+.m-20 { margin: 20px !important; }
+.m-30 { margin: 30px !important; }
+.m-40 { margin: 40px !important; }
+.m-50 { margin: 50px !important; }
+.m-60 { margin: 60px !important; }
+.m-70 { margin: 70px !important; }
+.m-80 { margin: 80px !important; }
+.m-90 { margin: 90px !important; }
+.m-100 { margin: 100px !important; }
 
 .mb-0 { margin-bottom: 0 !important; }
 .mb-10 { margin-bottom: 10px !important; }
@@ -1152,6 +1162,32 @@ h5.uw-title:before {
     padding: 32px 0 15px 0;
 }
 
+.mat-dialog-container {
+    background: #ffffff;
+    color: #fff;
+    border-radius: 15px !important;
+    padding: 45px 40px 20px 40px !important;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #1582eb;
+}
+
+.mat-tab-label.mat-tab-label-active,
+.mat-tab-label.mat-tab-label-active:focus {
+    background: #fff !important;
+}
+
+.mat-input-element {
+    color: #4f4f4f !important;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    color: #bdbdbd;
+    background: #fafafa;
+}
+
 /* --- mat form field style - End --- */
 
 .full-row.default-input-wrapper > label {
@@ -2137,6 +2173,11 @@ table.b-table tr:last-child td {
     border-bottom: none !important;
 }
 
+table.b-table .default-input-feild {
+  display: block;
+  width: 100%;
+}
+
 .b-table-wrapper {
     display: block;
     position: relative;
@@ -2278,7 +2319,7 @@ span.t-status {
     width: 100% !important;
 }
 
-.mat-table-wrapper table.mat-table .mat-cell, 
+.mat-table-wrapper table.mat-table .mat-cell,
 .mat-table-wrapper table.mat-table .mat-footer-cell {
     color: #4f4f4f !important;
     font-size: 13px !important;
@@ -2470,17 +2511,6 @@ span.green {
     background: #a0d1ff;
 }
 
-/**/
-.pg-inner-row {
-    position: relative;
-}
-
-button.row-close {
-    position: absolute;
-    right: 0;
-    top: 23px;
-}
-
 
 /* Extra large devices - large desktops */
 @media (max-width: 1500px) {
@@ -2606,7 +2636,7 @@ button.row-close {
     }
 
     .pg-inner-col.right {
-        text-align: left;
+        text-align: right;
     }
 
     .pg-inner-col:nth-of-type(1) {
@@ -2626,7 +2656,7 @@ button.row-close {
         float: none;
     }
 
-    /**/   
+    /**/
     .pg-inner-col-3,
     .pg-inner-col-4,
     .pg-inner-col-5,
@@ -2634,7 +2664,7 @@ button.row-close {
         width: 100%;
         padding: 0 !important;
     }
-    
+
 
     /**/
     .hc-component-wrapper {

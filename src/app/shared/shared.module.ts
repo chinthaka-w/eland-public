@@ -26,6 +26,7 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
 import {NgxMatDrpModule} from 'ngx-mat-daterange-picker';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {Moment} from 'moment';
+import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {Moment} from 'moment';
     VerificationComponent,
     PaymentComponent,
     PaymentMethodComponent,
-    FileUploadInputComponent
+    FileUploadInputComponent,
+    OnlineMethodComponent
   ],
   imports: [
     CommonModule,
