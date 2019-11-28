@@ -4,8 +4,4 @@ export class DsDivision {
   public description: string;
   public descriptionSin: string;
   public descriptionTam: string;
-  constructor(
-  public  dsDivisionId: number,
-  public  description: string,
-  ){}
 }
