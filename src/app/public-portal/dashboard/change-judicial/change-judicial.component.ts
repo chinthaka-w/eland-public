@@ -16,6 +16,7 @@ import {PaymentResponse} from '../../../shared/dto/payment-response.model';
 import {Parameters} from '../../../shared/enum/parameters.enum';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {DocumentDto} from '../../../shared/dto/document-list';
+import {PaymentDto} from '../../../shared/dto/payment-dto';
 
 @Component({
   selector: 'app-change-judicial',
@@ -50,6 +51,7 @@ export class ChangeJudicialComponent implements OnInit {
   public isPaymentSuccess: boolean;
   public files: File[] = [];
   public documentList: DocumentDto[] = [];
+  public judicialChange = new JudicialChange;
   public languages: any[] = [
     {
       id: Languages.ENGLISH,
@@ -186,40 +188,30 @@ export class ChangeJudicialComponent implements OnInit {
 
   setFiles(data: any, docTyprId: number) {
     this.files = data;
-    this.documentList.push(new DocumentDto(this.files, docTyprId));
+    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
   }
 
   submitForm() {
-
-    const judicial: JudicialChange = new JudicialChange(
-      this.judicialChangeForm.value.judicialZoneId,
-      null,
-      0,
-      null,
-      null,
-      this.judicialChangeForm.value.addressEng,
-      this.judicialChangeForm.value.addressSin,
-      this.judicialChangeForm.value.addressTam,
-      this.judicialChangeForm.value.notarialWorkStartDate,
-      this.judicialChangeForm.value.certificateYear,
-      this.judicialChangeForm.value.nameOfLr,
-      this.judicialChangeForm.value.isDuplicateHandedOver,
-      this.judicialChangeForm.value.judicialZoneId,
-      this.judicialChangeForm.value.landRegistry,
-      this.fileDtoList,
-      this.fromDate,
-      this.toDate,
-      this.notaryId,
-      this.dsGnList,
-      this.paymentId,
-     );
+    this.judicialChange.judicialZoneId = this.judicialChangeForm.value.judicialZoneId;
+    this.judicialChange.addressEng = this.judicialChangeForm.value.addressEng;
+    this.judicialChange.addressSin = this.judicialChangeForm.value.addressSin;
+    this.judicialChange.addressTam = this.judicialChangeForm.value.addressTam;
+    this.judicialChange.notarialWorkStartDate = this.judicialChangeForm.value.notarialWorkStartDate;
+    this.judicialChange.certificateYear = this.judicialChangeForm.value.certificateYear;
+    this.judicialChange.nameOfLr = this.judicialChangeForm.value.nameOfLr;
+    this.judicialChange.isDuplicateHandedOver =  this.judicialChangeForm.value.isDuplicateHandedOver;
+    this.judicialChange.landRegistry = this.judicialChangeForm.value.landRegistry;
+    this.judicialChange.fromDate = this.fromDate;
+    this.judicialChange.toDate = this.toDate;
+    this.judicialChange.newNotaryId = this.notaryId;
+    this.judicialChange.dsGnList = this.dsGnList;
+    this.judicialChange.paymentId = this.paymentId;
 
     const formData = new FormData();
-    formData.append('data', JSON.stringify(judicial));
-    formData.append('file',this.files[0]);
-    // this.documentList.forEach(doc => {
-    //   formData.append(doc.fileType, doc.files);
-    // });
+    formData.append('data', JSON.stringify(this.judicialChange));
+    this.documentList.forEach(doc => {
+      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+    });
 
     this.judicialService.save(formData).subscribe(
       (success: string) => {
