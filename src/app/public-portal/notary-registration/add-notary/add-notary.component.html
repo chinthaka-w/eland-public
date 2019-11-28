@@ -473,46 +473,14 @@
       <div class="default-input-wrapper full-row">
         <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist Republic of Sri Lanka</label>
         <div class="default-input-feild">
-          <button mat-raised-button class="f-uploader" (click)="onClick($event)">
-            <i class="material-icons">cloud_upload</i> Upload
-            <input #fileUpload
-                   type="file"
-                   class="input_fileupload--hidden"
-                   (input)="onInput($event)"
-                   (change)="onFileSelected($event)">
-
-          </button>
-          <div *ngFor="let f of files">
-            <span>{{f.name}}</span>
-            <button mat-icon-button
-                    color="primary"
-                    [attr.title]="deleteButtonLabel?deleteButtonLabel:null"
-                    (click)="removeFile(event,f)">
-              <mat-icon>{{deleteButtonIcon}}</mat-icon>
-            </button>
-          </div>
+          <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
         </div>
       </div>
 
       <div class="default-input-wrapper full-row">
         <label>Copy of the National Identity Card</label>
         <div class="default-input-feild">
-          <button mat-raised-button class="f-uploader" (click)="onClicks($event)">
-            <i class="material-icons">cloud_upload</i> Upload
-            <input #fileUploads
-                   type="file"
-                   class="input_fileupload--hidden"
-                   (input)="onInputs($event)"
-                   (change)="onFileSelecteds($event)">
-          </button>
-          <div *ngFor="let f of file">
-            <span>{{f.name}}</span>
-            <button mat-icon-button
-                    color="primary"
-                    [attr.title]="deleteButtonLabel?deleteButtonLabel:null"
-                    (click)="removeFiles(event,f)">
-              <mat-icon>{{deleteButtonIcon}}</mat-icon>
-            </button>
+          <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
           </div>
         </div>
       </div>
@@ -549,11 +517,13 @@
         <div class="pg-inner-col"></div>
       </div>
     </div>
-  </div>
 </form>
 <div *ngIf="isPayment" class="container">
-  <app-payment (response)="getPaymentData($event)"></app-payment>
+  <app-payment  (response)="getPaymentData($event)"
+               [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
+               [hasFrontCounterPayment]="true"
+               [isDocumentCollect]="true"
+               [workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>
+
 </div>
-<div *ngIf="isPaymentMethod" class="container">
-  <app-payment-method (responseValue)="getPaymentMethodData($event)"></app-payment-method>
-</div>
+

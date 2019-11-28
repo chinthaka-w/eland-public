@@ -20,6 +20,9 @@ import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {PaymentService} from "../../../shared/service/payment.service";
 import {PaymentComponent} from "../../../shared/components/payment/payment.component";
 import {PaymentMethodComponent} from "../../../shared/components/payment/payment-method/payment-method.component";
+import {Workflow} from "../../../shared/enum/workflow.enum";
+import {Parameters} from "../../../shared/enum/parameters.enum";
+import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 
 @Component({
   selector: 'app-add-notary',
@@ -28,6 +31,13 @@ import {PaymentMethodComponent} from "../../../shared/components/payment/payment
 })
 
 export class AddNotaryComponent implements OnInit {
+  Parameters = Parameters;
+  WorkflowCode = Workflow;
+
+  public isContinueToPayment: boolean = false;
+  public paymentResponse = new PaymentResponse;
+
+
   @Output()
   change: EventEmitter<MatRadioChange>;
   @Input()
@@ -68,6 +78,8 @@ export class AddNotaryComponent implements OnInit {
   inputFileName: string;
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
+
+
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -341,24 +353,10 @@ export class AddNotaryComponent implements OnInit {
       });
     }
   }
-  onClick(event) {
-    if (this.fileUpload) {
-      this.fileUpload.nativeElement.click();
-    }
-  }
 
-  onInput(event) {
 
-  }
-
-  onFileSelected(event) {
-    const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-    console.log('event::::::', event);
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-      this.files.push(files[i]);
-    }
+  onChangeFileInput(data: any) {
+    this.files = data;
   }
 
   removeFile(event, file) {
@@ -369,25 +367,6 @@ export class AddNotaryComponent implements OnInit {
     }
   }
 
-  onClicks(event) {
-    if (this.fileUploads) {
-      this.fileUploads.nativeElement.click();
-    }
-  }
-
-  onInputs(event) {
-
-  }
-
-  onFileSelecteds(event) {
-    const file = event.dataTransfer ? event.dataTransfer.file : event.target.file;
-    console.log('event::::::', event);
-    for (let i = 0; i < file.length; i++) {
-      const filesList = file[i];
-      filesList.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file[i])));
-      this.file.push(file[i]);
-    }
-  }
 
   removeFiles(event, file) {
     let ix;
@@ -405,20 +384,12 @@ export class AddNotaryComponent implements OnInit {
     this.fileUploads.nativeElement.value = '';
   }
 
-  getPaymentData(paymentData){
+  getPaymentData(paymentData: PaymentResponse){
     this.isPayment = false;
     this.isPaymentMethod = true;
-    this.paymentValue = paymentData;
+    this.paymentDataValue = paymentData.paymentId;
+    this.saveNotaryDetails();
     console.log('Payment Data: ',this.paymentComponent.isSubmitted);
   }
-
-  getPaymentMethodData(paymentMethodData) {
-    this.isPayment = false;
-    this.isPaymentMethod = false;
-    this.paymentDataValue = paymentMethodData;
-    this.saveNotaryDetails();
-    console.log('Payment Method Data: ',this.paymentDataValue);
-  }
-
 
 }
