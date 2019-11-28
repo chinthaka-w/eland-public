@@ -195,7 +195,11 @@ export class AddNotaryComponent implements OnInit {
       1, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentDataValue);
 
-    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
+
+      let formData = new FormData();
+      formData.append("model",JSON.stringify(this.notaryDetails));
+      formData.append("file",this.files[0]);
+    this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
         this.snackBar.success('Notary Registration Success');
       },

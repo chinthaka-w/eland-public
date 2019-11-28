@@ -14,9 +14,9 @@ export class NotaryService {
   public constructor(private httpClient: HttpClient) {}
 
   // tslint:disable-next-line:ban-types
-  saveNotaryDetails(notaries: Notary): Observable<Object> {
-    console.log(notaries);
-    return this.httpClient.post(this.BASE_URL + '/' , notaries);
+  saveNotaryDetails(formData: FormData): Observable<Object> {
+    console.log(formData);
+    return this.httpClient.post(this.BASE_URL + '/' , formData);
   }
 
   /** Update Registered Notary Details */
