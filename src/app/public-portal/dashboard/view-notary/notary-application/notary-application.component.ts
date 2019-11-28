@@ -216,7 +216,7 @@ export class NotaryApplicationComponent implements OnInit {
     this.notaryService.setNotaryDetails(this.notaryDetails);
     this.notaryDetails = this.notaryService.getNotaryDetails();
 
-    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
+    this.notaryService.updateNotaryDetails(this.notaryDetails).subscribe(
       (success: string) => {
         this.snackBar.success('Notary Registration Success');
       },

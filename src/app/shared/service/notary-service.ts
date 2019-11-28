@@ -18,6 +18,12 @@ export class NotaryService {
     return this.httpClient.post(this.BASE_URL + '/' , notaries);
   }
 
+  /** Update Registered Notary Details */
+  updateNotaryDetails(notaries: Notary): Observable<Object> {
+    console.log(notaries);
+    return this.httpClient.post(this.BASE_URL + '/update' , notaries);
+  }
+
   // tslint:disable-next-line:ban-types
   findIfNotaryExist(nic: string): Observable<Object> {
     return this.httpClient.get(this.BASE_URL + '/find/' + nic , {headers: this.headers} );
