@@ -23,6 +23,10 @@ import {PaymentMethodComponent} from "../../../shared/components/payment/payment
 import {Workflow} from "../../../shared/enum/workflow.enum";
 import {Parameters} from "../../../shared/enum/parameters.enum";
 import {PaymentResponse} from "../../../shared/dto/payment-response.model";
+import {WorkflowStageDocDto} from "../../../shared/dto/workflow-stage-doc.dto";
+import {DocumentDto} from "../../../shared/dto/document-list";
+import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
+import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
 
 @Component({
   selector: 'app-add-notary',
@@ -69,13 +73,16 @@ export class AddNotaryComponent implements OnInit {
   public isSelected: boolean;
   public gramaNiladhariDivision: GnDivisionDTO[];
 
+  public docList: WorkflowStageDocDto[];
+  fileList = {};
+  fileToUpload: File = null;
+  public documentList: DocumentDto[] = [];
+
   public locationDto: any = {};
   public locationList: any[] = [];
   public dsGnList: NewNotaryDsDivisionDTO[] = [];
   public gnDivi: GnDivisionDTO[] = [];
-  fileUpload: ElementRef;
-  fileUploads: ElementRef;
-  inputFileName: string;
+
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
 
@@ -89,7 +96,8 @@ export class AddNotaryComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
-              private paymentService: PaymentService) { }
+              private paymentService: PaymentService,
+              private documetService: SupportingDocService) { }
 
   ngOnInit() {
     this.notaryForm = this.formBuilder.group({
@@ -126,11 +134,29 @@ export class AddNotaryComponent implements OnInit {
     this.getDsDivisions();
     this.getLandRegistries();
     this.getJudicialZones();
+    this.getDocumentList();
 
     this.locationList.push(this.locationDto);
     this.previousSelections.push(-1);
     this.locationDto = {};
   }
+
+  private getDocumentList(): void {
+    this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
+      (data: WorkflowStageDocDto[]) => {
+        this.docList = data;
+        console.log(this.docList)
+      }
+    );
+  }
+
+
+  setFiles(data: any, docTyprId: number) {
+    this.files = data;
+    this.documentList.push(new DocumentDto(this.files, docTyprId));
+  }
+
+
 
   addLocation() {
     this.locationList.push(this.locationDto);
@@ -199,6 +225,9 @@ export class AddNotaryComponent implements OnInit {
       let formData = new FormData();
       formData.append("model",JSON.stringify(this.notaryDetails));
       formData.append("file",this.files[0]);
+      this.documentList.forEach(doc => {
+        formData.append('file', doc.files[0],  '|' + doc.fileType);
+      });
     this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
         this.snackBar.success('Notary Registration Success');
@@ -361,31 +390,6 @@ export class AddNotaryComponent implements OnInit {
 
   onChangeFileInput(data: any) {
     this.files = data;
-  }
-
-  removeFile(event, file) {
-    let ix;
-    if (this.files && -1 !== (ix = this.files.indexOf(file))) {
-      this.files.splice(ix, 1);
-      this.clearInputElement();
-    }
-  }
-
-
-  removeFiles(event, file) {
-    let ix;
-    if (this.file && -1 !== (ix = this.file.indexOf(file))) {
-      this.file.splice(ix, 1);
-      this.clearInputElements();
-    }
-  }
-
-  clearInputElement() {
-    this.fileUpload.nativeElement.value = '';
-  }
-
-  clearInputElements() {
-    this.fileUploads.nativeElement.value = '';
   }
 
   getPaymentData(paymentData: PaymentResponse){
