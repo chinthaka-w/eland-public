@@ -216,6 +216,7 @@ export class ChangeJudicialComponent implements OnInit {
     this.judicialService.save(formData).subscribe(
       (success: string) => {
         this.snackBar.success('Judicial Change Request Success');
+        this.judicialChangeForm.reset();
       },
       error => {
         this.snackBar.error('Failed');
