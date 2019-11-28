@@ -44,8 +44,8 @@ export class JudicialService {
     return this.httpClient.get(this.BASE_URL + 'new-notary/getNotaryLanguage/' + notaryId.toString() , {headers: this.headers});
   }
 
-  save(judicialChange: JudicialChange): Observable<any> {
-    return this.httpClient.post(this.BASE_URL + 'judicial-zone/submitChangeRequest/' , judicialChange, {headers: this.headers} );
+  save(formData: FormData): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + 'judicial-zone/submitChangeRequest/' , formData );
   }
 
 }
