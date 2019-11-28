@@ -12,7 +12,6 @@ import {Languages} from '../../../shared/enum/languages.enum';
 import {JudicialChange} from '../../../shared/dto/judicial-change-model';
 import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {FileModel} from '../../../shared/dto/file.dto';
-import {DatePipe} from '@angular/common';
 import {DsGnDivisionDTO} from '../../../shared/dto/gs-gn-model';
 
 @Component({
@@ -63,13 +62,13 @@ export class ChangeJudicialComponent implements OnInit {
   ];
 
 
-  constructor(private judicialService: JudicialService, private snackBar: SnackBarService, public datePipe: DatePipe) { }
+  constructor(private judicialService: JudicialService, private snackBar: SnackBarService) { }
 
   ngOnInit() {
     this.judicialChangeForm = new FormGroup({
-      addressEng: new FormControl("", [Validators.required]),
-      addressSin: new FormControl("", [Validators.required]),
-      addressTam: new FormControl("", [Validators.required]),
+      addressEng: new FormControl("", ),
+      addressSin: new FormControl("", ),
+      addressTam: new FormControl("", ),
       notarialWorkStartDate: new FormControl("", [Validators.required]),
       certificateYear: new FormControl("", [Validators.required]),
       nameOfLr: new FormControl("", [Validators.required]),
@@ -234,6 +233,10 @@ export class ChangeJudicialComponent implements OnInit {
   saveDate(event: any) {
     this.fromDate = event.target.value.begin;
     this.toDate = event.target.value.end;
+  }
+
+  get FormControls() {
+    return this.judicialChangeForm.controls;
   }
 
  }

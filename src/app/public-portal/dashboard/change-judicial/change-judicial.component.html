@@ -75,10 +75,14 @@
                 <input matInput [matDatepicker]="picker1" formControlName="notarialWorkStartDate">
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
-              <button mat-raised-button (click)="picker1.open()">
+              <div *ngIf="FormControls.notarialWorkStartDate.touched && FormControls.notarialWorkStartDate.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.notarialWorkStartDate.errors.required" class="errors">Field is required</mat-error>
+              </div>
+              <button mat-raised-button type="button" (click)="picker1.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
-            </div>
+             </div>
           </div>
         </div>
         <div class="pg-inner-col">
@@ -89,7 +93,11 @@
                 <input matInput [matDatepicker]="picker3" formControlName="certificateYear">
                 <mat-datepicker #picker3 ></mat-datepicker>
               </mat-form-field>
-              <button mat-raised-button (click)="picker3.open()">
+              <div *ngIf="FormControls.certificateYear.touched && FormControls.certificateYear.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.certificateYear.errors.required" class="errors">Field is required</mat-error>
+              </div>
+              <button mat-raised-button type="button"  (click)="picker3.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
             </div>
@@ -106,6 +114,10 @@
               <mat-form-field appearance="outline">
                 <input matInput formControlName="nameOfLr">
               </mat-form-field>
+              <div *ngIf="FormControls.nameOfLr.touched && FormControls.nameOfLr.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.nameOfLr.errors.required" class="errors">Field is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -116,6 +128,10 @@
               <mat-form-field appearance="outline">
                 <input matInput formControlName="isDuplicateHandedOver">
               </mat-form-field>
+              <div *ngIf="FormControls.isDuplicateHandedOver.touched && FormControls.isDuplicateHandedOver.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.isDuplicateHandedOver.errors.required" class="errors">Field is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -131,7 +147,11 @@
                 <sat-datepicker #picker2 [rangeMode]="true">
                 </sat-datepicker>
               </mat-form-field>
-              <button mat-raised-button (click)="picker2.open()">
+              <div *ngIf="FormControls.datePeriod.touched && FormControls.datePeriod.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.datePeriod.errors.required" class="errors">Field is required</mat-error>
+              </div>
+              <button mat-raised-button type="button"  (click)="picker2.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
             </div>
@@ -158,6 +178,10 @@
                   </option>
                 </select>
               </mat-form-field>
+              <div *ngIf="FormControls.judicialZoneId.touched && FormControls.judicialZoneId.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.judicialZoneId.errors.required" class="errors">Field is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -175,6 +199,10 @@
                   </option>
                 </select>
               </mat-form-field>
+              <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Field is required</mat-error>
+              </div>
             </div>
           </div>
         </div>
@@ -261,7 +289,7 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" type="button" (click)="submitForm()">
+          <button mat-raised-button class="lg-button" (click)="submitForm()">
             Submit
           </button>
         </div>
