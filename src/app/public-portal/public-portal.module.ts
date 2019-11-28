@@ -54,6 +54,7 @@ import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting
 import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
 import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
 import {ImageViewerModule} from "ngx-image-viewer";
+import {MatProgressSpinnerModule} from '@angular/material';
 
 
 
@@ -109,6 +110,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
     MatFileUploadModule,
     MatDialogModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     FormsModule,
     MatTabsModule,
