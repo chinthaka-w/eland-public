@@ -17,7 +17,7 @@ export class BankService {
   }
 
   findAll(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL + '/', {headers: this.headersJson} );
+    return this.httpClient.get(this.BASE_URL + '/bankList', {headers: this.headersJson} );
   }
 
 }
