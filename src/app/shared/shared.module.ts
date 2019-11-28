@@ -23,9 +23,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
-import {NgxMatDrpModule} from 'ngx-mat-daterange-picker';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
-import {Moment} from 'moment';
 import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
 
 @NgModule({
@@ -55,9 +52,6 @@ import { OnlineMethodComponent } from './components/payment/online-method/online
     FormsModule,
     MatRadioModule,
     MatIconModule,
-    NgxMatDrpModule,
-    NgxDaterangepickerMd.forRoot(),
-    MatFormFieldModule,
   ],
   exports: [
     ContentComponent,
