@@ -3,7 +3,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
 import {JudicialService} from '../../../shared/service/change-judicial-service';
 import {DsDivision} from '../../../shared/dto/ds-division.model';
-import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
 import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
@@ -16,6 +15,7 @@ import {Parameters} from '../../../shared/enum/parameters.enum';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {DocumentDto} from '../../../shared/dto/document-list';
 import {JudicialChangeWorkflowStagesEnum} from '../../../shared/enum/judicial-change-workflow-stages.enum';
+import {GnDivisionDTO} from "../../../shared/dto/gn-division.dto";
 
 @Component({
   selector: 'app-change-judicial',
@@ -159,7 +159,7 @@ export class ChangeJudicialComponent implements OnInit {
 
   removeLocation(index) {
     this.gsDivisions.forEach(gsDivision => {
-      if (gsDivision.divisionId === this.locationList[index].gsDivision) {
+      if (gsDivision.dsDivisionId === this.locationList[index].gsDivision) {
         this.isSelected = false;
       }
     });
@@ -171,10 +171,10 @@ export class ChangeJudicialComponent implements OnInit {
     this.dsDivisionId = gsDivisionId;
     this.getGnDivision(gsDivisionId);
     this.gsDivisions.forEach(gsDivision => {
-      if (gsDivision.divisionId === gsDivisionId) {
+      if (gsDivision.dsDivisionId === gsDivisionId) {
         this.isSelected = true;
       }
-      if (gsDivision.divisionId === this.previousSelections[index]) {
+      if (gsDivision.dsDivisionId === this.previousSelections[index]) {
         this.isSelected = false;
       }
     });

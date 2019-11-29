@@ -153,7 +153,7 @@ export class AddNotaryComponent implements OnInit {
 
   setFiles(data: any, docTyprId: number) {
     this.files = data;
-    this.documentList.push(new DocumentDto(this.files, docTyprId));
+    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
   }
 
 
