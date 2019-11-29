@@ -15,8 +15,7 @@ import {PaymentResponse} from '../../../shared/dto/payment-response.model';
 import {Parameters} from '../../../shared/enum/parameters.enum';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {DocumentDto} from '../../../shared/dto/document-list';
-import {PaymentDto} from '../../../shared/dto/payment-dto';
-import {WorkflowStages} from '../../../shared/enum/workflow-stages.enum';
+import {JudicialChangeWorkflowStagesEnum} from '../../../shared/enum/judicial-change-workflow-stages.enum';
 
 @Component({
   selector: 'app-change-judicial',
@@ -132,7 +131,7 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
   private getDocumentList(): void {
-    this.judicialService.getDocuments(WorkflowStages.JUDICIAL_CHANGE_REQUEST_INITIALIZED).subscribe(
+    this.judicialService.getDocuments(JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }

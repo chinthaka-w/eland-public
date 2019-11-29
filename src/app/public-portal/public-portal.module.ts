@@ -45,7 +45,6 @@ import { RequestViewComponent } from './dashboard/requests/request-view/request-
 import {SharedModule} from "../shared/shared.module";
 import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
-import {MatRangeDatepickerModule, MatRangeNativeDateModule} from 'mat-range-datepicker';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
@@ -103,8 +102,6 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     SharedModule,
     MatPaginatorModule,
     MatNativeDateModule,
-    MatRangeDatepickerModule,
-    MatRangeNativeDateModule,
     SatDatepickerModule,
     SatNativeDateModule,
   ],
