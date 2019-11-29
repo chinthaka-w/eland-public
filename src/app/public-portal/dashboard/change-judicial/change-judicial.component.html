@@ -173,7 +173,6 @@
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select formControlName="judicialZoneId"  matNativeControl class="form-control">
-                  <option value="" [selected]="true">Select</option>
                   <option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">{{ jud.nameEng }}
                   </option>
                 </select>
@@ -194,7 +193,6 @@
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select name="landRegistry" formControlName="landRegistry" matNativeControl class="form-control">
-                  <option value="" [selected]="true">Select</option>
                   <option *ngFor="let reg of landRegistry" [value]="reg.landRegistryId">{{ reg.name }}
                   </option>
                 </select>
