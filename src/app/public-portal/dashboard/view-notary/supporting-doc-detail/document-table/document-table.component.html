@@ -1,17 +1,13 @@
-<mat-card *ngFor="let doc of supportingDocuments; let i = index">
-  <div class="row">
-    <div class="col-md-9">
-      <h5 (click)="onDocumentClick(doc.id, doc.document)">
-        {{doc.name}}
-      </h5>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h5>{{doc.remark}}</h5>
-    </div>
-  </div>
-</mat-card>
-
-
+<table>
+  <tr>
+    <th>Document Name</th>
+    <th>Document</th>
+    <th>View</th>
+  </tr>
+  <tr *ngFor="let doc of supportingDocuments; let i = index">
+    <td >{{doc.name}}</td>
+    <td>{{doc.remark}}</td>
+    <td><button (click)="onDocumentClick(doc.id, doc.document)">View</button></td>
+  </tr>
+</table>
 
