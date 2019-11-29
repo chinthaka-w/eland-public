@@ -54,9 +54,11 @@ import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting
 import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
 import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
 import {ImageViewerModule} from "ngx-image-viewer";
+import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
-
+import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
 
 @NgModule({
@@ -83,6 +85,8 @@ import {MatProgressSpinnerModule} from '@angular/material';
     LeaveRequestComponent,
     ResignationComponent,
     ApplicationsComponent,
+    RequestViewComponent,
+    ChangeJudicialRequestListComponent,
     RequestViewComponent,
     ViewNotaryComponent,
     NotaryApplicationComponent,
@@ -118,6 +122,10 @@ import {MatProgressSpinnerModule} from '@angular/material';
     RecaptchaModule,
     RecaptchaFormsModule,
     SharedModule,
+    MatPaginatorModule,
+    MatNativeDateModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
     ImageViewerModule
   ],
   exports: [
@@ -133,6 +141,9 @@ import {MatProgressSpinnerModule} from '@angular/material';
     MatFileUploadModule,
     MatTabsModule,
     MatDialogModule,
+    MatTableModule,
+    SatDatepickerModule,
+    SatNativeDateModule
     MatTableModule,
 
   ],

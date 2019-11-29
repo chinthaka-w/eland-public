@@ -54,6 +54,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
     FormsModule,
     MatRadioModule,
     MatIconModule,
+    MatIconModule,
     ImageViewerModule
   ],
   exports: [
@@ -62,7 +63,6 @@ import {ImageViewerModule} from "ngx-image-viewer";
     HeaderComponent,
     FooterComponent,
     VerificationComponent,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatCheckboxModule,
