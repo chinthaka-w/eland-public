@@ -51,7 +51,7 @@ import { OnlineMethodComponent } from './components/payment/online-method/online
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
   ],
   exports: [
     ContentComponent,
@@ -59,7 +59,6 @@ import { OnlineMethodComponent } from './components/payment/online-method/online
     HeaderComponent,
     FooterComponent,
     VerificationComponent,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatCheckboxModule,
