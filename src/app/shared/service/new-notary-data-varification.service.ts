@@ -51,7 +51,6 @@ export class NewNotaryDataVarificationService {
     this.supportingDocDetails.emit(supportDocs);
   }
 
-
   setNotaryDetails(viewDetails: NewNotaryViewDto) {
     this.viewNotaryDetails = viewDetails;
   }
