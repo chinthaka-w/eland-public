@@ -30,4 +30,8 @@ export class CitizenDTO {
   bankBranchId: number;
   user: string;
   dateOfBirth: string;
+  lawFirmName: string;
+  stateInstituteName: string;
+  otherInstituteName: string;
+  officerDesignation: string;
 }

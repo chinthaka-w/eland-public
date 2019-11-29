@@ -16,7 +16,7 @@ export class BankService {
   public constructor(private httpClient: HttpClient) {}
 
   getAllBanks(): Observable<Array<BankDTO>> {
-    return this.httpClient.get<Array<BankDTO>>(this.BASE_URL + 'bankList', {headers: this.headers} );
+    return this.httpClient.get<Array<BankDTO>>(this.BASE_URL + '/bankList', {headers: this.headers} );
   }
 
   findAll(): Observable<Object> {

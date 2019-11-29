@@ -5,7 +5,7 @@
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
-<div class="page-content-wrapper">
+<div class="page-content-wrapper" *ngIf="!(isContinue)">
   <div class="page-content-inner-wrapper">
     <form [formGroup]="publicUserForm">
       <div class="default-input-wrapper full-row half-cols">
@@ -142,8 +142,8 @@
         <label class="mw-200">Bank Name <span>*</span></label>
         <div class="default-input-feild gray">
           <mat-form-field appearance="outline">
-            <select matNativeControl required (change)="getCurrentBank($event)">
-              <option value="" disabled>Select Bank Name</option>
+            <select matNativeControl formControl="bankName" required (change)="getCurrentBank($event)">
+              <option disabled>Select Bank Name</option>
               <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
             </select>
           </mat-form-field>
@@ -305,10 +305,16 @@
         </div>
         <div class="pg-inner-col right">
           <button mat-raised-button class="lg-button" (click)="saveCitizen()">
-            Submit
+            Continue
           </button>
         </div>
       </div>
     </form>
+  </div>
+</div>
+
+<div class="page-content-wrapper" *ngIf="isContinue">
+  <div class="page-content-inner-wrapper">
+    <app-payment [citizenModel]="citizenDTO"></app-payment>
   </div>
 </div>

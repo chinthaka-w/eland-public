@@ -36,6 +36,8 @@ export class AddPublicUserComponent implements OnInit {
   banks: Array<BankDTO> = [];
   publicUserDTO: PublicUserDTO = new PublicUserDTO();
   publicUserExist: boolean = false;
+  isContinue: boolean = false;
+  formData: FormData = new FormData();
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -78,14 +80,11 @@ export class AddPublicUserComponent implements OnInit {
 
   setFiles(files, key){
     this.fileList[key] = files;
-
-    console.log('file list: ', this.fileList);
   }
   getAllLandRegistries() {
     this.citizenService.getAllLandRegistries()
       .subscribe((res) => {
         this.landRegistriesDTOList = res;
-        // console.log(this.landRegistriesDTOList);
       });
   }
 
@@ -93,28 +92,22 @@ export class AddPublicUserComponent implements OnInit {
     this.bankService.getAllBanks()
       .subscribe((result) => {
         this.banks = result;
-        // console.log(this.banks);
       });
   }
 
   getCurrentLandRegistry(event) {
-    // console.log(event.target.value);
     this.citizenDTO.landRegistry = event.target.value;
   }
   getCurrentBankUserType(event) {
-    // console.log(event.target.value);
     this.bankUserTypeId = event.target.value;
   }
   getCurrentBank(event) {
-    // console.log(event.target.value);
     this.citizenDTO.bankId = event.target.value;
   }
   getCurrentIdentificationType(event) {
-    // console.log(event.target.value);
     this.citizenDTO.identificationNoType = event.target.value;
   }
   getCurrentUserType(event) {
-    // console.log(event.target.value);
     this.citizenDTO.userType = event.target.value;
   }
 
@@ -131,15 +124,19 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.mobileNo = this.publicUserForm.controls.secondaryContact.value;
     this.citizenDTO.reason = this.publicUserForm.controls.reason.value;
     this.citizenDTO.identificationNo = this.publicUserForm.controls.identificationNo.value;
-    this.citizenDTO.bankId = this.publicUserForm.controls.bankName.value;
     this.citizenDTO.dateOfBirth = this.publicUserForm.controls.dateOfBirth.value;
     this.citizenDTO.username = this.publicUserForm.controls.userName.value;
-    // console.log(this.publicUserForm.controls.dateOfBirth.value);
+    this.citizenDTO.lawFirmName = this.publicUserForm.controls.lawFirmName.value;
+    this.citizenDTO.stateInstituteName = this.publicUserForm.controls.stateInstitutionName.value;
+    this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
+    this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
+    // this.isContinue = true;
 
-    this.citizenService.saveCitizen(this.citizenDTO)
+
+    this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
       .subscribe((result) => {
         if (result) {
-          alert('success');
+          this.isContinue = true;
         }else{
           alert('Failed');
         }
