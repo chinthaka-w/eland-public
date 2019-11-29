@@ -143,7 +143,7 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     MatDialogModule,
     MatTableModule,
     SatDatepickerModule,
-    SatNativeDateModule
+    SatNativeDateModule,
     MatTableModule,
 
   ],
