@@ -1,4 +1,5 @@
 export class SearchRequest {
+  public searchRequestId: number;
   public landRegistryId: number;
   public requestType: number;
   public attestedByNotaryName: string;
@@ -18,6 +19,8 @@ export class SearchRequest {
   public villageId: number;
   public searchReasonId: number;
   public workflowStageCode: string;
+  public date: string;
+  public workflowDescription: string;
   public paymentId: number;
   public folioList: any[];
 }

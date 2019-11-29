@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-
+import {Location} from '@angular/common';
 import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
 import {JudicialService} from '../../../shared/service/change-judicial-service';
 import {DsDivision} from '../../../shared/dto/ds-division.model';
@@ -67,21 +67,25 @@ export class ChangeJudicialComponent implements OnInit {
   ];
 
 
-  constructor(private judicialService: JudicialService, private snackBar: SnackBarService) { }
+  constructor(
+    private judicialService: JudicialService,
+    private location: Location,
+    private snackBar: SnackBarService) {
+  }
 
   ngOnInit() {
     this.judicialChangeForm = new FormGroup({
-      addressEng: new FormControl("", ),
-      addressSin: new FormControl("", ),
-      addressTam: new FormControl("", ),
-      notarialWorkStartDate: new FormControl("", [Validators.required]),
-      certificateYear: new FormControl("", [Validators.required]),
-      nameOfLr: new FormControl("", [Validators.required]),
-      isDuplicateHandedOver: new FormControl("", [Validators.required]),
-      datePeriod: new FormControl("", [Validators.required]),
-      judicialZoneId: new FormControl("", [Validators.required]),
-      landRegistry: new FormControl("", [Validators.required]),
-     });
+      addressEng: new FormControl('',),
+      addressSin: new FormControl('',),
+      addressTam: new FormControl('',),
+      notarialWorkStartDate: new FormControl('', [Validators.required]),
+      certificateYear: new FormControl('', [Validators.required]),
+      nameOfLr: new FormControl('', [Validators.required]),
+      isDuplicateHandedOver: new FormControl('', [Validators.required]),
+      datePeriod: new FormControl('', [Validators.required]),
+      judicialZoneId: new FormControl('', [Validators.required]),
+      landRegistry: new FormControl('', [Validators.required]),
+    });
     this.isSinhala = false;
     this.isTamil = false;
     this.isEnglish = false;
@@ -143,9 +147,15 @@ export class ChangeJudicialComponent implements OnInit {
       (data: number[]) => {
         this.langArr = data;
         for (const langId of this.langArr) {
-          if (langId === Languages.ENGLISH) { this.isEnglish = true; }
-          if (langId === Languages.SINHALA) { this.isSinhala = true; }
-          if (langId === Languages.TAMIL) { this.isTamil = true; }
+          if (langId === Languages.ENGLISH) {
+            this.isEnglish = true;
+          }
+          if (langId === Languages.SINHALA) {
+            this.isSinhala = true;
+          }
+          if (langId === Languages.TAMIL) {
+            this.isTamil = true;
+          }
         }
       }
     );
@@ -182,7 +192,7 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
   selectGnDivision(gsDivisionId) {
-   this.dsGnList.push(new DsGnDivisionDTO(1, 2));
+    this.dsGnList.push(new DsGnDivisionDTO(1, 2));
   }
 
   setFiles(data: any, docTyprId: number) {
@@ -198,7 +208,7 @@ export class ChangeJudicialComponent implements OnInit {
     this.judicialChange.notarialWorkStartDate = this.judicialChangeForm.value.notarialWorkStartDate;
     this.judicialChange.certificateYear = this.judicialChangeForm.value.certificateYear;
     this.judicialChange.nameOfLr = this.judicialChangeForm.value.nameOfLr;
-    this.judicialChange.isDuplicateHandedOver =  this.judicialChangeForm.value.isDuplicateHandedOver;
+    this.judicialChange.isDuplicateHandedOver = this.judicialChangeForm.value.isDuplicateHandedOver;
     this.judicialChange.landRegistry = this.judicialChangeForm.value.landRegistry;
     this.judicialChange.fromDate = this.fromDate;
     this.judicialChange.toDate = this.toDate;
@@ -237,17 +247,23 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
   onPaymentResponse(data: PaymentResponse) {
-    if (data.paymentStatusCode === 2  || data.paymentId === undefined || data.paymentId === 0) {
+    if (data.paymentStatusCode === 2 || data.paymentId === undefined || data.paymentId === 0) {
       this.snackBar.error('Failed');
     } else {
       this.paymentId = data.paymentId;
       this.isContinueToPayment = false;
       this.isPaymentSuccess = true;
     }
- }
+  }
 
   onBack(data: boolean) {
     this.isContinueToPayment = !data;
   }
 
- }
+  goBack(): any {
+    this.location.back();
+    return false;
+  }
+
+
+}

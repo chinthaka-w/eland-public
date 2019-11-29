@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PublicProfileEditComponent } from './profile/public-profile-edit/public-profile-edit.component';
+import {Component, OnInit} from '@angular/core';
+import {Workflow} from '../../shared/enum/workflow.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,9 +11,16 @@ export class DashboardComponent implements OnInit {
   // userType = 'notary';
   userType = 'public';
 
-  constructor() {}
+  Workflow = Workflow;
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  getBase64(value: string): string {
+    return btoa(value);
   }
 
 }

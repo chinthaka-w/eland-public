@@ -43,7 +43,7 @@ import { ResignationComponent } from './dashboard/resignation/resignation.compon
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 import { RequestViewComponent } from './dashboard/requests/request-view/request-view.component';
 import {SharedModule} from "../shared/shared.module";
-import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
@@ -75,7 +75,6 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     ResignationComponent,
     ApplicationsComponent,
     RequestViewComponent,
-    ChangeJudicialRequestListComponent,
   ],
   imports: [
     CommonModule,

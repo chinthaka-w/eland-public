@@ -1,7 +1,7 @@
 <div class="wf-img-container" *ngIf="!isContinueToPayment">
   <div class="wf-img-wrapper" style="background-image: url('../../../../assets/images/temp_img_005.jpg')">&nbsp;</div>
   <div class="wf-content-wrapper">
-    <a href="" class="phd-back-btn"><i class="material-icons">keyboard_backspace</i></a>
+    <a href="#" (click)="goBack()" class="phd-back-btn"><i class="material-icons">keyboard_backspace</i></a>
     <h4>Search</h4>
     <form class="wf-form-wp" [formGroup]="searchRequestForm">
 

@@ -16,8 +16,8 @@ export class SearchRequestService {
   public constructor(private httpClient: HttpClient) {
   }
 
+
   saveSearchRequest(searchRequest: SearchRequest): Observable<Object> {
-    console.log('request: ',searchRequest);
     return this.httpClient.post(this.BASE_URL + '/save', searchRequest, {headers: this.headersJson});
   }
 }

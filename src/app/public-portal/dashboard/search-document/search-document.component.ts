@@ -1,4 +1,5 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 import {MatTableDataSource} from '@angular/material/table';
 import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -17,15 +18,12 @@ import {VillageService} from '../../../shared/service/village.service';
 import {SearchReasonService} from '../../../shared/service/search-reason.service';
 import {SearchReason} from '../../../shared/dto/search-reason.model';
 import {FolioNoService} from '../../../shared/service/folio-no.service';
-import {FolioStatus} from '../../../shared/dto/folio-status.model';
 import {Enum} from '../../../shared/dto/enum.model';
 import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {PaymentResponse} from '../../../shared/dto/payment-response.model';
 import {Parameters} from '../../../shared/enum/parameters.enum';
 import {Workflow} from '../../../shared/enum/workflow.enum';
-import {log} from 'util';
 import {SearchRequest} from '../../../shared/dto/search-request.model';
 import {PaymentStatus} from '../../../shared/enum/payment-status.enum';
 import {SearchRequestService} from '../../../shared/service/search-request.service';
@@ -73,7 +71,8 @@ export class SearchDocumentComponent implements OnInit {
     private searchReasonService: SearchReasonService,
     private folioNoService: FolioNoService,
     private searchRequestService: SearchRequestService,
-    private snackBarService: SnackBarService,) {
+    private snackBarService: SnackBarService,
+    private location: Location) {
   }
 
   ngOnInit() {
@@ -185,6 +184,11 @@ export class SearchDocumentComponent implements OnInit {
   }
 
 //Local changes
+
+  goBack(): any {
+    this.location.back();
+    return false;
+  }
 
   get requestType() {
     return this.searchRequestForm.get('requestType').value;
