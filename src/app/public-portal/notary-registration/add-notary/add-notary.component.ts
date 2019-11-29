@@ -384,6 +384,7 @@ export class AddNotaryComponent implements OnInit {
     this.isPayment = false;
     this.isPaymentMethod = true;
     this.paymentDataValue = paymentData.paymentId;
+    this.snackBar.success("Payment Success");
     this.saveNotaryDetails();
     console.log('Payment Data: ',this.paymentComponent.isSubmitted);
   }

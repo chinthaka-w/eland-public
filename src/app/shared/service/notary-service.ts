@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Notary} from '../dto/notary.model';
 import {Observable, of, throwError} from 'rxjs';
 import {SysConfigService} from './sys-config.service';
+import {NewNotaryPaymentDto} from "../dto/new-notary-payment.dto";
 @Injectable()
 export class NotaryService {
   public BASE_URL = SysConfigService.BASE_URL +'new-notary';
@@ -24,6 +25,12 @@ export class NotaryService {
     console.log(notaries);
     return this.httpClient.post(this.BASE_URL + '/update' , notaries);
   }
+
+  /** Save Payment Details Seperatly of registered notary */
+  savePayments(model: NewNotaryPaymentDto): Observable<Object> {
+    return this.httpClient.post(this.BASE_URL + '/payments/' , model);
+  }
+
 
   // tslint:disable-next-line:ban-types
   findIfNotaryExist(nic: string): Observable<Object> {
