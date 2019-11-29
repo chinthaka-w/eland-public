@@ -23,6 +23,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
+import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
     VerificationComponent,
     PaymentComponent,
     PaymentMethodComponent,
-    FileUploadInputComponent
+    FileUploadInputComponent,
+    OnlineMethodComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,9 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    MatIconModule,
+    ImageViewerModule
   ],
   exports: [
     ContentComponent,
@@ -57,7 +63,6 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
     HeaderComponent,
     FooterComponent,
     VerificationComponent,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatCheckboxModule,
@@ -67,6 +72,7 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
     MatDatepickerModule,
     MatFileUploadModule,
     MatTabsModule,
+    MatCardModule,
     PaymentComponent,
     PaymentMethodComponent,
     FileUploadInputComponent

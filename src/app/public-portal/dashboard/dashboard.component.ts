@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicProfileEditComponent } from './profile/public-profile-edit/public-profile-edit.component';
 import { SessionService } from 'src/app/shared/service/session.service';
+import { UserType } from 'src/app/shared/enum/user-type.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,9 +11,8 @@ import { SessionService } from 'src/app/shared/service/session.service';
 })
 export class DashboardComponent implements OnInit {
 
-  // userType = 'notary';
-  userType = 'public';
   user;
+  userType = UserType;
 
   constructor(
     private sessionService: SessionService

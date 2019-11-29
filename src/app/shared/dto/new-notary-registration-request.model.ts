@@ -1,10 +1,12 @@
 export class NewNotaryRegistrationRequest {
   constructor(
-    newNotaryRegistrationRequestId: number,
+    newNotaryRequestId: number,
     remark: string,
     status: string,
     lastUpdatedTime: Date,
     lastUpdatedUser: string,
+    newNotaryId: number,
     workflowStageCode: string,
+    createdUser: string,
   ){}
 }
