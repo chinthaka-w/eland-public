@@ -1,0 +1,21 @@
+<div class="pg-inner-row mb-40">
+  <div class="pg-inner-col">
+    <h4 class="m0">Payment Informations</h4>
+  </div>
+</div>
+<div class="default-input-wrapper full-row" id="payment-table">
+  <div class="p-24">
+    <div
+      class="mb-24"
+      fxLayout="column"
+      fxLayoutAlign="start"
+      fxLayout.gt-md="row"
+    >
+      <app-payment-table></app-payment-table>
+    </div>
+  </div>
+</div>
+<div class="pg-inner-col right">
+  <button mat-raised-button class="lg-button" [routerLink]="['/notary-payment']">Add Payment</button>
+  <a href="#" class="pdf-link">Save PDF <i class="material-icons">vertical_align_bottom</i></a>
+</div>

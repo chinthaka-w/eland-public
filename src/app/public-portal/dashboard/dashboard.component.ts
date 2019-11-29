@@ -9,8 +9,8 @@ import { PublicProfileEditComponent } from './profile/public-profile-edit/public
 })
 export class DashboardComponent implements OnInit {
 
-  // userType = 'notary';
-  userType = 'public';
+  userType = 'notary';
+  //userType = 'public';
 
   constructor() {}
 

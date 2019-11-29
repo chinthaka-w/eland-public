@@ -8,11 +8,11 @@ import {DsDivision} from '../../../shared/dto/ds-division.model';
 import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
 import {DsDivisionService} from '../../../shared/service/ds-division.service';
 import {LandRegistryService} from '../../../shared/service/land-registry.service';
-import {NewNotaryGnDivisionDTO} from '../../../shared/dto/new-notary-gn-division.model';
+import {NewNotaryDsDivisionDTO} from '../../../shared/dto/new-notary-ds-division.model';
 import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {JudicialZoneService} from '../../../shared/service/judicial-zone.service';
 import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
-import {GnDivisionDTO} from '../../../shared/dto/gn-division-dto';
+import {GnDivisionDTO} from '../../../shared/dto/gn-division.dto';
 import {MatRadioChange} from '@angular/material/radio';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TokenStorageService} from '../../../shared/auth/token-storage.service';
@@ -20,6 +20,13 @@ import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {PaymentService} from "../../../shared/service/payment.service";
 import {PaymentComponent} from "../../../shared/components/payment/payment.component";
 import {PaymentMethodComponent} from "../../../shared/components/payment/payment-method/payment-method.component";
+import {Workflow} from "../../../shared/enum/workflow.enum";
+import {Parameters} from "../../../shared/enum/parameters.enum";
+import {PaymentResponse} from "../../../shared/dto/payment-response.model";
+import {WorkflowStageDocDto} from "../../../shared/dto/workflow-stage-doc.dto";
+import {DocumentDto} from "../../../shared/dto/document-list";
+import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
+import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
 
 @Component({
   selector: 'app-add-notary',
@@ -28,6 +35,13 @@ import {PaymentMethodComponent} from "../../../shared/components/payment/payment
 })
 
 export class AddNotaryComponent implements OnInit {
+  Parameters = Parameters;
+  WorkflowCode = Workflow;
+
+  public isContinueToPayment: boolean = false;
+  public paymentResponse = new PaymentResponse;
+
+
   @Output()
   change: EventEmitter<MatRadioChange>;
   @Input()
@@ -54,15 +68,25 @@ export class AddNotaryComponent implements OnInit {
   public judicialZones: JudicialZoneModel[];
   public notaryDetails: Notary;
   public gnDivisionDetails: GnDivisionDTO;
-  public newNotaryGnDivision: NewNotaryGnDivisionDTO;
+  public newNotaryGnDivision: NewNotaryDsDivisionDTO;
+  public previousSelections: any[] = [];
+  public isSelected: boolean;
+  public gramaNiladhariDivision: GnDivisionDTO[];
+
+  public docList: WorkflowStageDocDto[];
+  fileList = {};
+  fileToUpload: File = null;
+  public documentList: DocumentDto[] = [];
 
   public locationDto: any = {};
-  public locationList: NewNotaryGnDivisionDTO[] = [];
-  fileUpload: ElementRef;
-  fileUploads: ElementRef;
-  inputFileName: string;
+  public locationList: any[] = [];
+  public dsGnList: NewNotaryDsDivisionDTO[] = [];
+  public gnDivi: GnDivisionDTO[] = [];
+
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
+
+
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -72,7 +96,8 @@ export class AddNotaryComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
-              private paymentService: PaymentService) { }
+              private paymentService: PaymentService,
+              private documetService: SupportingDocService) { }
 
   ngOnInit() {
     this.notaryForm = this.formBuilder.group({
@@ -109,24 +134,75 @@ export class AddNotaryComponent implements OnInit {
     this.getDsDivisions();
     this.getLandRegistries();
     this.getJudicialZones();
+    this.getDocumentList();
+
     this.locationList.push(this.locationDto);
+    this.previousSelections.push(-1);
     this.locationDto = {};
   }
 
+  private getDocumentList(): void {
+    this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
+      (data: WorkflowStageDocDto[]) => {
+        this.docList = data;
+        console.log(this.docList)
+      }
+    );
+  }
+
+
+  setFiles(data: any, docTyprId: number) {
+    this.files = data;
+    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
+  }
+
+
+
   addLocation() {
     this.locationList.push(this.locationDto);
+    this.previousSelections.push(-1);
     this.locationDto = {};
   }
 
   removeLocation(index) {
+    this.dsDivision.forEach(gsDivision => {
+      if (gsDivision.dsDivisionId == this.locationList[index].gsDivision) {
+        this.isSelected = false;
+      }
+    });
     this.locationList.splice(index, 1);
+    this.previousSelections.splice(index, 1);
+  }
+
+  selectGnDivision(gsDivisionId, index) {
+    console.log(gsDivisionId[0]);
+    const gnModel: GnDivisionDTO = new GnDivisionDTO(gsDivisionId[0],null,null,this.notaryForm.value.secretariatDivision,null,null,this.notaryForm.value.secretariatDivision,null,null);
+    this.gnDivi.push(gnModel);
+
+    console.log(this.gnDivi);
+    const model: NewNotaryDsDivisionDTO = new NewNotaryDsDivisionDTO(this.notaryForm.value.secretariatDivision,this.notaryForm.value.secretariatDivision,this.gnDivi);
+    this.dsGnList.push(model);
+    console.log(this.dsGnList);
+    console.log(model);
+  }
+
+  selectGsDivision(dsDivisionId, index) {
+    this.dsDivision.forEach(dsDivisions => {
+      if (dsDivisions.dsDivisionId == dsDivisionId) {
+        this.isSelected = true;
+      }
+      if (dsDivisions.dsDivisionId == this.previousSelections[index]) {
+        this.isSelected = false;
+      }
+    });
+    this.previousSelections[index] = dsDivisionId;
   }
 
   public onFormSubmit() {
     this.notaryService.findIfNotaryExist(this.notaryForm.value.nic).subscribe(
       (data) => {
         if (data != null) {
-          alert('Already Exists...');
+          this.snackBar.warn("Already Exist")
         } else {
           this.isPayment = true;
           this.isPaymentMethod = false;
@@ -135,8 +211,6 @@ export class AddNotaryComponent implements OnInit {
   }
 
     saveNotaryDetails(): void {
-    this.gnDivisionDetails = new GnDivisionDTO(this.notaryForm.value.gramaNiladhariDivision, null, null, null, null, null,  this.notaryForm.value.secretariatDivision, 'ACT', null);
-    this.newNotaryGnDivision = new NewNotaryGnDivisionDTO( this.notaryForm.value.secretariatDivision, 'asd', [this.gnDivisionDetails]);
     this.notaryDetails = new Notary(0, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
       this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
       this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
@@ -144,13 +218,16 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, 'Miss', 'Ms',
-      1, this.notaryForm.value.landRegistry, [this.newNotaryGnDivision], this.notaryForm.value.languages,
+      1, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentDataValue);
 
-    this.notaryService.setNotaryDetails(this.notaryDetails);
-    this.notaryDetails = this.notaryService.getNotaryDetails();
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(this.notaryDetails));
+      this.documentList.forEach(doc => {
+        formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+      });
 
-    this.notaryService.saveNotaryDetails(this.notaryDetails).subscribe(
+    this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
         this.snackBar.success('Notary Registration Success');
       },
@@ -190,7 +267,10 @@ export class AddNotaryComponent implements OnInit {
         this.gnDivision = data;
       }
     );
+    // @ts-ignore
+  //  this.previousSelections[index] = this.notaryForm.value.secretariatDivision;
   }
+
   private getLandRegistries(): void {
     this.landRegistryService.getAllLandRegistry().subscribe(
       (data: LandRegistryModel[]) => {
@@ -305,82 +385,14 @@ export class AddNotaryComponent implements OnInit {
       });
     }
   }
-  onClick(event) {
-    if (this.fileUpload) {
-      this.fileUpload.nativeElement.click();
-    }
-  }
 
-  onInput(event) {
 
-  }
-
-  onFileSelected(event) {
-    const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-    console.log('event::::::', event);
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-      this.files.push(files[i]);
-    }
-  }
-
-  removeFile(event, file) {
-    let ix;
-    if (this.files && -1 !== (ix = this.files.indexOf(file))) {
-      this.files.splice(ix, 1);
-      this.clearInputElement();
-    }
-  }
-
-  onClicks(event) {
-    if (this.fileUploads) {
-      this.fileUploads.nativeElement.click();
-    }
-  }
-
-  onInputs(event) {
-
-  }
-
-  onFileSelecteds(event) {
-    const file = event.dataTransfer ? event.dataTransfer.file : event.target.file;
-    console.log('event::::::', event);
-    for (let i = 0; i < file.length; i++) {
-      const filesList = file[i];
-      filesList.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file[i])));
-      this.file.push(file[i]);
-    }
-  }
-
-  removeFiles(event, file) {
-    let ix;
-    if (this.file && -1 !== (ix = this.file.indexOf(file))) {
-      this.file.splice(ix, 1);
-      this.clearInputElements();
-    }
-  }
-
-  clearInputElement() {
-    this.fileUpload.nativeElement.value = '';
-  }
-
-  clearInputElements() {
-    this.fileUploads.nativeElement.value = '';
-  }
-
-  getPaymentData(paymentData){
+  getPaymentData(paymentData: PaymentResponse){
     this.isPayment = false;
     this.isPaymentMethod = true;
-    this.paymentValue = paymentData;
+    this.paymentDataValue = paymentData.paymentId;
+    this.saveNotaryDetails();
     console.log('Payment Data: ',this.paymentComponent.isSubmitted);
   }
 
-  getPaymentMethodData(paymentMethodData) {
-    this.isPayment = false;
-    this.isPaymentMethod = false;
-    this.paymentDataValue = paymentMethodData;
-    this.saveNotaryDetails();
-    console.log('Payment Method Data: ',this.paymentDataValue);
-  }
 }
