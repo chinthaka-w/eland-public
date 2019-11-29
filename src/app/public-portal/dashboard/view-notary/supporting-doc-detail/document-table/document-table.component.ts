@@ -8,7 +8,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTableDataSource} from "@angular/material/table";
-import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
 
 @Component({
   selector: 'app-document-table',

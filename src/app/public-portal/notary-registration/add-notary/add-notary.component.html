@@ -477,26 +477,12 @@
               <label>{{document.description}}
                 <span *ngIf="document.required == true">*</span>
               </label>
-              <file-upload-input (response)="setFiles($event)"></file-upload-input>
+<!--              <file-upload-input (response)="setFiles($event)"></file-upload-input>-->
               <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
             </div>
           </div>
         </ng-container>
       </div>
-<!--        <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist Republic of Sri Lanka</label>-->
-<!--        <div class="default-input-feild">-->
-<!--          <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="default-input-wrapper full-row">-->
-<!--        <label>Copy of the National Identity Card</label>-->
-<!--        <div class="default-input-feild">-->
-<!--          <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>-->
-<!--          </div>-->
-<!--        </div>-->
-
-
       <div class="separator">&nbsp;</div>
 
       <div class="pg-inner-row mb-0">

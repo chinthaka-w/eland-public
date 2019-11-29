@@ -11,7 +11,12 @@
           <app-document-table></app-document-table>
         </div>
         <div class="col-md-5">
-          <app-document-preview></app-document-preview>
+          <mat-card style="width: 50%; height: 50%">
+            <ngx-image-viewer
+              [src]="documentImages"
+            >
+            </ngx-image-viewer>
+          </mat-card>
         </div>
       </div>
 

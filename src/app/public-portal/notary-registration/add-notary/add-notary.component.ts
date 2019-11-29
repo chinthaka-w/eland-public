@@ -202,7 +202,7 @@ export class AddNotaryComponent implements OnInit {
     this.notaryService.findIfNotaryExist(this.notaryForm.value.nic).subscribe(
       (data) => {
         if (data != null) {
-          alert('Already Exists...');
+          this.snackBar.warn("Already Exist")
         } else {
           this.isPayment = true;
           this.isPaymentMethod = false;
@@ -221,13 +221,12 @@ export class AddNotaryComponent implements OnInit {
       1, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentDataValue);
 
-
-      let formData = new FormData();
-      formData.append("model",JSON.stringify(this.notaryDetails));
-      formData.append("file",this.files[0]);
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(this.notaryDetails));
       this.documentList.forEach(doc => {
-        formData.append('file', doc.files[0],  '|' + doc.fileType);
+        formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
       });
+
     this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
         this.snackBar.success('Notary Registration Success');
@@ -387,10 +386,6 @@ export class AddNotaryComponent implements OnInit {
     }
   }
 
-
-  onChangeFileInput(data: any) {
-    this.files = data;
-  }
 
   getPaymentData(paymentData: PaymentResponse){
     this.isPayment = false;

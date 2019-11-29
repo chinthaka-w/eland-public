@@ -52,7 +52,6 @@ import { PaymentTableComponent } from './dashboard/view-notary/notary-payment-in
 import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk-table/remrk-table.component';
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
-import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
 import {ImageViewerModule} from "ngx-image-viewer";
 import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
@@ -97,7 +96,6 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     RemrkTableComponent,
     SupportingDocDetailComponent,
     DocumentTableComponent,
-    DocumentPreviewComponent
   ],
   imports: [
     CommonModule,
