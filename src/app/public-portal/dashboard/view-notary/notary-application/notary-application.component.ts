@@ -25,6 +25,7 @@ import {ApplicationRequestDataType} from "../../../../shared/enum/application-re
 import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
 import {NotaryRegistrationHistoryDto} from "../../../../shared/dto/notary-registration-history.dto";
 import {fakeAsync} from "@angular/core/testing";
+import {MatRadioChange} from "@angular/material/radio";
 
 @Component({
   selector: 'app-notary-application',
@@ -283,5 +284,104 @@ export class NotaryApplicationComponent implements OnInit {
         console.log(error1);
       }
     )
+  }
+
+  onChange(event: MatRadioChange) {
+    if (event.value === '1') {
+      this.notaryForm = this.formBuilder.group({
+        notary: new FormControl('', [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        englishNameWithInitials: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        sinhalaNameWithInitials: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        tamilNameWithInitials: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInSinhala: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+        languages: new FormControl(event.value),
+        enrolledDate: new FormControl(new Date(), [Validators.required]),
+        passedDate: new FormControl(new Date(), [Validators.required]),
+        dateOfBirth: new FormControl(new Date(), [Validators.required]),
+        courtZone: new FormControl('', [Validators.required]),
+        permenentAddressInEnglish: new FormControl('', [Validators.required]),
+        permenentAddressInSinhala: new FormControl('', [Validators.required]),
+        permenentAddressInTamil: new FormControl(''),
+        currentAddressInEnglish: new FormControl('', [Validators.required]),
+        currentAddressInSinhala: new FormControl('', [Validators.required]),
+        currentAddressInTamil: new FormControl(''),
+        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+        landRegistry: new FormControl('', [Validators.required]),
+        secretariatDivision: new FormControl('', [Validators.required]),
+        gramaNiladhariDivision: new FormControl('', [Validators.required]),
+        medium: new FormControl('', [Validators.required]),
+        userName: new FormControl('', [Validators.required]),
+      });
+    } else if (event.value === '2') {
+
+      this.notaryForm = this.formBuilder.group({
+        notary: new FormControl('', [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        englishNameWithInitials: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        sinhalaNameWithInitials: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        tamilNameWithInitials: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+        languages: new FormControl(event.value),
+        enrolledDate: new FormControl(new Date(), [Validators.required]),
+        passedDate: new FormControl(new Date(), [Validators.required]),
+        dateOfBirth: new FormControl(new Date(), [Validators.required]),
+        courtZone: new FormControl('', [Validators.required]),
+        permenentAddressInEnglish: new FormControl('', [Validators.required]),
+        permenentAddressInSinhala: new FormControl(''),
+        permenentAddressInTamil: new FormControl(''),
+        currentAddressInEnglish: new FormControl('', [Validators.required]),
+        currentAddressInSinhala: new FormControl(''),
+        currentAddressInTamil: new FormControl(''),
+        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+        landRegistry: new FormControl('', [Validators.required]),
+        secretariatDivision: new FormControl('', [Validators.required]),
+        gramaNiladhariDivision: new FormControl('', [Validators.required]),
+        medium: new FormControl('', [Validators.required]),
+        userName: new FormControl('', [Validators.required]),
+      });
+    } else if (event.value === '3') {
+
+      this.notaryForm = this.formBuilder.group({
+        notary: new FormControl('', [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        englishNameWithInitials: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        sinhalaNameWithInitials: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        tamilNameWithInitials: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        fullNameInTamil: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+        languages: new FormControl(event.value),
+        enrolledDate: new FormControl(new Date(), [Validators.required]),
+        passedDate: new FormControl(new Date(), [Validators.required]),
+        dateOfBirth: new FormControl(new Date(), [Validators.required]),
+        courtZone: new FormControl('', [Validators.required]),
+        permenentAddressInEnglish: new FormControl('', [Validators.required]),
+        permenentAddressInSinhala: new FormControl(''),
+        permenentAddressInTamil: new FormControl('' , [Validators.required]),
+        currentAddressInEnglish: new FormControl('', [Validators.required]),
+        currentAddressInSinhala: new FormControl(''),
+        currentAddressInTamil: new FormControl('' , [Validators.required]),
+        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+        landRegistry: new FormControl('', [Validators.required]),
+        secretariatDivision: new FormControl('', [Validators.required]),
+        gramaNiladhariDivision: new FormControl('', [Validators.required]),
+        medium: new FormControl('', [Validators.required]),
+        userName: new FormControl('', [Validators.required]),
+      });
+    }
   }
 }
