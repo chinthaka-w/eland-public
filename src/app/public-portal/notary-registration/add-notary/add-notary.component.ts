@@ -57,8 +57,6 @@ export class AddNotaryComponent implements OnInit {
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
   public payment: any;
-  public paymentData: any;
-  public paymentValue: FormGroup;
   public paymentDataValue: number;
 
   public notaryForm: FormGroup;
@@ -67,15 +65,10 @@ export class AddNotaryComponent implements OnInit {
   public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
   public notaryDetails: Notary;
-  public gnDivisionDetails: GnDivisionDTO;
-  public newNotaryGnDivision: NewNotaryDsDivisionDTO;
   public previousSelections: any[] = [];
   public isSelected: boolean;
-  public gramaNiladhariDivision: GnDivisionDTO[];
 
   public docList: WorkflowStageDocDto[];
-  fileList = {};
-  fileToUpload: File = null;
   public documentList: DocumentDto[] = [];
 
   public locationDto: any = {};

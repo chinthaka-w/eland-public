@@ -367,25 +367,38 @@
       </label>
     </div>
   </div>
-
   <div class="default-input-wrapper full-row">
-    <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist
-      Republic of Sri Lanka</label>
-    <div class="default-input-feild">
-      <button mat-raised-button class="f-uploader">
-        <i class="material-icons">cloud_upload</i> Upload
-      </button>
-    </div>
+    <ng-container *ngFor="let document of docList">
+      <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+          <label>{{document.description}}
+            <span *ngIf="document.required == true">*</span>
+          </label>
+          <!--              <file-upload-input (response)="setFiles($event)"></file-upload-input>-->
+          <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+        </div>
+      </div>
+    </ng-container>
   </div>
 
-  <div class="default-input-wrapper full-row">
-    <label>Copy of the National Identity Card</label>
-    <div class="default-input-feild">
-      <button mat-raised-button class="f-uploader">
-        <i class="material-icons">cloud_upload</i> Upload
-      </button>
-    </div>
-  </div>
+<!--  <div class="default-input-wrapper full-row">-->
+<!--    <label>True copy of the certificate of admission and enrolled as an Attorney at Law of the Democratic Socialist-->
+<!--      Republic of Sri Lanka</label>-->
+<!--    <div class="default-input-feild">-->
+<!--      <button mat-raised-button class="f-uploader">-->
+<!--        <i class="material-icons">cloud_upload</i> Upload-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="default-input-wrapper full-row">-->
+<!--    <label>Copy of the National Identity Card</label>-->
+<!--    <div class="default-input-feild">-->
+<!--      <button mat-raised-button class="f-uploader">-->
+<!--        <i class="material-icons">cloud_upload</i> Upload-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">

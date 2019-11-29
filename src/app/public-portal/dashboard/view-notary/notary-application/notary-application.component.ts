@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PatternValidation} from "../../../../shared/enum/pattern-validation.enum";
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
@@ -26,6 +26,10 @@ import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payme
 import {NotaryRegistrationHistoryDto} from "../../../../shared/dto/notary-registration-history.dto";
 import {fakeAsync} from "@angular/core/testing";
 import {MatRadioChange} from "@angular/material/radio";
+import {WorkflowStageDocDto} from "../../../../shared/dto/workflow-stage-doc.dto";
+import {DocumentDto} from "../../../../shared/dto/document-list";
+import {Workflow} from "../../../../shared/enum/workflow.enum";
+import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
 
 @Component({
   selector: 'app-notary-application',
@@ -33,6 +37,10 @@ import {MatRadioChange} from "@angular/material/radio";
   styleUrls: ['./notary-application.component.css']
 })
 export class NotaryApplicationComponent implements OnInit {
+
+  @Input()
+  files: File[] = [];
+
   dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
@@ -42,6 +50,8 @@ export class NotaryApplicationComponent implements OnInit {
   notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto[] = [];
   public locationList: NewNotaryDsDivisionDTO[] = [];
   public locationDto: any = {};
+  public docList: WorkflowStageDocDto[];
+  public documentList: DocumentDto[] = [];
 
   public notaryForm: FormGroup;
   result: NewNotaryViewDto;
@@ -70,7 +80,8 @@ export class NotaryApplicationComponent implements OnInit {
               private judicialZoneService: JudicialZoneService,
               private sanitizer: DomSanitizer,
               private tokenStorageService: TokenStorageService,
-              private snackBar: SnackBarService) { }
+              private snackBar: SnackBarService,
+              private documetService: SupportingDocService) { }
 
   ngOnInit() {
     this.notaryViewDetails = this.newNotaryDataVarificationService.ViewNotaryDetails();
@@ -111,10 +122,16 @@ export class NotaryApplicationComponent implements OnInit {
     this.getLandRegistries();
     this.getJudicialZones();
     this.getLatestRemark();
+    this.getDocumentList();
     this.locationList.push(this.locationDto);
     this.locationDto = {};
 
 
+  }
+
+  setFiles(data: any, docTyprId: number) {
+    this.files = data;
+    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
   }
 
     addLocation() {
@@ -192,6 +209,15 @@ export class NotaryApplicationComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  private getDocumentList(): void {
+    this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
+      (data: WorkflowStageDocDto[]) => {
+        this.docList = data;
+        console.log(this.docList)
+      }
+    );
   }
 
   setWorkflowStage(){
