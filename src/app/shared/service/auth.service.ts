@@ -8,8 +8,7 @@ import {SysConfigService} from './sys-config.service';
 })
 export class AuthService {
   public BASE_URL = SysConfigService.BASE_URL;
-  private headers;
-  private headersJson = new HttpHeaders({
+  private headers = new HttpHeaders({
     'Content-Type': 'application/json; charset=utf-8'
   });
 
@@ -17,10 +16,8 @@ export class AuthService {
   }
 
   login({username, password}): Observable<Object> {
-    return this.httpClient.post(this.BASE_URL + 'publicUser/signin',{username, password}, {
-    headers: this.headers
+    return this.httpClient.post(`${this.BASE_URL}publicUser/signin`, {username, password}, {
+      headers: this.headers
+    });
   }
-
-);
-}
 }
