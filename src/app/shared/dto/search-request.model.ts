@@ -22,6 +22,8 @@ export class SearchRequest {
   public workflowStageCode: string;
   public date: string;
   public workflowDescription: string;
+  public userId: number;
+  public userType: string;
   public paymentId: number;
   public folioList: any[];
 }
