@@ -58,6 +58,8 @@ import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -96,6 +98,7 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     RemrkTableComponent,
     SupportingDocDetailComponent,
     DocumentTableComponent,
+    DocumentPreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -124,7 +127,8 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     MatNativeDateModule,
     SatDatepickerModule,
     SatNativeDateModule,
-    ImageViewerModule
+    ImageViewerModule,
+    MatSlideToggleModule
   ],
   exports: [
     LoginComponent,

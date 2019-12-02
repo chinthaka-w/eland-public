@@ -1,3 +1,28 @@
+<!--&lt;!&ndash;<div id="payment" class="page-layout simple fullwidth" fxLayout="column">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="p-24">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div&ndash;&gt;-->
+<!--&lt;!&ndash;      class="mb-24"&ndash;&gt;-->
+<!--&lt;!&ndash;      fxLayout="column"&ndash;&gt;-->
+<!--&lt;!&ndash;      fxLayoutAlign="start"&ndash;&gt;-->
+<!--&lt;!&ndash;      fxLayout.gt-md="row"&ndash;&gt;-->
+<!--&lt;!&ndash;    >&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-7">&ndash;&gt;-->
+<!--&lt;!&ndash;          <app-document-table></app-document-table>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-5">&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-card>&ndash;&gt;-->
+<!--&lt;!&ndash;            <ngx-image-viewer&ndash;&gt;-->
+<!--&lt;!&ndash;              [src]="documentImages"&ndash;&gt;-->
+<!--&lt;!&ndash;            >&ndash;&gt;-->
+<!--&lt;!&ndash;            </ngx-image-viewer>&ndash;&gt;-->
+<!--&lt;!&ndash;          </mat-card>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
 <div id="payment" class="page-layout simple fullwidth" fxLayout="column">
   <div class="p-24">
     <div
@@ -7,19 +32,15 @@
       fxLayout.gt-md="row"
     >
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-7">
           <app-document-table></app-document-table>
         </div>
-        <div class="col-md-5">
-          <mat-card>
-            <ngx-image-viewer
-              [src]="documentImages"
-            >
-            </ngx-image-viewer>
-          </mat-card>
+        <div class="col-5">
+          <app-document-preview></app-document-preview>
         </div>
       </div>
 
     </div>
   </div>
 </div>
+

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
 import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
@@ -18,6 +18,7 @@ import {SnackBarService} from "../../../../shared/service/snack-bar.service";
   styleUrls: ['./notary-payment-info.component.css']
 })
 export class NotaryPaymentInfoComponent implements OnInit {
+  @Output() notaryPayment = new EventEmitter<NewNotaryPaymentDto>();
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
@@ -64,6 +65,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
     const model: NewNotaryPaymentDto = new NewNotaryPaymentDto(requestID,paymentID);
     this.newNotaryService.savePayments(model).subscribe(
       (result) => {
+        this.notaryPayment.emit(model);
         this.snackBar.success("Payment Success");
       }
     )
@@ -76,4 +78,5 @@ export class NotaryPaymentInfoComponent implements OnInit {
     this.savePayments(1,this.paymentDataValue);
     console.log('Payment Data: ',this.paymentComponent.isSubmitted);
   }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NewNotarySupportingDocDetailDto} from "../../../../../shared/dto/new-notary-supporting-doc-detail.dto";
 import {ApplicationRequestDataType} from "../../../../../shared/enum/application-request-data-type.enum";
 import {FormArray, FormGroup} from "@angular/forms";
@@ -8,30 +8,26 @@ import {MatDialog} from "@angular/material/dialog";
 import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTableDataSource} from "@angular/material/table";
+import {DocumentDto} from "../../../../../shared/dto/document-list";
+import {WorkflowStageDocDto} from "../../../../../shared/dto/workflow-stage-doc.dto";
 
 @Component({
   selector: 'app-document-table',
   templateUrl: './document-table.component.html',
-  styleUrls: ['./document-table.component.css'],
-  animations: [
-    trigger("detailExpand", [
-      state("collapsed", style({ height: "0px", minHeight: "0" })),
-      state("expanded", style({ height: "*" })),
-      transition(
-        "expanded <=> collapsed",
-        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
-      )
-    ])
-  ]
+  styleUrls: ['./document-table.component.css']
 })
 export class DocumentTableComponent implements OnInit {
+  @Input()
+  files: File[] = [];
+
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
   item2: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
   selectedRow: number = 1;
-
+  public docList: WorkflowStageDocDto[];
   supportingDocuments: NewNotarySupportingDocDetailDto[] = [];
   supportingDocForm: FormGroup;
   displayedColumns: string[] = ['Document Name', 'Remark'];
+  public documentList: DocumentDto[] = [];
   dataSource = new MatTableDataSource<NewNotarySupportingDocDetailDto>(this.supportingDocuments);
 
   constructor(private route: ActivatedRoute,
@@ -88,4 +84,8 @@ export class DocumentTableComponent implements OnInit {
   }
 
 
+  setFiles(data: any) {
+    this.files = data;
+    this.documentList.push(new DocumentDto(this.files[0], 0));
+  }
 }

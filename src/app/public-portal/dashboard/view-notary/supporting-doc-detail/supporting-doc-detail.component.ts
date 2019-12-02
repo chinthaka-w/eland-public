@@ -7,20 +7,9 @@ import {NewNotaryDataVarificationService} from "../../../../shared/service/new-n
   styleUrls: ['./supporting-doc-detail.component.css']
 })
 export class SupportingDocDetailComponent implements OnInit {
-  documentImages: string[] = [];
-  constructor(private notaryService: NewNotaryDataVarificationService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.getDocumentPreview();
-  }
-
-  getDocumentPreview(): void{
-    this.notaryService.loadDocImages.subscribe(
-      (result:string[])=> {
-        console.log(result);
-        this.documentImages = result;
-      }
-    );
   }
 
 }

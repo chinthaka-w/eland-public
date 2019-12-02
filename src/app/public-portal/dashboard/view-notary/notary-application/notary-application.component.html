@@ -362,19 +362,19 @@
       </mat-radio-group>
     </div>
   </div>
-  <div class="default-input-wrapper full-row">
-    <ng-container *ngFor="let document of docList">
-      <div class="pg-inner-col-3">
-        <div class="default-input-wrapper full-row">
-          <label>{{document.description}}
-            <span *ngIf="document.required == true">*</span>
-          </label>
-          <!--              <file-upload-input (response)="setFiles($event)"></file-upload-input>-->
-          <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
-        </div>
-      </div>
-    </ng-container>
-  </div>
+<!--  <div class="default-input-wrapper full-row">-->
+<!--    <ng-container *ngFor="let document of docList">-->
+<!--      <div class="pg-inner-col-3">-->
+<!--        <div class="default-input-wrapper full-row">-->
+<!--          <label>{{document.description}}-->
+<!--            <span *ngIf="document.required == true">*</span>-->
+<!--          </label>-->
+<!--          &lt;!&ndash;              <file-upload-input (response)="setFiles($event)"></file-upload-input>&ndash;&gt;-->
+<!--          <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </ng-container>-->
+<!--  </div>-->
 
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
@@ -401,4 +401,5 @@
     </div>
   </div>
 </form>
+
 
