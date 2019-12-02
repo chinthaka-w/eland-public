@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PublicProfileEditComponent } from './profile/public-profile-edit/public-profile-edit.component';
+import {Component, OnInit} from '@angular/core';
+import {Workflow} from '../../shared/enum/workflow.enum';
 import { SessionService } from 'src/app/shared/service/session.service';
 import { UserType } from 'src/app/shared/enum/user-type.enum';
 
@@ -14,12 +13,19 @@ export class DashboardComponent implements OnInit {
   user;
   userType = UserType;
 
+  Workflow = Workflow;
+
   constructor(
     private sessionService: SessionService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.user = this.sessionService.getUser();
+  }
+
+  getBase64(value: string): string {
+    return btoa(value);
   }
 
 }

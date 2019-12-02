@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {PublicUserDetail} from '../dto/public-user-detail.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  setUser(user){
-    
+  setUser(user) {
+
     window.sessionStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUser(){
-    var user = JSON.parse(window.sessionStorage.getItem('user'));
-    return user;
+  getUser(): PublicUserDetail {
+    return JSON.parse(window.sessionStorage.getItem('user'));
   }
 }

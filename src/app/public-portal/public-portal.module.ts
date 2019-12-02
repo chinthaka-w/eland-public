@@ -53,7 +53,7 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
 import {ImageViewerModule} from "ngx-image-viewer";
-import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
@@ -85,7 +85,6 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     ResignationComponent,
     ApplicationsComponent,
     RequestViewComponent,
-    ChangeJudicialRequestListComponent,
     RequestViewComponent,
     ViewNotaryComponent,
     NotaryApplicationComponent,
