@@ -315,6 +315,11 @@
 
 <div class="page-content-wrapper" *ngIf="isContinue">
   <div class="page-content-inner-wrapper">
-    <app-payment [citizenModel]="citizenDTO"></app-payment>
+    <app-payment (response)="onPaymentResponse($event)"
+                 (back)="onBack($event)"
+                 [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+                 [hasFrontCounterPayment]="true"
+                 [isDocumentCollect]="true"
+                 [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"></app-payment>
   </div>
 </div>

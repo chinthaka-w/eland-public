@@ -34,4 +34,5 @@ export class CitizenDTO {
   stateInstituteName: string;
   otherInstituteName: string;
   officerDesignation: string;
+  paymentId: number;
 }

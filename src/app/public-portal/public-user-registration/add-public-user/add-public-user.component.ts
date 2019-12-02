@@ -7,6 +7,10 @@ import {CitizenDTO} from "../../../shared/dto/citizen-dto";
 import {BankService} from "../../../shared/service/bank.service";
 import {BankDTO} from "../../../shared/dto/bank-dto";
 import {PublicUserDTO} from "../../../shared/dto/public-user-dto";
+import {Workflow} from "../../../shared/enum/workflow.enum";
+import {Parameters} from '../../../shared/enum/parameters.enum';
+import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
+import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 
 @Component({
   selector: "app-add-public-user",
@@ -14,6 +18,10 @@ import {PublicUserDTO} from "../../../shared/dto/public-user-dto";
   styleUrls: ["./add-public-user.component.css"]
 })
 export class AddPublicUserComponent implements OnInit {
+  SearchRequestType = SearchRequestType;
+  Parameters = Parameters;
+  WorkflowCode = Workflow;
+
   public publicUserForm: FormGroup;
   public PublicUserType = PublicUserType;
   fileList = {};
@@ -130,17 +138,19 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.stateInstituteName = this.publicUserForm.controls.stateInstitutionName.value;
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
-    // this.isContinue = true;
 
-
-    this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
-      .subscribe((result) => {
-        if (result) {
-          this.isContinue = true;
-        }else{
-          alert('Failed');
-        }
-      });
+    if(this.citizenDTO.paymentId == null) {
+      this.isContinue = true;
+    }else{
+      this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
+        .subscribe((result) => {
+          if (result) {
+            console.log(result);
+          }else{
+            alert('Failed');
+          }
+        });
+    }
   }
 
   onSearchChange(searchValue: string): void {
@@ -153,5 +163,14 @@ export class AddPublicUserComponent implements OnInit {
           this.publicUserExist = false;
         }
     });
+  }
+
+  onBack(data: boolean) {
+    this.isContinue = !data;
+  }
+  onPaymentResponse(data: PaymentResponse) {
+    this.isContinue = false;
+    console.log(data);
+    this.citizenDTO.paymentId = data.paymentId;
   }
 }
