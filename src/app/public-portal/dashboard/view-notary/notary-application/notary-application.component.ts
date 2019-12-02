@@ -47,7 +47,7 @@ export class NotaryApplicationComponent implements OnInit {
   public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
-  notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto[] = [];
+  notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto;
   public locationList: NewNotaryDsDivisionDTO[] = [];
   public locationDto: any = {};
   public docList: WorkflowStageDocDto[];
@@ -69,6 +69,7 @@ export class NotaryApplicationComponent implements OnInit {
   public type: string;
   public data: any;
   public hasRemarks: boolean = false;
+  public notaryType: string;
 
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
@@ -179,13 +180,14 @@ export class NotaryApplicationComponent implements OnInit {
             contactNo: this.result.contactNo,
             landRegistry: this.result.landRegistry,
             userName: this.result.lastUpdatedUser,
+            medium: this.result.subjectMedium,
           }
         );
         this.notaryTitle = this.result.nametitle.english;
-        this.subjectPassedLan = this.result.subjectMedium;
         this.dsGnDivisions = this.result.newNotaryDsDivisionDTO;
         this.newNotaryId = this.result.newNotaryId;
         this.newNotaryRegistrationRequestId = this.result.newNotaryRegistrationRequestId;
+        this.notaryType = this.result.notaryType;
         this.setWorkflowStage();
       },
       error1 => {
@@ -298,9 +300,10 @@ export class NotaryApplicationComponent implements OnInit {
   getLatestRemark() {
     let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
     this.newNotaryDataVarificationService.getLatestReamrk(searchType).subscribe(
-      (result: NotaryRegistrationHistoryDto[]) => {
+      (result: NotaryRegistrationHistoryDto) => {
         if(result != null){
           this.notaryRequestHistoryByRemark = result;
+          console.log(this.notaryRequestHistoryByRemark.createdUser);
           this.hasRemarks = true;
         }else{
           this.hasRemarks = false;

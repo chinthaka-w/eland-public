@@ -8,15 +8,15 @@
         </dl>
         <dl>
           <dt>Remark:</dt>
-          <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit egestas leo pellentesque arcu congue. Bibendum sit nunc sed lectus odio tellus. Amet egestas orci pharetra eget. Feugiat congue pulvinar luctus faucibus gravida odio nulla ultricies. Morbi viverra aliquam id at nunc. Vel urna turpis non risus.</dd>
+          <dd>{{this.notaryRequestHistoryByRemark.remark}}</dd>
         </dl>
         <dl>
           <dt>Remarks by:</dt>
-          <dd>Name</dd>
+          <dd>{{this.notaryRequestHistoryByRemark.createdUser}}</dd>
         </dl>
         <dl>
           <dt>Remarks date:</dt>
-          <dd>07/11/2019 12:00PM</dd>
+          <dd>{{this.notaryRequestHistoryByRemark.createdTime}}</dd>
         </dl>
       </div>
     </div>
@@ -355,16 +355,11 @@
   <div class="default-input-wrapper full-row mb-30">
     <label>The medium you have passed the subject of convayancing:</label>
     <div class="form-check">
-      <input class="form-check-input"
-             type="radio"
-             id="medium"
-             value="1"
-             [checked]="true"
-             formControlName="medium">
-      <label class="form-check-label"
-             for="medium">
-        {{subjectPassedLan}}
-      </label>
+      <mat-radio-group  class="form-control" formControlName="medium" >
+        <mat-radio-button  value="1">Sinhala</mat-radio-button>
+        <mat-radio-button  value="2">English</mat-radio-button>
+        <mat-radio-button  value="3">Tamil</mat-radio-button>
+      </mat-radio-group>
     </div>
   </div>
   <div class="default-input-wrapper full-row">
