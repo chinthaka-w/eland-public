@@ -85,7 +85,6 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     ResignationComponent,
     ApplicationsComponent,
     RequestViewComponent,
-    ChangeJudicialRequestListComponent,
     RequestViewComponent,
     ViewNotaryComponent,
     NotaryApplicationComponent,

@@ -10,6 +10,7 @@ import {Workflow} from '../../enum/workflow.enum';
 import {SearchRequestService} from '../../service/search-request.service';
 import {SearchRequest} from '../../dto/search-request.model';
 import {map} from 'rxjs/operators';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -28,7 +29,6 @@ export class ChangeJudicialRequestListComponent implements OnInit {
 
   Workflow = Workflow;
 
-  public loginNotaryID: number;
   public flag: any;
   public titleText: string;
   public headerText: string;
@@ -39,6 +39,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
               private searchRequestService: SearchRequestService,
               private snackBar: SnackBarService,
               private activatedRoute: ActivatedRoute,
+              private sessionService: SessionService,
               private tokenStorageService: TokenStorageService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params['flag']); // (+) converts string 'id' to a number
@@ -46,7 +47,6 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginNotaryID = 1;
     this.loadData();
   }
 
@@ -79,7 +79,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
 
   loadJudicialChangeRequests() {
     this.requests = [];
-    this.judicialService.getJudicialChangeRequest(this.loginNotaryID).subscribe(
+    this.judicialService.getJudicialChangeRequest(this.sessionService.getUser().id).subscribe(
       (data: JudicialChange[]) => {
         this.requests = data;
         this.dataSource = new MatTableDataSource(this.requests);
@@ -94,7 +94,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
 
   loadSearchRequests() {
     this.requests = [];
-    this.judicialService.getJudicialChangeRequest(this.loginNotaryID).subscribe(
+    this.searchRequestService.findAllByPublicUser(this.sessionService.getUser().id, this.sessionService.getUser().type).subscribe(
       (data: SearchRequest[]) => {
         this.requests = data;
         this.dataSource = new MatTableDataSource(this.requests);

@@ -16,6 +16,9 @@ export class SearchRequestService {
   public constructor(private httpClient: HttpClient) {
   }
 
+  findAllByPublicUser(userId: number, userType: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + '/publicUser/' + userId + '/' + userType, {headers: this.headersJson});
+  }
 
   saveSearchRequest(searchRequest: SearchRequest): Observable<Object> {
     return this.httpClient.post(this.BASE_URL + '/save', searchRequest, {headers: this.headersJson});

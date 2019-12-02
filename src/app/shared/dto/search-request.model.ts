@@ -2,6 +2,7 @@ export class SearchRequest {
   public searchRequestId: number;
   public landRegistryId: number;
   public requestType: number;
+  public requestTypeDes: string;
   public attestedByNotaryName: string;
   public practicedLocation: string;
   public numberOfTheDeed: number;
