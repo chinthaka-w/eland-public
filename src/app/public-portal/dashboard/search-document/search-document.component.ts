@@ -28,6 +28,7 @@ import {SearchRequest} from '../../../shared/dto/search-request.model';
 import {PaymentStatus} from '../../../shared/enum/payment-status.enum';
 import {SearchRequestService} from '../../../shared/service/search-request.service';
 import {WorkflowStages} from '../../../shared/enum/workflow-stages.enum';
+import {SessionService} from '../../../shared/service/session.service';
 
 
 @Component({
@@ -71,6 +72,7 @@ export class SearchDocumentComponent implements OnInit {
     private searchReasonService: SearchReasonService,
     private folioNoService: FolioNoService,
     private searchRequestService: SearchRequestService,
+    private sessionService: SessionService,
     private snackBarService: SnackBarService,
     private location: Location) {
   }
@@ -298,6 +300,8 @@ export class SearchDocumentComponent implements OnInit {
       this.searchRequest = this.searchRequestForm.value;
       this.searchRequest.folioList = this.elements;
       this.searchRequest.workflowStageCode = WorkflowStages.SEARCH_REQ_INITIALIZED;
+      this.searchRequest.userId = this.sessionService.getUser().id;
+      this.searchRequest.userType = this.sessionService.getUser().type;
       this.isContinueToPayment = !this.isContinueToPayment;
     } else {
       this.snackBarService.error(errorMassage);

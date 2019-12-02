@@ -41,7 +41,9 @@
       <!-- Position Column -->
       <ng-container matColumnDef="requestId">
         <th mat-header-cell mat-form-field *matHeaderCellDef> Request ID</th>
-        <td mat-cell *matCellDef="let element"> {{element.notaryRequestID}}</td>
+        <td mat-cell *matCellDef="let element">
+          {{element.notaryRequestID?element.notaryRequestID:element.searchRequestId}}
+        </td>
       </ng-container>
 
       <!-- Name Column -->
