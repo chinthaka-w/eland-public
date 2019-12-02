@@ -43,9 +43,21 @@ import { ResignationComponent } from './dashboard/resignation/resignation.compon
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 import { RequestViewComponent } from './dashboard/requests/request-view/request-view.component';
 import {SharedModule} from "../shared/shared.module";
+import { ViewNotaryComponent } from './dashboard/view-notary/view-notary.component';
+import { NotaryApplicationComponent } from './dashboard/view-notary/notary-application/notary-application.component';
+import { NotaryPaymentInfoComponent } from './dashboard/view-notary/notary-payment-info/notary-payment-info.component';
+import { NotaryRemarkComponent } from './dashboard/view-notary/notary-remark/notary-remark.component';
+import { DsGnDivisionTableComponent } from './dashboard/view-notary/notary-application/ds-gn-division-table/ds-gn-division-table.component';
+import { PaymentTableComponent } from './dashboard/view-notary/notary-payment-info/payment-table/payment-table.component';
+import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk-table/remrk-table.component';
+import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
+import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
+import {ImageViewerModule} from "ngx-image-viewer";
+import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
-
+import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
 
 @NgModule({
@@ -72,7 +84,18 @@ import {MatProgressSpinnerModule} from '@angular/material';
     LeaveRequestComponent,
     ResignationComponent,
     ApplicationsComponent,
-    RequestViewComponent
+    RequestViewComponent,
+    ChangeJudicialRequestListComponent,
+    RequestViewComponent,
+    ViewNotaryComponent,
+    NotaryApplicationComponent,
+    NotaryPaymentInfoComponent,
+    NotaryRemarkComponent,
+    DsGnDivisionTableComponent,
+    PaymentTableComponent,
+    RemrkTableComponent,
+    SupportingDocDetailComponent,
+    DocumentTableComponent,
   ],
   imports: [
     CommonModule,
@@ -97,6 +120,11 @@ import {MatProgressSpinnerModule} from '@angular/material';
     RecaptchaModule,
     RecaptchaFormsModule,
     SharedModule,
+    MatPaginatorModule,
+    MatNativeDateModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
+    ImageViewerModule
   ],
   exports: [
     LoginComponent,
@@ -111,7 +139,11 @@ import {MatProgressSpinnerModule} from '@angular/material';
     MatFileUploadModule,
     MatTabsModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
+    MatTableModule,
+
   ],
   entryComponents:[
     RequestViewComponent,

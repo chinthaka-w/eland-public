@@ -14,9 +14,15 @@ export class NotaryService {
   public constructor(private httpClient: HttpClient) {}
 
   // tslint:disable-next-line:ban-types
-  saveNotaryDetails(notaries: Notary): Observable<Object> {
+  saveNotaryDetails(formData: FormData): Observable<any> {
+    console.log(formData);
+    return this.httpClient.post(this.BASE_URL + '/' , formData);
+  }
+
+  /** Update Registered Notary Details */
+  updateNotaryDetails(notaries: Notary): Observable<Object> {
     console.log(notaries);
-    return this.httpClient.post(this.BASE_URL + '/' , notaries, {responseType: 'text', headers: this.headersJson});
+    return this.httpClient.post(this.BASE_URL + '/update' , notaries);
   }
 
   // tslint:disable-next-line:ban-types

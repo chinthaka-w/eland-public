@@ -1,0 +1,25 @@
+<div id="payment" class="page-layout simple fullwidth" fxLayout="column">
+  <div class="p-24">
+    <div
+      class="mb-24"
+      fxLayout="column"
+      fxLayoutAlign="start"
+      fxLayout.gt-md="row"
+    >
+      <div class="row">
+        <div class="col-md-7">
+          <app-document-table></app-document-table>
+        </div>
+        <div class="col-md-5">
+          <mat-card style="width: 50%; height: 50%">
+            <ngx-image-viewer
+              [src]="documentImages"
+            >
+            </ngx-image-viewer>
+          </mat-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

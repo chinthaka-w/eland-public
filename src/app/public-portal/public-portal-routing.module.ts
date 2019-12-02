@@ -15,6 +15,9 @@ import { LanguageChangeComponent } from './dashboard/language-change/language-ch
 import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.component';
 import { ResignationComponent } from './dashboard/resignation/resignation.component';
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
+import {ViewNotaryComponent} from "./dashboard/view-notary/view-notary.component";
+import {PaymentComponent} from "../shared/components/payment/payment.component";
+import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
 
 
 const routes: Routes = [
@@ -77,6 +80,19 @@ const routes: Routes = [
   {
     path: 'applications',
     component: ApplicationsComponent
+  },
+  {
+    path: 'view-notary',
+    component: ViewNotaryComponent
+  },
+  {
+    path: 'notary-payment',
+    component: PaymentComponent
+  }
+  ,
+  {
+    path: 'change-judicial-request-list',
+    component: ChangeJudicialRequestListComponent
   }
 ];
 

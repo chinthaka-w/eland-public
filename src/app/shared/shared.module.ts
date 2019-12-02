@@ -24,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
 import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { OnlineMethodComponent } from './components/payment/online-method/online
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    MatIconModule,
+    ImageViewerModule
   ],
   exports: [
     ContentComponent,
@@ -59,7 +63,6 @@ import { OnlineMethodComponent } from './components/payment/online-method/online
     HeaderComponent,
     FooterComponent,
     VerificationComponent,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatCheckboxModule,
@@ -69,6 +72,7 @@ import { OnlineMethodComponent } from './components/payment/online-method/online
     MatDatepickerModule,
     MatFileUploadModule,
     MatTabsModule,
+    MatCardModule,
     PaymentComponent,
     PaymentMethodComponent,
     FileUploadInputComponent
