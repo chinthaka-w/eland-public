@@ -29,6 +29,11 @@ import {BankBranchService} from './shared/service/bank-branch.service';
 import {PaymentService} from "./shared/service/payment.service";
 import {ParameterService} from "./shared/service/parameter.service";
 import {TokenStorageService} from "./shared/auth/token-storage.service";
+import {NewNotaryDataVarificationService} from "./shared/service/new-notary-data-varification.service";
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
+import {MatTableModule} from "@angular/material/table";
+import {SupportingDocService} from "./shared/service/supporting-doc.service";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -43,6 +48,8 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
     MatRippleModule,
     MatNativeDateModule,
     MatIconModule,
+    MatCardModule,
+    MatTableModule,
     ReactiveFormsModule,
     HttpClientModule,
 
@@ -51,6 +58,9 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
     PublicPortalModule,
     HttpModule,
     HttpClientModule,
+    ImageViewerModule
+
+
   ],
   providers: [MatDatepickerModule,
     HttpClient,
@@ -63,7 +73,9 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
     BankBranchService,
     PaymentService,
     ParameterService,
-    TokenStorageService],
+    TokenStorageService,
+    SupportingDocService,
+    NewNotaryDataVarificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

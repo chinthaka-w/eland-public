@@ -30,9 +30,12 @@ export class PaymentMethodComponent implements OnInit {
 
   public paymentMethodForm: FormGroup;
 
+  public isSubmitted: boolean;
   public banks: Bank[] = [];
   public branches: BankBranch[] = [];
   public files: File[] = [];
+
+  paymentId: number;
 
   public paymentResponse = new PaymentResponse;
 
@@ -65,29 +68,30 @@ export class PaymentMethodComponent implements OnInit {
       errorMassage = 'Please fill application form, before submit.';
     }
 
-    if (isValid) {
-      this.paymentDTO.bankId = this.paymentMethodForm.get('bank').value;
-      this.paymentDTO.bankBranchId = this.paymentMethodForm.get('branch').value;
-      this.paymentDTO.paymentDate = this.paymentMethodForm.get('date').value;
-      this.paymentDTO.referenceNo = this.paymentMethodForm.get('referenceNo').value;
-      this.paymentDTO.status = CommonStatus.ACTIVE;
+    if (isValid) {this.paymentDTO.bankId = this.paymentMethodForm.get('bank').value;
+    console.log(this.paymentMethodForm.get('bank').value);this.paymentDTO.bankBranchId = this.paymentMethodForm.get('branch').value;
+    console.log(this.paymentMethodForm.get('branch').value);
+    this.paymentDTO.paymentDate = this.paymentMethodForm.get('date').value;
+    this.paymentDTO.referenceNo = this.paymentMethodForm.get('referenceNo').value;
+    this.paymentDTO.status = CommonStatus.ACTIVE;
 
-      let formData = new FormData();
-      formData.append('model', JSON.stringify(this.paymentDTO));
-      formData.append('file', this.files[0]);
-      this.paymentService.savePayment(formData).subscribe(
-        (res: PaymentDto) => {
-          this.paymentResponse.paymentId = res.paymentId
-          this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_SUCCESS;
-        }, (error: HttpErrorResponse) => {
-          console.log(error);
-          this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_FAILED;
-          this.response.emit(this.paymentResponse);
-        }, () => {
-          this.response.emit(this.paymentResponse);
-        }
-      );
-    } else {
+    let formData = new FormData();
+    formData.append('model',JSON.stringify(this.paymentDTO));
+    formData.append('file',this.files[0]);
+    this.paymentService.savePayment(formData).subscribe(
+      (res: PaymentDto) => {
+        this.paymentResponse.paymentId = res.paymentId;
+        this.isSubmitted = true;
+        this.paymentId = res.paymentId;this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_SUCCESS;
+      }, (error: HttpErrorResponse) => {
+        console.log(error);
+        this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_FAILED;
+        this.response.emit(this.paymentResponse);
+      }, () => {
+        this.response.emit(this.paymentResponse);
+      }
+    );
+} else {
       this.snackBar.error(errorMassage);
     }
   }

@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Workflow} from '../../shared/enum/workflow.enum';
+import { SessionService } from 'src/app/shared/service/session.service';
+import { UserType } from 'src/app/shared/enum/user-type.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,15 +10,18 @@ import {Workflow} from '../../shared/enum/workflow.enum';
 })
 export class DashboardComponent implements OnInit {
 
-  // userType = 'notary';
-  userType = 'public';
+  user;
+  userType = UserType;
 
   Workflow = Workflow;
 
-  constructor() {
+  constructor(
+    private sessionService: SessionService
+  ) {
   }
 
   ngOnInit() {
+    this.user = this.sessionService.getUser();
   }
 
   getBase64(value: string): string {

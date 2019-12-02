@@ -1,4 +1,4 @@
-import {NameTitleDTO} from './name-title-dto';
+import {NameTitleDTO} from './name-title.dto';
 
 
 export class NewNotaryNameDTO {

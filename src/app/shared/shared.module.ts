@@ -30,6 +30,8 @@ import {MatPaginatorModule} from '@angular/material';
 import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     SatNativeDateModule,
     RecaptchaModule,
     RecaptchaFormsModule,
+    MatIconModule,
+    ImageViewerModule
   ],
   exports: [
     ContentComponent,
@@ -85,6 +89,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDatepickerModule,
     MatFileUploadModule,
     MatTabsModule,
+    MatCardModule,
     PaymentComponent,
     PaymentMethodComponent,
     FileUploadInputComponent

@@ -151,7 +151,7 @@ export class PaymentComponent implements OnInit {
 
     this.paymentService.savePayment2(this.paymentDTO).subscribe(
       (res: PaymentDto) => {
-        this.paymentResponse.paymentId = res.paymentId
+        this.paymentResponse.paymentId = res.paymentId;
         this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_TO_FRONT_COUNTER;
       }, (error: HttpErrorResponse) => {
         console.log(error);
