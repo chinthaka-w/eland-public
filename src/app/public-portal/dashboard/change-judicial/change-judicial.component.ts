@@ -12,7 +12,6 @@ import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {DsGnDivisionDTO} from '../../../shared/dto/gs-gn-model';
 import {PaymentResponse} from '../../../shared/dto/payment-response.model';
 import {Parameters} from '../../../shared/enum/parameters.enum';
-import {Workflow} from '../../../shared/enum/workflow.enum';
 import {DocumentDto} from '../../../shared/dto/document-list';
 import {JudicialChangeWorkflowStagesEnum} from '../../../shared/enum/judicial-change-workflow-stages.enum';
 import {GnDivisionDTO} from "../../../shared/dto/gn-division.dto";
@@ -45,7 +44,7 @@ export class ChangeJudicialComponent implements OnInit {
   public dsGnList: DsGnDivisionDTO[] = [];
   public isContinueToPayment: boolean = false;
   Parameters = Parameters;
-  WorkflowCode = Workflow;
+  WorkflowCode = JudicialChangeWorkflowStagesEnum;
   public paymentId: number;
   public isPaymentSuccess: boolean;
   public files: File[] = [];
