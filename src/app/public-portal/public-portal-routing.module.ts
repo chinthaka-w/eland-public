@@ -18,6 +18,7 @@ import { ApplicationsComponent } from './dashboard/applications/applications.com
 import {ViewNotaryComponent} from "./dashboard/view-notary/view-notary.component";
 import {PaymentComponent} from "../shared/components/payment/payment.component";
 import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
 
 
 const routes: Routes = [
@@ -84,6 +85,10 @@ const routes: Routes = [
   {
     path: 'view-notary',
     component: ViewNotaryComponent
+  },
+  {
+    path: 'view-citizen',
+    component: ViewCitizenComponent
   },
   {
     path: 'notary-payment',

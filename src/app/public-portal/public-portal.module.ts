@@ -58,6 +58,11 @@ import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { ViewCitizenComponent } from './dashboard/view-citizen/view-citizen.component';
+import { CitizenApplicationComponent } from './dashboard/view-citizen/citizen-application/citizen-application.component';
+import { CitizenPaymentInfoComponent } from './dashboard/view-citizen/citizen-payment-info/citizen-payment-info.component';
+import { CitizenRemarkComponent } from './dashboard/view-citizen/citizen-remark/citizen-remark.component';
+import { CitizenSupportingDocDetailsComponent } from './dashboard/view-citizen/citizen-supporting-doc-details/citizen-supporting-doc-details.component';
 
 
 @NgModule({
@@ -96,6 +101,11 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     RemrkTableComponent,
     SupportingDocDetailComponent,
     DocumentTableComponent,
+    ViewCitizenComponent,
+    CitizenApplicationComponent,
+    CitizenPaymentInfoComponent,
+    CitizenRemarkComponent,
+    CitizenSupportingDocDetailsComponent,
   ],
   imports: [
     CommonModule,

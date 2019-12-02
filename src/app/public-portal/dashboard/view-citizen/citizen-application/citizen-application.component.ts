@@ -1,25 +1,25 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
-import {CitizenService} from "../../../shared/service/citizen.service";
-import {LandRegistriesDTO} from "../../../shared/dto/land-registries-dto";
-import {CitizenDTO} from "../../../shared/dto/citizen-dto";
-import {BankService} from "../../../shared/service/bank.service";
-import {BankDTO} from "../../../shared/dto/bank-dto";
-import {PublicUserDTO} from "../../../shared/dto/public-user-dto";
-import {Workflow} from "../../../shared/enum/workflow.enum";
-import {Parameters} from '../../../shared/enum/parameters.enum';
-import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
-import {WorkflowStageCitizenReg} from "../../../shared/enum/workflow-stage-citizen-reg.enum";
-import {PaymentResponse} from "../../../shared/dto/payment-response.model";
-import {SnackBarService} from "../../../shared/service/snack-bar.service";
+import { Component, OnInit } from '@angular/core';
+import {Workflow} from "../../../../shared/enum/workflow.enum";
+import {WorkflowStageCitizenReg} from "../../../../shared/enum/workflow-stage-citizen-reg.enum";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {LandRegistriesDTO} from "../../../../shared/dto/land-registries-dto";
+import {CitizenDTO} from "../../../../shared/dto/citizen-dto";
+import {BankDTO} from "../../../../shared/dto/bank-dto";
+import {PublicUserDTO} from "../../../../shared/dto/public-user-dto";
+import {CitizenService} from "../../../../shared/service/citizen.service";
+import {BankService} from "../../../../shared/service/bank.service";
+import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
+import { PublicUserType } from '../../../../shared/enum/public-user-type.enum';
+import {Parameters} from '../../../../shared/enum/parameters.enum';
+import {SearchRequestType} from '../../../../shared/enum/search-request-type.enum';
 
 @Component({
-  selector: "app-add-public-user",
-  templateUrl: "./add-public-user.component.html",
-  styleUrls: ["./add-public-user.component.css"]
+  selector: 'app-citizen-application',
+  templateUrl: './citizen-application.component.html',
+  styleUrls: ['./citizen-application.component.css']
 })
-export class AddPublicUserComponent implements OnInit {
+export class CitizenApplicationComponent implements OnInit {
+
   public SearchRequestType = SearchRequestType;
   public Parameters = Parameters;
   public WorkflowCode = Workflow;
@@ -54,9 +54,7 @@ export class AddPublicUserComponent implements OnInit {
     return this.publicUserForm.get('type');
   }
 
-  constructor(private citizenService: CitizenService,
-              private bankService: BankService,
-              private snackBar: SnackBarService) {}
+  constructor(private citizenService: CitizenService, private bankService: BankService) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
@@ -166,10 +164,9 @@ export class AddPublicUserComponent implements OnInit {
       this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
         .subscribe((result) => {
           if (result) {
-            this.snackBar.success('Citizen saved successfully');
             console.log(result);
           }else{
-            this.snackBar.error('Operation failed');
+            alert('Failed');
           }
         });
     }
@@ -179,48 +176,12 @@ export class AddPublicUserComponent implements OnInit {
     // console.log(searchValue);
     this.publicUserDTO.username = searchValue;
     this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
-        if (result == true) {
-          this.publicUserExist = true;
-        }else {
-          this.publicUserExist = false;
-        }
+      if (result == true) {
+        this.publicUserExist = true;
+      }else {
+        this.publicUserExist = false;
+      }
     });
   }
 
-  onBack(data: boolean) {
-    this.isContinue = !data;
-  }
-  onPaymentResponse(data: PaymentResponse) {
-    this.isContinue = false;
-    console.log(data);
-    this.citizenDTO.paymentId = data.paymentId;
-  }
-
-  getApplicationDetails(citizenId: number) {
-    this.citizenService.getApplicationDetails(citizenId)
-      .subscribe((result) => {
-        if(result) {
-          this.citizenDTO = result;
-          this.publicUserForm.patchValue({
-            nameEnglish: this.citizenDTO.nameEng,
-            nameSinhala: this.citizenDTO.nameSin,
-            nameTamil: this.citizenDTO.nameTam,
-            address1: this.citizenDTO.addressEng,
-            address2: this.citizenDTO.addressSin,
-            address3: this.citizenDTO.addressTam,
-            email: this.citizenDTO.email,
-            primaryContact: this.citizenDTO.residentialTelephone,
-            secondaryContact: this.citizenDTO.mobileNo,
-            reason: this.citizenDTO.reason,
-            identificationNo: this.citizenDTO.identificationNo,
-            dateOfBirth: this.citizenDTO.dateOfBirth,
-            userName: this.citizenDTO.username,
-            lawFirmName: this.citizenDTO.lawFirmName,
-            stateInstitutionName: this.citizenDTO.stateInstituteName,
-            officersDesignation: this.citizenDTO.officerDesignation,
-            otherInstitutionName: this.citizenDTO.otherInstituteName
-          });
-        }
-      });
-  }
 }
