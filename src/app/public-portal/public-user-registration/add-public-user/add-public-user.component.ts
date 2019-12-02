@@ -123,19 +123,19 @@ export class AddPublicUserComponent implements OnInit {
   getCurrentUserType(event) {
     this.citizenDTO.userType = event.target.value;
 
-    if(this.citizenDTO.userType = PublicUserType.CITIZEN) {
+    if(this.citizenDTO.userType == PublicUserType.CITIZEN) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_CITIZEN;
     }
-    else if(this.citizenDTO.userType = PublicUserType.BANK) {
+    else if(this.citizenDTO.userType == PublicUserType.BANK) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_BANK;
     }
-    else if(this.citizenDTO.userType = PublicUserType.LAWYER) {
+    else if(this.citizenDTO.userType == PublicUserType.LAWYER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_LAWYER_OR_LAW_FIRM;
     }
-    else if(this.citizenDTO.userType = PublicUserType.STATE) {
+    else if(this.citizenDTO.userType == PublicUserType.STATE) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_STATE_INSTITUTE;
     }
-    else if(this.citizenDTO.userType = PublicUserType.OTHER) {
+    else if(this.citizenDTO.userType == PublicUserType.OTHER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_OTHER_INSTITUTE;
     }
   }
