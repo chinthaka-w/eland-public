@@ -1,7 +1,7 @@
 <div class="wf-img-container" *ngIf="!isContinueToPayment">
   <div class="wf-img-wrapper" style="background-image: url('../../../../assets/images/temp_img_005.jpg')">&nbsp;</div>
   <div class="wf-content-wrapper">
-    <a href="" class="phd-back-btn"><i class="material-icons">keyboard_backspace</i></a>
+    <a href="#" (click)="goBack()" class="phd-back-btn"><i class="material-icons">keyboard_backspace</i></a>
     <h4>Search</h4>
     <form class="wf-form-wp" [formGroup]="searchRequestForm">
 
@@ -30,6 +30,7 @@
                 <select matNativeControl
                         required
                         class="form-control"
+                        (change)="onChangeRequestType()"
                         formControlName="requestType">
                   <option [value]="SearchRequestType.FOLIO_DOCUMENT">Folio Document</option>
                   <option [value]="SearchRequestType.DEED_DOCUMENT">Deed Document</option>
@@ -193,7 +194,7 @@
                         required
                         class="form-control"
                         (change)="onChangeKorale($event.target.value)"
-                        formControlName="korale">
+                        formControlName="koraleId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of korales" [value]="item.koraleId">{{item.descriptionEng}}</option>
                 </select>
@@ -209,7 +210,7 @@
                 <select matNativeControl
                         required
                         class="form-control"
-                        formControlName="paththu">
+                        formControlName="paththuId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of paththuwas" [value]="item.paththuwaId">{{item.descriptionEng}}</option>
                 </select>
@@ -228,7 +229,7 @@
                         required
                         class="form-control"
                         (change)="onChangeDsDivision($event.target.value)"
-                        formControlName="dsDivision">
+                        formControlName="dsDivisionId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description}}</option>
                 </select>
@@ -245,7 +246,7 @@
                         required
                         class="form-control"
                         (change)="onChangeGnDivision($event.target.value)"
-                        formControlName="gnDivision">
+                        formControlName="gnDivisionId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description}}</option>
                 </select>
@@ -265,7 +266,7 @@
                 <select matNativeControl
                         required
                         class="form-control"
-                        formControlName="village">
+                        formControlName="villageId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of villages" [value]="item.villageId">{{item.description}}</option>
                 </select>
@@ -283,7 +284,7 @@
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl required
-                        class="form-control" formControlName="reasonForSearch">
+                        class="form-control" formControlName="searchReasonId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of searchReasons" [value]="item.searchReasonId">{{item.descriptionEng}}
                   </option>
@@ -396,6 +397,4 @@
 <app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
              (back)="onBack($event)"
              [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
-             [hasFrontCounterPayment]="true"
-             [isDocumentCollect]="true"
-             [workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>
+             [hasFrontCounterPayment]="true"></app-payment>

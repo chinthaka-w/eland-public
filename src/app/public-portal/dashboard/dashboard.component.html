@@ -41,99 +41,99 @@
                 </div>
             </div> -->
 
-            <div class="db-main-wp">
-                <div class="db-link-tile c1" *ngIf="userType == 'notary'">
-                    <a  [routerLink]="['/change-judicial-request-list']">
+      <div class="db-main-wp">
+        <div class="db-link-tile c1" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/requests/'+getBase64(Workflow.JUDICIAL_ZONE_CHANGE)]">
                         <span class="icon">
                             <i class="material-icons">room</i>
                         </span>
-                        <span class="title">Change Judicial Zone</span>
-                    </a>
-                </div>
-                <div class="db-link-tile c2" *ngIf="userType == 'notary'">
-                    <a [routerLink]="['/change-the-name']">
+            <span class="title">Change Judicial Zone</span>
+          </a>
+        </div>
+        <div class="db-link-tile c2" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/change-the-name']">
                         <span class="icon">
                             <i class="material-icons">cached</i>
                         </span>
-                        <span class="title">Change The Name</span>
-                    </a>
-                </div>
-                <div class="db-link-tile c3" *ngIf="userType == 'notary'">
-                    <a [routerLink]="['/resignation']">
+            <span class="title">Change The Name</span>
+          </a>
+        </div>
+        <div class="db-link-tile c3" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/resignation']">
                         <span class="icon">
                             <i class="material-icons">label</i>
                         </span>
-                        <span class="title">Resignation</span>
-                    </a>
-                </div>
-                <div class="db-link-tile c4" *ngIf="userType == 'notary'">
-                    <a [routerLink]="['/language-change']">
+            <span class="title">Resignation</span>
+          </a>
+        </div>
+        <div class="db-link-tile c4" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/language-change']">
                         <span class="icon">
                             <i class="material-icons">speaker_notes</i>
                         </span>
-                        <span class="title">Language Change</span>
-                    </a>
-                </div>
-                <div class="db-link-tile c5" *ngIf="userType == 'notary'">
-                    <a [routerLink]="['/leave-request']">
+            <span class="title">Language Change</span>
+          </a>
+        </div>
+        <div class="db-link-tile c5" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/leave-request']">
                         <span class="icon">
                             <i class="material-icons">date_range</i>
                         </span>
-                        <span class="title">Request for leave</span>
-                    </a>
-                </div>
-                <div class="db-link-tile" *ngIf="userType == 'notary'">
-                    <a [routerLink]="['/applications']">
+            <span class="title">Request for leave</span>
+          </a>
+        </div>
+        <div class="db-link-tile" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/applications']">
                         <span class="icon">
                             <i class="material-icons">insert_drive_file</i>
                         </span>
-                        <span class="title">Applications</span>
-                    </a>
-                </div>
+            <span class="title">Applications</span>
+          </a>
+        </div>
 
-                <!---->
-                <div class="db-link-tile c1" *ngIf="userType == 'public'">
-                    <a [routerLink]="['/search-document']">
+        <!---->
+        <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN">
+          <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
                         <span class="icon">
                             <i class="material-icons">search</i>
                         </span>
-                        <span class="title">Search</span>
-                    </a>
-                </div>
-                <div class="db-link-tile c4" *ngIf="userType == 'public'">
-                    <a [routerLink]="['/extract']">
+            <span class="title">Search</span>
+          </a>
+        </div>
+        <div class="db-link-tile c4" *ngIf="user.type == userType.CITIZEN">
+          <a [routerLink]="['/extract']">
                         <span class="icon">
                             <i class="material-icons">dns</i>
                         </span>
-                        <span class="title">Extract</span>
-                    </a>
-                </div>
-                <div class="db-link-tile c3" *ngIf="userType == 'public'">
-                    <a [routerLink]="['/requests']">
+            <span class="title">Extract</span>
+          </a>
+        </div>
+        <div class="db-link-tile c3" *ngIf="user.type == userType.CITIZEN">
+          <a [routerLink]="['/requests']">
                         <span class="icon">
                             <i class="material-icons">feedback</i>
                         </span>
-                        <span class="title">Requests</span>
-                    </a>
-                </div>
-                <div class="db-link-tile c2" *ngIf="userType == 'public'">
-                    <a href="#">
+            <span class="title">Requests</span>
+          </a>
+        </div>
+        <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN">
+          <a href="#">
                         <span class="icon">
                             <i class="material-icons">label</i>
                         </span>
-                        <span class="title">Request for Corections of Resignation</span>
-                    </a>
-                </div>
-            </div>
-            <!-- Search -->
-            <div class="db-search">
-                <div class="default-input-feild">
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="Search">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                </div>
-            </div>
+            <span class="title">Request for Corections of Resignation</span>
+          </a>
         </div>
+      </div>
+      <!-- Search -->
+      <div class="db-search">
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Search">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

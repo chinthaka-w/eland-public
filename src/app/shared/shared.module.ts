@@ -24,6 +24,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
 import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
+import {ChangeJudicialRequestListComponent} from './components/request-list/change-judicial-request-list.component';
+import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
+import {MatPaginatorModule} from '@angular/material';
+import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
+import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from "@angular/material/card";
 import {ImageViewerModule} from "ngx-image-viewer";
 
@@ -37,7 +43,8 @@ import {ImageViewerModule} from "ngx-image-viewer";
     PaymentComponent,
     PaymentMethodComponent,
     FileUploadInputComponent,
-    OnlineMethodComponent
+    OnlineMethodComponent,
+    ChangeJudicialRequestListComponent,
   ],
   imports: [
     CommonModule,
@@ -50,10 +57,20 @@ import {ImageViewerModule} from "ngx-image-viewer";
     MatNativeDateModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatIconModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatFileUploadModule,
+    MatDialogModule,
+    MatTableModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule,
-    MatIconModule,
+    MatPaginatorModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     MatIconModule,
     ImageViewerModule
   ],
