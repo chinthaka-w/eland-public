@@ -13,6 +13,7 @@ import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
 import {WorkflowStageCitizenReg} from "../../../shared/enum/workflow-stage-citizen-reg.enum";
 import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
+import {PaymentDto} from "../../../shared/dto/payment-dto";
 
 @Component({
   selector: "app-add-public-user",
@@ -31,6 +32,7 @@ export class AddPublicUserComponent implements OnInit {
   landRegistriesDTOList: Array<LandRegistriesDTO> = [];
   landRegistry: LandRegistriesDTO = new LandRegistriesDTO();
   citizenDTO: CitizenDTO = new CitizenDTO();
+  paymentDto: PaymentDto = new PaymentDto();
 
   bankUserTypeId: number;
   bankUserTypes = [
@@ -159,7 +161,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
 
-    if(this.citizenDTO.paymentDTO.paymentId == null) {
+    if(this.paymentDto.paymentId == null) {
       this.isContinue = true;
     }else{
       this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
@@ -192,7 +194,8 @@ export class AddPublicUserComponent implements OnInit {
   onPaymentResponse(data: PaymentResponse) {
     this.isContinue = false;
     console.log(data);
-    this.citizenDTO.paymentDTO.paymentId = data.paymentId;
+    this.paymentDto.paymentId = data.paymentId;
+    this.citizenDTO.paymentDTO = this.paymentDto;
   }
 
   getApplicationDetails(citizenId: number) {
@@ -200,6 +203,7 @@ export class AddPublicUserComponent implements OnInit {
       .subscribe((result) => {
         if(result) {
           this.citizenDTO = result;
+          console.log(this.citizenDTO);
           this.publicUserForm.patchValue({
             nameEnglish: this.citizenDTO.nameEng,
             nameSinhala: this.citizenDTO.nameSin,
