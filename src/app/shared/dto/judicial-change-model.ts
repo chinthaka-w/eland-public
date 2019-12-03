@@ -1,4 +1,5 @@
 import {DsGnDivisionDTO} from './gs-gn-model';
+import {NewNotaryDsDivisionDTO} from './new-notary-ds-division.model';
 
 export class JudicialChange {
   public judicialZoneId: number;
@@ -9,14 +10,15 @@ export class JudicialChange {
   public addressEng: string;
   public addressSin: string;
   public addressTam: string;
-  public notarialWorkStartDate: string;
-  public certificateYear: string;
+  public notarialWorkStartDate: Date;
+  public certificateYear: Date;
   public nameOfLr: string;
   public isDuplicateHandedOver: string;
   public landRegistry: number;
-  public fromDate: string;
-  public toDate: string;
+  public fromDate: Date;
+  public toDate: Date;
   public newNotaryId: number;
   public dsGnList: DsGnDivisionDTO[] = [];
   public paymentId: number;
+  public newNotaryDsDivisionDTO: NewNotaryDsDivisionDTO[]=[];
 }
