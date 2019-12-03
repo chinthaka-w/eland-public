@@ -5,6 +5,8 @@ import {SnackBarService} from '../../../../shared/service/snack-bar.service';
 import {JudicialService} from '../../../../shared/service/change-judicial-service';
 import {TokenStorageService} from '../../../../shared/auth/token-storage.service';
 import {RequestViewComponent} from '../../requests/request-view/request-view.component';
+import {WorkflowStages} from '../../../../shared/enum/workflow-stages.enum';
+import {Workflow} from '../../../../shared/enum/workflow.enum';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -18,6 +20,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
    @ViewChild(MatSort, {static: true}) sort: MatSort;
    public loginNotaryID: number;
+   workflowCode = Workflow.JUDICIAL_ZONE_CHANGE;
 
   constructor(private judicialService: JudicialService, private snackBar: SnackBarService, private tokenStorageService: TokenStorageService) { }
 
