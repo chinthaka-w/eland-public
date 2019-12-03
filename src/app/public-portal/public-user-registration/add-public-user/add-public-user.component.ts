@@ -66,7 +66,6 @@ export class AddPublicUserComponent implements OnInit {
       nameEnglish: new FormControl("", [Validators.required]),
       nameSinhala: new FormControl("", [Validators.required]),
       nameTamil: new FormControl("", [Validators.required]),
-      bankName: new FormControl("", [Validators.required]),
       notaryId: new FormControl("", [Validators.required]),
       address1: new FormControl("", [Validators.required]),
       address2: new FormControl("", [Validators.required]),
@@ -160,7 +159,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
 
-    if(this.citizenDTO.paymentId == null) {
+    if(this.citizenDTO.paymentDTO.paymentId == null) {
       this.isContinue = true;
     }else{
       this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
@@ -193,7 +192,7 @@ export class AddPublicUserComponent implements OnInit {
   onPaymentResponse(data: PaymentResponse) {
     this.isContinue = false;
     console.log(data);
-    this.citizenDTO.paymentId = data.paymentId;
+    this.citizenDTO.paymentDTO.paymentId = data.paymentId;
   }
 
   getApplicationDetails(citizenId: number) {

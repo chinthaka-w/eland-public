@@ -1,3 +1,5 @@
+import {PaymentDto} from "./payment-dto";
+
 export class CitizenDTO {
   id: number;
   landRegistry: number;
@@ -34,5 +36,5 @@ export class CitizenDTO {
   stateInstituteName: string;
   otherInstituteName: string;
   officerDesignation: string;
-  paymentId: number;
+  paymentDTO: PaymentDto;
 }

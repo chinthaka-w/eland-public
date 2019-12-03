@@ -158,7 +158,7 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
 
-    if(this.citizenDTO.paymentId == null) {
+    if(this.citizenDTO.paymentDTO.paymentId == null) {
       this.isContinue = true;
     }else{
       this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)

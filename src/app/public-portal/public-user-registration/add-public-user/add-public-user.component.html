@@ -142,7 +142,7 @@
         <label class="mw-200">Bank Name <span>*</span></label>
         <div class="default-input-feild gray">
           <mat-form-field appearance="outline">
-            <select matNativeControl formControl="bankName" required (change)="getCurrentBank($event)">
+            <select matNativeControl required (change)="getCurrentBank($event)">
               <option disabled>Select Bank Name</option>
               <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
             </select>
