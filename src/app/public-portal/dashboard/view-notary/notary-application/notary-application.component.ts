@@ -26,6 +26,7 @@ import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payme
 import {NotaryRegistrationHistoryDto} from "../../../../shared/dto/notary-registration-history.dto";
 import {fakeAsync} from "@angular/core/testing";
 import {MatRadioChange} from "@angular/material/radio";
+import {Workflow} from '../../../../shared/enum/workflow.enum';
 
 @Component({
   selector: 'app-notary-application',
@@ -59,6 +60,7 @@ export class NotaryApplicationComponent implements OnInit {
   public type: string;
   public data: any;
   public hasRemarks: boolean = false;
+  public Workflow: Workflow;
 
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
@@ -132,7 +134,7 @@ export class NotaryApplicationComponent implements OnInit {
     //   this.searchType.requestID = params.get('id')
     // });
 
-    this.searchType = new NewNotaryRequestsCategorySearchDto(1,"1");
+    this.searchType = new NewNotaryRequestsCategorySearchDto(1,"1", Workflow.NOTARY_REGISTRATION);
     this.newNotaryDataVarificationService.getNotaryDetails(this.searchType).subscribe(
       (result: NewNotaryViewDto) => {
         this.result = result;
@@ -178,7 +180,7 @@ export class NotaryApplicationComponent implements OnInit {
   }
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1", Workflow.NOTARY_REGISTRATION);
     // this.route.paramMap.subscribe(params => {
     //   searchType.requestID = params.get('id')
     // });
@@ -270,7 +272,7 @@ export class NotaryApplicationComponent implements OnInit {
   }
 
   getLatestRemark() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1", Workflow.NOTARY_REGISTRATION);
     this.newNotaryDataVarificationService.getLatestReamrk(searchType).subscribe(
       (result: NotaryRegistrationHistoryDto[]) => {
         if(result != null){

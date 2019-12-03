@@ -37,9 +37,8 @@ export class ChangeJudicialComponent implements OnInit {
   public isSinhala: boolean;
   public isTamil: boolean;
   public isEnglish: boolean;
-  public fileDtoList: FormData[];
-  public fromDate: string;
-  public toDate: string;
+  public fromDate: Date;
+  public toDate: Date;
   public dsDivisionId: number;
   public dsGnList: DsGnDivisionDTO[] = [];
   public isContinueToPayment: boolean = false;
@@ -180,10 +179,10 @@ export class ChangeJudicialComponent implements OnInit {
     this.previousSelections[index] = gsDivisionId;
   }
 
-  selectGnDivision(gsDivisionId) {
-   this.dsGnList.push(new DsGnDivisionDTO(1, 2));
-  }
 
+  selectGnDivision(gsDivisionId) {
+    this.dsGnList.push(new DsGnDivisionDTO(gsDivisionId[0], this.dsDivisionId));
+  }
   setFiles(data: any, docTyprId: number) {
     this.files = data;
     this.documentList.push(new DocumentDto(this.files[0], docTyprId));
