@@ -1,0 +1,25 @@
+<div class="page-header-default">
+  <h2>Edit Judicial Change Request</h2>
+  <p>Please fill in the following information to<br />register in the system</p>
+  <a href="" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
+</div>
+<div class="page-content-wrapper">
+  <div class="page-content-inner-wrapper">
+    <mat-tab-group>
+      <mat-tab label="Application">
+        <app-request-data [workflow]="workflow" [id]="id"></app-request-data>
+      </mat-tab>
+      <mat-tab label="Payment Info">
+        <app-notary-payment-info [workflow]="workflow" [id]="id"></app-notary-payment-info>
+      </mat-tab>
+      <!--<mat-tab label="Remark">-->
+        <!--<app-notary-remark></app-notary-remark>-->
+      <!--</mat-tab>-->
+      <!--<mat-tab label="Supporting Documents">-->
+        <!--<app-supporting-doc-detail></app-supporting-doc-detail>-->
+      <!--</mat-tab>-->
+    </mat-tab-group>
+  </div>
+</div>
