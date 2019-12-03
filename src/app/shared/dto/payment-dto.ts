@@ -1,6 +1,7 @@
 export class PaymentDto {
   public paymentId: number;
   public paymentMethod: number;
+  public paymentMethodDes: string;
   public bankId: number;
   public bankBranchId: number;
   public referenceNo: string;

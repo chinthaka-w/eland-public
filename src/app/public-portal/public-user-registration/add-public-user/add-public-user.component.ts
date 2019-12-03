@@ -195,35 +195,7 @@ export class AddPublicUserComponent implements OnInit {
     this.isContinue = false;
     console.log(data);
     this.paymentDto.paymentId = data.paymentId;
-    this.citizenDTO.paymentDTO = this.paymentDto;
+    this.citizenDTO.payment = this.paymentDto;
   }
 
-  getApplicationDetails(citizenId: number) {
-    this.citizenService.getApplicationDetails(citizenId)
-      .subscribe((result) => {
-        if(result) {
-          this.citizenDTO = result;
-          console.log(this.citizenDTO);
-          this.publicUserForm.patchValue({
-            nameEnglish: this.citizenDTO.nameEng,
-            nameSinhala: this.citizenDTO.nameSin,
-            nameTamil: this.citizenDTO.nameTam,
-            address1: this.citizenDTO.addressEng,
-            address2: this.citizenDTO.addressSin,
-            address3: this.citizenDTO.addressTam,
-            email: this.citizenDTO.email,
-            primaryContact: this.citizenDTO.residentialTelephone,
-            secondaryContact: this.citizenDTO.mobileNo,
-            reason: this.citizenDTO.reason,
-            identificationNo: this.citizenDTO.identificationNo,
-            dateOfBirth: this.citizenDTO.dateOfBirth,
-            userName: this.citizenDTO.username,
-            lawFirmName: this.citizenDTO.lawFirmName,
-            stateInstitutionName: this.citizenDTO.stateInstituteName,
-            officersDesignation: this.citizenDTO.officerDesignation,
-            otherInstitutionName: this.citizenDTO.otherInstituteName
-          });
-        }
-      });
-  }
 }

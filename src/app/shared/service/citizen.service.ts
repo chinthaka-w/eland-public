@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {LandRegistriesDTO} from "../dto/land-registries-dto";
 import {CitizenDTO} from "../dto/citizen-dto";
 import {PublicUserDTO} from "../dto/public-user-dto";
 import {SysConfigService} from "./sys-config.service";
+import {PaymentDto} from "../dto/payment-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class CitizenService {
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   public constructor(private httpClient: HttpClient) {}
 
+  paymentDetails = new EventEmitter<PaymentDto[]>();
   getAllLandRegistries(): Observable<Array<LandRegistriesDTO>> {
     return this.httpClient.get<Array<LandRegistriesDTO>>(this.BASE_URL + 'landRegistries/find', {headers: this.headers} );
   }

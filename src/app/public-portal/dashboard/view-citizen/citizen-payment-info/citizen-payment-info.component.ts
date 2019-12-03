@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
 import {MatTableDataSource} from "@angular/material/table";
@@ -6,6 +6,10 @@ import {NewNotaryDataVarificationService} from "../../../../shared/service/new-n
 import {ActivatedRoute} from "@angular/router";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
 import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
+import {CitizenDTO} from "../../../../shared/dto/citizen-dto";
+import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
+import {CitizenService} from "../../../../shared/service/citizen.service";
+import {PaymentDto} from "../../../../shared/dto/payment-dto";
 
 @Component({
   selector: 'app-citizen-payment-info',
@@ -23,35 +27,38 @@ import {ApplicationRequestDataType} from "../../../../shared/enum/application-re
   ]
 })
 export class CitizenPaymentInfoComponent implements OnInit {
+  paymentDetails: Array<PaymentDto> = [];
 
-  paymentDetails: NewNotaryPaymentDetailDto[] = [];
 
-
-  displayedColumns: string[] = ['Application No', 'Payment Method', 'Amount', 'Payment ID', 'Payment Date', 'Status'];
-  dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
+  displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Amount', 'Payment Date', 'Status'];
+  dataSource = new MatTableDataSource<PaymentDto>(this.paymentDetails);
 
   constructor(private notaryService: NewNotaryDataVarificationService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute, private citizenService: CitizenService) {
   }
 
   ngOnInit() {
-    this.getPaymentDetails();
+    // this.getPaymentDetails();
+    this.citizenService.paymentDetails.subscribe(history => {
+      console.log('history',history);
+      this.dataSource = history;
+    });
   }
 
-  getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
-    // this.route.paramMap.subscribe(params => {
-    //   searchType.requestID = params.get('id')
-    // });
-    searchType.type = ApplicationRequestDataType.PAYMENT;
-    this.notaryService.getPaymentDetails(searchType).subscribe(
-      (result: NewNotaryPaymentDetailDto[]) => {
-        this.dataSource.data = result;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
+  // getPaymentDetails() {
+  //   let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+  //   // this.route.paramMap.subscribe(params => {
+  //   //   searchType.requestID = params.get('id')
+  //   // });
+  //   searchType.type = ApplicationRequestDataType.PAYMENT;
+  //   this.notaryService.getPaymentDetails(searchType).subscribe(
+  //     (result: NewNotaryPaymentDetailDto[]) => {
+  //       this.dataSource.data = result;
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     }
+  //   )
+  // }
 
 }

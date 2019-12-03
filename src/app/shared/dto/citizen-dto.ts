@@ -1,4 +1,6 @@
 import {PaymentDto} from "./payment-dto";
+import {HistoryDTO} from "./history-dto";
+import {DocumentDTO} from "./document-dto";
 
 export class CitizenDTO {
   id: number;
@@ -36,5 +38,8 @@ export class CitizenDTO {
   stateInstituteName: string;
   otherInstituteName: string;
   officerDesignation: string;
-  paymentDTO: PaymentDto;
+  payment: PaymentDto;
+  paymentHistory: PaymentDto[];
+  requestHistory: HistoryDTO[];
+  supportingDocuments: DocumentDTO[];
 }

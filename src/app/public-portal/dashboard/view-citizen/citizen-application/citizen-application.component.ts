@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {WorkflowStageCitizenReg} from "../../../../shared/enum/workflow-stage-citizen-reg.enum";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -19,7 +19,7 @@ import {SearchRequestType} from '../../../../shared/enum/search-request-type.enu
   styleUrls: ['./citizen-application.component.css']
 })
 export class CitizenApplicationComponent implements OnInit {
-
+  // @Output() response = new EventEmitter<CitizenDTO>();
   public SearchRequestType = SearchRequestType;
   public Parameters = Parameters;
   public WorkflowCode = Workflow;
@@ -70,6 +70,7 @@ export class CitizenApplicationComponent implements OnInit {
       address2: new FormControl("", [Validators.required]),
       address3: new FormControl("", [Validators.required]),
       identificationNo: new FormControl("", [Validators.required]),
+      identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl("", [Validators.required]),
       secondaryContact: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required]),
@@ -84,7 +85,7 @@ export class CitizenApplicationComponent implements OnInit {
       otherInstitutionName: new FormControl("", [Validators.required]),
       dateOfBirth: new FormControl("", [Validators.required]),
     });
-    console.log(this.PublicUserType);
+    this.getApplicationDetails(4);
     this.getAllLandRegistries();
     this.getAllBanks();
   }
@@ -158,7 +159,7 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
 
-    if(this.citizenDTO.paymentDTO.paymentId == null) {
+    if(this.citizenDTO.payment.paymentId == null) {
       this.isContinue = true;
     }else{
       this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
@@ -182,6 +183,40 @@ export class CitizenApplicationComponent implements OnInit {
         this.publicUserExist = false;
       }
     });
+  }
+
+  getApplicationDetails(citizenId: number) {
+    this.citizenService.getApplicationDetails(citizenId)
+      .subscribe((result) => {
+        if(result) {
+          this.citizenDTO = result;
+          console.log(this.citizenDTO);
+          this.citizenService.paymentDetails.emit(this.citizenDTO.paymentHistory);
+          this.publicUserForm.patchValue({
+            nameEnglish: this.citizenDTO.nameEng,
+            nameSinhala: this.citizenDTO.nameSin,
+            nameTamil: this.citizenDTO.nameTam,
+            address1: this.citizenDTO.addressEng,
+            address2: this.citizenDTO.addressSin,
+            address3: this.citizenDTO.addressTam,
+            email: this.citizenDTO.email,
+            primaryContact: this.citizenDTO.residentialTelephone,
+            secondaryContact: this.citizenDTO.mobileNo,
+            reason: this.citizenDTO.reason,
+            identificationNo: this.citizenDTO.identificationNo,
+            dateOfBirth: this.citizenDTO.dateOfBirth,
+            userName: this.citizenDTO.username,
+            lawFirmName: this.citizenDTO.lawFirmName,
+            stateInstitutionName: this.citizenDTO.stateInstituteName,
+            officersDesignation: this.citizenDTO.officerDesignation,
+            otherInstitutionName: this.citizenDTO.otherInstituteName,
+            nearestLr: this.citizenDTO.landRegistry,
+            type: this.citizenDTO.userType,
+            bankName: this.citizenDTO.bankId,
+            identificationType: this.citizenDTO.identificationNoType
+          });
+        }
+      });
   }
 
 }
