@@ -48,4 +48,12 @@ export class JudicialService {
     return this.httpClient.post(this.BASE_URL + 'judicial-zone/submitChangeRequest/' , formData );
   }
 
+  getRequestData(requestId: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'judicial-zone/getRequestDetails/' + requestId.toString() , {headers: this.headers});
+  }
+
+  update(dto: JudicialChange): Observable<any> {
+    return this.httpClient.put(this.BASE_URL + 'judicial-zone/' , dto ,{headers: this.headers} );
+  }
+
 }
