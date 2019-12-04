@@ -8,6 +8,8 @@ import {NewNotaryDataVarificationService} from "../../../../shared/service/new-n
 })
 export class SupportingDocDetailComponent implements OnInit {
   documentImages: string[] = [];
+
+
   constructor(private notaryService: NewNotaryDataVarificationService) { }
 
   ngOnInit() {

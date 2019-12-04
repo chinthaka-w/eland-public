@@ -53,7 +53,7 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
 import {ImageViewerModule} from "ngx-image-viewer";
-import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
@@ -63,6 +63,8 @@ import { CitizenApplicationComponent } from './dashboard/view-citizen/citizen-ap
 import { CitizenPaymentInfoComponent } from './dashboard/view-citizen/citizen-payment-info/citizen-payment-info.component';
 import { CitizenRemarkComponent } from './dashboard/view-citizen/citizen-remark/citizen-remark.component';
 import { CitizenSupportingDocDetailsComponent } from './dashboard/view-citizen/citizen-supporting-doc-details/citizen-supporting-doc-details.component';
+import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
+import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 
 
 @NgModule({
@@ -90,7 +92,6 @@ import { CitizenSupportingDocDetailsComponent } from './dashboard/view-citizen/c
     ResignationComponent,
     ApplicationsComponent,
     RequestViewComponent,
-    ChangeJudicialRequestListComponent,
     RequestViewComponent,
     ViewNotaryComponent,
     NotaryApplicationComponent,
@@ -106,6 +107,8 @@ import { CitizenSupportingDocDetailsComponent } from './dashboard/view-citizen/c
     CitizenPaymentInfoComponent,
     CitizenRemarkComponent,
     CitizenSupportingDocDetailsComponent,
+    SearchDocumentViewComponent,
+    ExtractViewComponent,
   ],
   imports: [
     CommonModule,
