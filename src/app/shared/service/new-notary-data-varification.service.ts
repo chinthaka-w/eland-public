@@ -47,10 +47,6 @@ export class NewNotaryDataVarificationService {
     return this.httpClient.post<NewNotarySupportingDocDetailDto[]>(this.BASE_URL + '/supportDoc', searchType);
   }
 
-  verifySupportingDocuments(supportDocs: NewNotarySupportingDocDetailDto[]){
-    this.supportingDocDetails.emit(supportDocs);
-  }
-
   setNotaryDetails(viewDetails: NewNotaryViewDto) {
     this.viewNotaryDetails = viewDetails;
   }
