@@ -20,6 +20,7 @@ import {CommonStatus} from '../../enum/common-status.enum';
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
+
   @Output() response = new EventEmitter<PaymentResponse>();
   @Output() back = new EventEmitter<boolean>();
   @Input() isDocumentCollect: boolean;

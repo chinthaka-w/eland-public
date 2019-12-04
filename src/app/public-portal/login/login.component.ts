@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {AppConfig} from '../../shared/dto/app-config.model';
 import {SysConfigService} from "../../shared/service/sys-config.service";
 import {SessionService} from "../../shared/service/session.service";
+import {PaymentResponse} from "../../shared/dto/payment-response.model";
+import {DocumentResponseDto} from "../../shared/dto/document-response.dto";
 
 @Component({
   selector: 'app-login',
@@ -15,8 +17,8 @@ import {SessionService} from "../../shared/service/session.service";
 export class LoginComponent implements OnInit {
   @Input()
   public appConfig: AppConfig;
-
   public loginForm: FormGroup;
+  public userId: number;
 
   get username() {
     return this.loginForm.get('username');
@@ -49,6 +51,9 @@ export class LoginComponent implements OnInit {
       response => {
         if(response['success']){
           this.snackBar.success("Login Successful");
+          this.userId = response['user'].id;
+          this.setRequestId(this.userId);
+          console.log(this.userId);
           this.sessionService.setUser(response['user']);
           this.sysConfigService.getConfig.emit({
             color: "red",
@@ -76,5 +81,13 @@ export class LoginComponent implements OnInit {
         this.snackBar.error('Login Failed');
       }
     );
+  }
+
+  setRequestId(requestId: number){
+    this.userId = requestId;
+  }
+
+  getRequestId(){
+    return this.userId;
   }
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
 import {DocumentResponseDto} from "../../../../shared/dto/document-response.dto";
 import {NewNotarySupportingDocDetailDto} from "../../../../shared/dto/new-notary-supporting-doc-detail.dto";
@@ -14,6 +14,7 @@ import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-not
 import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {SupportDocResponseModel} from "../../../../shared/dto/support-doc-response.model";
 import {Workflow} from "../../../../shared/enum/workflow.enum";
+import {LoginComponent} from "../../../login/login.component";
 
 @Component({
   selector: 'app-supporting-doc-detail',
@@ -24,6 +25,8 @@ export class SupportingDocDetailComponent implements OnInit {
   @Input()
   files: File[] = [];
   @Output() supportDocs = new EventEmitter<DocumentResponseDto[]>();
+  @ViewChild(LoginComponent, {static: false}) loginComponent: LoginComponent;
+
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
   supportingDocuments: NewNotarySupportingDocDetailDto[] = [];
   supportingDocForm: FormGroup;
@@ -63,7 +66,9 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    let requestId1 = this.loginComponent.getRequestId();
+    alert(requestId1);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(requestId1,"1");
     // this.route.paramMap.subscribe(params => {
     //   searchType.requestID = params.get('id')
     // });
@@ -87,9 +92,9 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   saveNewDocuments(docId: number ,docTypeId: number,docs: DocumentResponseDto[]){
-    let requestId = 1;
+    let requestId1 = this.loginComponent.getRequestId();
     const formData = new FormData();
-    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,requestId);
+    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,requestId1);
     formData.append('data', JSON.stringify(supportDocResponse));
     docs.forEach(doc => {
       formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);

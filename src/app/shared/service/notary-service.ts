@@ -8,6 +8,7 @@ import {SupportDocResponseModel} from "../dto/support-doc-response.model";
 import {Form} from "@angular/forms";
 import {NewNotarySupportingDocDetailDto} from "../dto/new-notary-supporting-doc-detail.dto";
 import {DocTypeDto} from "../dto/doc-type.dto";
+import {NewNotaryRequestsCategorySearchDto} from "../dto/new-notary-requests-category-search.dto";
 @Injectable()
 export class NotaryService {
   public BASE_URL = SysConfigService.BASE_URL +'new-notary';
@@ -41,6 +42,11 @@ export class NotaryService {
   /** Get Document Types of Notary */
   getDocumentTypes(): Observable<DocTypeDto[]>{
     return this.httpClient.get<DocTypeDto[]>(this.BASE_URL + '/documentTypes');
+  }
+
+  /** Get Notary RequestId by Login Notary Details */
+  getNotaryRequestDetails(notaryId: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL+ '/search' + notaryId , {headers: this.headersJson})
   }
 
   // tslint:disable-next-line:ban-types

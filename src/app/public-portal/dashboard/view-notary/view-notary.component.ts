@@ -4,6 +4,7 @@ import {NotaryService} from "../../../shared/service/notary-service";
 import {NotaryApplicationComponent} from "./notary-application/notary-application.component";
 import {DocumentResponseDto} from "../../../shared/dto/document-response.dto";
 import {SupportingDocDetailComponent} from "./supporting-doc-detail/supporting-doc-detail.component";
+import {LoginComponent} from "../../login/login.component";
 
 @Component({
   selector: 'app-view-notary',
@@ -51,6 +52,7 @@ export class ViewNotaryComponent implements OnInit {
       let status = docs.status;
     })
   }
+
 
   onFormSubmit(){
     this.notaryApplicationComponent.saveNotaryDetails();
