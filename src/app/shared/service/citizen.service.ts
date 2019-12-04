@@ -6,6 +6,7 @@ import {CitizenDTO} from "../dto/citizen-dto";
 import {PublicUserDTO} from "../dto/public-user-dto";
 import {SysConfigService} from "./sys-config.service";
 import {PaymentDto} from "../dto/payment-dto";
+import {StatusDTO} from "../dto/status-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class CitizenService {
     return this.httpClient.get<Array<LandRegistriesDTO>>(this.BASE_URL + 'landRegistries/find', {headers: this.headers} );
   }
 
-  saveCitizen(citizen: CitizenDTO): Observable<CitizenDTO> {
-    return this.httpClient.post<CitizenDTO>(this.BASE_URL + 'citizen/', citizen,{headers: this.headers} );
+  updateCitizen(citizen: CitizenDTO): Observable<StatusDTO> {
+    return this.httpClient.put<StatusDTO>(this.BASE_URL + 'citizen/update', citizen,{headers: this.headers} );
   }
   checkForValidUsername(publicUserDTO: PublicUserDTO): Observable<boolean> {
     return this.httpClient.post<boolean>(this.BASE_URL + 'publicUser/username', publicUserDTO,{headers: this.headers} );

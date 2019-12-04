@@ -14,6 +14,7 @@ import {Parameters} from '../../../../shared/enum/parameters.enum';
 import {SearchRequestType} from '../../../../shared/enum/search-request-type.enum';
 import {SessionService} from "../../../../shared/service/session.service";
 import {CommonStatus} from "../../../../shared/enum/common-status.enum";
+import {SnackBarService} from "../../../../shared/service/snack-bar.service";
 
 @Component({
   selector: 'app-citizen-application',
@@ -60,7 +61,8 @@ export class CitizenApplicationComponent implements OnInit {
 
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
-              private sessionService: SessionService) {}
+              private sessionService: SessionService,
+              private snackBar: SnackBarService) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
@@ -193,18 +195,14 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
 
-    if(this.citizenDTO.payment.paymentId == null) {
-      this.isContinue = true;
-    }else{
-      this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
-        .subscribe((result) => {
-          if (result) {
-            console.log(result);
-          }else{
-            alert('Failed');
-          }
-        });
-    }
+    this.citizenService.updateCitizen(this.citizenDTO)
+      .subscribe((result) => {
+        if (result) {
+          this.snackBar.success('Citizen updated successfully');
+        }else{
+          alert('Failed');
+        }
+      });
   }
 
   // onSearchChange(searchValue: string): void {

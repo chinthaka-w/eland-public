@@ -3,4 +3,5 @@ export class DocumentDTO {
   name:string;
   type: string;
   reqId: number;
+  pages: string[];
 }
