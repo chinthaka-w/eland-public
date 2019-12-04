@@ -56,7 +56,7 @@ export class CitizenService {
   }
 
   getApplicationDetails(citizenId: number): Observable<CitizenDTO> {
-    return this.httpClient.get<CitizenDTO>(this.BASE_URL + 'citizen/' + citizenId, {headers: this.headers} );
+    return this.httpClient.get<CitizenDTO>(this.BASE_URL + 'citizen/viewRegistarion/' + citizenId, {headers: this.headers} );
   }
 
 }

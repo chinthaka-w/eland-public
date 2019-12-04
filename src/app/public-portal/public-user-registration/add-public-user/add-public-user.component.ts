@@ -14,6 +14,7 @@ import {WorkflowStageCitizenReg} from "../../../shared/enum/workflow-stage-citiz
 import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {PaymentDto} from "../../../shared/dto/payment-dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "app-add-public-user",
@@ -58,7 +59,8 @@ export class AddPublicUserComponent implements OnInit {
 
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
-              private snackBar: SnackBarService) {}
+              private snackBar: SnackBarService,
+              private router: Router) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
@@ -168,6 +170,7 @@ export class AddPublicUserComponent implements OnInit {
         .subscribe((result) => {
           if (result) {
             this.snackBar.success('Citizen saved successfully');
+            this.router.navigate(['/login']);
             console.log(result);
           }else{
             this.snackBar.error('Operation failed');
