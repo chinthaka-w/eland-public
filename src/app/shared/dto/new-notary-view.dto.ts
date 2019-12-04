@@ -25,7 +25,7 @@ export class NewNotaryViewDto {
   public language: string,
   public enrolledDate: Date,
   public subjectPassedDate: Date,
-  public subjectMedium: string,
+  public subjectMedium: number,
   public status: string,
   public createdTime: Date,
   public lastUpdatedUser: string,

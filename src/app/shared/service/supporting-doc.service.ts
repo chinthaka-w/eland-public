@@ -17,4 +17,9 @@ export class SupportingDocService {
     return this.httpClient.get(this.BASE_URL + '/' +  workflowCode );
   }
 
+  /** Get Notary Doc Types to workflow By WorkFlowStage */
+  getDocumentsByWorkFlow(workflowCode: string): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + '/get/' +  workflowCode );
+  }
+
 }

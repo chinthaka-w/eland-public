@@ -25,7 +25,7 @@ export class PaymentTableComponent implements OnInit {
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
 
 
-  displayedColumns: string[] = ['Application No', 'Payment Method', 'Amount', 'Payment ID', 'Payment Date', 'Status'];
+  displayedColumns: string[] = ['Payment Method', 'Amount', 'Payment ID', 'Payment Date', 'Status'];
   dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
 
   constructor(private notaryService: NewNotaryDataVarificationService,

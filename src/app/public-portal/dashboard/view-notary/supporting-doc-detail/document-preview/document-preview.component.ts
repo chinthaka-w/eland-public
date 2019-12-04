@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
+import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
 
 @Component({
-  selector: 'app-supporting-doc-detail',
-  templateUrl: './supporting-doc-detail.component.html',
-  styleUrls: ['./supporting-doc-detail.component.css']
+  selector: 'app-document-preview',
+  templateUrl: './document-preview.component.html',
+  styleUrls: ['./document-preview.component.css']
 })
-export class SupportingDocDetailComponent implements OnInit {
+export class DocumentPreviewComponent implements OnInit {
   documentImages: string[] = [];
   constructor(private notaryService: NewNotaryDataVarificationService) { }
 
@@ -22,5 +22,6 @@ export class SupportingDocDetailComponent implements OnInit {
       }
     );
   }
+
 
 }
