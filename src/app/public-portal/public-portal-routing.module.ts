@@ -17,7 +17,7 @@ import { ResignationComponent } from './dashboard/resignation/resignation.compon
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 import {ViewNotaryComponent} from "./dashboard/view-notary/view-notary.component";
 import {PaymentComponent} from "../shared/components/payment/payment.component";
-import {ChangeJudicialRequestListComponent} from './dashboard/change-judicial/change-judicial-request-list/change-judicial-request-list.component';
+import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
 
 
 const routes: Routes = [
@@ -91,9 +91,11 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'change-judicial-request-list',
+    path: 'requests/:flag',
     component: ChangeJudicialRequestListComponent
-  }
+  },
+
+
 ];
 
 @NgModule({
