@@ -2,6 +2,8 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Notary} from "../../../shared/dto/notary.model";
 import {NotaryService} from "../../../shared/service/notary-service";
 import {NotaryApplicationComponent} from "./notary-application/notary-application.component";
+import {DocumentResponseDto} from "../../../shared/dto/document-response.dto";
+import {SupportingDocDetailComponent} from "./supporting-doc-detail/supporting-doc-detail.component";
 
 @Component({
   selector: 'app-view-notary',
@@ -10,9 +12,12 @@ import {NotaryApplicationComponent} from "./notary-application/notary-applicatio
 })
 export class ViewNotaryComponent implements OnInit {
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
+  @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = true;
   public disabledPayment: boolean = true;
   public notaryDetail: Notary;
+  public docsList: DocumentResponseDto[] = [];
+  public docTypeId: number;
 
 
   constructor(private newNotaryService: NotaryService) { }
@@ -35,8 +40,21 @@ export class ViewNotaryComponent implements OnInit {
     }
   }
 
+  getSupportingDocs(data: DocumentResponseDto[]){
+    this.docsList = data;
+    console.log(data);
+    data.forEach(docs => {
+      let docId = docs.docId;
+      this.docTypeId = docs.docTypeId;
+      let files = docs.files;
+      let status = docs.status;
+    })
+  }
+
   onFormSubmit(){
     this.notaryApplicationComponent.saveNotaryDetails();
+    this.supportingDocumentDetails.saveNewDocuments(this.docTypeId,this.docsList);
+
   }
 
 }
