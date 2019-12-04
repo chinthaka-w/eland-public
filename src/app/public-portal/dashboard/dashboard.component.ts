@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Workflow} from '../../shared/enum/workflow.enum';
 import { SessionService } from 'src/app/shared/service/session.service';
 import { UserType } from 'src/app/shared/enum/user-type.enum';
+import {CommonStatus} from "../../shared/enum/common-status.enum";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ export class DashboardComponent implements OnInit {
   userType = UserType;
 
   Workflow = Workflow;
+
+  commonStatus = CommonStatus;
 
   constructor(
     private sessionService: SessionService

@@ -221,18 +221,6 @@
     </div>
   </div>
 
-  <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">User Name </label>
-    <div class="default-input-feild">
-      <mat-form-field appearance="outline">
-        <input matInput placeholder="Username" formControlName="userName" (input)="onSearchChange($event.target.value)" />
-      </mat-form-field>
-      <div *ngIf="publicUserExist == true" class="invalid-feedback">
-        <mat-error *ngIf="publicUserExist == true" class="errors">User Name Exist</mat-error>
-      </div>
-    </div>
-  </div>
-
   <div class="separator mt-30">&nbsp;</div>
 
 

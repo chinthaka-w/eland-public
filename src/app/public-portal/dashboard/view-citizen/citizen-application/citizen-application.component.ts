@@ -12,6 +12,8 @@ import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
 import { PublicUserType } from '../../../../shared/enum/public-user-type.enum';
 import {Parameters} from '../../../../shared/enum/parameters.enum';
 import {SearchRequestType} from '../../../../shared/enum/search-request-type.enum';
+import {SessionService} from "../../../../shared/service/session.service";
+import {CommonStatus} from "../../../../shared/enum/common-status.enum";
 
 @Component({
   selector: 'app-citizen-application',
@@ -19,7 +21,9 @@ import {SearchRequestType} from '../../../../shared/enum/search-request-type.enu
   styleUrls: ['./citizen-application.component.css']
 })
 export class CitizenApplicationComponent implements OnInit {
-  // @Output() response = new EventEmitter<CitizenDTO>();
+  user;
+  formControlStatus: boolean = false;
+  commonStatus = CommonStatus;
   public SearchRequestType = SearchRequestType;
   public Parameters = Parameters;
   public WorkflowCode = Workflow;
@@ -54,7 +58,9 @@ export class CitizenApplicationComponent implements OnInit {
     return this.publicUserForm.get('type');
   }
 
-  constructor(private citizenService: CitizenService, private bankService: BankService) {}
+  constructor(private citizenService: CitizenService,
+              private bankService: BankService,
+              private sessionService: SessionService) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
@@ -85,9 +91,37 @@ export class CitizenApplicationComponent implements OnInit {
       otherInstitutionName: new FormControl("", [Validators.required]),
       dateOfBirth: new FormControl("", [Validators.required]),
     });
-    this.getApplicationDetails(4);
+    this.user = this.sessionService.getUser();
+    if(this.user.userStatus == this.commonStatus.PENDING) {
+      this.disableFormControls();
+    }
+    this.getApplicationDetails(this.user.id);
     this.getAllLandRegistries();
     this.getAllBanks();
+  }
+
+  disableFormControls() {
+    this.publicUserForm.controls['nearestLr'].disable();
+    this.publicUserForm.controls['type'].disable();
+    this.publicUserForm.controls['lawFirmName'].disable();
+    this.publicUserForm.controls['nameEnglish'].disable();
+    this.publicUserForm.controls['nameSinhala'].disable();
+    this.publicUserForm.controls['nameTamil'].disable();
+    this.publicUserForm.controls['bankName'].disable();
+    this.publicUserForm.controls['notaryId'].disable();
+    this.publicUserForm.controls['address1'].disable();
+    this.publicUserForm.controls['address2'].disable();
+    this.publicUserForm.controls['address3'].disable();
+    this.publicUserForm.controls['identificationNo'].disable();
+    this.publicUserForm.controls['identificationType'].disable();
+    this.publicUserForm.controls['primaryContact'].disable();
+    this.publicUserForm.controls['secondaryContact'].disable();
+    this.publicUserForm.controls['email'].disable();
+    this.publicUserForm.controls['reason'].disable();
+    this.publicUserForm.controls['officersDesignation'].disable();
+    this.publicUserForm.controls['stateInstitutionName'].disable();
+    this.publicUserForm.controls['otherInstitutionName'].disable();
+    this.publicUserForm.controls['dateOfBirth'].disable();
   }
 
   setFiles(files, key){
@@ -173,17 +207,17 @@ export class CitizenApplicationComponent implements OnInit {
     }
   }
 
-  onSearchChange(searchValue: string): void {
-    // console.log(searchValue);
-    this.publicUserDTO.username = searchValue;
-    this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
-      if (result == true) {
-        this.publicUserExist = true;
-      }else {
-        this.publicUserExist = false;
-      }
-    });
-  }
+  // onSearchChange(searchValue: string): void {
+  //   // console.log(searchValue);
+  //   this.publicUserDTO.username = searchValue;
+  //   this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
+  //     if (result == true) {
+  //       this.publicUserExist = true;
+  //     }else {
+  //       this.publicUserExist = false;
+  //     }
+  //   });
+  // }
 
   getApplicationDetails(citizenId: number) {
     this.citizenService.getApplicationDetails(citizenId)
