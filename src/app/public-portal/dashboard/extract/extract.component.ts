@@ -29,6 +29,8 @@ import {KoraleService} from '../../../shared/service/korale.service';
 import {DsDivisionService} from '../../../shared/service/ds-division.service';
 import {Location} from '@angular/common';
 import {Workflow} from '../../../shared/enum/workflow.enum';
+import {ExtractRequestService} from '../../../shared/service/extract-request.service';
+import {ExtractRequest} from '../../../shared/dto/extract-request.model';
 
 @Component({
   selector: 'app-extract',
@@ -71,6 +73,7 @@ export class ExtractComponent implements OnInit {
     private searchReasonService: SearchReasonService,
     private folioNoService: FolioNoService,
     private searchRequestService: SearchRequestService,
+    private extractRequestService: ExtractRequestService,
     private sessionService: SessionService,
     private snackBarService: SnackBarService,
     private location: Location) {
@@ -169,8 +172,8 @@ export class ExtractComponent implements OnInit {
     );
   }
 
-  saveRequest(searchRequest: SearchRequest): void {
-    this.searchRequestService.saveSearchRequest(searchRequest).subscribe(
+  saveRequest(extractRequest: ExtractRequest): void {
+    this.extractRequestService.saveExtractRequest(extractRequest).subscribe(
       (data) => {
         console.log(data);
       }, (error: HttpErrorResponse) => {
@@ -179,7 +182,7 @@ export class ExtractComponent implements OnInit {
       }, () => {
         this.resetForm();
         this.isContinueToPayment = false;
-        this.snackBarService.success('Your Search request is submitted.')
+        this.snackBarService.success('Your Extract request is submitted.')
       }
     );
   }
@@ -298,7 +301,7 @@ export class ExtractComponent implements OnInit {
     if (isValid) {
       this.searchRequest = this.searchRequestForm.value;
       this.searchRequest.folioList = this.elements;
-      this.searchRequest.workflowStageCode = WorkflowStages.SEARCH_REQ_INITIALIZED;
+      this.searchRequest.workflowStageCode = WorkflowStages.EXTRACT_REQ_INITIALIZED;
       this.searchRequest.userId = this.sessionService.getUser().id;
       this.searchRequest.userType = this.sessionService.getUser().type;
       this.isContinueToPayment = !this.isContinueToPayment;

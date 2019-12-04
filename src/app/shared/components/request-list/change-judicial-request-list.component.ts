@@ -11,6 +11,8 @@ import {SearchRequestService} from '../../service/search-request.service';
 import {SearchRequest} from '../../dto/search-request.model';
 import {map} from 'rxjs/operators';
 import {SessionService} from '../../service/session.service';
+import {ExtractRequestService} from '../../service/extract-request.service';
+import {ExtractRequest} from '../../dto/extract-request.model';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -37,6 +39,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
 
   constructor(private judicialService: JudicialService,
               private searchRequestService: SearchRequestService,
+              private extractRequestService: ExtractRequestService,
               private snackBar: SnackBarService,
               private activatedRoute: ActivatedRoute,
               private sessionService: SessionService,
@@ -57,16 +60,27 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'JUDICIAL ZONE CHANGING';
         this.titleText = 'REQUEST FOR CHANGING THE JUDICIAL ZONE';
         this.newButtonURL = '/change-judicial';
-        this.actionButtonURL = '/change-judicial';
+        this.actionButtonURL = `/change-judicial/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
         break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();
         this.headerText = 'FOLIO / DEED SEARCH';
         this.titleText = 'REQUEST FOR SEARCH DOCUMENT';
         this.newButtonURL = '/search-document';
-        this.actionButtonURL = '/search-document';
+        this.actionButtonURL = `/search-document-view/${btoa(Workflow.SEARCH_REQUEST)}/`;
+        break;
+      case Workflow.EXTRACT_REQUEST:
+        this.loadExtractRequests();
+        this.headerText = 'FOLIO / DEED EXTRACT';
+        this.titleText = 'REQUEST FOR EXTRACT DOCUMENT';
+        this.newButtonURL = '/extract';
+        this.actionButtonURL = `/extract-view/${btoa(Workflow.EXTRACT_REQUEST)}/`;
         break;
     }
+  }
+
+  getBase64(value: string): string {
+    return btoa(value);
   }
 
   applyFilter(filterValue: string) {
@@ -96,6 +110,21 @@ export class ChangeJudicialRequestListComponent implements OnInit {
     this.requests = [];
     this.searchRequestService.findAllByPublicUser(this.sessionService.getUser().id, this.sessionService.getUser().type).subscribe(
       (data: SearchRequest[]) => {
+        this.requests = data;
+        this.dataSource = new MatTableDataSource(this.requests);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
+
+  loadExtractRequests() {
+    this.requests = [];
+    this.extractRequestService.findAllByPublicUser(this.sessionService.getUser().id, this.sessionService.getUser().type).subscribe(
+      (data: ExtractRequest[]) => {
         this.requests = data;
         this.dataSource = new MatTableDataSource(this.requests);
         this.dataSource.paginator = this.paginator;

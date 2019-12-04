@@ -1,0 +1,25 @@
+<div class="page-header-default">
+  <h2>Edit Search Request</h2>
+  <p>.......</p>
+  <a href="#" (click)="goBack()"  class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
+</div>
+<div class="page-content-wrapper">
+  <div class="page-content-inner-wrapper">
+    <mat-tab-group>
+      <mat-tab label="Application">
+        <app-last-remark
+          [workflow]="Workflow.SEARCH_REQUEST"
+        [requestId]=""></app-last-remark>
+      </mat-tab>
+      <mat-tab label="Payment Info">
+        <app-notary-payment-info></app-notary-payment-info>
+      </mat-tab>
+      <mat-tab label="Remark">
+        <app-notary-remark></app-notary-remark>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
