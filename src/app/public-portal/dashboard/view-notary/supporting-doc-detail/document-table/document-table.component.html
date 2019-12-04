@@ -1,17 +1,23 @@
 <mat-card *ngFor="let doc of supportingDocuments; let i = index">
-  <div class="row">
-    <div class="col-md-9">
-      <h5 (click)="onDocumentClick(doc.id, doc.document)">
-        {{doc.name}}
-      </h5>
+    <div class="pg-inner-row mb-20">
+      <h4>{{doc.name}}</h4>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h5>{{doc.remark}}</h5>
+    <div class="pg-inner-row mb-20">
+      <ngx-image-viewer
+        [src]="documentImages"
+      >
+      </ngx-image-viewer>
     </div>
-  </div>
 </mat-card>
+<mat-card *ngFor="let document of docList">
+      <div class="default-input-wrapper full-row">
+        <label>{{document.description}}
+          <span *ngIf="document.required == true">*</span>
+        </label>
+        <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+      </div>
+</mat-card>
+
 
 
 

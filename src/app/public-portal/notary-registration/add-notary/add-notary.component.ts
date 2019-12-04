@@ -57,8 +57,6 @@ export class AddNotaryComponent implements OnInit {
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
   public payment: any;
-  public paymentData: any;
-  public paymentValue: FormGroup;
   public paymentDataValue: number;
 
   public notaryForm: FormGroup;
@@ -67,15 +65,10 @@ export class AddNotaryComponent implements OnInit {
   public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
   public notaryDetails: Notary;
-  public gnDivisionDetails: GnDivisionDTO;
-  public newNotaryGnDivision: NewNotaryDsDivisionDTO;
   public previousSelections: any[] = [];
   public isSelected: boolean;
-  public gramaNiladhariDivision: GnDivisionDTO[];
 
   public docList: WorkflowStageDocDto[];
-  fileList = {};
-  fileToUpload: File = null;
   public documentList: DocumentDto[] = [];
 
   public locationDto: any = {};
@@ -219,7 +212,7 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, 'Miss', 'Ms',
       1, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentDataValue);
+      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani", "md", this.notaryForm.value.userName,this.paymentDataValue);
 
       const formData = new FormData();
       formData.append('data', JSON.stringify(this.notaryDetails));
@@ -391,6 +384,7 @@ export class AddNotaryComponent implements OnInit {
     this.isPayment = false;
     this.isPaymentMethod = true;
     this.paymentDataValue = paymentData.paymentId;
+    this.snackBar.success("Payment Success");
     this.saveNotaryDetails();
     console.log('Payment Data: ',this.paymentComponent.isSubmitted);
   }

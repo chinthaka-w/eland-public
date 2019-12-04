@@ -38,17 +38,13 @@ export class NewNotaryDataVarificationService {
   }
 
   /** Load Latest Remark of registered notary */
-  getLatestReamrk(searchType: NewNotaryRequestsCategorySearchDto): Observable<NotaryRegistrationHistoryDto[]> {
-    return  this.httpClient.post<NotaryRegistrationHistoryDto[]>(this.BASE_URL + '/remark' ,searchType);
+  getLatestReamrk(searchType: NewNotaryRequestsCategorySearchDto): Observable<NotaryRegistrationHistoryDto> {
+    return  this.httpClient.post<NotaryRegistrationHistoryDto>(this.BASE_URL + '/remark' ,searchType);
   }
   /**
    * Load document details for notary registration*/
   getDocumentDetails(searchType: NewNotaryRequestsCategorySearchDto): Observable<NewNotarySupportingDocDetailDto[]>{
     return this.httpClient.post<NewNotarySupportingDocDetailDto[]>(this.BASE_URL + '/supportDoc', searchType);
-  }
-
-  verifySupportingDocuments(supportDocs: NewNotarySupportingDocDetailDto[]){
-    this.supportingDocDetails.emit(supportDocs);
   }
 
   setNotaryDetails(viewDetails: NewNotaryViewDto) {

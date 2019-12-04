@@ -58,6 +58,8 @@ import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 
@@ -99,6 +101,7 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     DocumentTableComponent,
     SearchDocumentViewComponent,
     ExtractViewComponent,
+    DocumentPreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -127,7 +130,8 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     MatNativeDateModule,
     SatDatepickerModule,
     SatNativeDateModule,
-    ImageViewerModule
+    ImageViewerModule,
+    MatSlideToggleModule
   ],
   exports: [
     LoginComponent,
