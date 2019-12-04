@@ -4,7 +4,7 @@ import {NewNotaryDsDivisionDTO} from './new-notary-ds-division.model';
 export class JudicialChange {
   public judicialZoneId: number;
   public workflowDescription: string;
-  public notaryRequestID: number;
+  public requestId: number;
   public date: string;
   public judicialZoneDescription: string;
   public addressEng: string;
