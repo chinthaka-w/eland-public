@@ -1,14 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PatternValidation} from "../../../../shared/enum/pattern-validation.enum";
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
 import {NewNotaryViewDto} from "../../../../shared/dto/new-notary-view.dto";
-import {NewNotaryRegistrationRequest} from "../../../../shared/dto/new-notary-registration-request.model";
 import {NewNotaryDsDivisionDTO} from "../../../../shared/dto/new-notary-ds-division.model";
 import {ActivatedRoute} from "@angular/router";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
 import {NotaryService} from "../../../../shared/service/notary-service";
-import {GnDivisionDTO} from "../../../../shared/dto/gn-division.dto";
 import {Notary} from "../../../../shared/dto/notary.model";
 import {GnDivision} from "../../../../shared/dto/gn-division.model";
 import {DsDivision} from "../../../../shared/dto/ds-division.model";
@@ -24,9 +22,11 @@ import {SnackBarService} from "../../../../shared/service/snack-bar.service";
 import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
 import {NotaryRegistrationHistoryDto} from "../../../../shared/dto/notary-registration-history.dto";
-import {fakeAsync} from "@angular/core/testing";
-import {MatRadioChange} from "@angular/material/radio";
-import {Workflow} from '../../../../shared/enum/workflow.enum';
+import {WorkflowStageDocDto} from "../../../../shared/dto/workflow-stage-doc.dto";
+import {DocumentDto} from "../../../../shared/dto/document-list";
+import {Workflow} from "../../../../shared/enum/workflow.enum";
+import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
+import {NotaryDetailResponseModel} from "../../../../shared/dto/notary-detail-response.model";
 
 @Component({
   selector: 'app-notary-application',
@@ -34,15 +34,22 @@ import {Workflow} from '../../../../shared/enum/workflow.enum';
   styleUrls: ['./notary-application.component.css']
 })
 export class NotaryApplicationComponent implements OnInit {
+
+  @Input()
+  files: File[] = [];
+  @Output() notaryDetail = new EventEmitter<Notary>();
+
   dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
   public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
-  notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto[] = [];
+  notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto;
   public locationList: NewNotaryDsDivisionDTO[] = [];
   public locationDto: any = {};
+  public docList: WorkflowStageDocDto[];
+  public documentList: DocumentDto[] = [];
 
   public notaryForm: FormGroup;
   result: NewNotaryViewDto;
@@ -54,12 +61,13 @@ export class NotaryApplicationComponent implements OnInit {
   userName: string;
   newNotaryRegistrationRequestId: number;
   notaryTitle: string = '';
-  subjectPassedLan: string = '';
   public date: Date;
   public requestID: string;
   public type: string;
   public data: any;
   public hasRemarks: boolean = false;
+  public notaryType: string;
+  public isUpdatePayment: boolean = false;
   public Workflow: Workflow;
 
   constructor(private formBuilder: FormBuilder,
@@ -72,7 +80,8 @@ export class NotaryApplicationComponent implements OnInit {
               private judicialZoneService: JudicialZoneService,
               private sanitizer: DomSanitizer,
               private tokenStorageService: TokenStorageService,
-              private snackBar: SnackBarService) { }
+              private snackBar: SnackBarService,
+              private documetService: SupportingDocService) { }
 
   ngOnInit() {
     this.notaryViewDetails = this.newNotaryDataVarificationService.ViewNotaryDetails();
@@ -113,10 +122,16 @@ export class NotaryApplicationComponent implements OnInit {
     this.getLandRegistries();
     this.getJudicialZones();
     this.getLatestRemark();
+    this.getDocumentList();
     this.locationList.push(this.locationDto);
     this.locationDto = {};
 
 
+  }
+
+  setFiles(data: any, docTyprId: number) {
+    this.files = data;
+    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
   }
 
     addLocation() {
@@ -164,13 +179,14 @@ export class NotaryApplicationComponent implements OnInit {
             contactNo: this.result.contactNo,
             landRegistry: this.result.landRegistry,
             userName: this.result.lastUpdatedUser,
+            medium: this.result.language,
           }
         );
         this.notaryTitle = this.result.nametitle.english;
-        this.subjectPassedLan = this.result.subjectMedium;
         this.dsGnDivisions = this.result.newNotaryDsDivisionDTO;
         this.newNotaryId = this.result.newNotaryId;
         this.newNotaryRegistrationRequestId = this.result.newNotaryRegistrationRequestId;
+        this.notaryType = this.result.notaryType;
         this.setWorkflowStage();
       },
       error1 => {
@@ -196,6 +212,15 @@ export class NotaryApplicationComponent implements OnInit {
     )
   }
 
+  private getDocumentList(): void {
+    this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
+      (data: WorkflowStageDocDto[]) => {
+        this.docList = data;
+        console.log(this.docList)
+      }
+    );
+  }
+
   setWorkflowStage(){
     let stageCode: string = this.result.workflowStageCode;
     this.newNotaryDataVarificationService.setWorkflowStage(stageCode);
@@ -205,27 +230,30 @@ export class NotaryApplicationComponent implements OnInit {
     this.saveNotaryDetails();
   }
   saveNotaryDetails(): void {
-    this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId, null, this.notaryForm.value.nic, this.notaryForm.value.email,
-      this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
-      this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
-      this.notaryForm.value.currentAddressInSinhala,  this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
-      this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
-      this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
-      this.notaryForm.value.title, 'Miss', 'Ms',
-      1, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",  this.notaryForm.value.userName,this.paymentId);
+    if(this.notaryForm.valid){
+      this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId, null, this.notaryForm.value.nic, this.notaryForm.value.email,
+        this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
+        this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
+        this.notaryForm.value.currentAddressInSinhala,  this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
+        this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
+        this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
+        this.notaryForm.value.title, 'Miss', 'Ms',
+        1, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
+        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani","ss",  this.notaryForm.value.userName,this.paymentId);
 
-    this.notaryService.setNotaryDetails(this.notaryDetails);
-    this.notaryDetails = this.notaryService.getNotaryDetails();
+      this.notaryDetail.emit(this.notaryDetails);
+      this.notaryService.setNotaryDetails(this.notaryDetails);
+      this.notaryDetails = this.notaryService.getNotaryDetails();
 
-    this.notaryService.updateNotaryDetails(this.notaryDetails).subscribe(
-      (success: string) => {
-        this.snackBar.success('Notary Registration Success');
-      },
-      error => {
-        this.snackBar.error('Failed');
-      }
-    );
+      this.notaryService.updateNotaryDetails(this.notaryDetails).subscribe(
+        (success: string) => {
+          this.snackBar.success('Notary Registration Success');
+        },
+        error => {
+          this.snackBar.error('Failed');
+        }
+      );
+    }
   }
 
   private getGnDivisions(): void {
@@ -274,9 +302,10 @@ export class NotaryApplicationComponent implements OnInit {
   getLatestRemark() {
     let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1", Workflow.NOTARY_REGISTRATION);
     this.newNotaryDataVarificationService.getLatestReamrk(searchType).subscribe(
-      (result: NotaryRegistrationHistoryDto[]) => {
+      (result: NotaryRegistrationHistoryDto) => {
         if(result != null){
           this.notaryRequestHistoryByRemark = result;
+          console.log(this.notaryRequestHistoryByRemark.createdUser);
           this.hasRemarks = true;
         }else{
           this.hasRemarks = false;

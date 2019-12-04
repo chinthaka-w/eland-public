@@ -32,6 +32,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from "@angular/material/card";
 import {ImageViewerModule} from "ngx-image-viewer";
+import { LastRemarkComponent } from './components/request-view/last-remark/last-remark.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
     FileUploadInputComponent,
     OnlineMethodComponent,
     ChangeJudicialRequestListComponent,
+    LastRemarkComponent,
   ],
   imports: [
     CommonModule,
@@ -92,7 +94,8 @@ import {ImageViewerModule} from "ngx-image-viewer";
     MatCardModule,
     PaymentComponent,
     PaymentMethodComponent,
-    FileUploadInputComponent
+    FileUploadInputComponent,
+    LastRemarkComponent,
   ]
 })
 export class SharedModule {}
