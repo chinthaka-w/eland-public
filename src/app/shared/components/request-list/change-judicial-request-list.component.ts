@@ -57,17 +57,25 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'JUDICIAL ZONE CHANGING';
         this.titleText = 'REQUEST FOR CHANGING THE JUDICIAL ZONE';
         this.newButtonURL = '/change-judicial';
-        this.actionButtonURL = '/change-judicial';
+        this.actionButtonURL = `/change-judicial/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
         break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();
         this.headerText = 'FOLIO / DEED SEARCH';
         this.titleText = 'REQUEST FOR SEARCH DOCUMENT';
         this.newButtonURL = '/search-document';
-        this.actionButtonURL = '/search-document';
+        this.actionButtonURL = `/search-document-view/${btoa(Workflow.SEARCH_REQUEST)}/`;
         break;
+      // case Workflow.EXTRACT_REQUEST:
+      //   this.loadExtractRequests();
+      //   this.headerText = 'FOLIO / DEED EXTRACT';
+      //   this.titleText = 'REQUEST FOR EXTRACT DOCUMENT';
+      //   this.newButtonURL = '/extract';
+      //   this.actionButtonURL = `/extract-view/${btoa(Workflow.EXTRACT_REQUEST)}/`;
+      //   break;
     }
   }
+
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

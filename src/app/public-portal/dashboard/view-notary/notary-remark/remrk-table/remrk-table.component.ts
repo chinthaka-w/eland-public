@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {NewNotaryRequestsCategorySearchDto} from "../../../../../shared/dto/new-notary-requests-category-search.dto";
 import {NotaryRegistrationHistoryDto} from "../../../../../shared/dto/notary-registration-history.dto";
 import {ActivatedRoute} from "@angular/router";
@@ -23,7 +23,7 @@ import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-pa
   ]
 })
 export class RemrkTableComponent implements OnInit {
-  notaryRequestHistory: NotaryRegistrationHistoryDto[] = [];
+  @Input() notaryRequestHistory: NotaryRegistrationHistoryDto[] = [];
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
   dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.notaryRequestHistory);
@@ -33,23 +33,13 @@ export class RemrkTableComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getHistoryDetails();
   }
 
-  getHistoryDetails(){
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1",null);
-    // this.route.paramMap.subscribe(params =>{
-    //   searchType.requestID = params.get('id');
-    // });
-
-    this.notaryService.getHistoryDetails(searchType).subscribe(
-      (result: NotaryRegistrationHistoryDto[]) => {
-        this.dataSource.data = result;
-      },
-      error1 => {
-        console.log(error1);
-      }
-    )
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['paymentDetails']) {
+      this.dataSource.data = this.notaryRequestHistory;
+    }
   }
+
 
 }
