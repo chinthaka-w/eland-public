@@ -1,38 +1,23 @@
-<!--<table>-->
-<!--  <tr>-->
-<!--    <th>Document Name</th>-->
-<!--    <th>Document</th>-->
-<!--    <th>View</th>-->
-<!--  </tr>-->
-<!--  <tr *ngFor="let doc of supportingDocuments; let i = index">-->
-<!--    <td >{{doc.name}}</td>-->
-<!--    <td>{{doc.remark}}</td>-->
-<!--    <td><button (click)="onDocumentClick(doc.id, doc.document)">View</button></td>-->
-<!--  </tr>-->
-<!--</table>-->
-
-<!--<link rel="stylesheet" href="../document-preview/document-preview.component.css">-->
 <mat-card *ngFor="let doc of supportingDocuments; let i = index">
-  <div class="row">
-    <div class="col-md-9">
-      <h3 (click)="onDocumentClick(doc.id, doc.document)">
-        {{doc.name}}
-      </h3>
+    <div class="pg-inner-row mb-20">
+      <h4>{{doc.name}}</h4>
     </div>
-    <div class="col-md-3">
-      <mat-slide-toggle
-        [checked]="doc.statusCode"
-        (change)="onChangeValidity(doc, i)"
+    <div class="pg-inner-row mb-20">
+      <ngx-image-viewer
+        [src]="documentImages"
       >
-      </mat-slide-toggle>
+      </ngx-image-viewer>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h5>{{doc.remark}}</h5>
-    </div>
-  </div>
-  <file-upload-input (response)="setFiles($event)"></file-upload-input>
 </mat-card>
+<mat-card *ngFor="let document of docList">
+      <div class="default-input-wrapper full-row">
+        <label>{{document.description}}
+          <span *ngIf="document.required == true">*</span>
+        </label>
+        <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+      </div>
+</mat-card>
+
+
 
 

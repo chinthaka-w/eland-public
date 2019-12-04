@@ -39,6 +39,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
     this.getPaymentDetails();
   }
 
+
   getPaymentDetails() {
     let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
     // this.route.paramMap.subscribe(params => {
@@ -68,7 +69,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
         this.notaryPayment.emit(model);
         this.snackBar.success("Payment Success");
       }
-    )
+    );
   }
 
   getPaymentData(paymentData: PaymentResponse){

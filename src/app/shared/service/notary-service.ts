@@ -4,6 +4,10 @@ import {Notary} from '../dto/notary.model';
 import {Observable, of, throwError} from 'rxjs';
 import {SysConfigService} from './sys-config.service';
 import {NewNotaryPaymentDto} from "../dto/new-notary-payment.dto";
+import {SupportDocResponseModel} from "../dto/support-doc-response.model";
+import {Form} from "@angular/forms";
+import {NewNotarySupportingDocDetailDto} from "../dto/new-notary-supporting-doc-detail.dto";
+import {DocTypeDto} from "../dto/doc-type.dto";
 @Injectable()
 export class NotaryService {
   public BASE_URL = SysConfigService.BASE_URL +'new-notary';
@@ -20,6 +24,11 @@ export class NotaryService {
     return this.httpClient.post(this.BASE_URL + '/' , formData);
   }
 
+  /** Update New Notary Documents */
+  updateSupportDocuments(formData: FormData) : Observable<any> {
+    return this.httpClient.post(this.BASE_URL+'/documents',formData);
+  }
+
   /** Update Registered Notary Details */
   updateNotaryDetails(notaries: Notary): Observable<Object> {
     console.log(notaries);
@@ -31,6 +40,10 @@ export class NotaryService {
     return this.httpClient.post(this.BASE_URL + '/payments/' , model);
   }
 
+  /** Get Document Types of Notary */
+  getDocumentTypes(): Observable<DocTypeDto[]>{
+    return this.httpClient.get<DocTypeDto[]>(this.BASE_URL + '/documentTypes');
+  }
 
   // tslint:disable-next-line:ban-types
   findIfNotaryExist(nic: string): Observable<Object> {

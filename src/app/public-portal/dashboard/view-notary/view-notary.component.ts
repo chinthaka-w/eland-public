@@ -11,6 +11,7 @@ import {NotaryApplicationComponent} from "./notary-application/notary-applicatio
 export class ViewNotaryComponent implements OnInit {
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   public disabled: boolean = true;
+  public disabledPayment: boolean = true;
   public notaryDetail: Notary;
 
 
@@ -19,16 +20,23 @@ export class ViewNotaryComponent implements OnInit {
   }
 
   tabClick(event){
-    if( event.tab.textLabel === "Supporting Documents"){
-      this.disabled = false;
+    if( event.tab.textLabel === "Application"){
+       this.disabled = false;
+   //   this.disabledPayment = false;
     }
-    if(event.tab.textLabel === 'Payment Info'){
-     this.notaryApplicationComponent.saveNotaryDetails();
+    if(event.tab.textLabel === "Payment Info"){
+        this.disabled = false;
+    }
+    if(event.tab.textLabel === "Remark"){
+       this.disabled = false;
+    }
+    if( event.tab.textLabel === "Supporting Documents"){
+      this.disabled = true;
     }
   }
 
   onFormSubmit(){
-
+    this.notaryApplicationComponent.saveNotaryDetails();
   }
 
 }

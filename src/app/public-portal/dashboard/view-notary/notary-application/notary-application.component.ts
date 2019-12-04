@@ -229,19 +229,20 @@ export class NotaryApplicationComponent implements OnInit {
     this.saveNotaryDetails();
   }
   saveNotaryDetails(): void {
-    this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId, null, this.notaryForm.value.nic, this.notaryForm.value.email,
-      this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
-      this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
-      this.notaryForm.value.currentAddressInSinhala,  this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
-      this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
-      this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
-      this.notaryForm.value.title, 'Miss', 'Ms',
-      1, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani","ss",  this.notaryForm.value.userName,this.paymentId);
+    if(this.notaryForm.valid){
+      this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId, null, this.notaryForm.value.nic, this.notaryForm.value.email,
+        this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
+        this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
+        this.notaryForm.value.currentAddressInSinhala,  this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
+        this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
+        this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
+        this.notaryForm.value.title, 'Miss', 'Ms',
+        1, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
+        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani","ss",  this.notaryForm.value.userName,this.paymentId);
 
-     this.notaryDetail.emit(this.notaryDetails);
-     this.notaryService.setNotaryDetails(this.notaryDetails);
-     this.notaryDetails = this.notaryService.getNotaryDetails();
+      this.notaryDetail.emit(this.notaryDetails);
+      this.notaryService.setNotaryDetails(this.notaryDetails);
+      this.notaryDetails = this.notaryService.getNotaryDetails();
 
       this.notaryService.updateNotaryDetails(this.notaryDetails).subscribe(
         (success: string) => {
@@ -251,6 +252,7 @@ export class NotaryApplicationComponent implements OnInit {
           this.snackBar.error('Failed');
         }
       );
+    }
   }
 
   private getGnDivisions(): void {
