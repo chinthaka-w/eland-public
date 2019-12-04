@@ -36,7 +36,7 @@ export class RemrkTableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['paymentDetails']) {
+    if (changes['notaryRequestHistory']) {
       this.dataSource.data = this.notaryRequestHistory;
     }
   }

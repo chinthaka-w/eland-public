@@ -20,9 +20,6 @@ export class NotaryRemarkComponent implements OnInit {
 
   getHistoryDetails() {
     let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id,"1", this.workflow);
-    // this.route.paramMap.subscribe(params =>{
-    //   searchType.requestID = params.get('id');
-    // });
 
     this.notaryService.getHistoryDetails(searchType).subscribe(
       (result: NotaryRegistrationHistoryDto[]) => {

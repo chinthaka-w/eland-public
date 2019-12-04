@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {JudicialChange} from '../../../../../shared/dto/judicial-change-model';
 import {JudicialService} from '../../../../../shared/service/change-judicial-service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -176,7 +176,7 @@ export class RequestDataComponent implements OnInit {
     this.judicialChangeDto.toDate = this.requestForm.value.toDate;
     this.judicialChangeDto.newNotaryId = this.notaryId;
     this.judicialChangeDto.dsGnList = this.dsGnList;
-    this.judicialChangeDto.notaryRequestID = this.id;
+    this.judicialChangeDto.requestId = this.id;
 
     this.judicialService.update(this.judicialChangeDto).subscribe(
       (success: string) => {
@@ -206,5 +206,7 @@ export class RequestDataComponent implements OnInit {
   selectGnDivision(gsDivisionId) {
     this.dsGnList.push(new DsGnDivisionDTO(gsDivisionId[0], this.dsDivisionId));
   }
+
+
 
 }

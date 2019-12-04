@@ -13,18 +13,25 @@ import {JudicialService} from '../../../../shared/service/change-judicial-servic
   styleUrls: ['./judicial-change-request-view.component.css']
 })
 export class JudicialChangeRequestViewComponent implements OnInit {
+  requestId: string;
   WorkflowCode = WorkflowStages;
   id: number;
   workflow: string;
 
-  constructor(private route: ActivatedRoute) { }
-
-  ngOnInit() {
+  constructor(private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
-      this.workflow  = params['workflow'];
-      this.id  = params['id'];
+      this.workflow  = atob(params['workflow']);
+      this.requestId  = atob(params['id']);
+      this.id = +this.requestId;
     });
 
+    console.log(this.id+'id...cons');
+  }
+
+  ngOnInit() {
+
+
+    console.log(this.id+'id...init');
 
   }
 

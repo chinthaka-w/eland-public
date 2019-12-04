@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Notary} from "../../../shared/dto/notary.model";
 import {NotaryService} from "../../../shared/service/notary-service";
 import {NotaryApplicationComponent} from "./notary-application/notary-application.component";
+import {Workflow} from '../../../shared/enum/workflow.enum';
 
 @Component({
   selector: 'app-view-notary',

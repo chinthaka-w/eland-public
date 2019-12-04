@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Input, OnInit} from '@angular/core';
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
 import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
