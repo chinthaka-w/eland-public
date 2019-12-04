@@ -52,13 +52,11 @@ export class SupportingDocDetailComponent implements OnInit {
       remarks: new FormArray([])
     });
     this.getDocumentTypes();
-    this.getDocumentPreview();
   }
 
   getDocumentPreview(): void{
     this.notaryService.loadDocImages.subscribe(
       (result:string[])=> {
-        console.log(result);
         this.documentImages = result;
       }
     );
@@ -81,18 +79,17 @@ export class SupportingDocDetailComponent implements OnInit {
     );
   }
 
-  setFiles(data: any, docTyprId: number) {
+  setFiles(data: any, docTyprId: number,docId: number) {
     this.files = data;
-    this.docsList.push(new DocumentResponseDto(0,docTyprId,this.files[0],""));
+    this.docsList.push(new DocumentResponseDto(docId,docTyprId,this.files[0],""));
    // this.saveNewDocuments(docTyprId,this.docsList);
-    console.log(this.docsList);
     this.supportDocs.emit(this.docsList);
   }
 
-  saveNewDocuments(docTypeId: number,docs: DocumentResponseDto[]){
+  saveNewDocuments(docId: number ,docTypeId: number,docs: DocumentResponseDto[]){
     let requestId = 1;
     const formData = new FormData();
-    const supportDocResponse = new SupportDocResponseModel(docTypeId,requestId);
+    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,requestId);
     formData.append('data', JSON.stringify(supportDocResponse));
     docs.forEach(doc => {
       formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
@@ -108,7 +105,6 @@ export class SupportingDocDetailComponent implements OnInit {
     this.documetService.getDocumentsByWorkFlow(Workflow.NOTARY_REGISTRATION).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
-        console.log(this.docList)
       }
     );
   }

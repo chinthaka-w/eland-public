@@ -47,7 +47,6 @@ export class RemrkTableComponent implements OnInit {
         this.dataSource.data = result;
       },
       error1 => {
-        console.log(error1);
       }
     )
   }

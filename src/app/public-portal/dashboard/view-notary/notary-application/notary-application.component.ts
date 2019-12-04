@@ -121,7 +121,7 @@ export class NotaryApplicationComponent implements OnInit {
     this.getLandRegistries();
     this.getJudicialZones();
     this.getLatestRemark();
-    this.getDocumentList();
+   // this.getDocumentList();
     this.locationList.push(this.locationDto);
     this.locationDto = {};
 
@@ -189,7 +189,6 @@ export class NotaryApplicationComponent implements OnInit {
         this.setWorkflowStage();
       },
       error1 => {
-        console.log(error1)
       }
     );
   }
@@ -215,7 +214,6 @@ export class NotaryApplicationComponent implements OnInit {
     this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
-        console.log(this.docList)
       }
     );
   }
@@ -304,7 +302,6 @@ export class NotaryApplicationComponent implements OnInit {
       (result: NotaryRegistrationHistoryDto) => {
         if(result != null){
           this.notaryRequestHistoryByRemark = result;
-          console.log(this.notaryRequestHistoryByRemark.createdUser);
           this.hasRemarks = true;
         }else{
           this.hasRemarks = false;

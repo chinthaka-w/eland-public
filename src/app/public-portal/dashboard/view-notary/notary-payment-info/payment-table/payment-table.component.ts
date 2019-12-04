@@ -47,7 +47,6 @@ export class PaymentTableComponent implements OnInit {
         this.dataSource.data = result;
       },
       error => {
-        console.log(error);
       }
     )
   }

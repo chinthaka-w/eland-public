@@ -67,7 +67,6 @@ export class PaymentComponent implements OnInit {
           this.applicationAmount = value;
         }
       }, (error: HttpErrorResponse) => {
-        console.log(error);
       }, () => {
         this.totalAmount = this.applicationAmount;
       }
@@ -79,7 +78,6 @@ export class PaymentComponent implements OnInit {
       (value: number) => {
         this.issueAmount = value;
       }, (error: HttpErrorResponse) => {
-        console.log(error);
       }, () => {
         this.totalAmount = this.applicationAmount + this.issueAmount;
       }
@@ -154,7 +152,6 @@ export class PaymentComponent implements OnInit {
         this.paymentResponse.paymentId = res.paymentId;
         this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_TO_FRONT_COUNTER;
       }, (error: HttpErrorResponse) => {
-        console.log(error);
         this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_FAILED;
         this.response.emit(this.paymentResponse);
       }, () => {

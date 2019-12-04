@@ -20,7 +20,6 @@ export class NotaryService {
 
   // tslint:disable-next-line:ban-types
   saveNotaryDetails(formData: FormData): Observable<any> {
-    console.log(formData);
     return this.httpClient.post(this.BASE_URL + '/' , formData);
   }
 
@@ -31,7 +30,6 @@ export class NotaryService {
 
   /** Update Registered Notary Details */
   updateNotaryDetails(notaries: Notary): Observable<Object> {
-    console.log(notaries);
     return this.httpClient.post(this.BASE_URL + '/update' , notaries);
   }
 

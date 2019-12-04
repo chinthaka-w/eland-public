@@ -18,6 +18,7 @@ export class ViewNotaryComponent implements OnInit {
   public notaryDetail: Notary;
   public docsList: DocumentResponseDto[] = [];
   public docTypeId: number;
+  public docId: number;
 
 
   constructor(private newNotaryService: NotaryService) { }
@@ -42,10 +43,10 @@ export class ViewNotaryComponent implements OnInit {
 
   getSupportingDocs(data: DocumentResponseDto[]){
     this.docsList = data;
-    console.log(data);
     data.forEach(docs => {
       let docId = docs.docId;
       this.docTypeId = docs.docTypeId;
+      this.docId = docs.docId;
       let files = docs.files;
       let status = docs.status;
     })
@@ -53,7 +54,7 @@ export class ViewNotaryComponent implements OnInit {
 
   onFormSubmit(){
     this.notaryApplicationComponent.saveNotaryDetails();
-    this.supportingDocumentDetails.saveNewDocuments(this.docTypeId,this.docsList);
+    this.supportingDocumentDetails.saveNewDocuments(this.docId,this.docTypeId,this.docsList);
 
   }
 
