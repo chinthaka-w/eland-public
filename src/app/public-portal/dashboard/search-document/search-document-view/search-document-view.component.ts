@@ -10,12 +10,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class SearchDocumentViewComponent implements OnInit {
 
-  public Workflow: string;
+  public workflow: string;
+  public requestId: any;
 
   constructor(private location: Location,
               private activatedRoute: ActivatedRoute,) {
     this.activatedRoute.params.subscribe(params => {
-      this.flag = atob(params['flag']); // (+) converts string 'id' to a number
+      this.workflow = atob(params['workflow']);
+      this.requestId = atob(params['id']);
     });
   }
 
