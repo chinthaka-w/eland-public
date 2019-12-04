@@ -60,7 +60,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'JUDICIAL ZONE CHANGING';
         this.titleText = 'REQUEST FOR CHANGING THE JUDICIAL ZONE';
         this.newButtonURL = '/change-judicial';
-        this.actionButtonURL = `/change-judicial/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
+        this.actionButtonURL = `/change-judicial-request-view/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
         break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();
@@ -78,6 +78,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         break;
     }
   }
+
 
   getBase64(value: string): string {
     return btoa(value);
