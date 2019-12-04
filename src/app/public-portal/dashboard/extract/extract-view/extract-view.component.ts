@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-extract-view',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExtractViewComponent implements OnInit {
 
-  constructor() { }
+  public workflow: string;
+  public requestId: any;
+
+  constructor(private location: Location,
+              private activatedRoute: ActivatedRoute,) {
+    this.activatedRoute.params.subscribe(params => {
+      this.workflow = atob(params['workflow']);
+      this.requestId = atob(params['id']);
+    });
+  }
 
   ngOnInit() {
+  }
+
+  goBack(): any {
+    this.location.back();
+    return false;
   }
 
 }

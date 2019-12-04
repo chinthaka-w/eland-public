@@ -60,6 +60,7 @@ import {MatProgressSpinnerModule} from '@angular/material';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
+import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     DocumentTableComponent,
     SearchDocumentViewComponent,
     ExtractViewComponent,
+    SearchDocumentApplicationComponent,
   ],
   imports: [
     CommonModule,

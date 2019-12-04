@@ -67,14 +67,14 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'FOLIO / DEED SEARCH';
         this.titleText = 'REQUEST FOR SEARCH DOCUMENT';
         this.newButtonURL = '/search-document';
-        this.actionButtonURL = `/search-document-view/${btoa(Workflow.SEARCH_REQUEST)}/`;
+        this.actionButtonURL = `/search-document-view/`;
         break;
       case Workflow.EXTRACT_REQUEST:
         this.loadExtractRequests();
         this.headerText = 'FOLIO / DEED EXTRACT';
         this.titleText = 'REQUEST FOR EXTRACT DOCUMENT';
         this.newButtonURL = '/extract';
-        this.actionButtonURL = `/extract-view/${btoa(Workflow.EXTRACT_REQUEST)}/`;
+        this.actionButtonURL = `/extract-view/`;
         break;
     }
   }

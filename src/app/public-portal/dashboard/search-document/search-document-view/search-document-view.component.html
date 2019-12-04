@@ -1,25 +1,39 @@
 <div class="page-header-default">
   <h2>Edit Search Request</h2>
   <p>.......</p>
-  <a href="#" (click)="goBack()"  class="phd-back-btn">
+  <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
-    <mat-tab-group>
-      <mat-tab label="Application">
-        <app-last-remark
-          [workflow]="workflow"
-        [requestId]=""></app-last-remark>
-      </mat-tab>
-      <mat-tab label="Payment Info">
-        <app-notary-payment-info></app-notary-payment-info>
-      </mat-tab>
-      <mat-tab label="Remark">
-        <app-notary-remark></app-notary-remark>
-      </mat-tab>
-    </mat-tab-group>
+    <div class="pg-inner-row mb-0">
+      <mat-tab-group>
+        <mat-tab label="Application">
+          <app-last-remark
+            [workflow]="workflow"
+            [requestId]="requestId"></app-last-remark>
+          <app-search-document-application
+            [workflow]="workflow"
+            [requestId]="requestId"
+            [action]="action"
+          ></app-search-document-application>
+        </mat-tab>
+        <mat-tab label="Payment Info">
+          <app-notary-payment-info></app-notary-payment-info>
+        </mat-tab>
+        <mat-tab label="Remark">
+          <app-notary-remark></app-notary-remark>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-row mb-0">
+      <div class="pg-inner-col ">
+        <button mat-raised-button
+                class="button green">Save Changes
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
