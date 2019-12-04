@@ -58,6 +58,8 @@ import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
+import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 
 
 @NgModule({
@@ -95,6 +97,8 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
     RemrkTableComponent,
     SupportingDocDetailComponent,
     DocumentTableComponent,
+    SearchDocumentViewComponent,
+    ExtractViewComponent,
   ],
   imports: [
     CommonModule,

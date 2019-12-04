@@ -1,4 +1,4 @@
-export class SearchRequest {
+export class ExtractRequest {
   public requestId: number;
   public landRegistryId: number;
   public requestType: number;
