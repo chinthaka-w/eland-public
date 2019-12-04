@@ -58,6 +58,8 @@ import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { ViewCitizenComponent } from './dashboard/view-citizen/view-citizen.component';
 import { CitizenApplicationComponent } from './dashboard/view-citizen/citizen-application/citizen-application.component';
 import { CitizenPaymentInfoComponent } from './dashboard/view-citizen/citizen-payment-info/citizen-payment-info.component';
@@ -109,6 +111,7 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     CitizenSupportingDocDetailsComponent,
     SearchDocumentViewComponent,
     ExtractViewComponent,
+    DocumentPreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -137,7 +140,8 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     MatNativeDateModule,
     SatDatepickerModule,
     SatNativeDateModule,
-    ImageViewerModule
+    ImageViewerModule,
+    MatSlideToggleModule
   ],
   exports: [
     LoginComponent,

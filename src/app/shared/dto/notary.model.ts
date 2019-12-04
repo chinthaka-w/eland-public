@@ -36,6 +36,7 @@ export class Notary {
      public status: string,
      public createdTime: Date,
      public lastUpdatedUser: string,
+     public workflowStageCode: string,
      public userName: string,
      public paymentId: number,
    ) {
