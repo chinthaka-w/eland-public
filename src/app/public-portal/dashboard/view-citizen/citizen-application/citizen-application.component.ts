@@ -15,6 +15,8 @@ import {SearchRequestType} from '../../../../shared/enum/search-request-type.enu
 import {SessionService} from "../../../../shared/service/session.service";
 import {CommonStatus} from "../../../../shared/enum/common-status.enum";
 import {SnackBarService} from "../../../../shared/service/snack-bar.service";
+import {BankUserType} from "../../../../shared/enum/bank-user-type.enum";
+import {IdentificationType} from "../../../../shared/enum/identification-type.enum";
 
 @Component({
   selector: 'app-citizen-application',
@@ -32,22 +34,14 @@ export class CitizenApplicationComponent implements OnInit {
 
   public publicUserForm: FormGroup;
   public PublicUserType = PublicUserType;
+  public bankUserType = BankUserType;
+  public identificationType = IdentificationType;
   fileList = {};
   landRegistriesDTOList: Array<LandRegistriesDTO> = [];
   landRegistry: LandRegistriesDTO = new LandRegistriesDTO();
   citizenDTO: CitizenDTO = new CitizenDTO();
 
   bankUserTypeId: number;
-  bankUserTypes = [
-    {"id": 1, "type": "Manager"},
-    {"id": 2, "type": "Notary"},
-    {"id": 3, "type": "Other"}
-  ];
-  identificationTypes = [
-    {"id": 1, "type": "NIC"},
-    {"id": 2, "type": "Passport"},
-    {"id": 3, "type": "Driving License"}
-  ];
 
   banks: Array<BankDTO> = [];
   publicUserDTO: PublicUserDTO = new PublicUserDTO();
@@ -124,6 +118,7 @@ export class CitizenApplicationComponent implements OnInit {
     this.publicUserForm.controls['stateInstitutionName'].disable();
     this.publicUserForm.controls['otherInstitutionName'].disable();
     this.publicUserForm.controls['dateOfBirth'].disable();
+    this.publicUserForm.controls['notaryId'].disable();
   }
 
   setFiles(files, key){
@@ -148,6 +143,7 @@ export class CitizenApplicationComponent implements OnInit {
   }
   getCurrentBankUserType(event) {
     this.bankUserTypeId = event.target.value;
+    this.citizenDTO.bankUserType = this.bankUserTypeId;
   }
   getCurrentBank(event) {
     this.citizenDTO.bankId = event.target.value;
@@ -159,19 +155,19 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.userType = event.target.value;
 
     if(this.citizenDTO.userType = PublicUserType.CITIZEN) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_CITIZEN;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
     }
     else if(this.citizenDTO.userType = PublicUserType.BANK) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_BANK;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.BANK_INIT;
     }
     else if(this.citizenDTO.userType = PublicUserType.LAWYER) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_LAWYER_OR_LAW_FIRM;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.LAWYER_OR_LAW_FIRM_INIT;
     }
     else if(this.citizenDTO.userType = PublicUserType.STATE) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_STATE_INSTITUTE;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.STATE_INSTITUTE_INIT;
     }
     else if(this.citizenDTO.userType = PublicUserType.OTHER) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_OTHER_INSTITUTE;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
     }
   }
 
@@ -194,6 +190,7 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.stateInstituteName = this.publicUserForm.controls.stateInstitutionName.value;
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
+    this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
     this.citizenService.updateCitizen(this.citizenDTO)
       .subscribe((result) => {

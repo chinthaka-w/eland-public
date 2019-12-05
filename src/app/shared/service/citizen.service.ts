@@ -35,23 +35,10 @@ export class CitizenService {
     for (const key in keys) {
       for (const file of fileList[keys[key]]) {
         formData.append('file', file, keys[key] + '/' + file.name);
-        // console.log(formData.get(keys[key]));
-        // dataObj.push(formData);
       }
-      // console.log(fileList[keys[key]]);
-      // for(const file in fileList[key]) {
-      //   console.log(file);
-      // }
     }
     formData.append('model', JSON.stringify(citizen));
     console.log(formData);
-    // **console.log('file: ', fileList[keys[0]][0]);
-    // for (const key in keys) {
-    // console.log(fileList[key]);
-    // for (let file in fileList[key]) {
-    //   console.log(file);
-    // }
-    // }
     return this.httpClient.post<CitizenDTO>(this.BASE_URL + 'citizen/', formData,{headers: this.headers});
 
   }

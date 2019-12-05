@@ -15,6 +15,8 @@ import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {PaymentDto} from "../../../shared/dto/payment-dto";
 import {Router} from "@angular/router";
+import {BankUserType} from "../../../shared/enum/bank-user-type.enum";
+import {IdentificationType} from "../../../shared/enum/identification-type.enum";
 
 @Component({
   selector: "app-add-public-user",
@@ -29,6 +31,8 @@ export class AddPublicUserComponent implements OnInit {
 
   public publicUserForm: FormGroup;
   public PublicUserType = PublicUserType;
+  public bankUserType = BankUserType;
+  public identificationType = IdentificationType;
   fileList = {};
   landRegistriesDTOList: Array<LandRegistriesDTO> = [];
   landRegistry: LandRegistriesDTO = new LandRegistriesDTO();
@@ -36,16 +40,6 @@ export class AddPublicUserComponent implements OnInit {
   paymentDto: PaymentDto = new PaymentDto();
 
   bankUserTypeId: number;
-  bankUserTypes = [
-    {"id": 1, "type": "Manager"},
-    {"id": 2, "type": "Notary"},
-    {"id": 3, "type": "Other"}
-  ];
-  identificationTypes = [
-    {"id": 1, "type": "NIC"},
-    {"id": 2, "type": "Passport"},
-    {"id": 3, "type": "Driving License"}
-  ];
 
   banks: Array<BankDTO> = [];
   publicUserDTO: PublicUserDTO = new PublicUserDTO();
@@ -116,6 +110,7 @@ export class AddPublicUserComponent implements OnInit {
   }
   getCurrentBankUserType(event) {
     this.bankUserTypeId = event.target.value;
+    this.citizenDTO.bankUserType = this.bankUserTypeId;
   }
   getCurrentBank(event) {
     this.citizenDTO.bankId = event.target.value;
@@ -127,19 +122,19 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.userType = event.target.value;
 
     if(this.citizenDTO.userType == PublicUserType.CITIZEN) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_CITIZEN;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
     }
     else if(this.citizenDTO.userType == PublicUserType.BANK) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_BANK;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.BANK_INIT;
     }
     else if(this.citizenDTO.userType == PublicUserType.LAWYER) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_LAWYER_OR_LAW_FIRM;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.LAWYER_OR_LAW_FIRM_INIT;
     }
     else if(this.citizenDTO.userType == PublicUserType.STATE) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_STATE_INSTITUTE;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.STATE_INSTITUTE_INIT;
     }
     else if(this.citizenDTO.userType == PublicUserType.OTHER) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.PUBLIC_USER_REGISTRATION_INITIALIZED_AS_OTHER_INSTITUTE;
+      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
     }
   }
 
@@ -162,6 +157,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.stateInstituteName = this.publicUserForm.controls.stateInstitutionName.value;
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
+    this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
     if(this.paymentDto.paymentId == null) {
       this.isContinue = true;

@@ -34,7 +34,9 @@
       <mat-form-field appearance="outline">
         <select matNativeControl required (change)="getCurrentBankUserType($event)">
           <option value="" disabled>Select Bank User Type</option>
-          <option *ngFor="let bankUserType of bankUserTypes" [value]="bankUserType.id">{{bankUserType.type}}</option>
+          <option value="{{bankUserType.MANAGER}}" >Manager</option>
+          <option value="{{bankUserType.NOTARY}}" >Notary</option>
+          <option value="{{bankUserType.OTHER}}" >Other</option>
         </select>
       </mat-form-field>
     </div>
@@ -93,10 +95,6 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <!--          <div *ngIf="FormControls.dateOfBirth.touched && FormControls.dateOfBirth.errors"-->
-      <!--               class="invalid-feedback">-->
-      <!--            <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">Date of Birth is required</mat-error>-->
-      <!--          </div>-->
       <button mat-raised-button (click)="picker.open()">
         <i class="material-icons">calendar_today</i>
       </button>
@@ -173,7 +171,9 @@
       <mat-form-field appearance="outline">
         <select matNativeControl formControlName="identificationType" required (change)="getCurrentIdentificationType($event)">
           <option value="" disabled>Select Identification Type</option>
-          <option *ngFor="let identificationType of identificationTypes" [value]="identificationType.id">{{identificationType.type}}</option>
+          <option value="{{identificationType.NIC}}" >NIC</option>
+          <option value="{{identificationType.PASSPORT}}" >Passport</option>
+          <option value="{{identificationType.DRIVING_LICENSE}}" >Driving License</option>
         </select>
       </mat-form-field>
     </div>
