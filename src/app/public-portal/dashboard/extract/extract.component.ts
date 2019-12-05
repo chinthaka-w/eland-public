@@ -175,7 +175,6 @@ export class ExtractComponent implements OnInit {
   saveRequest(extractRequest: ExtractRequest): void {
     this.extractRequestService.saveExtractRequest(extractRequest).subscribe(
       (data) => {
-        console.log(data);
       }, (error: HttpErrorResponse) => {
         console.log(error);
         this.snackBarService.error(error.message);

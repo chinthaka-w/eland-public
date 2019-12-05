@@ -69,8 +69,6 @@ export class PaymentMethodComponent implements OnInit {
     }
 
     if (isValid) {this.paymentDTO.bankId = this.paymentMethodForm.get('bank').value;
-    console.log(this.paymentMethodForm.get('bank').value);this.paymentDTO.bankBranchId = this.paymentMethodForm.get('branch').value;
-    console.log(this.paymentMethodForm.get('branch').value);
     this.paymentDTO.paymentDate = this.paymentMethodForm.get('date').value;
     this.paymentDTO.referenceNo = this.paymentMethodForm.get('referenceNo').value;
     this.paymentDTO.status = CommonStatus.ACTIVE;

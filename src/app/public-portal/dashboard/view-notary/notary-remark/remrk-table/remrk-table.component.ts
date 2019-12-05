@@ -30,9 +30,11 @@ export class RemrkTableComponent implements OnInit {
 
 
   constructor(private notaryService: NewNotaryDataVarificationService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
+    this.getHistoryDetails();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,5 +43,18 @@ export class RemrkTableComponent implements OnInit {
     }
   }
 
+  getHistoryDetails(){
+      let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1, "1","");
+      // this.route.paramMap.subscribe(params =>{
+      //   searchType.requestID = params.get('id');
+      // });
 
+      this.notaryService.getHistoryDetails(searchType).subscribe(
+        (result: NotaryRegistrationHistoryDto[]) => {
+          this.dataSource.data = result;
+        },
+        error1 => {
+        }
+      )
+    }
 }
