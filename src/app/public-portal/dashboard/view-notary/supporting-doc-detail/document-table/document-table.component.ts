@@ -69,7 +69,7 @@ export class DocumentTableComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1",null);
     // this.route.paramMap.subscribe(params => {
     //   searchType.requestID = params.get('id')
     // });

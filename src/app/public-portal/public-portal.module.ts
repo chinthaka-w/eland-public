@@ -58,6 +58,8 @@ import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { JudicialChangeRequestViewComponent } from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
+import { RequestDataComponent } from './dashboard/change-judicial/judicial-change-request-view/request-data/request-data.component';
 import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
@@ -99,10 +101,12 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     RemrkTableComponent,
     SupportingDocDetailComponent,
     DocumentTableComponent,
+    JudicialChangeRequestViewComponent,
+    RequestDataComponent,
     SearchDocumentViewComponent,
     ExtractViewComponent,
     DocumentPreviewComponent,
-  ],
+   ],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
