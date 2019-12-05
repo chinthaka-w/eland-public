@@ -4,17 +4,13 @@ import {DocumentResponseDto} from "../../../../shared/dto/document-response.dto"
 import {NewNotarySupportingDocDetailDto} from "../../../../shared/dto/new-notary-supporting-doc-detail.dto";
 import {WorkflowStageDocDto} from "../../../../shared/dto/workflow-stage-doc.dto";
 import {FormArray, FormGroup} from "@angular/forms";
-import {DocumentDto} from "../../../../shared/dto/document-list";
 import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {NotaryService} from "../../../../shared/service/notary-service";
 import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
-import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {SupportDocResponseModel} from "../../../../shared/dto/support-doc-response.model";
-import {Workflow} from "../../../../shared/enum/workflow.enum";
-import {LoginComponent} from "../../../login/login.component";
 
 @Component({
   selector: 'app-supporting-doc-detail',

@@ -6,8 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {AppConfig} from '../../shared/dto/app-config.model';
 import {SysConfigService} from "../../shared/service/sys-config.service";
 import {SessionService} from "../../shared/service/session.service";
-import {PaymentResponse} from "../../shared/dto/payment-response.model";
-import {DocumentResponseDto} from "../../shared/dto/document-response.dto";
+
 
 @Component({
   selector: 'app-login',
