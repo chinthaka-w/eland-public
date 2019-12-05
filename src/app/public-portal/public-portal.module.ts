@@ -67,6 +67,8 @@ import { CitizenRemarkComponent } from './dashboard/view-citizen/citizen-remark/
 import { CitizenSupportingDocDetailsComponent } from './dashboard/view-citizen/citizen-supporting-doc-details/citizen-supporting-doc-details.component';
 import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
+import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
+import { ExtractApplicationComponent } from './dashboard/extract/extract-view/extract-application/extract-application.component';
 
 
 @NgModule({
@@ -112,6 +114,9 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     RequestDataComponent,
     SearchDocumentViewComponent,
     ExtractViewComponent,
+    SearchDocumentApplicationComponent,
+    DocumentPreviewComponent,
+    ExtractApplicationComponent,
    ],
   imports: [
     CommonModule,

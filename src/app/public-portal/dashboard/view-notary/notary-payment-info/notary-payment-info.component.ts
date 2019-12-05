@@ -12,6 +12,7 @@ import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {Parameters} from "../../../../shared/enum/parameters.enum";
 import {NewNotaryPaymentDto} from "../../../../shared/dto/new-notary-payment.dto";
 import {SnackBarService} from "../../../../shared/service/snack-bar.service";
+import {ActionMode} from '../../../../shared/enum/action-mode.enum';
 
 @Component({
   selector: 'app-notary-payment-info',
@@ -22,9 +23,12 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @Output() notaryPayment = new EventEmitter<NewNotaryPaymentDto>();
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
-  paymentDetails: NewNotaryPaymentDetailDto[] = [];
   @Input() workflow: string;
   @Input() id: number;
+  @Input() action: number;
+
+  paymentDetails: NewNotaryPaymentDetailDto[] = [];
+
   public type = ApplicationRequestDataType.PAYMENT;
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
@@ -33,7 +37,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
   Parameters = Parameters;
   WorkflowCode = Workflow;
-
+  ActionMode = ActionMode;
 
   constructor(private notaryService: NewNotaryDataVarificationService,
               private newNotaryService: NotaryService,
