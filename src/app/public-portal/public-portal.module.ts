@@ -51,14 +51,14 @@ import { DsGnDivisionTableComponent } from './dashboard/view-notary/notary-appli
 import { PaymentTableComponent } from './dashboard/view-notary/notary-payment-info/payment-table/payment-table.component';
 import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk-table/remrk-table.component';
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
-import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
 import {ImageViewerModule} from "ngx-image-viewer";
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
-import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
+import { JudicialChangeRequestViewComponent } from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
+import { RequestDataComponent } from './dashboard/change-judicial/judicial-change-request-view/request-data/request-data.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { ViewCitizenComponent } from './dashboard/view-citizen/view-citizen.component';
 import { CitizenApplicationComponent } from './dashboard/view-citizen/citizen-application/citizen-application.component';
@@ -109,10 +109,11 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     CitizenPaymentInfoComponent,
     CitizenRemarkComponent,
     CitizenSupportingDocDetailsComponent,
+    JudicialChangeRequestViewComponent,
+    RequestDataComponent,
     SearchDocumentViewComponent,
     ExtractViewComponent,
-    DocumentPreviewComponent,
-  ],
+   ],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,

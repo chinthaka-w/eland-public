@@ -68,6 +68,7 @@ export class NotaryApplicationComponent implements OnInit {
   public hasRemarks: boolean = false;
   public notaryType: string;
   public isUpdatePayment: boolean = false;
+  public Workflow: Workflow;
 
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
@@ -148,7 +149,7 @@ export class NotaryApplicationComponent implements OnInit {
     //   this.searchType.requestID = params.get('id')
     // });
 
-    this.searchType = new NewNotaryRequestsCategorySearchDto(1,"1");
+    this.searchType = new NewNotaryRequestsCategorySearchDto(1,"1", Workflow.NOTARY_REGISTRATION);
     this.newNotaryDataVarificationService.getNotaryDetails(this.searchType).subscribe(
       (result: NewNotaryViewDto) => {
         this.result = result;
@@ -189,13 +190,12 @@ export class NotaryApplicationComponent implements OnInit {
         this.setWorkflowStage();
       },
       error1 => {
-        console.log(error1)
       }
     );
   }
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1", Workflow.NOTARY_REGISTRATION);
     // this.route.paramMap.subscribe(params => {
     //   searchType.requestID = params.get('id')
     // });
@@ -215,7 +215,6 @@ export class NotaryApplicationComponent implements OnInit {
     this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
-        console.log(this.docList)
       }
     );
   }
@@ -299,12 +298,11 @@ export class NotaryApplicationComponent implements OnInit {
   }
 
   getLatestRemark() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1", Workflow.NOTARY_REGISTRATION);
     this.newNotaryDataVarificationService.getLatestReamrk(searchType).subscribe(
       (result: NotaryRegistrationHistoryDto) => {
         if(result != null){
           this.notaryRequestHistoryByRemark = result;
-          console.log(this.notaryRequestHistoryByRemark.createdUser);
           this.hasRemarks = true;
         }else{
           this.hasRemarks = false;

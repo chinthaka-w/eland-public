@@ -44,7 +44,7 @@ export class NewNotaryDataVarificationService {
   /**
    * Load document details for notary registration*/
   getDocumentDetails(searchType: NewNotaryRequestsCategorySearchDto): Observable<NewNotarySupportingDocDetailDto[]>{
-    return this.httpClient.post<NewNotarySupportingDocDetailDto[]>(this.BASE_URL + '/supportDoc', searchType);
+    return this.httpClient.post<NewNotarySupportingDocDetailDto[]>(this.BASE_URL + '/supportDocuments', searchType);
   }
 
   setNotaryDetails(viewDetails: NewNotaryViewDto) {
@@ -64,7 +64,6 @@ export class NewNotaryDataVarificationService {
   }
 
   ViewRequestDetails() {
-    console.log(this.requestDetails);
     return this.requestDetails;
   }
 

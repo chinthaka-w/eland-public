@@ -18,6 +18,7 @@ import {ApplicationsComponent} from './dashboard/applications/applications.compo
 import {ViewNotaryComponent} from './dashboard/view-notary/view-notary.component';
 import {PaymentComponent} from '../shared/components/payment/payment.component';
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
+import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
 import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
@@ -107,6 +108,11 @@ const routes: Routes = [
   {
     path: 'requests/:flag',
     component: ChangeJudicialRequestListComponent
+  }
+  ,
+  {
+    path: 'change-judicial-request-view/:workflow/:id',
+    component: JudicialChangeRequestViewComponent
   },
 
 
