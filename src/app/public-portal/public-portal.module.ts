@@ -103,7 +103,6 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     PaymentTableComponent,
     RemrkTableComponent,
     SupportingDocDetailComponent,
-    DocumentTableComponent,
     ViewCitizenComponent,
     CitizenApplicationComponent,
     CitizenPaymentInfoComponent,

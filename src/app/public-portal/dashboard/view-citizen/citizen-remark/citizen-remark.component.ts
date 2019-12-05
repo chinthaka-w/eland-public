@@ -33,23 +33,23 @@ export class CitizenRemarkComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getHistoryDetails();
+    // this.getHistoryDetails();
   }
 
-  getHistoryDetails(){
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
-    // this.route.paramMap.subscribe(params =>{
-    //   searchType.requestID = params.get('id');
-    // });
-
-    this.notaryService.getHistoryDetails(searchType).subscribe(
-      (result: NotaryRegistrationHistoryDto[]) => {
-        this.dataSource.data = result;
-      },
-      error1 => {
-        console.log(error1);
-      }
-    )
-  }
+  // getHistoryDetails(){
+  //   let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+  //   // this.route.paramMap.subscribe(params =>{
+  //   //   searchType.requestID = params.get('id');
+  //   // });
+  //
+  //   this.notaryService.getHistoryDetails(searchType).subscribe(
+  //     (result: NotaryRegistrationHistoryDto[]) => {
+  //       this.dataSource.data = result;
+  //     },
+  //     error1 => {
+  //       console.log(error1);
+  //     }
+  //   )
+  // }
 
 }
