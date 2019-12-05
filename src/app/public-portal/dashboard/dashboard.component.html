@@ -92,7 +92,7 @@
         </div>
 
         <!---->
-        <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN">
+        <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
                         <span class="icon">
                             <i class="material-icons">search</i>
@@ -100,7 +100,7 @@
             <span class="title">Search</span>
           </a>
         </div>
-        <div class="db-link-tile c4" *ngIf="user.type == userType.CITIZEN">
+        <div class="db-link-tile c4" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests/'+getBase64(Workflow.EXTRACT_REQUEST)]">
                         <span class="icon">
                             <i class="material-icons">dns</i>
@@ -108,7 +108,7 @@
             <span class="title">Extract</span>
           </a>
         </div>
-        <div class="db-link-tile c3" *ngIf="user.type == userType.CITIZEN">
+        <div class="db-link-tile c3" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests']">
                         <span class="icon">
                             <i class="material-icons">feedback</i>
@@ -116,12 +116,20 @@
             <span class="title">Requests</span>
           </a>
         </div>
-        <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN">
-          <a href="#">
+        <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
+          <a [routerLink]="['/view-citizen']">
                         <span class="icon">
                             <i class="material-icons">label</i>
                         </span>
             <span class="title">Request for Corrections of Resignation</span>
+          </a>
+        </div>
+        <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.PENDING">
+          <a [routerLink]="['/view-citizen']">
+                        <span class="icon">
+                            <i class="material-icons">label</i>
+                        </span>
+            <span class="title">View and edit your profile</span>
           </a>
         </div>
       </div>

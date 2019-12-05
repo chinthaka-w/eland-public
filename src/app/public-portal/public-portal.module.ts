@@ -60,6 +60,11 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { JudicialChangeRequestViewComponent } from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
 import { RequestDataComponent } from './dashboard/change-judicial/judicial-change-request-view/request-data/request-data.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { ViewCitizenComponent } from './dashboard/view-citizen/view-citizen.component';
+import { CitizenApplicationComponent } from './dashboard/view-citizen/citizen-application/citizen-application.component';
+import { CitizenPaymentInfoComponent } from './dashboard/view-citizen/citizen-payment-info/citizen-payment-info.component';
+import { CitizenRemarkComponent } from './dashboard/view-citizen/citizen-remark/citizen-remark.component';
+import { CitizenSupportingDocDetailsComponent } from './dashboard/view-citizen/citizen-supporting-doc-details/citizen-supporting-doc-details.component';
 import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 
@@ -98,6 +103,11 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     PaymentTableComponent,
     RemrkTableComponent,
     SupportingDocDetailComponent,
+    ViewCitizenComponent,
+    CitizenApplicationComponent,
+    CitizenPaymentInfoComponent,
+    CitizenRemarkComponent,
+    CitizenSupportingDocDetailsComponent,
     JudicialChangeRequestViewComponent,
     RequestDataComponent,
     SearchDocumentViewComponent,

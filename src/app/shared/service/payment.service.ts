@@ -4,7 +4,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {SysConfigService} from './sys-config.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PaymentService {
 
   public BASE_URL = SysConfigService.BASE_URL + 'payment';
