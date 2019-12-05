@@ -65,6 +65,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
+import { ExtractApplicationComponent } from './dashboard/extract/extract-view/extract-application/extract-application.component';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { SearchDocumentApplicationComponent } from './dashboard/search-document/
     ExtractViewComponent,
     SearchDocumentApplicationComponent,
     DocumentPreviewComponent,
+    ExtractApplicationComponent,
    ],
   imports: [
     CommonModule,

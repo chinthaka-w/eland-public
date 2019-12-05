@@ -25,7 +25,7 @@ import {MatTableDataSource} from '@angular/material/table';
 export class PaymentTableComponent implements OnInit, OnChanges {
   @Input() paymentDetails: NewNotaryPaymentDetailDto[] = [];
 
-  displayedColumns: string[] = ['Payment Method', 'Amount', 'Payment ID', 'Payment Date', 'Status'];
+  displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
   dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
 
   constructor(private notaryService: NewNotaryDataVarificationService,
@@ -33,7 +33,7 @@ export class PaymentTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
- }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paymentDetails']) {

@@ -7,19 +7,40 @@
 </div>
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
-    <mat-tab-group>
-      <mat-tab label="Application">
-        <app-last-remark
-          [workflow]="workflow"
-          [requestId]="requestId"></app-last-remark>
-      </mat-tab>
-      <mat-tab label="Payment Info">
-        <app-notary-payment-info></app-notary-payment-info>
-      </mat-tab>
-      <mat-tab label="Remark">
-        <app-notary-remark></app-notary-remark>
-      </mat-tab>
-    </mat-tab-group>
+    <div class="pg-inner-row mb-0">
+      <mat-tab-group>
+        <mat-tab label="Application">
+          <app-last-remark
+            [workflow]="workflow"
+            [requestId]="requestId"></app-last-remark>
+          <app-extract-application
+            [workflow]="workflow"
+            [requestId]="requestId"
+            [action]="action"
+          ></app-extract-application>
+        </mat-tab>
+        <mat-tab label="Payment Info">
+          <app-notary-payment-info
+            [workflow]="workflow"
+            [id]="requestId"
+            [action]="action"
+          ></app-notary-payment-info>
+        </mat-tab>
+        <mat-tab label="Remark">
+          <app-notary-remark
+            [workflow]="workflow"
+            [id]="requestId"
+          ></app-notary-remark>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-row mb-0">
+      <div class="pg-inner-col ">
+        <button mat-raised-button
+                class="button green">Save Changes
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
