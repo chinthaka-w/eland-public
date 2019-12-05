@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
           this.snackBar.success("Login Successful");
           this.userId = response['user'].id;
           this.setRequestId(this.userId);
-          console.log(this.userId);
           this.sessionService.setUser(response['user']);
           this.sysConfigService.getConfig.emit({
             color: "red",

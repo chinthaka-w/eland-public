@@ -121,7 +121,7 @@ export class NotaryApplicationComponent implements OnInit {
     this.getLandRegistries();
     this.getJudicialZones();
     this.getLatestRemark();
-   // this.getDocumentList();
+    this.getDocumentList();
     this.locationList.push(this.locationDto);
     this.locationDto = {};
 
