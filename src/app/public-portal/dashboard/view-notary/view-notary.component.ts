@@ -24,7 +24,6 @@ export class ViewNotaryComponent implements OnInit {
   public docId: number;
 
   public requestId: number;
-  public workflow: string;
 
   constructor(private newNotaryService: NotaryService) { }
   ngOnInit() {

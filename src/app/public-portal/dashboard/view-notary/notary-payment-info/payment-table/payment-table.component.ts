@@ -40,8 +40,9 @@ export class PaymentTableComponent implements OnInit, OnChanges {
     if (changes['paymentDetails']) {
       this.dataSource.data = this.paymentDetails;
     }
+  }
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1","");
     // this.route.paramMap.subscribe(params => {
     //   searchType.requestID = params.get('id')
     // });
@@ -54,5 +55,4 @@ export class PaymentTableComponent implements OnInit, OnChanges {
       }
     )
   }
-
 }

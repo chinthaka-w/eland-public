@@ -67,7 +67,7 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestId,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestId,"1","");
     // this.route.paramMap.subscribe(params => {
     //   searchType.requestID = params.get('id')
     // });
