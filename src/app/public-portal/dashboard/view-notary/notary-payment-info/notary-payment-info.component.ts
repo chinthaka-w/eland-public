@@ -45,7 +45,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id, this.type, this.workflow);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id, this.workflow);
     this.notaryService.getPaymentDetails(searchType).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
         this.paymentDetails = result;

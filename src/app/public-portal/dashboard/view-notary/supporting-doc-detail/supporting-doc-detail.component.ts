@@ -24,8 +24,8 @@ import {LoginComponent} from "../../../login/login.component";
 export class SupportingDocDetailComponent implements OnInit {
   @Input()
   files: File[] = [];
-  @Input() requestId: number;
-  @Input() workFlowStage: string;
+  @Input() id: number;
+  @Input() workflow: string;
   @Output() supportDocs = new EventEmitter<DocumentResponseDto[]>();
 
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
@@ -67,12 +67,7 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestId,"1","");
-    // this.route.paramMap.subscribe(params => {
-    //   searchType.requestID = params.get('id')
-    // });
-    searchType.type = ApplicationRequestDataType.SUPPORTING_DOC;
-
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id,"1");
     this.notaryService.getDocumentDetails(searchType).subscribe(
       (result: NewNotarySupportingDocDetailDto[]) => {
         this.supportingDocuments = result;
@@ -91,7 +86,7 @@ export class SupportingDocDetailComponent implements OnInit {
 
   saveNewDocuments(docId: number ,docTypeId: number,docs: DocumentResponseDto[]){
     const formData = new FormData();
-    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,this.requestId);
+    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,this.id);
     formData.append('data', JSON.stringify(supportDocResponse));
     docs.forEach(doc => {
       formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
@@ -104,7 +99,7 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentTypes(){
-    this.documetService.getDocumentsByWorkFlow(this.workFlowStage).subscribe(
+    this.documetService.getDocumentsByWorkFlow(this.workflow).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }

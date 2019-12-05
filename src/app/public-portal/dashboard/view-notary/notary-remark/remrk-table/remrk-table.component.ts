@@ -44,11 +44,7 @@ export class RemrkTableComponent implements OnInit {
   }
 
   getHistoryDetails(){
-      let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1, "1","");
-      // this.route.paramMap.subscribe(params =>{
-      //   searchType.requestID = params.get('id');
-      // });
-
+      let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1, "1");
       this.notaryService.getHistoryDetails(searchType).subscribe(
         (result: NotaryRegistrationHistoryDto[]) => {
           this.dataSource.data = result;

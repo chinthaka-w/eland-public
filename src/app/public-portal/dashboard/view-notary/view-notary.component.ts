@@ -6,6 +6,7 @@ import {Workflow} from '../../../shared/enum/workflow.enum';
 import {DocumentResponseDto} from "../../../shared/dto/document-response.dto";
 import {SupportingDocDetailComponent} from "./supporting-doc-detail/supporting-doc-detail.component";
 import {LoginComponent} from "../../login/login.component";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-view-notary',
@@ -14,8 +15,8 @@ import {LoginComponent} from "../../login/login.component";
 })
 export class ViewNotaryComponent implements OnInit {
   Workflow: Workflow;
-  public workflow: string = Workflow.NOTARY_REGISTRATION;
-  public id: number = 1;
+  public workflow: string;
+  public id: number;
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = true;
@@ -23,9 +24,17 @@ export class ViewNotaryComponent implements OnInit {
   public docTypeId: number;
   public docId: number;
 
-  public requestId: number;
+  public requestId: string;
 
-  constructor(private newNotaryService: NotaryService) { }
+  constructor(private newNotaryService: NotaryService,
+              private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.workflow  = atob(params['workflow']);
+      this.requestId  = atob(params['id']);
+      this.id = +this.requestId;
+    });
+
+  }
   ngOnInit() {
   }
 
@@ -55,9 +64,6 @@ export class ViewNotaryComponent implements OnInit {
       let status = docs.status;
     })
   }
-
-
-
 
   onFormSubmit(){
     this.notaryApplicationComponent.saveNotaryDetails();

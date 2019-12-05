@@ -18,7 +18,7 @@
         <app-notary-remark></app-notary-remark>
       </mat-tab>
       <mat-tab label="Supporting Documents">
-        <app-supporting-doc-detail (supportDocs)="getSupportingDocs($event)" [requestId]="requestId" [workFlowStage]="workflow"></app-supporting-doc-detail>
+        <app-supporting-doc-detail (supportDocs)="getSupportingDocs($event)" [id]="id" [workflow]="workflow"></app-supporting-doc-detail>
       </mat-tab>
     </mat-tab-group>
   </div>

@@ -42,11 +42,7 @@ export class PaymentTableComponent implements OnInit, OnChanges {
     }
   }
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1","");
-    // this.route.paramMap.subscribe(params => {
-    //   searchType.requestID = params.get('id')
-    // });
-    searchType.type = ApplicationRequestDataType.PAYMENT;
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
     this.notaryService.getPaymentDetails(searchType).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
         this.dataSource.data = result;
