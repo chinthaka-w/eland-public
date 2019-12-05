@@ -25,14 +25,9 @@ export class JudicialChangeRequestViewComponent implements OnInit {
       this.id = +this.requestId;
     });
 
-    console.log(this.id+'id...cons');
-  }
+   }
 
   ngOnInit() {
-
-
-    console.log(this.id+'id...init');
-
   }
 
 
