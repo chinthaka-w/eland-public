@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Input, OnInit} from '@angular/core';
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
 import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
@@ -22,6 +23,9 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
+  @Input() workflow: string;
+  @Input() id: number;
+  public type = ApplicationRequestDataType.PAYMENT;
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
   public payment: any;
@@ -41,11 +45,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
-    // this.route.paramMap.subscribe(params => {
-    //   searchType.requestID = params.get('id')
-    // });
-    searchType.type = ApplicationRequestDataType.PAYMENT;
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id, this.type, this.workflow);
     this.notaryService.getPaymentDetails(searchType).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
         this.paymentDetails = result;

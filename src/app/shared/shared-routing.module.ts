@@ -4,6 +4,7 @@ import { HomeComponent } from '../public-portal/home/home.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentMethodComponent } from './components/payment/payment-method/payment-method.component';
+import {ChangeJudicialComponent} from '../public-portal/dashboard/change-judicial/change-judicial.component';
 
 const routes: Routes = [
   {

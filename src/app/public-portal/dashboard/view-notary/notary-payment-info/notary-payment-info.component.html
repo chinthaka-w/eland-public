@@ -1,7 +1,7 @@
 <form *ngIf="!isPayment">
   <div class="pg-inner-row mb-40">
     <div class="pg-inner-col">
-      <h4 class="m0">Payment Informations</h4>
+      <h4 class="m0">Payment Information</h4>
     </div>
   </div>
   <div class="default-input-wrapper full-row" id="payment-table">
@@ -12,7 +12,7 @@
         fxLayoutAlign="start"
         fxLayout.gt-md="row"
       >
-        <app-payment-table></app-payment-table>
+        <app-payment-table [paymentDetails]="paymentDetails"></app-payment-table>
       </div>
     </div>
   </div>
