@@ -101,7 +101,7 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
     JudicialChangeRequestViewComponent,
     RequestDataComponent,
     SearchDocumentViewComponent,
-    ExtractViewComponent, ,
+    ExtractViewComponent,
    ],
   imports: [
     CommonModule,
