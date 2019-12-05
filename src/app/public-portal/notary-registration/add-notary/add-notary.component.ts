@@ -138,7 +138,6 @@ export class AddNotaryComponent implements OnInit {
     this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
-        console.log(this.docList)
       }
     );
   }
@@ -168,15 +167,11 @@ export class AddNotaryComponent implements OnInit {
   }
 
   selectGnDivision(gsDivisionId, index) {
-    console.log(gsDivisionId[0]);
     const gnModel: GnDivisionDTO = new GnDivisionDTO(gsDivisionId[0],null,null,this.notaryForm.value.secretariatDivision,null,null,this.notaryForm.value.secretariatDivision,null,null);
     this.gnDivi.push(gnModel);
 
-    console.log(this.gnDivi);
     const model: NewNotaryDsDivisionDTO = new NewNotaryDsDivisionDTO(this.notaryForm.value.secretariatDivision,this.notaryForm.value.secretariatDivision,this.gnDivi);
     this.dsGnList.push(model);
-    console.log(this.dsGnList);
-    console.log(model);
   }
 
   selectGsDivision(dsDivisionId, index) {
@@ -386,7 +381,6 @@ export class AddNotaryComponent implements OnInit {
     this.paymentDataValue = paymentData.paymentId;
     this.snackBar.success("Payment Success");
     this.saveNotaryDetails();
-    console.log('Payment Data: ',this.paymentComponent.isSubmitted);
   }
 
 }

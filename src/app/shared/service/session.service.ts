@@ -12,6 +12,7 @@ export class SessionService {
   setUser(user) {
 
     window.sessionStorage.setItem('user', JSON.stringify(user));
+    console.log(user.id);
   }
 
   getUser(): PublicUserDetail {

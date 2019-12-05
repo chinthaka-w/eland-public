@@ -21,7 +21,7 @@ import {ChangeJudicialRequestListComponent} from '../shared/components/request-l
 import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
-
+import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
 
 const routes: Routes = [
   {
@@ -95,6 +95,10 @@ const routes: Routes = [
   {
     path: 'view-notary',
     component: ViewNotaryComponent
+  },
+  {
+    path: 'view-citizen',
+    component: ViewCitizenComponent
   },
   {
     path: 'notary-payment',

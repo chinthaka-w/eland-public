@@ -55,7 +55,6 @@ export class NotaryPaymentInfoComponent implements OnInit {
         this.paymentDetails = result;
       },
       error => {
-        console.log(error);
       }
     )
   }
@@ -81,7 +80,6 @@ export class NotaryPaymentInfoComponent implements OnInit {
     this.isPaymentMethod = true;
     this.paymentDataValue = paymentData.paymentId;
     this.savePayments(1,this.paymentDataValue);
-    console.log('Payment Data: ',this.paymentComponent.isSubmitted);
   }
 
 }

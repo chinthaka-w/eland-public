@@ -163,17 +163,7 @@ export class RequestDataComponent implements OnInit {
   }
 
   submitForm() {
-    this.judicialChangeDto.judicialZoneId = this.requestForm.value.judicialZoneId;
-    this.judicialChangeDto.addressEng = this.requestForm.value.addressEng;
-    this.judicialChangeDto.addressSin = this.requestForm.value.addressSin;
-    this.judicialChangeDto.addressTam = this.requestForm.value.addressTam;
-    this.judicialChangeDto.notarialWorkStartDate = this.requestForm.value.notarialWorkStartDate;
-    this.judicialChangeDto.certificateYear = this.requestForm.value.certificateYear;
-    this.judicialChangeDto.nameOfLr = this.requestForm.value.nameOfLr;
-    this.judicialChangeDto.isDuplicateHandedOver =  this.requestForm.value.isDuplicateHandedOver;
-    this.judicialChangeDto.landRegistry = this.requestForm.value.landRegistry;
-    this.judicialChangeDto.fromDate = this.requestForm.value.fromDate;
-    this.judicialChangeDto.toDate = this.requestForm.value.toDate;
+    this.judicialChangeDto = this.requestForm.value;
     this.judicialChangeDto.newNotaryId = this.notaryId;
     this.judicialChangeDto.dsGnList = this.dsGnList;
     this.judicialChangeDto.requestId = this.id;

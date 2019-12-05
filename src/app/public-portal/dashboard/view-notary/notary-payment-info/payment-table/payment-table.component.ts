@@ -33,12 +33,25 @@ export class PaymentTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-  }
+ this.getPaymentDetails();}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paymentDetails']) {
       this.dataSource.data = this.paymentDetails;
     }
   }
-
+  getPaymentDetails() {
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1","");
+    // this.route.paramMap.subscribe(params => {
+    //   searchType.requestID = params.get('id')
+    // });
+    searchType.type = ApplicationRequestDataType.PAYMENT;
+    this.notaryService.getPaymentDetails(searchType).subscribe(
+      (result: NewNotaryPaymentDetailDto[]) => {
+        this.dataSource.data = result;
+      },
+      error => {
+      }
+    )
+  }
 }

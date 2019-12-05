@@ -7,7 +7,7 @@
 </div>
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
-    <mat-tab-group (selectedTabChange)="tabClick($event)">
+    <mat-tab-group>
       <mat-tab label="Application" >
         <app-notary-application></app-notary-application>
       </mat-tab>
@@ -18,9 +18,9 @@
         <app-notary-remark></app-notary-remark>
       </mat-tab>
       <mat-tab label="Supporting Documents">
-        <app-supporting-doc-detail></app-supporting-doc-detail>
+        <app-supporting-doc-detail (supportDocs)="getSupportingDocs($event)" [requestId]="requestId" [workFlowStage]="workflow"></app-supporting-doc-detail>
       </mat-tab>
     </mat-tab-group>
   </div>
-  <button mat-raised-button class="lg-button" [disabled]="disabled" style="margin-left: 1180px;margin-top: 30px" (click)="onFormSubmit()">Submit</button>
+  <button mat-raised-button class="lg-button" style="margin-left: 1180px;margin-top: 30px" (click)="onFormSubmit()">Submit</button>
 </div>

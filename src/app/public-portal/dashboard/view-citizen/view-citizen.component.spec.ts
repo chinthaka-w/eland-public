@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocumentPreviewComponent } from './document-preview.component';
+import { ViewCitizenComponent } from './view-citizen.component';
 
-describe('DocumentPreviewComponent', () => {
-  let component: DocumentPreviewComponent;
-  let fixture: ComponentFixture<DocumentPreviewComponent>;
+describe('ViewCitizenComponent', () => {
+  let component: ViewCitizenComponent;
+  let fixture: ComponentFixture<ViewCitizenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentPreviewComponent ]
+      declarations: [ ViewCitizenComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentPreviewComponent);
+    fixture = TestBed.createComponent(ViewCitizenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

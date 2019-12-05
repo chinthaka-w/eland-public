@@ -51,7 +51,6 @@ import { DsGnDivisionTableComponent } from './dashboard/view-notary/notary-appli
 import { PaymentTableComponent } from './dashboard/view-notary/notary-payment-info/payment-table/payment-table.component';
 import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk-table/remrk-table.component';
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
-import { DocumentTableComponent } from './dashboard/view-notary/supporting-doc-detail/document-table/document-table.component';
 import {ImageViewerModule} from "ngx-image-viewer";
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
 import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
@@ -60,8 +59,12 @@ import {MatProgressSpinnerModule} from '@angular/material';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { JudicialChangeRequestViewComponent } from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
 import { RequestDataComponent } from './dashboard/change-judicial/judicial-change-request-view/request-data/request-data.component';
-import { DocumentPreviewComponent } from './dashboard/view-notary/supporting-doc-detail/document-preview/document-preview.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { ViewCitizenComponent } from './dashboard/view-citizen/view-citizen.component';
+import { CitizenApplicationComponent } from './dashboard/view-citizen/citizen-application/citizen-application.component';
+import { CitizenPaymentInfoComponent } from './dashboard/view-citizen/citizen-payment-info/citizen-payment-info.component';
+import { CitizenRemarkComponent } from './dashboard/view-citizen/citizen-remark/citizen-remark.component';
+import { CitizenSupportingDocDetailsComponent } from './dashboard/view-citizen/citizen-supporting-doc-details/citizen-supporting-doc-details.component';
 import { SearchDocumentViewComponent } from './dashboard/search-document/search-document-view/search-document-view.component';
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
@@ -102,7 +105,11 @@ import { ExtractApplicationComponent } from './dashboard/extract/extract-view/ex
     PaymentTableComponent,
     RemrkTableComponent,
     SupportingDocDetailComponent,
-    DocumentTableComponent,
+    ViewCitizenComponent,
+    CitizenApplicationComponent,
+    CitizenPaymentInfoComponent,
+    CitizenRemarkComponent,
+    CitizenSupportingDocDetailsComponent,
     JudicialChangeRequestViewComponent,
     RequestDataComponent,
     SearchDocumentViewComponent,
