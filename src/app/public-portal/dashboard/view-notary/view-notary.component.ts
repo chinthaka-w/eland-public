@@ -15,12 +15,12 @@ export class ViewNotaryComponent implements OnInit {
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = true;
-  public disabledPayment: boolean = true;
-  public notaryDetail: Notary;
   public docsList: DocumentResponseDto[] = [];
   public docTypeId: number;
   public docId: number;
 
+  public requestId: number;
+  public workflow: string;
 
   constructor(private newNotaryService: NotaryService) { }
   ngOnInit() {
