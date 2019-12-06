@@ -48,7 +48,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
               private snackBar: SnackBarService,) { }
 
   ngOnInit() {
-   // this.getPaymentDetails();
+    this.getPaymentDetails();
   }
 
 

@@ -39,7 +39,6 @@ export class Notary {
      public workflowStageCode: string,
      public userName: string,
      public paymentId: number,
-     public workFlow: string,
    ) {
    }
 }

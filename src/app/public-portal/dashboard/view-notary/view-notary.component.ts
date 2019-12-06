@@ -9,6 +9,8 @@ import {LoginComponent} from "../../login/login.component";
 import {ActivatedRoute} from "@angular/router";
 import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
 import {PaymentResponse} from "../../../shared/dto/payment-response.model";
+import {SnackBarService} from "../../../shared/service/snack-bar.service";
+import {SupportDocResponseModel} from "../../../shared/dto/support-doc-response.model";
 
 @Component({
   selector: 'app-view-notary',
@@ -23,14 +25,17 @@ export class ViewNotaryComponent implements OnInit {
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = true;
+  public disabledPayment: boolean = true;
   public docsList: DocumentResponseDto[] = [];
   public docTypeId: number;
   public docId: number;
+  public notary: Notary;
 
   public requestId: RequestSearchDetailDTO;
 
   constructor(private newNotaryService: NotaryService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private snackBar: SnackBarService,) {
     this.route.params.subscribe(params => {
       // this.workflow  = atob(params['workflow']);
       // this.requestId  = atob(params['id']);
@@ -51,12 +56,13 @@ export class ViewNotaryComponent implements OnInit {
   }
 
   tabClick(event){
-    if( event.tab.textLabel === "Application"){
+    if( event.tab.textLabel === "Application" && (!this.notaryApplicationComponent.notaryForm.valid)){
        this.disabled = false;
-   //   this.disabledPayment = false;
+      this.disabledPayment = false;
     }
     if(event.tab.textLabel === "Payment Info"){
         this.disabled = false;
+        this.disabledPayment = true;
     }
     if(event.tab.textLabel === "Remark"){
        this.disabled = false;
@@ -68,19 +74,47 @@ export class ViewNotaryComponent implements OnInit {
 
   getSupportingDocs(data: DocumentResponseDto[]){
     this.docsList = data;
-    data.forEach(docs => {
-      let docId = docs.docId;
-      this.docTypeId = docs.docTypeId;
-      this.docId = docs.docId;
-      let files = docs.files;
-      let status = docs.status;
-    })
+  }
+
+  getApplicationDetails(data: Notary){
+    this.notary = data;
   }
 
   onFormSubmit(){
-    this.notaryApplicationComponent.saveNotaryDetails();
-    this.supportingDocumentDetails.saveNewDocuments(this.docId,this.docTypeId,this.docsList);
-
+    this.updateNotaryDetails(this.notary);
+    this.updateDocumentDetails(this.docsList);
   }
 
+  updateDocumentDetails(documents: DocumentResponseDto[]){
+    documents.forEach(value => {
+      this.docTypeId = value.docTypeId;
+      this.docId = value.docId;
+
+      const formData = new FormData();
+      const supportDocResponse = new SupportDocResponseModel(this.docId,this.docTypeId,this.requestId.requestId);
+      formData.append('data', JSON.stringify(supportDocResponse));
+      documents.forEach(doc => {
+        formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
+      });
+      this.newNotaryService.updateSupportDocuments(formData).subscribe(
+        (success: string) => {
+          this.snackBar.success('Document Update Success');
+        },
+        error => {
+          this.snackBar.error('Failed');
+        }
+      )
+    });
+  }
+
+  updateNotaryDetails(notaryDetails: Notary){
+      this.newNotaryService.updateNotaryDetails(notaryDetails).subscribe(
+        (success: string) => {
+          this.snackBar.success('Notary Registration Success');
+        },
+        error => {
+          this.snackBar.error('Failed');
+        }
+      );
+    }
 }

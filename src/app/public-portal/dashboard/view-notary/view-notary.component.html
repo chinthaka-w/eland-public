@@ -9,7 +9,7 @@
   <div class="page-content-inner-wrapper">
     <mat-tab-group>
       <mat-tab label="Application" >
-        <app-notary-application *ngIf="requestId" [requestDetailId]="requestId"></app-notary-application>
+        <app-notary-application *ngIf="requestId" [requestDetailId]="requestId" (notaryDetail)="getApplicationDetails($event)"></app-notary-application>
       </mat-tab>
       <mat-tab label="Payment Info">
         <app-notary-payment-info *ngIf="requestId" [requestDetailPayment]="requestId"></app-notary-payment-info>
@@ -18,9 +18,9 @@
         <app-notary-remark *ngIf="requestId" [requestRemarks]="requestId"></app-notary-remark>
       </mat-tab>
       <mat-tab label="Supporting Documents">
-        <app-supporting-doc-detail  *ngIf="requestId" (supportDocs)="getSupportingDocs($event)" [requestDocuments]="requestId"></app-supporting-doc-detail>
+        <app-supporting-doc-detail  *ngIf="requestId" [requestDocuments]="requestId" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
     </mat-tab-group>
+    <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Submit</button>
   </div>
-  <button mat-raised-button class="lg-button" style="margin-left: 1180px;margin-top: 30px" (click)="onFormSubmit()">Submit</button>
 </div>

@@ -12,7 +12,7 @@
         fxLayoutAlign="start"
         fxLayout.gt-md="row"
       >
-        <app-payment-table [paymentDetails]="paymentDetails"  [requestDetailPayments]="requestId"></app-payment-table>
+        <app-payment-table [paymentDetails]="paymentDetails"></app-payment-table>
       </div>
     </div>
   </div>
@@ -21,11 +21,10 @@
     <!--<a href="#" class="pdf-link">Save PDF <i class="material-icons">vertical_align_bottom</i></a>-->
   </div>
 </form>
-<!--<div *ngIf="isPayment" class="container">-->
-<!--<app-payment  (response)="getPaymentData($event)"-->
-<!--[applicationFeeCode]="Parameters.NOTARY_REG_FEE"-->
-<!--[hasFrontCounterPayment]="true"-->
-<!--[isDocumentCollect]="true"-->
-<!--[workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>-->
-
-<!--</div>-->
+<div *ngIf="isPayment" class="container">
+<app-payment  (response)="getPaymentData($event)"
+  [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
+  [hasFrontCounterPayment]="true"
+  [isDocumentCollect]="true"
+  [workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>
+</div>

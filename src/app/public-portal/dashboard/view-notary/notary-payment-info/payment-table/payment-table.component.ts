@@ -25,8 +25,6 @@ import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.d
 })
 export class PaymentTableComponent implements OnInit, OnChanges {
   @Input() paymentDetails: NewNotaryPaymentDetailDto[] = [];
-  public requestDetailPayments: RequestSearchDetailDTO;
-
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
   dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
 
@@ -35,7 +33,7 @@ export class PaymentTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
- this.getPaymentDetails();}
+     this.getPaymentDetails();}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paymentDetails']) {
@@ -43,13 +41,6 @@ export class PaymentTableComponent implements OnInit, OnChanges {
     }
   }
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1");
-    this.notaryService.getPaymentDetails(searchType).subscribe(
-      (result: NewNotaryPaymentDetailDto[]) => {
-        this.dataSource.data = result;
-      },
-      error => {
-      }
-    )
+   this.dataSource.data = this.paymentDetails;
   }
 }

@@ -43,7 +43,6 @@ export class DashboardComponent implements OnInit {
   getUserDetails(){
     this.notaryService.getNotaryRequestDetails(this.user.id).subscribe(
       (data: RequestSearchDetailDTO) =>{
-        console.log(data);
         this.searchDetails = data;
       }
     )

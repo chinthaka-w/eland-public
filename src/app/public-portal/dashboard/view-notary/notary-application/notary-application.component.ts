@@ -61,6 +61,7 @@ export class NotaryApplicationComponent implements OnInit {
   userName: string;
   newNotaryRegistrationRequestId: number;
   notaryTitle: string = '';
+  judicialZoneId: number;
   public date: Date;
   public requestID: number;
   public type: string;
@@ -146,7 +147,7 @@ export class NotaryApplicationComponent implements OnInit {
 
 
   getApplicationDetails() {
-    this.searchType = new NewNotaryRequestsCategorySearchDto(81,Workflow.NOTARY_REGISTRATION);
+    this.searchType = new NewNotaryRequestsCategorySearchDto(this.requestDetailId.requestId,this.requestDetailId.workflow);
     this.newNotaryDataVarificationService.getNotaryDetails(this.searchType).subscribe(
       (result: NewNotaryViewDto) => {
         this.result = result;
@@ -179,6 +180,7 @@ export class NotaryApplicationComponent implements OnInit {
             medium: this.result.language,
           }
         );
+        this.judicialZoneId = this.result.judicialZoneId;
         this.notaryTitle = this.result.nametitle.english;
         this.dsGnDivisions = this.result.newNotaryDsDivisionDTO;
         this.newNotaryId = this.result.newNotaryId;
@@ -221,7 +223,7 @@ export class NotaryApplicationComponent implements OnInit {
     this.saveNotaryDetails();
   }
   saveNotaryDetails(): void {
-    if(this.notaryForm.valid){
+    // if(this.notaryForm.valid){
       this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId, null, this.notaryForm.value.nic, this.notaryForm.value.email,
         this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo,  this.notaryForm.value.contactNo,
         this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
@@ -229,22 +231,9 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
         this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
         this.notaryForm.value.title, 'Miss', 'Ms',
-        1, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
-        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani","ss",  this.notaryForm.value.userName,this.paymentId,WorkflowStages.REGISTRATION_REQ_MODIFIED);
-
-      this.notaryDetail.emit(this.notaryDetails);
-      this.notaryService.setNotaryDetails(this.notaryDetails);
-      this.notaryDetails = this.notaryService.getNotaryDetails();
-
-      this.notaryService.updateNotaryDetails(this.notaryDetails).subscribe(
-        (success: string) => {
-          this.snackBar.success('Notary Registration Success');
-        },
-        error => {
-          this.snackBar.error('Failed');
-        }
-      );
-    }
+        this.judicialZoneId, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
+        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani",WorkflowStages.REGISTRATION_REQ_MODIFIED,  this.notaryForm.value.userName,this.paymentId);
+       this.notaryDetail.emit(this.notaryDetails);
   }
 
   private getGnDivisions(): void {

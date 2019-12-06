@@ -25,6 +25,7 @@ export class SupportingDocDetailComponent implements OnInit {
   @Input() requestDocuments: RequestSearchDetailDTO;
   @Input() id: number;
   @Input() workflow: string;
+  public docsList: DocumentResponseDto[] = [];
   @Output() supportDocs = new EventEmitter<DocumentResponseDto[]>();
 
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
@@ -33,8 +34,9 @@ export class SupportingDocDetailComponent implements OnInit {
   displayedColumns: string[] = ['Document Name', 'Remark'];
   documentImages: string[] = [];
   public docList: WorkflowStageDocDto[];
-  public docsList: DocumentResponseDto[] = [];
   dataSource = new MatTableDataSource<NewNotarySupportingDocDetailDto>(this.supportingDocuments);
+  public docTypeId: number;
+  public docId: number;
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -79,23 +81,15 @@ export class SupportingDocDetailComponent implements OnInit {
 
   setFiles(data: any, docTyprId: number,docId: number) {
     this.files = data;
-    this.docsList.push(new DocumentResponseDto(docId,docTyprId,this.files[0],""));
+    this.docTypeId = docTyprId;
+    this.docId = docId;
+  }
+
+  onFormSubmit(docsList: DocumentResponseDto[]){
+    this.docsList.push(new DocumentResponseDto(this.docId,this.docTypeId,this.files[0],""));
     this.supportDocs.emit(this.docsList);
   }
 
-  saveNewDocuments(docId: number ,docTypeId: number,docs: DocumentResponseDto[]){
-    const formData = new FormData();
-    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,this.requestDocuments.requestId);
-    formData.append('data', JSON.stringify(supportDocResponse));
-    docs.forEach(doc => {
-      formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
-    });
-    this.newNotaryService.updateSupportDocuments(formData).subscribe(
-      (res) =>{
-        console.log(res);
-      }
-    )
-  }
 
   getDocumentTypes(){
     this.documetService.getDocumentsByWorkFlow(this.requestDocuments.workflow).subscribe(
@@ -105,8 +99,5 @@ export class SupportingDocDetailComponent implements OnInit {
     );
   }
 
-  getSupportingDocDetails(data: DocumentResponseDto[]){
-    console.log(data);
-  }
 
 }

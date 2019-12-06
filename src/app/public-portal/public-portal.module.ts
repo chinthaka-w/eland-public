@@ -115,7 +115,6 @@ import { ExtractApplicationComponent } from './dashboard/extract/extract-view/ex
     SearchDocumentViewComponent,
     ExtractViewComponent,
     SearchDocumentApplicationComponent,
-    DocumentPreviewComponent,
     ExtractApplicationComponent,
    ],
   imports: [
