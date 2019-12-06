@@ -117,6 +117,8 @@ export class NotaryApplicationComponent implements OnInit {
       medium: new FormControl('', [Validators.required]),
       userName: new FormControl('', [Validators.required]),
     });
+
+
     this.getApplicationDetails();
     this.getPaymentDetails();
     this.getGnDivisions();
@@ -127,7 +129,6 @@ export class NotaryApplicationComponent implements OnInit {
     this.getDocumentList();
     this.locationList.push(this.locationDto);
     this.locationDto = {};
-
 
   }
 
@@ -187,6 +188,11 @@ export class NotaryApplicationComponent implements OnInit {
         this.newNotaryRegistrationRequestId = this.result.newNotaryRegistrationRequestId;
         this.notaryType = this.result.notaryType;
         this.setWorkflowStage();
+        if(this.requestDetailId.workflow === "NTR_REG_USR_MOD" || this.requestDetailId.workflow === "NTR_REG_DVC_REJ"){
+          this.notaryForm.enable();
+        }else if(this.requestDetailId.workflow === "NTR_REG_USR_INT"){
+          this.notaryForm.disable();
+        }
       },
       error1 => {
       }

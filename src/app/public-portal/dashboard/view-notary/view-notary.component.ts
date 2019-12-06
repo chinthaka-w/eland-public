@@ -11,6 +11,7 @@ import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
 import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {SupportDocResponseModel} from "../../../shared/dto/support-doc-response.model";
+import {MatTabChangeEvent} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-view-notary',
@@ -26,12 +27,16 @@ export class ViewNotaryComponent implements OnInit {
   @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = true;
   public disabledPayment: boolean = true;
+  public disabledRemark: boolean = true;
+  public disabledDocuments: boolean = true;
   public docsList: DocumentResponseDto[] = [];
   public docTypeId: number;
   public docId: number;
   public notary: Notary;
-
+  public isApplicationValid: boolean = true;
+  public selectedIndex: number = 0;
   public requestId: RequestSearchDetailDTO;
+  public workFlowStage: string;
 
   constructor(private newNotaryService: NotaryService,
               private route: ActivatedRoute,
@@ -51,33 +56,43 @@ export class ViewNotaryComponent implements OnInit {
     this.newNotaryService.getNotaryRequestDetails(this.notaryId).subscribe(
       (data: RequestSearchDetailDTO) =>{
         this.requestId = data;
+        this.workFlowStage = data.workflow;
       }
     )
   }
 
-  tabClick(event){
-    if( event.tab.textLabel === "Application" && (!this.notaryApplicationComponent.notaryForm.valid)){
-       this.disabled = false;
-      this.disabledPayment = false;
+  public tabChanged(tabChangeEvent: MatTabChangeEvent,event): void {
+    this.selectedIndex = tabChangeEvent.index;
+    if( event.tab.textLabel === "Application" ){
+      this.disabled = true;
+      this.disabledPayment = true;
+      this.disabledRemark = true;
+      this.disabledDocuments = true;
     }
-    if(event.tab.textLabel === "Payment Info"){
-        this.disabled = false;
-        this.disabledPayment = true;
+    if((event.tab.textLabel === "Payment Info") && (!this.isApplicationValid)){
+      this.disabled = true;
+      this.disabledPayment = false;
+      this.disabledRemark = false;
+      this.disabledDocuments = false;
     }
     if(event.tab.textLabel === "Remark"){
-       this.disabled = false;
-    }
-    if( event.tab.textLabel === "Supporting Documents"){
       this.disabled = true;
+      this.disabledPayment = false;
+      this.disabledRemark = false;
+      this.disabledDocuments = false;
     }
   }
+
 
   getSupportingDocs(data: DocumentResponseDto[]){
     this.docsList = data;
+    this.disabled = true;
   }
 
   getApplicationDetails(data: Notary){
+    this.isApplicationValid = false;
     this.notary = data;
+    this.selectedIndex += 1;
   }
 
   onFormSubmit(){

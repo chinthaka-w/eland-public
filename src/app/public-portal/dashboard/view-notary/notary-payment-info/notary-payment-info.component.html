@@ -20,6 +20,7 @@
     <button mat-raised-button class="button" (click)="continuePayments()">Add Payment</button>
     <!--<a href="#" class="pdf-link">Save PDF <i class="material-icons">vertical_align_bottom</i></a>-->
   </div>
+
 </form>
 <div *ngIf="isPayment" class="container">
 <app-payment  (response)="getPaymentData($event)"
