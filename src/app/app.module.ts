@@ -34,6 +34,7 @@ import {MatCardModule} from "@angular/material/card";
 import {ImageViewerModule} from "ngx-image-viewer";
 import {MatTableModule} from "@angular/material/table";
 import {SupportingDocService} from "./shared/service/supporting-doc.service";
+import {CitizenService} from "./shared/service/citizen.service";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -72,6 +73,7 @@ import {SupportingDocService} from "./shared/service/supporting-doc.service";
     BankService,
     BankBranchService,
     PaymentService,
+    CitizenService,
     ParameterService,
     TokenStorageService,
     SupportingDocService,

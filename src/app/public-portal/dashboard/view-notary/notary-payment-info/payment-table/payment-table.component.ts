@@ -27,7 +27,7 @@ export class PaymentTableComponent implements OnInit, OnChanges {
   @Input() paymentDetails: NewNotaryPaymentDetailDto[] = [];
   public requestDetailPayments: RequestSearchDetailDTO;
 
-  displayedColumns: string[] = ['Payment Method', 'Amount', 'Payment ID', 'Payment Date', 'Status'];
+  displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
   dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
 
   constructor(private notaryService: NewNotaryDataVarificationService,
@@ -35,8 +35,7 @@ export class PaymentTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.getPaymentDetails();
-  }
+ this.getPaymentDetails();}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paymentDetails']) {

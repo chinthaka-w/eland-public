@@ -1,7 +1,7 @@
 <form *ngIf="!isPayment">
   <div class="pg-inner-row mb-40">
     <div class="pg-inner-col">
-      <h4 class="m0">Payment Information</h4>
+      <h5 class="m0">Payment Information</h5>
     </div>
   </div>
   <div class="default-input-wrapper full-row" id="payment-table">
@@ -16,16 +16,16 @@
       </div>
     </div>
   </div>
-  <div class="pg-inner-col right">
-    <button mat-raised-button class="lg-button" (click)="continuePayments()" >Add Payment</button>
-    <a href="#" class="pdf-link">Save PDF <i class="material-icons">vertical_align_bottom</i></a>
+  <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-col right">
+    <button mat-raised-button class="button" (click)="continuePayments()">Add Payment</button>
+    <!--<a href="#" class="pdf-link">Save PDF <i class="material-icons">vertical_align_bottom</i></a>-->
   </div>
 </form>
-<div *ngIf="isPayment" class="container">
-  <app-payment  (response)="getPaymentData($event)"
-                [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
-                [hasFrontCounterPayment]="true"
-                [isDocumentCollect]="true"
-                [workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>
+<!--<div *ngIf="isPayment" class="container">-->
+<!--<app-payment  (response)="getPaymentData($event)"-->
+<!--[applicationFeeCode]="Parameters.NOTARY_REG_FEE"-->
+<!--[hasFrontCounterPayment]="true"-->
+<!--[isDocumentCollect]="true"-->
+<!--[workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>-->
 
-</div>
+<!--</div>-->

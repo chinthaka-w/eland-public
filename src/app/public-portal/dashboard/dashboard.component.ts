@@ -4,6 +4,7 @@ import { SessionService } from 'src/app/shared/service/session.service';
 import { UserType } from 'src/app/shared/enum/user-type.enum';
 import {NotaryService} from "../../shared/service/notary-service";
 import {RequestSearchDetailDTO} from "../../shared/dto/request-search.dto";
+import {CommonStatus} from "../../shared/enum/common-status.enum";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit {
   public dashboardView: boolean = false;
   public requestView: boolean = false;
   public notaryId: number;
+
+  commonStatus = CommonStatus;
 
   constructor(
     private sessionService: SessionService,
