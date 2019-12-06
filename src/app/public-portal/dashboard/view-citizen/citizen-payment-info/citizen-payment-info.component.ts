@@ -40,7 +40,6 @@ export class CitizenPaymentInfoComponent implements OnInit {
   ngOnInit() {
     // this.getPaymentDetails();
     this.citizenService.paymentDetails.subscribe(history => {
-      console.log('history',history);
       this.dataSource = history;
     });
   }

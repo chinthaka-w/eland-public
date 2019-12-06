@@ -18,6 +18,7 @@ export class CitizenService {
   public constructor(private httpClient: HttpClient) {}
 
   paymentDetails = new EventEmitter<PaymentDto[]>();
+  citizenDto = new EventEmitter<CitizenDTO>();
   getAllLandRegistries(): Observable<Array<LandRegistriesDTO>> {
     return this.httpClient.get<Array<LandRegistriesDTO>>(this.BASE_URL + 'landRegistries/find', {headers: this.headers} );
   }

@@ -67,6 +67,7 @@ export class CitizenApplicationComponent implements OnInit {
       nameSinhala: new FormControl("", [Validators.required]),
       nameTamil: new FormControl("", [Validators.required]),
       bankName: new FormControl("", [Validators.required]),
+      bankUserType: new FormControl("", [Validators.required]),
       notaryId: new FormControl("", [Validators.required]),
       address1: new FormControl("", [Validators.required]),
       address2: new FormControl("", [Validators.required]),
@@ -88,12 +89,10 @@ export class CitizenApplicationComponent implements OnInit {
       dateOfBirth: new FormControl("", [Validators.required]),
     });
     this.user = this.sessionService.getUser();
-    if(this.user.userStatus == this.commonStatus.PENDING) {
-      this.disableFormControls();
-    }
-    this.getApplicationDetails(this.user.id);
     this.getAllLandRegistries();
     this.getAllBanks();
+    this.getApplicationDetails(this.user.id);
+
   }
 
   disableFormControls() {
@@ -220,7 +219,14 @@ export class CitizenApplicationComponent implements OnInit {
         if(result) {
           this.citizenDTO = result;
           console.log(this.citizenDTO);
+          if(this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.BANK_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.LAWYER_OR_LAW_FIRM_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.STATE_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.OTHER_INSTITUTE_INIT) {
+            this.publicUserForm.disable();
+          }
+          if(this.citizenDTO.userType == this.PublicUserType.BANK) {
+            this.bankUserTypeId = this.citizenDTO.bankUserType;
+          }
           this.citizenService.paymentDetails.emit(this.citizenDTO.paymentHistory);
+          this.citizenService.citizenDto.emit(this.citizenDTO);
           this.publicUserForm.patchValue({
             nameEnglish: this.citizenDTO.nameEng,
             nameSinhala: this.citizenDTO.nameSin,
@@ -242,7 +248,9 @@ export class CitizenApplicationComponent implements OnInit {
             nearestLr: this.citizenDTO.landRegistry,
             type: this.citizenDTO.userType,
             bankName: this.citizenDTO.bankId,
-            identificationType: this.citizenDTO.identificationNoType
+            identificationType: this.citizenDTO.identificationNoType,
+            bankUserType: this.citizenDTO.bankUserType,
+            notaryId: this.citizenDTO.notaryId
           });
         }
       });

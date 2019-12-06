@@ -60,6 +60,8 @@ export class AddPublicUserComponent implements OnInit {
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl("", [Validators.required]),
+      bankName: new FormControl("", [Validators.required]),
+      bankUserType: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
       nameEnglish: new FormControl("", [Validators.required]),
       nameSinhala: new FormControl("", [Validators.required]),
@@ -69,6 +71,7 @@ export class AddPublicUserComponent implements OnInit {
       address2: new FormControl("", [Validators.required]),
       address3: new FormControl("", [Validators.required]),
       identificationNo: new FormControl("", [Validators.required]),
+      identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl("", [Validators.required]),
       secondaryContact: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required]),
@@ -86,6 +89,10 @@ export class AddPublicUserComponent implements OnInit {
     console.log(this.PublicUserType);
     this.getAllLandRegistries();
     this.getAllBanks();
+  }
+
+  get FormControls() {
+    return this.publicUserForm.controls;
   }
 
   setFiles(files, key){
