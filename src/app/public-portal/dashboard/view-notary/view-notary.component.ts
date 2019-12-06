@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Notary} from "../../../shared/dto/notary.model";
 import {NotaryService} from "../../../shared/service/notary-service";
 import {NotaryApplicationComponent} from "./notary-application/notary-application.component";
@@ -7,6 +7,8 @@ import {DocumentResponseDto} from "../../../shared/dto/document-response.dto";
 import {SupportingDocDetailComponent} from "./supporting-doc-detail/supporting-doc-detail.component";
 import {LoginComponent} from "../../login/login.component";
 import {ActivatedRoute} from "@angular/router";
+import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
+import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 
 @Component({
   selector: 'app-view-notary',
@@ -17,6 +19,7 @@ export class ViewNotaryComponent implements OnInit {
   Workflow: Workflow;
   public workflow: string;
   public id: number;
+  @Input() notaryId: number;
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = true;
@@ -24,18 +27,27 @@ export class ViewNotaryComponent implements OnInit {
   public docTypeId: number;
   public docId: number;
 
-  public requestId: string;
+  public requestId: RequestSearchDetailDTO;
 
   constructor(private newNotaryService: NotaryService,
               private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
-      this.workflow  = atob(params['workflow']);
-      this.requestId  = atob(params['id']);
-      this.id = +this.requestId;
+      // this.workflow  = atob(params['workflow']);
+      // this.requestId  = atob(params['id']);
+      // this.id = +this.requestId;
     });
 
   }
   ngOnInit() {
+    this.getRequestDetails();
+  }
+
+  getRequestDetails(){
+    this.newNotaryService.getNotaryRequestDetails(this.notaryId).subscribe(
+      (data: RequestSearchDetailDTO) =>{
+        this.requestId = data;
+      }
+    )
   }
 
   tabClick(event){

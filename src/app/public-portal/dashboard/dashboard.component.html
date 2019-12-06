@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<div class="dashboard-container" *ngIf="dashboardView && !requestView">
   <div class="dashboard-inner-container">
     <div class="db-left-col" style="background-image: url('../../../assets/images/temp_img_005.jpg')">&nbsp;</div>
     <div class="db-right-col">
@@ -31,13 +31,13 @@
                         <dd>{{searchDetails.name}}</dd>
                     </dl>
                     <dl class="db-card-info">
-                        <dt>PaymentDto:</dt>
+                        <dt>Payment:</dt>
                         <dd>{{searchDetails.paymentMethod}}</dd>
                     </dl>
                     <div class="clear">&nbsp;</div>
                 </div>
                 <div class="db-card-bottom">
-                    <button mat-raised-button class="green" [routerLink]="['/edit-profile']">View</button>
+                    <button mat-raised-button class="green" (click)="viewDetails()">View</button>
                 </div>
             </div>
 
@@ -136,4 +136,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="requestView && !dashboardView">
+  <app-view-notary [notaryId]="notaryId"></app-view-notary>
 </div>

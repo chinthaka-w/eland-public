@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Workflow} from '../../shared/enum/workflow.enum';
 import { SessionService } from 'src/app/shared/service/session.service';
 import { UserType } from 'src/app/shared/enum/user-type.enum';
@@ -15,6 +15,9 @@ export class DashboardComponent implements OnInit {
   userType = UserType;
   Workflow = Workflow;
   public searchDetails: RequestSearchDetailDTO;
+  public dashboardView: boolean = false;
+  public requestView: boolean = false;
+  public notaryId: number;
 
   constructor(
     private sessionService: SessionService,
@@ -23,8 +26,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dashboardView = true;
+    this.requestView = false;
     this.user = this.sessionService.getUser();
     this.getUserDetails();
+    this.notaryId = this.user.id;
   }
 
   getBase64(value: string): string {
@@ -38,5 +44,10 @@ export class DashboardComponent implements OnInit {
         this.searchDetails = data;
       }
     )
+  }
+
+  viewDetails(){
+    this.dashboardView = false;
+    this.requestView = true;
   }
 }

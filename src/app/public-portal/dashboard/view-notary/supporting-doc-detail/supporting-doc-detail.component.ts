@@ -11,6 +11,7 @@ import {NotaryService} from "../../../../shared/service/notary-service";
 import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
 import {SupportDocResponseModel} from "../../../../shared/dto/support-doc-response.model";
+import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
 
 @Component({
   selector: 'app-supporting-doc-detail',
@@ -20,6 +21,8 @@ import {SupportDocResponseModel} from "../../../../shared/dto/support-doc-respon
 export class SupportingDocDetailComponent implements OnInit {
   @Input()
   files: File[] = [];
+  public requestId: RequestSearchDetailDTO;
+  @Input() requestDocuments: RequestSearchDetailDTO;
   @Input() id: number;
   @Input() workflow: string;
   @Output() supportDocs = new EventEmitter<DocumentResponseDto[]>();
@@ -63,7 +66,7 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id,"1");
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDocuments.requestId,this.requestDocuments.workflow);
     this.notaryService.getDocumentDetails(searchType).subscribe(
       (result: NewNotarySupportingDocDetailDto[]) => {
         this.supportingDocuments = result;
@@ -82,7 +85,7 @@ export class SupportingDocDetailComponent implements OnInit {
 
   saveNewDocuments(docId: number ,docTypeId: number,docs: DocumentResponseDto[]){
     const formData = new FormData();
-    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,this.id);
+    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,this.requestDocuments.requestId);
     formData.append('data', JSON.stringify(supportDocResponse));
     docs.forEach(doc => {
       formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
@@ -95,7 +98,7 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentTypes(){
-    this.documetService.getDocumentsByWorkFlow(this.workflow).subscribe(
+    this.documetService.getDocumentsByWorkFlow(this.requestDocuments.workflow).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }

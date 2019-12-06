@@ -9,16 +9,16 @@
   <div class="page-content-inner-wrapper">
     <mat-tab-group>
       <mat-tab label="Application" >
-        <app-notary-application></app-notary-application>
+        <app-notary-application *ngIf="requestId" [requestDetailId]="requestId"></app-notary-application>
       </mat-tab>
       <mat-tab label="Payment Info">
-        <app-notary-payment-info [workflow]="workflow" [id]="id"></app-notary-payment-info>
+        <app-notary-payment-info *ngIf="requestId" [requestDetailPayment]="requestId"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="Remark">
-        <app-notary-remark></app-notary-remark>
+        <app-notary-remark *ngIf="requestId" [requestRemarks]="requestId"></app-notary-remark>
       </mat-tab>
       <mat-tab label="Supporting Documents">
-        <app-supporting-doc-detail (supportDocs)="getSupportingDocs($event)" [id]="id" [workflow]="workflow"></app-supporting-doc-detail>
+        <app-supporting-doc-detail  *ngIf="requestId" (supportDocs)="getSupportingDocs($event)" [requestDocuments]="requestId"></app-supporting-doc-detail>
       </mat-tab>
     </mat-tab-group>
   </div>

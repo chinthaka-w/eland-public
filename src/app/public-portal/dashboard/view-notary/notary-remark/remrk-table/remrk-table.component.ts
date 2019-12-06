@@ -6,6 +6,7 @@ import {NewNotaryDataVarificationService} from "../../../../../shared/service/ne
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTableDataSource} from "@angular/material/table";
 import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
+import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
 
 @Component({
   selector: 'app-remrk-table',
@@ -24,6 +25,8 @@ import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-pa
 })
 export class RemrkTableComponent implements OnInit {
   @Input() notaryRequestHistory: NotaryRegistrationHistoryDto[] = [];
+  @Input() requestRemarks: RequestSearchDetailDTO;
+  public requestId: RequestSearchDetailDTO;
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
   dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.notaryRequestHistory);
@@ -44,10 +47,11 @@ export class RemrkTableComponent implements OnInit {
   }
 
   getHistoryDetails(){
-      let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1, "1");
+      let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestId.requestId, this.requestId.workflow);
       this.notaryService.getHistoryDetails(searchType).subscribe(
         (result: NotaryRegistrationHistoryDto[]) => {
           this.dataSource.data = result;
+          alert(this.dataSource.data);
         },
         error1 => {
         }

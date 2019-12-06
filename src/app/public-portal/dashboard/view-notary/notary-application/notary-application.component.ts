@@ -25,6 +25,8 @@ import {WorkflowStageDocDto} from "../../../../shared/dto/workflow-stage-doc.dto
 import {DocumentDto} from "../../../../shared/dto/document-list";
 import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
+import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
+import {WorkflowStages} from "../../../../shared/enum/workflow-stages.enum";
 
 @Component({
   selector: 'app-notary-application',
@@ -36,7 +38,7 @@ export class NotaryApplicationComponent implements OnInit {
   @Input()
   files: File[] = [];
   @Output() notaryDetail = new EventEmitter<Notary>();
-
+  @Input() requestDetailId: RequestSearchDetailDTO;
   dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
@@ -60,7 +62,7 @@ export class NotaryApplicationComponent implements OnInit {
   newNotaryRegistrationRequestId: number;
   notaryTitle: string = '';
   public date: Date;
-  public requestID: string;
+  public requestID: number;
   public type: string;
   public data: any;
   public hasRemarks: boolean = false;
@@ -82,6 +84,7 @@ export class NotaryApplicationComponent implements OnInit {
               private documetService: SupportingDocService) { }
 
   ngOnInit() {
+    this.requestID = this.requestDetailId.requestId;
     this.notaryViewDetails = this.newNotaryDataVarificationService.ViewNotaryDetails();
 
     this.notaryForm = this.formBuilder.group({
@@ -143,7 +146,7 @@ export class NotaryApplicationComponent implements OnInit {
 
 
   getApplicationDetails() {
-    this.searchType = new NewNotaryRequestsCategorySearchDto(1,Workflow.NOTARY_REGISTRATION);
+    this.searchType = new NewNotaryRequestsCategorySearchDto(81,Workflow.NOTARY_REGISTRATION);
     this.newNotaryDataVarificationService.getNotaryDetails(this.searchType).subscribe(
       (result: NewNotaryViewDto) => {
         this.result = result;
@@ -189,7 +192,7 @@ export class NotaryApplicationComponent implements OnInit {
   }
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1, Workflow.NOTARY_REGISTRATION);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDetailId.requestId, this.requestDetailId.workflow);
     this.newNotaryDataVarificationService.getPaymentDetails(searchType).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
         this.paymentDetails = result;
@@ -227,7 +230,7 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
         this.notaryForm.value.title, 'Miss', 'Ms',
         1, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
-        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani","ss",  this.notaryForm.value.userName,this.paymentId);
+        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "Ishani","ss",  this.notaryForm.value.userName,this.paymentId,WorkflowStages.REGISTRATION_REQ_MODIFIED);
 
       this.notaryDetail.emit(this.notaryDetails);
       this.notaryService.setNotaryDetails(this.notaryDetails);
@@ -288,7 +291,7 @@ export class NotaryApplicationComponent implements OnInit {
   }
 
   getLatestRemark() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,Workflow.NOTARY_REGISTRATION);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDetailId.requestId,this.requestDetailId.workflow);
     this.newNotaryDataVarificationService.getLatestReamrk(searchType).subscribe(
       (result: NotaryRegistrationHistoryDto) => {
         if(result != null){
