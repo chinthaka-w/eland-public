@@ -17,6 +17,7 @@ import {PaymentDto} from "../../../shared/dto/payment-dto";
 import {Router} from "@angular/router";
 import {BankUserType} from "../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../shared/enum/identification-type.enum";
+import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
 
 @Component({
   selector: "app-add-public-user",
@@ -63,7 +64,7 @@ export class AddPublicUserComponent implements OnInit {
       bankName: new FormControl("", [Validators.required]),
       bankUserType: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
-      nameEnglish: new FormControl("", [Validators.required]),
+      nameEnglish: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
       nameSinhala: new FormControl("", [Validators.required]),
       nameTamil: new FormControl("", [Validators.required]),
       notaryId: new FormControl("", [Validators.required]),
@@ -72,9 +73,9 @@ export class AddPublicUserComponent implements OnInit {
       address3: new FormControl("", [Validators.required]),
       identificationNo: new FormControl("", [Validators.required]),
       identificationType: new FormControl("", [Validators.required]),
-      primaryContact: new FormControl("", [Validators.required]),
-      secondaryContact: new FormControl("", [Validators.required]),
-      email: new FormControl("", [Validators.required]),
+      primaryContact: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      secondaryContact: new FormControl("", [Validators.pattern(PatternValidation.contactNumberValidation)]),
+      email: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
       userName: new FormControl("", [Validators.required]),
       reason: new FormControl("", [Validators.required]),
       renewalCertificate: new FormControl("", [Validators.required]),

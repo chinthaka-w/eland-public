@@ -92,6 +92,7 @@
           <div *ngIf="FormControls.nameEnglish.touched && FormControls.nameEnglish.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.nameEnglish.errors.required" class="errors">Applicant Name(English) Required</mat-error>
+            <mat-error *ngIf="FormControls.nameEnglish.errors.pattern" class="errors">Applicant Name(English) Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -261,6 +262,7 @@
           <div *ngIf="FormControls.primaryContact.touched && FormControls.primaryContact.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.primaryContact.errors.required" class="errors">Telephone Number required</mat-error>
+            <mat-error *ngIf="FormControls.primaryContact.errors.pattern" class="errors">Telephone Number Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -273,6 +275,7 @@
           <div *ngIf="FormControls.secondaryContact.touched && FormControls.secondaryContact.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.secondaryContact.errors.required" class="errors">Telephone Number required</mat-error>
+            <mat-error *ngIf="FormControls.secondaryContact.errors.pattern" class="errors">Telephone Number Invalid</mat-error>
           </div>
         </div>
       </div>
@@ -285,6 +288,7 @@
           <div *ngIf="FormControls.email.touched && FormControls.email.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.email.errors.required" class="errors">Email Address required</mat-error>
+            <mat-error *ngIf="FormControls.email.errors.pattern" class="errors">Email is Invalid</mat-error>
           </div>
         </div>
         <div class="din-info-col">(Notifications will send to this email)</div>
