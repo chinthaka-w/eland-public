@@ -24,6 +24,11 @@ export class SearchRequestService {
     return this.httpClient.get(`${this.BASE_URL}/LastRemark/${id}`, {headers: this.headersJson});
   }
 
+  findById(id: number): Observable<Object> {
+    return this.httpClient.get(`${this.BASE_URL}/${id}`, {headers: this.headersJson});
+  }
+
+
   saveSearchRequest(searchRequest: SearchRequest): Observable<Object> {
     return this.httpClient.post(`${this.BASE_URL}/save`, searchRequest, {headers: this.headersJson});
   }

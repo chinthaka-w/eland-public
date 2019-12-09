@@ -1,11 +1,12 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {NewNotaryRequestsCategorySearchDto} from "../../../../../shared/dto/new-notary-requests-category-search.dto";
-import {NotaryRegistrationHistoryDto} from "../../../../../shared/dto/notary-registration-history.dto";
-import {ActivatedRoute} from "@angular/router";
-import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {MatTableDataSource} from "@angular/material/table";
-import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {NewNotaryRequestsCategorySearchDto} from '../../../../../shared/dto/new-notary-requests-category-search.dto';
+import {NotaryRegistrationHistoryDto} from '../../../../../shared/dto/notary-registration-history.dto';
+import {ActivatedRoute} from '@angular/router';
+import {NewNotaryDataVarificationService} from '../../../../../shared/service/new-notary-data-varification.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatTableDataSource} from '@angular/material/table';
+import {NewNotaryPaymentDetailDto} from '../../../../../shared/dto/new-notary-payment-detail.dto';
+import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
 
 @Component({
   selector: 'app-remrk-table',
@@ -22,8 +23,10 @@ import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-pa
     ])
   ]
 })
-export class RemrkTableComponent implements OnInit {
+export class RemrkTableComponent implements OnInit, OnChanges {
   @Input() notaryRequestHistory: NotaryRegistrationHistoryDto[] = [];
+  @Input() requestRemarks: RequestSearchDetailDTO;
+  public requestId: RequestSearchDetailDTO;
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
   dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.notaryRequestHistory);
@@ -44,17 +47,6 @@ export class RemrkTableComponent implements OnInit {
   }
 
   getHistoryDetails(){
-      let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1, "1","");
-      // this.route.paramMap.subscribe(params =>{
-      //   searchType.requestID = params.get('id');
-      // });
-
-      this.notaryService.getHistoryDetails(searchType).subscribe(
-        (result: NotaryRegistrationHistoryDto[]) => {
-          this.dataSource.data = result;
-        },
-        error1 => {
-        }
-      )
-    }
+    this.dataSource.data = this.notaryRequestHistory;
+  }
 }

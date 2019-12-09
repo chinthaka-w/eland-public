@@ -86,7 +86,6 @@ export class AddPublicUserComponent implements OnInit {
       otherInstitutionName: new FormControl("", [Validators.required]),
       dateOfBirth: new FormControl("", [Validators.required]),
     });
-    console.log(this.PublicUserType);
     this.getAllLandRegistries();
     this.getAllBanks();
   }
@@ -174,7 +173,6 @@ export class AddPublicUserComponent implements OnInit {
           if (result) {
             this.snackBar.success('Citizen saved successfully');
             this.router.navigate(['/login']);
-            console.log(result);
           }else{
             this.snackBar.error('Operation failed');
           }
@@ -183,7 +181,6 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    // console.log(searchValue);
     this.publicUserDTO.username = searchValue;
     this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
         if (result == true) {
@@ -199,7 +196,6 @@ export class AddPublicUserComponent implements OnInit {
   }
   onPaymentResponse(data: PaymentResponse) {
     this.isContinue = false;
-    console.log(data);
     this.paymentDto.paymentId = data.paymentId;
     this.citizenDTO.payment = this.paymentDto;
   }

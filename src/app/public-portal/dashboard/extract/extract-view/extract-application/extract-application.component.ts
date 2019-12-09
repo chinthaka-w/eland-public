@@ -1,46 +1,51 @@
-import {Component, OnInit} from '@angular/core';
-import {Location} from '@angular/common';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {SearchRequest} from '../../../../../shared/dto/search-request.model';
+import {Village} from '../../../../../shared/dto/village.model';
+import {PaththuwaService} from '../../../../../shared/service/paththuwa.service';
+import {SearchReasonService} from '../../../../../shared/service/search-reason.service';
 import {MatTableDataSource} from '@angular/material/table';
-import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {LandRegistryService} from '../../../shared/service/land-registry.service';
-import {LandRegistryModel} from '../../../shared/dto/land-registry.model';
-import {PaththuwaService} from '../../../shared/service/paththuwa.service';
-import {Paththuwa} from '../../../shared/dto/paththuwa.model';
-import {KoraleService} from '../../../shared/service/korale.service';
-import {Korale} from '../../../shared/dto/korale.model';
-import {DsDivisionService} from '../../../shared/service/ds-division.service';
-import {DsDivision} from '../../../shared/dto/ds-division.model';
-import {GnDivisionService} from '../../../shared/service/gn-division.service';
-import {GnDivision} from '../../../shared/dto/gn-division.model';
-import {Village} from '../../../shared/dto/village.model';
-import {VillageService} from '../../../shared/service/village.service';
-import {SearchReasonService} from '../../../shared/service/search-reason.service';
-import {SearchReason} from '../../../shared/dto/search-reason.model';
-import {FolioNoService} from '../../../shared/service/folio-no.service';
-import {Enum} from '../../../shared/dto/enum.model';
-import {SnackBarService} from '../../../shared/service/snack-bar.service';
+import {PaymentResponse} from '../../../../../shared/dto/payment-response.model';
+import {Parameters} from '../../../../../shared/enum/parameters.enum';
+import {Paththuwa} from '../../../../../shared/dto/paththuwa.model';
+import {Korale} from '../../../../../shared/dto/korale.model';
+import {WorkflowStages} from '../../../../../shared/enum/workflow-stages.enum';
+import {ActionMode} from '../../../../../shared/enum/action-mode.enum';
+import {GnDivisionService} from '../../../../../shared/service/gn-division.service';
+import {LandRegistryService} from '../../../../../shared/service/land-registry.service';
+import {DsDivision} from '../../../../../shared/dto/ds-division.model';
+import {SearchReason} from '../../../../../shared/dto/search-reason.model';
+import {PaymentStatus} from '../../../../../shared/enum/payment-status.enum';
+import {SnackBarService} from '../../../../../shared/service/snack-bar.service';
+import {SearchRequestService} from '../../../../../shared/service/search-request.service';
+import {GnDivision} from '../../../../../shared/dto/gn-division.model';
+import {Enum} from '../../../../../shared/dto/enum.model';
+import {LandRegistryModel} from '../../../../../shared/dto/land-registry.model';
 import {HttpErrorResponse} from '@angular/common/http';
-import {PaymentResponse} from '../../../shared/dto/payment-response.model';
-import {Parameters} from '../../../shared/enum/parameters.enum';
-import {Workflow} from '../../../shared/enum/workflow.enum';
-import {SearchRequest} from '../../../shared/dto/search-request.model';
-import {PaymentStatus} from '../../../shared/enum/payment-status.enum';
-import {SearchRequestService} from '../../../shared/service/search-request.service';
-import {WorkflowStages} from '../../../shared/enum/workflow-stages.enum';
-import {SessionService} from '../../../shared/service/session.service';
-
+import {VillageService} from '../../../../../shared/service/village.service';
+import {SessionService} from '../../../../../shared/service/session.service';
+import {FolioNoService} from '../../../../../shared/service/folio-no.service';
+import {SearchRequestType} from '../../../../../shared/enum/search-request-type.enum';
+import {KoraleService} from '../../../../../shared/service/korale.service';
+import {DsDivisionService} from '../../../../../shared/service/ds-division.service';
+import {Location} from '@angular/common';
+import {Workflow} from '../../../../../shared/enum/workflow.enum';
 
 @Component({
-  selector: 'app-search-document',
-  templateUrl: './search-document.component.html',
-  styleUrls: ['./search-document.component.css']
+  selector: 'app-extract-application',
+  templateUrl: './extract-application.component.html',
+  styleUrls: ['./extract-application.component.css']
 })
-export class SearchDocumentComponent implements OnInit {
+export class ExtractApplicationComponent implements OnInit, OnChanges {
+
+  @Input() workflow: string;
+  @Input() requestId: number;
+  @Input() action: string;
 
   SearchRequestType = SearchRequestType;
   Parameters = Parameters;
   WorkflowCode = Workflow;
+  ActionMode = ActionMode;
 
   public isContinueToPayment: boolean = false;
 
@@ -105,11 +110,33 @@ export class SearchDocumentComponent implements OnInit {
       'noOfYears': new FormControl('', Validators.required),
     });
 
+    if (this.action === ActionMode.VIEW) {
+      this.searchRequestForm.disable();
+      this.folioForm.disable();
+    }
+
     this.loadLandRegistries();
     this.loadKorale();
     this.loadDSDivision();
     this.loadReasonForSearch();
 
+    this.searchRequestForm.get('koraleId').valueChanges.subscribe(value => {
+      this.loadPaththu(value);
+    });
+
+    this.searchRequestForm.get('dsDivisionId').valueChanges.subscribe(value => {
+      this.loadGNDivision(value);
+    });
+
+    this.searchRequestForm.get('gnDivisionId').valueChanges.subscribe(value => {
+      this.loadVillage(value);
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['workflow'] || changes['requestId']) {
+      this.loadSearchRequest();
+    }
   }
 
   // Api call
@@ -173,7 +200,9 @@ export class SearchDocumentComponent implements OnInit {
   saveRequest(searchRequest: SearchRequest): void {
     this.searchRequestService.saveSearchRequest(searchRequest).subscribe(
       (data) => {
+        console.log(data);
       }, (error: HttpErrorResponse) => {
+        console.log(error);
         this.snackBarService.error(error.message);
       }, () => {
         this.resetForm();
@@ -222,6 +251,7 @@ export class SearchDocumentComponent implements OnInit {
   }
 
   onChangeDsDivision(dsDivisionId: any) {
+    console.log('onchnageDs' + dsDivisionId)
     this.loadGNDivision(dsDivisionId);
   }
 
@@ -349,6 +379,17 @@ export class SearchDocumentComponent implements OnInit {
     this.elements = [];
     this.dataSource.data = this.elements;
   }
+
+  loadSearchRequest(): void {
+    this.searchRequestService.findById(this.requestId).subscribe(
+      (data: any) => {
+        this.searchRequestForm.patchValue(data);
+        this.elements = data.folioList;
+        this.dataSource.data = this.elements;
+      }
+    );
+  }
+
 }
 
 export interface Element {
@@ -357,4 +398,3 @@ export interface Element {
   noOfYears: string;
   status: string;
 }
-

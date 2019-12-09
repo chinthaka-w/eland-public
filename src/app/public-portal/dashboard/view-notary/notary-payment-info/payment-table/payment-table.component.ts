@@ -6,6 +6,7 @@ import {NewNotaryPaymentDetailDto} from '../../../../../shared/dto/new-notary-pa
 import {ApplicationRequestDataType} from '../../../../../shared/enum/application-request-data-type.enum';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
+import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
 
 @Component({
   selector: 'app-payment-table',
@@ -24,8 +25,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class PaymentTableComponent implements OnInit, OnChanges {
   @Input() paymentDetails: NewNotaryPaymentDetailDto[] = [];
-
-  displayedColumns: string[] = ['Payment Method', 'Amount', 'Payment ID', 'Payment Date', 'Status'];
+  displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
   dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
 
   constructor(private notaryService: NewNotaryDataVarificationService,
@@ -33,8 +33,7 @@ export class PaymentTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.getPaymentDetails();
-  }
+     this.getPaymentDetails();}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paymentDetails']) {
@@ -42,17 +41,6 @@ export class PaymentTableComponent implements OnInit, OnChanges {
     }
   }
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1,"1","");
-    // this.route.paramMap.subscribe(params => {
-    //   searchType.requestID = params.get('id')
-    // });
-    searchType.type = ApplicationRequestDataType.PAYMENT;
-    this.notaryService.getPaymentDetails(searchType).subscribe(
-      (result: NewNotaryPaymentDetailDto[]) => {
-        this.dataSource.data = result;
-      },
-      error => {
-      }
-    )
+   this.dataSource.data = this.paymentDetails;
   }
 }

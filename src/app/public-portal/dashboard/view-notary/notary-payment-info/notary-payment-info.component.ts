@@ -12,6 +12,8 @@ import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {Parameters} from "../../../../shared/enum/parameters.enum";
 import {NewNotaryPaymentDto} from "../../../../shared/dto/new-notary-payment.dto";
 import {SnackBarService} from "../../../../shared/service/snack-bar.service";
+import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
+import {ActionMode} from '../../../../shared/enum/action-mode.enum';
 
 @Component({
   selector: 'app-notary-payment-info',
@@ -20,11 +22,15 @@ import {SnackBarService} from "../../../../shared/service/snack-bar.service";
 })
 export class NotaryPaymentInfoComponent implements OnInit {
   @Output() notaryPayment = new EventEmitter<NewNotaryPaymentDto>();
+  @Input() requestDetailPayment: RequestSearchDetailDTO;
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
-  paymentDetails: NewNotaryPaymentDetailDto[] = [];
   @Input() workflow: string;
   @Input() id: number;
+  @Input() action: number;
+
+  paymentDetails: NewNotaryPaymentDetailDto[] = [];
+
   public type = ApplicationRequestDataType.PAYMENT;
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
@@ -33,7 +39,9 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
   Parameters = Parameters;
   WorkflowCode = Workflow;
+  public requestId: RequestSearchDetailDTO;
 
+  ActionMode = ActionMode;
 
   constructor(private notaryService: NewNotaryDataVarificationService,
               private newNotaryService: NotaryService,
@@ -45,7 +53,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id, this.type, this.workflow);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDetailPayment.requestId, this.requestDetailPayment.workflow);
     this.notaryService.getPaymentDetails(searchType).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
         this.paymentDetails = result;
@@ -75,7 +83,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
     this.isPayment = false;
     this.isPaymentMethod = true;
     this.paymentDataValue = paymentData.paymentId;
-    this.savePayments(1,this.paymentDataValue);
+    this.savePayments(this.requestDetailPayment.requestId,this.paymentDataValue);
   }
 
 }
