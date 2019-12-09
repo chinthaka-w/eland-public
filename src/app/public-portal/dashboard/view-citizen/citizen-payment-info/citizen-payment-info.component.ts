@@ -35,7 +35,6 @@ export class CitizenPaymentInfoComponent implements OnInit {
 
 
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Amount', 'Payment Date', 'Status'];
-  // dataSource = new MatTableDataSource<PaymentDto>(this.paymentDetails);
   dataSource = new MatTableDataSource<PaymentDto>();
 
   constructor(private notaryService: NewNotaryDataVarificationService,
@@ -52,29 +51,21 @@ export class CitizenPaymentInfoComponent implements OnInit {
   onBack(data: boolean) {
     this.isContinue = !data;
   }
+
   onPaymentResponse(data: PaymentResponse) {
     this.paymentDTO.paymentId = data.paymentId;
     this.paymentDTO.deliveryType = data.deliveryType;
     this.paymentDTO.paymentMethod = data.paymentMethod;
     this.citizenDTO.payment = this.paymentDTO;
-    console.log('Payment status: .......   ', data);
-    console.log('Citizen: .......   ', this.citizenDTO);
     this.citizenService.updatePayment(this.citizenDTO)
       .subscribe((result) => {
         this.citizenDTO.paymentHistory.push(result);
-        console.log('=======================',this.citizenDTO);
-        // this.citizenService.citizenDto.emit(this.citizenDTO);
+        this.dataSource = new MatTableDataSource(this.citizenDTO.paymentHistory);
       });
     this.isContinue = false;
-
   }
 
   addPayment() {
     this.isContinue = true;
   }
-  // refresh() {
-  //   console.log('Before......', this.dataSource);
-  //   this.dataSource.data = this.citizenDTO.paymentHistory;
-  //   console.log('After......', this.dataSource);
-  // }
 }
