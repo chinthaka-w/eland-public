@@ -201,9 +201,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   saveRequest(searchRequest: SearchRequest): void {
     this.searchRequestService.saveSearchRequest(searchRequest).subscribe(
       (data) => {
-        console.log(data);
       }, (error: HttpErrorResponse) => {
-        console.log(error);
         this.snackBarService.error(error.message);
       }, () => {
         this.resetForm();

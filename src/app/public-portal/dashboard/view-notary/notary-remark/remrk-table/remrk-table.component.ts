@@ -6,24 +6,27 @@ import {NewNotaryDataVarificationService} from '../../../../../shared/service/ne
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {NewNotaryPaymentDetailDto} from '../../../../../shared/dto/new-notary-payment-detail.dto';
+import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
 
 @Component({
   selector: 'app-remrk-table',
   templateUrl: './remrk-table.component.html',
   styleUrls: ['./remrk-table.component.css'],
   animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+    trigger("detailExpand", [
+      state("collapsed", style({ height: "0px", minHeight: "0" })),
+      state("expanded", style({ height: "*" })),
       transition(
-        'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
       )
     ])
   ]
 })
 export class RemrkTableComponent implements OnInit, OnChanges {
   @Input() notaryRequestHistory: NotaryRegistrationHistoryDto[] = [];
+  @Input() requestRemarks: RequestSearchDetailDTO;
+  public requestId: RequestSearchDetailDTO;
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
   dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.notaryRequestHistory);
@@ -44,17 +47,6 @@ export class RemrkTableComponent implements OnInit, OnChanges {
   }
 
   getHistoryDetails(){
-      let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(1, "1","");
-      // this.route.paramMap.subscribe(params =>{
-      //   searchType.requestID = params.get('id');
-      // });
-
-      this.notaryService.getHistoryDetails(searchType).subscribe(
-        (result: NotaryRegistrationHistoryDto[]) => {
-          this.dataSource.data = result;
-        },
-        error1 => {
-        }
-      )
-    }
+    this.dataSource.data = this.notaryRequestHistory;
+  }
 }
