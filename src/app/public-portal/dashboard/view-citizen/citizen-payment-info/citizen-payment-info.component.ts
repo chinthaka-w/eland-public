@@ -1,11 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
 import {MatTableDataSource} from "@angular/material/table";
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
 import {ActivatedRoute} from "@angular/router";
-import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
-import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
 import {CitizenDTO} from "../../../../shared/dto/citizen-dto";
 import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
 import {CitizenService} from "../../../../shared/service/citizen.service";
@@ -38,7 +35,8 @@ export class CitizenPaymentInfoComponent implements OnInit {
 
 
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Amount', 'Payment Date', 'Status'];
-  dataSource = new MatTableDataSource<PaymentDto>(this.paymentDetails);
+  // dataSource = new MatTableDataSource<PaymentDto>(this.paymentDetails);
+  dataSource = new MatTableDataSource<PaymentDto>();
 
   constructor(private notaryService: NewNotaryDataVarificationService,
               private route: ActivatedRoute, private citizenService: CitizenService) {
@@ -65,10 +63,7 @@ export class CitizenPaymentInfoComponent implements OnInit {
       .subscribe((result) => {
         this.citizenDTO.paymentHistory.push(result);
         console.log('=======================',this.citizenDTO);
-        this.citizenService.citizenDto.emit(this.citizenDTO);
-        this.citizenService.citizenDto.subscribe((result) => {
-          this.dataSource = result.paymentHistory;
-        });
+        // this.citizenService.citizenDto.emit(this.citizenDTO);
       });
     this.isContinue = false;
 
@@ -77,4 +72,9 @@ export class CitizenPaymentInfoComponent implements OnInit {
   addPayment() {
     this.isContinue = true;
   }
+  // refresh() {
+  //   console.log('Before......', this.dataSource);
+  //   this.dataSource.data = this.citizenDTO.paymentHistory;
+  //   console.log('After......', this.dataSource);
+  // }
 }
