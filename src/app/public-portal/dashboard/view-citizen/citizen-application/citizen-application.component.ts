@@ -59,6 +59,10 @@ export class CitizenApplicationComponent implements OnInit {
               private snackBar: SnackBarService) {}
 
   ngOnInit() {
+    this.user = this.sessionService.getUser();
+    this.getAllLandRegistries();
+    this.getAllBanks();
+    this.getApplicationDetails(this.user.id);
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl("", [Validators.required]),
@@ -88,36 +92,7 @@ export class CitizenApplicationComponent implements OnInit {
       otherInstitutionName: new FormControl("", [Validators.required]),
       dateOfBirth: new FormControl("", [Validators.required]),
     });
-    this.user = this.sessionService.getUser();
-    this.getAllLandRegistries();
-    this.getAllBanks();
-    this.getApplicationDetails(this.user.id);
 
-  }
-
-  disableFormControls() {
-    this.publicUserForm.controls['nearestLr'].disable();
-    this.publicUserForm.controls['type'].disable();
-    this.publicUserForm.controls['lawFirmName'].disable();
-    this.publicUserForm.controls['nameEnglish'].disable();
-    this.publicUserForm.controls['nameSinhala'].disable();
-    this.publicUserForm.controls['nameTamil'].disable();
-    this.publicUserForm.controls['bankName'].disable();
-    this.publicUserForm.controls['notaryId'].disable();
-    this.publicUserForm.controls['address1'].disable();
-    this.publicUserForm.controls['address2'].disable();
-    this.publicUserForm.controls['address3'].disable();
-    this.publicUserForm.controls['identificationNo'].disable();
-    this.publicUserForm.controls['identificationType'].disable();
-    this.publicUserForm.controls['primaryContact'].disable();
-    this.publicUserForm.controls['secondaryContact'].disable();
-    this.publicUserForm.controls['email'].disable();
-    this.publicUserForm.controls['reason'].disable();
-    this.publicUserForm.controls['officersDesignation'].disable();
-    this.publicUserForm.controls['stateInstitutionName'].disable();
-    this.publicUserForm.controls['otherInstitutionName'].disable();
-    this.publicUserForm.controls['dateOfBirth'].disable();
-    this.publicUserForm.controls['notaryId'].disable();
   }
 
   setFiles(files, key){
@@ -201,18 +176,6 @@ export class CitizenApplicationComponent implements OnInit {
       });
   }
 
-  // onSearchChange(searchValue: string): void {
-  //   // console.log(searchValue);
-  //   this.publicUserDTO.username = searchValue;
-  //   this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
-  //     if (result == true) {
-  //       this.publicUserExist = true;
-  //     }else {
-  //       this.publicUserExist = false;
-  //     }
-  //   });
-  // }
-
   getApplicationDetails(citizenId: number) {
     this.citizenService.getApplicationDetails(citizenId)
       .subscribe((result) => {
@@ -225,7 +188,7 @@ export class CitizenApplicationComponent implements OnInit {
           if(this.citizenDTO.userType == this.PublicUserType.BANK) {
             this.bankUserTypeId = this.citizenDTO.bankUserType;
           }
-          this.citizenService.paymentDetails.emit(this.citizenDTO.paymentHistory);
+          // this.citizenService.paymentDetails.emit(this.citizenDTO.paymentHistory);
           this.citizenService.citizenDto.emit(this.citizenDTO);
           this.publicUserForm.patchValue({
             nameEnglish: this.citizenDTO.nameEng,

@@ -48,4 +48,8 @@ export class CitizenService {
     return this.httpClient.get<CitizenDTO>(this.BASE_URL + 'citizen/viewRegistarion/' + citizenId, {headers: this.headers} );
   }
 
+  updatePayment(citizen: CitizenDTO): Observable<PaymentDto> {
+    return this.httpClient.post<PaymentDto>(this.BASE_URL + 'citizen/updatePayment', citizen,{headers: this.headers} );
+  }
+
 }
