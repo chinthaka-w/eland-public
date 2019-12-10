@@ -69,6 +69,7 @@ import { SearchDocumentViewComponent } from './dashboard/search-document/search-
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
 import { ExtractApplicationComponent } from './dashboard/extract/extract-view/extract-application/extract-application.component';
+import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import { ExtractApplicationComponent } from './dashboard/extract/extract-view/ex
     ExtractViewComponent,
     SearchDocumentApplicationComponent,
     ExtractApplicationComponent,
+    RequestForCorrectionComponent
    ],
   imports: [
     CommonModule,
