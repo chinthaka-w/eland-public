@@ -116,7 +116,7 @@ import { ExtractApplicationComponent } from './dashboard/extract/extract-view/ex
     ExtractViewComponent,
     SearchDocumentApplicationComponent,
     ExtractApplicationComponent,
-   ],
+],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
