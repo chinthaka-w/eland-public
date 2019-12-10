@@ -378,12 +378,12 @@
           <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
           and <a href="#">Privacy Policy</a> .
         </div>
-        <div *ngIf="paymentDto.paymentId == null" class="pg-inner-col right">
+        <div *ngIf="!(paymentDto.paymentId)" class="pg-inner-col right">
           <button mat-raised-button class="lg-button" (click)="saveCitizen()">
             Continue
           </button>
         </div>
-        <div *ngIf="!(paymentDto.paymentId == null)" class="pg-inner-col right">
+        <div *ngIf="paymentDto.paymentId" class="pg-inner-col right">
           <button mat-raised-button class="lg-button" (click)="saveCitizen()">
             Register
           </button>
