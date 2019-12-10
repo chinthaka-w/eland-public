@@ -5,7 +5,7 @@
         <i class="material-icons">keyboard_backspace</i>
     </a>
 </div>
-<form class="form-horizontal">
+<form class="form-horizontal" [formGroup]="languageChangForm">
     <div class="page-content-wrapper">
         <div class="page-content-inner-wrapper">
 
@@ -21,31 +21,45 @@
 
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
-                    <mat-radio-group>
-                        <mat-radio-button value="Mr">Mr.</mat-radio-button>
-                        <mat-radio-button value="Mrs">Mrs.</mat-radio-button>
-                        <mat-radio-button value="Miss">Miss</mat-radio-button>
-                    </mat-radio-group>
+                  <mat-form-field appearance="outline">
+                    <select matNativeControl required  formControlName="title"  class="form-control">
+                      <option value="0" [disabled]="true">Select</option>
+                      <option *ngFor="let title of nameTitles"
+                              [value]="title.nameTitleId"
+                      >
+                        {{title.titleEng}}
+                      </option>
+
+                    </select>
+                  </mat-form-field>
                 </div>
                 <div class="pg-inner-col right">
                     <div class="default-input-wrapper m0 rac-col">
                         <label>Language:<span class="redtxt">*</span></label>
                         <div class="default-input-feild">
-                            <mat-radio-group class="form-control">
-                                <mat-radio-button value="1">Sinhala</mat-radio-button>
-                                <mat-radio-button value="2">English</mat-radio-button>
-                                <mat-radio-button class="example-margin" value="3">Tamil</mat-radio-button>
-                            </mat-radio-group>
+                            <mat-checkbox formControlName="langSin" (change)="languageChange(langMode.SINHALA)">
+                                Sinhala
+                            </mat-checkbox>
+                            <mat-checkbox formControlName="langEng" (change)="languageChange(langMode.ENGLISH)">
+                                English
+                            </mat-checkbox>
+                            <mat-checkbox formControlName="langTam" (change)="languageChange(langMode.TAMIL)">
+                                Tamil
+                            </mat-checkbox>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="default-input-wrapper full-row">
-                <label>Full Nmae (English):</label>
+                <label>Full Name (English):</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control">
+                        <input
+                          matInput
+                          class="form-control"
+                          formControlName="fullNameEng"
+                        />
                     </mat-form-field>
                 </div>
             </div>
@@ -53,7 +67,11 @@
                 <label>Full Name (Sinhala):</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control">
+                        <input
+                          matInput
+                          class="form-control"
+                          formControlName="fullNameSin"
+                        />
                     </mat-form-field>
                 </div>
             </div>
@@ -61,7 +79,11 @@
                 <label>Full Name (Tamil):</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control">
+                        <input
+                          matInput
+                          class="form-control"
+                          formControlName="fullNameTam"
+                        />
                     </mat-form-field>
                 </div>
             </div>
@@ -69,7 +91,11 @@
                 <label>Name with initials (English):</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control">
+                        <input
+                          matInput
+                          class="form-control"
+                          formControlName="nameWithInitEng"
+                        />
                     </mat-form-field>
                 </div>
             </div>
@@ -77,7 +103,11 @@
                 <label>Name with initials (Sinhala):</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control">
+                        <input
+                          matInput
+                          class="form-control"
+                          formControlName="nameWithInitSin"
+                        />
                     </mat-form-field>
                 </div>
             </div>
@@ -85,7 +115,11 @@
                 <label>Name with initials (Tamil):</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control">
+                        <input
+                          matInput
+                          class="form-control"
+                          formControlName="nameWithInitTam"
+                        />
                     </mat-form-field>
                 </div>
             </div>
@@ -93,43 +127,62 @@
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Permenent address (English):</label>
+                        <label>Permanent address (English):</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
-                                <textarea matInput rows="5"></textarea>
+                                <textarea
+                                  matInput
+                                  rows="5"
+                                  formControlName="addPermanentEng"
+                                >
+                                </textarea>
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Permenent address (Sinhala):</label>
+                        <label>Permanent address (Sinhala):</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
-                                <textarea matInput rows="5"></textarea>
+                                <textarea
+                                  matInput rows="5"
+                                  formControlName="addPermanentSin"
+                                >
+                                </textarea>
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Permenent address (Tamil):</label>
+                        <label>Permanent address (Tamil):</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
-                                <textarea matInput rows="5"></textarea>
+                                <textarea
+                                  matInput
+                                  rows="5"
+                                  formControlName="addPermanentTam"
+                                >
+                                </textarea>
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
             </div>
-    
+
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
                         <label>Current address (English):</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
-                                <textarea matInput rows="5"></textarea>
+                                <textarea
+                                  matInput
+                                  rows="5"
+                                  formControlName="addressEng"
+                                >
+                                </textarea>
                             </mat-form-field>
                         </div>
                     </div>
@@ -139,7 +192,12 @@
                         <label>Current address (Sinhala):</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
-                                <textarea matInput rows="5"></textarea>
+                                <textarea
+                                  matInput
+                                  rows="5"
+                                  formControlName="addressSin"
+                                >
+                                </textarea>
                             </mat-form-field>
                         </div>
                     </div>
@@ -149,62 +207,12 @@
                         <label>Current address (Tamil):</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
-                                <textarea matInput rows="5"></textarea>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="default-input-wrapper full-row">
-                <label>If Notarial Warrant is sought for Tamil language, state herin full name and address in the same language:</label>
-                <div class="default-input-feild">
-                    <mat-form-field appearance="outline">
-                        <textarea matInput rows="5"></textarea>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="pg-inner-row mb-20">
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>National Identity Card No:</label>
-                        <div class="default-input-feild">
-                            <mat-form-field appearance="outline">
-                                <input matInput>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>Email:</label>
-                        <div class="default-input-feild">
-                            <mat-form-field appearance="outline">
-                                <input matInput>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="pg-inner-row mb-20">
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>Contact No. (Residential):</label>
-                        <div class="default-input-feild">
-                            <mat-form-field appearance="outline">
-                                <input matInput>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>Mobile:</label>
-                        <div class="default-input-feild">
-                            <mat-form-field appearance="outline">
-                                <input matInput>
+                                <textarea
+                                  matInput
+                                  rows="5"
+                                  formControlName="addressTam"
+                                >
+                                </textarea>
                             </mat-form-field>
                         </div>
                     </div>
@@ -214,26 +222,35 @@
             <div class="separator">&nbsp;</div>
 
             <div class="pg-inner-row mb-20">
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>Starting Date of Notarial Work:</label>
-                        <div class="default-input-feild date-feild">
-                            <mat-form-field appearance="outline">
-                                <input matInput [matDatepicker]="picker22">
-                                <mat-datepicker #picker2></mat-datepicker>
-                            </mat-form-field>
-                            <button mat-raised-button (click)="picker.open()">
-                                <i class="material-icons">calendar_today</i>
-                            </button>
-                        </div>
-                    </div>
+              <div class="pg-inner-col">
+                <div class="default-input-wrapper full-row">
+                  <label>Starting Date of Notarial Work:</label>
+                  <div class="default-input-feild date-feild">
+                    <mat-form-field appearance="outline">
+                      <input
+                        matInput
+                        [matDatepicker]="startDate"
+                        formControlName="startingDate"
+                      />
+                      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                      <mat-datepicker #startDate></mat-datepicker>
+                    </mat-form-field>
+                    <button mat-raised-button (click)="startDate.open()">
+                      <i class="material-icons">calendar_today</i>
+                    </button>
+                  </div>
                 </div>
+              </div>
                 <div class="pg-inner-col">
                     <div class="default-input-wrapper full-row">
                         <label>In which year, you get the certificate of High Court lastly?</label>
                         <div class="default-input-feild ">
                             <mat-form-field appearance="outline">
-                                <input matInput>
+                                <input
+                                  matInput
+                                  class="formControl"
+                                  formControlName="highCourtCertificateYear"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -246,7 +263,11 @@
                         <label>Name of the LR handed over duplicates currently?</label>
                         <div class="default-input-feild ">
                             <mat-form-field appearance="outline">
-                                <input matInput>
+                                <input
+                                  matInput
+                                  class="formControl"
+                                  formControlName="lrName"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -256,7 +277,11 @@
                         <label>Have you handed over all duplicate returns attested by you?</label>
                         <div class="default-input-feild ">
                             <mat-form-field appearance="outline">
-                                <input matInput>
+                                <input
+                                  matInput
+                                  class="formControl"
+                                  formControlName="returnAttestedStatus"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -269,64 +294,17 @@
                         <label>If you have stopped stop Notarial Work temporarily, Please specify the period:</label>
                         <div class="default-input-feild ">
                             <mat-form-field appearance="outline">
-                                <input matInput>
+                                <input
+                                  matInput
+                                  class="formControl"
+                                  formControlName="unavailableTimePeriod"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
                 <div class="pg-inner-col"></div>
             </div>
-
-            <span class="mb-20" style="display: block;">Please give the following details regarding new judicial zone</span>
-
-            <div class="default-input-wrapper full-row half-cols">
-                <label class="mw-200">Judicial Division:</label>
-                <div class="default-input-feild">
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="Applicant Name">
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="default-input-wrapper full-row half-cols">
-                <label class="mw-200">Land Registry:</label>
-                <div class="default-input-feild">
-                    <mat-form-field appearance="outline">
-                        <select matNativeControl required>
-                            <option value="">Select</option>
-                            <option value="option-1">Option 01</option>
-                            <option value="option-2">Option 02</option>
-                            <option value="option-3">Option 03</option>
-                        </select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="default-input-wrapper full-row half-cols">
-                <label class="mw-200">Divisional Secretariat Division:</label>
-                <div class="default-input-feild">
-                    <mat-form-field appearance="outline">
-                        <select matNativeControl required>
-                            <option value="">Select</option>
-                            <option value="option-1">Option 01</option>
-                            <option value="option-2">Option 02</option>
-                            <option value="option-3">Option 03</option>
-                        </select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="default-input-wrapper full-row half-cols">
-                <label class="mw-200">Grama Niladhari Division:</label>
-                <div class="default-input-feild">
-                    <mat-form-field appearance="outline">
-                        <select matNativeControl required>
-                            <option value="">Select</option>
-                            <option value="option-1">Option 01</option>
-                            <option value="option-2">Option 02</option>
-                            <option value="option-3">Option 03</option>
-                        </select>
-                    </mat-form-field>
-                </div>
-            </div>
-
 
             <div class="separator">&nbsp;</div>
 
@@ -346,10 +324,15 @@
                         <label>Date:</label>
                         <div class="default-input-feild date-feild">
                             <mat-form-field appearance="outline">
-                                <input matInput [matDatepicker]="picker4">
-                                <mat-datepicker #picker3></mat-datepicker>
+                                <input
+                                  matInput
+                                  [matDatepicker]="date"
+                                  formControlName="date"
+                                />
+                              <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+                              <mat-datepicker #date></mat-datepicker>
                             </mat-form-field>
-                            <button mat-raised-button (click)="picker.open()">
+                            <button mat-raised-button (click)="date.open()">
                                 <i class="material-icons">calendar_today</i>
                             </button>
                         </div>
@@ -391,7 +374,7 @@
             <div class="pg-inner-row mb-0">
                 <div class="pg-inner-col"></div>
                 <div class="pg-inner-col right">
-                    <button mat-raised-button class="lg-button">Submit</button>
+                    <button mat-raised-button class="lg-button" (click)="continue()">Submit</button>
                 </div>
             </div>
 

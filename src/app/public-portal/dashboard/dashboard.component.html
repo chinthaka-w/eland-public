@@ -67,7 +67,7 @@
           </a>
         </div>
         <div class="db-link-tile c4" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/language-change']">
+          <a [routerLink]="['/requests', getBase64(Workflow.LANGUAGE_CHANGE)]">
                         <span class="icon">
                             <i class="material-icons">speaker_notes</i>
                         </span>

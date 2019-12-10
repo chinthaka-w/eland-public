@@ -76,6 +76,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.newButtonURL = '/extract';
         this.actionButtonURL = `/extract-view/`;
         break;
+      case Workflow.LANGUAGE_CHANGE:
+        // this.loadExtractRequests();
+        this.headerText = 'LANGUAGE CHANGE';
+        this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
+        this.newButtonURL = '/language-change';
+        this.actionButtonURL = `/extract-view/`;
+        break;
     }
   }
 
