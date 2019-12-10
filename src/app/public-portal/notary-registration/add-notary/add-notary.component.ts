@@ -116,7 +116,7 @@ export class AddNotaryComponent implements OnInit {
       currentAddressInSinhala: new FormControl(''),
       currentAddressInTamil: new FormControl(''),
       mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      contactNo: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.contactNumberValidation)]),
+      contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
       landRegistry: new FormControl('', [Validators.required]),
       secretariatDivision: new FormControl('', [Validators.required]),
       gramaNiladhariDivision: new FormControl('', [Validators.required]),
@@ -228,8 +228,8 @@ export class AddNotaryComponent implements OnInit {
   private getGnDivisions(): void {
     this.gnDivisionService.getAllGnDivisions().subscribe(
       (data: GnDivision[]) => {
-        this.gnDivision = data ;
-        }
+        this.gnDivision = data;
+      }
     );
   }
 

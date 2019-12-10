@@ -27,12 +27,12 @@ import { HistoryComponent } from './dashboard/profile/profile-edit/history/histo
 import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
+import { RequestForCorrectionComponent } from './request_for_correction/request-for-correction/request-for-correction.component';
 import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/notary-details/notary-details.component';
 import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit/account-details/account-details.component';
-import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
-import { RecaptchaFormsModule } from 'ng-recaptcha';
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaFormsModule } from 'ng-recaptcha';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
 import { RequestsComponent } from './dashboard/requests/requests.component';
@@ -95,6 +95,9 @@ import { ExtractApplicationComponent } from './dashboard/extract/extract-view/ex
     LeaveRequestComponent,
     ResignationComponent,
     ApplicationsComponent,
+    RequestViewComponent,
+    RequestForCorrectionComponent
+  ],
     RequestViewComponent,
     RequestViewComponent,
     ViewNotaryComponent,

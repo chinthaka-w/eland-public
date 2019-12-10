@@ -94,6 +94,20 @@
         <!---->
         <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
+              <div class="db-link-tile c6">
+                <a href="request_for_correction">
+                        <span class="icon">
+                            <i class="material-icons">edit</i>
+                        </span>
+                  <span class="title">Request For Correction</span>
+                </a>
+              </div>
+            </div>
+
+
+                <!---->
+                <div class="db-link-tile c1" *ngIf="userType == 'public'">
+                    <a [routerLink]="['/search-document']">
                         <span class="icon">
                             <i class="material-icons">search</i>
                         </span>
