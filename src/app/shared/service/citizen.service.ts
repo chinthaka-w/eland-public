@@ -18,6 +18,7 @@ export class CitizenService {
   public constructor(private httpClient: HttpClient) {}
 
   paymentDetails = new EventEmitter<PaymentDto[]>();
+  citizenDto = new EventEmitter<CitizenDTO>();
   getAllLandRegistries(): Observable<Array<LandRegistriesDTO>> {
     return this.httpClient.get<Array<LandRegistriesDTO>>(this.BASE_URL + 'landRegistries/find', {headers: this.headers} );
   }
@@ -45,6 +46,10 @@ export class CitizenService {
 
   getApplicationDetails(citizenId: number): Observable<CitizenDTO> {
     return this.httpClient.get<CitizenDTO>(this.BASE_URL + 'citizen/viewRegistarion/' + citizenId, {headers: this.headers} );
+  }
+
+  updatePayment(citizen: CitizenDTO): Observable<PaymentDto> {
+    return this.httpClient.post<PaymentDto>(this.BASE_URL + 'citizen/updatePayment', citizen,{headers: this.headers} );
   }
 
 }

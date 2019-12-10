@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {NotaryRegistrationHistoryDto} from "../../../../shared/dto/notary-registration-history.dto";
 import {MatTableDataSource} from "@angular/material/table";
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
 import {ActivatedRoute} from "@angular/router";
-import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
+import {CitizenService} from "../../../../shared/service/citizen.service";
+import {HistoryDTO} from "../../../../shared/dto/history-dto";
 
 @Component({
   selector: 'app-citizen-remark',
@@ -23,17 +23,21 @@ import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-not
 })
 export class CitizenRemarkComponent implements OnInit {
 
-  notaryRequestHistory: NotaryRegistrationHistoryDto[] = [];
+  remarkList: HistoryDTO[] = [];
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
-  dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.notaryRequestHistory);
+  dataSource = new MatTableDataSource<HistoryDTO>(new Array<HistoryDTO>());
 
 
   constructor(private notaryService: NewNotaryDataVarificationService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private citizenService: CitizenService) { }
 
   ngOnInit() {
     // this.getHistoryDetails();
+    this.citizenService.citizenDto.subscribe((result) => {
+      this.dataSource = result.requestHistory;
+    });
   }
 
   // getHistoryDetails(){
