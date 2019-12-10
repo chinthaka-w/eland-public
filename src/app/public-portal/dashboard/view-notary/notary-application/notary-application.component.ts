@@ -238,7 +238,7 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
         this.notaryForm.value.title, 'Miss', 'Ms',
         this.judicialZoneId, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
-        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), this.tokenStorageService.getUserObjectToken().username,WorkflowStages.REGISTRATION_REQ_MODIFIED,  this.notaryForm.value.userName,this.paymentId);
+        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), "",WorkflowStages.REGISTRATION_REQ_MODIFIED,  this.notaryForm.value.userName,this.paymentId);
        this.notaryDetail.emit(this.notaryDetails);
   }
 
