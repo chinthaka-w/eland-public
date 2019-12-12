@@ -76,7 +76,7 @@ export class RequestForCorrectionComponent implements OnInit {
         console.log("result ",res);
       });
   }
-  
+
   onClickRow(){
     this.newRow.push(this.reqForCorrectionForm.value.folioNumbers);
       console.log( this.reqForCorrectionForm.value.folioNumbers);
