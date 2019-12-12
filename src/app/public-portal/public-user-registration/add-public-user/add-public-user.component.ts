@@ -17,6 +17,7 @@ import {PaymentDto} from "../../../shared/dto/payment-dto";
 import {Router} from "@angular/router";
 import {BankUserType} from "../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../shared/enum/identification-type.enum";
+import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
 
 @Component({
   selector: "app-add-public-user",
@@ -60,8 +61,10 @@ export class AddPublicUserComponent implements OnInit {
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl("", [Validators.required]),
+      bankName: new FormControl("", [Validators.required]),
+      bankUserType: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
-      nameEnglish: new FormControl("", [Validators.required]),
+      nameEnglish: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
       nameSinhala: new FormControl("", [Validators.required]),
       nameTamil: new FormControl("", [Validators.required]),
       notaryId: new FormControl("", [Validators.required]),
@@ -69,9 +72,10 @@ export class AddPublicUserComponent implements OnInit {
       address2: new FormControl("", [Validators.required]),
       address3: new FormControl("", [Validators.required]),
       identificationNo: new FormControl("", [Validators.required]),
-      primaryContact: new FormControl("", [Validators.required]),
-      secondaryContact: new FormControl("", [Validators.required]),
-      email: new FormControl("", [Validators.required]),
+      identificationType: new FormControl("", [Validators.required]),
+      primaryContact: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      secondaryContact: new FormControl("", [Validators.pattern(PatternValidation.contactNumberValidation)]),
+      email: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
       userName: new FormControl("", [Validators.required]),
       reason: new FormControl("", [Validators.required]),
       renewalCertificate: new FormControl("", [Validators.required]),
@@ -85,6 +89,10 @@ export class AddPublicUserComponent implements OnInit {
     });
     this.getAllLandRegistries();
     this.getAllBanks();
+  }
+
+  get FormControls() {
+    return this.publicUserForm.controls;
   }
 
   setFiles(files, key){
@@ -158,7 +166,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
     this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
-    if(this.paymentDto.paymentId == null) {
+    if(!(this.paymentDto.paymentId)) {
       this.isContinue = true;
     }else{
       this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
