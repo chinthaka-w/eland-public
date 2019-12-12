@@ -1,0 +1,188 @@
+<div class="page-header-default">
+  <h2>REQUEST FOR CORECTIONS OF REGISTRATIONS</h2>
+  <p>Please fill in the following information to<br />register in the system</p>
+  <a href="" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
+</div>
+<form class="form-horizontal" [formGroup]="reqForCorrectionForm">
+  <div class="page-content-wrapper">
+    <div class="page-content-inner-wrapper">
+      <div class="pg-inner-row mb-40">
+        <div class="pg-inner-col">
+          <h5 class="uw-title"><span>Application</span></h5>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
+           
+            <div class="default-input-feild">
+              <mat-select formControlName="landRegId">
+                <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
+              </mat-select>
+
+
+            </div>
+          </div>
+        </div>
+      
+      </div>
+     
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Deed No.Related to the Correction<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="deedNo" class="form-control">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Deed Attested Date</label>
+            <div class="default-input-feild date-feild">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="picker" formControlName="attestedDate" class="form-control">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <button mat-raised-button (click)="picker.open()">
+                <i class="material-icons">calendar_today</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Notary Name<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="notaryName" class="form-control">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Notary Judicial Division<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              
+            
+             
+
+                <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
+                  <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
+                </mat-select>
+
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Folio(s) Which Correction to be Made<span class="redtxt">*</span></label>
+            <div class="default-input-feild full-row date-feild">
+           
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="folioNumbers" class="form-control">
+              </mat-form-field>
+              <button mat-raised-button>
+                <i class="material-icons">search</i>
+              </button>
+           
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Requested Correction to be Made<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="3" formControlName="requestedCorrection" class="form-control"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Nature of the Correction</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="3" formControlName="natureOfTheCorrection" class="form-control"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h5>Supporting Documents</h5>
+
+      <div class="pg-inner-row mb-20">
+        <!-- <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Deed Related to the Correction<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput value="test.pdf" class="form-control" formControlName="relatedCorrection">
+                <mat-icon matSuffix style="color: #A7A6A6;">clear</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div> -->
+        <div class="pg-inner-col"></div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+              <label>Upload Documents<span>*</span></label>
+              <div class="default-input-feild">
+                  <div class="drag-drop">
+                      <div class="drag-drop-inner">
+                          <i class="material-icons">cloud_upload</i> Upload
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+              <label>Upload Documents<span>*</span></label>
+              <div class="default-input-feild">
+                  <div class="drag-drop">
+                      <div class="drag-drop-inner">
+                          <i class="material-icons">cloud_upload</i> Upload
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+
+      <div class="separator">&nbsp;</div>
+
+      <div class="pg-inner-row mb-0">
+        <div class="pg-inner-col">
+          <div class="f-captcha">
+            <img src="../../../../assets/images/captcha.jpg" />
+          </div>
+        </div>
+        <div class="pg-inner-col right">
+          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Submit</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
