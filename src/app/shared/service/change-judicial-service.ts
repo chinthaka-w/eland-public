@@ -56,4 +56,8 @@ export class JudicialService {
     return this.httpClient.post(this.BASE_URL + 'judicial-zone/update/' , judicialChangeDto ,{headers: this.headers} );
   }
 
+  findLastRemark(id: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'judicial-zone/getLastRemark/' + id, {headers: this.headersJson});
+  }
+
 }
