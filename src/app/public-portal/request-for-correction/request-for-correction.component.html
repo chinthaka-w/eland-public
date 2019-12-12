@@ -100,7 +100,22 @@
               </button>
            
             </div>
+            <button (click)="onClickRow()">Add</button>
           </div>
+
+
+          <table>
+            <thead>
+            <th>Folio Number</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let policy of newRow">
+            <td>{{policy}}</td>
+            </tr>
+            </tbody>
+            </table>
+
+
         </div>
       </div>
       <div class="pg-inner-row mb-20">

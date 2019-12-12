@@ -19,6 +19,7 @@ export class RequestForCorrectionComponent implements OnInit {
   submitted = false;
   selected: any[];
   uploadSuccess: boolean;
+  newRow : number[ ] = [ ];
 
 
   judicialzone: any;
@@ -28,22 +29,17 @@ export class RequestForCorrectionComponent implements OnInit {
 
   ngOnInit() {
     this.reqForCorrectionForm = new FormGroup({
-      // folioCorrectionReqId:new FormControl(),
       requestedCorrection: new FormControl('', [Validators.required]),
       notaryName: new FormControl('', [Validators.required]),
       landRegId:new FormControl('', [Validators.required]),
       judicialZoneId:new FormControl('', [Validators.required]),
-      folioNumbers:new FormControl('', [Validators.required]),
+      folioNumbers:new FormControl(new Array(), [Validators.required]),
       deedNo: new FormControl('', [Validators.required]),
       attestedDate: new FormControl(new Date(), [Validators.required]),
       natureOfTheCorrection: new FormControl(''),
       citizenId:new FormControl('1'),
       workflowStageCode:new FormControl('status'),
       remark:new FormControl('test remark'),
-
-
-
-
     });
     this.getjudicialZone();
     this.getLandRegistries();
@@ -80,7 +76,12 @@ export class RequestForCorrectionComponent implements OnInit {
         console.log("result ",res);
       });
   }
-
+  
+  onClickRow(){
+    this.newRow.push(this.reqForCorrectionForm.value.folioNumbers);
+      console.log( this.reqForCorrectionForm.value.folioNumbers);
+      console.log(this.newRow);
+}
 
 
 }
