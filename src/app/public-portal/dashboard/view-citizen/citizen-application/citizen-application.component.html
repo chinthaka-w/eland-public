@@ -32,7 +32,7 @@
     <label class="mw-200">Bank User Type <span>*</span></label>
     <div class="default-input-feild gray">
       <mat-form-field appearance="outline">
-        <select matNativeControl required (change)="getCurrentBankUserType($event)">
+        <select formControlName="bankUserType" matNativeControl required (change)="getCurrentBankUserType($event)">
           <option value="" disabled>Select Bank User Type</option>
           <option value="{{bankUserType.MANAGER}}" >Manager</option>
           <option value="{{bankUserType.NOTARY}}" >Notary</option>

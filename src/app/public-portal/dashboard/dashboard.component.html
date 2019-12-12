@@ -6,7 +6,7 @@
       <h2>Welcome to E-Land</h2>
       <p>Welcome back please login to your acount</p>
 
-             <div class="db-card-full">
+             <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
                 <div class="db-card-header" style="background-image: url('../../../assets/images/temp_img_006.jpg')">
                     <a href="#">Next ></a>
                 </div>
@@ -40,6 +40,41 @@
                     <button mat-raised-button class="green" (click)="viewDetails()">View</button>
                 </div>
             </div>
+
+      <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.PENDING">
+        <div class="db-card-header" style="background-image: url('../../../assets/images/temp_img_006.jpg')">
+          <a href="#">Next ></a>
+        </div>
+        <div class="db-card-content">
+          <dl class="db-card-info">
+            <dt>Citizen ID:</dt>
+            <dd>-</dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>Date:</dt>
+            <dd>2019/29</dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>Status:</dt>
+            <dd>
+              <span class="status-pending">Pending approval</span>
+              <span class="status-success">Approved</span>
+            </dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>Name:</dt>
+            <dd>Yohani Gamage</dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>PaymentDto:</dt>
+            <dd>Online</dd>
+          </dl>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="db-card-bottom">
+          <button mat-raised-button class="green" [routerLink]="['/view-citizen']">View</button>
+        </div>
+      </div>
 
       <div class="db-main-wp">
         <div class="db-link-tile c1" *ngIf="user.type == userType.NOTARY">
@@ -122,14 +157,6 @@
                             <i class="material-icons">label</i>
                         </span>
             <span class="title">Request for Corrections of Resignation</span>
-          </a>
-        </div>
-        <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.PENDING">
-          <a [routerLink]="['/view-citizen']">
-                        <span class="icon">
-                            <i class="material-icons">label</i>
-                        </span>
-            <span class="title">View and edit your profile</span>
           </a>
         </div>
       </div>

@@ -117,8 +117,12 @@ import { RequestForCorrectionComponent } from './request-for-correction/request-
     ExtractViewComponent,
     SearchDocumentApplicationComponent,
     ExtractApplicationComponent,
+<<<<<<< HEAD
     RequestForCorrectionComponent
    ],
+=======
+],
+>>>>>>> e22494deef659d93583fa19e612fd6a84f8f6737
   imports: [
     CommonModule,
     PublicPortalRoutingModule,

@@ -67,6 +67,7 @@ export class AddNotaryComponent implements OnInit {
   public notaryDetails: Notary;
   public previousSelections: any[] = [];
   public isSelected: boolean;
+  public disabled: boolean = false;
 
   public docList: WorkflowStageDocDto[];
   public documentList: DocumentDto[] = [];
@@ -121,6 +122,7 @@ export class AddNotaryComponent implements OnInit {
       secretariatDivision: new FormControl('', [Validators.required]),
       gramaNiladhariDivision: new FormControl('', [Validators.required]),
       medium: new FormControl('' , [Validators.required]),
+      recaptcha: new FormControl(null, Validators.required),
       userName: new FormControl('', [Validators.required]),
     });
     this.getGnDivisions();
@@ -206,7 +208,7 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, 'Miss', 'Ms',
-      1, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
+      this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), this.tokenStorageService.getUserObjectToken().username, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName,this.paymentDataValue);
 
       const formData = new FormData();
@@ -305,6 +307,7 @@ export class AddNotaryComponent implements OnInit {
         secretariatDivision: new FormControl('', [Validators.required]),
         gramaNiladhariDivision: new FormControl('', [Validators.required]),
         medium: new FormControl('', [Validators.required]),
+        recaptcha: new FormControl(null, Validators.required),
         userName: new FormControl('', [Validators.required]),
       });
     } else if (event.value === '2') {
@@ -337,6 +340,7 @@ export class AddNotaryComponent implements OnInit {
         secretariatDivision: new FormControl('', [Validators.required]),
         gramaNiladhariDivision: new FormControl('', [Validators.required]),
         medium: new FormControl('', [Validators.required]),
+        recaptcha: new FormControl(null, Validators.required),
         userName: new FormControl('', [Validators.required]),
       });
     } else if (event.value === '3') {
@@ -369,6 +373,7 @@ export class AddNotaryComponent implements OnInit {
         secretariatDivision: new FormControl('', [Validators.required]),
         gramaNiladhariDivision: new FormControl('', [Validators.required]),
         medium: new FormControl('', [Validators.required]),
+        recaptcha: new FormControl(null, Validators.required),
         userName: new FormControl('', [Validators.required]),
       });
     }
