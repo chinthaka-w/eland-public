@@ -27,6 +27,7 @@ import {WorkflowStageDocDto} from "../../../shared/dto/workflow-stage-doc.dto";
 import {DocumentDto} from "../../../shared/dto/document-list";
 import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
 import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
+import {Languages} from "../../../shared/enum/languages.enum";
 
 @Component({
   selector: 'app-add-notary',
@@ -40,6 +41,7 @@ export class AddNotaryComponent implements OnInit {
 
   public isContinueToPayment: boolean = false;
   public paymentResponse = new PaymentResponse;
+  languages = Languages;
 
 
   @Output()
@@ -209,7 +211,7 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, 'Miss', 'Ms',
       this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), this.tokenStorageService.getUserObjectToken().username, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName,this.paymentDataValue);
+      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName,this.paymentDataValue);
 
       const formData = new FormData();
       formData.append('data', JSON.stringify(this.notaryDetails));
@@ -278,7 +280,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   onChange(event: MatRadioChange) {
-    if (event.value === '1') {
+    if (event.value == this.languages.SINHALA) {
       this.notaryForm = this.formBuilder.group({
         notary: new FormControl(this.notaryForm.value.notary, [Validators.required]),
         title: new FormControl('', [Validators.required]),
@@ -310,7 +312,7 @@ export class AddNotaryComponent implements OnInit {
         recaptcha: new FormControl(null, Validators.required),
         userName: new FormControl('', [Validators.required]),
       });
-    } else if (event.value === '2') {
+    } else if (event.value == this.languages.TAMIL) {
 
       this.notaryForm = this.formBuilder.group({
         notary: new FormControl(this.notaryForm.value.notary, [Validators.required]),
@@ -343,7 +345,7 @@ export class AddNotaryComponent implements OnInit {
         recaptcha: new FormControl(null, Validators.required),
         userName: new FormControl('', [Validators.required]),
       });
-    } else if (event.value === '3') {
+    } else if (event.value == this.languages.ENGLISH) {
 
       this.notaryForm = this.formBuilder.group({
         notary: new FormControl(this.notaryForm.value.notary, [Validators.required]),

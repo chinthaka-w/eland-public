@@ -27,6 +27,7 @@ import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
 import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
 import {WorkflowStages} from "../../../../shared/enum/workflow-stages.enum";
+import {Languages} from "../../../../shared/enum/languages.enum";
 
 @Component({
   selector: 'app-notary-application',
@@ -70,6 +71,7 @@ export class NotaryApplicationComponent implements OnInit {
   public notaryType: string;
   public isUpdatePayment: boolean = false;
   public Workflow: Workflow;
+  languages = Languages;
 
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
@@ -238,7 +240,7 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
         this.notaryForm.value.title, 'Miss', 'Ms',
         this.judicialZoneId, this.notaryForm.value.landRegistry, this.dsGnDivisions, this.notaryForm.value.languages,
-        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), this.tokenStorageService.getUserObjectToken().username,WorkflowStages.REGISTRATION_REQ_MODIFIED,  this.notaryForm.value.userName,this.paymentId);
+        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(),  this.notaryForm.value.userName,WorkflowStages.REGISTRATION_REQ_MODIFIED,  this.notaryForm.value.userName,this.paymentId);
        this.notaryDetail.emit(this.notaryDetails);
   }
 
