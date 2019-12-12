@@ -75,7 +75,7 @@ export class RequestForCorrectionComponent implements OnInit {
 
 
   onFormSubmit() {
-    this.correctionRequestService.saveNotaryDetails(this.reqForCorrectionForm.value)
+    this.correctionRequestService.saveCorrectionReq(this.reqForCorrectionForm.value)
       .subscribe( res => {
         console.log("result ",res);
       });

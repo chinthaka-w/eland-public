@@ -20,9 +20,11 @@
             <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
            
             <div class="default-input-feild">
-              <mat-select multiple formControlName="landRegId">
+              <mat-select formControlName="landRegId">
                 <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
               </mat-select>
+
+
             </div>
           </div>
         </div>
@@ -71,11 +73,15 @@
           <div class="default-input-wrapper full-row">
             <label>Notary Judicial Division<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required class="form-control" formControlName="judicialZoneId">
-                  <option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</option>
-                </select>
-              </mat-form-field>
+              
+            
+             
+
+                <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
+                  <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
+                </mat-select>
+
+            
             </div>
           </div>
         </div>
@@ -84,20 +90,15 @@
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>Folio(s) Which Correction to be Made<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-select multiple formControlName="folioNumbers">
-                <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
-              </mat-select>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Nature of the Correction</label>
-            <div class="default-input-feild">
+            <div class="default-input-feild full-row date-feild">
+           
               <mat-form-field appearance="outline">
-                <textarea matInput rows="3" formControlName="natureOfTheCorrection" class="form-control"></textarea>
+                <input matInput formControlName="folioNumbers" class="form-control">
               </mat-form-field>
+              <button mat-raised-button>
+                <i class="material-icons">search</i>
+              </button>
+           
             </div>
           </div>
         </div>
@@ -113,50 +114,60 @@
             </div>
           </div>
         </div>
-        <div class="pg-inner-col"></div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Nature of the Correction</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="3" formControlName="natureOfTheCorrection" class="form-control"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <h5>Supporting Documents</h5>
 
       <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
+        <!-- <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>Deed Related to the Correction<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <!-- <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline">
                 <input matInput value="test.pdf" class="form-control" formControlName="relatedCorrection">
                 <mat-icon matSuffix style="color: #A7A6A6;">clear</mat-icon>
-              </mat-form-field> -->
+              </mat-form-field>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="pg-inner-col"></div>
       </div>
       <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
+        <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Test<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-             
-              <label for="file-input">
-                <i class="material-icons">cloud_upload</i>
-              </label>
-              <input type="file" id="file-input" class="default-input-feild" style="display: block;">
-
-            </div>
+              <label>Upload Documents<span>*</span></label>
+              <div class="default-input-feild">
+                  <div class="drag-drop">
+                      <div class="drag-drop-inner">
+                          <i class="material-icons">cloud_upload</i> Upload
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-        <div class="pg-inner-col">
+      </div>
+        <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Test<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-                <label for="file-input">
-                    <i class="material-icons">cloud_upload</i>
-                  </label>
-                  <input type="file" id="file-input" class="default-input-feild" style="display: block;">
-            </div>
+              <label>Upload Documents<span>*</span></label>
+              <div class="default-input-feild">
+                  <div class="drag-drop">
+                      <div class="drag-drop-inner">
+                          <i class="material-icons">cloud_upload</i> Upload
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
+      </div>
       </div>
 
       <div class="separator">&nbsp;</div>
