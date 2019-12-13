@@ -310,11 +310,6 @@
                 <div class="pg-inner-col">
                     <div class="default-input-wrapper full-row" *ngFor="let doc of supportingDocs">
                         <label> {{doc.description}} </label>
-                        <!-- <div class="default-input-feild">
-                            <button mat-raised-button class="f-uploader">
-                                <i class="material-icons">cloud_upload</i> Upload
-                            </button>
-                        </div> -->
                         <file-upload-input (response)="setFiles($event,doc.docTypeId)"></file-upload-input>
                     </div>
                 </div>
