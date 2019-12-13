@@ -70,9 +70,6 @@
           <div class="default-input-wrapper full-row">
             <label>Notary Judicial Division<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-
-
-
               <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
                 <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
               </mat-select>
@@ -133,17 +130,6 @@
       </div>
       <h5>Supporting Documents</h5>
       <div class="pg-inner-row mb-20">
-        <!-- <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Deed Related to the Correction<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput value="test.pdf" class="form-control" formControlName="relatedCorrection">
-                <mat-icon matSuffix style="color: #A7A6A6;">clear</mat-icon>
-              </mat-form-field>
-            </div>
-          </div>
-        </div> -->
         <div class="pg-inner-col"></div>
       </div>
       <div class="pg-inner-row mb-20">
@@ -154,34 +140,21 @@
                   <label>{{document.description}}
                     <span *ngIf="document.required == true">*</span>
                   </label>
-                  <!--              <file-upload-input (response)="setFiles($event)"></file-upload-input>-->
                   <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
                 </div>
               </div>
             </ng-container>
         </div>
-<!--        <div class="pg-inner-col-3">-->
-<!--          <div class="default-input-wrapper full-row">-->
-<!--            <label>Upload Documents<span>*</span></label>-->
-<!--            <div class="default-input-feild">-->
-<!--              <div class="drag-drop">-->
-<!--                <div class="drag-drop-inner">-->
-<!--                  <i class="material-icons">cloud_upload</i> Upload-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
       </div>
       <div class="separator">&nbsp;</div>
       <div class="pg-inner-row mb-0">
         <div class="pg-inner-col">
           <div class="f-captcha">
-            <img src="../../../../assets/images/captcha.jpg" />
+            <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Submit</button>
+          <button mat-raised-button class="lg-button" disabled="disabled1" (click)="onFormSubmit()">Submit</button>
         </div>
       </div>
     </div>

@@ -52,6 +52,7 @@ export class RequestForCorrectionComponent implements OnInit {
   public citizenId: number;
   public newNotaryId: number;
   public disabled: boolean =  false;
+  public disabled1: boolean = false;
 
   constructor(private correctionRequestService: CorrectionRequestService,private snackBar: MatSnackBar,
               private requestForCorrectionService: RequestForCorrectionService,
@@ -73,10 +74,11 @@ export class RequestForCorrectionComponent implements OnInit {
       folioNumbers:new FormControl('', [Validators.required]),
       deedNo: new FormControl('', [Validators.required]),
       attestedDate: new FormControl(new Date(), [Validators.required]),
-      natureOfTheCorrection: new FormControl(''),
-      citizenId:new FormControl('1'),
-      workflowStageCode:new FormControl('status'),
-      remark:new FormControl('test remark'),
+      natureOfTheCorrection: new FormControl('',[Validators.required]),
+      citizenId:new FormControl('',[Validators.required]),
+      workflowStageCode:new FormControl('',[Validators.required]),
+      remark:new FormControl('',[Validators.required]),
+      recaptcha: new FormControl(null, Validators.required),
     });
     this.getjudicialZone();
     this.getLandRegistries();
@@ -107,6 +109,9 @@ export class RequestForCorrectionComponent implements OnInit {
   }
 
   onFormSubmit() {
+    if(this.reqForCorrectionForm.valid){
+      this.disabled1 = false;
+    }
     if(this.sessionService.getUser().type == UserType.CITIZEN){
       this.citizenId = this.sessionService.getUser().id;
     }
