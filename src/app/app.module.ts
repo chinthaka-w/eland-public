@@ -35,6 +35,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
 import {MatTableModule} from "@angular/material/table";
 import {SupportingDocService} from "./shared/service/supporting-doc.service";
 import {CitizenService} from "./shared/service/citizen.service";
+import {RequestForCorrectionService} from "./shared/service/request-for-correction.service";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -77,7 +78,8 @@ import {CitizenService} from "./shared/service/citizen.service";
     ParameterService,
     TokenStorageService,
     SupportingDocService,
-    NewNotaryDataVarificationService],
+    NewNotaryDataVarificationService,
+    RequestForCorrectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

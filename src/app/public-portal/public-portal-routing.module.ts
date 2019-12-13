@@ -17,15 +17,6 @@ import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.c
 import { ResignationComponent } from './dashboard/resignation/resignation.component';
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 
-import {PublicProfileEditComponent} from './dashboard/profile/public-profile-edit/public-profile-edit.component';
-import {SearchDocumentComponent} from './dashboard/search-document/search-document.component';
-import {ExtractComponent} from './dashboard/extract/extract.component';
-import {RequestsComponent} from './dashboard/requests/requests.component';
-import {ChangeTheNameComponent} from './dashboard/change-the-name/change-the-name.component';
-import {LanguageChangeComponent} from './dashboard/language-change/language-change.component';
-import {LeaveRequestComponent} from './dashboard/leave-request/leave-request.component';
-import {ResignationComponent} from './dashboard/resignation/resignation.component';
-import {ApplicationsComponent} from './dashboard/applications/applications.component';
 import {ViewNotaryComponent} from './dashboard/view-notary/view-notary.component';
 import {PaymentComponent} from '../shared/components/payment/payment.component';
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
@@ -33,7 +24,6 @@ import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/ju
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
 import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
-import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
 
 const routes: Routes = [
   {

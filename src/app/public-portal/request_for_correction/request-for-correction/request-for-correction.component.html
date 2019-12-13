@@ -13,24 +13,21 @@
           <h5 class="uw-title"><span>Application</span></h5>
         </div>
       </div>
-
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
-           
+
             <div class="default-input-feild">
               <mat-select formControlName="landRegId">
                 <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
               </mat-select>
-
-
             </div>
           </div>
         </div>
-      
+
       </div>
-     
+
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
@@ -73,15 +70,13 @@
           <div class="default-input-wrapper full-row">
             <label>Notary Judicial Division<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              
-            
-             
 
-                <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
-                  <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
-                </mat-select>
 
-            
+
+              <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
+                <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
+              </mat-select>
+
             </div>
           </div>
         </div>
@@ -90,11 +85,38 @@
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>Folio(s) Which Correction to be Made<span class="redtxt">*</span></label>
+            <div class="default-input-feild full-row date-feild">
+
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="folioNumbers" class="form-control">
+              </mat-form-field>
+              <button mat-raised-button>
+                <i class="material-icons" (click)="searchFolioNo($event)">search</i>
+              </button>
+
+            </div>
+            <button (click)="onClickRow()">Add</button>
+          </div>
+          <table>
+            <thead>
+            <th>Folio Number</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let policy of newRow">
+              <td>{{policy}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Requested Correction to be Made<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-select multiple formControlName="folioNumbers">
-                <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
-              </mat-select>
-              
+              <mat-form-field appearance="outline">
+                <textarea matInput rows="3" formControlName="requestedCorrection" class="form-control"></textarea>
+              </mat-form-field>
             </div>
           </div>
         </div>
@@ -109,65 +131,49 @@
           </div>
         </div>
       </div>
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Requested Correction to be Made<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="3" formControlName="requestedCorrection" class="form-control"></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col"></div>
-      </div>
-
       <h5>Supporting Documents</h5>
-
       <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
+        <!-- <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>Deed Related to the Correction<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <!-- <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline">
                 <input matInput value="test.pdf" class="form-control" formControlName="relatedCorrection">
                 <mat-icon matSuffix style="color: #A7A6A6;">clear</mat-icon>
-              </mat-form-field> -->
+              </mat-form-field>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="pg-inner-col"></div>
       </div>
       <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Test<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-             
-              <label for="file-input">
-                <i class="material-icons">cloud_upload</i>
-              </label>
-              <input type="file" id="file-input" class="default-input-feild" style="display: block;">
-
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Test<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-                <label for="file-input">
-                    <i class="material-icons">cloud_upload</i>
+            <ng-container *ngFor="let document of docList">
+              <div class="pg-inner-col-3">
+                <div class="default-input-wrapper full-row">
+                  <label>{{document.description}}
+                    <span *ngIf="document.required == true">*</span>
                   </label>
-                  <input type="file" id="file-input" class="default-input-feild" style="display: block;">
-            </div>
-          </div>
+                  <!--              <file-upload-input (response)="setFiles($event)"></file-upload-input>-->
+                  <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+                </div>
+              </div>
+            </ng-container>
         </div>
+<!--        <div class="pg-inner-col-3">-->
+<!--          <div class="default-input-wrapper full-row">-->
+<!--            <label>Upload Documents<span>*</span></label>-->
+<!--            <div class="default-input-feild">-->
+<!--              <div class="drag-drop">-->
+<!--                <div class="drag-drop-inner">-->
+<!--                  <i class="material-icons">cloud_upload</i> Upload-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
-
       <div class="separator">&nbsp;</div>
-
       <div class="pg-inner-row mb-0">
         <div class="pg-inner-col">
           <div class="f-captcha">
@@ -178,7 +184,6 @@
           <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Submit</button>
         </div>
       </div>
-
     </div>
   </div>
 </form>

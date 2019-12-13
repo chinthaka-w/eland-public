@@ -16,7 +16,6 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 import { ApplicationComponent } from './dashboard/profile/profile-edit/application/application.component';
@@ -69,7 +68,7 @@ import { SearchDocumentViewComponent } from './dashboard/search-document/search-
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
 import { ExtractApplicationComponent } from './dashboard/extract/extract-view/extract-application/extract-application.component';
-import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 
 @NgModule({
@@ -97,9 +96,7 @@ import { RequestForCorrectionComponent } from './request-for-correction/request-
     ResignationComponent,
     ApplicationsComponent,
     RequestViewComponent,
-    RequestForCorrectionComponent
-  ],
-    RequestViewComponent,
+    RequestForCorrectionComponent,
     RequestViewComponent,
     ViewNotaryComponent,
     NotaryApplicationComponent,
