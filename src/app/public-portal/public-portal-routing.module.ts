@@ -23,6 +23,7 @@ import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/ju
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
 import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
+import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
 
 const routes: Routes = [
   {
@@ -119,7 +120,10 @@ const routes: Routes = [
     path: 'change-judicial-request-view/:workflow/:id',
     component: JudicialChangeRequestViewComponent
   },
-
+  {
+    path:'request-for-correction',
+    component:RequestForCorrectionComponent
+  }
 
 ];
 

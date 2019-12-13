@@ -70,6 +70,7 @@ import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-v
 import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
 import { ExtractApplicationComponent } from './dashboard/extract/extract-view/extract-application/extract-application.component';
 import { LanguageChangeViewComponent } from './dashboard/language-change/language-change-view/language-change-view.component';
+import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
 
 
 @NgModule({
@@ -116,9 +117,9 @@ import { LanguageChangeViewComponent } from './dashboard/language-change/languag
     SearchDocumentViewComponent,
     ExtractViewComponent,
     SearchDocumentApplicationComponent,
-    DocumentPreviewComponent,
     ExtractApplicationComponent,
     LanguageChangeViewComponent,
+    RequestForCorrectionComponent
    ],
   imports: [
     CommonModule,

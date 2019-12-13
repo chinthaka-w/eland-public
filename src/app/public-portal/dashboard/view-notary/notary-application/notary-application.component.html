@@ -35,9 +35,9 @@
         <label>Language:</label>
         <div class="default-input-feild">
           <mat-radio-group class="example-section" class="form-control" formControlName="languages">
-            <mat-radio-button value="1">Sinhala</mat-radio-button>
-            <mat-radio-button value="2">English</mat-radio-button>
-            <mat-radio-button class="example-margin" value="3">Tamil</mat-radio-button>
+            <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
+            <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
+            <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
@@ -396,9 +396,9 @@
         <img src="../../../../assets/images/captcha.jpg"/>
       </div>
     </div>
-<!--    <div class="pg-inner-col right">-->
-<!--      <button mat-raised-button class="lg-button" (click)="onFormSubmit()">Continue</button>-->
-<!--    </div>-->
+    <div class="pg-inner-col right">
+      <button mat-raised-button class="lg-button" type="button" (click)="onFormSubmit()">Continue</button>
+    </div>
   </div>
 </form>
 
