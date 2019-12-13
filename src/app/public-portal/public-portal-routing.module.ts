@@ -6,7 +6,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileEditComponent} from './dashboard/profile/profile-edit/profile-edit.component';
 import {AddPublicUserComponent} from './public-user-registration/add-public-user/add-public-user.component';
 import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
-import {RequestForCorrectionComponent} from "./request_for_correction/request-for-correction/request-for-correction.component";
+import {RequestForCorrectionComponent} from "./request-for-correction/request-for-correction.component";
 import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
@@ -51,7 +51,7 @@ const routes: Routes = [
     component: ChangeJudicialComponent
   },
   {
-    path:'request_for_correction',
+    path:'request-for-correction',
     component:RequestForCorrectionComponent
 
   },

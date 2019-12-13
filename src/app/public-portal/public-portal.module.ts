@@ -26,7 +26,7 @@ import { HistoryComponent } from './dashboard/profile/profile-edit/history/histo
 import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
-import { RequestForCorrectionComponent } from './request_for_correction/request-for-correction/request-for-correction.component';
+import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
 import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/notary-details/notary-details.component';

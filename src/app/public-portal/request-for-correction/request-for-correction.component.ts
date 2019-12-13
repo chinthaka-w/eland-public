@@ -10,16 +10,16 @@ import {
   MatSnackBarVerticalPosition,
   MatSnackBarHorizontalPosition
 } from '@angular/material/snack-bar';
-import {RequestForCorrectionService} from "../../../shared/service/request-for-correction.service";
-import {FolioStatus} from "../../../shared/dto/folio-status.model";
-import {DocumentDto} from "../../../shared/dto/document-list";
-import {WorkflowStageDocDto} from "../../../shared/dto/workflow-stage-doc.dto";
-import {Workflow} from "../../../shared/enum/workflow.enum";
-import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
-import {FolioCorrectionModel} from "../../../shared/dto/folio-correction.model";
-import {SessionService} from "../../../shared/service/session.service";
-import {UserType} from "../../../shared/enum/user-type.enum";
-import {LandRegistryService} from "../../../shared/service/land-registry.service";
+import {RequestForCorrectionService} from "../../shared/service/request-for-correction.service";
+import {FolioStatus} from "../../shared/dto/folio-status.model";
+import {DocumentDto} from "../../shared/dto/document-list";
+import {WorkflowStageDocDto} from "../../shared/dto/workflow-stage-doc.dto";
+import {Workflow} from "../../shared/enum/workflow.enum";
+import {SupportingDocService} from "../../shared/service/supporting-doc.service";
+import {FolioCorrectionModel} from "../../shared/dto/folio-correction.model";
+import {SessionService} from "../../shared/service/session.service";
+import {UserType} from "../../shared/enum/user-type.enum";
+import {LandRegistryService} from "../../shared/service/land-registry.service";
 @Component({
   selector: 'app-request-for-correction',
   templateUrl: './request-for-correction.component.html',
