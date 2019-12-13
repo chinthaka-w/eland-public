@@ -1,3 +1,7 @@
+import { Workflow } from './../../../shared/enum/workflow.enum';
+import { Router } from '@angular/router';
+import { PaymentResponse } from './../../../shared/dto/payment-response.model';
+import { PaymentDto } from './../../../shared/dto/payment-dto';
 import { LanguageChangeService } from './../../../shared/service/language-change.service';
 import { SnackBarService } from './../../../shared/service/snack-bar.service';
 import { Enum } from './../../../shared/dto/enum.model';
@@ -34,7 +38,8 @@ export class LanguageChangeComponent implements OnInit {
   constructor(private formBulder: FormBuilder,
               private languageChangeService: LanguageChangeService,
               private sessionService: SessionService,
-              private snackBarService: SnackBarService) {
+              private snackBarService: SnackBarService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -75,6 +80,15 @@ export class LanguageChangeComponent implements OnInit {
   }
 
   // getters for FormControls
+  getLangEngCheckbox(): AbstractControl {
+    return this.languageChangForm.get('langEng');
+  }
+  getLangSinhalaCheckbox(): AbstractControl {
+    return this.languageChangForm.get('langSin');
+  }
+  getLangTamilCheckbox(): AbstractControl {
+    return this.languageChangForm.get('langTam');
+  }
   getFullNameEnglish(): AbstractControl {
     return this.languageChangForm.get('fullNameEng');
   }
@@ -148,7 +162,13 @@ export class LanguageChangeComponent implements OnInit {
   }
 
   continue(): void {
-    this.showPayment = true;
+    if (!(this.languageChangForm.value.langEng || this.languageChangForm.value.langSin || this.languageChangForm.value.langTam)) {
+          this.snackBarService.error('Plese select a language!');
+    } else if (!this.languageChangForm.valid) {
+      this.snackBarService.error('Please fill the required fields!');
+    } else {
+      this.showPayment = true;
+    }
   }
 
   enableLanguageMode(): void {
@@ -252,7 +272,6 @@ export class LanguageChangeComponent implements OnInit {
       }
 
     } else if (code === this.langMode.TAMIL) {
-      console.log('condition', this.languageChangForm.get('langSin').disabled);
       if (!this.languageChangForm.get('langSin').disabled) {
         this.languageChangForm.patchValue({
           langSin: false
@@ -269,20 +288,19 @@ export class LanguageChangeComponent implements OnInit {
         });
       }
     }
-    console.log('model', this.languageChangForm.value);
   }
 
   setFiles(data: any, docTypeId: number) {
     this.fileList[docTypeId] = data;
-    console.log('filelist', this.fileList);
   }
 
   // Save language change request after payment
   getPaymentData(paymentData: PaymentResponse): void {
-    this.saveRegistrationData(this.fileList, this.languageChangForm.value);
+    console.log('payment data', paymentData.paymentId);
+    this.saveRegistrationData(this.fileList, this.languageChangForm.value, paymentData.paymentId);
   }
 
-  saveRegistrationData(fileList: object, model: LanguageChange) {
+  saveRegistrationData(fileList: object, model: LanguageChange, paymentId: number) {
     // add files to FormData
     const keys = Object.keys(fileList);
     for (const index in keys) {
@@ -290,14 +308,19 @@ export class LanguageChangeComponent implements OnInit {
         this.formData.append('file', file, (keys[index] + '/' + file.name));
       }
     }
-    
+
     model.workflowStage = LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT;
+    model.id = this.sessionService.getUser().id;
+    const langPayment: PaymentDto = new PaymentDto();
+    langPayment.paymentId = paymentId;
+    model.payment = langPayment;
 
     this.formData.append('model', JSON.stringify(model));
     // save form data
     this.languageChangeService.saveLanguageChange(this.formData).subscribe(
       (result) => {
-        console.log(result);
+        this.snackBarService.success('Request submitted successfully!');
+        this.router.navigate(['/requests', btoa(Workflow.LANGUAGE_CHANGE)]);
       },
       error => {
         this.snackBarService.error('Error in Save!');

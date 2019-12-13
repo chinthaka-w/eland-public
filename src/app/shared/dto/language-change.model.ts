@@ -1,3 +1,4 @@
+import { PaymentDto } from './payment-dto';
 import {StatusDTO} from './status-dto';
 
 export class LanguageChange {
@@ -26,4 +27,5 @@ export class LanguageChange {
   public date: string;
   public workflowStage: string;
   public status: StatusDTO;
+  public payment: PaymentDto;
 }
