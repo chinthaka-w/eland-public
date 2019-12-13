@@ -17,6 +17,8 @@ import {WorkflowStageDocDto} from "../../../shared/dto/workflow-stage-doc.dto";
 import {Workflow} from "../../../shared/enum/workflow.enum";
 import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
 import {FolioCorrectionModel} from "../../../shared/dto/folio-correction.model";
+import {SessionService} from "../../../shared/service/session.service";
+import {UserType} from "../../../shared/enum/user-type.enum";
 @Component({
   selector: 'app-request-for-correction',
   templateUrl: './request-for-correction.component.html',
@@ -47,10 +49,14 @@ export class RequestForCorrectionComponent implements OnInit {
   public docList: WorkflowStageDocDto[];
   public folioCorection: FolioCorrectionModel;
   public folioNumbers: string[] = [];
+  public citizenId: number;
+  public newNotaryId: number;
+  public disabled: boolean =  false;
 
   constructor(private correctionRequestService: CorrectionRequestService,private snackBar: MatSnackBar,
               private requestForCorrectionService: RequestForCorrectionService,
-              private documetService: SupportingDocService) { }
+              private documetService: SupportingDocService,
+              private sessionService: SessionService) { }
   open() {
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
@@ -101,41 +107,47 @@ export class RequestForCorrectionComponent implements OnInit {
   }
 
   onFormSubmit() {
+    if(this.sessionService.getUser().type == UserType.CITIZEN){
+      this.citizenId = this.sessionService.getUser().id;
+    }
+    if(this.sessionService.getUser().type == UserType.NOTARY){
+      this.newNotaryId = this.sessionService.getUser().id;
+    }
+
     const folioNumbers =  this.reqForCorrectionForm.value.folioNumbers;
     this.folioNumbers.push(folioNumbers);
 
     this.folioCorection = new FolioCorrectionModel(this.reqForCorrectionForm.value.landRegId,this.reqForCorrectionForm.value.deedNo,
       this.reqForCorrectionForm.value.attestedDate,this.reqForCorrectionForm.value.notaryName,
       this.folioNumbers,this.reqForCorrectionForm.value.natureOfTheCorrection,this.reqForCorrectionForm.value.requestedCorrection,
-      this.reqForCorrectionForm.value.judicialZoneId,"",1,"","1","","","",
+      this.reqForCorrectionForm.value.judicialZoneId,"",this.citizenId,"",this.newNotaryId,"","","",
       new Date(),"",new Date());
 
-    console.log(this.folioCorection);
     const formData = new FormData();
     formData.append('data', JSON.stringify(this.folioCorection));
-    console.log(formData);
     this.documentList.forEach(doc => {
       formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
     });
 
     this.correctionRequestService.saveCorrectionReq(formData)
       .subscribe( res => {
-        console.log("result ",res);
         this.open();
       });
   }
 
   onClickRow(){
     this.newRow.push(this.reqForCorrectionForm.value.folioNumbers);
-    console.log( this.reqForCorrectionForm.value.folioNumbers);
-    console.log(this.newRow);
   }
 
   searchFolioNo(folioNo: string){
     folioNo = this.reqForCorrectionForm.value.folioNumbers;
     this.requestForCorrectionService.getCurrentRequestNoStatus(folioNo).subscribe(
       (result:FolioStatus) =>{
-        console.log(result);
+       if(result != null){
+         this.disabled = true;
+       }else{
+         this.disabled = false;
+       }
       }
     )
   }

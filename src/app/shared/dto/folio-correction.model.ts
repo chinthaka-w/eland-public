@@ -13,7 +13,7 @@ export class FolioCorrectionModel {
     public  judicialName: string,
     public  citizenId: number,
     public  citizenName: string,
-    public  newNotaryId: string,
+    public  newNotaryId: number,
     public  workflowStageCode: string,
     public  remark: string,
     public  status: string,

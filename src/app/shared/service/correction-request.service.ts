@@ -39,7 +39,6 @@ export class CorrectionRequestService {
 
  // save correction request
  saveCorrectionReq(corrReq: FormData): Observable<any> {
-  console.log(corrReq);
   return this.httpClient.post(this.BASE_URL_WITH_CORRECTION_REQ + '/' ,corrReq);
 }
 
