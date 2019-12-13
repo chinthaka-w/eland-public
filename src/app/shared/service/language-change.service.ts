@@ -41,6 +41,6 @@ export class LanguageChangeService {
   }
 
   getLanguageChangeRequests(id: number): Observable<LanguageRequest[]> {
-    return this.http.get<LanguageRequest[]>(this.BASE_URL + '' + id);
+    return this.http.get<LanguageRequest[]>(this.BASE_URL + 'additionLanguageRequest/getApplicantRequest/' + id);
   }
 }
