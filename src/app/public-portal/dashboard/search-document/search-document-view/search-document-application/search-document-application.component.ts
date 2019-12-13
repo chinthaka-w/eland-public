@@ -250,7 +250,6 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   }
 
   onChangeDsDivision(dsDivisionId: any) {
-    console.log('onchnageDs' + dsDivisionId)
     this.loadGNDivision(dsDivisionId);
   }
 

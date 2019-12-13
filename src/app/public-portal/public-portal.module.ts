@@ -16,7 +16,6 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProfileEditComponent } from './dashboard/profile/profile-edit/profile-edit.component';
 import { ApplicationComponent } from './dashboard/profile/profile-edit/application/application.component';
@@ -27,12 +26,12 @@ import { HistoryComponent } from './dashboard/profile/profile-edit/history/histo
 import { AddPublicUserComponent } from './public-user-registration/add-public-user/add-public-user.component';
 import { ChangeJudicialComponent } from './dashboard/change-judicial/change-judicial.component';
 import {HttpModule} from '@angular/http';
+import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
 import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { NotaryDetailsComponent } from './dashboard/profile/public-profile-edit/notary-details/notary-details.component';
 import { AccountDetailsComponent } from './dashboard/profile/public-profile-edit/account-details/account-details.component';
-import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
-import { RecaptchaFormsModule } from 'ng-recaptcha';
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaFormsModule } from 'ng-recaptcha';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
 import { RequestsComponent } from './dashboard/requests/requests.component';
@@ -69,7 +68,7 @@ import { SearchDocumentViewComponent } from './dashboard/search-document/search-
 import { ExtractViewComponent } from './dashboard/extract/extract-view/extract-view.component';
 import { SearchDocumentApplicationComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-application.component';
 import { ExtractApplicationComponent } from './dashboard/extract/extract-view/extract-application/extract-application.component';
-import { RequestForCorrectionComponent } from './request-for-correction/request-for-correction.component';
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 
 @NgModule({
@@ -97,6 +96,7 @@ import { RequestForCorrectionComponent } from './request-for-correction/request-
     ResignationComponent,
     ApplicationsComponent,
     RequestViewComponent,
+    RequestForCorrectionComponent,
     RequestViewComponent,
     ViewNotaryComponent,
     NotaryApplicationComponent,
