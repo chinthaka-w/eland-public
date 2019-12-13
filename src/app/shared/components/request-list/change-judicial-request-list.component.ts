@@ -1,3 +1,5 @@
+import { LanguageRequest } from './../../dto/language-request.model';
+import { LanguageChangeService } from './../../service/language-change.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {JudicialChange} from '../../dto/judicial-change-model';
@@ -43,7 +45,8 @@ export class ChangeJudicialRequestListComponent implements OnInit {
               private snackBar: SnackBarService,
               private activatedRoute: ActivatedRoute,
               private sessionService: SessionService,
-              private tokenStorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService,
+              private langChangeService: LanguageChangeService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params['flag']); // (+) converts string 'id' to a number
     });
@@ -77,7 +80,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.actionButtonURL = `/extract-view/`;
         break;
       case Workflow.LANGUAGE_CHANGE:
-        // this.loadExtractRequests();
+        this.loadLanguageChangeRequests();
         this.headerText = 'LANGUAGE CHANGE';
         this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
         this.newButtonURL = '/language-change';
@@ -144,5 +147,20 @@ export class ChangeJudicialRequestListComponent implements OnInit {
     );
   }
 
+  /**
+   * Get all language change requests by user
+   */
+  loadLanguageChangeRequests() {
+    this.langChangeService.getLanguageChangeRequests(this.sessionService.getUser().id).subscribe(
+      (result: LanguageRequest[]) => {
+        this.dataSource = new MatTableDataSource(result);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
 
 }

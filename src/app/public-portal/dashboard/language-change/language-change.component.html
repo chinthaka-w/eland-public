@@ -5,10 +5,10 @@
         <i class="material-icons">keyboard_backspace</i>
     </a>
 </div>
-<form class="form-horizontal" [formGroup]="languageChangForm">
-    <div class="page-content-wrapper">
-        <div class="page-content-inner-wrapper">
 
+    <div class="page-content-wrapper" *ngIf="!showPayment">
+        <div class="page-content-inner-wrapper">
+            <form class="form-horizontal" [formGroup]="languageChangForm">
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
                     <h5 class="mb-20"><i class="material-icons">description</i>
@@ -17,12 +17,10 @@
                     <div class="separator">&nbsp;</div>
                 </div>
             </div>
-
-
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
                   <mat-form-field appearance="outline">
-                    <select matNativeControl required  formControlName="title"  class="form-control">
+                    <select matNativeControl  formControlName="title"  class="form-control">
                       <option value="0" [disabled]="true">Select</option>
                       <option *ngFor="let title of nameTitles"
                               [value]="title.nameTitleId"
@@ -310,13 +308,14 @@
 
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>Copy of the Sinhala/Tamail/English Notarial Warrant</label>
-                        <div class="default-input-feild">
+                    <div class="default-input-wrapper full-row" *ngFor="let doc of supportingDocs">
+                        <label> {{doc.description}} </label>
+                        <!-- <div class="default-input-feild">
                             <button mat-raised-button class="f-uploader">
                                 <i class="material-icons">cloud_upload</i> Upload
                             </button>
-                        </div>
+                        </div> -->
+                        <file-upload-input (response)="setFiles($event,doc.docTypeId)"></file-upload-input>
                     </div>
                 </div>
                 <div class="pg-inner-col">
@@ -340,7 +339,7 @@
                 </div>
             </div>
 
-            <div class="pg-inner-row mb-20">
+            <!-- <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
                     <div class="default-input-wrapper full-row">
                         <label>Certified copy of Ordinary Level certificate</label>
@@ -366,7 +365,7 @@
                     </div>
                 </div>
                 <div class="pg-inner-col"></div>
-            </div>
+            </div> -->
 
 
             <div class="separator">&nbsp;</div>
@@ -374,10 +373,18 @@
             <div class="pg-inner-row mb-0">
                 <div class="pg-inner-col"></div>
                 <div class="pg-inner-col right">
-                    <button mat-raised-button class="lg-button" (click)="continue()">Submit</button>
+                    <button mat-raised-button class="lg-button" (click)="continue()"> Continue </button>
                 </div>
             </div>
-
+        </form>
         </div>
     </div>
-</form>
+    <div class="page-content-wrapper" *ngIf="showPayment">
+        <div class="page-content-inner-wrapper">
+            <div>
+                <app-payment (response)="getPaymentData($event)"
+                    [applicationFeeCode]="parameters.NOTARY_REG_LANGUAGE_CHANGE" [hasFrontCounterPayment]="false"
+                    [isDocumentCollect]="true" [workflowCode]="workflowStage.LANGUAGE_CHANGE_REQUEST_INIT"></app-payment>
+            </div>
+        </div>
+    </div>
