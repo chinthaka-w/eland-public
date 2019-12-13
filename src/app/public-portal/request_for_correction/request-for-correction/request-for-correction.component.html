@@ -81,6 +81,19 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
+            <label>Land Registry:<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select matNativeControl required  formControlName="landRegistry" class="form-control" (ngModelChange)="onChange()">
+                  <option value="">Select</option>
+                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
+                </select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
             <label>Folio(s) Which Correction to be Made<span class="redtxt">*</span></label>
             <div class="default-input-feild full-row date-feild">
 
@@ -92,7 +105,7 @@
               </button>
 
             </div>
-            <button (click)="onClickRow()" disabled="disabled">Add</button>
+            <button *ngIf="!disabled" type="button"  (click)="onClickRow($event)">Add</button>
           </div>
           <table>
             <thead>
@@ -154,7 +167,7 @@
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" disabled="disabled1" (click)="onFormSubmit()">Submit</button>
+          <button mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>
         </div>
       </div>
     </div>

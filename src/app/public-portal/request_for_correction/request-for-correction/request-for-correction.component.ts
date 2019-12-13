@@ -19,6 +19,7 @@ import {SupportingDocService} from "../../../shared/service/supporting-doc.servi
 import {FolioCorrectionModel} from "../../../shared/dto/folio-correction.model";
 import {SessionService} from "../../../shared/service/session.service";
 import {UserType} from "../../../shared/enum/user-type.enum";
+import {LandRegistryService} from "../../../shared/service/land-registry.service";
 @Component({
   selector: 'app-request-for-correction',
   templateUrl: './request-for-correction.component.html',
@@ -29,12 +30,12 @@ export class RequestForCorrectionComponent implements OnInit {
   files: File[] = [];
   public reqForCorrectionForm: FormGroup;
   public correctioReq: JudicialZoneModel[];
-  public landReg: LandRegistryModel[];
+  public landRegistry: LandRegistryModel[];
   public correctionReqDetails: correctionReq;
   submitted = false;
   selected: any[];
   uploadSuccess: boolean;
-  newRow : number[ ] = [ ];
+  newRow : string[ ] = [ ];
   judicialzone: any;
   landRegs: any;
   message: string = 'Successfully Added';
@@ -51,13 +52,14 @@ export class RequestForCorrectionComponent implements OnInit {
   public folioNumbers: string[] = [];
   public citizenId: number;
   public newNotaryId: number;
-  public disabled: boolean =  false;
+  public disabled: boolean =  true;
   public disabled1: boolean = false;
 
   constructor(private correctionRequestService: CorrectionRequestService,private snackBar: MatSnackBar,
               private requestForCorrectionService: RequestForCorrectionService,
               private documetService: SupportingDocService,
-              private sessionService: SessionService) { }
+              private sessionService: SessionService,
+              private landRegistryService: LandRegistryService) { }
   open() {
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
@@ -79,6 +81,7 @@ export class RequestForCorrectionComponent implements OnInit {
       workflowStageCode:new FormControl('',[Validators.required]),
       remark:new FormControl('',[Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
+      landRegistry: new FormControl('', [Validators.required]),
     });
     this.getjudicialZone();
     this.getLandRegistries();
@@ -97,9 +100,11 @@ export class RequestForCorrectionComponent implements OnInit {
   }
 
   private getLandRegistries(): void {
-    this.correctionRequestService.getLandRegistries().subscribe(res => {
-      this.landRegs = res;
-    });
+    this.landRegistryService.getAllLandRegistry().subscribe(
+      (data: LandRegistryModel[]) => {
+        this.landRegistry = data;
+      }
+    );
   }
 
   private getAllCorrectionsToBeMade(): void {
@@ -140,21 +145,31 @@ export class RequestForCorrectionComponent implements OnInit {
       });
   }
 
-  onClickRow(){
-    this.newRow.push(this.reqForCorrectionForm.value.folioNumbers);
+  onClickRow(folioNo: string){
+    folioNo = this.reqForCorrectionForm.value.folioNumbers;
+    this.newRow.push(folioNo);
   }
 
   searchFolioNo(folioNo: string){
     folioNo = this.reqForCorrectionForm.value.folioNumbers;
-    this.requestForCorrectionService.getCurrentRequestNoStatus(folioNo).subscribe(
+    let base64 = this.getBase64(this.reqForCorrectionForm.value.landRegistry+"/"+folioNo);
+    this.requestForCorrectionService.getCurrentRequestNoStatus(base64).subscribe(
       (result:FolioStatus) =>{
-       if(result != null){
-         this.disabled = true;
-       }else{
+       if(result.id != 0){
          this.disabled = false;
+       }else{
+         this.disabled = true;
        }
       }
     )
+  }
+
+  onChange(){
+    this.disabled = true;
+  }
+
+  getBase64(value: string): string {
+    return btoa(value);
   }
 
 
