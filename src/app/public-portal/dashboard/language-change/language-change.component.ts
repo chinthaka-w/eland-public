@@ -22,6 +22,7 @@ import {LanguageChange} from '../../../shared/dto/language-change.model';
   styleUrls: ['./language-change.component.css']
 })
 export class LanguageChangeComponent implements OnInit {
+  backUrl: string;
   nameTitles: NameTitleDTO[] = [];
   languageChangForm: FormGroup;
   langMode = Languages;
@@ -43,6 +44,7 @@ export class LanguageChangeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.backUrl = btoa(Workflow.LANGUAGE_CHANGE);
     this.getSupportingDocs(LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT);
     this.getNameTitles();
     this.loadForm();

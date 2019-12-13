@@ -84,7 +84,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'LANGUAGE CHANGE';
         this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
         this.newButtonURL = '/language-change';
-        this.actionButtonURL = `/extract-view/`;
+        this.actionButtonURL = '/language-change-view/';
         break;
     }
   }
