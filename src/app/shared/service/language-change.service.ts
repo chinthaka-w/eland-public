@@ -29,10 +29,6 @@ export class LanguageChangeService {
     return atob(code);
   }
 
-  /**
-   * Get name titles
-   * @returns {Observable<NameTitleDTO[]>}
-   */
   getNameTitle(): Observable<NameTitleDTO[]> {
     return this.http.get<NameTitleDTO[]>(this.BASE_URL + 'nameTitle/');
   }
