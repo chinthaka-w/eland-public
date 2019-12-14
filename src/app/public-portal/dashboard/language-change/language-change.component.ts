@@ -82,49 +82,49 @@ export class LanguageChangeComponent implements OnInit {
   }
 
   // getters for FormControls
-  getLangEngCheckbox(): AbstractControl {
+  get langEngCheckbox() {
     return this.languageChangForm.get('langEng');
   }
-  getLangSinhalaCheckbox(): AbstractControl {
+  get langSinhalaCheckbox() {
     return this.languageChangForm.get('langSin');
   }
-  getLangTamilCheckbox(): AbstractControl {
+  get langTamilCheckbox() {
     return this.languageChangForm.get('langTam');
   }
-  getFullNameEnglish(): AbstractControl {
+  get fullNameEnglish() {
     return this.languageChangForm.get('fullNameEng');
   }
-  getFullNameSinhala(): AbstractControl {
+  get fullNameSinhala() {
     return this.languageChangForm.get('fullNameSin');
   }
-  getFullNameTamil(): AbstractControl {
+  get fullNameTamil() {
     return this.languageChangForm.get('fullNameTam');
   }
-  getNameWithInitialsEnglish(): AbstractControl {
+  get nameWithInitialsEnglish() {
     return this.languageChangForm.get('nameWithInitEng');
   }
-  getNameWithInitialsSinhala(): AbstractControl {
+  get nameWithInitialsSinhala() {
     return this.languageChangForm.get('nameWithInitSin');
   }
-  getNameWithInitialsTamil(): AbstractControl {
+  get nameWithInitialsTamil() {
     return this.languageChangForm.get('nameWithInitTam');
   }
-  getPermanentAddressEnglish(): AbstractControl {
+  get permanentAddressEnglish() {
     return this.languageChangForm.get('addPermanentEng');
   }
-  getPermanentAddressSinhala(): AbstractControl {
+  get permanentAddressSinhala() {
     return this.languageChangForm.get('addPermanentSin');
   }
-  getPermanentAddressTamil(): AbstractControl {
+  get permanentAddressTamil() {
     return this.languageChangForm.get('addPermanentTam');
   }
-  getCurrentAddressEnglish(): AbstractControl {
+  get currentAddressEnglish() {
     return this.languageChangForm.get('addressEng');
   }
-  getCurrentAddressSinhala(): AbstractControl {
+  get currentAddressSinhala() {
     return this.languageChangForm.get('addressSin');
   }
-  getCurrentAddressTamil(): AbstractControl {
+  get currentAddressTamil() {
     return this.languageChangForm.get('addressTam');
   }
 
