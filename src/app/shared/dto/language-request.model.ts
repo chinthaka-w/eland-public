@@ -3,4 +3,5 @@ export class LanguageRequest {
     public requestTypeDes: string;
     public workflowDescription: string;
     public date: string;
+    public workflowStageCode: string;
 }

@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {LanguageChange} from '../dto/language-change.model';
 import { LanguageRequest } from '../dto/language-request.model';
+import { NewNotaryPaymentDetailDto } from '../dto/new-notary-payment-detail.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,14 @@ export class LanguageChangeService {
   };
 
   constructor(private http: HttpClient) { }
+
+  setBase64(code: any) {
+    return btoa(code);
+  }
+
+  decodeBase64(code: any) {
+    return atob(code);
+  }
 
   /**
    * Get name titles
@@ -42,5 +51,13 @@ export class LanguageChangeService {
 
   getLanguageChangeRequests(id: number): Observable<LanguageRequest[]> {
     return this.http.get<LanguageRequest[]>(this.BASE_URL + 'additionLanguageRequest/getApplicantRequest/' + id);
+  }
+
+  getApplicationDetails(id: number): Observable<LanguageChange> {
+    return this.http.get<LanguageChange>(this.BASE_URL + 'additionLanguageRequest/viewApplicantDetails/' + id );
+  }
+
+  getApplicationPaymentHistory(reqId: number): Observable<NewNotaryPaymentDetailDto[]> {
+    return this.http.get<NewNotaryPaymentDetailDto[]>(this.BASE_URL + 'additionLanguageRequest/requestPaymentHistory/' + reqId);
   }
 }

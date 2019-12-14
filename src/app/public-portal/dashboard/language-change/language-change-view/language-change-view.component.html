@@ -1,1 +1,30 @@
-<p>language-change-view works!</p>
+<div class="page-header-default">
+    <h2>APPLICATION FOR A WARRANT IN AN ADDITIONAL LANGUAGE</h2>
+    <a [routerLink]="['/requests',backUrl]" routerLinkActive="router-link-active"  class="phd-back-btn">
+        <i class="material-icons">keyboard_backspace</i>
+    </a>
+</div>
+
+<div class="page-content-wrapper">
+    <div class="page-content-inner-wrapper">
+        <mat-tab-group>
+            <mat-tab label="Application">
+                <app-last-remark
+                [workflow]="workflow"
+                [requestId]="requestId">
+            </app-last-remark>
+            <app-lang-change-application></app-lang-change-application>
+            </mat-tab>
+            <mat-tab label="Payment Info">
+                <app-payment-history
+                    [paymentHistory] = "paymentHistory"
+                >
+                </app-payment-history
+                >
+            </mat-tab>
+            <mat-tab label="Remark"> 
+                
+            </mat-tab>
+          </mat-tab-group>          
+    </div>
+</div>
