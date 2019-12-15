@@ -1,3 +1,4 @@
+import { NewNotaryPaymentDetailDto } from 'src/app/shared/dto/new-notary-payment-detail.dto';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import { NotaryPaymentInfoComponent } from './../../view-notary/notary-payment-info/notary-payment-info.component';
 import { LanguageChangeService } from './../../../../shared/service/language-change.service';
@@ -9,8 +10,8 @@ import { WorkflowStages } from './../../../../shared/enum/workflow-stages.enum';
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { RequestSearchDetailDTO } from 'src/app/shared/dto/request-search.dto';
-import { NewNotaryPaymentDetailDto } from 'src/app/shared/dto/new-notary-payment-detail.dto';
 import { LanguageChangeWorkflowStages } from 'src/app/shared/enum/language-change-workflow-stages.enum';
+import { NotaryRegistrationHistoryDto } from 'src/app/shared/dto/notary-registration-history.dto';
 
 @Component({
   selector: 'app-language-change-view',
@@ -22,6 +23,7 @@ export class LanguageChangeViewComponent implements OnInit {
   workflow: string;
   requestId: number;
   paymentAction: boolean;
+  remarkHistory: NotaryRegistrationHistoryDto[] = [];
   workflowStage: string;
   paymentHistory: NewNotaryPaymentDetailDto[] = [];
 
@@ -31,13 +33,19 @@ export class LanguageChangeViewComponent implements OnInit {
 
   ngOnInit() {
     this.backUrl = this.langChangeService.setBase64(Workflow.LANGUAGE_CHANGE);
-    this.route.paramMap.subscribe(param => {
-      this.getLanguageChangePaymentHistory(this.requestId);
-      this.workflowStage = this.langChangeService.decodeBase64(param.get('workflowStage'));
+    this.route.paramMap.subscribe(params => {
+      this.requestId = +this.langChangeService.decodeBase64(params.get('id'));
+      this.workflowStage = this.langChangeService.decodeBase64(params.get('workflowStage'));
       this.paymentAction = this.configPaymentOption();
+      this.getLanguageChangePaymentHistory(this.requestId);
+      this.getLanguageChangeRemarkHisoty(this.requestId);
     });
   }
 
+  /**
+   * Get all payment history details for a given language change request id
+   * @param reqId language change request id
+   */
   getLanguageChangePaymentHistory(reqId: number): void {
     this.langChangeService.getApplicationPaymentHistory(reqId).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
@@ -49,6 +57,20 @@ export class LanguageChangeViewComponent implements OnInit {
     );
   }
 
+  getLanguageChangeRemarkHisoty(reqId: number): void {
+    this.langChangeService.getApplicationRemarkHistory(reqId).subscribe(
+      (result: NotaryRegistrationHistoryDto[]) => {
+        this.remarkHistory = result;
+      },
+      (error) => {
+        this.snackBarService.error('Error in retrieving data!');
+      }
+    );
+  }
+
+  /**
+   * Enable show/hide config of the payment option base on workflow stage
+   */
   configPaymentOption(): boolean {
     if (this.workflowStage === LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT) {
       return false;

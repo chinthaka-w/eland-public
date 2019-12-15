@@ -34,6 +34,7 @@ import {MatCardModule} from "@angular/material/card";
 import {ImageViewerModule} from "ngx-image-viewer";
 import { LastRemarkComponent } from './components/request-view/last-remark/last-remark.component';
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
+import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PaymentHistoryComponent } from './components/payment-history/payment-hi
     ChangeJudicialRequestListComponent,
     LastRemarkComponent,
     PaymentHistoryComponent,
+    RemarkHistoryComponent,
   ],
   imports: [
     CommonModule,
@@ -98,7 +100,8 @@ import { PaymentHistoryComponent } from './components/payment-history/payment-hi
     PaymentMethodComponent,
     FileUploadInputComponent,
     LastRemarkComponent,
-    PaymentHistoryComponent
+    PaymentHistoryComponent,
+    RemarkHistoryComponent
   ]
 })
 export class SharedModule {}

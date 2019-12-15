@@ -2,6 +2,12 @@ import { NewNotaryPaymentDetailDto } from './../../dto/new-notary-payment-detail
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
+/**
+ * View Payment history information
+ * @Input NewNotaryPaymentDetailDto[] Payment history array
+ * @Input boolean shows add new payment configuration
+ */
+
 @Component({
   selector: 'app-payment-history',
   templateUrl: './payment-history.component.html',

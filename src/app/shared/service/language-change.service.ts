@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import {LanguageChange} from '../dto/language-change.model';
 import { LanguageRequest } from '../dto/language-request.model';
 import { NewNotaryPaymentDetailDto } from '../dto/new-notary-payment-detail.dto';
+import { NotaryRegistrationHistoryDto } from '../dto/notary-registration-history.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +56,9 @@ export class LanguageChangeService {
 
   getApplicationPaymentHistory(reqId: number): Observable<NewNotaryPaymentDetailDto[]> {
     return this.http.get<NewNotaryPaymentDetailDto[]>(this.BASE_URL + 'additionLanguageRequest/requestPaymentHistory/' + reqId);
+  }
+
+  getApplicationRemarkHistory(reqId: number): Observable<NotaryRegistrationHistoryDto[]> {
+    return this.http.get<NotaryRegistrationHistoryDto[]>(this.BASE_URL + 'additionLanguageRequest/' + reqId);
   }
 }
