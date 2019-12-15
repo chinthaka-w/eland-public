@@ -9,6 +9,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 })
 export class PaymentHistoryComponent implements OnInit {
   @Input() paymentHistory: NewNotaryPaymentDetailDto[] = [];
+  @Input() paymentAction: boolean;
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
   dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentHistory);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -22,6 +23,10 @@ export class PaymentHistoryComponent implements OnInit {
 
   setPaymentHistory(): void {
     this.dataSource.data = this.paymentHistory;
+  }
+
+  addPayment(): void {
+
   }
 
 }

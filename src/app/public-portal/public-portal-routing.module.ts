@@ -83,7 +83,7 @@ const routes: Routes = [
     component: LanguageChangeComponent
   },
   {
-    path: 'language-change-view/:workflow/:id',
+    path: 'language-change-view/:workflowStage/:id',
     component: LanguageChangeViewComponent
   },
   {

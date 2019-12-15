@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { RequestSearchDetailDTO } from 'src/app/shared/dto/request-search.dto';
 import { NewNotaryPaymentDetailDto } from 'src/app/shared/dto/new-notary-payment-detail.dto';
+import { LanguageChangeWorkflowStages } from 'src/app/shared/enum/language-change-workflow-stages.enum';
 
 @Component({
   selector: 'app-language-change-view',
@@ -20,6 +21,8 @@ export class LanguageChangeViewComponent implements OnInit {
   backUrl: string;
   workflow: string;
   requestId: number;
+  paymentAction: boolean;
+  workflowStage: string;
   paymentHistory: NewNotaryPaymentDetailDto[] = [];
 
   constructor(private route: ActivatedRoute,
@@ -29,8 +32,9 @@ export class LanguageChangeViewComponent implements OnInit {
   ngOnInit() {
     this.backUrl = this.langChangeService.setBase64(Workflow.LANGUAGE_CHANGE);
     this.route.paramMap.subscribe(param => {
-      this.requestId = +this.langChangeService.decodeBase64(param.get('id'));
       this.getLanguageChangePaymentHistory(this.requestId);
+      this.workflowStage = this.langChangeService.decodeBase64(param.get('workflowStage'));
+      this.paymentAction = this.configPaymentOption();
     });
   }
 
@@ -43,6 +47,12 @@ export class LanguageChangeViewComponent implements OnInit {
         this.snackBarService.error('Error in retrieving data!');
       }
     );
+  }
+
+  configPaymentOption(): boolean {
+    if (this.workflowStage === LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT) {
+      return false;
+    }
   }
 
 }
