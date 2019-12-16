@@ -22,6 +22,7 @@ import {Parameters} from "../../../shared/enum/parameters.enum";
 import {NameChangeWorkflowStagesEnum} from "../../../shared/enum/name-change-workflow-stages.enum";
 import {NotaryNameChangeModel} from "../../../shared/dto/notary-name-change.model";
 import {ChangeNameService} from "../../../shared/service/change-name.service";
+import {SessionService} from "../../../shared/service/session.service";
 
 @Component({
   selector: 'app-change-the-name',
@@ -50,6 +51,7 @@ export class ChangeTheNameComponent implements OnInit {
   public paymentId: number;
   public isPaymentSuccess: boolean;
   public isContinueToPayment: boolean = false;
+  public requestId: number;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -59,9 +61,11 @@ export class ChangeTheNameComponent implements OnInit {
               private formBuilder: FormBuilder,
               private snackBar: SnackBarService,
               private nameChangeService: ChangeNameService,
-              private location: Location) { }
+              private location: Location,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
+    this.requestId = this.sessionService.getUser().id;
     this.notaryForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
@@ -86,11 +90,31 @@ export class ChangeTheNameComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
     });
+    this.getNameChangeDetails(this.requestId);
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
     this.getDsDivisions();
     this.getGnDivisions();
+  }
+
+  private getNameChangeDetails(id): void {
+    this.nameChangeService.getNameChangeRequestData(id).subscribe(
+      (data: NotaryNameChangeModel) => {
+        this.nameChangeModel = data;
+        this.notaryForm.patchValue(
+          {
+            newFullNameInEnglish: this.nameChangeModel.newFullNameEng,
+            newFullNameInSinhala: this.nameChangeModel.newFullNameSin,
+            newFullNameInTamil: this.nameChangeModel.newFullNameTam,
+            newInitialNameInEnglish: this.nameChangeModel.newInitialNameEng,
+            newInitialNameInSinhala: this.nameChangeModel.newInitialNameSin,
+            newInitialNameInTamil: this.nameChangeModel.newInitialNameTam,
+          }
+        );
+        this.locationList = this.nameChangeModel.newNotaryDsDivisionDTO;
+      }
+    );
   }
 
   submitForm() {
@@ -112,7 +136,7 @@ export class ChangeTheNameComponent implements OnInit {
 
     this.nameChangeService.save(formData).subscribe(
       (success: string) => {
-        this.snackBar.success('Judicial Change Request Success');
+        this.snackBar.success('Notary Name Change Request Success');
         this.notaryForm.reset();
       },
       error => {
