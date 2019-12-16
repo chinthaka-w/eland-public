@@ -164,19 +164,20 @@
             <span class="title">Request for Corrections of Resignation</span>
           </a>
         </div>
-      </div>
-      <!-- Search -->
-      <div class="db-search">
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Search">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+        <!-- Search -->
+        <div class="db-search">
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Search">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
-      <div *ngIf="requestView && !dashboardView">
-        <app-view-notary [notaryId]="notaryId"></app-view-notary>
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="requestView && !dashboardView">
+  <app-view-notary [notaryId]="notaryId"></app-view-notary>
 </div>
