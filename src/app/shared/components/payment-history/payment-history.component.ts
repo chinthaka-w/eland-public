@@ -1,6 +1,7 @@
 import { NewNotaryPaymentDetailDto } from './../../dto/new-notary-payment-detail.dto';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 /**
  * View Payment history information
@@ -13,7 +14,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
   templateUrl: './payment-history.component.html',
   styleUrls: ['./payment-history.component.css']
 })
-export class PaymentHistoryComponent implements OnInit {
+export class PaymentHistoryComponent implements OnInit, OnChanges {
   @Input() paymentHistory: NewNotaryPaymentDetailDto[] = [];
   @Input() paymentAction: boolean;
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
@@ -27,8 +28,15 @@ export class PaymentHistoryComponent implements OnInit {
     this.setPaymentHistory();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['paymentHistory']) {
+      this.setPaymentHistory();
+    }
+  }
+
   setPaymentHistory(): void {
     this.dataSource.data = this.paymentHistory;
+    this.dataSource.paginator = this.paginator;
   }
 
   addPayment(): void {

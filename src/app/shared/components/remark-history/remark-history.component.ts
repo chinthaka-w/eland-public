@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { NotaryRegistrationHistoryDto } from '../../dto/notary-registration-history.dto';
+import { NotaryRegistrationHistoryDto } from './../../dto/notary-registration-history.dto';
+import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 /**
@@ -11,7 +11,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
   templateUrl: './remark-history.component.html',
   styleUrls: ['./remark-history.component.css']
 })
-export class RemarkHistoryComponent implements OnInit {
+export class RemarkHistoryComponent implements OnInit, OnChanges {
   @Input() remarkHistory: NotaryRegistrationHistoryDto[] = [];
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
@@ -24,8 +24,15 @@ export class RemarkHistoryComponent implements OnInit {
     this.setRemarkHistory();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['remarkHistory']) {
+      this.setRemarkHistory();
+    }
+  }
+
   setRemarkHistory(): void {
     this.dataSource.data = this.remarkHistory;
+    this.dataSource.paginator = this.paginator;
   }
 
 }

@@ -55,10 +55,10 @@ export class LanguageChangeService {
   }
 
   getApplicationPaymentHistory(reqId: number): Observable<NewNotaryPaymentDetailDto[]> {
-    return this.http.get<NewNotaryPaymentDetailDto[]>(this.BASE_URL + 'additionLanguageRequest/requestPaymentHistory/' + reqId);
+    return this.http.get<NewNotaryPaymentDetailDto[]>(this.BASE_URL + 'additionLanguageRequest/getNotaryPaymentHistory/' + reqId);
   }
 
   getApplicationRemarkHistory(reqId: number): Observable<NotaryRegistrationHistoryDto[]> {
-    return this.http.get<NotaryRegistrationHistoryDto[]>(this.BASE_URL + 'additionLanguageRequest/' + reqId);
+    return this.http.get<NotaryRegistrationHistoryDto[]>(this.BASE_URL + 'additionLanguageRequest/getNotaryRequestHistory/' + reqId);
   }
 }
