@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WorkflowStages} from "../../../../shared/enum/workflow-stages.enum";
 import {ActivatedRoute} from "@angular/router";
+import {DocumentResponseDto} from "../../../../shared/dto/document-response.dto";
 
 @Component({
   selector: 'app-name-change-request-view',
@@ -8,6 +9,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./name-change-request-view.component.css']
 })
 export class NameChangeRequestViewComponent implements OnInit {
+  public docsList: DocumentResponseDto[] = [];
   requestId: string;
   WorkflowCode = WorkflowStages;
   id: number;
@@ -22,6 +24,9 @@ export class NameChangeRequestViewComponent implements OnInit {
 
   }
 
+  getSupportingDocs(data: DocumentResponseDto[]){
+    this.docsList = data;
+  }
 
   ngOnInit() {
   }

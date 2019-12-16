@@ -24,6 +24,7 @@ import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/ju
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
 import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
+import {NameChangeRequestViewComponent} from "./dashboard/change-the-name/name-change-request-view/name-change-request-view.component";
 
 const routes: Routes = [
   {
@@ -122,6 +123,10 @@ const routes: Routes = [
   {
     path: 'change-judicial-request-view/:workflow/:id',
     component: JudicialChangeRequestViewComponent
+  },
+  {
+    path: 'change-name-request-view/:workflow/:id',
+    component: NameChangeRequestViewComponent
   },
   {
     path:'request-for-correction',
