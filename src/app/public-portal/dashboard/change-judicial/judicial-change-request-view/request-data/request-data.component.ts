@@ -107,7 +107,6 @@ export class RequestDataComponent implements OnInit {
     this.isSelected = false;
     this.getPaymentDetails();
     this.getDocumentList();
-    this.locationList.push(this.locationDto);
     this.locationDto = {};
   }
 
@@ -180,12 +179,12 @@ export class RequestDataComponent implements OnInit {
             addressEng: this.judicialChange.addressEng,
             addressSin: this.judicialChange.addressSin,
             addressTam: this.judicialChange.addressTam,
-            notarialWorkStartDate: this.judicialChange.notarialWorkStartDate,
-            certificateYear: this.judicialChange.certificateYear,
+            notarialWorkStartDate: this.judicialChange.notarialWorkStartDate.toString().substring(0,10),
+            certificateYear: this.judicialChange.certificateYear.toString().substring(0,4),
             nameOfLr: this.judicialChange.nameOfLr,
             isDuplicateHandedOver: this.judicialChange.isDuplicateHandedOver,
-            fromDate: this.judicialChange.fromDate,
-            toDate: this.judicialChange.toDate,
+            fromDate: this.judicialChange.fromDate.toString().substring(0,10),
+            toDate: this.judicialChange.toDate.toString().substring(0,10),
             judicialZoneId: this.judicialChange.judicialZoneId,
             landRegistry: this.judicialChange.landRegistry,
 
