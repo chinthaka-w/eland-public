@@ -154,7 +154,6 @@ export class RequestDataComponent implements OnInit {
             toDate: this.judicialChange.toDate,
             judicialZoneId: this.judicialChange.judicialZoneId,
             landRegistry: this.judicialChange.landRegistry,
-
           }
         );
         this.dsGnDivisions = this.judicialChange.newNotaryDsDivisionDTO;

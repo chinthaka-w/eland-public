@@ -1,39 +1,38 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WorkflowStageDocDto} from "../../../shared/dto/workflow-stage-doc-dto";
-import {Workflow} from "../../../shared/enum/workflow.enum";
-import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
-import {Languages} from "../../../shared/enum/languages.enum";
-import {JudicialZoneModel} from "../../../shared/dto/judicial-zone.model";
-import {JudicialZoneService} from "../../../shared/service/judicial-zone.service";
-import {LandRegistryModel} from "../../../shared/dto/land-registry.model.";
-import {LandRegistryService} from "../../../shared/service/land-registry.service";
-import {GnDivision} from "../../../shared/dto/gn-division.model";
-import {DsDivision} from "../../../shared/dto/ds-division.model";
-import {GnDivisionService} from "../../../shared/service/gn-division.service";
-import {DsDivisionService} from "../../../shared/service/ds-division.service";
-import {NewNotaryDsDivisionDTO} from "../../../shared/dto/new-notary-ds-division.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {DocumentDto} from "../../../shared/dto/document-list";
-import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
-import {PaymentResponse} from "../../../shared/dto/payment-response.model";
-import {SnackBarService} from "../../../shared/service/snack-bar.service";
+import {Languages} from "../../../../../shared/enum/languages.enum";
+import {SupportingDocService} from "../../../../../shared/service/supporting-doc.service";
+import {LandRegistryService} from "../../../../../shared/service/land-registry.service";
+import {GnDivisionService} from "../../../../../shared/service/gn-division.service";
+import {DsDivisionService} from "../../../../../shared/service/ds-division.service";
+import {SnackBarService} from "../../../../../shared/service/snack-bar.service";
 import {Location} from "@angular/common";
-import {Parameters} from "../../../shared/enum/parameters.enum";
-import {NameChangeWorkflowStagesEnum} from "../../../shared/enum/name-change-workflow-stages.enum";
-import {NotaryNameChangeModel} from "../../../shared/dto/notary-name-change.model";
-import {ChangeNameService} from "../../../shared/service/change-name.service";
+import {Workflow} from "../../../../../shared/enum/workflow.enum";
+import {WorkflowStageDocDto} from "../../../../../shared/dto/workflow-stage-doc-dto";
+import {JudicialZoneModel} from "../../../../../shared/dto/judicial-zone.model";
+import {LandRegistryModel} from "../../../../../shared/dto/land-registry.model.";
+import {GnDivision} from "../../../../../shared/dto/gn-division.model";
+import {DsDivision} from "../../../../../shared/dto/ds-division.model";
+import {DocumentDto} from "../../../../../shared/dto/document-list";
+import {NewNotaryDsDivisionDTO} from "../../../../../shared/dto/new-notary-ds-division.model";
+import {PatternValidation} from "../../../../../shared/enum/pattern-validation.enum";
+import {JudicialChange} from "../../../../../shared/dto/judicial-change-model";
+import {ChangeNameService} from "../../../../../shared/service/change-name.service";
+import {NotaryNameChangeModel} from "../../../../../shared/dto/notary-name-change.model";
+import {JudicialZoneService} from "../../../../../shared/service/judicial-zone.service";
 
 @Component({
-  selector: 'app-change-the-name',
-  templateUrl: './change-the-name.component.html',
-  styleUrls: ['./change-the-name.component.css']
+  selector: 'app-name-change-request-data',
+  templateUrl: './name-change-request-data.component.html',
+  styleUrls: ['./name-change-request-data.component.css']
 })
-export class ChangeTheNameComponent implements OnInit {
+export class NameChangeRequestDataComponent implements OnInit {
+  @Input() workflow: string;
+  @Input() id: number;
   @Input()
   files: File[] = [];
 
   public docList: WorkflowStageDocDto[];
-  languages = Languages;
   public judicialZones: JudicialZoneModel[];
   public landRegistry: LandRegistryModel[];
   public gnDivision: GnDivision[];
@@ -42,24 +41,20 @@ export class ChangeTheNameComponent implements OnInit {
   public locationDto: any = {};
   public notaryForm: FormGroup;
   public documentList: DocumentDto[] = [];
-  Parameters = Parameters;
-  WorkflowCode = NameChangeWorkflowStagesEnum;
-  public nameChangeModel = new NotaryNameChangeModel();
-
-  public notaryId: number;
-  public paymentId: number;
-  public isPaymentSuccess: boolean;
-  public isContinueToPayment: boolean = false;
+  languages = Languages;
+  public dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
+  public nameChangeModel: NotaryNameChangeModel;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
+              private changeNameService: ChangeNameService,
               private landRegistryService: LandRegistryService,
               private gnDivisionService: GnDivisionService,
               private dsDivisionService: DsDivisionService,
               private formBuilder: FormBuilder,
               private snackBar: SnackBarService,
-              private nameChangeService: ChangeNameService,
-              private location: Location) { }
+              private location: Location) {
+  }
 
   ngOnInit() {
     this.notaryForm = this.formBuilder.group({
@@ -86,6 +81,7 @@ export class ChangeTheNameComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
     });
+    this.getNameChangeDetails(this.id);
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
@@ -93,30 +89,21 @@ export class ChangeTheNameComponent implements OnInit {
     this.getGnDivisions();
   }
 
-  submitForm() {
-    this.nameChangeModel.judicialZoneId = this.notaryForm.value.courtZone;
-    this.nameChangeModel.newFullNameEng = this.notaryForm.value.newFullNameInEnglish;
-    this.nameChangeModel.newFullNameSin = this.notaryForm.value.newFullNameInSinhala;
-    this.nameChangeModel.newFullNameTam = this.notaryForm.value.newFullNameInTamil;
-    this.nameChangeModel.newInitialNameEng = this.notaryForm.value.newInitialNameInEnglish;
-    this.nameChangeModel.newInitialNameSin = this.notaryForm.value.newInitialNameInSinhala;
-    this.nameChangeModel.newInitialNameTam = this.notaryForm.value.newInitialNameInTamil;
-    this.nameChangeModel.newNotaryId = this.notaryId;
-    this.nameChangeModel.paymentId = this.paymentId;
-
-    const formData = new FormData();
-    formData.append('data', JSON.stringify(this.nameChangeModel));
-    this.documentList.forEach(doc => {
-      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
-    });
-
-    this.nameChangeService.save(formData).subscribe(
-      (success: string) => {
-        this.snackBar.success('Judicial Change Request Success');
-        this.notaryForm.reset();
-      },
-      error => {
-        this.snackBar.error('Failed');
+  private getNameChangeDetails(id): void {
+    this.changeNameService.getNameChangeRequestData(id).subscribe(
+      (data: NotaryNameChangeModel) => {
+        this.nameChangeModel = data;
+        this.notaryForm.patchValue(
+          {
+            newFullNameInEnglish: this.nameChangeModel.newFullNameEng,
+            newFullNameInSinhala: this.nameChangeModel.newFullNameSin,
+            newFullNameInTamil: this.nameChangeModel.newFullNameTam,
+            newInitialNameInEnglish: this.nameChangeModel.newInitialNameEng,
+            newInitialNameInSinhala: this.nameChangeModel.newInitialNameSin,
+            newInitialNameInTamil: this.nameChangeModel.newInitialNameTam,
+          }
+        );
+        this.dsGnDivisions = this.nameChangeModel.newNotaryDsDivisionDTO;
       }
     );
   }
@@ -148,7 +135,7 @@ export class ChangeTheNameComponent implements OnInit {
   private getGnDivisions(): void {
     this.gnDivisionService.getAllGnDivisions().subscribe(
       (data: GnDivision[]) => {
-        this.gnDivision = data ;
+        this.gnDivision = data;
       }
     );
   }
@@ -184,27 +171,5 @@ export class ChangeTheNameComponent implements OnInit {
   }
 
 
-  onClickSubmitSearchRequest() {
-    this.isContinueToPayment = !this.isContinueToPayment;
-  }
-
-  onPaymentResponse(data: PaymentResponse) {
-    if (data.paymentStatusCode === 2 || data.paymentId === undefined || data.paymentId === 0) {
-      this.snackBar.error('Failed');
-    } else {
-      this.paymentId = data.paymentId;
-      this.isContinueToPayment = false;
-      this.isPaymentSuccess = true;
-    }
-  }
-
-  onBack(data: boolean) {
-    this.isContinueToPayment = !data;
-  }
-
-  goBack(): any {
-    this.location.back();
-    return false;
-  }
 
 }

@@ -13,6 +13,8 @@ import {map} from 'rxjs/operators';
 import {SessionService} from '../../service/session.service';
 import {ExtractRequestService} from '../../service/extract-request.service';
 import {ExtractRequest} from '../../dto/extract-request.model';
+import {ChangeNameService} from "../../service/change-name.service";
+import {NotaryNameChangeModel} from "../../dto/notary-name-change.model";
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -38,6 +40,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   public actionButtonURL: string;
 
   constructor(private judicialService: JudicialService,
+              private changeNameService: ChangeNameService,
               private searchRequestService: SearchRequestService,
               private extractRequestService: ExtractRequestService,
               private snackBar: SnackBarService,
@@ -61,6 +64,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.titleText = 'REQUEST FOR CHANGING THE JUDICIAL ZONE';
         this.newButtonURL = '/change-judicial';
         this.actionButtonURL = `/change-judicial-request-view/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
+        break;
+      case Workflow.NOTARY_NAME_CHANGE:
+        this.loadNameChangeRequests();
+        this.headerText = 'NOTARY NAME CHANGING';
+        this.titleText = 'REQUEST FOR CHANGING THE NOTARY NAME';
+        this.newButtonURL = '/change-the-name';
+        this.actionButtonURL = `/change-name-request-view/${btoa(Workflow.NOTARY_NAME_CHANGE)}/`;
         break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();
@@ -126,6 +136,21 @@ export class ChangeJudicialRequestListComponent implements OnInit {
     this.requests = [];
     this.extractRequestService.findAllByPublicUser(this.sessionService.getUser().id, this.sessionService.getUser().type).subscribe(
       (data: ExtractRequest[]) => {
+        this.requests = data;
+        this.dataSource = new MatTableDataSource(this.requests);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
+
+  loadNameChangeRequests() {
+    this.requests = [];
+    this.changeNameService.getNameChangeRequest(this.sessionService.getUser().id).subscribe(
+      (data: NotaryNameChangeModel[]) => {
         this.requests = data;
         this.dataSource = new MatTableDataSource(this.requests);
         this.dataSource.paginator = this.paginator;
