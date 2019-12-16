@@ -2,6 +2,7 @@ export class correctionReq {
     constructor(
      
         landRegId: string,
+        newNotaryId:number,
         deedNo: string,
         attestedDate: string,
         notaryName: string,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { correctionReq } from '../dto/correctionReq.model';
+// import { correctionReq } from '../model/correctionReq.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +38,8 @@ export class CorrectionRequestService {
   }
 
  // save correction request
- saveCorrectionReq(corrReq: correctionReq): Observable<Object> {
-  console.log(JSON.parse(JSON.stringify(corrReq)));
-  return this.httpClient.post(this.BASE_URL_WITH_CORRECTION_REQ + '/' ,JSON.stringify(corrReq), {responseType: 'text', headers: this.headersJson});
+ saveCorrectionReq(corrReq: FormData): Observable<any> {
+  return this.httpClient.post(this.BASE_URL_WITH_CORRECTION_REQ + '/' ,corrReq);
 }
 
 
