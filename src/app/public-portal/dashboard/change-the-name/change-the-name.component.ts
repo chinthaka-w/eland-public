@@ -165,7 +165,7 @@ export class ChangeTheNameComponent implements OnInit {
   }
 
   private getDocumentList(): void {
-    this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
+    this.documetService.getDocuments(NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }

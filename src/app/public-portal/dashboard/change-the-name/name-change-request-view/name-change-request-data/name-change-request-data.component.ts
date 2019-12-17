@@ -7,7 +7,6 @@ import {GnDivisionService} from "../../../../../shared/service/gn-division.servi
 import {DsDivisionService} from "../../../../../shared/service/ds-division.service";
 import {SnackBarService} from "../../../../../shared/service/snack-bar.service";
 import {Location} from "@angular/common";
-import {Workflow} from "../../../../../shared/enum/workflow.enum";
 import {WorkflowStageDocDto} from "../../../../../shared/dto/workflow-stage-doc-dto";
 import {JudicialZoneModel} from "../../../../../shared/dto/judicial-zone.model";
 import {LandRegistryModel} from "../../../../../shared/dto/land-registry.model.";
@@ -16,10 +15,12 @@ import {DsDivision} from "../../../../../shared/dto/ds-division.model";
 import {DocumentDto} from "../../../../../shared/dto/document-list";
 import {NewNotaryDsDivisionDTO} from "../../../../../shared/dto/new-notary-ds-division.model";
 import {PatternValidation} from "../../../../../shared/enum/pattern-validation.enum";
-import {JudicialChange} from "../../../../../shared/dto/judicial-change-model";
 import {ChangeNameService} from "../../../../../shared/service/change-name.service";
 import {NotaryNameChangeModel} from "../../../../../shared/dto/notary-name-change.model";
 import {JudicialZoneService} from "../../../../../shared/service/judicial-zone.service";
+import {NameChangeWorkflowStagesEnum} from "../../../../../shared/enum/name-change-workflow-stages.enum";
+import {SessionService} from "../../../../../shared/service/session.service";
+import {DsGnDivisionDTO} from "../../../../../shared/dto/gs-gn-model";
 
 @Component({
   selector: 'app-name-change-request-data',
@@ -38,12 +39,15 @@ export class NameChangeRequestDataComponent implements OnInit {
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
   public locationList: NewNotaryDsDivisionDTO[] = [];
+  public dsGnList: DsGnDivisionDTO[] = [];
   public locationDto: any = {};
   public notaryForm: FormGroup;
   public documentList: DocumentDto[] = [];
   languages = Languages;
   public dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   public nameChangeModel: NotaryNameChangeModel;
+  public nameChangeDto = new NotaryNameChangeModel();
+  public notaryId: number;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -53,7 +57,8 @@ export class NameChangeRequestDataComponent implements OnInit {
               private dsDivisionService: DsDivisionService,
               private formBuilder: FormBuilder,
               private snackBar: SnackBarService,
-              private location: Location) {
+              private location: Location,
+              private sessionService: SessionService) {
   }
 
   ngOnInit() {
@@ -81,6 +86,7 @@ export class NameChangeRequestDataComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
     });
+    this.notaryId = this.sessionService.getUser().id;
     this.getNameChangeDetails(this.id);
     this.getDocumentList();
     this.getJudicialZones();
@@ -108,8 +114,25 @@ export class NameChangeRequestDataComponent implements OnInit {
     );
   }
 
+  submitForm() {
+    this.nameChangeDto = this.notaryForm.value;
+    this.nameChangeDto.newNotaryId = this.notaryId;
+    this.nameChangeDto.dsGnList = this.dsGnList;
+    this.nameChangeDto.requestId = this.id;
+
+    this.changeNameService.update(this.nameChangeDto).subscribe(
+      (success: string) => {
+        this.snackBar.success('Notary Name Change Request Success');
+        this.notaryForm.reset();
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
+
   private getDocumentList(): void {
-    this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
+    this.documetService.getDocuments(NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }

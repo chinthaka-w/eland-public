@@ -2,6 +2,7 @@ import {SysConfigService} from "./sys-config.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
+import {NotaryNameChangeModel} from "../dto/notary-name-change.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,10 @@ export class ChangeNameService {
   /** save Name Change Request */
   save(formData: FormData): Observable<any> {
     return this.httpClient.post(this.BASE_URL + '/submitChangeRequest/' , formData );
+  }
+
+  /** update Name Change Request */
+  update(nameChangeDto: NotaryNameChangeModel): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + '/update/' , nameChangeDto ,{headers: this.headers} );
   }
 }
