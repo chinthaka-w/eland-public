@@ -23,6 +23,8 @@ import {NameChangeWorkflowStagesEnum} from "../../../shared/enum/name-change-wor
 import {NotaryNameChangeModel} from "../../../shared/dto/notary-name-change.model";
 import {ChangeNameService} from "../../../shared/service/change-name.service";
 import {SessionService} from "../../../shared/service/session.service";
+import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
+import {NotaryService} from "../../../shared/service/notary-service";
 
 @Component({
   selector: 'app-change-the-name',
@@ -46,12 +48,14 @@ export class ChangeTheNameComponent implements OnInit {
   Parameters = Parameters;
   WorkflowCode = NameChangeWorkflowStagesEnum;
   public nameChangeModel = new NotaryNameChangeModel();
+  public searchDetails: RequestSearchDetailDTO;
 
   public notaryId: number;
   public paymentId: number;
   public isPaymentSuccess: boolean;
   public isContinueToPayment: boolean = false;
   public requestId: number;
+
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -62,10 +66,12 @@ export class ChangeTheNameComponent implements OnInit {
               private snackBar: SnackBarService,
               private nameChangeService: ChangeNameService,
               private location: Location,
-              private sessionService: SessionService) { }
+              private sessionService: SessionService,
+              private notaryService: NotaryService) { }
 
   ngOnInit() {
-    this.requestId = this.sessionService.getUser().id;
+    this.notaryId = this.sessionService.getUser().id;
+    this.getUserDetails();
     this.notaryForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
@@ -98,6 +104,14 @@ export class ChangeTheNameComponent implements OnInit {
     this.getGnDivisions();
   }
 
+  getUserDetails(){
+    this.notaryService.getNotaryRequestDetails(this.notaryId).subscribe(
+      (data: RequestSearchDetailDTO) =>{
+        this.searchDetails = data;
+      }
+    )
+  }
+
   private getNameChangeDetails(id): void {
     this.nameChangeService.getNameChangeRequestData(id).subscribe(
       (data: NotaryNameChangeModel) => {
@@ -115,6 +129,11 @@ export class ChangeTheNameComponent implements OnInit {
         this.locationList = this.nameChangeModel.newNotaryDsDivisionDTO;
       }
     );
+    if(this.searchDetails.workflow === "NTR_REG_USR_MOD" || this.searchDetails.workflow === "NTR_REG_DVC_REJ"){
+      this.notaryForm.enable();
+    }else if(this.searchDetails.workflow === "NTR_REG_USR_INT"){
+      this.notaryForm.disable();
+    }
   }
 
   submitForm() {
