@@ -176,7 +176,7 @@
                       <mat-form-field appearance="outline">
                         <select matNativeControl required  formControlName="courtZone"  class="form-control">
                           <option value="">Select</option>
-                          <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}</option>
+                          <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">{{ judicialZone.nameEng }}</option>
                         </select>
                       </mat-form-field>
                     </div>
