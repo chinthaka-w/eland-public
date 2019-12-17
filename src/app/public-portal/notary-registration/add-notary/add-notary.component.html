@@ -53,9 +53,9 @@
             <label>Language:<span class="redtxt">*</span></label>
             <div class="default-input-feild" >
               <mat-radio-group  class="form-control" formControlName="languages"  (change) = "onChange($event)">
-                <mat-radio-button value="1">Sinhala</mat-radio-button>
-                <mat-radio-button value="3">English</mat-radio-button>
-                <mat-radio-button class="example-margin" value="2">Tamil</mat-radio-button>
+                <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
+                <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
+                <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
               </mat-radio-group>
               <div *ngIf="FormControls.languages.errors"
                    class="invalid-feedback">
@@ -488,7 +488,7 @@
       <div class="pg-inner-row mb-0">
         <div class="pg-inner-col">
           <div class="f-captcha">
-            <img src="../../../../assets/images/captcha.jpg" />
+            <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
           </div>
         </div>
         <div class="pg-inner-col right">

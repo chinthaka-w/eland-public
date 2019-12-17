@@ -39,7 +39,6 @@ export class CitizenService {
       }
     }
     formData.append('model', JSON.stringify(citizen));
-    console.log(formData);
     return this.httpClient.post<CitizenDTO>(this.BASE_URL + 'citizen/', formData,{headers: this.headers});
 
   }

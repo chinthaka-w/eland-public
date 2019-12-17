@@ -2,45 +2,41 @@
   <div class="dashboard-inner-container">
     <div class="db-left-col" style="background-image: url('../../../assets/images/temp_img_005.jpg')">&nbsp;</div>
     <div class="db-right-col">
-
       <h2>Welcome to E-Land</h2>
       <p>Welcome back please login to your acount</p>
-
-             <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
-                <div class="db-card-header" style="background-image: url('../../../assets/images/temp_img_006.jpg')">
-                    <a href="#">Next ></a>
-                </div>
-                <div class="db-card-content">
-                    <dl class="db-card-info">
-                        <dt>Notary Code:</dt>
-                        <dd>{{searchDetails.notaryCode}}</dd>
-                    </dl>
-                    <dl class="db-card-info">
-                        <dt>Notary ID:</dt>
-                        <dd>{{searchDetails.notaryId}}</dd>
-                    </dl>
-                    <dl class="db-card-info">
-                        <dt>Status:</dt>
-                        <dd>
-                            <span class="status-pending">{{searchDetails.status}}</span>
-<!--                            <span class="status-success">Approved</span>-->
-                        </dd>
-                    </dl>
-                    <dl class="db-card-info">
-                        <dt>Name:</dt>
-                        <dd>{{searchDetails.name}}</dd>
-                    </dl>
-                    <dl class="db-card-info">
-                        <dt>Payment:</dt>
-                        <dd>{{searchDetails.paymentMethod}}</dd>
-                    </dl>
-                    <div class="clear">&nbsp;</div>
-                </div>
-                <div class="db-card-bottom">
-                    <button mat-raised-button class="green" (click)="viewDetails()">View</button>
-                </div>
-            </div>
-
+      <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
+        <div class="db-card-header" style="background-image: url('../../../assets/images/temp_img_006.jpg')">
+          <a href="#">Next </a>
+        </div>
+        <div class="db-card-content">
+          <dl class="db-card-info">
+            <dt>Notary Code:</dt>
+            <dd>{{searchDetails.notaryCode}}</dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>Notary ID:</dt>
+            <dd>{{searchDetails.notaryId}}</dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>Status:</dt>
+            <dd>
+              <span class="status-pending">{{searchDetails.status}}</span>
+            </dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>Name:</dt>
+            <dd>{{searchDetails.name}}</dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>Payment:</dt>
+            <dd>{{searchDetails.paymentMethod}}</dd>
+          </dl>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="db-card-bottom">
+          <button mat-raised-button class="green" (click)="viewDetails()">View</button>
+        </div>
+      </div>
       <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.PENDING">
         <div class="db-card-header" style="background-image: url('../../../assets/images/temp_img_006.jpg')">
           <a href="#">Next ></a>
@@ -75,87 +71,96 @@
           <button mat-raised-button class="green" [routerLink]="['/view-citizen']">View</button>
         </div>
       </div>
-
       <div class="db-main-wp">
         <div class="db-link-tile c1" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/requests/'+getBase64(Workflow.JUDICIAL_ZONE_CHANGE)]">
-                        <span class="icon">
-                            <i class="material-icons">room</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">room</i>
+            </span>
             <span class="title">Change Judicial Zone</span>
           </a>
         </div>
         <div class="db-link-tile c2" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/change-the-name']">
-                        <span class="icon">
-                            <i class="material-icons">cached</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">cached</i>
+            </span>
             <span class="title">Change The Name</span>
           </a>
         </div>
         <div class="db-link-tile c3" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/resignation']">
-                        <span class="icon">
-                            <i class="material-icons">label</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">label</i>
+            </span>
             <span class="title">Resignation</span>
           </a>
         </div>
         <div class="db-link-tile c4" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/language-change']">
-                        <span class="icon">
-                            <i class="material-icons">speaker_notes</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">speaker_notes</i>
+            </span>
             <span class="title">Language Change</span>
           </a>
         </div>
         <div class="db-link-tile c5" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/leave-request']">
-                        <span class="icon">
-                            <i class="material-icons">date_range</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">date_range</i>
+            </span>
             <span class="title">Request for leave</span>
           </a>
         </div>
         <div class="db-link-tile" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/applications']">
-                        <span class="icon">
-                            <i class="material-icons">insert_drive_file</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">insert_drive_file</i>
+            </span>
             <span class="title">Applications</span>
           </a>
         </div>
-
-        <!---->
         <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
-                        <span class="icon">
-                            <i class="material-icons">search</i>
-                        </span>
-            <span class="title">Search</span>
+            <div class="db-link-tile c6">
+              <a [routerLink]="['/request_for_correction']">
+                <span class="icon">
+                  <i class="material-icons">edit</i>
+                </span>
+                <span class="title">Request For Correction</span>
+              </a>
+            </div>
+            <div class="db-link-tile c1" *ngIf="userType == 'public'">
+              <a [routerLink]="['/search-document']">
+                <span class="icon">
+                  <i class="material-icons">search</i>
+                </span>
+                <span class="title">Search</span>
+              </a>
+            </div>
           </a>
         </div>
         <div class="db-link-tile c4" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests/'+getBase64(Workflow.EXTRACT_REQUEST)]">
-                        <span class="icon">
-                            <i class="material-icons">dns</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">dns</i>
+            </span>
             <span class="title">Extract</span>
           </a>
         </div>
         <div class="db-link-tile c3" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests']">
-                        <span class="icon">
-                            <i class="material-icons">feedback</i>
-                        </span>
+            <span class="icon">
+              <i class="material-icons">feedback</i>
+            </span>
             <span class="title">Requests</span>
           </a>
         </div>
         <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
-          <a [routerLink]="['/view-citizen']">
-                        <span class="icon">
-                            <i class="material-icons">label</i>
-                        </span>
+          <a [routerLink]="['/request-for-correction']">
+            <span class="icon">
+              <i class="material-icons">label</i>
+            </span>
             <span class="title">Request for Corrections of Resignation</span>
           </a>
         </div>
@@ -169,10 +174,9 @@
           </mat-form-field>
         </div>
       </div>
+      <div *ngIf="requestView && !dashboardView">
+        <app-view-notary [notaryId]="notaryId"></app-view-notary>
+      </div>
     </div>
   </div>
-</div>
-
-<div *ngIf="requestView && !dashboardView">
-  <app-view-notary [notaryId]="notaryId"></app-view-notary>
 </div>

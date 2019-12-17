@@ -6,15 +6,17 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileEditComponent} from './dashboard/profile/profile-edit/profile-edit.component';
 import {AddPublicUserComponent} from './public-user-registration/add-public-user/add-public-user.component';
 import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
-import {PublicProfileEditComponent} from './dashboard/profile/public-profile-edit/public-profile-edit.component';
-import {SearchDocumentComponent} from './dashboard/search-document/search-document.component';
-import {ExtractComponent} from './dashboard/extract/extract.component';
-import {RequestsComponent} from './dashboard/requests/requests.component';
-import {ChangeTheNameComponent} from './dashboard/change-the-name/change-the-name.component';
-import {LanguageChangeComponent} from './dashboard/language-change/language-change.component';
-import {LeaveRequestComponent} from './dashboard/leave-request/leave-request.component';
-import {ResignationComponent} from './dashboard/resignation/resignation.component';
-import {ApplicationsComponent} from './dashboard/applications/applications.component';
+import {RequestForCorrectionComponent} from "./request-for-correction/request-for-correction.component";
+import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
+import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
+import { ExtractComponent } from './dashboard/extract/extract.component';
+import { RequestsComponent } from './dashboard/requests/requests.component';
+import { ChangeTheNameComponent } from './dashboard/change-the-name/change-the-name.component';
+import { LanguageChangeComponent } from './dashboard/language-change/language-change.component';
+import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.component';
+import { ResignationComponent } from './dashboard/resignation/resignation.component';
+import { ApplicationsComponent } from './dashboard/applications/applications.component';
+
 import {ViewNotaryComponent} from './dashboard/view-notary/view-notary.component';
 import {PaymentComponent} from '../shared/components/payment/payment.component';
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
@@ -49,9 +51,16 @@ const routes: Routes = [
     component: ChangeJudicialComponent
   },
   {
-    path: 'edit-public-profile',
-    component: PublicProfileEditComponent
+    path:'request-for-correction',
+    component:RequestForCorrectionComponent
+
   },
+{
+
+  path: 'edit-public-profile',
+  component: PublicProfileEditComponent
+
+},
   {
     path: 'search-document',
     component: SearchDocumentComponent
@@ -114,7 +123,10 @@ const routes: Routes = [
     path: 'change-judicial-request-view/:workflow/:id',
     component: JudicialChangeRequestViewComponent
   },
-
+  {
+    path:'request-for-correction',
+    component:RequestForCorrectionComponent
+  }
 
 ];
 
