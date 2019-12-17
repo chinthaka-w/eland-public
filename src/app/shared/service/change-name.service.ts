@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ChangeNameService {
-  public BASE_URL = SysConfigService.BASE_URL +'name-change';
+  public BASE_URL = SysConfigService.BASE_URL +'nameChange';
   private headers;
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
 
