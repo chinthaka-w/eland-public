@@ -46,7 +46,7 @@ export class NotaryService {
 
   /** Get Notary RequestId by Login Notary Details */
   getNotaryRequestDetails(notaryId: number): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL+ '/search/' + notaryId , {headers: this.headersJson})
+    return this.httpClient.get(this.BASE_URL + '/search/' + notaryId , {headers: this.headersJson})
   }
 
   // tslint:disable-next-line:ban-types
@@ -60,5 +60,9 @@ export class NotaryService {
 
   getNotaryDetails() {
     return this.notaryDetails;
+  }
+
+  getNotary(notaryId: number) {
+    return this.httpClient.get(this.BASE_URL + '/findNotary/' + notaryId , {headers: this.headersJson} );
   }
 }
