@@ -15,6 +15,7 @@ import {Parameters} from '../../../shared/enum/parameters.enum';
 import {DocumentDto} from '../../../shared/dto/document-list';
 import {JudicialChangeWorkflowStagesEnum} from '../../../shared/enum/judicial-change-workflow-stages.enum';
 import {GnDivisionDTO} from "../../../shared/dto/gn-division.dto";
+import {SessionService} from '../../../shared/service/session.service';
 
 @Component({
   selector: 'app-change-judicial',
@@ -68,7 +69,8 @@ export class ChangeJudicialComponent implements OnInit {
   constructor(
     private judicialService: JudicialService,
     private location: Location,
-    private snackBar: SnackBarService) {
+    private snackBar: SnackBarService,
+    private sessionService: SessionService,) {
   }
 
   ngOnInit() {
@@ -87,7 +89,7 @@ export class ChangeJudicialComponent implements OnInit {
     this.isSinhala = false;
     this.isTamil = false;
     this.isEnglish = false;
-    this.notaryId = 1;
+    this.notaryId = this.sessionService.getUser().id;
     this.getLandRegistries();
     this.getJudicialZone();
     this.getDsDivision();
