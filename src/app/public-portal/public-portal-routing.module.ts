@@ -1,3 +1,4 @@
+import { LanguageChangeViewComponent } from './dashboard/language-change/language-change-view/language-change-view.component';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AddNotaryComponent} from './notary-registration/add-notary/add-notary.component';
@@ -89,6 +90,10 @@ const routes: Routes = [
   {
     path: 'language-change',
     component: LanguageChangeComponent
+  },
+  {
+    path: 'language-change-view/:workflowStage/:id',
+    component: LanguageChangeViewComponent
   },
   {
     path: 'leave-request',

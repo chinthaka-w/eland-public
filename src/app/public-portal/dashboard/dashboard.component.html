@@ -11,25 +11,25 @@
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Notary Code:</dt>
-            <dd>{{searchDetails.notaryCode}}</dd>
+            <dd>{{searchDetails?.notaryCode}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Notary ID:</dt>
-            <dd>{{searchDetails.notaryId}}</dd>
+            <dd>{{searchDetails?.notaryId}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Status:</dt>
             <dd>
-              <span class="status-pending">{{searchDetails.status}}</span>
+              <span class="status-pending">{{searchDetails?.status}}</span>
             </dd>
           </dl>
           <dl class="db-card-info">
             <dt>Name:</dt>
-            <dd>{{searchDetails.name}}</dd>
+            <dd>{{searchDetails?.name}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Payment:</dt>
-            <dd>{{searchDetails.paymentMethod}}</dd>
+            <dd>{{searchDetails?.paymentMethod}}</dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>
@@ -97,10 +97,10 @@
           </a>
         </div>
         <div class="db-link-tile c4" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/language-change']">
-            <span class="icon">
-              <i class="material-icons">speaker_notes</i>
-            </span>
+          <a [routerLink]="['/requests', getBase64(Workflow.LANGUAGE_CHANGE)]">
+                        <span class="icon">
+                            <i class="material-icons">speaker_notes</i>
+                        </span>
             <span class="title">Language Change</span>
           </a>
         </div>
