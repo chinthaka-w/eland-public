@@ -25,6 +25,8 @@ import {ChangeNameService} from "../../../shared/service/change-name.service";
 import {SessionService} from "../../../shared/service/session.service";
 import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
 import {NotaryService} from "../../../shared/service/notary-service";
+import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
+import {NameTitleEnum} from "../../../shared/enum/name-title.enum";
 
 @Component({
   selector: 'app-change-the-name',
@@ -37,6 +39,7 @@ export class ChangeTheNameComponent implements OnInit {
 
   public docList: WorkflowStageDocDto[];
   languages = Languages;
+  nameTitle = NameTitleEnum;
   public judicialZones: JudicialZoneModel[];
   public landRegistry: LandRegistryModel[];
   public gnDivision: GnDivision[];
@@ -80,23 +83,23 @@ export class ChangeTheNameComponent implements OnInit {
       newInitialNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
       newInitialNameInSinhala: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
       newInitialNameInTamil: new FormControl('',[Validators.required , Validators.pattern(PatternValidation.nameValidation)] ),
-      dateOfBirth: new FormControl(new Date(), [Validators.required]),
+      dateOfBirth: new FormControl(new Date()),
       languages: new FormControl('' ),
-      nic: new FormControl('',[Validators.required,Validators.pattern(PatternValidation.nicValidation)]),
-      contactNo: new FormControl('',[Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-      mobileNo: new FormControl('',[Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl('',[Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-      courtZone: new FormControl('', [Validators.required]),
-      landRegistry: new FormControl('', [Validators.required]),
-      secretariatDivision: new FormControl('', [Validators.required]),
-      gramaNiladhariDivision: new FormControl('', [Validators.required]),
-      enrolledDate: new FormControl(new Date(), [Validators.required]),
-      passedDate: new FormControl(new Date(), [Validators.required]),
-      medium: new FormControl('' , [Validators.required]),
-      userName: new FormControl('', [Validators.required]),
-      recaptcha: new FormControl(null, Validators.required),
+      nic: new FormControl('',[Validators.pattern(PatternValidation.nicValidation)]),
+      contactNo: new FormControl('',[ Validators.pattern(PatternValidation.contactNumberValidation)]),
+      mobileNo: new FormControl('',[ Validators.pattern(PatternValidation.contactNumberValidation)]),
+      email: new FormControl('',[ Validators.pattern(PatternValidation.emailValidation)]),
+      courtZone: new FormControl('' ),
+      landRegistry: new FormControl(''),
+      secretariatDivision: new FormControl(''),
+      gramaNiladhariDivision: new FormControl(''),
+      enrolledDate: new FormControl(new Date()),
+      passedDate: new FormControl(new Date()),
+      medium: new FormControl('' ),
+      userName: new FormControl(''),
+      recaptcha: new FormControl(null),
     });
-    this.getNameChangeDetails(this.requestId);
+    //this.getNameChangeDetails(this.requestId);
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
@@ -108,6 +111,7 @@ export class ChangeTheNameComponent implements OnInit {
     this.notaryService.getNotaryRequestDetails(this.notaryId).subscribe(
       (data: RequestSearchDetailDTO) =>{
         this.searchDetails = data;
+        this.requestId = this.searchDetails.requestId;
       }
     )
   }
@@ -129,9 +133,9 @@ export class ChangeTheNameComponent implements OnInit {
         this.locationList = this.nameChangeModel.newNotaryDsDivisionDTO;
       }
     );
-    if(this.searchDetails.workflow === "NTR_REG_USR_MOD" || this.searchDetails.workflow === "NTR_REG_DVC_REJ"){
+    if(this.searchDetails.workflow === WorkflowStages.REGISTRATION_REQ_MODIFIED || this.searchDetails.workflow === WorkflowStages.DATA_VERIFICATION_REJECTED){
       this.notaryForm.enable();
-    }else if(this.searchDetails.workflow === "NTR_REG_USR_INT"){
+    }else if(this.searchDetails.workflow === WorkflowStages.REGISTRATION_REQ_INITIALIZED){
       this.notaryForm.disable();
     }
   }
@@ -231,6 +235,11 @@ export class ChangeTheNameComponent implements OnInit {
     this.isContinueToPayment = !this.isContinueToPayment;
   }
 
+  public onFormSubmit() {
+    this.isContinueToPayment = true;
+    this.isPaymentSuccess = false;
+  }
+
   onPaymentResponse(data: PaymentResponse) {
     if (data.paymentStatusCode === 2 || data.paymentId === undefined || data.paymentId === 0) {
       this.snackBar.error('Failed');
@@ -238,6 +247,7 @@ export class ChangeTheNameComponent implements OnInit {
       this.paymentId = data.paymentId;
       this.isContinueToPayment = false;
       this.isPaymentSuccess = true;
+      this.submitForm();
     }
   }
 

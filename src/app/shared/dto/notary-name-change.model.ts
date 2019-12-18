@@ -23,4 +23,6 @@ export class NotaryNameChangeModel {
   public dsGnList: DsGnDivisionDTO[] = [];
   public paymentId: number;
   public newNotaryDsDivisionDTO: NewNotaryDsDivisionDTO[]=[];
+  public lastUpdatedUser: string;
+  public juducialZoneDescription: string;
 }

@@ -24,9 +24,9 @@
                   <mat-form-field appearance="outline">
                     <select matNativeControl required  formControlName="title"  class="form-control">
                       <option value="">Select</option>
-                      <option value="Mr">Mr</option>
-                      <option value="Mrs">Mrs</option>
-                      <option value="Miss">Miss</option>
+                      <option value="{{nameTitle.Mr}}">Mr</option>
+                      <option value="{{nameTitle.Mrs}}">Mrs</option>
+                      <option value="{{nameTitle.Miss}}">Miss</option>
                     </select>
                   </mat-form-field>
                 </div>
@@ -337,7 +337,7 @@
               </button>
             </div>
             <div class="pg-inner-col right" *ngIf="isPaymentSuccess">
-              <button mat-raised-button class="lg-button"  (click)="submitForm()">
+              <button mat-raised-button class="lg-button"  (click)="onFormSubmit()">
                 Submit
               </button>
             </div>

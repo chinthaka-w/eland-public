@@ -171,7 +171,7 @@ export class CitizenApplicationComponent implements OnInit {
         if (result) {
           this.snackBar.success('Citizen updated successfully');
         }else{
-          alert('Failed');
+          this.snackBar.error('Failed');
         }
       });
   }
