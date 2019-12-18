@@ -181,7 +181,6 @@ export class CitizenApplicationComponent implements OnInit {
       .subscribe((result) => {
         if(result) {
           this.citizenDTO = result;
-          console.log(this.citizenDTO);
           if(this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.BANK_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.LAWYER_OR_LAW_FIRM_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.STATE_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.OTHER_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_APPROVED || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED) {
             this.publicUserForm.disable();
           }
