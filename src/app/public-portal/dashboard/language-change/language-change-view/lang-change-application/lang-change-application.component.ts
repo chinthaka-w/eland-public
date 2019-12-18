@@ -18,7 +18,7 @@ export class LangChangeApplicationComponent implements OnInit {
   workflowStageCode: string;
   langChangeRequest: LanguageChange;
 
-  constructor(private fb: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private langChangeService: LanguageChangeService,
               private route: ActivatedRoute,
               private snackBarService: SnackBarService) { }
@@ -37,7 +37,7 @@ export class LangChangeApplicationComponent implements OnInit {
   }
 
   viewApplication(): void {
-    this.langChangeViewForm = this.fb.group({
+    this.langChangeViewForm = this.formBuilder.group({
       title: [null, null],
       langEng: [null, null],
       langSin: [null, null],
