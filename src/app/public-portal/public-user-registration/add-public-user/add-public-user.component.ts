@@ -18,6 +18,7 @@ import {Router} from "@angular/router";
 import {BankUserType} from "../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../shared/enum/identification-type.enum";
 import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
+import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
 
 @Component({
   selector: "app-add-public-user",
@@ -39,6 +40,7 @@ export class AddPublicUserComponent implements OnInit {
   landRegistry: LandRegistriesDTO = new LandRegistriesDTO();
   citizenDTO: CitizenDTO = new CitizenDTO();
   paymentDto: PaymentDto = new PaymentDto();
+  workflowStageDocTypes: Array<WorkflowStageDocTypeDTO> = [];
 
   bankUserTypeId: number;
 
@@ -143,6 +145,11 @@ export class AddPublicUserComponent implements OnInit {
     else if(this.citizenDTO.userType == PublicUserType.OTHER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
     }
+
+    this.citizenService.getRelatedDocTypes(this.citizenDTO.workFlowStageCode)
+      .subscribe((result) => {
+        this.workflowStageDocTypes = result;
+      });
   }
 
   saveCitizen() {
