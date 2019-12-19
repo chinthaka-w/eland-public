@@ -3,6 +3,7 @@ import {Workflow} from '../../../enum/workflow.enum';
 import {SearchRequestService} from '../../../service/search-request.service';
 import {ExtractRequestService} from '../../../service/extract-request.service';
 import {LastRemark} from '../../../dto/last-remark.model';
+import {JudicialService} from '../../../service/change-judicial-service';
 
 @Component({
   selector: 'app-last-remark',
@@ -17,7 +18,8 @@ export class LastRemarkComponent implements OnInit {
   public lastRemark: LastRemark = new LastRemark();
 
   constructor(private searchRequestService: SearchRequestService,
-              private extractRequestService: ExtractRequestService,) {
+              private extractRequestService: ExtractRequestService,
+              private judicialService: JudicialService) {
   }
 
   ngOnInit() {
@@ -31,6 +33,9 @@ export class LastRemarkComponent implements OnInit {
         break;
       case Workflow.EXTRACT_REQUEST:
         this.loadExtractRequest();
+        break;
+      case Workflow.JUDICIAL_ZONE_CHANGE:
+        this.loadJudicialChangeRequest();
         break;
     }
   }
@@ -47,6 +52,16 @@ export class LastRemarkComponent implements OnInit {
 
   loadExtractRequest() {
     this.extractRequestService.findLastRemark(this.requestId).subscribe(
+      (data: LastRemark) => {
+        if (data != null) {
+          this.lastRemark = data;
+        }
+      }
+    );
+  }
+
+  loadJudicialChangeRequest() {
+    this.judicialService.findLastRemark(this.requestId).subscribe(
       (data: LastRemark) => {
         if (data != null) {
           this.lastRemark = data;
