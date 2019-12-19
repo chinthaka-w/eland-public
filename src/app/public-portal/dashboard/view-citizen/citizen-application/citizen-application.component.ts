@@ -8,7 +8,6 @@ import {BankDTO} from "../../../../shared/dto/bank-dto";
 import {PublicUserDTO} from "../../../../shared/dto/public-user-dto";
 import {CitizenService} from "../../../../shared/service/citizen.service";
 import {BankService} from "../../../../shared/service/bank.service";
-import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
 import { PublicUserType } from '../../../../shared/enum/public-user-type.enum';
 import {Parameters} from '../../../../shared/enum/parameters.enum';
 import {SearchRequestType} from '../../../../shared/enum/search-request-type.enum';

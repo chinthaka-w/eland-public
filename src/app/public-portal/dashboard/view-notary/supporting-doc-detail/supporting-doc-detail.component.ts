@@ -10,7 +10,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {NotaryService} from "../../../../shared/service/notary-service";
 import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
-import {SupportDocResponseModel} from "../../../../shared/dto/support-doc-response.model";
 import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
 
 @Component({

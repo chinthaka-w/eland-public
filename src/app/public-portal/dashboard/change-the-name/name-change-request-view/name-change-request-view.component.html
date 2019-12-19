@@ -9,7 +9,7 @@
   <div class="page-content-inner-wrapper">
     <mat-tab-group>
       <mat-tab label="Application">
-        <app-name-change-request-data [workflow]="workflow" [id]="id"></app-name-change-request-data>
+        <app-name-change-request-data  [workflow]="workflow" [id]="id"></app-name-change-request-data>
       </mat-tab>
       <mat-tab label="Payment Info">
         <app-notary-payment-info [workflow]="workflow" [id]="id"></app-notary-payment-info>
@@ -17,12 +17,9 @@
       <mat-tab label="Remark">
         <app-notary-remark [workflow]="workflow" [id]="id"></app-notary-remark>
       </mat-tab>
-      <mat-tab label="Supporting Documents">
-        <app-supporting-doc-detail  [requestDocuments]="requestId" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
-      </mat-tab>
-      <!--<mat-tab label="Supporting Documents">-->
-      <!--<app-supporting-doc-detail></app-supporting-doc-detail>-->
-      <!--</mat-tab>-->
+<!--      <mat-tab label="Supporting Documents">-->
+<!--        <app-supporting-doc-detail  [requestDocuments]="requestId" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>-->
+<!--      </mat-tab>-->
     </mat-tab-group>
   </div>
 </div>

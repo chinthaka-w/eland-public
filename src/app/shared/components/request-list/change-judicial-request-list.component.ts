@@ -6,12 +6,10 @@ import {JudicialChange} from '../../dto/judicial-change-model';
 import {SnackBarService} from '../../service/snack-bar.service';
 import {JudicialService} from '../../service/change-judicial-service';
 import {TokenStorageService} from '../../auth/token-storage.service';
-import {RequestViewComponent} from '../../../public-portal/dashboard/requests/request-view/request-view.component';
-import {ActivatedRoute, Route, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Workflow} from '../../enum/workflow.enum';
 import {SearchRequestService} from '../../service/search-request.service';
 import {SearchRequest} from '../../dto/search-request.model';
-import {map} from 'rxjs/operators';
 import {SessionService} from '../../service/session.service';
 import {ExtractRequestService} from '../../service/extract-request.service';
 import {ExtractRequest} from '../../dto/extract-request.model';
@@ -73,7 +71,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'NOTARY NAME CHANGING';
         this.titleText = 'REQUEST FOR CHANGING THE NOTARY NAME';
         this.newButtonURL = '/change-the-name';
-        this.actionButtonURL = `/change-name-request-view/`;
+        this.actionButtonURL = `/change-name-request-view/${btoa(Workflow.NOTARY_NAME_CHANGE)}`;
         break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();
@@ -187,5 +185,4 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       }
     );
   }
-
 }

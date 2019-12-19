@@ -116,29 +116,6 @@ export class ChangeTheNameComponent implements OnInit {
     )
   }
 
-  private getNameChangeDetails(id): void {
-    this.nameChangeService.getNameChangeRequestData(id).subscribe(
-      (data: NotaryNameChangeModel) => {
-        this.nameChangeModel = data;
-        this.notaryForm.patchValue(
-          {
-            newFullNameInEnglish: this.nameChangeModel.newFullNameEng,
-            newFullNameInSinhala: this.nameChangeModel.newFullNameSin,
-            newFullNameInTamil: this.nameChangeModel.newFullNameTam,
-            newInitialNameInEnglish: this.nameChangeModel.newInitialNameEng,
-            newInitialNameInSinhala: this.nameChangeModel.newInitialNameSin,
-            newInitialNameInTamil: this.nameChangeModel.newInitialNameTam,
-          }
-        );
-        this.locationList = this.nameChangeModel.newNotaryDsDivisionDTO;
-      }
-    );
-    if(this.searchDetails.workflow === WorkflowStages.REGISTRATION_REQ_MODIFIED || this.searchDetails.workflow === WorkflowStages.DATA_VERIFICATION_REJECTED){
-      this.notaryForm.enable();
-    }else if(this.searchDetails.workflow === WorkflowStages.REGISTRATION_REQ_INITIALIZED){
-      this.notaryForm.disable();
-    }
-  }
 
   submitForm() {
     this.nameChangeModel.judicialZoneId = this.notaryForm.value.courtZone;

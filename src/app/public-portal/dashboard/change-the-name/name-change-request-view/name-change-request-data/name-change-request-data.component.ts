@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Languages} from "../../../../../shared/enum/languages.enum";
 import {SupportingDocService} from "../../../../../shared/service/supporting-doc.service";
@@ -21,13 +21,27 @@ import {JudicialZoneService} from "../../../../../shared/service/judicial-zone.s
 import {NameChangeWorkflowStagesEnum} from "../../../../../shared/enum/name-change-workflow-stages.enum";
 import {SessionService} from "../../../../../shared/service/session.service";
 import {DsGnDivisionDTO} from "../../../../../shared/dto/gs-gn-model";
+import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-name-change-request-data',
   templateUrl: './name-change-request-data.component.html',
-  styleUrls: ['./name-change-request-data.component.css']
+  styleUrls: ['./name-change-request-data.component.css'],
+  animations: [
+  trigger("detailExpand", [
+    state("collapsed", style({ height: "0px", minHeight: "0" })),
+    state("expanded", style({ height: "*" })),
+    transition(
+      "expanded <=> collapsed",
+      animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+    )
+  ])
+]
 })
 export class NameChangeRequestDataComponent implements OnInit {
+  @Output() nameChangeDetail = new EventEmitter<NotaryNameChangeModel>();
+  @Input() requestDetailId: RequestSearchDetailDTO;
   @Input() workflow: string;
   @Input() id: number;
   @Input()
@@ -48,6 +62,7 @@ export class NameChangeRequestDataComponent implements OnInit {
   public nameChangeModel: NotaryNameChangeModel;
   public nameChangeDto = new NotaryNameChangeModel();
   public notaryId: number;
+  public notaryID: number;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -62,6 +77,7 @@ export class NameChangeRequestDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.notaryId = this.sessionService.getUser().id;
     this.notaryForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
@@ -86,8 +102,7 @@ export class NameChangeRequestDataComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
     });
-    this.notaryId = this.sessionService.getUser().id;
-    this.getNameChangeDetails(this.id);
+    this.getNameChangeDetails(this.notaryId);
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
