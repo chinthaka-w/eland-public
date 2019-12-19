@@ -99,7 +99,6 @@ export class ChangeTheNameComponent implements OnInit {
       userName: new FormControl(''),
       recaptcha: new FormControl(null),
     });
-    //this.getNameChangeDetails(this.requestId);
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();

@@ -77,7 +77,6 @@ export class NameChangeRequestDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.notaryId = this.sessionService.getUser().id;
     this.notaryForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
@@ -102,7 +101,7 @@ export class NameChangeRequestDataComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
     });
-    this.getNameChangeDetails(this.notaryId);
+    this.getNameChangeDetails(this.id);
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
