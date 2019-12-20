@@ -104,6 +104,9 @@ export class ChangeTheNameComponent implements OnInit {
     this.getLandRegistries();
     this.getDsDivisions();
     this.getGnDivisions();
+    this.isPaymentSuccess = false;
+    this.isContinueToPayment = false;
+
   }
 
   getUserDetails(){

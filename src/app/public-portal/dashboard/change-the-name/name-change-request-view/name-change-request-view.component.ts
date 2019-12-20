@@ -17,6 +17,7 @@ export class NameChangeRequestViewComponent implements OnInit {
   public docsList: DocumentResponseDto[] = [];
   public nameChangeDetails: NotaryNameChangeModel;
   requestId: string;
+  requestID: RequestSearchDetailDTO;
   WorkflowCode = WorkflowStages;
   id: number;
   workflow: string;
@@ -37,14 +38,16 @@ export class NameChangeRequestViewComponent implements OnInit {
   ngOnInit() {
   }
 
-  // getRequestDetails(){
-  //   this.newNotaryService.getNotaryRequestDetails(this.sessionService.getUser().id).subscribe(
-  //     (data: RequestSearchDetailDTO) =>{
-  //       this.requestId = data;
-  //       this.workflow = data.workflow;
-  //     }
-  //   )
-  // }
+  getRequestDetails(){
+    this.newNotaryService.getNotaryRequestDetails(this.sessionService.getUser().id).subscribe(
+      (data: RequestSearchDetailDTO) =>{
+        this.id = +this.requestId;
+        this.workflow = data.workflow;
+      }
+    )
+  }
+
+
 
   getApplicationDetails(data: NotaryNameChangeModel){
     this.nameChangeDetails = data;

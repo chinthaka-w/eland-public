@@ -23,6 +23,9 @@ import {SessionService} from "../../../../../shared/service/session.service";
 import {DsGnDivisionDTO} from "../../../../../shared/dto/gs-gn-model";
 import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {NewNotaryRequestsCategorySearchDto} from "../../../../../shared/dto/new-notary-requests-category-search.dto";
+import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
+import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
 
 @Component({
   selector: 'app-name-change-request-data',
@@ -61,8 +64,9 @@ export class NameChangeRequestDataComponent implements OnInit {
   public dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   public nameChangeModel: NotaryNameChangeModel;
   public nameChangeDto = new NotaryNameChangeModel();
+  paymentDetails: NewNotaryPaymentDetailDto[] = [];
+  paymentId: number;
   public notaryId: number;
-  public notaryID: number;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -73,6 +77,7 @@ export class NameChangeRequestDataComponent implements OnInit {
               private formBuilder: FormBuilder,
               private snackBar: SnackBarService,
               private location: Location,
+              private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private sessionService: SessionService) {
   }
 
@@ -107,6 +112,20 @@ export class NameChangeRequestDataComponent implements OnInit {
     this.getLandRegistries();
     this.getDsDivisions();
     this.getGnDivisions();
+    this.getPaymentDetails();
+  }
+
+  getPaymentDetails() {
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id, this.workflow);
+    this.newNotaryDataVarificationService.getPaymentDetails(searchType).subscribe(
+      (result: NewNotaryPaymentDetailDto[]) => {
+        this.paymentDetails = result;
+        this.paymentId = this.paymentDetails[0].paymentId;
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   private getNameChangeDetails(id): void {
@@ -124,6 +143,11 @@ export class NameChangeRequestDataComponent implements OnInit {
           }
         );
         this.dsGnDivisions = this.nameChangeModel.newNotaryDsDivisionDTO;
+        if (this.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED || this.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED) {
+          this.notaryForm.enable();
+        } else if (this.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED) {
+          this.notaryForm.disable();
+        }
       }
     );
   }
@@ -138,6 +162,7 @@ export class NameChangeRequestDataComponent implements OnInit {
       (success: string) => {
         this.snackBar.success('Notary Name Change Request Success');
         this.notaryForm.reset();
+        this.nameChangeDetail.emit(this.nameChangeDto);
       },
       error => {
         this.snackBar.error('Failed');

@@ -42,11 +42,11 @@ export class SupportingDocDetailComponent implements OnInit {
               private notaryService: NewNotaryDataVarificationService,
               private newNotaryService: NotaryService,
               private documetService: SupportingDocService) {
-    this.item1.id =1;
-    this.item1.name = 'name1';
-    this.item1.statusCode = false;
-
-    this.supportingDocuments.push(this.item1);
+    // this.item1.id =1;
+    // this.item1.name = 'name1';
+    // this.item1.statusCode = false;
+    //
+    // this.supportingDocuments.push(this.item1);
   }
 
   ngOnInit() {
@@ -55,6 +55,7 @@ export class SupportingDocDetailComponent implements OnInit {
     this.supportingDocForm = new FormGroup({
       remarks: new FormArray([])
     });
+    this.getDocumentTypesForNotaryNameChange();
     this.getDocumentTypes();
   }
 
@@ -93,6 +94,14 @@ export class SupportingDocDetailComponent implements OnInit {
 
   getDocumentTypes(){
     this.documetService.getDocumentsByWorkFlow(this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow).subscribe(
+      (data: WorkflowStageDocDto[]) => {
+        this.docList = data;
+      }
+    );
+  }
+
+  getDocumentTypesForNotaryNameChange(){
+    this.documetService.getDocumentsByWorkFlow(this.workflow !== undefined ? this.workflow : this.workflow).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }

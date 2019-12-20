@@ -71,7 +71,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'NOTARY NAME CHANGING';
         this.titleText = 'REQUEST FOR CHANGING THE NOTARY NAME';
         this.newButtonURL = '/change-the-name';
-        this.actionButtonURL = `/change-name-request-view/${btoa(Workflow.NOTARY_NAME_CHANGE)}`;
+        this.actionButtonURL = `/change-name-request-view/`;
         break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();

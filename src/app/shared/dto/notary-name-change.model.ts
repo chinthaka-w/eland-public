@@ -25,4 +25,5 @@ export class NotaryNameChangeModel {
   public newNotaryDsDivisionDTO: NewNotaryDsDivisionDTO[]=[];
   public lastUpdatedUser: string;
   public juducialZoneDescription: string;
+  public workflowStageCode: string;
 }
