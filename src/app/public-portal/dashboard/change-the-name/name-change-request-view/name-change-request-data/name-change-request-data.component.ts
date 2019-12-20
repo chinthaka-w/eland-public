@@ -154,9 +154,10 @@ export class NameChangeRequestDataComponent implements OnInit {
 
   submitForm() {
     this.nameChangeDto = this.notaryForm.value;
-    this.nameChangeDto.newNotaryId = this.notaryId;
+    this.nameChangeDto.newNotaryId = this.sessionService.getUser().id;
     this.nameChangeDto.dsGnList = this.dsGnList;
     this.nameChangeDto.requestId = this.id;
+    this.nameChangeDto.paymentId = this.paymentId;
 
     this.changeNameService.update(this.nameChangeDto).subscribe(
       (success: string) => {

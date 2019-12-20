@@ -118,9 +118,7 @@ export class ChangeTheNameComponent implements OnInit {
     )
   }
 
-
   submitForm() {
-    this.nameChangeModel.judicialZoneId = this.notaryForm.value.courtZone;
     this.nameChangeModel.newFullNameEng = this.notaryForm.value.newFullNameInEnglish;
     this.nameChangeModel.newFullNameSin = this.notaryForm.value.newFullNameInSinhala;
     this.nameChangeModel.newFullNameTam = this.notaryForm.value.newFullNameInTamil;
