@@ -37,7 +37,7 @@
           <button mat-raised-button class="green" (click)="viewDetails()">View</button>
         </div>
       </div>
-      <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.PENDING">
+      <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus != (commonStatus.ACTIVE)">
         <div class="db-card-header" style="background-image: url('../../../assets/images/temp_img_006.jpg')">
           <a href="#">Next ></a>
         </div>
