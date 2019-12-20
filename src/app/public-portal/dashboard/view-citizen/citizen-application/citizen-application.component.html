@@ -227,15 +227,8 @@
 
 
   <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
-    <div class="pg-inner-col">
-      <re-captcha formControlName="recaptcha"></re-captcha>
-    </div>
-    <div class="pg-inner-col middle">
-      By signing up, you agree to E-Land's
-      <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
-      and <a href="#">Privacy Policy</a> .
-    </div>
-    <div class="pg-inner-col right">
+
+    <div class="pg-inner-col right" *ngIf="citizenDTO.workFlowStageCode == WorkflowStageForCitizenReg.CITIZEN_REJECTED">
       <button mat-raised-button class="lg-button" (click)="saveCitizen()">
         Continue
       </button>

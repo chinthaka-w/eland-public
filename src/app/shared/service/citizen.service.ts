@@ -56,4 +56,18 @@ export class CitizenService {
     return this.httpClient.get<Array<WorkflowStageDocTypeDTO>>(this.BASE_URL + 'supportingDocument/' + code, {headers: this.headers} );
   }
 
+  updateSupportingDocs(fileList: Object, citizen: CitizenDTO): Observable<StatusDTO> {
+
+    const formData: FormData = new FormData();
+    const keys = Object.keys(fileList);
+    for (const key in keys) {
+      for (const file of fileList[keys[key]]) {
+        formData.append('file', file, keys[key] + '/' + file.name);
+      }
+    }
+    formData.append('model', JSON.stringify(citizen));
+    return this.httpClient.post<StatusDTO>(this.BASE_URL + 'citizen/updateDocs', formData, {headers: this.headers});
+
+  }
+
 }
