@@ -21,4 +21,5 @@ export class JudicialChange {
   public dsGnList: DsGnDivisionDTO[] = [];
   public paymentId: number;
   public newNotaryDsDivisionDTO: NewNotaryDsDivisionDTO[]=[];
+  public workflowCode: string;
 }

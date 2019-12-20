@@ -1,11 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {JudicialChangeWorkflowStagesEnum} from '../../../../shared/enum/judicial-change-workflow-stages.enum';
 import {WorkflowStages} from '../../../../shared/enum/workflow-stages.enum';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LandRegistryModel} from '../../../../shared/dto/land-registry.model.';
 import {JudicialZoneService} from '../../../../shared/service/judicial-zone.service';
 import {JudicialChange} from '../../../../shared/dto/judicial-change-model';
 import {JudicialService} from '../../../../shared/service/change-judicial-service';
+import {MatTabChangeEvent} from '@angular/material/tabs';
+import {SupportingDocDetailComponent} from '../../view-notary/supporting-doc-detail/supporting-doc-detail.component';
+import {NotaryApplicationComponent} from '../../view-notary/notary-application/notary-application.component';
+import {RequestSearchDetailDTO} from '../../../../shared/dto/request-search.dto';
+import {NotaryService} from '../../../../shared/service/notary-service';
+import {DocumentResponseDto} from '../../../../shared/dto/document-response.dto';
+import {Notary} from '../../../../shared/dto/notary.model';
+import {SupportDocResponseModel} from '../../../../shared/dto/support-doc-response.model';
+import {SnackBarService} from '../../../../shared/service/snack-bar.service';
 
 @Component({
   selector: 'app-judicial-change-request-view',
@@ -17,8 +26,24 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   WorkflowCode = WorkflowStages;
   id: number;
   workflow: string;
+  public selectedIndex: number = 0;
+  public disabled: boolean = true;
+  public disabledPayment: boolean = true;
+  public disabledRemark: boolean = true;
+  public disabledDocuments: boolean = true;
+  public isApplicationValid: boolean = true;
+  @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
+  @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
+  public workFlowStage: string;
+  public docsList: DocumentResponseDto[] = [];
+  public judicialChange: JudicialChange;
+  @Input() notaryId: number;
+  public docTypeId: number;
+  public docId: number;
+  public judicial: JudicialChange;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private newNotaryService: NotaryService, private snackBar: SnackBarService,
+              private judicialService: JudicialService, private router: Router) {
     this.route.params.subscribe(params => {
       this.workflow  = atob(params['workflow']);
       this.requestId  = atob(params['id']);
@@ -31,4 +56,80 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   }
 
 
+  public tabChanged(tabChangeEvent: MatTabChangeEvent,event): void {
+    this.selectedIndex = tabChangeEvent.index;
+    if( event.tab.textLabel === "Application" ){
+      this.disabled = true;
+      this.disabledPayment = true;
+      this.disabledRemark = true;
+      this.disabledDocuments = true;
+    }
+    if((event.tab.textLabel === "Payment Info") && (!this.isApplicationValid)){
+      this.disabled = true;
+      this.disabledPayment = false;
+      this.disabledRemark = false;
+      this.disabledDocuments = false;
+    }
+    if(event.tab.textLabel === "Remark"){
+      this.disabled = true;
+      this.disabledPayment = false;
+      this.disabledRemark = false;
+      this.disabledDocuments = false;
+    }
+  }
+
+  getSupportingDocs(data: DocumentResponseDto[]){
+    this.docsList = data;
+    this.disabled = true;
+  }
+
+  getApplicationDetails(data: JudicialChange){
+    this.isApplicationValid = false;
+    this.judicial = data;
+    this.selectedIndex += 1;
+  }
+
+  getJudicialChangeDetails(data: JudicialChange){
+    this.isApplicationValid = false;
+    this.judicialChange = data;
+    this.selectedIndex += 1;
+  }
+
+  onFormSubmit(){
+    this.updateDetails();
+    this.updateDocumentDetails(this.docsList);
+  }
+
+  updateDocumentDetails(documents: DocumentResponseDto[]){
+    documents.forEach(value => {
+      this.docTypeId = value.docTypeId;
+      this.docId = value.docId;
+
+      const formData = new FormData();
+      const supportDocResponse = new SupportDocResponseModel(this.docId, this.docTypeId, this.id);
+      formData.append('data', JSON.stringify(supportDocResponse));
+      documents.forEach(doc => {
+        formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
+      });
+      this.newNotaryService.updateSupportDocuments(formData).subscribe(
+        (success: string) => {
+          this.snackBar.success('Document Update Success');
+         },
+        error => {
+          this.snackBar.error('Failed');
+        }
+      )
+    });
+  }
+
+  updateDetails(){
+    this.judicialService.update(this.judicial).subscribe(
+      (success: string) => {
+        this.snackBar.success('Judicial Change Request Update Success');
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
 }

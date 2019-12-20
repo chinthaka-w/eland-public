@@ -7,6 +7,7 @@
       </h5>
       <div class="separator">&nbsp;</div>
     </div>
+    <app-last-remark [workflow]="workflow" [requestId]="id"></app-last-remark>
     <form [formGroup]="requestForm" class="form pb-5">
       <div class="pg-inner-row mb-20">
 
@@ -257,12 +258,10 @@
           <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
           and <a href="#">Privacy Policy</a> .
         </div>
-
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="submitForm()">
-            Submit
-          </button>
+          <button mat-raised-button class="lg-button" type="button" (click)="submitForm()">Continue</button>
         </div>
+
       </div>
     </form>
   </div>
