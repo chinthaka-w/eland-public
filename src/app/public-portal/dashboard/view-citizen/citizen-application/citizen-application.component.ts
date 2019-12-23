@@ -165,6 +165,8 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
     this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
+    this.citizenDTO.workFlowStageCode = this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED;
+
     this.citizenService.updateCitizen(this.citizenDTO)
       .subscribe((result) => {
         if (result) {
