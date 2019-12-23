@@ -333,7 +333,7 @@
               <mat-form-field appearance="outline">
                 <select matNativeControl required  formControlName="courtZone"  class="form-control">
                   <option value="">Select</option>
-                  <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}</option>
+                  <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">{{ judicialZone.nameEng }}</option>
                 </select>
               </mat-form-field>
               <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
@@ -459,9 +459,9 @@
         <label>The medium you have passed the subject of convayancing:<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-radio-group  class="form-control" formControlName="medium" >
-            <mat-radio-button  value="1">Sinhala</mat-radio-button>
-            <mat-radio-button  value="2">English</mat-radio-button>
-            <mat-radio-button  value="3">Tamil</mat-radio-button>
+            <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
+            <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
+            <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
           </mat-radio-group>
           <div *ngIf="FormControls.medium.touched && FormControls.medium.errors"
                class="invalid-feedback">

@@ -71,6 +71,8 @@ import { ExtractApplicationComponent } from './dashboard/extract/extract-view/ex
 import { LanguageChangeViewComponent } from './dashboard/language-change/language-change-view/language-change-view.component';
 import { LangChangeApplicationComponent } from './dashboard/language-change/language-change-view/lang-change-application/lang-change-application.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import { NameChangeRequestViewComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
+import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-data/name-change-request-data.component';
 
 
 @NgModule({
@@ -121,8 +123,11 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
     ExtractApplicationComponent,
     LanguageChangeViewComponent,
     RequestForCorrectionComponent,
-    LangChangeApplicationComponent
-   ],
+    LangChangeApplicationComponent,
+    RequestForCorrectionComponent,
+    NameChangeRequestViewComponent,
+    NameChangeRequestDataComponent
+],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
