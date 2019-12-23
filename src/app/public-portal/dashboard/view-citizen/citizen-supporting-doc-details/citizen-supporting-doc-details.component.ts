@@ -15,6 +15,7 @@ import {WorkflowStageDocTypeDTO} from "../../../../shared/dto/workflow-stage-doc
 import {CitizenDTO} from "../../../../shared/dto/citizen-dto";
 import {WorkflowStageCitizenReg} from "../../../../shared/enum/workflow-stage-citizen-reg.enum";
 import {SnackBarService} from "../../../../shared/service/snack-bar.service";
+import {PublicUserType} from "../../../../shared/enum/public-user-type.enum";
 
 @Component({
   selector: 'app-citizen-supporting-doc-details',
@@ -41,6 +42,7 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
   citizen: CitizenDTO = new CitizenDTO();
   citizenNew: CitizenDTO = new CitizenDTO();
   public workflowStageCitizenReg = WorkflowStageCitizenReg;
+  public publicUserType = PublicUserType;
   workFlowStage: string;
 
   constructor(private route: ActivatedRoute,
@@ -105,19 +107,19 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
   }
 
   setWorkFlowStageByCitizenType() {
-    if(this.citizen.userType == 1) {
+    if(this.citizen.userType == this.publicUserType.CITIZEN) {
       this.workFlowStage = this.workflowStageCitizenReg.CITIZEN_INIT;
     }
-    else if(this.citizen.userType == 2) {
+    else if(this.citizen.userType == this.publicUserType.BANK) {
       this.workFlowStage = this.workflowStageCitizenReg.BANK_INIT;
     }
-    else if(this.citizen.userType == 3) {
+    else if(this.citizen.userType == this.publicUserType.LAWYER) {
       this.workFlowStage = this.workflowStageCitizenReg.LAWYER_OR_LAW_FIRM_INIT;
     }
-    else if(this.citizen.userType == 4) {
+    else if(this.citizen.userType == this.publicUserType.STATE) {
       this.workFlowStage = this.workflowStageCitizenReg.STATE_INSTITUTE_INIT;
     }
-    else if(this.citizen.userType == 5) {
+    else if(this.citizen.userType == this.publicUserType.OTHER) {
       this.workFlowStage = this.workflowStageCitizenReg.OTHER_INSTITUTE_INIT;
     }
   }

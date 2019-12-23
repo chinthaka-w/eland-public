@@ -120,8 +120,8 @@ export class AddPublicUserComponent implements OnInit {
   getCurrentBankUserType(event) {
     this.bankUserTypeId = event.target.value;
     this.publicUserForm.controls['notaryId'].enable();
-    if(this.citizenDTO.userType == 2){
-      if((this.bankUserTypeId == 1) || (this.bankUserTypeId == 3)) {
+    if(this.citizenDTO.userType == this.PublicUserType.BANK){
+      if((this.bankUserTypeId == this.bankUserType.MANAGER) || (this.bankUserTypeId == this.bankUserType.OTHER)) {
         this.publicUserForm.controls['notaryId'].disable();
       }
     }
@@ -161,7 +161,7 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   disableUselessFormControls(type: number) {
-    if(type == 1) {
+    if(type == this.PublicUserType.CITIZEN) {
       this.publicUserForm.controls['bankName'].disable();
       this.publicUserForm.controls['bankUserType'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
@@ -174,7 +174,7 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
-    else if (type == 2) {
+    else if (type == this.PublicUserType.BANK) {
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['renewalCertificate'].disable();
       this.publicUserForm.controls['nicCopy'].disable();
@@ -184,7 +184,7 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
-    else if (type == 3) {
+    else if (type == this.PublicUserType.LAWYER) {
       this.publicUserForm.controls['bankName'].disable();
       this.publicUserForm.controls['bankUserType'].disable();
       this.publicUserForm.controls['renewalCertificate'].disable();
@@ -195,7 +195,7 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
-    else if (type == 4) {
+    else if (type == this.PublicUserType.STATE) {
       this.publicUserForm.controls['bankName'].disable();
       this.publicUserForm.controls['bankUserType'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
@@ -205,7 +205,7 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['recaptcha'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
-    else if (type == 5) {
+    else if (type == this.PublicUserType.OTHER) {
       this.publicUserForm.controls['bankName'].disable();
       this.publicUserForm.controls['bankUserType'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
