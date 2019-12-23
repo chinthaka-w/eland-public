@@ -81,6 +81,7 @@ export class AddNotaryComponent implements OnInit {
 
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
+  isNotaryRegistration: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -388,6 +389,7 @@ export class AddNotaryComponent implements OnInit {
     this.paymentDataValue = paymentData.paymentId;
     this.snackBar.success("Payment Success");
     this.saveNotaryDetails();
+    this.isNotaryRegistration = true;
   }
 
 }
