@@ -343,12 +343,12 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         <div *ngIf="!(paymentDto.paymentId)" class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="saveCitizen()">
+          <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="saveCitizen()">
             Continue
           </button>
         </div>
         <div *ngIf="paymentDto.paymentId" class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="saveCitizen()">
+          <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="saveCitizen()">
             Register
           </button>
         </div>

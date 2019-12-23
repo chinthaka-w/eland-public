@@ -119,6 +119,12 @@ export class AddPublicUserComponent implements OnInit {
   }
   getCurrentBankUserType(event) {
     this.bankUserTypeId = event.target.value;
+    this.publicUserForm.controls['notaryId'].enable();
+    if(this.citizenDTO.userType == 2){
+      if((this.bankUserTypeId == 1) || (this.bankUserTypeId == 3)) {
+        this.publicUserForm.controls['notaryId'].disable();
+      }
+    }
     this.citizenDTO.bankUserType = this.bankUserTypeId;
   }
   getCurrentBank(event) {
@@ -129,6 +135,8 @@ export class AddPublicUserComponent implements OnInit {
   }
   getCurrentUserType(event) {
     this.citizenDTO.userType = event.target.value;
+    this.publicUserForm.enable();
+    this.disableUselessFormControls(this.citizenDTO.userType);
 
     if(this.citizenDTO.userType == PublicUserType.CITIZEN) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
@@ -150,6 +158,64 @@ export class AddPublicUserComponent implements OnInit {
       .subscribe((result) => {
         this.workflowStageDocTypes = result;
       });
+  }
+
+  disableUselessFormControls(type: number) {
+    if(type == 1) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['notaryId'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == 2) {
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == 3) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == 4) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == 5) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
+    }
   }
 
   saveCitizen() {
