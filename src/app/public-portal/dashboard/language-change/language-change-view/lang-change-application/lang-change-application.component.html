@@ -4,7 +4,6 @@
             <div class="pg-inner-col">
                 <mat-form-field appearance="outline">
                     <select matNativeControl formControlName="title" class="form-control">
-                        <option value="0" [disabled]="true">Select</option>
                         <option *ngFor="let title of nameTitles" [value]="title.nameTitleId">
                             {{title.titleEng}}
                         </option>
