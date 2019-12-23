@@ -19,6 +19,9 @@ export class SysConfigService {
 
   layout = new EventEmitter<AppConfig>();
 
+
+
+
   constructor() {}
 
   set config(value) {
@@ -26,6 +29,8 @@ export class SysConfigService {
     this.layout.emit(value);
   }
 
+
+  
   get config(): any | Observable<any> {
     return JSON.parse(window.sessionStorage.getItem("appConfig"));
   }

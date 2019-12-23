@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
     this.sysConfigService.layout.emit({
       user: false,
       header: false,
-      footer: false
+      footer: false,
   });
     this.router.navigate([`/login`], { relativeTo: this.route });
   }

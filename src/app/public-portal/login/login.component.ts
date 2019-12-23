@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
           this.sysConfigService.layout.emit({
             user: true,
             header: true,
-            footer: true
+            footer: true,
           });
           //setPermission
           this.router.navigate([`/dashboard`], { relativeTo: this.route });
