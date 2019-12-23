@@ -16,13 +16,13 @@
                 <div class="default-input-wrapper m0 rac-col">
                     <label>Language:<span class="redtxt">*</span></label>
                     <div class="default-input-feild">
-                        <mat-checkbox formControlName="langSin">
+                        <mat-checkbox formControlName="langSin" (change)="languageChange(langMode.SINHALA)">
                             Sinhala
                         </mat-checkbox>
-                        <mat-checkbox formControlName="langEng">
+                        <mat-checkbox formControlName="langEng" (change)="languageChange(langMode.ENGLISH)">
                             English
                         </mat-checkbox>
-                        <mat-checkbox formControlName="langTam" >
+                        <mat-checkbox formControlName="langTam" (change)="languageChange(langMode.TAMIL)">
                             Tamil
                         </mat-checkbox>
                     </div>
@@ -160,7 +160,6 @@
                     <div class="default-input-feild date-feild">
                         <mat-form-field appearance="outline">
                             <input matInput [matDatepicker]="startDate" formControlName="startingDate" />
-                            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                             <mat-datepicker #startDate></mat-datepicker>
                         </mat-form-field>
                         <button mat-raised-button (click)="startDate.open()">
@@ -227,7 +226,7 @@
                     <div class="default-input-feild date-feild">
                         <mat-form-field appearance="outline">
                             <input matInput [matDatepicker]="date" formControlName="date" />
-                            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+                            
                             <mat-datepicker #date></mat-datepicker>
                         </mat-form-field>
                         <button mat-raised-button (click)="date.open()">
@@ -239,6 +238,13 @@
         </div>
     
         <div class="separator">&nbsp;</div>
+
+        <div class="pg-inner-row mb-0" *ngIf="viewUpdate">
+            <div class="pg-inner-col"></div>
+            <div class="pg-inner-col right">
+                <button mat-raised-button class="lg-button" (click)="update()"> Update </button>
+            </div>
+        </div>
     
     </form>
 </div>
