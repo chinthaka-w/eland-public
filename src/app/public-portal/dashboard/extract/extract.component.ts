@@ -60,7 +60,7 @@ export class ExtractComponent implements OnInit {
 
   //Mat Table Config
   public elements: Element[] = [];
-  public displayedColumns: string[] = ['Folio No', 'No. of years', 'Status', 'Action'];
+  public displayedColumns: string[] = ['Folio No', 'Status', 'Action'];
   public dataSource = new MatTableDataSource<any>(this.elements);
 
   constructor(
@@ -104,7 +104,6 @@ export class ExtractComponent implements OnInit {
 
     this.folioForm = new FormGroup({
       'folioNo': new FormControl('', Validators.required),
-      'noOfYears': new FormControl('', Validators.required),
     });
 
     this.loadLandRegistries();
@@ -244,7 +243,7 @@ export class ExtractComponent implements OnInit {
 
     if (this.searchRequestForm.valid && !this.folioForm.valid) {
       isValid = false;
-      errorMassage = 'Folio No or No.of Years can not be empty';
+      errorMassage = 'Folio No can not be empty';
     }
     //
     // if (isValid && this.folioForm.get('noOfYears').value != null && this.folioForm.get('noOfYears').value != '') {
@@ -264,8 +263,9 @@ export class ExtractComponent implements OnInit {
           let element: Element = {
             index: this.elements.length,
             folioNo: this.folioForm.get('folioNo').value,
-            noOfYears: this.folioForm.get('noOfYears').value,
-            status: folioStatus.desc
+            deleted: false,
+            statusDes: folioStatus.desc,
+            status: folioStatus.code
           };
           this.elements.push(element);
           this.dataSource.data = this.elements;
@@ -352,12 +352,14 @@ export class ExtractComponent implements OnInit {
     this.elements = [];
     this.dataSource.data = this.elements;
   }
+
 }
 
 export interface Element {
   index: number;
   folioNo: string;
-  noOfYears: string;
+  deleted: boolean;
+  statusDes: string;
   status: string;
 }
 

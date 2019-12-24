@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {SearchRequest} from '../../../../../shared/dto/search-request.model';
 import {Village} from '../../../../../shared/dto/village.model';
 import {PaththuwaService} from '../../../../../shared/service/paththuwa.service';
@@ -30,6 +30,8 @@ import {KoraleService} from '../../../../../shared/service/korale.service';
 import {DsDivisionService} from '../../../../../shared/service/ds-division.service';
 import {Location} from '@angular/common';
 import {Workflow} from '../../../../../shared/enum/workflow.enum';
+import {ExtractRequestService} from '../../../../../shared/service/extract-request.service';
+import {FolioStatus} from '../../../../../shared/enum/folio-status.enum';
 
 @Component({
   selector: 'app-extract-application',
@@ -41,11 +43,14 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
   @Input() workflow: string;
   @Input() requestId: number;
   @Input() action: string;
+  @Output() folioItem = new EventEmitter<Element>();
+  @Output() formData = new EventEmitter<FormGroup>();
 
   SearchRequestType = SearchRequestType;
   Parameters = Parameters;
   WorkflowCode = Workflow;
   ActionMode = ActionMode;
+  FolioStatus = FolioStatus;
 
   public isContinueToPayment: boolean = false;
 
@@ -64,7 +69,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
 
   //Mat Table Config
   public elements: Element[] = [];
-  public displayedColumns: string[] = ['Folio No', 'No. of years', 'Status', 'Action'];
+  public displayedColumns: string[] = ['Folio No',  'Status', 'Action'];
   public dataSource = new MatTableDataSource<any>(this.elements);
 
   constructor(
@@ -76,7 +81,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     private villageService: VillageService,
     private searchReasonService: SearchReasonService,
     private folioNoService: FolioNoService,
-    private searchRequestService: SearchRequestService,
+    private extractRequestService: ExtractRequestService,
     private sessionService: SessionService,
     private snackBarService: SnackBarService,
     private location: Location) {
@@ -107,7 +112,6 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
 
     this.folioForm = new FormGroup({
       'folioNo': new FormControl('', Validators.required),
-      'noOfYears': new FormControl('', Validators.required),
     });
 
     if (this.action === ActionMode.VIEW) {
@@ -119,6 +123,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     this.loadKorale();
     this.loadDSDivision();
     this.loadReasonForSearch();
+    this.searchRequestForm.get('requestType').disable();
 
     this.searchRequestForm.get('koraleId').valueChanges.subscribe(value => {
       this.loadPaththu(value);
@@ -131,6 +136,12 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     this.searchRequestForm.get('gnDivisionId').valueChanges.subscribe(value => {
       this.loadVillage(value);
     });
+
+    this.searchRequestForm.valueChanges.subscribe(
+      (data) => {
+        this.formData.emit(data);
+      }
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -197,21 +208,6 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     );
   }
 
-  saveRequest(searchRequest: SearchRequest): void {
-    this.searchRequestService.saveSearchRequest(searchRequest).subscribe(
-      (data) => {
-        console.log(data);
-      }, (error: HttpErrorResponse) => {
-        console.log(error);
-        this.snackBarService.error(error.message);
-      }, () => {
-        this.resetForm();
-        this.isContinueToPayment = false;
-        this.snackBarService.success('Your Search request is submitted.')
-      }
-    );
-  }
-
 //Local changes
 
   goBack(): any {
@@ -246,19 +242,6 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     }
   }
 
-  onChangeKorale(koraleId: any) {
-    this.loadPaththu(koraleId);
-  }
-
-  onChangeDsDivision(dsDivisionId: any) {
-    console.log('onchnageDs' + dsDivisionId)
-    this.loadGNDivision(dsDivisionId);
-  }
-
-  onChangeGnDivision(gnDivisionId: any) {
-    this.loadVillage(gnDivisionId);
-  }
-
   onClickAddButton() {
 
     let isValid = true;
@@ -271,7 +254,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
 
     if (this.searchRequestForm.valid && !this.folioForm.valid) {
       isValid = false;
-      errorMassage = 'Folio No or No.of Years can not be empty';
+      errorMassage = 'Folio No can not be empty';
     }
     //
     // if (isValid && this.folioForm.get('noOfYears').value != null && this.folioForm.get('noOfYears').value != '') {
@@ -289,12 +272,14 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
           this.snackBarService.error(error.message);
         }, () => {
           let element: Element = {
-            index: this.elements.length,
+            index: 0,
             folioNo: this.folioForm.get('folioNo').value,
-            noOfYears: this.folioForm.get('noOfYears').value,
-            status: folioStatus.desc
+            statusDes: folioStatus.desc,
+            status: folioStatus.code,
+            deleted: false,
           };
           this.elements.push(element);
+          this.folioItem.emit(element);
           this.dataSource.data = this.elements;
           this.folioForm.reset();
         }
@@ -305,83 +290,23 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
   }
 
   onClickDelete(index: any) {
-    this.elements.splice(index, 1);
+    this.elements[index].deleted = true;
+    this.folioItem.emit(this.elements[index]);
+    this.elements.splice(index,1);
     this.dataSource.data = this.elements;
-  }
-
-  onClickSubmitSearchRequest() {
-
-    let isValid = true;
-    let errorMassage = '';
-
-    if (!this.searchRequestForm.valid) {
-      isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
-    }
-
-    if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.valid && this.elements.length == 0) {
-      isValid = false;
-      errorMassage = 'Please add one or more folio, before continue.';
-    }
-
-    if (isValid) {
-      this.searchRequest = this.searchRequestForm.value;
-      this.searchRequest.folioList = this.elements;
-      this.searchRequest.workflowStageCode = WorkflowStages.SEARCH_REQ_INITIALIZED;
-      this.searchRequest.userId = this.sessionService.getUser().id;
-      this.searchRequest.userType = this.sessionService.getUser().type;
-      this.isContinueToPayment = !this.isContinueToPayment;
-    } else {
-      this.snackBarService.error(errorMassage);
-    }
-
-
   }
 
   onPaymentResponse(data: PaymentResponse) {
     if (data.paymentStatusCode != PaymentStatus.PAYMENT_FAILED) {
       this.searchRequest.paymentId = data.paymentId;
-      this.saveRequest(this.searchRequest);
+      // this.saveRequest(this.searchRequest);
     } else {
       this.snackBarService.error('Oh no, Your payment failed.')
     }
   }
 
-  onBack(data: boolean) {
-    this.isContinueToPayment = !data;
-  }
-
-  resetForm(): void {
-    this.searchRequestForm.reset({
-      'landRegistryId': '',
-      'requestType': SearchRequestType.FOLIO_DOCUMENT,
-      'attestedByNotaryName': '',
-      'practicedLocation': '',
-      'numberOfTheDeed': '',
-      'natureOfTheDeed': '',
-      'probablePeriodFrom': '',
-      'probablePeriodTo': '',
-      'nameOfTheGranter': '',
-      'nameOfTheGrantee': '',
-      'nameOfTheLand': '',
-      'extent': '',
-      'paththuId': '',
-      'koraleId': '',
-      'dsDivisionId': '',
-      'gnDivisionId': '',
-      'villageId': '',
-      'searchReasonId': '',
-    });
-    this.folioForm.reset({
-      'folioNo': '',
-      'noOfYears': '',
-    });
-    this.elements = [];
-    this.dataSource.data = this.elements;
-  }
-
   loadSearchRequest(): void {
-    this.searchRequestService.findById(this.requestId).subscribe(
+    this.extractRequestService.findById(this.requestId).subscribe(
       (data: any) => {
         this.searchRequestForm.patchValue(data);
         this.elements = data.folioList;
@@ -395,6 +320,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
 export interface Element {
   index: number;
   folioNo: string;
-  noOfYears: string;
+  deleted: boolean;
+  statusDes: string;
   status: string;
 }

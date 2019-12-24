@@ -11,12 +11,15 @@
       <mat-tab-group>
         <mat-tab label="Application">
           <app-last-remark
+            *ngIf="workflowStage==SearchWorkflowStages.SEARCH_REQ_REJECTED_BY_ARL"
             [workflow]="workflow"
             [requestId]="requestId"></app-last-remark>
           <app-search-document-application
             [workflow]="workflow"
             [requestId]="requestId"
             [action]="action"
+            (folioItem)="onChangeFolioItem($event)"
+            (formData)="onChangeFormData($event)"
           ></app-search-document-application>
         </mat-tab>
         <mat-tab label="Payment Info">
@@ -24,9 +27,10 @@
             [workflow]="workflow"
             [id]="requestId"
             [action]="action"
+            (paymentResponse)="onPaymentResponse($event)"
           ></app-notary-payment-info>
         </mat-tab>
-        <mat-tab label="Remark">
+        <mat-tab label="History">
           <app-notary-remark
             [workflow]="workflow"
             [id]="requestId"
@@ -35,8 +39,9 @@
       </mat-tab-group>
     </div>
     <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-row mb-0">
-      <div class="pg-inner-col ">
+      <div class="pg-inner-col">
         <button mat-raised-button
+                (click)="onClickSaveChanges()"
                 class="button green">Save Changes
         </button>
       </div>

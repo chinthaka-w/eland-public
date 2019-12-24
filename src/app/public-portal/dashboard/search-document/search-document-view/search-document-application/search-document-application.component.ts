@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {SearchRequest} from '../../../../../shared/dto/search-request.model';
 import {Village} from '../../../../../shared/dto/village.model';
 import {PaththuwaService} from '../../../../../shared/service/paththuwa.service';
@@ -42,6 +42,8 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   @Input() workflow: string;
   @Input() requestId: number;
   @Input() action: string;
+  @Output() folioItem = new EventEmitter<Element>();
+  @Output() formData = new EventEmitter<FormGroup>();
 
   SearchRequestType = SearchRequestType;
   Parameters = Parameters;
@@ -121,6 +123,8 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     this.loadDSDivision();
     this.loadReasonForSearch();
 
+    this.searchRequestForm.get('requestType').disable();
+
     this.searchRequestForm.get('koraleId').valueChanges.subscribe(value => {
       this.loadPaththu(value);
     });
@@ -132,6 +136,12 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     this.searchRequestForm.get('gnDivisionId').valueChanges.subscribe(value => {
       this.loadVillage(value);
     });
+
+    this.searchRequestForm.valueChanges.subscribe(
+      (data) => {
+        this.formData.emit(data);
+      }
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -198,21 +208,6 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     );
   }
 
-  saveRequest(searchRequest: SearchRequest): void {
-    this.searchRequestService.saveSearchRequest(searchRequest).subscribe(
-      (data) => {
-        console.log(data);
-      }, (error: HttpErrorResponse) => {
-        console.log(error);
-        this.snackBarService.error(error.message);
-      }, () => {
-        this.resetForm();
-        this.isContinueToPayment = false;
-        this.snackBarService.success('Your Search request is submitted.')
-      }
-    );
-  }
-
 //Local changes
 
   goBack(): any {
@@ -247,19 +242,6 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     }
   }
 
-  onChangeKorale(koraleId: any) {
-    this.loadPaththu(koraleId);
-  }
-
-  onChangeDsDivision(dsDivisionId: any) {
-    console.log('onchnageDs' + dsDivisionId)
-    this.loadGNDivision(dsDivisionId);
-  }
-
-  onChangeGnDivision(gnDivisionId: any) {
-    this.loadVillage(gnDivisionId);
-  }
-
   onClickAddButton() {
 
     let isValid = true;
@@ -290,12 +272,14 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
           this.snackBarService.error(error.message);
         }, () => {
           let element: Element = {
-            index: this.elements.length,
+            index: 0,
             folioNo: this.folioForm.get('folioNo').value,
             noOfYears: this.folioForm.get('noOfYears').value,
-            status: folioStatus.desc
+            status: folioStatus.desc,
+            deleted: false,
           };
           this.elements.push(element);
+          this.folioItem.emit(element);
           this.dataSource.data = this.elements;
           this.folioForm.reset();
         }
@@ -306,79 +290,19 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   }
 
   onClickDelete(index: any) {
-    this.elements.splice(index, 1);
+    this.elements[index].deleted = true;
+    this.folioItem.emit(this.elements[index]);
+    this.elements.splice(index,1);
     this.dataSource.data = this.elements;
-  }
-
-  onClickSubmitSearchRequest() {
-
-    let isValid = true;
-    let errorMassage = '';
-
-    if (!this.searchRequestForm.valid) {
-      isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
-    }
-
-    if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.valid && this.elements.length == 0) {
-      isValid = false;
-      errorMassage = 'Please add one or more folio, before continue.';
-    }
-
-    if (isValid) {
-      this.searchRequest = this.searchRequestForm.value;
-      this.searchRequest.folioList = this.elements;
-      this.searchRequest.workflowStageCode = WorkflowStages.SEARCH_REQ_INITIALIZED;
-      this.searchRequest.userId = this.sessionService.getUser().id;
-      this.searchRequest.userType = this.sessionService.getUser().type;
-      this.isContinueToPayment = !this.isContinueToPayment;
-    } else {
-      this.snackBarService.error(errorMassage);
-    }
-
-
   }
 
   onPaymentResponse(data: PaymentResponse) {
     if (data.paymentStatusCode != PaymentStatus.PAYMENT_FAILED) {
       this.searchRequest.paymentId = data.paymentId;
-      this.saveRequest(this.searchRequest);
+      // this.saveRequest(this.searchRequest);
     } else {
       this.snackBarService.error('Oh no, Your payment failed.')
     }
-  }
-
-  onBack(data: boolean) {
-    this.isContinueToPayment = !data;
-  }
-
-  resetForm(): void {
-    this.searchRequestForm.reset({
-      'landRegistryId': '',
-      'requestType': SearchRequestType.FOLIO_DOCUMENT,
-      'attestedByNotaryName': '',
-      'practicedLocation': '',
-      'numberOfTheDeed': '',
-      'natureOfTheDeed': '',
-      'probablePeriodFrom': '',
-      'probablePeriodTo': '',
-      'nameOfTheGranter': '',
-      'nameOfTheGrantee': '',
-      'nameOfTheLand': '',
-      'extent': '',
-      'paththuId': '',
-      'koraleId': '',
-      'dsDivisionId': '',
-      'gnDivisionId': '',
-      'villageId': '',
-      'searchReasonId': '',
-    });
-    this.folioForm.reset({
-      'folioNo': '',
-      'noOfYears': '',
-    });
-    this.elements = [];
-    this.dataSource.data = this.elements;
   }
 
   loadSearchRequest(): void {
@@ -397,6 +321,7 @@ export interface Element {
   index: number;
   folioNo: string;
   noOfYears: string;
+  deleted: boolean;
   status: string;
 }
 

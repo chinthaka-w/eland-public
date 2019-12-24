@@ -1,17 +1,17 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Input, OnInit} from '@angular/core';
-import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
-import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
-import {NewNotaryPaymentDetailDto} from "../../../../shared/dto/new-notary-payment-detail.dto";
-import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
-import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
-import {PaymentComponent} from "../../../../shared/components/payment/payment.component";
-import {PaymentMethodComponent} from "../../../../shared/components/payment/payment-method/payment-method.component";
-import {NotaryService} from "../../../../shared/service/notary-service";
-import {Workflow} from "../../../../shared/enum/workflow.enum";
-import {Parameters} from "../../../../shared/enum/parameters.enum";
-import {NewNotaryPaymentDto} from "../../../../shared/dto/new-notary-payment.dto";
-import {SnackBarService} from "../../../../shared/service/snack-bar.service";
+import {NewNotaryRequestsCategorySearchDto} from '../../../../shared/dto/new-notary-requests-category-search.dto';
+import {ApplicationRequestDataType} from '../../../../shared/enum/application-request-data-type.enum';
+import {NewNotaryPaymentDetailDto} from '../../../../shared/dto/new-notary-payment-detail.dto';
+import {NewNotaryDataVarificationService} from '../../../../shared/service/new-notary-data-varification.service';
+import {PaymentResponse} from '../../../../shared/dto/payment-response.model';
+import {PaymentComponent} from '../../../../shared/components/payment/payment.component';
+import {PaymentMethodComponent} from '../../../../shared/components/payment/payment-method/payment-method.component';
+import {NotaryService} from '../../../../shared/service/notary-service';
+import {Workflow} from '../../../../shared/enum/workflow.enum';
+import {Parameters} from '../../../../shared/enum/parameters.enum';
+import {NewNotaryPaymentDto} from '../../../../shared/dto/new-notary-payment.dto';
+import {SnackBarService} from '../../../../shared/service/snack-bar.service';
 import {ActionMode} from '../../../../shared/enum/action-mode.enum';
 
 @Component({
@@ -21,11 +21,12 @@ import {ActionMode} from '../../../../shared/enum/action-mode.enum';
 })
 export class NotaryPaymentInfoComponent implements OnInit {
   @Output() notaryPayment = new EventEmitter<NewNotaryPaymentDto>();
-  @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
-  @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
+  @ViewChild(PaymentComponent, {static: false}) paymentComponent: PaymentComponent;
+  @ViewChild(PaymentMethodComponent, {static: false}) paymentMethodComponent: PaymentMethodComponent;
   @Input() workflow: string;
   @Input() id: number;
   @Input() action: number;
+  @Output() paymentResponse = new EventEmitter<PaymentResponse>();
 
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
 
@@ -41,7 +42,8 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
   constructor(private notaryService: NewNotaryDataVarificationService,
               private newNotaryService: NotaryService,
-              private snackBar: SnackBarService,) { }
+              private snackBar: SnackBarService,) {
+  }
 
   ngOnInit() {
     this.getPaymentDetails();
@@ -63,23 +65,32 @@ export class NotaryPaymentInfoComponent implements OnInit {
     this.isPayment = true;
   }
 
-  savePayments(requestId: number , paymentId: number) :void{
+  savePayments(requestId: number, paymentId: number): void {
     let requestID = requestId;
     let paymentID = paymentId;
-    const model: NewNotaryPaymentDto = new NewNotaryPaymentDto(requestID,paymentID);
+    const model: NewNotaryPaymentDto = new NewNotaryPaymentDto(requestID, paymentID);
     this.newNotaryService.savePayments(model).subscribe(
       (result) => {
         this.notaryPayment.emit(model);
-        this.snackBar.success("Payment Success");
+        this.snackBar.success('Payment Success');
       }
     );
   }
 
-  getPaymentData(paymentData: PaymentResponse){
+  getPaymentData(paymentData: PaymentResponse) {
     this.isPayment = false;
     this.isPaymentMethod = true;
-    this.paymentDataValue = paymentData.paymentId;
-    this.savePayments(1,this.paymentDataValue);
+    switch (this.workflow) {
+      case Workflow.SEARCH_REQUEST:
+          this.paymentResponse.emit(paymentData);
+        break;
+      case Workflow.EXTRACT_REQUEST:
+          this.paymentResponse.emit(paymentData);
+        break;
+      default:
+        this.paymentDataValue = paymentData.paymentId;
+        this.savePayments(1, this.paymentDataValue);
+    }
   }
 
 }

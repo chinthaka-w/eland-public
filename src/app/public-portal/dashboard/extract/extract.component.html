@@ -314,23 +314,11 @@
               </div>
             </div>
           </div>
-          <div class="pg-inner-col-3">
-            <div class="default-input-wrapper full-row">
-              <div class="default-input-feild">
-                <mat-form-field appearance="outline">
-                  <input matInput
-                         class="form-control"
-                         placeholder="No. of Years"
-                         formControlName="noOfYears">
-                </mat-form-field>
-              </div>
-            </div>
+          <div class="pg-inner-col-2">
+            <button type="button" mat-raised-button (click)="onClickAddButton()">
+              <i class="material-icons">add</i>
+            </button>
           </div>
-        </div>
-        <div class="pg-inner-col-2">
-          <button type="button" mat-raised-button (click)="onClickAddButton()">
-            <i class="material-icons">add</i>
-          </button>
         </div>
       </form>
 
@@ -345,20 +333,11 @@
             </td>
           </ng-container>
 
-          <!-- No of Years Column -->
-          <ng-container matColumnDef="No. of years">
-            <th mat-header-cell *matHeaderCellDef> No. of years</th>
-            <td mat-cell *matCellDef="let element">
-              {{element.noOfYears}}
-            </td>
-          </ng-container>
-
           <!-- Status Column -->
           <ng-container matColumnDef="Status">
             <th mat-header-cell *matHeaderCellDef> Status</th>
             <td mat-cell *matCellDef="let element">
-              <!--<span class="t-status">{{element.status}}</span>-->
-              <span>{{element.status}}</span>
+              <span matBadge="{{element.status}}" matBadgeColor="accent">{{element.statusDes}}</span>
             </td>
           </ng-container>
 
@@ -396,5 +375,7 @@
 </div>
 <app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
              (back)="onBack($event)"
-             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+             [workflowCode]="WorkflowCode.EXTRACT_REQUEST"
+             [applicationFeeCode]="Parameters.EXTRACT_REQUEST_FEE"
+             [isDocumentCollect]="true"
              [hasFrontCounterPayment]="true"></app-payment>
