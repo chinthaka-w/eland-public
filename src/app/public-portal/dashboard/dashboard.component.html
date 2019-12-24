@@ -105,7 +105,7 @@
           </a>
         </div>
         <div class="db-link-tile c5" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/leave-request']">
+          <a [routerLink]="['/leave-request', user.id]">
             <span class="icon">
               <i class="material-icons">date_range</i>
             </span>

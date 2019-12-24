@@ -96,7 +96,7 @@ const routes: Routes = [
     component: LanguageChangeViewComponent
   },
   {
-    path: 'leave-request',
+    path: 'leave-request/:id',
     component: LeaveRequestComponent
   },
   {
