@@ -35,7 +35,6 @@ export class LeaveRequestComponent implements OnInit {
     this.route.params.subscribe(param => {
       if (param && param.id) {
         this.notaryId = param.id;
-        console.log(param.id);
       }
     });
     this.notaryLeaveRequestService.getRelatedDocTypes(this.notaryLeaveReqWorkflowStage.LEAVE_REQ_INIT)
@@ -54,7 +53,6 @@ export class LeaveRequestComponent implements OnInit {
     this.leaveRequest = this.notaryLeaveRequestForm.value;
     this.leaveRequest.notaryId = this.notaryId;
     this.leaveRequest.workflowStageCode = this.notaryLeaveReqWorkflowStage.LEAVE_REQ_INIT;
-    console.log(this.leaveRequest);
     this.notaryLeaveRequestService.makeLeaveRequest(this.fileList, this.leaveRequest)
       .subscribe((result) => {
         if(result) {
