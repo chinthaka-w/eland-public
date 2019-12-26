@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators, FormArray} from '@angular/forms';
 import {Notary} from '../../../shared/dto/notary.model';
 import {NotaryService} from '../../../shared/service/notary-service';
 import {GnDivisionService} from '../../../shared/service/gn-division.service';
@@ -75,7 +75,10 @@ export class AddNotaryComponent implements OnInit {
   public documentList: DocumentDto[] = [];
 
   public locationDto: any = {};
-  public locationList: any[] = [];
+  // public locationList: any[] = [];
+  public locationList:FormArray;
+
+
   public dsGnList: NewNotaryDsDivisionDTO[] = [];
   public gnDivi: GnDivisionDTO[] = [];
 
@@ -127,6 +130,7 @@ export class AddNotaryComponent implements OnInit {
       medium: new FormControl('' , [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
       userName: new FormControl('', [Validators.required]),
+      locationList:this.formBuilder.array([ this.createItem() ])
     });
     this.getGnDivisions();
     this.getDsDivisions();
@@ -134,9 +138,22 @@ export class AddNotaryComponent implements OnInit {
     this.getJudicialZones();
     this.getDocumentList();
 
-    this.locationList.push(this.locationDto);
+    // this.locationList.push(this.locationDto);
+
+
+    // this.locationList = this.notaryForm.get('locationList') as FormArray;
+    // this.locationList.push(this.createItem());
+
+
     this.previousSelections.push(-1);
     this.locationDto = {};
+  }
+
+  createItem(): FormGroup {
+    return this.formBuilder.group({
+      ds: '',
+      gn: '',
+    });
   }
 
   private getDocumentList(): void {
@@ -156,18 +173,26 @@ export class AddNotaryComponent implements OnInit {
 
 
   addLocation() {
-    this.locationList.push(this.locationDto);
-    this.previousSelections.push(-1);
-    this.locationDto = {};
+    // this.locationList.push(this.locationDto);
+    // this.locationList.push({});
+    
+    // this.previousSelections.push(-1);
+    // this.locationDto = {};
+    // // this.notaryForm.get("secretariatDivision").reset();
+
+
+    this.locationList = this.notaryForm.get('locationList') as FormArray;
+    this.locationList.push(this.createItem());
   }
 
   removeLocation(index) {
-    this.dsDivision.forEach(gsDivision => {
-      if (gsDivision.dsDivisionId == this.locationList[index].gsDivision) {
-        this.isSelected = false;
-      }
-    });
-    this.locationList.splice(index, 1);
+    // this.dsDivision.forEach(gsDivision => {
+    //   if (gsDivision.dsDivisionId == this.locationList[index].gsDivision) {
+    //     this.isSelected = false;
+    //   }
+    // });
+    this.locationList = this.notaryForm.get('locationList') as FormArray;
+    this.locationList.removeAt(index);
     this.previousSelections.splice(index, 1);
   }
 
