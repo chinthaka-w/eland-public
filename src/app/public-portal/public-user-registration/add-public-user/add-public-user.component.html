@@ -1,7 +1,7 @@
 <div class="page-header-default">
   <h2>Registration</h2>
   <p>Please fill in the following information to<br />register in the system</p>
-  <a href="" class="phd-back-btn">
+  <a [routerLink]="['/home']" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
@@ -320,50 +320,14 @@
       <div class="separator mt-30">&nbsp;</div>
 
       <div class="pg-inner-row mb-20 upload-col-3">
-        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.CITIZEN">
+        <div class="pg-inner-col-3" *ngFor="let doc of workflowStageDocTypes">
           <div class="default-input-wrapper full-row">
             <label
-              >Last obtained copy of Notary's renewal certificate
-              <span>*</span></label>
-            <file-upload-input (response)="setFiles($event, '1')"></file-upload-input>
+              >{{doc.description}}
+              <span *ngIf="doc.required">*</span></label>
+            <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
           </div>
         </div>
-        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.CITIZEN || publicUserType.value == PublicUserType.BANK || publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.OTHER">
-          <div class="default-input-wrapper full-row">
-            <label>NIC/ Passport/ Driving License <span>*</span></label>
-            <file-upload-input (response)="setFiles($event, '2')"></file-upload-input>
-          </div>
-        </div>
-
-        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.CITIZEN || publicUserType.value == PublicUserType.BANK || publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.OTHER">
-          <div class="default-input-wrapper full-row">
-            <label>Speciment signature and Official seal <span>*</span></label>
-            <file-upload-input (response)="setFiles($event, '3')"></file-upload-input>
-          </div>
-        </div>
-
-        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.BANK || publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.OTHER">
-          <div class="default-input-wrapper full-row">
-            <label>Authorized letter from the bank <span>*</span></label>
-            <file-upload-input (response)="setFiles($event, '4')"></file-upload-input>
-          </div>
-        </div>
-
-        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.STATE">
-          <div class="default-input-wrapper full-row">
-            <label>Comfirmation letter issued by Head of Institution <span>*</span></label>
-            <file-upload-input (response)="setFiles($event, '5')"></file-upload-input>
-          </div>
-        </div>
-
-        <div class="pg-inner-col-3" *ngIf="publicUserType.value == PublicUserType.OTHER">
-          <div class="default-input-wrapper full-row">
-            <label>Business Registration <span>*</span></label>
-            <file-upload-input (response)="setFiles($event, '6')"></file-upload-input>
-          </div>
-        </div>
-
-
 
       </div>
 
@@ -379,12 +343,12 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         <div *ngIf="!(paymentDto.paymentId)" class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="saveCitizen()">
+          <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="saveCitizen()">
             Continue
           </button>
         </div>
         <div *ngIf="paymentDto.paymentId" class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="saveCitizen()">
+          <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="saveCitizen()">
             Register
           </button>
         </div>

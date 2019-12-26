@@ -6,15 +6,15 @@ import {JudicialChange} from '../../dto/judicial-change-model';
 import {SnackBarService} from '../../service/snack-bar.service';
 import {JudicialService} from '../../service/change-judicial-service';
 import {TokenStorageService} from '../../auth/token-storage.service';
-import {RequestViewComponent} from '../../../public-portal/dashboard/requests/request-view/request-view.component';
-import {ActivatedRoute, Route, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Workflow} from '../../enum/workflow.enum';
 import {SearchRequestService} from '../../service/search-request.service';
 import {SearchRequest} from '../../dto/search-request.model';
-import {map} from 'rxjs/operators';
 import {SessionService} from '../../service/session.service';
 import {ExtractRequestService} from '../../service/extract-request.service';
 import {ExtractRequest} from '../../dto/extract-request.model';
+import {ChangeNameService} from "../../service/change-name.service";
+import {NotaryNameChangeModel} from "../../dto/notary-name-change.model";
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -40,6 +40,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   public actionButtonURL: string;
 
   constructor(private judicialService: JudicialService,
+              private changeNameService: ChangeNameService,
               private searchRequestService: SearchRequestService,
               private extractRequestService: ExtractRequestService,
               private snackBar: SnackBarService,
@@ -64,6 +65,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.titleText = 'REQUEST FOR CHANGING THE JUDICIAL ZONE';
         this.newButtonURL = '/change-judicial';
         this.actionButtonURL = `/change-judicial-request-view/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
+        break;
+      case Workflow.NOTARY_NAME_CHANGE:
+        this.loadNameChangeRequests();
+        this.headerText = 'NOTARY NAME CHANGING';
+        this.titleText = 'REQUEST FOR CHANGING THE NOTARY NAME';
+        this.newButtonURL = '/change-the-name';
+        this.actionButtonURL = `/change-name-request-view/`;
         break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();
@@ -147,6 +155,21 @@ export class ChangeJudicialRequestListComponent implements OnInit {
     );
   }
 
+  loadNameChangeRequests() {
+    this.requests = [];
+    this.changeNameService.getNameChangeRequest(this.sessionService.getUser().id).subscribe(
+      (data: NotaryNameChangeModel[]) => {
+        this.requests = data;
+        this.dataSource = new MatTableDataSource(this.requests);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
+
   /**
    * Get all language change requests by user
    */
@@ -162,5 +185,4 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       }
     );
   }
-
 }

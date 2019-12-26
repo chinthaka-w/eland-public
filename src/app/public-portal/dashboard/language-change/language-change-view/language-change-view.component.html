@@ -23,6 +23,12 @@
                 </app-payment-history
                 >
             </mat-tab>
+            <mat-tab label="Supporting Documents">
+                <app-supporting-doc-detail 
+                [requestDocuments]="requestDocuments"
+                (supportDocs)="updateFile($event)">
+                </app-supporting-doc-detail>
+            </mat-tab>
             <mat-tab label="Remark"> 
                 <app-remark-history
                     [remarkHistory] = "remarkHistory"

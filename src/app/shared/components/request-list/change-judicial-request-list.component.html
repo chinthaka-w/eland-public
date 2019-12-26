@@ -47,10 +47,18 @@
       </ng-container>
 
       <!-- Name Column -->
+      <ng-container *ngIf="Workflow.NOTARY_NAME_CHANGE==flag" matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Full Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.newFullNameEng}}</td>
+      </ng-container>
+
+
+      <!-- Name Column -->
       <ng-container *ngIf="Workflow.JUDICIAL_ZONE_CHANGE==flag" matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> Judicial Zone</th>
         <td mat-cell *matCellDef="let element"> {{element.judicialZoneDescription}}</td>
       </ng-container>
+
 
       <!-- Name Column -->
       <ng-container *ngIf="Workflow.SEARCH_REQUEST==flag || Workflow.EXTRACT_REQUEST==flag || Workflow.LANGUAGE_CHANGE == flag" matColumnDef="description">

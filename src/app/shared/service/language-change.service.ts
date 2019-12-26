@@ -1,3 +1,5 @@
+import { DocumentResponseDto } from './../dto/document-response.dto';
+import { StatusDTO } from './../dto/status-dto';
 import { WorkflowStageDocDto } from './../dto/workflow-stage-doc.dto';
 import { NameTitleDTO } from './../dto/name-title.dto';
 import { Observable } from 'rxjs';
@@ -60,5 +62,18 @@ export class LanguageChangeService {
 
   getApplicationRemarkHistory(reqId: number): Observable<NotaryRegistrationHistoryDto[]> {
     return this.http.get<NotaryRegistrationHistoryDto[]>(this.BASE_URL + 'additionLanguageRequest/getNotaryRequestHistory/' + reqId);
+  }
+
+  updateApplication(model: LanguageChange): Observable<StatusDTO> {
+    return this.http.post<StatusDTO> (this.BASE_URL + 'additionLanguageRequest/update', model);
+  }
+
+  updateDocList(docList: DocumentResponseDto[]): Observable<StatusDTO> {
+    const formdata: FormData = new FormData();
+    docList.forEach(doc => {
+      formdata.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
+    });
+
+    return this.http.post<StatusDTO>(this.BASE_URL + 'new-notary/documents', formdata);
   }
 }

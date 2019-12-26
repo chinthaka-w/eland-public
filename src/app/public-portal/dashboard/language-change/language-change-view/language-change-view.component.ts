@@ -1,3 +1,5 @@
+import { StatusDTO } from './../../../../shared/dto/status-dto';
+import { DocumentResponseDto } from './../../../../shared/dto/document-response.dto';
 import { NewNotaryPaymentDetailDto } from 'src/app/shared/dto/new-notary-payment-detail.dto';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import { NotaryPaymentInfoComponent } from './../../view-notary/notary-payment-info/notary-payment-info.component';
@@ -25,17 +27,31 @@ export class LanguageChangeViewComponent implements OnInit {
   paymentAction: boolean;
   remarkHistory: NotaryRegistrationHistoryDto[] = [];
   workflowStage: string;
-  paymentHistory: NewNotaryPaymentDetailDto[] = [];
+  paymentHistory: NewNotaryPaymentDetailDto[] = []; 
+  requestDocuments: RequestSearchDetailDTO;
 
   constructor(private route: ActivatedRoute,
               private langChangeService: LanguageChangeService,
-              private snackBarService: SnackBarService) { }
+              private snackBarService: SnackBarService,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
     this.backUrl = this.langChangeService.setBase64(Workflow.LANGUAGE_CHANGE);
     this.route.paramMap.subscribe(params => {
       this.requestId = +this.langChangeService.decodeBase64(params.get('id'));
       this.workflowStage = this.langChangeService.decodeBase64(params.get('workflowStage'));
+
+      this.requestDocuments = new RequestSearchDetailDTO(
+        this.sessionService.getUser().id,
+        this.requestId,
+        null,
+        null,
+        null,
+        'LAN_REQ_INI',
+        null,
+        null
+        );
+
       this.paymentAction = this.configPaymentOption();
       this.getLanguageChangePaymentHistory(this.requestId);
       this.getLanguageChangeRemarkHisoty(this.requestId);
@@ -75,6 +91,17 @@ export class LanguageChangeViewComponent implements OnInit {
     if (this.workflowStage === LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT) {
       return false;
     }
+  }
+
+  updateFile(docList: DocumentResponseDto[]) {
+    this.langChangeService.updateDocList(docList).subscribe(
+      (result: StatusDTO) => {
+        this.snackBarService.success('Document(s) updated!');
+      },
+      (error) => {
+        this.snackBarService.error('Error');
+      }
+    );
   }
 
 }
