@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.sysConfigService.layout.subscribe((config: AppConfig) => {
+    this.sysConfigService.getConfig.subscribe((config: AppConfig) => {
       this.appConfig = config;
     });
   }
@@ -36,10 +36,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   logout() {
-    this.sysConfigService.layout.emit({
+    this.sysConfigService.getConfig.emit({
+      color: "blue",
       user: false,
       header: false,
-      footer: false,
+      footer: false
   });
     this.router.navigate([`/login`], { relativeTo: this.route });
   }

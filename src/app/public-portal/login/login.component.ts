@@ -53,10 +53,11 @@ export class LoginComponent implements OnInit {
           this.userId = response['user'].id;
           this.setRequestId(this.userId);
           this.sessionService.setUser(response['user']);
-          this.sysConfigService.layout.emit({
+          this.sysConfigService.getConfig.emit({
+            color: "red",
             user: true,
             header: true,
-            footer: true,
+            footer: true
           });
           //setPermission
           this.router.navigate([`/dashboard`], { relativeTo: this.route });
