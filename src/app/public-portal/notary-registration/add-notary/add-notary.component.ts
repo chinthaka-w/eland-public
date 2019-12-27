@@ -42,6 +42,7 @@ export class AddNotaryComponent implements OnInit {
   public isContinueToPayment: boolean = false;
   public paymentResponse = new PaymentResponse;
   languages = Languages;
+  public status = this.languages.ENGLISH;
 
 
   @Output()
@@ -56,6 +57,8 @@ export class AddNotaryComponent implements OnInit {
   deleteButtonIcon = 'close';
   @Input()
   showUploadInfo;
+  @Input()
+  checked: Boolean;
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
   public payment: any;
@@ -83,7 +86,6 @@ export class AddNotaryComponent implements OnInit {
   isPaymentMethod: boolean = false;
   isNotaryRegistration: boolean = false;
 
-
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -108,7 +110,7 @@ export class AddNotaryComponent implements OnInit {
       fullNameInTamil: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
       nic: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nicValidation)]),
       email: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.emailValidation)]),
-      languages: new FormControl('' ),
+      languages: new FormControl(''),
       enrolledDate: new FormControl(new Date(), [Validators.required]),
       passedDate: new FormControl(new Date(), [Validators.required]),
       dateOfBirth: new FormControl(new Date(), [Validators.required]),
