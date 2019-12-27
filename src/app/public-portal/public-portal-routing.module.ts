@@ -100,7 +100,7 @@ const routes: Routes = [
     component: LeaveRequestComponent
   },
   {
-    path: 'resignation',
+    path: 'resignation/:id',
     component: ResignationComponent
   },
   {
