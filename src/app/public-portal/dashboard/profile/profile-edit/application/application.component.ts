@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {SessionService} from '../../../../../shared/service/session.service';
 import {NotaryService} from '../../../../../shared/service/notary-service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../../../shared/dto/notary.model';
+import {SnackBarService} from '../../../../../shared/service/snack-bar.service';
+import {JudicialChange} from '../../../../../shared/dto/judicial-change-model';
+import {WorkflowStages} from '../../../../../shared/enum/workflow-stages.enum';
 
 @Component({
   selector: 'app-application',
@@ -13,12 +16,14 @@ export class ApplicationComponent implements OnInit {
   public notaryId: number;
   requestForm: FormGroup;
   notaryDetails: Notary;
+  public notary: Notary;
+  submitted: boolean = false;
 
-  constructor(private sessionService: SessionService, private notaryService: NotaryService) { }
+  constructor(private sessionService: SessionService, private notaryService: NotaryService,
+              private snackBar: SnackBarService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.requestForm = new FormGroup({
-      title: new FormControl(""),
+    this.requestForm = this.formBuilder.group({
       fNameEng: new FormControl(""),
       fNameSin: new FormControl(""),
       fNameTam: new FormControl(""),
@@ -39,8 +44,8 @@ export class ApplicationComponent implements OnInit {
       email: new FormControl(""),
       judicial: new FormControl(""),
       lRegistry: new FormControl(""),
-      enrollDate: new FormControl(""),
-      passDate: new FormControl(""),
+      clerkName: new FormControl(""),
+      clerkNic: new FormControl(""),
 
     });
     this.notaryId = this.sessionService.getUser().id;
@@ -56,16 +61,12 @@ export class ApplicationComponent implements OnInit {
             fNameEng: this.notaryDetails.fullNameEng,
             fNameSin: this.notaryDetails.fullNameSin,
             fNameTam: this.notaryDetails.fullNameTam,
-            nameIniEng: this.notaryDetails.nameWithInitialEng,
-            nameIniSin: this.notaryDetails.nameWithInitialSin,
-            nameIniTam: this.notaryDetails.nameWithInitialTam,
             perAddEng: this.notaryDetails.permanentAddressEng,
             perAddSin: this.notaryDetails.permanentAddressSin,
             perAddTam: this.notaryDetails.permanentAddressTam,
             CurAddEng: this.notaryDetails.currantAddressEng,
             CurAddSin: this.notaryDetails.currantAddressSin,
             CurAddTam: this.notaryDetails.currantAddressTam,
-            isWarLang: '',
             dob: this.notaryDetails.dateOfBirth,
             nic: this.notaryDetails.nic,
             contact: this.notaryDetails.contactNo,
@@ -81,6 +82,38 @@ export class ApplicationComponent implements OnInit {
 
       }
     );
+  }
+
+  submitForm() {
+    this.submitted = true;
+    if (this.requestForm.invalid) {
+      return;
+    }
+    this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
+      null, this.requestForm.value.mobile,  this.requestForm.value.contact,
+      this.requestForm.value.perAddEng, this.requestForm.value.CurAddEng, this.requestForm.value.perAddSin,
+      this.requestForm.value.CurAddSin,  this.requestForm.value.perAddTam, this.requestForm.value.CurAddTam,
+      null, null, null,
+      null,  null, null,
+      null, null, null,
+      null, null, null, null,
+      null, null, null, null, new Date(),
+      null, null, null,null,null,null,this.requestForm.value.clerkName,this.requestForm.value.clerkNic);
+
+
+    this.notaryService.editProfile(this.notary).subscribe(
+      (success: string) => {
+        this.snackBar.success('Judicial Change Request Success');
+        this.requestForm.reset();
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
+
+  get f() {
+    return this.requestForm.controls;
   }
 
 }
