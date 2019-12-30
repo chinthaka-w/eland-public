@@ -28,6 +28,7 @@ import {DocumentDto} from "../../../shared/dto/document-list";
 import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
 import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
 import {Languages} from "../../../shared/enum/languages.enum";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-notary',
@@ -73,6 +74,7 @@ export class AddNotaryComponent implements OnInit {
   public previousSelections: any[] = [];
   public isSelected: boolean;
   public disabled: boolean = false;
+  selected = 'Notary';
 
   public docList: WorkflowStageDocDto[];
   public documentList: DocumentDto[] = [];
@@ -84,8 +86,6 @@ export class AddNotaryComponent implements OnInit {
 
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
-  isNotaryRegistration: boolean = false;
-
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -96,11 +96,12 @@ export class AddNotaryComponent implements OnInit {
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
               private paymentService: PaymentService,
-              private documetService: SupportingDocService) { }
+              private documetService: SupportingDocService,
+              private router: Router) { }
 
   ngOnInit() {
     this.notaryForm = this.formBuilder.group({
-      notary: new FormControl('', [Validators.required]),
+      notary: new FormControl('1', [Validators.required]),
       title: new FormControl('', [Validators.required]),
       englishNameWithInitials: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
       sinhalaNameWithInitials: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
@@ -225,6 +226,7 @@ export class AddNotaryComponent implements OnInit {
     this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
         this.snackBar.success('Notary Registration Success');
+        this.router.navigate(['/login']);
       },
       error => {
         this.snackBar.error('Failed');
@@ -386,12 +388,9 @@ export class AddNotaryComponent implements OnInit {
 
 
   getPaymentData(paymentData: PaymentResponse){
-    this.isPayment = false;
-    this.isPaymentMethod = true;
     this.paymentDataValue = paymentData.paymentId;
     this.snackBar.success("Payment Success");
     this.saveNotaryDetails();
-    this.isNotaryRegistration = true;
   }
 
 }

@@ -6,7 +6,7 @@ import {Workflow} from '../../../shared/enum/workflow.enum';
 import {DocumentResponseDto} from "../../../shared/dto/document-response.dto";
 import {SupportingDocDetailComponent} from "./supporting-doc-detail/supporting-doc-detail.component";
 import {LoginComponent} from "../../login/login.component";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
 import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
@@ -25,7 +25,7 @@ export class ViewNotaryComponent implements OnInit {
   @Input() notaryId: number;
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
-  public disabled: boolean = true;
+  public disabled: boolean = false;
   public disabledPayment: boolean = true;
   public disabledRemark: boolean = true;
   public disabledDocuments: boolean = true;
@@ -40,7 +40,8 @@ export class ViewNotaryComponent implements OnInit {
 
   constructor(private newNotaryService: NotaryService,
               private route: ActivatedRoute,
-              private snackBar: SnackBarService,) {
+              private snackBar: SnackBarService,
+              private router: Router) {
     this.route.params.subscribe(params => {
       // this.workflow  = atob(params['workflow']);
       // this.requestId  = atob(params['id']);
@@ -64,18 +65,21 @@ export class ViewNotaryComponent implements OnInit {
   public tabChanged(tabChangeEvent: MatTabChangeEvent,event): void {
     this.selectedIndex = tabChangeEvent.index;
     if( event.tab.textLabel === "Application" ){
-      this.disabled = true;
       this.disabledPayment = true;
       this.disabledRemark = true;
       this.disabledDocuments = true;
     }
     if((event.tab.textLabel === "Payment Info") && (!this.isApplicationValid)){
-      this.disabled = true;
       this.disabledPayment = false;
       this.disabledRemark = false;
       this.disabledDocuments = false;
     }
     if(event.tab.textLabel === "Remark"){
+      this.disabledPayment = false;
+      this.disabledRemark = false;
+      this.disabledDocuments = false;
+    }
+    if(event.tab.textLabel === "Supporting Documents"){
       this.disabled = true;
       this.disabledPayment = false;
       this.disabledRemark = false;
@@ -86,7 +90,6 @@ export class ViewNotaryComponent implements OnInit {
 
   getSupportingDocs(data: DocumentResponseDto[]){
     this.docsList = data;
-    this.disabled = true;
   }
 
   getApplicationDetails(data: Notary){
