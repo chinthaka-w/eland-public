@@ -18,6 +18,7 @@ import {Router} from "@angular/router";
 import {BankUserType} from "../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../shared/enum/identification-type.enum";
 import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
+import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
 
 @Component({
   selector: "app-add-public-user",
@@ -39,6 +40,7 @@ export class AddPublicUserComponent implements OnInit {
   landRegistry: LandRegistriesDTO = new LandRegistriesDTO();
   citizenDTO: CitizenDTO = new CitizenDTO();
   paymentDto: PaymentDto = new PaymentDto();
+  workflowStageDocTypes: Array<WorkflowStageDocTypeDTO> = [];
 
   bankUserTypeId: number;
 
@@ -117,6 +119,12 @@ export class AddPublicUserComponent implements OnInit {
   }
   getCurrentBankUserType(event) {
     this.bankUserTypeId = event.target.value;
+    this.publicUserForm.controls['notaryId'].enable();
+    if(this.citizenDTO.userType == this.PublicUserType.BANK){
+      if((this.bankUserTypeId == this.bankUserType.MANAGER) || (this.bankUserTypeId == this.bankUserType.OTHER)) {
+        this.publicUserForm.controls['notaryId'].disable();
+      }
+    }
     this.citizenDTO.bankUserType = this.bankUserTypeId;
   }
   getCurrentBank(event) {
@@ -127,6 +135,8 @@ export class AddPublicUserComponent implements OnInit {
   }
   getCurrentUserType(event) {
     this.citizenDTO.userType = event.target.value;
+    this.publicUserForm.enable();
+    this.disableUselessFormControls(this.citizenDTO.userType);
 
     if(this.citizenDTO.userType == PublicUserType.CITIZEN) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
@@ -142,6 +152,69 @@ export class AddPublicUserComponent implements OnInit {
     }
     else if(this.citizenDTO.userType == PublicUserType.OTHER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
+    }
+
+    this.citizenService.getRelatedDocTypes(this.citizenDTO.workFlowStageCode)
+      .subscribe((result) => {
+        this.workflowStageDocTypes = result;
+      });
+  }
+
+  disableUselessFormControls(type: number) {
+    if(type == this.PublicUserType.CITIZEN) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['notaryId'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == this.PublicUserType.BANK) {
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == this.PublicUserType.LAWYER) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == this.PublicUserType.STATE) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['otherInstitutionName'].disable();
+    }
+    else if (type == this.PublicUserType.OTHER) {
+      this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankUserType'].disable();
+      this.publicUserForm.controls['lawFirmName'].disable();
+      this.publicUserForm.controls['renewalCertificate'].disable();
+      this.publicUserForm.controls['nicCopy'].disable();
+      this.publicUserForm.controls['signatureAndSeal'].disable();
+      this.publicUserForm.controls['recaptcha'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['stateInstitutionName'].disable();
     }
   }
 

@@ -11,25 +11,25 @@
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Notary Code:</dt>
-            <dd>{{searchDetails.notaryCode}}</dd>
+            <dd>{{searchDetails?.notaryCode}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Notary ID:</dt>
-            <dd>{{searchDetails.notaryId}}</dd>
+            <dd>{{searchDetails?.notaryId}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Status:</dt>
             <dd>
-              <span class="status-pending">{{searchDetails.status}}</span>
+              <span class="status-pending">{{searchDetails?.status}}</span>
             </dd>
           </dl>
           <dl class="db-card-info">
             <dt>Name:</dt>
-            <dd>{{searchDetails.name}}</dd>
+            <dd>{{searchDetails?.name}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Payment:</dt>
-            <dd>{{searchDetails.paymentMethod}}</dd>
+            <dd>{{searchDetails?.paymentMethod}}</dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>
@@ -37,7 +37,7 @@
           <button mat-raised-button class="green" (click)="viewDetails()">View</button>
         </div>
       </div>
-      <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.PENDING">
+      <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus != (commonStatus.ACTIVE)">
         <div class="db-card-header" style="background-image: url('../../../assets/images/temp_img_006.jpg')">
           <a href="#">Next ></a>
         </div>
@@ -81,7 +81,7 @@
           </a>
         </div>
         <div class="db-link-tile c2" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/change-the-name']">
+          <a [routerLink]="['/requests/'+getBase64('NTR_NAME_CHG')]">
             <span class="icon">
               <i class="material-icons">cached</i>
             </span>
@@ -89,7 +89,7 @@
           </a>
         </div>
         <div class="db-link-tile c3" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/resignation']">
+          <a [routerLink]="['/resignation', user.id]">
             <span class="icon">
               <i class="material-icons">label</i>
             </span>
@@ -97,15 +97,15 @@
           </a>
         </div>
         <div class="db-link-tile c4" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/language-change']">
-            <span class="icon">
-              <i class="material-icons">speaker_notes</i>
-            </span>
+          <a [routerLink]="['/requests', getBase64(Workflow.LANGUAGE_CHANGE)]">
+                        <span class="icon">
+                            <i class="material-icons">speaker_notes</i>
+                        </span>
             <span class="title">Language Change</span>
           </a>
         </div>
         <div class="db-link-tile c5" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/leave-request']">
+          <a [routerLink]="['/leave-request', user.id]">
             <span class="icon">
               <i class="material-icons">date_range</i>
             </span>
@@ -164,19 +164,20 @@
             <span class="title">Request for Corrections of Resignation</span>
           </a>
         </div>
-      </div>
-      <!-- Search -->
-      <div class="db-search">
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Search">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+        <!-- Search -->
+        <div class="db-search">
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Search">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
-      <div *ngIf="requestView && !dashboardView">
-        <app-view-notary [notaryId]="notaryId"></app-view-notary>
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="requestView && !dashboardView">
+  <app-view-notary [notaryId]="notaryId"></app-view-notary>
 </div>

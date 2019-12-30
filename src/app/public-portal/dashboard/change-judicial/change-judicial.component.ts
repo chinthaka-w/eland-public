@@ -78,13 +78,13 @@ export class ChangeJudicialComponent implements OnInit {
       addressEng: new FormControl('',),
       addressSin: new FormControl('',),
       addressTam: new FormControl('',),
-      notarialWorkStartDate: new FormControl('', [Validators.required]),
-      certificateYear: new FormControl('', [Validators.required]),
-      nameOfLr: new FormControl('', [Validators.required]),
-      isDuplicateHandedOver: new FormControl('', [Validators.required]),
-      datePeriod: new FormControl('', [Validators.required]),
-      judicialZoneId: new FormControl('', [Validators.required]),
-      landRegistry: new FormControl('', [Validators.required]),
+      notarialWorkStartDate: new FormControl('', ),
+      certificateYear: new FormControl('', ),
+      nameOfLr: new FormControl('', ),
+      isDuplicateHandedOver: new FormControl('', ),
+      datePeriod: new FormControl('', ),
+      judicialZoneId: new FormControl('', ),
+      landRegistry: new FormControl('', ),
     });
     this.isSinhala = false;
     this.isTamil = false;

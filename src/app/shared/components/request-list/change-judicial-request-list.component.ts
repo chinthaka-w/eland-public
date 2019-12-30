@@ -1,18 +1,20 @@
+import { LanguageRequest } from './../../dto/language-request.model';
+import { LanguageChangeService } from './../../service/language-change.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {JudicialChange} from '../../dto/judicial-change-model';
 import {SnackBarService} from '../../service/snack-bar.service';
 import {JudicialService} from '../../service/change-judicial-service';
 import {TokenStorageService} from '../../auth/token-storage.service';
-import {RequestViewComponent} from '../../../public-portal/dashboard/requests/request-view/request-view.component';
-import {ActivatedRoute, Route, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Workflow} from '../../enum/workflow.enum';
 import {SearchRequestService} from '../../service/search-request.service';
 import {SearchRequest} from '../../dto/search-request.model';
-import {map} from 'rxjs/operators';
 import {SessionService} from '../../service/session.service';
 import {ExtractRequestService} from '../../service/extract-request.service';
 import {ExtractRequest} from '../../dto/extract-request.model';
+import {ChangeNameService} from "../../service/change-name.service";
+import {NotaryNameChangeModel} from "../../dto/notary-name-change.model";
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -38,12 +40,14 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   public actionButtonURL: string;
 
   constructor(private judicialService: JudicialService,
+              private changeNameService: ChangeNameService,
               private searchRequestService: SearchRequestService,
               private extractRequestService: ExtractRequestService,
               private snackBar: SnackBarService,
               private activatedRoute: ActivatedRoute,
               private sessionService: SessionService,
-              private tokenStorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService,
+              private langChangeService: LanguageChangeService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params['flag']); // (+) converts string 'id' to a number
     });
@@ -62,6 +66,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.newButtonURL = '/change-judicial';
         this.actionButtonURL = `/change-judicial-request-view/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
         break;
+      case Workflow.NOTARY_NAME_CHANGE:
+        this.loadNameChangeRequests();
+        this.headerText = 'NOTARY NAME CHANGING';
+        this.titleText = 'REQUEST FOR CHANGING THE NOTARY NAME';
+        this.newButtonURL = '/change-the-name';
+        this.actionButtonURL = `/change-name-request-view/`;
+        break;
       case Workflow.SEARCH_REQUEST:
         this.loadSearchRequests();
         this.headerText = 'FOLIO / DEED SEARCH';
@@ -75,6 +86,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.titleText = 'REQUEST FOR EXTRACT DOCUMENT';
         this.newButtonURL = '/extract';
         this.actionButtonURL = `/extract-view/`;
+        break;
+      case Workflow.LANGUAGE_CHANGE:
+        this.loadLanguageChangeRequests();
+        this.headerText = 'LANGUAGE CHANGE';
+        this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
+        this.newButtonURL = '/language-change';
+        this.actionButtonURL = '/language-change-view/';
         break;
     }
   }
@@ -137,5 +155,34 @@ export class ChangeJudicialRequestListComponent implements OnInit {
     );
   }
 
+  loadNameChangeRequests() {
+    this.requests = [];
+    this.changeNameService.getNameChangeRequest(this.sessionService.getUser().id).subscribe(
+      (data: NotaryNameChangeModel[]) => {
+        this.requests = data;
+        this.dataSource = new MatTableDataSource(this.requests);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
 
+  /**
+   * Get all language change requests by user
+   */
+  loadLanguageChangeRequests() {
+    this.langChangeService.getLanguageChangeRequests(this.sessionService.getUser().id).subscribe(
+      (result: LanguageRequest[]) => {
+        this.dataSource = new MatTableDataSource(result);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
 }

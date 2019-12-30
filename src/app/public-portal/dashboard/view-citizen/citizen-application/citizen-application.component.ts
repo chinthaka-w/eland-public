@@ -8,7 +8,6 @@ import {BankDTO} from "../../../../shared/dto/bank-dto";
 import {PublicUserDTO} from "../../../../shared/dto/public-user-dto";
 import {CitizenService} from "../../../../shared/service/citizen.service";
 import {BankService} from "../../../../shared/service/bank.service";
-import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
 import { PublicUserType } from '../../../../shared/enum/public-user-type.enum';
 import {Parameters} from '../../../../shared/enum/parameters.enum';
 import {SearchRequestType} from '../../../../shared/enum/search-request-type.enum';
@@ -166,12 +165,14 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
     this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
+    this.citizenDTO.workFlowStageCode = this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED;
+
     this.citizenService.updateCitizen(this.citizenDTO)
       .subscribe((result) => {
         if (result) {
           this.snackBar.success('Citizen updated successfully');
         }else{
-          alert('Failed');
+          this.snackBar.error('Failed');
         }
       });
   }
@@ -181,7 +182,7 @@ export class CitizenApplicationComponent implements OnInit {
       .subscribe((result) => {
         if(result) {
           this.citizenDTO = result;
-          if(this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.BANK_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.LAWYER_OR_LAW_FIRM_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.STATE_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.OTHER_INSTITUTE_INIT) {
+          if(this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.BANK_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.LAWYER_OR_LAW_FIRM_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.STATE_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.OTHER_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_APPROVED || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED) {
             this.publicUserForm.disable();
           }
           if(this.citizenDTO.userType == this.PublicUserType.BANK) {
