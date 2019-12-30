@@ -12,7 +12,7 @@ import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {SupportDocResponseModel} from "../../../shared/dto/support-doc-response.model";
 import {MatTabChangeEvent} from "@angular/material/tabs";
-import {NotaryViewTabsEnum} from "../../../shared/enum/notary-view-tabs.enum";
+import {NotaryViewTabs} from "../../../shared/enum/notary-view-tabs.enum";
 
 @Component({
   selector: 'app-view-notary',
@@ -65,22 +65,22 @@ export class ViewNotaryComponent implements OnInit {
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent,event): void {
     this.selectedIndex = tabChangeEvent.index;
-    if( event.tab.textLabel === NotaryViewTabsEnum.NOTARY_VIEW_TABS_APPLICATION ){
+    if( event.tab.textLabel === NotaryViewTabs.APPLICATION ){
       this.disabledPayment = true;
       this.disabledRemark = true;
       this.disabledDocuments = true;
     }
-    if((event.tab.textLabel === NotaryViewTabsEnum.NOTARY_VIEW_TABS_PAYMENT_INFO) && (!this.isApplicationValid)){
+    if((event.tab.textLabel === NotaryViewTabs.PAYMENT_INFO) && (!this.isApplicationValid)){
       this.disabledPayment = false;
       this.disabledRemark = false;
       this.disabledDocuments = false;
     }
-    if(event.tab.textLabel === NotaryViewTabsEnum.NOTARY_VIEW_TABS_REMARK){
+    if(event.tab.textLabel === NotaryViewTabs.REMARK){
       this.disabledPayment = false;
       this.disabledRemark = false;
       this.disabledDocuments = false;
     }
-    if(event.tab.textLabel === NotaryViewTabsEnum.NOTARY_VIEW_TABS_SUPPORTING_DOCS){
+    if(event.tab.textLabel === NotaryViewTabs.SUPPORTING_DOCS){
       this.disabled = true;
       this.disabledPayment = false;
       this.disabledRemark = false;
