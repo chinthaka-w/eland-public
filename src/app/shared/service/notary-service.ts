@@ -65,4 +65,25 @@ export class NotaryService {
   getNotary(notaryId: number) {
     return this.httpClient.get(this.BASE_URL + '/findNotary/' + notaryId , {headers: this.headersJson} );
   }
+
+  editProfile(notary: Notary) {
+    return this.httpClient.post(this.BASE_URL + '/editProfile/' , notary);
+  }
+
+  updateAccountDetails(formData: FormData) {
+    return this.httpClient.post(this.BASE_URL + '/updateAccount/' , formData);
+  }
+
+  uploadProfilePic(file: File, noteryId: number) {
+    const formdata: FormData = new FormData();
+    formdata.append('file', file);
+    formdata.append('notaryId', noteryId.toString());
+
+    return this.httpClient.post(this.BASE_URL + '/uploadProfilePic/' , formdata );
+
+  }
+
+  loadProfilePic(notaryId: number): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + '/loadProfilePic', notaryId);
+  }
 }
