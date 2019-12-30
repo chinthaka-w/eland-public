@@ -2512,6 +2512,31 @@ span.green {
 }
 
 
+/**/
+.default-input-feild.wbtn-feild {
+    position: relative;
+    padding-right: 25px;
+}
+
+.default-input-feild.wbtn-feild .mat-icon-button {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 24px;
+}
+
+.add-row.mat-button-base.mat-accent {
+    color: #fff;
+    top: -10px;
+}
+
+/**/
+a.mat-raised-button.mat-button-base .material-icons {
+    color: #fff;
+}
+
+
 /* Extra large devices - large desktops */
 @media (max-width: 1500px) {
     .hm-section-1-inner {
