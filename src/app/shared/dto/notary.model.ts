@@ -41,6 +41,8 @@ export class Notary {
      public paymentId: number,
      public judicialZoneDesc: string,
      public landRegistryDesc: string,
+     public clrName: string,
+     public clerkNic: string,
    ) {
    }
 }
