@@ -38,7 +38,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
   public paymentDataValue: number;
 
   Parameters = Parameters;
-  //WorkflowCode = Workflow;
+  WorkflowCode = Workflow;
   public requestId: RequestSearchDetailDTO;
 
   ActionMode = ActionMode;
