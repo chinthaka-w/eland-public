@@ -19,7 +19,9 @@ export class ApplicationComponent implements OnInit {
   public notary: Notary;
   submitted: boolean = false;
 
-  constructor(private sessionService: SessionService, private notaryService: NotaryService, private snackBar: SnackBarService,
+  constructor(private sessionService: SessionService,
+              private notaryService: NotaryService,
+              private snackBar: SnackBarService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
