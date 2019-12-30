@@ -19,8 +19,8 @@ export class ApplicationComponent implements OnInit {
   public notary: Notary;
   submitted: boolean = false;
 
-  constructor(private sessionService: SessionService, private notaryService: NotaryService,
-              private snackBar: SnackBarService, private formBuilder: FormBuilder) { }
+  constructor(private sessionService: SessionService, private notaryService: NotaryService, private snackBar: SnackBarService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.requestForm = this.formBuilder.group({
@@ -33,9 +33,9 @@ export class ApplicationComponent implements OnInit {
       perAddEng: new FormControl("" ),
       perAddSin: new FormControl(""),
       perAddTam: new FormControl(""),
-      CurAddEng: new FormControl(""),
-      CurAddSin: new FormControl(""),
-      CurAddTam: new FormControl(""),
+      curAddEng: new FormControl(""),
+      curAddSin: new FormControl(""),
+      curAddTam: new FormControl(""),
       isWarLang: new FormControl(""),
       dob: new FormControl(""),
       nic: new FormControl(""),
@@ -64,9 +64,9 @@ export class ApplicationComponent implements OnInit {
             perAddEng: this.notaryDetails.permanentAddressEng,
             perAddSin: this.notaryDetails.permanentAddressSin,
             perAddTam: this.notaryDetails.permanentAddressTam,
-            CurAddEng: this.notaryDetails.currantAddressEng,
-            CurAddSin: this.notaryDetails.currantAddressSin,
-            CurAddTam: this.notaryDetails.currantAddressTam,
+            curAddEng: this.notaryDetails.currantAddressEng,
+            curAddSin: this.notaryDetails.currantAddressSin,
+            curAddTam: this.notaryDetails.currantAddressTam,
             dob: this.notaryDetails.dateOfBirth,
             nic: this.notaryDetails.nic,
             contact: this.notaryDetails.contactNo,
@@ -91,8 +91,8 @@ export class ApplicationComponent implements OnInit {
     }
     this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
       null, this.requestForm.value.mobile,  this.requestForm.value.contact,
-      this.requestForm.value.perAddEng, this.requestForm.value.CurAddEng, this.requestForm.value.perAddSin,
-      this.requestForm.value.CurAddSin,  this.requestForm.value.perAddTam, this.requestForm.value.CurAddTam,
+      this.requestForm.value.perAddEng, this.requestForm.value.curAddEng, this.requestForm.value.perAddSin,
+      this.requestForm.value.curAddSin,  this.requestForm.value.perAddTam, this.requestForm.value.curAddTam,
       null, null, null,
       null,  null, null,
       null, null, null,

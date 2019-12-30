@@ -18,8 +18,8 @@ export class NotaryClerkComponent implements OnInit {
   filedata;
   profilePic: string[] = [];
 
-  constructor(private formBuilder: FormBuilder, private sessionService: SessionService,
-              private snackBar: SnackBarService, private notaryService: NotaryService) { }
+  constructor(private formBuilder: FormBuilder, private sessionService: SessionService, private snackBar: SnackBarService,
+              private notaryService: NotaryService) { }
 
   ngOnInit() {
     this.accountUpdateForm = this.formBuilder.group({
