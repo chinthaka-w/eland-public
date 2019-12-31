@@ -125,9 +125,7 @@
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">Date of birth is required</mat-error>
           </div>
-          <button mat-raised-button (click)="picker.open()">
-            <i class="material-icons">calendar_today</i>
-          </button>
+
         </div>
       </div>
 
@@ -186,14 +184,14 @@
       </div>
 
       <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">Address</label>
+        <label class="mw-200">Address <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Address Line 1" formControlName="address1" />
+            <input matInput placeholder="Address in English" formControlName="address1" />
           </mat-form-field>
           <div *ngIf="FormControls.address1.touched && FormControls.address1.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.address1.errors.required" class="errors">Address Line 1 required</mat-error>
+            <mat-error *ngIf="FormControls.address1.errors.required" class="errors">Address in English required</mat-error>
           </div>
         </div>
       </div>
@@ -201,24 +199,16 @@
         <label class="mw-200"></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Address Line 2" formControlName="address2" />
+            <input matInput placeholder="Address in Sinhala" formControlName="address2" />
           </mat-form-field>
-          <div *ngIf="FormControls.address2.touched && FormControls.address2.errors"
-               class="invalid-feedback">
-            <mat-error *ngIf="FormControls.address2.errors.required" class="errors">Address Line 2 required</mat-error>
-          </div>
         </div>
       </div>
       <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200"></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Address Line 3" formControlName="address3" />
+            <input matInput placeholder="Address in Tamil" formControlName="address3" />
           </mat-form-field>
-          <div *ngIf="FormControls.address3.touched && FormControls.address3.errors"
-               class="invalid-feedback">
-            <mat-error *ngIf="FormControls.address3.errors.required" class="errors">Address Line 3 required</mat-error>
-          </div>
         </div>
       </div>
 
@@ -283,7 +273,7 @@
         <label class="mw-200">Email Address <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Email Address" formControlName="email" />
+            <input matInput placeholder="Email Address" formControlName="email" (input)="setUserName($event.target.value)" />
           </mat-form-field>
           <div *ngIf="FormControls.email.touched && FormControls.email.errors"
                class="invalid-feedback">
@@ -347,11 +337,6 @@
             Continue
           </button>
         </div>
-        <div *ngIf="paymentDto.paymentId" class="pg-inner-col right">
-          <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="saveCitizen()">
-            Register
-          </button>
-        </div>
       </div>
     </form>
   </div>
@@ -362,7 +347,6 @@
     <app-payment (response)="onPaymentResponse($event)"
                  (back)="onBack($event)"
                  [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
-                 [hasFrontCounterPayment]="true"
                  [isDocumentCollect]="true"
                  [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"></app-payment>
   </div>

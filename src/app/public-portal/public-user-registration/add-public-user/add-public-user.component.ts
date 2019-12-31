@@ -67,12 +67,12 @@ export class AddPublicUserComponent implements OnInit {
       bankUserType: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
       nameEnglish: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
-      nameSinhala: new FormControl("", [Validators.required]),
-      nameTamil: new FormControl("", [Validators.required]),
+      nameSinhala: new FormControl(""),
+      nameTamil: new FormControl(""),
       notaryId: new FormControl("", [Validators.required]),
       address1: new FormControl("", [Validators.required]),
-      address2: new FormControl("", [Validators.required]),
-      address3: new FormControl("", [Validators.required]),
+      address2: new FormControl(""),
+      address3: new FormControl(""),
       identificationNo: new FormControl("", [Validators.required]),
       identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
@@ -91,6 +91,14 @@ export class AddPublicUserComponent implements OnInit {
     });
     this.getAllLandRegistries();
     this.getAllBanks();
+    this.citizenDTO.userType = this.PublicUserType.CITIZEN;
+    this.publicUserForm.patchValue({type: this.citizenDTO.userType});
+    this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
+    this.citizenService.getRelatedDocTypes(this.citizenDTO.workFlowStageCode)
+      .subscribe((result) => {
+        this.workflowStageDocTypes = result;
+      });
+    this.disableUselessFormControls(this.citizenDTO.userType);
   }
 
   get FormControls() {
@@ -265,13 +273,20 @@ export class AddPublicUserComponent implements OnInit {
     });
   }
 
+  setUserName(userName: string): void {
+    this.publicUserForm.patchValue({
+      userName: userName,
+    });
+    this.onSearchChange(userName);
+  }
+
   onBack(data: boolean) {
     this.isContinue = !data;
   }
   onPaymentResponse(data: PaymentResponse) {
-    this.isContinue = false;
     this.paymentDto.paymentId = data.paymentId;
     this.citizenDTO.payment = this.paymentDto;
+    this.saveCitizen();
   }
 
 }
