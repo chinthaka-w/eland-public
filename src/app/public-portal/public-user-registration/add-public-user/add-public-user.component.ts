@@ -94,10 +94,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.userType = this.PublicUserType.CITIZEN;
     this.publicUserForm.patchValue({type: this.citizenDTO.userType});
     this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
-    this.citizenService.getRelatedDocTypes(this.citizenDTO.workFlowStageCode)
-      .subscribe((result) => {
-        this.workflowStageDocTypes = result;
-      });
+    this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
     this.disableUselessFormControls(this.citizenDTO.userType);
   }
 
@@ -161,8 +158,11 @@ export class AddPublicUserComponent implements OnInit {
     else if(this.citizenDTO.userType == PublicUserType.OTHER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
     }
+    this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
+  }
 
-    this.citizenService.getRelatedDocTypes(this.citizenDTO.workFlowStageCode)
+  getRelatedDocTypes(workflowStage: string) {
+    this.citizenService.getRelatedDocTypes(workflowStage)
       .subscribe((result) => {
         this.workflowStageDocTypes = result;
       });
