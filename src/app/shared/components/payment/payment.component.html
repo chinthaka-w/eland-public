@@ -23,7 +23,7 @@
             <mat-radio-group formControlName="paymentMethod" class="form-control"
                              (change)="onChangePaymentMethod($event);">
               <!--(change)="setPaymentMethod(this.paymentForm.value.paymentMethod)"-->
-              <mat-radio-button class="example-margin" disabled [value]="PaymentMethod.ONLINE">Online</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="PaymentMethod.ONLINE">Online</mat-radio-button>
               <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">Bank Transfer or Deposit
               </mat-radio-button>
               <!--<mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_SLIP">Bank Slip</mat-radio-button>-->
@@ -54,13 +54,25 @@
       <div class="hc-component-bottom">
         <span class="bt-line">&nbsp;</span>
         <button mat-raised-button class="lg-button" (click)="onClickBack()">Back</button>
-        <button mat-raised-button class="lg-button green" (click)="onClickContinue()">Continue</button>
+        <button mat-raised-button class="lg-button green" (click)="onClickContinue()">
+          <div class="row">
+            Continue 
+            <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"
+            ></mat-spinner> 
+          </div>
+        </button>
       </div>
     </div>
   </div>
 </form>
 
-<app-online-method *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.ONLINE"></app-online-method>
+<app-online-method
+ *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
+ [paymentAmount]="totalAmount"
+ [transactionRef] = "paymentReference"
+ [returnUrl] = "returnUrl"
+ >
+ </app-online-method>
 <app-payment-method
   *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
   (response)="onPaymentResponseFromBankSlip($event)"

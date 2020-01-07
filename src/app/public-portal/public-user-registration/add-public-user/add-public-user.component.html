@@ -332,11 +332,13 @@
           <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
           and <a href="#">Privacy Policy</a> .
         </div>
-        <div *ngIf="!(paymentDto.paymentId)" class="pg-inner-col right">
-          <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="saveCitizen()">
-            Continue
-          </button>
-        </div>
+        
+          <div class="pg-inner-col right">
+            <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="continue()">
+              Continue
+            </button>
+          </div>
+          
       </div>
     </form>
   </div>
@@ -345,6 +347,9 @@
 <div class="page-content-wrapper" *ngIf="isContinue">
   <div class="page-content-inner-wrapper">
     <app-payment (response)="onPaymentResponse($event)"
+                 (paymentMethodResponse) = paymentMethodResponse($event)
+                 [statusOnlinePayment] = "statusOnlinePayment"
+                 [returnUrl]="returnURl"
                  (back)="onBack($event)"
                  [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
                  [isDocumentCollect]="true"

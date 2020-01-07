@@ -1,3 +1,4 @@
+import { PaymentMethod } from './../../../shared/enum/payment-method.enum';
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
@@ -49,6 +50,20 @@ export class AddPublicUserComponent implements OnInit {
   publicUserExist: boolean = false;
   isContinue: boolean = false;
   formData: FormData = new FormData();
+
+  /**
+   * **Online payment method**
+   * (paymentMethodResponse) will be emit Transaction reference (uuid), Application amount, Payment type
+   *   after selection of payment type
+   * If paymentMethod is an online payment save the form
+   *  which is used as paymentReference
+   * returnUrl should be the url where the user will be navigate after complete process.
+   *    eg: /login (only the path)
+   * set statusOnlinePayment to true after form save complete
+   */
+  paymentMethod: number;
+  returnURl: string;
+  statusOnlinePayment: boolean;
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -247,19 +262,19 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
     this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
-    if(!(this.paymentDto.paymentId)) {
-      this.isContinue = true;
-    }else{
-      this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
-        .subscribe((result) => {
-          if (result) {
-            this.snackBar.success('Citizen saved successfully');
-            this.router.navigate(['/login']);
-          }else{
-            this.snackBar.error('Operation failed');
-          }
-        });
-    }
+    this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
+      .subscribe((result) => {
+        if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
+          this.snackBar.success('Citizen saved successfully');
+          this.router.navigate(['/login']);
+        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+          this.snackBar.success('Citizen saved successfully, Proceed to online payment');
+          this.isContinue = true;
+          this.statusOnlinePayment = true;
+        } else {
+          this.snackBar.error('Operation failed');
+        }
+      });
   }
 
   onSearchChange(searchValue: string): void {
@@ -284,9 +299,33 @@ export class AddPublicUserComponent implements OnInit {
     this.isContinue = !data;
   }
   onPaymentResponse(data: PaymentResponse) {
-    this.paymentDto.paymentId = data.paymentId;
-    this.citizenDTO.payment = this.paymentDto;
-    this.saveCitizen();
+    if (this.paymentMethod !== PaymentMethod.ONLINE) {
+      this.paymentDto.paymentId = data.paymentId;
+      this.citizenDTO.payment = this.paymentDto;
+      this.saveCitizen();
+    }
+  }
+
+  /**
+   * returns payment response with the payment method & application amount
+   */
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentMethod = data.paymentMethod;
+
+    // save citizen form for online payment with reference no
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.citizenDTO.payment = this.paymentDto;
+      this.returnURl = 'login';
+      this.saveCitizen();
+    }
+
+  }
+
+  continue(): void {
+    this.isContinue = true;
   }
 
 }
