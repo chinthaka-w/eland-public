@@ -46,7 +46,7 @@ export class NotaryService {
 
   /** Get Notary RequestId by Login Notary Details */
   getNotaryRequestDetails(notaryId: number): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL+ '/search' + notaryId , {headers: this.headersJson})
+    return this.httpClient.get(this.BASE_URL + '/search/' + notaryId , {headers: this.headersJson})
   }
 
   // tslint:disable-next-line:ban-types
@@ -60,5 +60,30 @@ export class NotaryService {
 
   getNotaryDetails() {
     return this.notaryDetails;
+  }
+
+  getNotary(notaryId: number) {
+    return this.httpClient.get(this.BASE_URL + '/findNotary/' + notaryId , {headers: this.headersJson} );
+  }
+
+  editProfile(notary: Notary) {
+    return this.httpClient.post(this.BASE_URL + '/editProfile/' , notary);
+  }
+
+  updateAccountDetails(formData: FormData) {
+    return this.httpClient.post(this.BASE_URL + '/updateAccount/' , formData);
+  }
+
+  uploadProfilePic(file: File, noteryId: number) {
+    const formdata: FormData = new FormData();
+    formdata.append('file', file);
+    formdata.append('notaryId', noteryId.toString());
+
+    return this.httpClient.post(this.BASE_URL + '/uploadProfilePic/' , formdata );
+
+  }
+
+  loadProfilePic(notaryId: number): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + '/loadProfilePic', notaryId);
   }
 }

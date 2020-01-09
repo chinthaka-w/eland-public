@@ -12,6 +12,7 @@ import {Workflow} from '../../../../shared/enum/workflow.enum';
 import {Parameters} from '../../../../shared/enum/parameters.enum';
 import {NewNotaryPaymentDto} from '../../../../shared/dto/new-notary-payment.dto';
 import {SnackBarService} from '../../../../shared/service/snack-bar.service';
+import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
 import {ActionMode} from '../../../../shared/enum/action-mode.enum';
 
 @Component({
@@ -21,6 +22,7 @@ import {ActionMode} from '../../../../shared/enum/action-mode.enum';
 })
 export class NotaryPaymentInfoComponent implements OnInit {
   @Output() notaryPayment = new EventEmitter<NewNotaryPaymentDto>();
+  @Input() requestDetailPayment: RequestSearchDetailDTO;
   @ViewChild(PaymentComponent, {static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent, {static: false}) paymentMethodComponent: PaymentMethodComponent;
   @Input() workflow: string;
@@ -38,6 +40,8 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
   Parameters = Parameters;
   WorkflowCode = Workflow;
+  public requestId: RequestSearchDetailDTO;
+
   ActionMode = ActionMode;
 
   constructor(private notaryService: NewNotaryDataVarificationService,
@@ -51,7 +55,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id, this.type, this.workflow);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDetailPayment !== undefined ? this.requestDetailPayment.requestId : this.id, this.requestDetailPayment !== undefined ? this.requestDetailPayment.workflow : this.workflow);
     this.notaryService.getPaymentDetails(searchType).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
         this.paymentDetails = result;
@@ -89,7 +93,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
         break;
       default:
         this.paymentDataValue = paymentData.paymentId;
-        this.savePayments(1, this.paymentDataValue);
+        this.savePayments(this.requestDetailPayment.requestId, this.paymentDataValue);
     }
   }
 

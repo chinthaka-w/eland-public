@@ -4,6 +4,7 @@ import {DocumentDTO} from "./document-dto";
 
 export class CitizenDTO {
   id: number;
+  reqId: number;
   landRegistry: number;
   userType: number;
   identificationNoType: number;

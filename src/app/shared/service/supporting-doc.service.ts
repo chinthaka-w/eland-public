@@ -12,7 +12,7 @@ export class SupportingDocService {
   public constructor(private httpClient: HttpClient) {}
 
 
-  /** Get Notary Doc Types to workflow */
+  /** Get  Doc Types to workflow */
   getDocuments(workflowCode: string): Observable<any> {
     return this.httpClient.get(this.BASE_URL + '/' +  workflowCode );
   }

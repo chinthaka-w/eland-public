@@ -8,7 +8,6 @@ import {BankDTO} from "../../../../shared/dto/bank-dto";
 import {PublicUserDTO} from "../../../../shared/dto/public-user-dto";
 import {CitizenService} from "../../../../shared/service/citizen.service";
 import {BankService} from "../../../../shared/service/bank.service";
-import {PaymentResponse} from "../../../../shared/dto/payment-response.model";
 import { PublicUserType } from '../../../../shared/enum/public-user-type.enum';
 import {Parameters} from '../../../../shared/enum/parameters.enum';
 import {SearchRequestType} from '../../../../shared/enum/search-request-type.enum';
@@ -59,6 +58,10 @@ export class CitizenApplicationComponent implements OnInit {
               private snackBar: SnackBarService) {}
 
   ngOnInit() {
+    this.user = this.sessionService.getUser();
+    this.getAllLandRegistries();
+    this.getAllBanks();
+    this.getApplicationDetails(this.user.id);
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl("", [Validators.required]),
@@ -67,6 +70,7 @@ export class CitizenApplicationComponent implements OnInit {
       nameSinhala: new FormControl("", [Validators.required]),
       nameTamil: new FormControl("", [Validators.required]),
       bankName: new FormControl("", [Validators.required]),
+      bankUserType: new FormControl("", [Validators.required]),
       notaryId: new FormControl("", [Validators.required]),
       address1: new FormControl("", [Validators.required]),
       address2: new FormControl("", [Validators.required]),
@@ -87,38 +91,7 @@ export class CitizenApplicationComponent implements OnInit {
       otherInstitutionName: new FormControl("", [Validators.required]),
       dateOfBirth: new FormControl("", [Validators.required]),
     });
-    this.user = this.sessionService.getUser();
-    if(this.user.userStatus == this.commonStatus.PENDING) {
-      this.disableFormControls();
-    }
-    this.getApplicationDetails(this.user.id);
-    this.getAllLandRegistries();
-    this.getAllBanks();
-  }
 
-  disableFormControls() {
-    this.publicUserForm.controls['nearestLr'].disable();
-    this.publicUserForm.controls['type'].disable();
-    this.publicUserForm.controls['lawFirmName'].disable();
-    this.publicUserForm.controls['nameEnglish'].disable();
-    this.publicUserForm.controls['nameSinhala'].disable();
-    this.publicUserForm.controls['nameTamil'].disable();
-    this.publicUserForm.controls['bankName'].disable();
-    this.publicUserForm.controls['notaryId'].disable();
-    this.publicUserForm.controls['address1'].disable();
-    this.publicUserForm.controls['address2'].disable();
-    this.publicUserForm.controls['address3'].disable();
-    this.publicUserForm.controls['identificationNo'].disable();
-    this.publicUserForm.controls['identificationType'].disable();
-    this.publicUserForm.controls['primaryContact'].disable();
-    this.publicUserForm.controls['secondaryContact'].disable();
-    this.publicUserForm.controls['email'].disable();
-    this.publicUserForm.controls['reason'].disable();
-    this.publicUserForm.controls['officersDesignation'].disable();
-    this.publicUserForm.controls['stateInstitutionName'].disable();
-    this.publicUserForm.controls['otherInstitutionName'].disable();
-    this.publicUserForm.controls['dateOfBirth'].disable();
-    this.publicUserForm.controls['notaryId'].disable();
   }
 
   setFiles(files, key){
@@ -192,35 +165,31 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
     this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
+    this.citizenDTO.workFlowStageCode = this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED;
+
     this.citizenService.updateCitizen(this.citizenDTO)
       .subscribe((result) => {
         if (result) {
           this.snackBar.success('Citizen updated successfully');
         }else{
-          alert('Failed');
+          this.snackBar.error('Failed');
         }
       });
   }
-
-  // onSearchChange(searchValue: string): void {
-  //   // console.log(searchValue);
-  //   this.publicUserDTO.username = searchValue;
-  //   this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
-  //     if (result == true) {
-  //       this.publicUserExist = true;
-  //     }else {
-  //       this.publicUserExist = false;
-  //     }
-  //   });
-  // }
 
   getApplicationDetails(citizenId: number) {
     this.citizenService.getApplicationDetails(citizenId)
       .subscribe((result) => {
         if(result) {
           this.citizenDTO = result;
-          console.log(this.citizenDTO);
-          this.citizenService.paymentDetails.emit(this.citizenDTO.paymentHistory);
+          if(this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.BANK_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.LAWYER_OR_LAW_FIRM_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.STATE_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.OTHER_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_APPROVED || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED) {
+            this.publicUserForm.disable();
+          }
+          if(this.citizenDTO.userType == this.PublicUserType.BANK) {
+            this.bankUserTypeId = this.citizenDTO.bankUserType;
+          }
+          // this.citizenService.paymentDetails.emit(this.citizenDTO.paymentHistory);
+          this.citizenService.citizenDto.emit(this.citizenDTO);
           this.publicUserForm.patchValue({
             nameEnglish: this.citizenDTO.nameEng,
             nameSinhala: this.citizenDTO.nameSin,
@@ -242,7 +211,9 @@ export class CitizenApplicationComponent implements OnInit {
             nearestLr: this.citizenDTO.landRegistry,
             type: this.citizenDTO.userType,
             bankName: this.citizenDTO.bankId,
-            identificationType: this.citizenDTO.identificationNoType
+            identificationType: this.citizenDTO.identificationNoType,
+            bankUserType: this.citizenDTO.bankUserType,
+            notaryId: this.citizenDTO.notaryId
           });
         }
       });

@@ -1,38 +1,60 @@
 <div class="pg-inner-row mb-40">
     <div class="pg-inner-col">
-        <h4 class="m0">Notary Clerk</h4>
+        <h4 class="m0">Account Details</h4>
     </div>
 </div>
-
+<form [formGroup]="accountUpdateForm" class="form pb-5">
 <div class="default-input-wrapper full-row">
-    <label>Name:</label>
+    <label>User Name:<span class="redtxt">*</span></label>
     <div class="default-input-feild">
         <mat-form-field appearance="outline">
-            <input matInput>
+            <input matInput formControlName="username">
         </mat-form-field>
-    </div>
-</div>
-<div class="default-input-wrapper full-row">
-    <label>Address:</label>
-    <div class="default-input-feild">
-        <mat-form-field appearance="outline">
-            <textarea matInput rows="5"></textarea>
-        </mat-form-field>
+      <div *ngIf="submitted  && f.username.errors" >
+        <div *ngIf="f.username.errors.required" class="invalid-feedback">
+          User name is required</div>
+      </div>
     </div>
 </div>
 <div class="default-input-wrapper full-row">
-    <label>Email:</label>
+    <label>Current Password:<span class="redtxt">*</span></label>
     <div class="default-input-feild">
         <mat-form-field appearance="outline">
-            <input matInput>
+            <input type="password" matInput formControlName="currentpassword">
         </mat-form-field>
+      <div *ngIf="submitted  && f.currentpassword.errors" >
+        <div *ngIf="f.currentpassword.errors.required" class="invalid-feedback">
+          Current Password is required</div>
+      </div>
     </div>
 </div>
 <div class="default-input-wrapper full-row">
-    <label>Phone No:</label>
+    <label>New Password:<span class="redtxt">*</span></label>
     <div class="default-input-feild">
         <mat-form-field appearance="outline">
-            <input matInput>
+            <input type="password" matInput formControlName="newpassword">
         </mat-form-field>
+      <div *ngIf="submitted  && f.newpassword.errors" >
+        <div *ngIf="f.newpassword.errors.required" class="invalid-feedback">
+          New Password is required</div>
+      </div>
     </div>
 </div>
+<div class="default-input-wrapper full-row">
+    <label>Confirm New Password:<span class="redtxt">*</span></label>
+    <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+            <input type="password" matInput formControlName="confirmpassword">
+        </mat-form-field>
+      <div *ngIf="submitted  && f.confirmpassword.errors" >
+        <div *ngIf="f.confirmpassword.errors.required" class="invalid-feedback">
+          Confirm Password is required</div>
+      </div>
+    </div>
+</div>
+  <div class="pg-inner-col right" >
+    <button mat-raised-button class="lg-button" (click)="updateAccount()">
+      Submit
+    </button>
+  </div>
+</form>

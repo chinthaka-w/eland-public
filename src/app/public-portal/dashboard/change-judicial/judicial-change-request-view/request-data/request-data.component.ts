@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {JudicialChange} from '../../../../../shared/dto/judicial-change-model';
 import {JudicialService} from '../../../../../shared/service/change-judicial-service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -12,6 +12,15 @@ import {Languages} from '../../../../../shared/enum/languages.enum';
 import {DsGnDivisionDTO} from '../../../../../shared/dto/gs-gn-model';
 import {MatTableDataSource} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {DocumentDto} from '../../../../../shared/dto/document-list';
+import {JudicialChangeWorkflowStagesEnum} from '../../../../../shared/enum/judicial-change-workflow-stages.enum';
+import {NewNotaryRequestsCategorySearchDto} from '../../../../../shared/dto/new-notary-requests-category-search.dto';
+import {NewNotaryPaymentDetailDto} from '../../../../../shared/dto/new-notary-payment-detail.dto';
+import {NewNotaryDataVarificationService} from '../../../../../shared/service/new-notary-data-varification.service';
+import {WorkflowStageDocDto} from '../../../../../shared/dto/workflow-stage-doc.dto';
+import {Workflow} from '../../../../../shared/enum/workflow.enum';
+import {SupportingDocService} from '../../../../../shared/service/supporting-doc.service';
+import {Notary} from '../../../../../shared/dto/notary.model';
 
 @Component({
   selector: 'app-request-data',
@@ -50,6 +59,12 @@ export class RequestDataComponent implements OnInit {
   public dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   public dsDivisionId: number;
   public isSelected: boolean;
+  @Input() files: File[] = [];
+  public documentList: DocumentDto[] = [];
+  paymentDetails: NewNotaryPaymentDetailDto[] = [];
+  paymentId: number;
+  public docList: WorkflowStageDocDto[];
+  @Output() jdDetail = new EventEmitter<JudicialChange>();
   public languages: any[] = [
     {
       id: Languages.ENGLISH,
@@ -65,7 +80,8 @@ export class RequestDataComponent implements OnInit {
     }
   ];
 
-  constructor(private judicialZoneService: JudicialService, private judicialService: JudicialService, private snackBar: SnackBarService) { }
+  constructor(private judicialZoneService: JudicialService, private judicialService: JudicialService, private snackBar: SnackBarService,
+              private newNotaryDataVarificationService: NewNotaryDataVarificationService, private documetService: SupportingDocService) { }
 
   ngOnInit() {
     this.requestForm = new FormGroup({
@@ -89,6 +105,23 @@ export class RequestDataComponent implements OnInit {
     this.getJudicialChangeDetails(this.id);
     this.getLanguages();
     this.isSelected = false;
+    this.getPaymentDetails();
+    this.getDocumentList();
+    this.locationDto = {};
+  }
+
+  setFiles(data: any, docTyprId: number) {
+    this.files = data;
+    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
+  }
+
+  addLocation() {
+    this.locationList.push(this.locationDto);
+    this.locationDto = {};
+  }
+
+  removeLocation(index) {
+    this.locationList.splice(index, 1);
   }
 
 
@@ -146,18 +179,22 @@ export class RequestDataComponent implements OnInit {
             addressEng: this.judicialChange.addressEng,
             addressSin: this.judicialChange.addressSin,
             addressTam: this.judicialChange.addressTam,
-            notarialWorkStartDate: this.judicialChange.notarialWorkStartDate,
-            certificateYear: this.judicialChange.certificateYear,
+            notarialWorkStartDate: this.judicialChange.notarialWorkStartDate.toString().substring(0,10),
+            certificateYear: this.judicialChange.certificateYear.toString().substring(0,4),
             nameOfLr: this.judicialChange.nameOfLr,
             isDuplicateHandedOver: this.judicialChange.isDuplicateHandedOver,
-            fromDate: this.judicialChange.fromDate,
-            toDate: this.judicialChange.toDate,
+            fromDate: this.judicialChange.fromDate.toString().substring(0,10),
+            toDate: this.judicialChange.toDate.toString().substring(0,10),
             judicialZoneId: this.judicialChange.judicialZoneId,
             landRegistry: this.judicialChange.landRegistry,
-
           }
         );
         this.dsGnDivisions = this.judicialChange.newNotaryDsDivisionDTO;
+        if (this.workflow === JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_MODIFIED || this.workflow === JudicialChangeWorkflowStagesEnum.DATA_VERIFICATION_CLERK_REJECTED) {
+          this.requestForm.enable();
+        } else if (this.workflow === JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED) {
+          this.requestForm.disable();
+        }
       }
     );
   }
@@ -168,15 +205,7 @@ export class RequestDataComponent implements OnInit {
     this.judicialChangeDto.dsGnList = this.dsGnList;
     this.judicialChangeDto.requestId = this.id;
 
-    this.judicialService.update(this.judicialChangeDto).subscribe(
-      (success: string) => {
-        this.snackBar.success('Judicial Change Request Success');
-        this.requestForm.reset();
-      },
-      error => {
-        this.snackBar.error('Failed');
-      }
-    );
+    this.jdDetail.emit(this.judicialChangeDto);
   }
 
   selectGsDivision(gsDivisionId, index) {
@@ -197,6 +226,33 @@ export class RequestDataComponent implements OnInit {
     this.dsGnList.push(new DsGnDivisionDTO(gsDivisionId[0], this.dsDivisionId));
   }
 
+  getPaymentDetails() {
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.id, this.workflow);
+    this.newNotaryDataVarificationService.getPaymentDetails(searchType).subscribe(
+      (result: NewNotaryPaymentDetailDto[]) => {
+        this.paymentDetails = result;
+        this.paymentId = this.paymentDetails[0].paymentId;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
 
+  private getDocumentList(): void {
+    this.documetService.getDocuments(Workflow.JUDICIAL_ZONE_CHANGE).subscribe(
+      (data: WorkflowStageDocDto[]) => {
+        this.docList = data;
+      }
+    );
+  }
 
+  setWorkflowStage(){
+    let stageCode: string = this.judicialChange.workflowCode;
+    this.newNotaryDataVarificationService.setWorkflowStage(stageCode);
+  }
+
+  public onFormSubmit() {
+    this.submitForm();
+  }
 }

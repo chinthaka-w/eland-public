@@ -4,17 +4,13 @@ import {DocumentResponseDto} from "../../../../shared/dto/document-response.dto"
 import {NewNotarySupportingDocDetailDto} from "../../../../shared/dto/new-notary-supporting-doc-detail.dto";
 import {WorkflowStageDocDto} from "../../../../shared/dto/workflow-stage-doc.dto";
 import {FormArray, FormGroup} from "@angular/forms";
-import {DocumentDto} from "../../../../shared/dto/document-list";
 import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {NotaryService} from "../../../../shared/service/notary-service";
 import {SupportingDocService} from "../../../../shared/service/supporting-doc.service";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../shared/dto/new-notary-requests-category-search.dto";
-import {ApplicationRequestDataType} from "../../../../shared/enum/application-request-data-type.enum";
-import {SupportDocResponseModel} from "../../../../shared/dto/support-doc-response.model";
-import {Workflow} from "../../../../shared/enum/workflow.enum";
-import {LoginComponent} from "../../../login/login.component";
+import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
 
 @Component({
   selector: 'app-supporting-doc-detail',
@@ -24,8 +20,11 @@ import {LoginComponent} from "../../../login/login.component";
 export class SupportingDocDetailComponent implements OnInit {
   @Input()
   files: File[] = [];
-  @Input() requestId: number;
-  @Input() workFlowStage: string;
+  public requestId: RequestSearchDetailDTO;
+  @Input() requestDocuments: RequestSearchDetailDTO;
+  @Input() id: number;
+  @Input() workflow: string;
+  public docsList: DocumentResponseDto[] = [];
   @Output() supportDocs = new EventEmitter<DocumentResponseDto[]>();
 
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
@@ -34,19 +33,20 @@ export class SupportingDocDetailComponent implements OnInit {
   displayedColumns: string[] = ['Document Name', 'Remark'];
   documentImages: string[] = [];
   public docList: WorkflowStageDocDto[];
-  public docsList: DocumentResponseDto[] = [];
   dataSource = new MatTableDataSource<NewNotarySupportingDocDetailDto>(this.supportingDocuments);
+  public docTypeId: number;
+  public docId: number;
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
               private notaryService: NewNotaryDataVarificationService,
               private newNotaryService: NotaryService,
               private documetService: SupportingDocService) {
-    this.item1.id =1;
-    this.item1.name = 'name1';
-    this.item1.statusCode = false;
-
-    this.supportingDocuments.push(this.item1);
+    // this.item1.id =1;
+    // this.item1.name = 'name1';
+    // this.item1.statusCode = false;
+    //
+    // this.supportingDocuments.push(this.item1);
   }
 
   ngOnInit() {
@@ -55,6 +55,7 @@ export class SupportingDocDetailComponent implements OnInit {
     this.supportingDocForm = new FormGroup({
       remarks: new FormArray([])
     });
+    this.getDocumentTypesForNotaryNameChange();
     this.getDocumentTypes();
   }
 
@@ -67,12 +68,8 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestId,"1","");
-    // this.route.paramMap.subscribe(params => {
-    //   searchType.requestID = params.get('id')
-    // });
-    searchType.type = ApplicationRequestDataType.SUPPORTING_DOC;
-
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDocuments !== undefined ?
+      this.requestDocuments.requestId : this.id, this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow);
     this.notaryService.getDocumentDetails(searchType).subscribe(
       (result: NewNotarySupportingDocDetailDto[]) => {
         this.supportingDocuments = result;
@@ -85,34 +82,31 @@ export class SupportingDocDetailComponent implements OnInit {
 
   setFiles(data: any, docTyprId: number,docId: number) {
     this.files = data;
-    this.docsList.push(new DocumentResponseDto(docId,docTyprId,this.files[0],""));
+    this.docTypeId = docTyprId;
+    this.docId = docId;
+  }
+
+  onFormSubmit(docsList: DocumentResponseDto[]){
+    this.docsList.push(new DocumentResponseDto(this.docId,this.docTypeId,this.files[0],""));
     this.supportDocs.emit(this.docsList);
   }
 
-  saveNewDocuments(docId: number ,docTypeId: number,docs: DocumentResponseDto[]){
-    const formData = new FormData();
-    const supportDocResponse = new SupportDocResponseModel(docId,docTypeId,this.requestId);
-    formData.append('data', JSON.stringify(supportDocResponse));
-    docs.forEach(doc => {
-      formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
-    });
-    this.newNotaryService.updateSupportDocuments(formData).subscribe(
-      (res) =>{
-        console.log(res);
-      }
-    )
-  }
 
   getDocumentTypes(){
-    this.documetService.getDocumentsByWorkFlow(this.workFlowStage).subscribe(
+    this.documetService.getDocumentsByWorkFlow(this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }
     );
   }
 
-  getSupportingDocDetails(data: DocumentResponseDto[]){
-    console.log(data);
+  getDocumentTypesForNotaryNameChange(){
+    this.documetService.getDocumentsByWorkFlow(this.workflow !== undefined ? this.workflow : this.workflow).subscribe(
+      (data: WorkflowStageDocDto[]) => {
+        this.docList = data;
+      }
+    );
   }
+
 
 }
