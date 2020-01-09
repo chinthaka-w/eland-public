@@ -31,6 +31,7 @@ import {Location} from '@angular/common';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {ExtractRequestService} from '../../../shared/service/extract-request.service';
 import {ExtractRequest} from '../../../shared/dto/extract-request.model';
+import {FolioStatus} from '../../../shared/enum/folio-status.enum';
 
 @Component({
   selector: 'app-extract',
@@ -42,6 +43,7 @@ export class ExtractComponent implements OnInit {
   SearchRequestType = SearchRequestType;
   Parameters = Parameters;
   WorkflowCode = Workflow;
+  FolioStatus = FolioStatus;
 
   public isContinueToPayment: boolean = false;
 
@@ -254,7 +256,7 @@ export class ExtractComponent implements OnInit {
 
     if (isValid) {
       let folioStatus: Enum = null;
-      this.folioNoService.findByFolioNo(btoa(this.folioForm.get('folioNo').value)).subscribe(
+      this.folioNoService.findByFolioNo(btoa(`${this.searchRequestForm.get('landRegistryId').value}/${this.folioForm.get('folioNo').value}`)).subscribe(
         (data: Enum) => {
           folioStatus = data;
         }, (error: HttpErrorResponse) => {

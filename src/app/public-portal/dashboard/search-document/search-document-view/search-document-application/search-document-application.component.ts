@@ -265,7 +265,9 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
 
     if (isValid) {
       let folioStatus: Enum = null;
-      this.folioNoService.findByFolioNo(btoa(this.folioForm.get('folioNo').value)).subscribe(
+      this.folioNoService.findByFolioNo(
+        btoa(`${this.searchRequestForm.get('landRegistryId').value}/${this.folioForm.get('folioNo').value}`)
+      ).subscribe(
         (data: Enum) => {
           folioStatus = data;
         }, (error: HttpErrorResponse) => {
@@ -275,7 +277,8 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
             index: 0,
             folioNo: this.folioForm.get('folioNo').value,
             noOfYears: this.folioForm.get('noOfYears').value,
-            status: folioStatus.desc,
+            statusDes: folioStatus.desc,
+            status: folioStatus.code,
             deleted: false,
           };
           this.elements.push(element);
@@ -322,6 +325,7 @@ export interface Element {
   folioNo: string;
   noOfYears: string;
   deleted: boolean;
+  statusDes: string;
   status: string;
 }
 
