@@ -1,3 +1,4 @@
+import { SysConfigService } from 'src/app/shared/service/sys-config.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentResponse } from './../../../dto/payment-response.model';
 import { PaymentDto } from './../../../dto/payment-dto';
@@ -14,11 +15,11 @@ export class OnlineMethodComponent implements OnInit {
 @Input() transactionRef: string;
 @Input() paymentAmount: number;
 @Input() returnUrl: string;
-serviceCode = 'TEST10001';
+serviceCode = SysConfigService.LGPS_SERVICE_CODE;
 showEncryptedPaymentRequest = false;
 showPaymentResult = false;
 paymentId: number;
-lgpsUrl = 'https://testlgps.lankagate.gov.lk:9443/lgps/accesslgps?clientPaymentRequest=';
+lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
 
 onlinePaymentForm: FormGroup;
   constructor(private formBuilder: FormBuilder,
