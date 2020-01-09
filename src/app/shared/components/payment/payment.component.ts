@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {PaymentService} from '../../service/payment.service';
 import {Parameters} from '../../enum/parameters.enum';
@@ -13,21 +13,26 @@ import {PaymentStatus} from '../../enum/payment-status.enum';
 import {PaymentDto} from '../../dto/payment-dto';
 import {HttpErrorResponse} from '@angular/common/http';
 import {CommonStatus} from '../../enum/common-status.enum';
+import { v1 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnChanges{
 
   @Output() response = new EventEmitter<PaymentResponse>();
   @Output() back = new EventEmitter<boolean>();
+  @Output() paymentMethodResponse = new EventEmitter<PaymentResponse>();
   @Input() isDocumentCollect: boolean;
   @Input() hasFrontCounterPayment: boolean;
   @Input() applicationFeeCode: string;
   @Input() workflowCode: string;
-
+  @Input() paymentReference: string;
+  @Input() returnUrl: string;
+  @Input() statusOnlinePayment = false;
+  showSpinner: boolean;
   public isContinueToPayment: boolean = false;
 
   public paymentForm: FormGroup;
@@ -59,6 +64,15 @@ export class PaymentComponent implements OnInit {
       paymentMethod: new FormControl(0)
     });
     this.getApplicationAmount(this.applicationFeeCode);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['statusOnlinePayment']) {
+      if (this.statusOnlinePayment) {
+        this.isContinueToPayment = true;
+        this.showSpinner = false;
+      }
+    }
   }
 
   getApplicationAmount(parameterCode: any): void {
@@ -130,6 +144,7 @@ export class PaymentComponent implements OnInit {
     }
 
     if (isValid) {
+      this.showSpinner = true;
       this.paymentDTO.deliveryType = this.paymentForm.get('licenseMethod').value;
       this.paymentDTO.deliveryAmount = this.issueAmount;
       this.paymentDTO.applicationAmount = this.applicationAmount;
@@ -138,11 +153,25 @@ export class PaymentComponent implements OnInit {
       if (this.paymentMethod == this.PaymentMethod.FRONT_COUNTER) {
       this.paymentDTO.status = CommonStatus.PENDING;
         this.savePayment();
-      } else {
+      } else if (this.paymentMethod === this.PaymentMethod.ONLINE) {
+        this.showSpinner = true;
+        // EventEmitter emits payment method and application amount
+        const paymentResponse = new PaymentResponse();
+        paymentResponse.paymentMethod = PaymentMethod.ONLINE;
+        paymentResponse.applicationAmount = this.totalAmount.toString();
+        // genereate uuid
+        paymentResponse.transactionRef = uuid();
+        this.paymentReference = paymentResponse.transactionRef;
+        this.paymentMethodResponse.emit(paymentResponse);
+      }
+
+       else {
         this.isContinueToPayment = true;
+        this.showSpinner = true;
       }
     } else {
       this.snackBar.error(errorMassage);
+      this.showSpinner = false;
     }
   }
 
