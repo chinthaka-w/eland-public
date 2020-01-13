@@ -29,6 +29,8 @@ import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
 import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
 import {Languages} from "../../../shared/enum/languages.enum";
 import {Router} from "@angular/router";
+import {PaymentMethod} from "../../../shared/enum/payment-method.enum";
+import {PaymentDto} from "../../../shared/dto/payment-dto";
 
 @Component({
   selector: 'app-add-notary',
@@ -63,7 +65,7 @@ export class AddNotaryComponent implements OnInit {
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
   public payment: any;
-  public paymentDataValue: number;
+  public paymentDataValue: PaymentDto;
 
   public notaryForm: FormGroup;
   public gnDivision: GnDivision[];
@@ -74,6 +76,7 @@ export class AddNotaryComponent implements OnInit {
   public previousSelections: any[] = [];
   public isSelected: boolean;
   public disabled: boolean = false;
+  paymentDto: PaymentDto = new PaymentDto();
   selected = 'Notary';
 
   public docList: WorkflowStageDocDto[];
@@ -86,6 +89,11 @@ export class AddNotaryComponent implements OnInit {
 
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
+
+  paymentMethod: number;
+  returnURl: string;
+  statusOnlinePayment: boolean;
+
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private gnDivisionService: GnDivisionService,
@@ -216,7 +224,7 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.title, 'Miss', 'Ms',
       this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(),
-      this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName,this.paymentDataValue,null,null,null,null);
+      this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName,this.paymentDataValue.paymentId,null,null,null,null,this.paymentDataValue);
 
       const formData = new FormData();
       formData.append('data', JSON.stringify(this.notaryDetails));
@@ -226,8 +234,16 @@ export class AddNotaryComponent implements OnInit {
 
     this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
-        this.snackBar.success('Notary Registration Success');
-        this.router.navigate(['/login']);
+        if (success && this.paymentMethod !== PaymentMethod.ONLINE) {
+          this.snackBar.success('Notary Registration Success');
+          this.router.navigate(['/login']);
+        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+          this.snackBar.success('Notary saved successfully, Proceed to online payment');
+          this.isPayment = true;
+          this.statusOnlinePayment = true;
+        } else {
+          this.snackBar.error('Operation failed');
+        }
       },
       error => {
         this.snackBar.error('Failed');
@@ -387,11 +403,26 @@ export class AddNotaryComponent implements OnInit {
     }
   }
 
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentMethod = data.paymentMethod;
 
-  getPaymentData(paymentData: PaymentResponse){
-    this.paymentDataValue = paymentData.paymentId;
-    this.snackBar.success("Payment Success");
-    this.saveNotaryDetails();
+    // save notary form for online payment with reference no
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.paymentDataValue = this.paymentDto;
+      this.returnURl = 'login';
+      this.saveNotaryDetails();
+    }
   }
 
+  getPaymentData(paymentData: PaymentResponse){
+    if (this.paymentMethod !== PaymentMethod.ONLINE) {
+      this.paymentDto.paymentId = paymentData.paymentId;
+      this.paymentDataValue = this.paymentDto;
+      this.snackBar.success("Payment Success");
+      this.saveNotaryDetails();
+    }
+  }
 }
