@@ -113,13 +113,22 @@ export class PaymentComponent implements OnInit, OnChanges{
       case this.DocumentIssueMethod.BY_POST_NORMAL: {
         if (this.workflowCode == this.Workflow.NOTARY_REGISTRATION) {
           this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_NORMAL_AMOUNT);
+        }else if(this.workflowCode== this.Workflow.EXTRACT_REQUEST){
+          this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_NORMAL_AMOUNT);
         }
         break;
       }
       case this.DocumentIssueMethod.BY_POST_REGISTERED: {
         if (this.workflowCode == this.Workflow.NOTARY_REGISTRATION) {
           this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_REGISTERED_AMOUNT);
+        }else if(this.workflowCode== this.Workflow.EXTRACT_REQUEST){
+          this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_REGISTERED_AMOUNT);
         }
+        break;
+      }
+      case this.DocumentIssueMethod.BY_HAND:{
+        this.issueAmount = 0;
+        this.totalAmount = this.applicationAmount;
         break;
       }
     }
