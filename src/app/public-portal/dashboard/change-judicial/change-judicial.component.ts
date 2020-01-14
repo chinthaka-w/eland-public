@@ -193,7 +193,7 @@ export class ChangeJudicialComponent implements OnInit {
 
 
   selectGnDivision(gsDivisionId) {
-    this.dsGnList.push(new DsGnDivisionDTO(gsDivisionId[0], this.dsDivisionId));
+    this.dsGnList.push(new DsGnDivisionDTO(this.dsDivisionId, gsDivisionId[0]));
   }
   setFiles(data: any, docTyprId: number) {
     this.files = data;
