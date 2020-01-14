@@ -242,15 +242,6 @@ export class ChangeTheNameComponent implements OnInit {
     );
   }
 
-  addLocation() {
-    this.locationList.push(this.locationDto);
-    this.locationDto = {};
-  }
-
-  removeLocation(index) {
-    this.locationList.splice(index, 1);
-  }
-
   private getDsDivisions(): void {
     this.dsDivisionService.getAllDsDivisions().subscribe(
       (data: DsDivision[]) => {
@@ -313,30 +304,8 @@ export class ChangeTheNameComponent implements OnInit {
         newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
         newFullNameInSinhala: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
         newFullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
-        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
-        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-        languages: new FormControl(event.value),
-        enrolledDate: new FormControl(new Date(), [Validators.required]),
-        passedDate: new FormControl(new Date(), [Validators.required]),
-        dateOfBirth: new FormControl(new Date(), [Validators.required]),
-        courtZone: new FormControl('', [Validators.required]),
-        permenentAddressInEnglish: new FormControl('', [Validators.required]),
-        permenentAddressInSinhala: new FormControl('', [Validators.required]),
-        permenentAddressInTamil: new FormControl(''),
-        currentAddressInEnglish: new FormControl('', [Validators.required]),
-        currentAddressInSinhala: new FormControl('', [Validators.required]),
-        currentAddressInTamil: new FormControl(''),
-        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-        landRegistry: new FormControl('', [Validators.required]),
-        secretariatDivision: new FormControl('', [Validators.required]),
-        gramaNiladhariDivision: new FormControl('', [Validators.required]),
-        medium: new FormControl('', [Validators.required]),
-        recaptcha: new FormControl(null, Validators.required),
-        userName: new FormControl('', [Validators.required]),
       });
     } else if (event.value == this.languages.TAMIL) {
-
       this.notaryForm = this.formBuilder.group({
         notary: new FormControl(this.notaryForm.value.notary, [Validators.required]),
         title: new FormControl('', [Validators.required]),
@@ -346,27 +315,6 @@ export class ChangeTheNameComponent implements OnInit {
         newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
         newFullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
         newFullNameInTamil: new FormControl('', [Validators.required,Validators.pattern(PatternValidation.nameValidation)]),
-        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
-        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-        languages: new FormControl(event.value),
-        enrolledDate: new FormControl(new Date(), [Validators.required]),
-        passedDate: new FormControl(new Date(), [Validators.required]),
-        dateOfBirth: new FormControl(new Date(), [Validators.required]),
-        courtZone: new FormControl('', [Validators.required]),
-        permenentAddressInEnglish: new FormControl('', [Validators.required]),
-        permenentAddressInSinhala: new FormControl(''),
-        permenentAddressInTamil: new FormControl('',[Validators.required]),
-        currentAddressInEnglish: new FormControl('', [Validators.required]),
-        currentAddressInSinhala: new FormControl(''),
-        currentAddressInTamil: new FormControl('',[Validators.required]),
-        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-        landRegistry: new FormControl('', [Validators.required]),
-        secretariatDivision: new FormControl('', [Validators.required]),
-        gramaNiladhariDivision: new FormControl('', [Validators.required]),
-        medium: new FormControl('', [Validators.required]),
-        recaptcha: new FormControl(null, Validators.required),
-        userName: new FormControl('', [Validators.required]),
       });
     } else if (event.value == this.languages.ENGLISH) {
 
@@ -379,27 +327,6 @@ export class ChangeTheNameComponent implements OnInit {
         newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
         newFullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
         newFullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
-        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
-        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-        languages: new FormControl(event.value),
-        enrolledDate: new FormControl(new Date(), [Validators.required]),
-        passedDate: new FormControl(new Date(), [Validators.required]),
-        dateOfBirth: new FormControl(new Date(), [Validators.required]),
-        courtZone: new FormControl('', [Validators.required]),
-        permenentAddressInEnglish: new FormControl('', [Validators.required]),
-        permenentAddressInSinhala: new FormControl(''),
-        permenentAddressInTamil: new FormControl('' ),
-        currentAddressInEnglish: new FormControl('', [Validators.required]),
-        currentAddressInSinhala: new FormControl(''),
-        currentAddressInTamil: new FormControl('' ),
-        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-        landRegistry: new FormControl('', [Validators.required]),
-        secretariatDivision: new FormControl('', [Validators.required]),
-        gramaNiladhariDivision: new FormControl('', [Validators.required]),
-        medium: new FormControl('', [Validators.required]),
-        recaptcha: new FormControl(null, Validators.required),
-        userName: new FormControl('', [Validators.required]),
       });
     }
   }

@@ -92,6 +92,20 @@
               </mat-form-field>
             </div>
           </div>
+
+          <div class="default-input-wrapper full-row">
+            <ng-container *ngFor="let document of docList">
+              <div class="pg-inner-col-3">
+                <div class="default-input-wrapper full-row">
+                  <label>{{document.description}}
+                    <span *ngIf="document.required == true">*</span>
+                  </label>
+                  <!--              <file-upload-input (response)="setFiles($event)"></file-upload-input>-->
+                  <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+                </div>
+              </div>
+            </ng-container>
+          </div>
           <div class="separator">&nbsp;</div>
 
           <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
