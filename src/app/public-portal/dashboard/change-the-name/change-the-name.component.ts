@@ -25,8 +25,12 @@ import {ChangeNameService} from "../../../shared/service/change-name.service";
 import {SessionService} from "../../../shared/service/session.service";
 import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
 import {NotaryService} from "../../../shared/service/notary-service";
-import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
 import {NameTitleEnum} from "../../../shared/enum/name-title.enum";
+import {MatRadioChange} from "@angular/material/radio";
+import {NewNotaryRequestsCategorySearchDto} from "../../../shared/dto/new-notary-requests-category-search.dto";
+import {NewNotaryViewDto} from "../../../shared/dto/new-notary-view.dto";
+import {Notary} from "../../../shared/dto/notary.model";
+import {NewNotaryDataVarificationService} from "../../../shared/service/new-notary-data-varification.service";
 
 @Component({
   selector: 'app-change-the-name',
@@ -52,9 +56,23 @@ export class ChangeTheNameComponent implements OnInit {
   WorkflowCode = NameChangeWorkflowStagesEnum;
   public nameChangeModel = new NotaryNameChangeModel();
   public searchDetails: RequestSearchDetailDTO;
+  result: NewNotaryViewDto;
+  searchType: NewNotaryRequestsCategorySearchDto ;
+  public notaryDetails: Notary;
+  paymentId: number;
+  newNotaryId: number;
+  userName: string;
+  newNotaryRegistrationRequestId: number;
+  notaryTitle: string = '';
+  judicialZoneId: number;
+  public date: Date;
+  public requestID: number;
+  public type: string;
+  public data: any;
+  public hasRemarks: boolean = false;
+  public notaryType: string;
 
   public notaryId: number;
-  public paymentId: number;
   public isPaymentSuccess: boolean;
   public isContinueToPayment: boolean = false;
   public requestId: number;
@@ -70,7 +88,9 @@ export class ChangeTheNameComponent implements OnInit {
               private nameChangeService: ChangeNameService,
               private location: Location,
               private sessionService: SessionService,
-              private notaryService: NotaryService) { }
+              private notaryService: NotaryService,
+              private newNotaryDataVarificationService: NewNotaryDataVarificationService,
+              ) { }
 
   ngOnInit() {
     this.notaryId = this.sessionService.getUser().id;
@@ -108,14 +128,59 @@ export class ChangeTheNameComponent implements OnInit {
     this.isContinueToPayment = false;
 
   }
-
   getUserDetails(){
     this.notaryService.getNotaryRequestDetails(this.notaryId).subscribe(
       (data: RequestSearchDetailDTO) =>{
         this.searchDetails = data;
         this.requestId = this.searchDetails.requestId;
+        this.getApplicationDetails();
       }
     )
+  }
+
+  getApplicationDetails() {
+    this.searchType = new NewNotaryRequestsCategorySearchDto(this.requestId,this.searchDetails.workflow);
+    this.newNotaryDataVarificationService.getNotaryDetails(this.searchType).subscribe(
+      (result: NewNotaryViewDto) => {
+        this.result = result;
+        this.notaryForm.patchValue(
+          {
+            title: this.result.nametitle.english,
+            newInitialNameInEnglish: this.result.nameWithInitial.english,
+            newInitialNameInSinhala: this.result.nameWithInitial.sinhala,
+            newInitialNameInTamil: this.result.nameWithInitial.tamil,
+            newFullNameInEnglish: this.result.fullName.english,
+            newFullNameInSinhala: this.result.fullName.sinhala,
+            newFullNameInTamil: this.result.fullName.tamil,
+            nic: this.result.nic,
+            email: this.result.email,
+            languages: this.result.language,
+            enrolledDate: this.result.enrolledDate,
+            passedDate: this.result.subjectPassedDate,
+            dateOfBirth: this.result.dateOfBirth,
+            courtZone: this.result.judicialZone,
+            permenentAddressInEnglish: this.result.permanentAddress.english,
+            permenentAddressInSinhala: this.result.permanentAddress.sinhala,
+            permenentAddressInTamil: this.result.permanentAddress.tamil,
+            currentAddressInEnglish: this.result.currantAddress.english,
+            currentAddressInSinhala: this.result.currantAddress.sinhala,
+            currentAddressInTamil: this.result.currantAddress.tamil,
+            mobileNo: this.result.mobile,
+            contactNo: this.result.contactNo,
+            landRegistry: this.result.landRegistry,
+            userName: this.result.lastUpdatedUser,
+            medium: this.result.language,
+          }
+        );
+        this.judicialZoneId = this.result.judicialZoneId;
+        this.notaryTitle = this.result.nametitle.english;
+        this.newNotaryId = this.result.newNotaryId;
+        this.newNotaryRegistrationRequestId = this.result.newNotaryRegistrationRequestId;
+        this.notaryType = this.result.notaryType;
+      },
+      error1 => {
+      }
+    );
   }
 
   submitForm() {
@@ -235,6 +300,108 @@ export class ChangeTheNameComponent implements OnInit {
   goBack(): any {
     this.location.back();
     return false;
+  }
+
+  onChange(event: MatRadioChange) {
+    if (event.value == this.languages.SINHALA) {
+      this.notaryForm = this.formBuilder.group({
+        notary: new FormControl(this.notaryForm.value.notary, [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        newInitialNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newInitialNameInSinhala: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newInitialNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInSinhala: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+        languages: new FormControl(event.value),
+        enrolledDate: new FormControl(new Date(), [Validators.required]),
+        passedDate: new FormControl(new Date(), [Validators.required]),
+        dateOfBirth: new FormControl(new Date(), [Validators.required]),
+        courtZone: new FormControl('', [Validators.required]),
+        permenentAddressInEnglish: new FormControl('', [Validators.required]),
+        permenentAddressInSinhala: new FormControl('', [Validators.required]),
+        permenentAddressInTamil: new FormControl(''),
+        currentAddressInEnglish: new FormControl('', [Validators.required]),
+        currentAddressInSinhala: new FormControl('', [Validators.required]),
+        currentAddressInTamil: new FormControl(''),
+        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+        landRegistry: new FormControl('', [Validators.required]),
+        secretariatDivision: new FormControl('', [Validators.required]),
+        gramaNiladhariDivision: new FormControl('', [Validators.required]),
+        medium: new FormControl('', [Validators.required]),
+        recaptcha: new FormControl(null, Validators.required),
+        userName: new FormControl('', [Validators.required]),
+      });
+    } else if (event.value == this.languages.TAMIL) {
+
+      this.notaryForm = this.formBuilder.group({
+        notary: new FormControl(this.notaryForm.value.notary, [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        newInitialNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newInitialNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        newInitialNameInTamil: new FormControl('', [Validators.required,Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInTamil: new FormControl('', [Validators.required,Validators.pattern(PatternValidation.nameValidation)]),
+        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+        languages: new FormControl(event.value),
+        enrolledDate: new FormControl(new Date(), [Validators.required]),
+        passedDate: new FormControl(new Date(), [Validators.required]),
+        dateOfBirth: new FormControl(new Date(), [Validators.required]),
+        courtZone: new FormControl('', [Validators.required]),
+        permenentAddressInEnglish: new FormControl('', [Validators.required]),
+        permenentAddressInSinhala: new FormControl(''),
+        permenentAddressInTamil: new FormControl('',[Validators.required]),
+        currentAddressInEnglish: new FormControl('', [Validators.required]),
+        currentAddressInSinhala: new FormControl(''),
+        currentAddressInTamil: new FormControl('',[Validators.required]),
+        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+        landRegistry: new FormControl('', [Validators.required]),
+        secretariatDivision: new FormControl('', [Validators.required]),
+        gramaNiladhariDivision: new FormControl('', [Validators.required]),
+        medium: new FormControl('', [Validators.required]),
+        recaptcha: new FormControl(null, Validators.required),
+        userName: new FormControl('', [Validators.required]),
+      });
+    } else if (event.value == this.languages.ENGLISH) {
+
+      this.notaryForm = this.formBuilder.group({
+        notary: new FormControl(this.notaryForm.value.notary, [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        newInitialNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newInitialNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        newInitialNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        newFullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation)]),
+        nic: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+        languages: new FormControl(event.value),
+        enrolledDate: new FormControl(new Date(), [Validators.required]),
+        passedDate: new FormControl(new Date(), [Validators.required]),
+        dateOfBirth: new FormControl(new Date(), [Validators.required]),
+        courtZone: new FormControl('', [Validators.required]),
+        permenentAddressInEnglish: new FormControl('', [Validators.required]),
+        permenentAddressInSinhala: new FormControl(''),
+        permenentAddressInTamil: new FormControl('' ),
+        currentAddressInEnglish: new FormControl('', [Validators.required]),
+        currentAddressInSinhala: new FormControl(''),
+        currentAddressInTamil: new FormControl('' ),
+        mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+        contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+        landRegistry: new FormControl('', [Validators.required]),
+        secretariatDivision: new FormControl('', [Validators.required]),
+        gramaNiladhariDivision: new FormControl('', [Validators.required]),
+        medium: new FormControl('', [Validators.required]),
+        recaptcha: new FormControl(null, Validators.required),
+        userName: new FormControl('', [Validators.required]),
+      });
+    }
   }
 
 }
