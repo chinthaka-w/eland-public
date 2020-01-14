@@ -31,6 +31,7 @@ import {Location} from '@angular/common';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {ExtractRequestService} from '../../../shared/service/extract-request.service';
 import {ExtractRequest} from '../../../shared/dto/extract-request.model';
+import {FolioStatus} from '../../../shared/enum/folio-status.enum';
 
 @Component({
   selector: 'app-extract',
@@ -42,6 +43,7 @@ export class ExtractComponent implements OnInit {
   SearchRequestType = SearchRequestType;
   Parameters = Parameters;
   WorkflowCode = Workflow;
+  FolioStatus = FolioStatus;
 
   public isContinueToPayment: boolean = false;
 
@@ -60,7 +62,7 @@ export class ExtractComponent implements OnInit {
 
   //Mat Table Config
   public elements: Element[] = [];
-  public displayedColumns: string[] = ['Folio No', 'No. of years', 'Status', 'Action'];
+  public displayedColumns: string[] = ['Folio No', 'Status', 'Action'];
   public dataSource = new MatTableDataSource<any>(this.elements);
 
   constructor(
@@ -104,7 +106,6 @@ export class ExtractComponent implements OnInit {
 
     this.folioForm = new FormGroup({
       'folioNo': new FormControl('', Validators.required),
-      'noOfYears': new FormControl('', Validators.required),
     });
 
     this.loadLandRegistries();
@@ -244,7 +245,7 @@ export class ExtractComponent implements OnInit {
 
     if (this.searchRequestForm.valid && !this.folioForm.valid) {
       isValid = false;
-      errorMassage = 'Folio No or No.of Years can not be empty';
+      errorMassage = 'Folio No can not be empty';
     }
     //
     // if (isValid && this.folioForm.get('noOfYears').value != null && this.folioForm.get('noOfYears').value != '') {
@@ -255,7 +256,7 @@ export class ExtractComponent implements OnInit {
 
     if (isValid) {
       let folioStatus: Enum = null;
-      this.folioNoService.findByFolioNo(btoa(this.folioForm.get('folioNo').value)).subscribe(
+      this.folioNoService.findByFolioNo(btoa(`${this.searchRequestForm.get('landRegistryId').value}/${this.folioForm.get('folioNo').value}`)).subscribe(
         (data: Enum) => {
           folioStatus = data;
         }, (error: HttpErrorResponse) => {
@@ -264,8 +265,9 @@ export class ExtractComponent implements OnInit {
           let element: Element = {
             index: this.elements.length,
             folioNo: this.folioForm.get('folioNo').value,
-            noOfYears: this.folioForm.get('noOfYears').value,
-            status: folioStatus.desc
+            deleted: false,
+            statusDes: folioStatus.desc,
+            status: folioStatus.code
           };
           this.elements.push(element);
           this.dataSource.data = this.elements;
@@ -352,12 +354,14 @@ export class ExtractComponent implements OnInit {
     this.elements = [];
     this.dataSource.data = this.elements;
   }
+
 }
 
 export interface Element {
   index: number;
   folioNo: string;
-  noOfYears: string;
+  deleted: boolean;
+  statusDes: string;
   status: string;
 }
 

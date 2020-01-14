@@ -52,7 +52,7 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import {ImageViewerModule} from "ngx-image-viewer";
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
-import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
+import {MatBadgeModule, MatChipsModule, MatDividerModule, MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
@@ -147,6 +147,9 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
     ReactiveFormsModule,
     FormsModule,
     MatTabsModule,
+    MatDividerModule,
+    MatBadgeModule,
+    MatChipsModule,
     HttpModule,
     RecaptchaModule,
     RecaptchaFormsModule,
@@ -175,7 +178,8 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
     SatDatepickerModule,
     SatNativeDateModule,
     MatTableModule,
-
+    MatBadgeModule,
+    MatChipsModule,
   ],
   entryComponents:[
     RequestViewComponent,

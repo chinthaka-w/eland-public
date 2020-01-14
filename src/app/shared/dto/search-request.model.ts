@@ -27,5 +27,6 @@ export class SearchRequest {
   public remark: string;
   public lastUpdatedUser: string;
   public paymentId: number;
+  public paymentList: number[];
   public folioList: any[];
 }

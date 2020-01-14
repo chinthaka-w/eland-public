@@ -15,4 +15,7 @@ export class PaymentDto {
   public lastUpdatedTime: Date;
   public lastUpdatedUser: string;
   public createdTime: Date;
+  public transactionRef: number;
+  public serviceCode: string;
+  public returnUrl: string;
 }

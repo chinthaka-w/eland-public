@@ -96,11 +96,11 @@ const routes: Routes = [
     component: LanguageChangeViewComponent
   },
   {
-    path: 'leave-request',
+    path: 'leave-request/:id',
     component: LeaveRequestComponent
   },
   {
-    path: 'resignation',
+    path: 'resignation/:id',
     component: ResignationComponent
   },
   {

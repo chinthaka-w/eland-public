@@ -12,7 +12,7 @@
                 <select matNativeControl formControlName="bank" class="form-control"
                         (change)="onChangeBank($event.target.value)">
                   <option value="">Select</option>
-                  <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankId+" - "+bank.bankName}}</option>
+                  <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
                 </select>
               </mat-form-field>
             </div>

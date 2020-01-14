@@ -37,6 +37,8 @@ import {SupportingDocService} from "./shared/service/supporting-doc.service";
 import {CitizenService} from "./shared/service/citizen.service";
 import {RequestForCorrectionService} from "./shared/service/request-for-correction.service";
 import {ChangeNameService} from "./shared/service/change-name.service";
+import {NotaryLeaveRequestService} from "./shared/service/notary-leave-request.service";
+import {NotaryResignationService} from "./shared/service/notary-resignation.service";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -76,6 +78,8 @@ import {ChangeNameService} from "./shared/service/change-name.service";
     BankBranchService,
     PaymentService,
     CitizenService,
+    NotaryResignationService,
+    NotaryLeaveRequestService,
     ParameterService,
     TokenStorageService,
     SupportingDocService,

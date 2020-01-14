@@ -1,4 +1,5 @@
-import {Injectable} from '@angular/core';
+import { PaymentResponse } from './../dto/payment-response.model';
+import { Injectable, EventEmitter } from '@angular/core';
 import {PaymentDto} from '../dto/payment-dto';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -34,6 +35,18 @@ export class PaymentService {
 
   savePayment2(paymentDto: PaymentDto): Observable<any> {
     return this.httpClient.post(this.BASE_URL + '/saveModel', paymentDto);
+  }
+
+  confirmOnlinePayment(paymentDto: PaymentDto): Observable<PaymentResponse> {
+    return this.httpClient.post<PaymentResponse>(this.BASE_URL + '/payOnline', paymentDto);
+  }
+
+  redirectOnlinePayment(formData: FormData): Observable<any> {
+    return this.httpClient.post<any>(this.BASE_URL + '/redirect', formData);
+  }
+
+  getOnlinePaymentResult(id: number): Observable<PaymentResponse> {
+    return this.httpClient.get<PaymentResponse>(this.BASE_URL + '/onlinePaymentResult/' + id);
   }
 
 

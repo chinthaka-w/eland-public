@@ -29,6 +29,7 @@ import {PaymentStatus} from '../../../shared/enum/payment-status.enum';
 import {SearchRequestService} from '../../../shared/service/search-request.service';
 import {WorkflowStages} from '../../../shared/enum/workflow-stages.enum';
 import {SessionService} from '../../../shared/service/session.service';
+import {FolioStatus} from '../../../shared/enum/folio-status.enum';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class SearchDocumentComponent implements OnInit {
   SearchRequestType = SearchRequestType;
   Parameters = Parameters;
   WorkflowCode = Workflow;
+  FolioStatus = FolioStatus;
 
   public isContinueToPayment: boolean = false;
 
@@ -252,7 +254,9 @@ export class SearchDocumentComponent implements OnInit {
 
     if (isValid) {
       let folioStatus: Enum = null;
-      this.folioNoService.findByFolioNo(btoa(this.folioForm.get('folioNo').value)).subscribe(
+      this.folioNoService.findByFolioNo(
+        btoa(`${this.searchRequestForm.get('landRegistryId').value}/${this.folioForm.get('folioNo').value}`)
+      ).subscribe(
         (data: Enum) => {
           folioStatus = data;
         }, (error: HttpErrorResponse) => {
@@ -262,7 +266,9 @@ export class SearchDocumentComponent implements OnInit {
             index: this.elements.length,
             folioNo: this.folioForm.get('folioNo').value,
             noOfYears: this.folioForm.get('noOfYears').value,
-            status: folioStatus.desc
+            deleted:false,
+            statusDes: folioStatus.desc,
+            status: folioStatus.code
           };
           this.elements.push(element);
           this.dataSource.data = this.elements;
@@ -355,6 +361,8 @@ export interface Element {
   index: number;
   folioNo: string;
   noOfYears: string;
+  deleted: boolean;
+  statusDes: string;
   status: string;
 }
 

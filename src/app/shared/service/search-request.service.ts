@@ -32,4 +32,8 @@ export class SearchRequestService {
   saveSearchRequest(searchRequest: SearchRequest): Observable<Object> {
     return this.httpClient.post(`${this.BASE_URL}/save`, searchRequest, {headers: this.headersJson});
   }
+
+  updateSearchRequest(searchRequest: SearchRequest): Observable<Object> {
+    return this.httpClient.post(`${this.BASE_URL}/update`, searchRequest, {headers: this.headersJson});
+  }
 }
