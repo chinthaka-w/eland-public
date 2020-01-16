@@ -234,7 +234,7 @@ export class AddNotaryComponent implements OnInit {
 
     this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
-        if (success && this.paymentMethod !== PaymentMethod.ONLINE) {
+        if (this.paymentMethod !== PaymentMethod.ONLINE) {
           this.snackBar.success('Notary Registration Success');
           this.router.navigate(['/login']);
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
