@@ -67,6 +67,7 @@ export class NameChangeRequestDataComponent implements OnInit {
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
   paymentId: number;
   public notaryId: number;
+  public workflowStageCode: string;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -132,6 +133,7 @@ export class NameChangeRequestDataComponent implements OnInit {
     this.changeNameService.getNameChangeRequestData(id).subscribe(
       (data: NotaryNameChangeModel) => {
         this.nameChangeModel = data;
+        this.workflowStageCode = data.workflowStageCode;
         this.notaryForm.patchValue(
           {
             newFullNameInEnglish: this.nameChangeModel.newFullNameEng,
@@ -143,11 +145,6 @@ export class NameChangeRequestDataComponent implements OnInit {
           }
         );
         this.dsGnDivisions = this.nameChangeModel.newNotaryDsDivisionDTO;
-        if (this.workflow === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_MODIFIED || this.workflow === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_DATA_VERIFICATION_CLERK_REJECTED) {
-          this.notaryForm.enable();
-        } else if (this.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED) {
-          this.notaryForm.disable();
-        }
       }
     );
   }
