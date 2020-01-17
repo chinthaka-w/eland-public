@@ -28,6 +28,7 @@ import {SupportingDocService} from "../../../../shared/service/supporting-doc.se
 import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
 import {WorkflowStages} from "../../../../shared/enum/workflow-stages.enum";
 import {Languages} from "../../../../shared/enum/languages.enum";
+import {NameChangeWorkflowStagesEnum} from "../../../../shared/enum/name-change-workflow-stages.enum";
 
 @Component({
   selector: 'app-notary-application',
@@ -71,6 +72,7 @@ export class NotaryApplicationComponent implements OnInit {
   public notaryType: string;
   public isUpdatePayment: boolean = false;
   public Workflow: Workflow;
+  public workFlowStageCode: string;
   languages = Languages;
 
   constructor(private formBuilder: FormBuilder,
@@ -189,10 +191,11 @@ export class NotaryApplicationComponent implements OnInit {
         this.newNotaryId = this.result.newNotaryId;
         this.newNotaryRegistrationRequestId = this.result.newNotaryRegistrationRequestId;
         this.notaryType = this.result.notaryType;
+        this.workFlowStageCode = this.result.workflowStageCode;
         this.setWorkflowStage();
-        if(this.requestDetailId.workflow === "NTR_REG_USR_MOD" || this.requestDetailId.workflow === "NTR_REG_DVC_REJ"){
+        if(this.requestDetailId.workflow === "NTR_REG_USR_MOD" || this.requestDetailId.workflow === "NTR_REG_DVC_REJ" || this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_MODIFIED || this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_DATA_VERIFICATION_CLERK_REJECTED){
           this.notaryForm.enable();
-        }else if(this.requestDetailId.workflow === "NTR_REG_USR_INT"){
+        }else if(this.requestDetailId.workflow === "NTR_REG_USR_INT" || this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED){
           this.notaryForm.disable();
         }
       },
