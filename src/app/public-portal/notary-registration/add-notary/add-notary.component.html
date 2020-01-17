@@ -510,6 +510,9 @@
 </form>
 <div *ngIf="isPayment" class="container">
   <app-payment  (response)="getPaymentData($event)"
+                (paymentMethodResponse) = paymentMethodResponse($event)
+                [statusOnlinePayment] = "statusOnlinePayment"
+                [returnUrl]="returnURl"
                [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
                [hasFrontCounterPayment]="true"
                [isDocumentCollect]="true"
