@@ -231,7 +231,8 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, 'Miss', 'Ms',
-      this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry,dn, this.notaryForm.value.languages,
+      // this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry,dn, this.notaryForm.value.languages,
+      this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry,[], this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(),
       this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName, this.paymentDataValue.paymentId,null,null,null,null,this.paymentDataValue);
 
