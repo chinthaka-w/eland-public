@@ -1,0 +1,139 @@
+<div class="page-header-default" *ngIf="!isContinueToPayment">
+    <h2>APPLICATION FOR CHANGING THE NAME OF THE NOTARY LICENCE</h2>
+    <p>Please fill in the following information to<br />register in the system</p>
+    <a href="" class="phd-back-btn">
+        <i class="material-icons">keyboard_backspace</i>
+    </a>
+</div>
+<form class="form-horizontal" *ngIf="!isContinueToPayment"  [formGroup]="notaryForm">
+    <div class="page-content-wrapper">
+        <div class="page-content-inner-wrapper">
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                    <h5 class="mb-20"><i class="material-icons">description</i>
+                        APPLICATION FOR CHANGING THE NAME OF THE NOTARY LICENCE
+                    </h5>
+                    <div class="separator">&nbsp;</div>
+                </div>
+            </div>
+
+
+            <div class="pg-inner-row mb-20">
+                <div class="pg-inner-col">
+                  <mat-form-field appearance="outline">
+                    <select matNativeControl required  formControlName="title"  class="form-control">
+                      <option value="">Select</option>
+                      <option value="{{nameTitle.Mr}}">Mr</option>
+                      <option value="{{nameTitle.Mrs}}">Mrs</option>
+                      <option value="{{nameTitle.Miss}}">Miss</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+                <div class="pg-inner-col right">
+                    <div class="default-input-wrapper m0 rac-col">
+                        <label>Language:<span class="redtxt">*</span></label>
+                        <div class="default-input-feild">
+                          <mat-radio-group  class="form-control" formControlName="languages" (change) = "onChange($event)">
+                            <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
+                            <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
+                            <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="default-input-wrapper full-row">
+                <label>New name - Full (English):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control" formControlName="newFullNameInEnglish">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row">
+                <label>New name - Full (Sinhala):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control" formControlName="newFullNameInSinhala">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="default-input-wrapper full-row">
+                <label>New name - Full (Tamil):</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput class="form-control" formControlName="newFullNameInTamil">
+                    </mat-form-field>
+                </div>
+            </div>
+          <div class="default-input-wrapper full-row">
+            <label>New name with initial (English):</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput class="form-control" formControlName="newInitialNameInEnglish">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="default-input-wrapper full-row">
+            <label>New name with initial (Sinhala):</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput class="form-control" formControlName="newInitialNameInSinhala">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="default-input-wrapper full-row">
+            <label>New name with initial (Tamil):</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput class="form-control" formControlName="newInitialNameInTamil">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="default-input-wrapper full-row">
+            <ng-container *ngFor="let document of docList">
+              <div class="pg-inner-col-3">
+                <div class="default-input-wrapper full-row">
+                  <label>{{document.description}}
+                    <span *ngIf="document.required == true">*</span>
+                  </label>
+                  <!--              <file-upload-input (response)="setFiles($event)"></file-upload-input>-->
+                  <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="separator">&nbsp;</div>
+
+          <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
+            <div class="pg-inner-col">
+              <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
+            </div>
+            <div class="pg-inner-col middle">
+              By signing up, you agree to E-Land's
+              <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
+              and <a href="#">Privacy Policy</a> .
+            </div>
+            <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
+              <button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
+                Continue
+              </button>
+            </div>
+            <div class="pg-inner-col right" *ngIf="isPaymentSuccess">
+              <button mat-raised-button class="lg-button"  (click)="onFormSubmit()">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+</form>
+<app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
+             (back)="onBack($event)"
+             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+             [hasFrontCounterPayment]="true"
+             [isDocumentCollect]="true"
+             [workflowCode]="WorkflowCode.NAME_CHANGE_REQUEST_INITIALIZED"></app-payment>

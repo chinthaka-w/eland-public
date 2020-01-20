@@ -1,0 +1,36 @@
+<div id="payment" class="page-layout simple fullwidth" fxLayout="column">
+  <div class="p-24">
+    <div
+      class="mb-24"
+      fxLayout="column"
+      fxLayoutAlign="start"
+      fxLayout.gt-md="row"
+    >
+    </div>
+  </div>
+</div>
+<div  class="row">
+  <mat-card *ngFor="let doc of supportingDocuments; let i = index">
+    <div class="pg-inner-row mb-20">
+      <h4>{{doc.name}}</h4>
+    </div>
+    <div class="pg-inner-row mb-20">
+      <ngx-image-viewer
+        [src]="documentImages"
+      >
+      </ngx-image-viewer>
+    </div>
+  </mat-card>
+  <mat-card *ngFor="let document of docList">
+    <div class="default-input-wrapper full-row">
+      <label>{{document.description}}
+        <span *ngIf="document.required == true">*</span>
+      </label>
+      <file-upload-input (response)="setFiles($event,document.docTypeId,document.docId)"></file-upload-input>
+    </div>
+  </mat-card>
+</div>
+<div class="pg-inner-col right">
+  <button mat-raised-button class="lg-button" type="button" (click)="onFormSubmit($event)">Continue</button>
+</div>
+

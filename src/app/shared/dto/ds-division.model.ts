@@ -1,6 +1,7 @@
 export class DsDivision {
-  constructor(
-    dsDivisionId: number,
-    description: string,
-  ){}
+  public dsDivisionId: number;
+  public dsDivisionCode: string;
+  public description: string;
+  public descriptionSin: string;
+  public descriptionTam: string;
 }

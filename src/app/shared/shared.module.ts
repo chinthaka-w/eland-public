@@ -22,6 +22,19 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadInputComponent } from './components/file-upload-input/file-upload-input.component';
+import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
+import {ChangeJudicialRequestListComponent} from './components/request-list/change-judicial-request-list.component';
+import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
+import {MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
+import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
+import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
+import { LastRemarkComponent } from './components/request-view/last-remark/last-remark.component';
+import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
+import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +44,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     VerificationComponent,
     PaymentComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    FileUploadInputComponent,
+    OnlineMethodComponent,
+    ChangeJudicialRequestListComponent,
+    LastRemarkComponent,
+    PaymentHistoryComponent,
+    RemarkHistoryComponent
   ],
   imports: [
     CommonModule,
@@ -44,9 +63,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatIconModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatFileUploadModule,
+    MatDialogModule,
+    MatTableModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule
+    MatPaginatorModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    MatIconModule,
+    ImageViewerModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     ContentComponent,
@@ -54,7 +87,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     VerificationComponent,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatCheckboxModule,
@@ -64,8 +96,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatFileUploadModule,
     MatTabsModule,
+    MatCardModule,
     PaymentComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    FileUploadInputComponent,
+    LastRemarkComponent,
+    PaymentHistoryComponent,
+    RemarkHistoryComponent
   ]
 })
 export class SharedModule {}

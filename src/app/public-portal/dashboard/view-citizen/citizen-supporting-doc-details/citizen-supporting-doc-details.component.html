@@ -1,0 +1,42 @@
+<div id="payment" class="page-layout simple fullwidth" fxLayout="column">
+  <div class="p-24">
+    <div
+      class="mb-24"
+      fxLayout="column"
+      fxLayoutAlign="start"
+      fxLayout.gt-md="row"
+    >
+    </div>
+  </div>
+</div>
+<div  class="row">
+  <mat-card *ngFor="let doc of supportingDocuments; let i = index">
+    <div class="pg-inner-row mb-20">
+      <h4>{{doc.name}}</h4>
+    </div>
+    <div class="pg-inner-row mb-20">
+      <ngx-image-viewer
+        [src]="doc.pages"
+      >
+      </ngx-image-viewer>
+    </div>
+  </mat-card>
+  <mat-card *ngIf="citizen.workFlowStageCode == workflowStageCitizenReg.CITIZEN_REJECTED">
+    <div class="pg-inner-row mb-20 upload-col-3">
+      <div class="pg-inner-col-3" *ngFor="let doc of workflowStageDocTypes">
+        <div class="default-input-wrapper full-row">
+          <label
+          >{{doc.description}}
+            <span *ngIf="doc.required">*</span></label>
+          <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
+        </div>
+      </div>
+
+    </div>
+  </mat-card>
+</div>
+
+<div class="pg-inner-col right" *ngIf="citizen.workFlowStageCode == workflowStageCitizenReg.CITIZEN_REJECTED">
+  <button mat-raised-button class="lg-button" type="button" (click)="updateCitizenSupportingDocs()">Update</button>
+</div>
+
