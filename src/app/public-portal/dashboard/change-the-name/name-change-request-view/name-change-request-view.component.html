@@ -14,7 +14,7 @@
       <mat-tab label="Application Details" >
         <app-notary-application *ngIf="requestID" [requestDetailId]="requestID" (notaryDetail)="getNewApplicationDetails($event)"></app-notary-application>
       </mat-tab>
-      <mat-tab label="Payment Info"  disabled="disabledPayment">
+      <mat-tab label="Payment Info" >
         <app-notary-payment-info [workflow]="workflow" [id]="id"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="Remark">

@@ -27,5 +27,6 @@ export class ExtractRequest {
   public remark: string;
   public lastUpdatedUser: string;
   public paymentId: number;
+  public paymentList: number[];
   public folioList: any[];
 }

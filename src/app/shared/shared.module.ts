@@ -26,7 +26,7 @@ import { FileUploadInputComponent } from './components/file-upload-input/file-up
 import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
 import {ChangeJudicialRequestListComponent} from './components/request-list/change-judicial-request-list.component';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
-import {MatPaginatorModule} from '@angular/material';
+import {MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
 import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -50,7 +50,7 @@ import { RemarkHistoryComponent } from './components/remark-history/remark-histo
     ChangeJudicialRequestListComponent,
     LastRemarkComponent,
     PaymentHistoryComponent,
-    RemarkHistoryComponent,
+    RemarkHistoryComponent
   ],
   imports: [
     CommonModule,
@@ -78,7 +78,8 @@ import { RemarkHistoryComponent } from './components/remark-history/remark-histo
     RecaptchaModule,
     RecaptchaFormsModule,
     MatIconModule,
-    ImageViewerModule
+    ImageViewerModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     ContentComponent,

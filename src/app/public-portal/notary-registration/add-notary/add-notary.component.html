@@ -1,4 +1,4 @@
-<form *ngIf="!isPayment && !isPaymentMethod && !isNotaryRegistration" class="form-horizontal" [formGroup]="notaryForm">
+<form *ngIf="!isPayment && !isPaymentMethod" class="form-horizontal" [formGroup]="notaryForm">
   <div class="page-header-default">
     <h2>Notary Services Registration</h2>
     <p>Please fill in the following information to<br />register in the system</p>
@@ -16,15 +16,10 @@
           <div class="default-input-wrapper m0">
             <label>Register as a:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required formControlName="notary" class="form-control">
-                  <option value="1">Notary</option>
-                  <option value="2">Attorny at Law</option>
-                </select>
-              </mat-form-field>
-              <div *ngIf="FormControls.notary.touched && FormControls.notary.errors" class="invalid-feedback">
-                <mat-error *ngIf="FormControls.notary.errors.required" class="errors">Required</mat-error>
-              </div>
+                <mat-select  formControlName="notary" class="form-controltext-left">
+                  <mat-option value="1">Notary</mat-option>
+                  <mat-option value="2">Attorny at Law</mat-option>
+                </mat-select>
             </div>
           </div>
         </div>
@@ -34,6 +29,7 @@
 
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
+          <label>Title:<span class="redtxt">*</span></label>
           <mat-form-field appearance="outline">
             <select matNativeControl required formControlName="title" class="form-control">
               <option value="">Select</option>
@@ -50,9 +46,9 @@
           <div class="default-input-wrapper m0 rac-col">
             <label>Language:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-radio-group class="form-control" formControlName="languages" (change)="onChange($event)">
-                <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
-                <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
+              <mat-radio-group class="form-control" [ngModel]="status" formControlName="languages" (change)="onChange($event)">
+                <mat-radio-button  value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
+                <mat-radio-button  value="{{languages.ENGLISH}}" [checked]='true'>English</mat-radio-button>
                 <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
               </mat-radio-group>
               <div *ngIf="FormControls.languages.errors" class="invalid-feedback">
@@ -522,7 +518,9 @@
   </div>
 </form>
 <div *ngIf="isPayment" class="container">
-  <app-payment (response)="getPaymentData($event)" [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
+  <app-payment (response)="getPaymentData($event)"(paymentMethodResponse) = paymentMethodResponse($event)
+                [statusOnlinePayment] = "statusOnlinePayment"
+                [returnUrl]="returnURl" [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
     [hasFrontCounterPayment]="true" [isDocumentCollect]="true" [workflowCode]="WorkflowCode.NOTARY_REGISTRATION">
   </app-payment>
 

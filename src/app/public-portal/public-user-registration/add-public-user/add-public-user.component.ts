@@ -1,3 +1,4 @@
+import { PaymentMethod } from './../../../shared/enum/payment-method.enum';
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
@@ -50,6 +51,20 @@ export class AddPublicUserComponent implements OnInit {
   isContinue: boolean = false;
   formData: FormData = new FormData();
 
+  /**
+   * **Online payment method**
+   * (paymentMethodResponse) will be emit Transaction reference (uuid), Application amount, Payment type
+   *   after selection of payment type
+   * If paymentMethod is an online payment save the form
+   *  which is used as paymentReference
+   * returnUrl should be the url where the user will be navigate after complete process.
+   *    eg: /login (only the path)
+   * set statusOnlinePayment to true after form save complete
+   */
+  paymentMethod: number;
+  returnURl: string;
+  statusOnlinePayment: boolean;
+
   get publicUserType() {
     return this.publicUserForm.get('type');
   }
@@ -67,12 +82,12 @@ export class AddPublicUserComponent implements OnInit {
       bankUserType: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
       nameEnglish: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
-      nameSinhala: new FormControl("", [Validators.required]),
-      nameTamil: new FormControl("", [Validators.required]),
+      nameSinhala: new FormControl(""),
+      nameTamil: new FormControl(""),
       notaryId: new FormControl("", [Validators.required]),
       address1: new FormControl("", [Validators.required]),
-      address2: new FormControl("", [Validators.required]),
-      address3: new FormControl("", [Validators.required]),
+      address2: new FormControl(""),
+      address3: new FormControl(""),
       identificationNo: new FormControl("", [Validators.required]),
       identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
@@ -91,6 +106,11 @@ export class AddPublicUserComponent implements OnInit {
     });
     this.getAllLandRegistries();
     this.getAllBanks();
+    this.citizenDTO.userType = this.PublicUserType.CITIZEN;
+    this.publicUserForm.patchValue({type: this.citizenDTO.userType});
+    this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
+    this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
+    this.disableUselessFormControls(this.citizenDTO.userType);
   }
 
   get FormControls() {
@@ -153,8 +173,11 @@ export class AddPublicUserComponent implements OnInit {
     else if(this.citizenDTO.userType == PublicUserType.OTHER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
     }
+    this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
+  }
 
-    this.citizenService.getRelatedDocTypes(this.citizenDTO.workFlowStageCode)
+  getRelatedDocTypes(workflowStage: string) {
+    this.citizenService.getRelatedDocTypes(workflowStage)
       .subscribe((result) => {
         this.workflowStageDocTypes = result;
       });
@@ -239,19 +262,19 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
     this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
-    if(!(this.paymentDto.paymentId)) {
-      this.isContinue = true;
-    }else{
-      this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
-        .subscribe((result) => {
-          if (result) {
-            this.snackBar.success('Citizen saved successfully');
-            this.router.navigate(['/login']);
-          }else{
-            this.snackBar.error('Operation failed');
-          }
-        });
-    }
+    this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
+      .subscribe((result) => {
+        if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
+          this.snackBar.success('Citizen saved successfully');
+          this.router.navigate(['/login']);
+        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+          this.snackBar.success('Citizen saved successfully, Proceed to online payment');
+          this.isContinue = true;
+          this.statusOnlinePayment = true;
+        } else {
+          this.snackBar.error('Operation failed');
+        }
+      });
   }
 
   onSearchChange(searchValue: string): void {
@@ -265,13 +288,44 @@ export class AddPublicUserComponent implements OnInit {
     });
   }
 
+  setUserName(userName: string): void {
+    this.publicUserForm.patchValue({
+      userName: userName,
+    });
+    this.onSearchChange(userName);
+  }
+
   onBack(data: boolean) {
     this.isContinue = !data;
   }
   onPaymentResponse(data: PaymentResponse) {
-    this.isContinue = false;
-    this.paymentDto.paymentId = data.paymentId;
-    this.citizenDTO.payment = this.paymentDto;
+    if (this.paymentMethod !== PaymentMethod.ONLINE) {
+      this.paymentDto.paymentId = data.paymentId;
+      this.citizenDTO.payment = this.paymentDto;
+      this.saveCitizen();
+    }
+  }
+
+  /**
+   * returns payment response with the payment method & application amount
+   */
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentMethod = data.paymentMethod;
+
+    // save citizen form for online payment with reference no
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.citizenDTO.payment = this.paymentDto;
+      this.returnURl = 'login';
+      this.saveCitizen();
+    }
+
+  }
+
+  continue(): void {
+    this.isContinue = true;
   }
 
 }

@@ -1,3 +1,4 @@
+import { OnlineMethodComponent } from './components/payment/online-method/online-method.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from '../public-portal/home/home.component';
@@ -23,6 +24,10 @@ const routes: Routes = [
     path: "payment-method",
     component: PaymentMethodComponent
   },
+  {
+    path: 'payment-result/:id/:url',
+    component: OnlineMethodComponent
+  }
 ];
 
 @NgModule({

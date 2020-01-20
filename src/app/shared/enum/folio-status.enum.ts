@@ -1,0 +1,5 @@
+export enum FolioStatus {
+  AVAILABLE = 'AVAILABLE',
+  NOT_AVAILABLE = 'NOT_AVAILABLE',
+  DAMAGE = 'DAMAGE',
+}

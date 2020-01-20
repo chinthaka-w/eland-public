@@ -89,7 +89,7 @@
           </a>
         </div>
         <div class="db-link-tile c3" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/resignation']">
+          <a [routerLink]="['/resignation', user.id]">
             <span class="icon">
               <i class="material-icons">label</i>
             </span>
