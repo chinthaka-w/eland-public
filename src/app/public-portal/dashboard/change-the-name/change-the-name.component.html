@@ -132,6 +132,9 @@
     </div>
 </form>
 <app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
+             (paymentMethodResponse) = paymentMethodResponse($event)
+             [statusOnlinePayment] = "statusOnlinePayment"
+             [returnUrl]="returnURl"
              (back)="onBack($event)"
              [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
              [hasFrontCounterPayment]="true"

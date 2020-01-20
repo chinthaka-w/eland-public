@@ -31,6 +31,8 @@ import {NewNotaryRequestsCategorySearchDto} from "../../../shared/dto/new-notary
 import {NewNotaryViewDto} from "../../../shared/dto/new-notary-view.dto";
 import {Notary} from "../../../shared/dto/notary.model";
 import {NewNotaryDataVarificationService} from "../../../shared/service/new-notary-data-varification.service";
+import {PaymentDto} from "../../../shared/dto/payment-dto";
+import {PaymentMethod} from "../../../shared/enum/payment-method.enum";
 
 @Component({
   selector: 'app-change-the-name',
@@ -76,6 +78,13 @@ export class ChangeTheNameComponent implements OnInit {
   public isPaymentSuccess: boolean;
   public isContinueToPayment: boolean = false;
   public requestId: number;
+  public paymentDataValue: PaymentDto;
+  paymentDto: PaymentDto = new PaymentDto();
+
+  paymentMethod: number;
+  returnURl: string;
+  statusOnlinePayment: boolean;
+  isPayment: boolean = false;
 
 
   constructor(private documetService: SupportingDocService,
@@ -191,7 +200,8 @@ export class ChangeTheNameComponent implements OnInit {
     this.nameChangeModel.newInitialNameSin = this.notaryForm.value.newInitialNameInSinhala;
     this.nameChangeModel.newInitialNameTam = this.notaryForm.value.newInitialNameInTamil;
     this.nameChangeModel.newNotaryId = this.notaryId;
-    this.nameChangeModel.paymentId = this.paymentId;
+    this.nameChangeModel.paymentId = this.paymentDataValue.paymentId;
+    this.nameChangeModel.payment = this.paymentDataValue;
 
     const formData = new FormData();
     formData.append('data', JSON.stringify(this.nameChangeModel));
@@ -201,8 +211,16 @@ export class ChangeTheNameComponent implements OnInit {
 
     this.nameChangeService.save(formData).subscribe(
       (success: string) => {
-        this.snackBar.success('Notary Name Change Request Success');
-        this.notaryForm.reset();
+        if (this.paymentMethod !== PaymentMethod.ONLINE) {
+          this.snackBar.success('Notary Name Change Request Success');
+          this.notaryForm.reset();
+        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+          this.snackBar.success('Notary Name Change Request Success, Proceed to online payment');
+          this.isPayment = true;
+          this.statusOnlinePayment = true;
+        } else {
+          this.snackBar.error('Operation failed');
+        }
       },
       error => {
         this.snackBar.error('Failed');
@@ -276,10 +294,25 @@ export class ChangeTheNameComponent implements OnInit {
   onPaymentResponse(data: PaymentResponse) {
     if (data.paymentStatusCode === 2 || data.paymentId === undefined || data.paymentId === 0) {
       this.snackBar.error('Failed');
-    } else {
+    } else if (this.paymentMethod !== PaymentMethod.ONLINE) {
       this.paymentId = data.paymentId;
+      this.paymentDto.paymentId = data.paymentId;
+      this.paymentDataValue = this.paymentDto;
       this.isContinueToPayment = false;
       this.isPaymentSuccess = true;
+      this.submitForm();
+    }
+  }
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentMethod = data.paymentMethod;
+
+    // save notary form for online payment with reference no
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.paymentDataValue = this.paymentDto;
+      this.returnURl = 'login';
       this.submitForm();
     }
   }
