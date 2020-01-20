@@ -1,6 +1,6 @@
 <!-- Header Home page -->
 <ng-container *ngIf="appConfig?.header">
-  <div *ngIf="!appConfig?.user" class="landing-header">
+  <!-- <div *ngIf="!appConfig?.user" class="landing-header">
     <div class="header transparent">
       <div class="header-inner">
         <div class="header-left">
@@ -71,7 +71,7 @@
         <button mat-raised-button class="theme-light">Get Started</button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- ###### Default Header ###### -->
 
@@ -103,47 +103,26 @@
             </li>
           </ul>
         </div>
-        <div class="header-right" >
-            <div class="navigation" [ngClass]="status ? 'active' : 'in-active'">
-                <button class="mobile-nav-btn" (click)="clickEvent()">
-                    <i class="material-icons nav">reorder</i>
-                    <i class="material-icons close">close</i>
-                </button>
-                <ul>
-                    <li>
-                        <a href="#">News</a>
-                    </li>
-                    <li>
-                        <a href="#">Gallery</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="hr-button-wrapper">
-                <!-- <button mat-raised-button [routerLink]="['/login']">Login</button> -->
-                <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
-                    <span class="user-title" (click)="clickDropdown()">Yohani Gamage <i class="material-icons">arrow_drop_down</i></span>
-                    <ul class="up-dropdown">
-                        <li>
-                            <a href="" [routerLink]="['/edit-profile']">Edit Profile</a>
-                        </li>
+        <div class="hr-button-wrapper">
+          <!-- <button mat-raised-button [routerLink]="['/login']">Login</button> -->
+          <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
+            <span class="user-title" (click)="clickDropdown()">Yohani Gamage <i
+                class="material-icons">arrow_drop_down</i></span>
+            <ul class="up-dropdown">
+              <li>
+                <a href="" [routerLink]="['/edit-profile']">Edit Profile</a>
+              </li>
 
-                        <!-- Public user Edit 
-                        <li>
-                            <a href="" [routerLink]="['/edit-public-profile']">Edit Profile</a>
-                        </li> -->
-                        
-                        <li>
-                            <a (click)="logout()">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>          
+              <!-- Public user Edit 
+                  <li>
+                      <a href="" [routerLink]="['/edit-public-profile']">Edit Profile</a>
+                  </li> -->
+
+              <li>
+                <a (click)="logout()">Logout</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
