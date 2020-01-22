@@ -1,5 +1,6 @@
 import {DsGnDivisionDTO} from './gs-gn-model';
 import {NewNotaryDsDivisionDTO} from './new-notary-ds-division.model';
+import {PaymentDto} from './payment-dto';
 
 export class JudicialChange {
   public judicialZoneId: number;
@@ -22,4 +23,5 @@ export class JudicialChange {
   public paymentId: number;
   public newNotaryDsDivisionDTO: NewNotaryDsDivisionDTO[]=[];
   public workflowCode: string;
+  payment: PaymentDto;
 }

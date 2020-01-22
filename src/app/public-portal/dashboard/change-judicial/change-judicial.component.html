@@ -5,7 +5,7 @@
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
-<div class="page-content-wrapper" *ngIf="!isContinueToPayment">
+<div class="page-content-wrapper" *ngIf="!(isContinue)">
   <div class="page-content-inner-wrapper">
 
     <div class="pg-inner-row mb-20">
@@ -287,22 +287,34 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
-          <button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
+          <button [disabled]="!judicialChangeForm.valid" mat-raised-button class="lg-button" (click)="continue()">
             Continue
           </button>
         </div>
-        <div class="pg-inner-col right" *ngIf="isPaymentSuccess">
-          <button mat-raised-button class="lg-button" (click)="submitForm()">
-            Submit
-          </button>
-        </div>
+        <!--<div class="pg-inner-col right" *ngIf="isPaymentSuccess">-->
+          <!--<button mat-raised-button class="lg-button" (click)="submitForm()">-->
+            <!--Submit-->
+          <!--</button>-->
+        <!--</div>-->
       </div>
     </form>
   </div>
 </div>
-<app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
-             (back)="onBack($event)"
-             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
-             [hasFrontCounterPayment]="true"
-             [isDocumentCollect]="true"
-             [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"></app-payment>
+<!--<app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"-->
+             <!--(back)="onBack($event)"-->
+             <!--[applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"-->
+             <!--[hasFrontCounterPayment]="true"-->
+             <!--[isDocumentCollect]="true"-->
+             <!--[workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"></app-payment>-->
+<div class="page-content-wrapper" *ngIf="isContinue">
+  <div class="page-content-inner-wrapper">
+    <app-payment (response)="onPaymentResponse($event)"
+                 (paymentMethodResponse) = paymentMethodResponse($event)
+                 [statusOnlinePayment] = "statusOnlinePayment"
+                 [returnUrl]="returnURl"
+                 (back)="onBack($event)"
+                 [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+                 [isDocumentCollect]="true"
+                 [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"></app-payment>
+  </div>
+</div>
