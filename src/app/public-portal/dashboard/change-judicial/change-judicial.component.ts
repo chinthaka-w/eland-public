@@ -257,7 +257,6 @@ export class ChangeJudicialComponent implements OnInit {
 
   onPaymentResponse(data: PaymentResponse) {
     if (this.paymentMethod !== PaymentMethod.ONLINE) {
-      alert(data.paymentId+'pay id');
       this.paymentDto.paymentId = data.paymentId;
       this.judicialChange.payment = this.paymentDto;
       this.submitForm();
