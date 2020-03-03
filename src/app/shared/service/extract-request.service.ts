@@ -15,6 +15,9 @@ export class ExtractRequestService {
 
   public constructor(private httpClient: HttpClient) {
   }
+  findById(id: number): Observable<Object> {
+    return this.httpClient.get(`${this.BASE_URL}/${id}`, {headers: this.headersJson});
+  }
 
   findAllByPublicUser(userId: number, userType: string): Observable<Object> {
     return this.httpClient.get(`${this.BASE_URL}/publicUser/` + userId + '/' + userType, {headers: this.headersJson});
@@ -26,5 +29,9 @@ export class ExtractRequestService {
 
   saveExtractRequest(extractRequest: ExtractRequest): Observable<Object> {
     return this.httpClient.post(`${this.BASE_URL}/save`, extractRequest, {headers: this.headersJson});
+  }
+
+  updateSearchRequest(extractRequest: ExtractRequest): Observable<Object> {
+    return this.httpClient.post(`${this.BASE_URL}/update`, extractRequest, {headers: this.headersJson});
   }
 }

@@ -21,6 +21,6 @@
         <app-supporting-doc-detail  *ngIf="requestId" [requestDocuments]="requestId" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
     </mat-tab-group>
-    <button mat-raised-button class="lg-button" disabled="!disabled" (click)="onFormSubmit()">Submit</button>
+    <button [disabled]="!disabled" mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>
   </div>
 </div>

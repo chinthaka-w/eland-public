@@ -308,23 +308,11 @@
           </div>
         </div>
       </div>
-      <div class="pg-inner-col-3">
-        <div class="default-input-wrapper full-row">
-          <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <input matInput
-                     class="form-control"
-                     placeholder="No. of Years"
-                     formControlName="noOfYears">
-            </mat-form-field>
-          </div>
-        </div>
+      <div class="pg-inner-col-2">
+        <button type="button" mat-raised-button (click)="onClickAddButton()">
+          <i class="material-icons">add</i>
+        </button>
       </div>
-    </div>
-    <div class="pg-inner-col-2">
-      <button type="button" mat-raised-button (click)="onClickAddButton()">
-        <i class="material-icons">add</i>
-      </button>
     </div>
   </form>
 
@@ -333,32 +321,25 @@
 
       <!-- Folio Column -->
       <ng-container matColumnDef="Folio No">
-        <th mat-header-cell *matHeaderCellDef> Folio No</th>
+        <th mat-header-cell *matHeaderCellDef width="20%"> Folio No</th>
         <td mat-cell *matCellDef="let element">
           {{element.folioNo}}
         </td>
       </ng-container>
 
-      <!-- No of Years Column -->
-      <ng-container matColumnDef="No. of years">
-        <th mat-header-cell *matHeaderCellDef> No. of years</th>
-        <td mat-cell *matCellDef="let element">
-          {{element.noOfYears}}
-        </td>
-      </ng-container>
-
       <!-- Status Column -->
       <ng-container matColumnDef="Status">
-        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <th mat-header-cell *matHeaderCellDef width="60%"> Status</th>
         <td mat-cell *matCellDef="let element">
-          <!--<span class="t-status">{{element.status}}</span>-->
-          <span>{{element.status}}</span>
+           <mat-chip-list>
+            <mat-chip [selected]="true" [color]="element.status==FolioStatus.AVAILABLE?'primary':(element.status==FolioStatus.NOT_AVAILABLE?'accent':'warn')">{{element.statusDes}}</mat-chip>
+          </mat-chip-list>
         </td>
       </ng-container>
 
       <!-- Action Column -->
       <ng-container matColumnDef="Action">
-        <th mat-header-cell *matHeaderCellDef> Action</th>
+        <th mat-header-cell *matHeaderCellDef width="20%"> Action</th>
         <td mat-cell *matCellDef="let element; let i = index;">
           <button [disabled]="action==ActionMode.VIEW" mat-icon-button (click)="onClickDelete(i)">
             <mat-icon>delete</mat-icon>

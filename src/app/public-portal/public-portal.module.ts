@@ -52,7 +52,7 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import {ImageViewerModule} from "ngx-image-viewer";
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
-import {MatNativeDateModule, MatPaginatorModule} from '@angular/material';
+import {MatBadgeModule, MatChipsModule, MatDividerModule, MatNativeDateModule, MatPaginatorModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
@@ -71,6 +71,8 @@ import { ExtractApplicationComponent } from './dashboard/extract/extract-view/ex
 import { LanguageChangeViewComponent } from './dashboard/language-change/language-change-view/language-change-view.component';
 import { LangChangeApplicationComponent } from './dashboard/language-change/language-change-view/lang-change-application/lang-change-application.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import { NameChangeRequestViewComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
+import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-data/name-change-request-data.component';
 
 
 @NgModule({
@@ -121,8 +123,11 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
     ExtractApplicationComponent,
     LanguageChangeViewComponent,
     RequestForCorrectionComponent,
-    LangChangeApplicationComponent
-   ],
+    LangChangeApplicationComponent,
+    RequestForCorrectionComponent,
+    NameChangeRequestViewComponent,
+    NameChangeRequestDataComponent
+],
   imports: [
     CommonModule,
     PublicPortalRoutingModule,
@@ -142,6 +147,9 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
     ReactiveFormsModule,
     FormsModule,
     MatTabsModule,
+    MatDividerModule,
+    MatBadgeModule,
+    MatChipsModule,
     HttpModule,
     RecaptchaModule,
     RecaptchaFormsModule,
@@ -170,7 +178,8 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
     SatDatepickerModule,
     SatNativeDateModule,
     MatTableModule,
-
+    MatBadgeModule,
+    MatChipsModule,
   ],
   entryComponents:[
     RequestViewComponent,

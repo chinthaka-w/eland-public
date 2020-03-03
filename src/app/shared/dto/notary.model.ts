@@ -1,4 +1,5 @@
 import {NewNotaryDsDivisionDTO} from './new-notary-ds-division.model';
+import {PaymentDto} from "./payment-dto";
 
 export class Notary {
    constructor(
@@ -39,6 +40,11 @@ export class Notary {
      public workflowStageCode: string,
      public userName: string,
      public paymentId: number,
+     public judicialZoneDesc: string,
+     public landRegistryDesc: string,
+     public clrName: string,
+     public clerkNic: string,
+     public  payment: PaymentDto,
    ) {
    }
 }

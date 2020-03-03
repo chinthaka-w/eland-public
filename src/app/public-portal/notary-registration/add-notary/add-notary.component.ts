@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators, FormArray} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../shared/dto/notary.model';
 import {NotaryService} from '../../../shared/service/notary-service';
 import {GnDivisionService} from '../../../shared/service/gn-division.service';
@@ -28,6 +28,9 @@ import {DocumentDto} from "../../../shared/dto/document-list";
 import {WorkflowStages} from "../../../shared/enum/workflow-stages.enum";
 import {SupportingDocService} from "../../../shared/service/supporting-doc.service";
 import {Languages} from "../../../shared/enum/languages.enum";
+import {Router} from "@angular/router";
+import {PaymentMethod} from "../../../shared/enum/payment-method.enum";
+import {PaymentDto} from "../../../shared/dto/payment-dto";
 
 @Component({
   selector: 'app-add-notary',
@@ -42,6 +45,7 @@ export class AddNotaryComponent implements OnInit {
   public isContinueToPayment: boolean = false;
   public paymentResponse = new PaymentResponse;
   languages = Languages;
+  public status = this.languages.ENGLISH;
 
 
   @Output()
@@ -56,10 +60,12 @@ export class AddNotaryComponent implements OnInit {
   deleteButtonIcon = 'close';
   @Input()
   showUploadInfo;
+  @Input()
+  checked: Boolean;
   @ViewChild(PaymentComponent,{static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent,{static: false}) paymentMethodComponent: PaymentMethodComponent;
   public payment: any;
-  public paymentDataValue: number;
+  public paymentDataValue: PaymentDto;
 
   public notaryForm: FormGroup;
   public gnDivision: GnDivision[];
@@ -70,21 +76,23 @@ export class AddNotaryComponent implements OnInit {
   public previousSelections: any[] = [];
   public isSelected: boolean;
   public disabled: boolean = false;
+  paymentDto: PaymentDto = new PaymentDto();
+  selected = 'Notary';
 
   public docList: WorkflowStageDocDto[];
   public documentList: DocumentDto[] = [];
 
   public locationDto: any = {};
-  // public locationList: any[] = [];
-  public locationList:FormArray;
-
-
+  public locationList: any[] = [];
   public dsGnList: NewNotaryDsDivisionDTO[] = [];
   public gnDivi: GnDivisionDTO[] = [];
 
   isPayment: boolean = false;
   isPaymentMethod: boolean = false;
 
+  paymentMethod: number;
+  returnURl: string;
+  statusOnlinePayment: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
@@ -96,11 +104,12 @@ export class AddNotaryComponent implements OnInit {
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
               private paymentService: PaymentService,
-              private documetService: SupportingDocService) { }
+              private documetService: SupportingDocService,
+              private router: Router) { }
 
   ngOnInit() {
     this.notaryForm = this.formBuilder.group({
-      notary: new FormControl('', [Validators.required]),
+      notary: new FormControl('1', [Validators.required]),
       title: new FormControl('', [Validators.required]),
       englishNameWithInitials: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
       sinhalaNameWithInitials: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
@@ -110,7 +119,7 @@ export class AddNotaryComponent implements OnInit {
       fullNameInTamil: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
       nic: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nicValidation)]),
       email: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.emailValidation)]),
-      languages: new FormControl('' ),
+      languages: new FormControl(''),
       enrolledDate: new FormControl(new Date(), [Validators.required]),
       passedDate: new FormControl(new Date(), [Validators.required]),
       dateOfBirth: new FormControl(new Date(), [Validators.required]),
@@ -129,7 +138,6 @@ export class AddNotaryComponent implements OnInit {
       medium: new FormControl('' , [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
       userName: new FormControl('', [Validators.required]),
-      locationList:this.formBuilder.array([ this.createItem() ])
     });
     this.getGnDivisions();
     this.getDsDivisions();
@@ -137,22 +145,9 @@ export class AddNotaryComponent implements OnInit {
     this.getJudicialZones();
     this.getDocumentList();
 
-    // this.locationList.push(this.locationDto);
-
-
-    // this.locationList = this.notaryForm.get('locationList') as FormArray;
-    // this.locationList.push(this.createItem());
-
-
+    this.locationList.push(this.locationDto);
     this.previousSelections.push(-1);
     this.locationDto = {};
-  }
-
-  createItem(): FormGroup {
-    return this.formBuilder.group({
-      ds: '',
-      gn: '',
-    });
   }
 
   private getDocumentList(): void {
@@ -172,26 +167,18 @@ export class AddNotaryComponent implements OnInit {
 
 
   addLocation() {
-    // this.locationList.push(this.locationDto);
-    // this.locationList.push({});
-    
-    // this.previousSelections.push(-1);
-    // this.locationDto = {};
-    // // this.notaryForm.get("secretariatDivision").reset();
-
-
-    this.locationList = this.notaryForm.get('locationList') as FormArray;
-    this.locationList.push(this.createItem());
+    this.locationList.push(this.locationDto);
+    this.previousSelections.push(-1);
+    this.locationDto = {};
   }
 
   removeLocation(index) {
-    // this.dsDivision.forEach(gsDivision => {
-    //   if (gsDivision.dsDivisionId == this.locationList[index].gsDivision) {
-    //     this.isSelected = false;
-    //   }
-    // });
-    this.locationList = this.notaryForm.get('locationList') as FormArray;
-    this.locationList.removeAt(index);
+    this.dsDivision.forEach(gsDivision => {
+      if (gsDivision.dsDivisionId == this.locationList[index].gsDivision) {
+        this.isSelected = false;
+      }
+    });
+    this.locationList.splice(index, 1);
     this.previousSelections.splice(index, 1);
   }
 
@@ -236,7 +223,8 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.englishNameWithInitials,   this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, 'Miss', 'Ms',
       this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(), this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName,this.paymentDataValue);
+      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(),
+      this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName,this.paymentDataValue.paymentId,null,null,null,null,this.paymentDataValue);
 
       const formData = new FormData();
       formData.append('data', JSON.stringify(this.notaryDetails));
@@ -246,7 +234,16 @@ export class AddNotaryComponent implements OnInit {
 
     this.notaryService.saveNotaryDetails(formData).subscribe(
       (success: string) => {
-        this.snackBar.success('Notary Registration Success');
+        if (this.paymentMethod !== PaymentMethod.ONLINE) {
+          this.snackBar.success('Notary Registration Success');
+          this.router.navigate(['/login']);
+        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+          this.snackBar.success('Notary saved successfully, Proceed to online payment');
+          this.isPayment = true;
+          this.statusOnlinePayment = true;
+        } else {
+          this.snackBar.error('Operation failed');
+        }
       },
       error => {
         this.snackBar.error('Failed');
@@ -406,13 +403,26 @@ export class AddNotaryComponent implements OnInit {
     }
   }
 
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentMethod = data.paymentMethod;
 
-  getPaymentData(paymentData: PaymentResponse){
-    this.isPayment = false;
-    this.isPaymentMethod = true;
-    this.paymentDataValue = paymentData.paymentId;
-    this.snackBar.success("Payment Success");
-    this.saveNotaryDetails();
+    // save notary form for online payment with reference no
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.paymentDataValue = this.paymentDto;
+      this.returnURl = 'login';
+      this.saveNotaryDetails();
+    }
   }
 
+  getPaymentData(paymentData: PaymentResponse){
+    if (this.paymentMethod !== PaymentMethod.ONLINE) {
+      this.paymentDto.paymentId = paymentData.paymentId;
+      this.paymentDataValue = this.paymentDto;
+      this.snackBar.success("Payment Success");
+      this.saveNotaryDetails();
+    }
+  }
 }
