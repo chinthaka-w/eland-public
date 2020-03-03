@@ -29,6 +29,16 @@ import {BankBranchService} from './shared/service/bank-branch.service';
 import {PaymentService} from "./shared/service/payment.service";
 import {ParameterService} from "./shared/service/parameter.service";
 import {TokenStorageService} from "./shared/auth/token-storage.service";
+import {NewNotaryDataVarificationService} from "./shared/service/new-notary-data-varification.service";
+import {MatCardModule} from "@angular/material/card";
+import {ImageViewerModule} from "ngx-image-viewer";
+import {MatTableModule} from "@angular/material/table";
+import {SupportingDocService} from "./shared/service/supporting-doc.service";
+import {CitizenService} from "./shared/service/citizen.service";
+import {RequestForCorrectionService} from "./shared/service/request-for-correction.service";
+import {ChangeNameService} from "./shared/service/change-name.service";
+import {NotaryLeaveRequestService} from "./shared/service/notary-leave-request.service";
+import {NotaryResignationService} from "./shared/service/notary-resignation.service";
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -43,6 +53,8 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
     MatRippleModule,
     MatNativeDateModule,
     MatIconModule,
+    MatCardModule,
+    MatTableModule,
     ReactiveFormsModule,
     HttpClientModule,
 
@@ -51,6 +63,9 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
     PublicPortalModule,
     HttpModule,
     HttpClientModule,
+    ImageViewerModule
+
+
   ],
   providers: [MatDatepickerModule,
     HttpClient,
@@ -62,8 +77,15 @@ import {TokenStorageService} from "./shared/auth/token-storage.service";
     BankService,
     BankBranchService,
     PaymentService,
+    CitizenService,
+    NotaryResignationService,
+    NotaryLeaveRequestService,
     ParameterService,
-    TokenStorageService],
+    TokenStorageService,
+    SupportingDocService,
+    NewNotaryDataVarificationService,
+    RequestForCorrectionService,
+    ChangeNameService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,4 +1,5 @@
-import {NewNotaryGnDivisionDTO} from './new-notary-gn-division.model';
+import {NewNotaryDsDivisionDTO} from './new-notary-ds-division.model';
+import {PaymentDto} from "./payment-dto";
 
 export class Notary {
    constructor(
@@ -28,7 +29,7 @@ export class Notary {
      public titleTam: string,
      public judicialZoneId: number,
      public landRegistryId: number,
-     public newNotaryGnDivisionDTO: NewNotaryGnDivisionDTO [] = [],
+     public newNotaryDsDivisionDTO: NewNotaryDsDivisionDTO [] = [],
      public language: number,
      public enrolledDate: Date,
      public subjectPassedDate: Date,
@@ -36,8 +37,14 @@ export class Notary {
      public status: string,
      public createdTime: Date,
      public lastUpdatedUser: string,
+     public workflowStageCode: string,
      public userName: string,
      public paymentId: number,
+     public judicialZoneDesc: string,
+     public landRegistryDesc: string,
+     public clrName: string,
+     public clerkNic: string,
+     public  payment: PaymentDto,
    ) {
    }
 }

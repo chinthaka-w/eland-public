@@ -1,0 +1,46 @@
+import {PaymentDto} from "./payment-dto";
+import {HistoryDTO} from "./history-dto";
+import {DocumentDTO} from "./document-dto";
+
+export class CitizenDTO {
+  id: number;
+  reqId: number;
+  landRegistry: number;
+  userType: number;
+  identificationNoType: number;
+  notaryId: string;
+  bankUserType: number;
+  identificationNo: string;
+  passportNo: string;
+  drivingLicenceNo: string;
+  nameEng: string;
+  nameTam: string;
+  nameSin: string;
+  addressSin: string;
+  addressEng: string;
+  addressTam: string;
+  residentialTelephone: string;
+  mobileNo: string;
+  email: string;
+  reason: string;
+  workFlowStageCode: string;
+  status: string;
+  remark: string;
+  username: string;
+  paymentType: number;
+  amount: number;
+  paymentDate: string;
+  bankReceiptNo: string;
+  bankId: number;
+  bankBranchId: number;
+  user: string;
+  dateOfBirth: string;
+  lawFirmName: string;
+  stateInstituteName: string;
+  otherInstituteName: string;
+  officerDesignation: string;
+  payment: PaymentDto;
+  paymentHistory: PaymentDto[];
+  requestHistory: HistoryDTO[];
+  supportingDocuments: DocumentDTO[];
+}

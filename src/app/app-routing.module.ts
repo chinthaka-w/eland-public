@@ -3,16 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { GridComponent } from './grid/grid.component';
 
 const routes: Routes = [
+
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    redirectTo: "home",
+    pathMatch: "full"
   },
-  // {
-  //   path: "**",
-  //   redirectTo: "home",
-  //   pathMatch: "full"
-  // },
   {
     path: '',
     loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule)

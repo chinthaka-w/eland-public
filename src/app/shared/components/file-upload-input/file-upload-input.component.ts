@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, Output, EventEmitter } from "@angular/core";
+import {Component, OnInit, ElementRef, Output, EventEmitter, Input} from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
+import {FormControlName, FormGroup} from '@angular/forms';
 
 @Component({
   selector: "file-upload-input",

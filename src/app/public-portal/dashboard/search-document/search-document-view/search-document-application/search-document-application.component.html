@@ -1,0 +1,376 @@
+<h5 class="mb-10">Application information</h5>
+<div class="separator">&nbsp;</div>
+<form class="wf-form-wp" [formGroup]="searchRequestForm">
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Land Registry:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl
+                    required
+                    class="form-control"
+                    formControlName="landRegistryId">
+              <option value="">--Select--</option>
+              <option *ngFor="let item of landRegistries" [value]="item.landRegistryId">{{item.nameEng}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Doc type:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl
+                    required
+                    class="form-control"
+                    (change)="onChangeRequestType()"
+                    formControlName="requestType">
+              <option [value]="SearchRequestType.FOLIO_DOCUMENT">Folio Document</option>
+              <option [value]="SearchRequestType.DEED_DOCUMENT">Deed Document</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Name of the Notary public who attested by the deed:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control"
+                   formControlName="attestedByNotaryName">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>District or station where he practiced at that time:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control"
+                   formControlName="practicedLocation">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Number of the deed:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control"
+                   formControlName="numberOfTheDeed">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Nature of the deed:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control"
+                   formControlName="natureOfTheDeed">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="mb-10" style="display: block;">Date or probable period</span>
+
+  <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>From:<span class="redtxt">*</span></label>
+        <div class="default-input-feild date-feild">
+          <mat-form-field appearance="outline">
+            <input matInput readonly
+                   [matDatepicker]="picker"
+                   placeholder="Choose a date"
+                   formControlName="probablePeriodFrom">
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <button mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>To:<span class="redtxt">*</span></label>
+        <div class="default-input-feild date-feild">
+          <mat-form-field appearance="outline">
+            <input matInput readonly
+                   [matDatepicker]="picker2"
+                   placeholder="Choose a date"
+                   formControlName="probablePeriodTo">
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          <button mat-raised-button (click)="picker2.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Name of the granter / Transferor:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control" formControlName="nameOfTheGranter">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Name of the grantee / transferee:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control" formControlName="nameOfTheGrantee">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Name of the land:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control" formControlName="nameOfTheLand">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Extent:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput
+                   class="form-control" formControlName="extent">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Korale:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl
+                    required
+                    class="form-control"
+                    formControlName="koraleId">
+              <option value="">--Select--</option>
+              <option *ngFor="let item of korales" [value]="item.koraleId">{{item.descriptionEng}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Pattu:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl
+                    required
+                    class="form-control"
+                    formControlName="paththuId">
+              <option value="">--Select--</option>
+              <option *ngFor="let item of paththuwas" [value]="item.paththuwaId">{{item.descriptionEng}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>DS Division:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl
+                    required
+                    class="form-control"
+                    formControlName="dsDivisionId">
+              <option value="">--Select--</option>
+              <option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>GN Division:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl
+                    required
+                    class="form-control"
+                    formControlName="gnDivisionId">
+              <option value="">--Select--</option>
+              <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description}}</option>
+            </select>
+            <mat-error *ngIf="gnDivisions.length==0">Please select Ds Division</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Village:<span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl
+                    required
+                    class="form-control"
+                    formControlName="villageId">
+              <option value="">--Select--</option>
+              <option *ngFor="let item of villages" [value]="item.villageId">{{item.description}}</option>
+            </select>
+            <mat-error *ngIf="villages.length==0">Please select Gn Division</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label *ngIf="requestType==SearchRequestType.DEED_DOCUMENT">Reason for search of deed as:<span
+          class="redtxt">*</span></label>
+        <label *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">Reason for land register as:<span
+          class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <select matNativeControl required
+                    class="form-control" formControlName="searchReasonId">
+              <option value="">--Select--</option>
+              <option *ngFor="let item of searchReasons" [value]="item.searchReasonId">{{item.descriptionEng}}
+              </option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+<div *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">
+  <h5 class="mb-10">Registers required for search</h5>
+  <div class="separator">&nbsp;</div>
+  <form *ngIf="action!=ActionMode.VIEW" class="wf-form-wp  mb-20" [formGroup]="folioForm">
+
+    <div class="pg-inner-row">
+      <div class="pg-inner-col-7">
+        <div class="default-input-wrapper full-row">
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput
+                     class="form-control"
+                     placeholder="Folio No"
+                     formControlName="folioNo">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput
+                     class="form-control"
+                     placeholder="No. of Years"
+                     formControlName="noOfYears">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col-2">
+      <button type="button" mat-raised-button (click)="onClickAddButton()">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
+  </form>
+
+  <div class="b-table-wrapper">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 b-table">
+
+      <!-- Folio Column -->
+      <ng-container matColumnDef="Folio No">
+        <th mat-header-cell *matHeaderCellDef> Folio No</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.folioNo}}
+        </td>
+      </ng-container>
+
+      <!-- No of Years Column -->
+      <ng-container matColumnDef="No. of years">
+        <th mat-header-cell *matHeaderCellDef> No. of years</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.noOfYears}}
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let element">
+          <!--<span class="t-status">{{element.status}}</span>-->
+          <span>{{element.status}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef> Action</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <button [disabled]="action==ActionMode.VIEW" mat-icon-button (click)="onClickDelete(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="dataSource.data.length === 0" style="text-align: center">No records found</div>
+  </div>
+</div>
+
+<div class="separator">&nbsp;</div>
