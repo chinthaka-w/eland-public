@@ -25,13 +25,13 @@ export class SysConfigService {
   constructor() {}
 
   set config(value) {
-    window.sessionStorage.setItem("appConfig", JSON.stringify(value));
+    window.localStorage.setItem("appConfig", JSON.stringify(value));
     this.layout.emit(value);
   }
 
 
   
   get config(): any | Observable<any> {
-    return JSON.parse(window.sessionStorage.getItem("appConfig"));
+    return JSON.parse(window.localStorage.getItem("appConfig"));
   }
 }
