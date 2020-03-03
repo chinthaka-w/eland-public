@@ -1,0 +1,59 @@
+<div class="hc-component-wrapper">
+  <div class="hc-component-content">
+    <div class="hc-component-inner-col">
+      <h1>Welcome to E-Land</h1>
+      <p>Welcome back please login to your acount</p>
+      <div class="form-wp">
+        <form [formGroup]="loginForm">
+          <div class="hc-mat-input-wp">
+            <mat-form-field appearance="outline fill">
+              <mat-label>Userename</mat-label>
+              <input matInput formControlName="username" />
+              <mat-icon matSuffix style="color: #A7A6A6;"
+                >perm_identity</mat-icon
+              >
+              <div *ngIf="username.touched && username.invalid">
+                <mat-error *ngIf="username.errors.required">
+                  Username is Required
+                </mat-error>
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline fill">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" />
+              <mat-icon matSuffix style="color: #A7A6A6;">lock</mat-icon>
+              <div *ngIf="password.touched && password.invalid">
+                <mat-error *ngIf="password.errors.required">
+                  Password is Required
+                </mat-error>
+              </div>
+            </mat-form-field>
+          </div>
+
+          <div class="hcf-inner-row">
+            <div *ngIf="loginForm.errors">
+              <mat-error>
+                {{ formError }}
+              </mat-error>
+            </div>
+            <a href="#">Forgot Password ?</a>
+            <button
+              mat-raised-button
+              (click)="login()"
+              [disabled]="!loginForm.valid"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="hc-component-bottom">
+      Don’t have an account <a href="">Sign Up</a>
+    </div>
+  </div>
+  <div
+    class="hc-component-img"
+    style="background-image: url('../../../assets/images/temp_img_003.jpg')"
+  ></div>
+</div>

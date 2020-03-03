@@ -1,0 +1,15 @@
+<div class="ovm-container">
+    <div class="ovm-inner-container">
+        <h4>OTP Verification</h4>
+        <p>Please enter the six digit verification code sent to<br/>your mobile phone.</p>
+        <div class="opt-input">
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="123 456">
+                </mat-form-field>
+            </div>
+        </div>
+        <p>Didn’t get the code? <a href="#">Resend</a></p>
+        <button mat-raised-button class="lg-button green" [routerLink]="['/payment']">Verify</button>
+    </div>
+</div>

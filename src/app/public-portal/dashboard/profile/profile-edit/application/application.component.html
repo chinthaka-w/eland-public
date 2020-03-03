@@ -1,0 +1,189 @@
+<div class="pg-inner-row mb-40">
+    <div class="pg-inner-col">
+        <h4 class="m0">Edit Profile</h4>
+    </div>
+</div>
+
+<h5 class="uw-title"><span>Application For A Notarial Warrant</span></h5>
+
+<form [formGroup]="requestForm" class="form pb-5">
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Full name (English):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline" >
+            <textarea matInput rows="5" matInput formControlName="fNameEng" readonly class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Full name (Sinhala):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="fNameSin" readonly class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pg-inner-col-3">
+      <div class="default-input-wrapper full-row">
+        <label>Full name (Tamil):</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <textarea matInput rows="5" formControlName="fNameTam" readonly class="form-control"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="pg-inner-row mb-20">
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label>Permenent address (English):</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput rows="5" formControlName="perAddEng" class="form-control"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label>Permenent address (Sinhala):</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput rows="5" formControlName="perAddSin" class="form-control"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label>Permenent address (Tamil):</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput rows="5" formControlName="perAddTam" class="form-control"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pg-inner-row mb-20">
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label>Current address (English):</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput rows="5" formControlName="CurAddEng" class="form-control"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label>Current address (Sinhala):</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline" >
+                    <textarea matInput rows="5" formControlName="CurAddSin" class="form-control"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label>Current address (Tamil):</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput rows="5" formControlName="CurAddTam" class="form-control"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Contact No. (Residential):</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput formControlName="contact" class="form-control">
+                </mat-form-field>
+              <div *ngIf="submitted  && f.contact.errors" >
+                <div *ngIf="f.contact.errors.required" class="invalid-feedback">
+                  Contact No is required</div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Mobile:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput formControlName="mobile" class="form-control">
+                </mat-form-field>
+              <div *ngIf="submitted  && f.contact.errors" >
+                <div *ngIf="f.mobile.errors.required" class="invalid-feedback">
+                  Mobile No is required</div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+            <label>Email:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput formControlName="email" class="form-control">
+                </mat-form-field>
+              <div *ngIf="submitted  && f.email.errors" >
+                <div *ngIf="f.email.errors.required" class="invalid-feedback">
+                  Email is required</div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col"></div>
+</div>
+
+<div class="separator">&nbsp;</div>
+
+<div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
+        <div class="default-input-wrapper full-row">
+          <label>Judicial Division:</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="judicial" class="form-control" readonly>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>Land Registry:</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="lRegistry" class="form-control" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+</div>
+
+  <div class="pg-inner-col right" >
+    <button mat-raised-button class="lg-button" (click)="submitForm()">
+      Submit
+    </button>
+  </div>
+</form>
