@@ -30,6 +30,6 @@ export class SysConfigService {
   }
 
   get config(): any | Observable<any> {
-    return JSON.parse(window.sessionStorage.getItem("appConfig"));
+    return JSON.parse(window.localStorage.getItem("appConfig"));
   }
 }
