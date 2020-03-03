@@ -11,7 +11,6 @@ export class FileUploadInputComponent implements OnInit {
 
   @Output()
   response = new EventEmitter;
-
   files: File[] = [];
   fileUpload: ElementRef;
 
@@ -20,6 +19,7 @@ export class FileUploadInputComponent implements OnInit {
   ngOnInit() {}
 
   onFileSelected(event) {
+    // console.log('files: ',event.target.files);
     this.files = [];
     const files = event.dataTransfer
       ? event.dataTransfer.files
