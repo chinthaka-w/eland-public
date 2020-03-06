@@ -34,11 +34,14 @@ export class HeaderComponent implements OnInit {
     private sessionService: SessionService
   ) {
     router.events.subscribe(event => {
+
       this.sysConfigService.appConfig.subscribe((config: AppConfig) => {
         this.appConfig = config;
       });
   
       this.userName = this.sessionService.getUser().nameEng;
+
+      window.scroll(0,0);
   });
     
   }

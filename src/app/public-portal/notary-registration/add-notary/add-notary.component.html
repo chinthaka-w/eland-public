@@ -388,13 +388,14 @@
                   >
                 </ng-container>
               </mat-select>
+              <button *ngIf="locationList.length > 1"  mat-icon-button
+                color="warn"
+                (click)="removeLocation(i)">
+         <mat-icon>close</mat-icon>
+       </button>
             </div>
           </div>
-          <button  mat-icon-button
-                   color="warn"
-                   (click)="removeLocation(i)">
-            <mat-icon>close</mat-icon>
-          </button>
+          
         </div>
       </div>
       <button class="ml-3 mb-30 add-row" mat-flat-button color="accent" (click)="addLocation()" >
