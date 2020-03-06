@@ -203,6 +203,13 @@ export class AddNotaryComponent implements OnInit {
   }
 
   public onFormSubmit() {
+    if(this.notaryForm.invalid){
+      Object.keys(this.notaryForm.controls).forEach(field => {
+        const control = this.notaryForm.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+    }
+    else{
     this.notaryService.findIfNotaryExist(this.notaryForm.value.nic).subscribe(
       (data) => {
         if (data != null) {
@@ -212,6 +219,7 @@ export class AddNotaryComponent implements OnInit {
           this.isPaymentMethod = false;
         }
       });
+    }
   }
 
   saveNotaryDetails(): void {

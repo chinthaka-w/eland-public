@@ -26,6 +26,7 @@ import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-vie
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
 import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
 import {NameChangeRequestViewComponent} from "./dashboard/change-the-name/name-change-request-view/name-change-request-view.component";
+import { AuthGuard } from '../shared/auth/auth-guard';
 
 const routes: Routes = [
   {
@@ -38,7 +39,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit-profile',
