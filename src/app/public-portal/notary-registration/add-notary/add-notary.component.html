@@ -2,7 +2,7 @@
 <div class="page-header-default">
   <h2>Notary Services Registration</h2>
   <p>Please fill in the following information to<br />register in the system</p>
-  <a href="" class="phd-back-btn">
+  <a [routerLink]="['/home']" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
@@ -16,7 +16,7 @@
         <div class="default-input-wrapper m0">
           <label>Register as a:<span class="redtxt">*</span></label>
           <div class="default-input-feild">
-            <mat-select formControlName="notary"  class="form-control text-left">
+            <mat-select formControlName="notary" class="form-control text-left">
               <mat-option value="1">Notary</mat-option>
               <mat-option value="2">Attorny at Law</mat-option>
             </mat-select>
@@ -30,14 +30,12 @@
     <div class="pg-inner-row mb-20">
       <div class="pg-inner-col">
         <label>Title:<span class="redtxt">*</span></label>
-        <mat-form-field appearance="outline">
-          <select matNativeControl required  formControlName="title"  class="form-control">
-            <option value="">Select</option>
-            <option value="Mr">Mr</option>
-            <option value="Mrs">Mrs</option>
-            <option value="Miss">Miss</option>
-          </select>
-        </mat-form-field>
+          <mat-select formControlName="title" class="form-control">
+            <mat-option value="" disabled>--Select--</mat-option>
+            <mat-option value="Mr">Mr</mat-option>
+            <mat-option value="Mrs">Mrs</mat-option>
+            <mat-option value="Miss">Miss</mat-option>
+          </mat-select>
         <div *ngIf="FormControls.title.touched && FormControls.title.errors"
              class="invalid-feedback">
           <mat-error *ngIf="FormControls.title.errors.required" class="errors">Title is required</mat-error>
@@ -48,9 +46,9 @@
           <label>Language:<span class="redtxt">*</span></label>
           <div class="default-input-feild" >
             <mat-radio-group class="form-control" [ngModel]="status" formControlName="languages"  (change) = "onChange($event)">
-              <mat-radio-button  value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
-              <mat-radio-button  value="{{languages.ENGLISH}}" [checked]='true'>English</mat-radio-button>
-              <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
+              <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
+              <mat-radio-button value="{{languages.ENGLISH}}" [checked]='true'>English</mat-radio-button>
+              <mat-radio-button value="{{languages.TAMIL}}">Tamil</mat-radio-button>
             </mat-radio-group>
             <div *ngIf="FormControls.languages.errors"
                  class="invalid-feedback">
@@ -324,12 +322,10 @@
         <div class="default-input-wrapper full-row">
           <label>Judicial Zone:<span class="redtxt">*</span></label>
           <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <select matNativeControl required  formControlName="courtZone"  class="form-control">
-                <option value="">Select</option>
-                <option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">{{ judicialZone.nameEng }}</option>
-              </select>
-            </mat-form-field>
+              <mat-select matNativeControl required  formControlName="courtZone"  class="form-control">
+                <mat-option value="" disabled>--Select--</mat-option>
+                <mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">{{ judicialZone.nameEng }}</mat-option>
+              </mat-select>
             <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
                  class="invalid-feedback">
               <mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">High Court Zone is required</mat-error>
@@ -341,12 +337,10 @@
         <div class="default-input-wrapper full-row">
           <label>Land Registry:<span class="redtxt">*</span></label>
           <div class="default-input-feild">
-            <mat-form-field appearance="outline">
-              <select matNativeControl required  formControlName="landRegistry" class="form-control" >
-                <option value="">Select</option>
-                <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
-              </select>
-            </mat-form-field>
+              <mat-select matNativeControl required  formControlName="landRegistry" class="form-control" >
+                <mat-option value="" disabled>--Select--</mat-option>
+                <mat-option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</mat-option>
+              </mat-select>
             <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
                  class="invalid-feedback">
               <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Land Registry is required</mat-error>
