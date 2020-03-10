@@ -1,7 +1,6 @@
 
 mat-select {
     border: 1px solid #BDBDBD;
-    padding: 10px;
 }
 
 
@@ -12,5 +11,9 @@ mat-select {
     }
     ::ng-deep .mat-simple-snackbar-action {
       color: red;
+    }
+
+    table {
+      width: 100%;
     }
   

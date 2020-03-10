@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { FileUploadPopupComponent } from './../../shared/components/file-upload-popup/file-upload-popup.component';
+import { SnackBarService } from './../../shared/service/snack-bar.service';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CorrectionRequestService } from 'src/app/shared/service/correction-request.service';
 import { LandRegistryModel } from 'src/app/shared/dto/land-registry.model.';
@@ -20,6 +22,9 @@ import {FolioCorrectionModel} from "../../shared/dto/folio-correction.model";
 import {SessionService} from "../../shared/service/session.service";
 import {UserType} from "../../shared/enum/user-type.enum";
 import {LandRegistryService} from "../../shared/service/land-registry.service";
+import { MatTableDataSource, MatDialog, MatTable, MatPaginator } from '@angular/material';
+import { BehaviorSubject } from 'rxjs';
+import { CorrectionDetail } from 'src/app/shared/dto/correction-detail.model';
 @Component({
   selector: 'app-request-for-correction',
   templateUrl: './request-for-correction.component.html',
@@ -55,13 +60,19 @@ export class RequestForCorrectionComponent implements OnInit {
   public disabled: boolean =  true;
   public disabled1: boolean = false;
   workflow = Workflow;
+  displayedColumns: string[] = ['folioNo', 'dayBookNo', 'correctionNature', 'requestedCorrection', 'action'];
+  correctionDetails: CorrectionDetail[] = [];
+  dataSource = new MatTableDataSource<CorrectionDetail>(this.correctionDetails);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private correctionRequestService: CorrectionRequestService,private snackBar: MatSnackBar,
               private requestForCorrectionService: RequestForCorrectionService,
               private documetService: SupportingDocService,
               private sessionService: SessionService,
               private landRegistryService: LandRegistryService,
-              private formBuilder: FormBuilder
+              private formBuilder: FormBuilder,
+              private snackBarService: SnackBarService,
+              public dialog: MatDialog
               ) { }
   open() {
     let config = new MatSnackBarConfig();
@@ -72,25 +83,29 @@ export class RequestForCorrectionComponent implements OnInit {
   }
   ngOnInit() {
     this.reqForCorrectionForm = this.formBuilder.group({
-      requestedCorrection: ['', [Validators.required]],
-      notaryName: ['', [Validators.required]],
       landRegId: [null, [Validators.required]],
-      judicialZoneId: ['', [Validators.required]],
-      folioNumbers: ['', [Validators.required]],
-      deedNo: ['', [Validators.required]],
+      folioNo: ['', [Validators.required]],
+      dayBookNo: ['', [Validators.required]],
+      deedNo: [''],
+      notaryName: ['', [Validators.required]],
       attestedDate: [new Date(), [Validators.required]],
-      natureOfTheCorrection: ['', [Validators.required]],
-      citizenId: ['', [Validators.required]],
-      workflowStageCode: ['', [Validators.required]],
-      remark: ['', [Validators.required]],
-      recaptcha: [null, Validators.required],
-      landRegistry: ['', [Validators.required]],
+      correctionNature: [null, [Validators.required]],
+      requestedCorrection: [null, [Validators.required]],
+      recaptcha: [null],
     });
-
+    this.initPaginator();
     this.getjudicialZone();
     this.getLandRegistries();
     this.getAllCorrectionsToBeMade();
     this.getDocumentList();
+  }
+
+  get folioNo() {
+    return this.reqForCorrectionForm.get('folioNo');
+  }
+
+  get landRegId() {
+    return this.reqForCorrectionForm.get('landRegId');
   }
 
   public hasError = (controlName: string, errorName: string) => {
@@ -188,5 +203,57 @@ export class RequestForCorrectionComponent implements OnInit {
         this.docList = data;
       }
     );
+  }
+
+  // add folio correction
+  onAddCorrection(): void {
+    if (!this.reqForCorrectionForm.valid) {
+      this.snackBarService.error('Please fill the form');
+      return;
+    }
+    let correctionData = new CorrectionDetail();
+    correctionData = this.reqForCorrectionForm.value;
+    this.correctionDetails.push(correctionData);
+    this.updateDatasource(this.correctionDetails);
+    this.initPaginator();
+    this.resetForm();
+  }
+
+  onClearAll(): void {
+    if (this.correctionDetails.length > 0) {
+      this.correctionDetails = [];
+    }
+    this.updateDatasource(this.correctionDetails);
+    this.initPaginator();
+  }
+
+  onClearItem(index: number) {
+    if (index != null) {
+      this.correctionDetails.splice(index, 1);
+      this.updateDatasource(this.correctionDetails);
+      this.initPaginator();
+    }
+  }
+
+  onDocUpload(index: number) {
+    const dialogRef = this.dialog.open(FileUploadPopupComponent, {
+      width: '750px',
+      height: '500px'
+    });
+  }
+
+  updateDatasource(correctionDetails: CorrectionDetail[]): void {
+    this.dataSource = new MatTableDataSource(correctionDetails);
+  }
+
+  initPaginator(): void {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  resetForm(): void {
+    const correctionDetail = new CorrectionDetail();
+    correctionDetail.landRegId = this.landRegId.value;
+    this.reqForCorrectionForm.reset();
+    this.reqForCorrectionForm.patchValue(correctionDetail); 
   }
 }
