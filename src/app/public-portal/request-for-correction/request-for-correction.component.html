@@ -1,7 +1,7 @@
 <div class="page-header-default">
   <h2>REQUEST FOR CORECTIONS OF REGISTRATIONS</h2>
   <p>Please fill in the following information to<br />register in the system</p>
-  <a href="" class="phd-back-btn">
+  <a [routerLink]="['/requests', getBase64(workflow.FOLIO_REQUEST_CORRECTION)]" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
@@ -19,9 +19,12 @@
             <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
 
             <div class="default-input-feild">
-              <mat-select formControlName="landRegId">
-                <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
-              </mat-select>
+              <mat-form-field appearance="outline">
+                <select matNativeControl formControlName="landRegId" class="form-control">
+                  <option [value]="null" [disabled]="true">Select Land Registry</option>
+                  <option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</option>
+                </select>
+              </mat-form-field>
             </div>
           </div>
         </div>
@@ -141,6 +144,15 @@
           </div>
         </div>
       </div>
+      <!-- Add correction details -->
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <button type="button" mat-raised-button>
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+      </div>
+      <!-- End of correction details -->
       <h5>Supporting Documents</h5>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col"></div>

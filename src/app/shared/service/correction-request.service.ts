@@ -1,3 +1,4 @@
+import { SysConfigService } from './sys-config.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,11 +10,12 @@ import { correctionReq } from '../dto/correctionReq.model';
 })
 export class CorrectionRequestService {
 
+  BASE_URL = SysConfigService.BASE_URL;
 
   // url types
-  BASE_URL_WITH_JUDICIAL = 'http://localhost:9292/api/judicial-zone';
-  BASE_URL_WITH_LAND_REGISTRY = 'http://localhost:9292/api/landRegistries';
-  BASE_URL_WITH_CORRECTION_REQ = 'http://localhost:9292/api/folioCorrectionController';
+  BASE_URL_WITH_JUDICIAL = this.BASE_URL + 'judicial-zone';
+  BASE_URL_WITH_LAND_REGISTRY = this.BASE_URL + 'landRegistries';
+  BASE_URL_WITH_CORRECTION_REQ = this.BASE_URL + 'folioCorrectionController';
 
   private headers;
   private headersJson = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
@@ -41,6 +43,7 @@ export class CorrectionRequestService {
  saveCorrectionReq(corrReq: FormData): Observable<any> {
   return this.httpClient.post(this.BASE_URL_WITH_CORRECTION_REQ + '/' ,corrReq);
 }
+
 
 
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CorrectionRequestService } from 'src/app/shared/service/correction-request.service';
 import { LandRegistryModel } from 'src/app/shared/dto/land-registry.model.';
 import { JudicialZoneModel } from 'src/app/shared/dto/judicial-zone.model';
@@ -54,12 +54,15 @@ export class RequestForCorrectionComponent implements OnInit {
   public newNotaryId: number;
   public disabled: boolean =  true;
   public disabled1: boolean = false;
+  workflow = Workflow;
 
   constructor(private correctionRequestService: CorrectionRequestService,private snackBar: MatSnackBar,
               private requestForCorrectionService: RequestForCorrectionService,
               private documetService: SupportingDocService,
               private sessionService: SessionService,
-              private landRegistryService: LandRegistryService) { }
+              private landRegistryService: LandRegistryService,
+              private formBuilder: FormBuilder
+              ) { }
   open() {
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
@@ -68,21 +71,22 @@ export class RequestForCorrectionComponent implements OnInit {
     this.snackBar.open(this.message, this.action ? this.actionButtonLabel : undefined, config);
   }
   ngOnInit() {
-    this.reqForCorrectionForm = new FormGroup({
-      requestedCorrection: new FormControl('', [Validators.required]),
-      notaryName: new FormControl('', [Validators.required]),
-      landRegId:new FormControl('', [Validators.required]),
-      judicialZoneId:new FormControl('', [Validators.required]),
-      folioNumbers:new FormControl('', [Validators.required]),
-      deedNo: new FormControl('', [Validators.required]),
-      attestedDate: new FormControl(new Date(), [Validators.required]),
-      natureOfTheCorrection: new FormControl('',[Validators.required]),
-      citizenId:new FormControl('',[Validators.required]),
-      workflowStageCode:new FormControl('',[Validators.required]),
-      remark:new FormControl('',[Validators.required]),
-      recaptcha: new FormControl(null, Validators.required),
-      landRegistry: new FormControl('', [Validators.required]),
+    this.reqForCorrectionForm = this.formBuilder.group({
+      requestedCorrection: ['', [Validators.required]],
+      notaryName: ['', [Validators.required]],
+      landRegId: [null, [Validators.required]],
+      judicialZoneId: ['', [Validators.required]],
+      folioNumbers: ['', [Validators.required]],
+      deedNo: ['', [Validators.required]],
+      attestedDate: [new Date(), [Validators.required]],
+      natureOfTheCorrection: ['', [Validators.required]],
+      citizenId: ['', [Validators.required]],
+      workflowStageCode: ['', [Validators.required]],
+      remark: ['', [Validators.required]],
+      recaptcha: [null, Validators.required],
+      landRegistry: ['', [Validators.required]],
     });
+
     this.getjudicialZone();
     this.getLandRegistries();
     this.getAllCorrectionsToBeMade();
