@@ -35,6 +35,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
 import { LastRemarkComponent } from './components/request-view/last-remark/last-remark.component';
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
+import { AuthGuard } from './auth/auth-guard';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,9 @@ import { RemarkHistoryComponent } from './components/remark-history/remark-histo
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class SharedModule {}

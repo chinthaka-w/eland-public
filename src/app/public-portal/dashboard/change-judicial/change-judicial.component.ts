@@ -16,6 +16,8 @@ import {DocumentDto} from '../../../shared/dto/document-list';
 import {JudicialChangeWorkflowStagesEnum} from '../../../shared/enum/judicial-change-workflow-stages.enum';
 import {GnDivisionDTO} from "../../../shared/dto/gn-division.dto";
 import {SessionService} from '../../../shared/service/session.service';
+import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
+import {PaymentDto} from '../../../shared/dto/payment-dto';
 
 @Component({
   selector: 'app-change-judicial',
@@ -50,6 +52,11 @@ export class ChangeJudicialComponent implements OnInit {
   public files: File[] = [];
   public documentList: DocumentDto[] = [];
   public judicialChange = new JudicialChange;
+  isContinue: boolean = false;
+  returnURl: string;
+  paymentMethod: number;
+  paymentDto: PaymentDto = new PaymentDto();
+  statusOnlinePayment: boolean;
   public languages: any[] = [
     {
       id: Languages.ENGLISH,
@@ -193,7 +200,7 @@ export class ChangeJudicialComponent implements OnInit {
 
 
   selectGnDivision(gsDivisionId) {
-    this.dsGnList.push(new DsGnDivisionDTO(gsDivisionId[0], this.dsDivisionId));
+    this.dsGnList.push(new DsGnDivisionDTO(this.dsDivisionId, gsDivisionId[0]));
   }
   setFiles(data: any, docTyprId: number) {
     this.files = data;
@@ -222,15 +229,17 @@ export class ChangeJudicialComponent implements OnInit {
       formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
     });
 
-    this.judicialService.save(formData).subscribe(
-      (success: string) => {
+    this.judicialService.save(formData).subscribe((result) => {
+      if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
         this.snackBar.success('Judicial Change Request Success');
-        this.judicialChangeForm.reset();
-      },
-      error => {
-        this.snackBar.error('Failed');
+      } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+        this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
+        this.isContinue = true;
+        this.statusOnlinePayment = true;
+      } else {
+        this.snackBar.error('Operation failed');
       }
-    );
+    });
   }
 
   saveDate(event: any) {
@@ -247,17 +256,29 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
   onPaymentResponse(data: PaymentResponse) {
-    if (data.paymentStatusCode === 2 || data.paymentId === undefined || data.paymentId === 0) {
-      this.snackBar.error('Failed');
-    } else {
-      this.paymentId = data.paymentId;
-      this.isContinueToPayment = false;
-      this.isPaymentSuccess = true;
+    if (this.paymentMethod !== PaymentMethod.ONLINE) {
+      this.paymentDto.paymentId = data.paymentId;
+      this.judicialChange.payment = this.paymentDto;
+      this.submitForm();
     }
   }
 
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentMethod = data.paymentMethod;
+
+    // save citizen form for online payment with reference no
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.judicialChange.payment = this.paymentDto;
+      this.submitForm();
+    }
+
+  }
+
   onBack(data: boolean) {
-    this.isContinueToPayment = !data;
+    this.isContinue = !data;
   }
 
   goBack(): any {
@@ -265,5 +286,7 @@ export class ChangeJudicialComponent implements OnInit {
     return false;
   }
 
-
+  continue(): void {
+    this.isContinue = true;
+  }
 }

@@ -21,16 +21,16 @@ export class SysConfigService {
     SysConfigService.APP_PORT +
     SysConfigService.APP_ENDPOINT;
 
-  getConfig = new EventEmitter<AppConfig>();
+  appConfig = new EventEmitter<AppConfig>();
 
   constructor() {}
 
   set config(value) {
-    window.sessionStorage.setItem("appConfig", JSON.stringify(value));
-    this.getConfig.emit(value);
+    window.localStorage.setItem("appConfig", JSON.stringify(value));
+    this.appConfig.emit(value);
   }
 
   get config(): any | Observable<any> {
-    return JSON.parse(window.sessionStorage.getItem("appConfig"));
+    return JSON.parse(window.localStorage.getItem("appConfig"));
   }
 }

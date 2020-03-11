@@ -1,5 +1,6 @@
 import {DsGnDivisionDTO} from "./gs-gn-model";
 import {NewNotaryDsDivisionDTO} from "./new-notary-ds-division.model";
+import {PaymentDto} from "./payment-dto";
 
 export class NotaryNameChangeModel {
   public notaryNameChangeRequestId: number;
@@ -26,4 +27,5 @@ export class NotaryNameChangeModel {
   public lastUpdatedUser: string;
   public juducialZoneDescription: string;
   public workflowStageCode: string;
+  public  payment: PaymentDto;
 }

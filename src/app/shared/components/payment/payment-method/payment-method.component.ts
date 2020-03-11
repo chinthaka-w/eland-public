@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Notary} from '../../../dto/notary.model';
 import {NotaryService} from '../../../../shared/service/notary-service';
@@ -16,6 +16,7 @@ import {PaymentMethod} from '../../../enum/payment-method.enum';
 import {JsonFormatter} from 'tslint/lib/formatters';
 import {CommonStatus} from '../../../enum/common-status.enum';
 import {PaymentStatus} from '../../../enum/payment-status.enum';
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -39,15 +40,16 @@ export class PaymentMethodComponent implements OnInit {
 
   public paymentResponse = new PaymentResponse;
 
+  fileUploads: ElementRef;
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private dataRoute: ActivatedRoute,
               private snackBar: SnackBarService,
               private bankService: BankService,
               private branchService: BankBranchService,
-              private paymentService: PaymentService
-  ) {
-  }
+              private paymentService: PaymentService,
+              private sanitizer: DomSanitizer,
+              ) { }
 
   ngOnInit() {
     this.paymentMethodForm = new FormGroup({

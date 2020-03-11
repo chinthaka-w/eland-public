@@ -292,14 +292,15 @@
         </div>
       </div>
 
-      <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">User Name </label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Username" formControlName="userName" (input)="onSearchChange($event.target.value)" />
-          </mat-form-field>
-          <div *ngIf="publicUserExist == true" class="invalid-feedback">
-            <mat-error *ngIf="publicUserExist == true" class="errors">User Name Exist</mat-error>
+      <div class="separator mt-30">&nbsp;</div>
+
+      <div class="pg-inner-row mb-20 upload-col-3">
+        <div class="pg-inner-col-3">
+          <div class="default-input-wrapper full-row">
+            <label
+              >Last obtained copy of Notary's renewal certificate
+              <span>*</span></label>
+            <file-upload-input (response)="setFiles($event, 'renewalCertificate')"></file-upload-input>
           </div>
           <div *ngIf="FormControls.userName.touched && FormControls.userName.errors" class="invalid-feedback">
             <mat-error *ngIf="FormControls.userName.errors.required" class="errors">User Name required</mat-error>

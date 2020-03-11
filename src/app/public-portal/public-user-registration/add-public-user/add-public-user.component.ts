@@ -118,7 +118,9 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   setFiles(files, key){
+    console.log('files: ', files);
     this.fileList[key] = files;
+    console.log('file list: ', this.fileList);
   }
   getAllLandRegistries() {
     this.citizenService.getAllLandRegistries()
