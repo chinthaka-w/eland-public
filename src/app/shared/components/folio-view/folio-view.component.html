@@ -1,0 +1,49 @@
+<ng-container *ngIf="!showTransaction">
+<button type="button" class="close" aria-label="Close" [mat-dialog-close]>
+    <span aria-hidden="true">&times;</span>
+</button>
+<mat-tab-group>
+    <mat-tab label="Folio Details">
+        <app-folio-header></app-folio-header>
+    </mat-tab>
+    <mat-tab label="Unit Details">
+        <app-unit></app-unit>
+    </mat-tab>
+    <mat-tab label="Property Details">
+        <app-property></app-property>
+    </mat-tab>
+    <mat-tab label="Extent Details">
+        <app-extent></app-extent>
+    </mat-tab>
+</mat-tab-group>
+<button type="button" mat-raised-button style="top: 330px; right: 12px;">
+    View Transactions
+</button>
+</ng-container>
+<ng-container *ngIf="showTransaction">
+<div class="row">
+    <div class="col-md-2">
+        <mat-card>Transaction 1</mat-card>
+        <mat-card>Transaction 2</mat-card>
+    </div>
+    <div class="col-md-10">
+        <mat-tab-group>
+            <mat-tab label="Folio Details">
+                <app-folio-header></app-folio-header>
+            </mat-tab>
+            <mat-tab label="Unit Details">
+                <app-unit></app-unit>
+            </mat-tab>
+            <mat-tab label="Property Details">
+                <app-property></app-property>
+            </mat-tab>
+            <mat-tab label="Extent Details">
+                <app-extent></app-extent>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+<!-- <button type="button" mat-raised-button style="top: 330px; right: 12px;">
+    Back
+</button> -->
+</ng-container>

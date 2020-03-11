@@ -5,6 +5,8 @@ import { UserType } from 'src/app/shared/enum/user-type.enum';
 import {NotaryService} from "../../shared/service/notary-service";
 import {RequestSearchDetailDTO} from "../../shared/dto/request-search.dto";
 import {CommonStatus} from "../../shared/enum/common-status.enum";
+import { MatDialog } from '@angular/material';
+import { FolioViewComponent } from 'src/app/shared/components/folio-view/folio-view.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +27,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private sessionService: SessionService,
     private notaryService: NotaryService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -51,5 +54,9 @@ export class DashboardComponent implements OnInit {
   viewDetails(){
     this.dashboardView = false;
     this.requestView = true;
+  }
+
+  viewFolio(){
+    this.dialog.open(FolioViewComponent, {width: '90%', height: '90%'})
   }
 }

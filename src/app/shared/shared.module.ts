@@ -36,6 +36,25 @@ import { LastRemarkComponent } from './components/request-view/last-remark/last-
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 import { AuthGuard } from './auth/auth-guard';
+import { FolioViewComponent } from './components/folio-view/folio-view.component';
+import { FolioHeaderComponent } from './components/sub-components/folio-header/folio-header.component';
+import { GrantorComponent } from './components/sub-components/grantor/grantor.component';
+import { GranteeComponent } from './components/sub-components/grantee/grantee.component';
+import { TrusterComponent } from './components/sub-components/truster/truster.component';
+import { TrusteeComponent } from './components/sub-components/trustee/trustee.component';
+import { CoTrusterComponent } from './components/sub-components/co-truster/co-truster.component';
+import { CoTrusteeComponent } from './components/sub-components/co-trustee/co-trustee.component';
+import { OldTrusteeComponent } from './components/sub-components/old-trustee/old-trustee.component';
+import { BeneficialComponent } from './components/sub-components/beneficial/beneficial.component';
+import { BeneficiaryComponent } from './components/sub-components/beneficiary/beneficiary.component';
+import { BoundaryComponent } from './components/sub-components/boundary/boundary.component';
+import { CloseNoteComponent } from './components/sub-components/close-note/close-note.component';
+import { CrossNoteComponent } from './components/sub-components/cross-note/cross-note.component';
+import { ExtentComponent } from './components/sub-components/extent/extent.component';
+import { ParticularComponent } from './components/sub-components/particular/particular.component';
+import { PropertyComponent } from './components/sub-components/property/property.component';
+import { RemarkComponent } from './components/sub-components/remark/remark.component';
+import { UnitComponent } from './components/sub-components/unit/unit.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +70,26 @@ import { AuthGuard } from './auth/auth-guard';
     ChangeJudicialRequestListComponent,
     LastRemarkComponent,
     PaymentHistoryComponent,
-    RemarkHistoryComponent
+    RemarkHistoryComponent,
+    FolioViewComponent,
+    FolioHeaderComponent,
+    GrantorComponent,
+    GranteeComponent,
+    TrusterComponent,
+    TrusteeComponent,
+    CoTrusterComponent,
+    CoTrusteeComponent,
+    OldTrusteeComponent,
+    BeneficialComponent,
+    BeneficiaryComponent,
+    BoundaryComponent,
+    CloseNoteComponent,
+    CrossNoteComponent,
+    ExtentComponent,
+    ParticularComponent,
+    PropertyComponent,
+    RemarkComponent,
+    UnitComponent
   ],
   imports: [
     CommonModule,
@@ -80,7 +118,9 @@ import { AuthGuard } from './auth/auth-guard';
     RecaptchaFormsModule,
     MatIconModule,
     ImageViewerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatCardModule
   ],
   exports: [
     ContentComponent,
@@ -107,6 +147,9 @@ import { AuthGuard } from './auth/auth-guard';
   ],
   providers: [
     AuthGuard
+  ],
+  entryComponents: [
+    FolioViewComponent
   ]
 })
 export class SharedModule {}
