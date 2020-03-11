@@ -19,7 +19,7 @@
             <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
             <div class="default-input-feild">
                 <mat-select formControlName="landRegId" class="form-control text-left">
-                  <mat-option [value]="null" [disabled]="true"> -- Select Land Registry -- </mat-option>
+                  <mat-option [value]= null [disabled]="true"> -- Select Land Registry -- </mat-option>
                   <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
                 </mat-select>
             </div>
@@ -46,19 +46,7 @@
                 <input matInput formControlName="dayBookNo" class="form-control">
               </mat-form-field>              
             </div>
-          </div>
-          <!-- <div class="default-input-wrapper full-row">
-            <label>Deed Attested Date</label>
-            <div class="default-input-feild date-feild">
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker" formControlName="attestedDate" class="form-control">
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <button type="button" mat-raised-button (click)="picker.open()">
-                <i class="material-icons">calendar_today</i>
-              </button>
-            </div>
-          </div> -->
+          </div>          
         </div>
       </div>
       <div class="pg-inner-row mb-20">
@@ -97,15 +85,6 @@
               </button>
             </div>
           </div>
-          <!-- <div class="default-input-wrapper full-row">
-            <label>Notary Judicial Division<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-                <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
-                  <mat-option [value]="null" [disabled]="true"> -- Select Judicial Division -- </mat-option>
-                  <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
-                </mat-select>          
-            </div>
-          </div> -->
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
@@ -154,13 +133,7 @@
             <ng-container matColumnDef="folioNo">
               <th mat-header-cell *matHeaderCellDef> Folio No. </th>
               <td mat-cell *matCellDef="let element"> {{element.folioNo}} </td>
-              <td mat-footer-cell *matFooterCellDef> 
-                <!-- <button type="button" class="add-row" mat-icon-button (click)="onAddCorrection()">
-                <i class="material-icons">add_circle_outline</i>
-                </button>
-                <button type="button" class="ml-10 add-row" mat-icon-button (click)="onClearAll()" >
-                   <i class="material-icons">remove_circle_outline</i>
-                </button>  -->
+              <td mat-footer-cell *matFooterCellDef>
               </td> 
             </ng-container>
         
@@ -218,7 +191,7 @@
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>
+          <button type="button" mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>
         </div>
       </div>
     </div>

@@ -1,1 +1,15 @@
-<file-upload-input (response)="uploadResponse($event)"></file-upload-input>
+<div mat-dialog-content>
+  <ng-container *ngFor="let document of workflowDocuments">
+    <div class="pg-inner-col-1">
+      <div class="default-input-wrapper full-row">
+        <label> {{document.description}}
+          <span *ngIf="document.required == true">*</span>
+        </label>
+        <file-upload-input (response)="uploadResponse($event, document.docTypeId)"></file-upload-input>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="onUploadDocuments()" [mat-dialog-close]="filesMeta">Upload</button>
+</div>
