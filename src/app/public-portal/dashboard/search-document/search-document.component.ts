@@ -30,6 +30,11 @@ import {SearchRequestService} from '../../../shared/service/search-request.servi
 import {WorkflowStages} from '../../../shared/enum/workflow-stages.enum';
 import {SessionService} from '../../../shared/service/session.service';
 import {FolioStatus} from '../../../shared/enum/folio-status.enum';
+import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
+import {PaymentDto} from '../../../shared/dto/payment-dto';
+import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 
 
 @Component({
@@ -49,6 +54,7 @@ export class SearchDocumentComponent implements OnInit {
   public searchRequestForm: FormGroup;
   public folioForm: FormGroup;
 
+
   public landRegistries: LandRegistryModel[] = [];
   public paththuwas: Paththuwa[] = [];
   public korales: Korale[] = [];
@@ -58,6 +64,9 @@ export class SearchDocumentComponent implements OnInit {
   public searchReasons: SearchReason[] = [];
 
   public searchRequest = new SearchRequest();
+  public paymentDto: PaymentDto = new PaymentDto();
+  public returnURl;
+  statusOnlinePayment: boolean;
 
   //Mat Table Config
   public elements: Element[] = [];
@@ -75,8 +84,17 @@ export class SearchDocumentComponent implements OnInit {
     private folioNoService: FolioNoService,
     private searchRequestService: SearchRequestService,
     private sessionService: SessionService,
+    private activatedRoute: ActivatedRoute,
+    public router: Router,
     private snackBarService: SnackBarService,
     private location: Location) {
+
+    let data = this.router.getCurrentNavigation().extras.state;
+    if (data) {
+      this.returnURl = data.previousUrl;
+    }
+
+
   }
 
   ngOnInit() {
@@ -111,6 +129,7 @@ export class SearchDocumentComponent implements OnInit {
     this.loadKorale();
     this.loadDSDivision();
     this.loadReasonForSearch();
+
 
   }
 
@@ -178,9 +197,15 @@ export class SearchDocumentComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         this.snackBarService.error(error.message);
       }, () => {
-        this.resetForm();
+
+        if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
+        this.snackBarService.success('Your Search request saved successfully,, Proceed to online payment')
+          this.statusOnlinePayment = true;
+        } else {
         this.isContinueToPayment = false;
-        this.snackBarService.success('Your Search request is submitted.')
+        this.resetForm();
+        this.snackBarService.success('Your Search request saved successfully,.')
+        }
       }
     );
   }
@@ -266,7 +291,7 @@ export class SearchDocumentComponent implements OnInit {
             index: this.elements.length,
             folioNo: this.folioForm.get('folioNo').value,
             noOfYears: this.folioForm.get('noOfYears').value,
-            deleted:false,
+            deleted: false,
             statusDes: folioStatus.desc,
             status: folioStatus.code
           };
@@ -315,12 +340,27 @@ export class SearchDocumentComponent implements OnInit {
   }
 
   onPaymentResponse(data: PaymentResponse) {
-    if (data.paymentStatusCode != PaymentStatus.PAYMENT_FAILED) {
+    if (data.paymentStatusCode != PaymentStatus.PAYMENT_FAILED && data.paymentMethod !== PaymentMethod.ONLINE) {
+
       this.searchRequest.paymentId = data.paymentId;
       this.saveRequest(this.searchRequest);
     } else {
       this.snackBarService.error('Oh no, Your payment failed.')
     }
+  }
+
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentDto.paymentMethod = data.paymentMethod;
+
+    // save online payment with reference no
+    if (this.paymentDto.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.searchRequest.payment = this.paymentDto;
+      this.saveRequest(this.searchRequest);
+    }
+
   }
 
   onBack(data: boolean) {

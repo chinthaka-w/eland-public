@@ -8,8 +8,9 @@ import { AppConfig } from "../dto/app-config.model";
 export class SysConfigService {
   public static APP_ENDPOINT = "api/";
   public static APP_IP = "localhost:";
+  // public static APP_IP = "192.168.132.46:";
   public static APP_PROTOCOL = "http://";
-  public static APP_PORT = "9191/";
+  public static APP_PORT = "9292/";
   // online payment configs
   public static LGPS_PAYMENT_URL = 'https://testlgps.lankagate.gov.lk:9443/lgps/accesslgps?clientPaymentRequest=';
   public static LGPS_SERVICE_CODE = 'TEST10001';

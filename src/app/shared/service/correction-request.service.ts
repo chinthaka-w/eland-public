@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { correctionReq } from '../dto/correctionReq.model';
+import {SysConfigService} from './sys-config.service';
 // import { correctionReq } from '../model/correctionReq.model';
 
 @Injectable({
@@ -11,9 +12,9 @@ export class CorrectionRequestService {
 
 
   // url types
-  BASE_URL_WITH_JUDICIAL = 'http://localhost:9292/api/judicial-zone';
-  BASE_URL_WITH_LAND_REGISTRY = 'http://localhost:9292/api/landRegistries';
-  BASE_URL_WITH_CORRECTION_REQ = 'http://localhost:9292/api/folioCorrectionController';
+  BASE_URL_WITH_JUDICIAL = SysConfigService.BASE_URL +'judicial-zone';
+  BASE_URL_WITH_LAND_REGISTRY = SysConfigService.BASE_URL +'landRegistries';
+  BASE_URL_WITH_CORRECTION_REQ = SysConfigService.BASE_URL +'folioCorrectionController';
 
   private headers;
   private headersJson = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });

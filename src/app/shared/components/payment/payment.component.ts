@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {PaymentService} from '../../service/payment.service';
 import {Parameters} from '../../enum/parameters.enum';
@@ -13,14 +13,16 @@ import {PaymentStatus} from '../../enum/payment-status.enum';
 import {PaymentDto} from '../../dto/payment-dto';
 import {HttpErrorResponse} from '@angular/common/http';
 import {CommonStatus} from '../../enum/common-status.enum';
-import { v1 as uuid } from 'uuid';
+import {v1 as uuid} from 'uuid';
+import {SysMethodsService} from '../../service/sys-methods.service';
+import {log} from 'util';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent implements OnInit, OnChanges{
+export class PaymentComponent implements OnInit, OnChanges {
 
   @Output() response = new EventEmitter<PaymentResponse>();
   @Output() back = new EventEmitter<boolean>();
@@ -40,6 +42,7 @@ export class PaymentComponent implements OnInit, OnChanges{
   public applicationAmount: number = 0;
   public issueAmount: number = 0;
   public totalAmount: number = 0;
+  public newReturnUrl;
 
   public isSubmitted: boolean;
 
@@ -55,6 +58,7 @@ export class PaymentComponent implements OnInit, OnChanges{
   constructor(private formBuilder: FormBuilder,
               private paymentService: PaymentService,
               private snackBar: SnackBarService,
+              public sysMethodsService: SysMethodsService,
               private parameterService: ParameterService) {
   }
 
@@ -64,6 +68,7 @@ export class PaymentComponent implements OnInit, OnChanges{
       paymentMethod: new FormControl(0)
     });
     this.getApplicationAmount(this.applicationFeeCode);
+    this.newReturnUrl = this.returnUrl ? btoa(this.returnUrl) : btoa('/login');
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -113,7 +118,7 @@ export class PaymentComponent implements OnInit, OnChanges{
       case this.DocumentIssueMethod.BY_POST_NORMAL: {
         if (this.workflowCode == this.Workflow.NOTARY_REGISTRATION) {
           this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_NORMAL_AMOUNT);
-        }else if(this.workflowCode== this.Workflow.EXTRACT_REQUEST){
+        } else if (this.workflowCode == this.Workflow.EXTRACT_REQUEST) {
           this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_NORMAL_AMOUNT);
         }
         break;
@@ -121,12 +126,12 @@ export class PaymentComponent implements OnInit, OnChanges{
       case this.DocumentIssueMethod.BY_POST_REGISTERED: {
         if (this.workflowCode == this.Workflow.NOTARY_REGISTRATION) {
           this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_REGISTERED_AMOUNT);
-        }else if(this.workflowCode== this.Workflow.EXTRACT_REQUEST){
+        } else if (this.workflowCode == this.Workflow.EXTRACT_REQUEST) {
           this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_REGISTERED_AMOUNT);
         }
         break;
       }
-      case this.DocumentIssueMethod.BY_HAND:{
+      case this.DocumentIssueMethod.BY_HAND: {
         this.issueAmount = 0;
         this.totalAmount = this.applicationAmount;
         break;
@@ -160,7 +165,7 @@ export class PaymentComponent implements OnInit, OnChanges{
       this.paymentDTO.totalAmount = this.totalAmount;
       this.paymentDTO.paymentMethod = this.paymentMethod;
       if (this.paymentMethod == this.PaymentMethod.FRONT_COUNTER) {
-      this.paymentDTO.status = CommonStatus.PENDING;
+        this.paymentDTO.status = CommonStatus.PENDING;
         this.savePayment();
       } else if (this.paymentMethod === this.PaymentMethod.ONLINE) {
         this.showSpinner = true;
@@ -174,7 +179,7 @@ export class PaymentComponent implements OnInit, OnChanges{
         this.paymentMethodResponse.emit(paymentResponse);
       }
 
-       else {
+      else {
         this.isContinueToPayment = true;
         this.showSpinner = true;
       }

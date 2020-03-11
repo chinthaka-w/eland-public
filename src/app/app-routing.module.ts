@@ -5,7 +5,7 @@ import { GridComponent } from './grid/grid.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   // {
