@@ -89,7 +89,6 @@ export class RequestForCorrectionComponent implements OnInit {
         this.snackBarService.warn('Plase fill the form');
       } else if (this.reqForCorrectionForm.valid) {
         this.validateForm();
-        console.log('form data value ', this.correctionDetails);
       }
     } else {
       this.snackBarService.warn('Plase fill the form');

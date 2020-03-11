@@ -36,6 +36,7 @@ import { LastRemarkComponent } from './components/request-view/last-remark/last-
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 import { FileUploadPopupComponent } from './components/file-upload-popup/file-upload-popup.component';
+import { AuthGuard } from './auth/auth-guard';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,9 @@ import { FileUploadPopupComponent } from './components/file-upload-popup/file-up
   ],
   entryComponents: [
     FileUploadPopupComponent
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class SharedModule {}

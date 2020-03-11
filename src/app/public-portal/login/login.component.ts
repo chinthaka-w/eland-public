@@ -53,8 +53,7 @@ export class LoginComponent implements OnInit {
           this.userId = response['user'].id;
           this.setRequestId(this.userId);
           this.sessionService.setUser(response['user']);
-          this.sysConfigService.getConfig.emit({
-            color: "red",
+          this.sysConfigService.appConfig.emit({
             user: true,
             header: true,
             footer: true

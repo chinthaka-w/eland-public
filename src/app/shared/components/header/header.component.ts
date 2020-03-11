@@ -2,6 +2,9 @@ import { Component, OnInit, OnChanges, Input } from "@angular/core";
 import { SysConfigService } from "../../service/sys-config.service";
 import { AppConfig } from "../../dto/app-config.model";
 import { Router, ActivatedRoute } from "@angular/router";
+import { SessionService } from '../../service/session.service';
+import {PublicUserDetails} from '../../dto/public-user-detail.model';
+
 
 @Component({
   selector: "app-header",
@@ -12,6 +15,7 @@ export class HeaderComponent implements OnInit {
   status: boolean = false;
   dropdown: boolean = false;
   appConfig: AppConfig;
+  userName: any;
 
   clickEvent() {
     this.status = !this.status;
@@ -26,18 +30,33 @@ export class HeaderComponent implements OnInit {
   constructor(
     public sysConfigService: SysConfigService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sessionService: SessionService
   ) {
-    this.sysConfigService.getConfig.subscribe((config: AppConfig) => {
+    router.events.subscribe(event => {
+
+      this.sysConfigService.appConfig.subscribe((config: AppConfig) => {
+        this.appConfig = config;
+      });
+  
+      this.userName = this.sessionService.getUser().nameEng;
+
+      window.scroll(0,0);
+  });
+    
+  }
+
+  ngOnInit() {
+    this.sysConfigService.appConfig.subscribe((config: AppConfig) => {
       this.appConfig = config;
     });
   }
 
-  ngOnInit() {}
-
   logout() {
-    this.sysConfigService.getConfig.emit({
-      color: "blue",
+
+    this.sessionService.removeUser();
+    
+    this.sysConfigService.appConfig.emit({
       user: false,
       header: false,
       footer: false

@@ -1,4 +1,4 @@
-export class PublicUserDetail {
+export class PublicUserDetails {
   public id: number;
   public nameEng: string;
   public nameSin: string;
