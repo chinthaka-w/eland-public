@@ -420,7 +420,7 @@ export class AddNotaryComponent implements OnInit {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.paymentDataValue = this.paymentDto;
-      this.returnURl = 'login';
+      this.returnURl = this.getBase64String('login');
       this.saveNotaryDetails();
     }
   }
@@ -432,5 +432,10 @@ export class AddNotaryComponent implements OnInit {
       this.snackBar.success("Payment Success");
       this.saveNotaryDetails();
     }
+  }
+
+  // base 64 convertion
+  getBase64String(url: string): string {
+    return btoa(url);
   }
 }
