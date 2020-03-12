@@ -2968,3 +2968,6 @@ button.close {
     position: relative;
 }
 
+.active {
+    color: #1682eb;
+}

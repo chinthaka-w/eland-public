@@ -7,6 +7,8 @@ import {RequestSearchDetailDTO} from "../../shared/dto/request-search.dto";
 import {CommonStatus} from "../../shared/enum/common-status.enum";
 import { MatDialog } from '@angular/material';
 import { FolioViewComponent } from 'src/app/shared/components/folio-view/folio-view.component';
+import { FolioService } from 'src/app/shared/service/folio.service';
+import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,10 +26,14 @@ export class DashboardComponent implements OnInit {
 
   commonStatus = CommonStatus;
 
+  folioPending: boolean = false;
+
   constructor(
     private sessionService: SessionService,
     private notaryService: NotaryService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private folioService: FolioService,
+    private snackbar: SnackBarService
   ) {
   }
 
@@ -57,6 +63,18 @@ export class DashboardComponent implements OnInit {
   }
 
   viewFolio(){
-    this.dialog.open(FolioViewComponent, {width: '90%', height: '90%'})
+
+    this.folioPending = true;
+
+    this.folioService.getExpressTrustFolio(btoa('3/Y/1/2')).subscribe(
+      (folio) =>{
+        this.folioPending = false;
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data:folio});
+      },
+      (error) =>{
+        this.folioPending = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
   }
 }

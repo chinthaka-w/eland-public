@@ -55,6 +55,7 @@ import { ParticularComponent } from './components/sub-components/particular/part
 import { PropertyComponent } from './components/sub-components/property/property.component';
 import { RemarkComponent } from './components/sub-components/remark/remark.component';
 import { UnitComponent } from './components/sub-components/unit/unit.component';
+import { TransactionViewComponent } from './components/transaction-view/transaction-view.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { UnitComponent } from './components/sub-components/unit/unit.component';
     ParticularComponent,
     PropertyComponent,
     RemarkComponent,
-    UnitComponent
+    UnitComponent,
+    TransactionViewComponent
   ],
   imports: [
     CommonModule,

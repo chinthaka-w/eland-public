@@ -1,0 +1,32 @@
+<mat-tab-group>
+    <mat-tab *ngIf="uiController?.isGrantor" label="Grantor">
+        <app-grantor></app-grantor>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isGrantee" label="Grantee">
+        <app-grantee></app-grantee>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isTruster" label="Truster">
+        <app-truster></app-truster>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isTrustee" label="Trustee">
+        <app-trustee></app-trustee>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isCoTrustee" label="Co-Trustee">
+        <app-co-trustee></app-co-trustee>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isOldTrustee" label="Old Trustee">
+        <app-old-trustee></app-old-trustee>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isBeneficial" label="Beneficial Author">
+        <app-beneficial></app-beneficial>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isBeneficiary" label="Beneficiary">
+        <app-beneficiary></app-beneficiary>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isParticulars" label="Particular">
+        <app-particular></app-particular>
+    </mat-tab>
+    <mat-tab *ngIf="uiController?.isRemark" label="Remark">
+        <app-remark></app-remark>
+    </mat-tab>
+</mat-tab-group>

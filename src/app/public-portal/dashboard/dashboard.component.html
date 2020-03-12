@@ -165,12 +165,13 @@
           </a>
         </div>
         <div class="db-link-tile c2">
-          <a (click)="viewFolio()">
+          <a *ngIf="!folioPending" (click)="viewFolio()">
             <span class="icon">
               <i class="material-icons">label</i>
             </span>
             <span class="title">Folio View</span>
           </a>
+          <mat-spinner *ngIf="folioPending"></mat-spinner>
         </div>
         <!-- Search -->
         <div class="db-search">
