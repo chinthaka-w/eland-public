@@ -276,12 +276,13 @@
         <label class="mw-200">Email Address <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Email Address" formControlName="email" (input)="setUserName($event.target.value)" />
+            <input matInput placeholder="Email Address" formControlName="email" (focusout)="setUserName($event.target.value)" />
           </mat-form-field>
           <div *ngIf="FormControls.email.touched && FormControls.email.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.email.errors.required" class="errors">Please fill the required fields</mat-error>
             <mat-error *ngIf="FormControls.email.errors.pattern" class="errors">Please enter valid email address</mat-error>
+            <mat-error *ngIf="publicUserExist && (!email.errors.required) && (!email.errors.pattern)" class="errors">Email address already registered</mat-error>
           </div>
         </div>
         <div class="din-info-col">(Notifications will send to this email)</div>
@@ -294,22 +295,6 @@
           </mat-form-field>
           <div *ngIf="reason.invalid && (reason.dirty || reason.touched)">
             <mat-error *ngIf="reason.errors.required" class="errors">Please fill the required fields</mat-error>
-          </div>
-        </div>
-      </div>
-
-      <div class="separator mt-30">&nbsp;</div>
-
-      <div class="pg-inner-row mb-20 upload-col-3">
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label
-              >Last obtained copy of Notary's renewal certificate
-              <span>*</span></label>
-            <file-upload-input (response)="setFiles($event, 'renewalCertificate')"></file-upload-input>
-          </div>
-          <div *ngIf="FormControls.userName.touched && FormControls.userName.errors" class="invalid-feedback">
-            <mat-error *ngIf="FormControls.userName.errors.required" class="errors">User Name required</mat-error>
           </div>
         </div>
       </div>

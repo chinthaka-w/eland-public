@@ -102,7 +102,9 @@ export class AddPublicUserComponent implements OnInit {
           Validators.pattern(PatternValidation.contactNumberValidation),
         ]),
       secondaryContact: new FormControl("", [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+      email: new FormControl("",
+        [Validators.required,
+          Validators.pattern(PatternValidation.emailValidation)]),
       userName: new FormControl("", [Validators.required]),
       reason: new FormControl("", [Validators.required]),
       renewalCertificate: new FormControl("", [Validators.required]),
@@ -141,6 +143,10 @@ export class AddPublicUserComponent implements OnInit {
 
   get reason() {
     return this.publicUserForm.get('reason');
+  }
+
+  get email() {
+    return this.publicUserForm.get('email');
   }
 
   setFiles(files, key){
@@ -310,6 +316,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
         if (result == true) {
           this.publicUserExist = true;
+          this.email.setErrors({incorrect: true});
         }else {
           this.publicUserExist = false;
         }
@@ -320,7 +327,9 @@ export class AddPublicUserComponent implements OnInit {
     this.publicUserForm.patchValue({
       userName: userName,
     });
-    this.onSearchChange(userName);
+    if (userName.trim().length > 0 && this.email.valid) {
+      this.onSearchChange(userName);
+    }
   }
 
   onBack(data: boolean) {
