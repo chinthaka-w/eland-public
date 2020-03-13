@@ -81,16 +81,26 @@ export class AddPublicUserComponent implements OnInit {
       bankName: new FormControl("", [Validators.required]),
       bankUserType: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
-      nameEnglish: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+      nameEnglish: new FormControl("",
+        [Validators.required,
+        Validators.pattern(PatternValidation.nameValidation),
+        Validators.maxLength(255)]),
       nameSinhala: new FormControl(""),
       nameTamil: new FormControl(""),
       notaryId: new FormControl("", [Validators.required]),
-      address1: new FormControl("", [Validators.required]),
+      address1: new FormControl("",
+        [Validators.required,
+          Validators.maxLength(255)]),
       address2: new FormControl(""),
       address3: new FormControl(""),
-      identificationNo: new FormControl("", [Validators.required]),
+      identificationNo: new FormControl("",
+        [Validators.required,
+          Validators.maxLength(15)]),
       identificationType: new FormControl("", [Validators.required]),
-      primaryContact: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      primaryContact: new FormControl("",
+        [Validators.required,
+          Validators.pattern(PatternValidation.contactNumberValidation),
+        ]),
       secondaryContact: new FormControl("", [Validators.pattern(PatternValidation.contactNumberValidation)]),
       email: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
       userName: new FormControl("", [Validators.required]),
@@ -115,6 +125,22 @@ export class AddPublicUserComponent implements OnInit {
 
   get FormControls() {
     return this.publicUserForm.controls;
+  }
+
+  get nameEnglish() {
+    return this.publicUserForm.get('nameEnglish');
+  }
+
+  get address1() {
+    return this.publicUserForm.get('address1');
+  }
+
+  get identificationNo() {
+    return this.publicUserForm.get('identificationNo');
+  }
+
+  get reason() {
+    return this.publicUserForm.get('reason');
   }
 
   setFiles(files, key){
