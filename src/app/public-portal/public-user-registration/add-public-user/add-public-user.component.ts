@@ -81,18 +81,41 @@ export class AddPublicUserComponent implements OnInit {
       bankName: new FormControl("", [Validators.required]),
       bankUserType: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
-      nameEnglish: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
-      nameSinhala: new FormControl(""),
-      nameTamil: new FormControl(""),
+      nameEnglish: new FormControl("",
+        [Validators.required,
+        Validators.pattern(PatternValidation.nameValidation),
+        Validators.maxLength(255)]),
+      nameSinhala: new FormControl('', [
+        Validators.pattern(PatternValidation.nameValidation),
+        Validators.maxLength(255)]),
+      nameTamil: new FormControl('', [
+        Validators.pattern(PatternValidation.nameValidation),
+        Validators.maxLength(255)
+      ]),
       notaryId: new FormControl("", [Validators.required]),
-      address1: new FormControl("", [Validators.required]),
-      address2: new FormControl(""),
-      address3: new FormControl(""),
-      identificationNo: new FormControl("", [Validators.required]),
+      address1: new FormControl("",
+        [Validators.required,
+          Validators.maxLength(255)]),
+      address2: new FormControl('', [
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)
+      ]),
+      address3: new FormControl('', [
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)
+      ]),
+      identificationNo: new FormControl("",
+        [Validators.required,
+          Validators.maxLength(15)]),
       identificationType: new FormControl("", [Validators.required]),
-      primaryContact: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      primaryContact: new FormControl("",
+        [Validators.required,
+          Validators.pattern(PatternValidation.contactNumberValidation),
+        ]),
       secondaryContact: new FormControl("", [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl("", [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+      email: new FormControl("",
+        [Validators.required,
+          Validators.pattern(PatternValidation.emailValidation)]),
       userName: new FormControl("", [Validators.required]),
       reason: new FormControl("", [Validators.required]),
       renewalCertificate: new FormControl("", [Validators.required]),
@@ -115,6 +138,62 @@ export class AddPublicUserComponent implements OnInit {
 
   get FormControls() {
     return this.publicUserForm.controls;
+  }
+
+  get nameEnglish() {
+    return this.publicUserForm.get('nameEnglish');
+  }
+
+  get nameSinhala() {
+    return this.publicUserForm.get('nameSinhala');
+  }
+
+  get nameTamil() {
+    return this.publicUserForm.get('nameTamil');
+  }
+
+  get address1() {
+    return this.publicUserForm.get('address1');
+  }
+
+  get identificationNo() {
+    return this.publicUserForm.get('identificationNo');
+  }
+
+  get reason() {
+    return this.publicUserForm.get('reason');
+  }
+
+  get email() {
+    return this.publicUserForm.get('email');
+  }
+
+  get recaptcha() {
+    return this.publicUserForm.get('recaptcha');
+  }
+
+  get officersDesignation() {
+    return this.publicUserForm.get('officersDesignation');
+  }
+
+  get stateInstitutionName() {
+    return this.publicUserForm.get('stateInstitutionName');
+  }
+
+  get notaryId() {
+    return this.publicUserForm.get('notaryId');
+  }
+
+  get lawFirmName() {
+    return this.publicUserForm.get('lawFirmName');
+  }
+
+  get address2() {
+    return this.publicUserForm.get('address2');
+  }
+
+  get address3() {
+    return this.publicUserForm.get('address3');
   }
 
   setFiles(files, key){
@@ -194,7 +273,6 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['renewalCertificate'].disable();
       this.publicUserForm.controls['nicCopy'].disable();
       this.publicUserForm.controls['signatureAndSeal'].disable();
-      this.publicUserForm.controls['recaptcha'].disable();
       this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
@@ -204,7 +282,6 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['renewalCertificate'].disable();
       this.publicUserForm.controls['nicCopy'].disable();
       this.publicUserForm.controls['signatureAndSeal'].disable();
-      this.publicUserForm.controls['recaptcha'].disable();
       this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
@@ -215,7 +292,6 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['renewalCertificate'].disable();
       this.publicUserForm.controls['nicCopy'].disable();
       this.publicUserForm.controls['signatureAndSeal'].disable();
-      this.publicUserForm.controls['recaptcha'].disable();
       this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
@@ -227,7 +303,6 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['renewalCertificate'].disable();
       this.publicUserForm.controls['nicCopy'].disable();
       this.publicUserForm.controls['signatureAndSeal'].disable();
-      this.publicUserForm.controls['recaptcha'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.OTHER) {
@@ -237,7 +312,6 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['renewalCertificate'].disable();
       this.publicUserForm.controls['nicCopy'].disable();
       this.publicUserForm.controls['signatureAndSeal'].disable();
-      this.publicUserForm.controls['recaptcha'].disable();
       this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
     }
@@ -284,6 +358,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
         if (result == true) {
           this.publicUserExist = true;
+          this.email.setErrors({incorrect: true});
         }else {
           this.publicUserExist = false;
         }
@@ -294,10 +369,13 @@ export class AddPublicUserComponent implements OnInit {
     this.publicUserForm.patchValue({
       userName: userName,
     });
-    this.onSearchChange(userName);
+    if (userName.trim().length > 0 && this.email.valid) {
+      this.onSearchChange(userName);
+    }
   }
 
   onBack(data: boolean) {
+    console.log('on back', data);
     this.isContinue = !data;
   }
   onPaymentResponse(data: PaymentResponse) {
@@ -327,11 +405,14 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   continue(): void {
-    this.isContinue = true;
+    if (this.publicUserForm.valid) {
+      this.isContinue = true;
+    } else {
+      this.publicUserForm.setErrors(Validators.required);
+    }
   }
 
   getBase64(url: string): string {
     return btoa(url);
   }
-
 }

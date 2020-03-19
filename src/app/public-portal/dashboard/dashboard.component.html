@@ -44,26 +44,22 @@
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Citizen ID:</dt>
-            <dd>-</dd>
-          </dl>
-          <dl class="db-card-info">
-            <dt>Date:</dt>
-            <dd>2019/29</dd>
+            <dd> {{user.id}} </dd>
           </dl>
           <dl class="db-card-info">
             <dt>Status:</dt>
             <dd>
-              <span class="status-pending">Pending approval</span>
-              <span class="status-success">Approved</span>
+              <span class="{{user.userStatus === commonStatus.PENDING ? 'status-pending': 'status-success'}}">
+                {{user.userStatus === commonStatus.PENDING ? 'Pending approval': 'Approved'}} </span>
             </dd>
           </dl>
           <dl class="db-card-info">
             <dt>Name:</dt>
-            <dd>Yohani Gamage</dd>
+            <dd> {{user.nameEng}} </dd>
           </dl>
           <dl class="db-card-info">
-            <dt>PaymentDto:</dt>
-            <dd>Online</dd>
+            <dt>Payment:</dt>
+            <dd></dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>
