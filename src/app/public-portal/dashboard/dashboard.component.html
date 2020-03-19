@@ -121,24 +121,30 @@
           </a>
         </div>
         <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
-          <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
-            <div class="db-link-tile c6">
-              <a [routerLink]="['/request_for_correction']">
-                <span class="icon">
-                  <i class="material-icons">edit</i>
-                </span>
-                <span class="title">Request For Correction</span>
-              </a>
-            </div>
-            <div class="db-link-tile c1" *ngIf="userType == 'public'">
-              <a [routerLink]="['/search-document']">
-                <span class="icon">
-                  <i class="material-icons">search</i>
-                </span>
-                <span class="title">Search</span>
-              </a>
-            </div>
+          <a [routerLink]="['/requests', getBase64(Workflow.FOLIO_REQUEST_CORRECTION)]">
+            <span class="icon">
+              <i class="material-icons"> edit </i>
+            </span>
+            <span class="title"> Section 35 Correction</span>
           </a>
+          <!-- <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
+                    <div class="db-link-tile c6">
+                      <a [routerLink]="['/request_for_correction']">
+                        <span class="icon">
+                          <i class="material-icons">edit</i>
+                        </span>
+                        <span class="title">Request For Correction</span>
+                      </a>
+                    </div>
+                    <div class="db-link-tile c1" *ngIf="userType == 'public'">
+                      <a [routerLink]="['/search-document']">
+                        <span class="icon">
+                          <i class="material-icons">search</i>
+                        </span>
+                        <span class="title">Search</span>
+                      </a>
+                    </div>
+                  </a> -->
         </div>
         <div class="db-link-tile c4" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests/'+getBase64(Workflow.EXTRACT_REQUEST)]">
