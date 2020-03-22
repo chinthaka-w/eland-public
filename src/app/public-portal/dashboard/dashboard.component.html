@@ -80,6 +80,14 @@
             <span class="title">Change Judicial Zone</span>
           </a>
         </div>
+        <div class="db-link-tile c1" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/requests/'+getBase64(Workflow.CHANGE_LAND_REGISTRY)]">
+            <span class="icon">
+              <i class="material-icons">room</i>
+            </span>
+            <span class="title">Change Land Registry</span>
+          </a>
+        </div>
         <div class="db-link-tile c2" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/requests/'+getBase64('NTR_NAME_CHG')]">
             <span class="icon">

@@ -27,6 +27,7 @@ import {SearchDocumentViewComponent} from './dashboard/search-document/search-do
 import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
 import {NameChangeRequestViewComponent} from "./dashboard/change-the-name/name-change-request-view/name-change-request-view.component";
 import { AuthGuard } from '../shared/auth/auth-guard';
+import {ChangeLandRegistryComponent} from './dashboard/change-land-registry/change-land-registry.component';
 
 const routes: Routes = [
   {
@@ -138,6 +139,10 @@ const routes: Routes = [
   {
     path:'request-for-correction',
     component:RequestForCorrectionComponent
+  },
+  {
+    path: 'change-registry',
+    component: ChangeLandRegistryComponent
   }
 
 ];

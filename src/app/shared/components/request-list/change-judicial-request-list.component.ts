@@ -15,6 +15,8 @@ import {ExtractRequestService} from '../../service/extract-request.service';
 import {ExtractRequest} from '../../dto/extract-request.model';
 import {ChangeNameService} from "../../service/change-name.service";
 import {NotaryNameChangeModel} from "../../dto/notary-name-change.model";
+import {ChangeLandRegistryService} from '../../service/change-land-registry.service';
+import {ChangeLandRegistryDto} from '../../dto/change-land-registry.dto';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -47,7 +49,8 @@ export class ChangeJudicialRequestListComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private sessionService: SessionService,
               private tokenStorageService: TokenStorageService,
-              private langChangeService: LanguageChangeService) {
+              private langChangeService: LanguageChangeService,
+              private landregistryService: ChangeLandRegistryService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params['flag']); // (+) converts string 'id' to a number
     });
@@ -92,6 +95,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'LANGUAGE CHANGE';
         this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
         this.newButtonURL = '/language-change';
+        this.actionButtonURL = '/language-change-view/';
+        break;
+      case Workflow.CHANGE_LAND_REGISTRY:
+        this.loadLandRegistryRequests();
+        this.headerText = 'LAND REGISTRY CHANGE';
+        this.titleText = 'REQUEST FOR LAND REGISTRY CHANGE';
+        this.newButtonURL = '/change-registry';
         this.actionButtonURL = '/language-change-view/';
         break;
     }
@@ -185,4 +195,19 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       }
     );
   }
+
+/**
+ * Get all land registry requests
+ */
+
+  loadLandRegistryRequests() {
+    this.landregistryService.getAllRequests(this.sessionService.getUser().id).subscribe(
+      (result: ChangeLandRegistryDto[]) => {
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+
+}
+
 }
