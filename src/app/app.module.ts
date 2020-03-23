@@ -19,7 +19,7 @@ import {HttpClient} from '@angular/common/http';
 import {GnDivisionService} from './shared/service/gn-division.service';
 import {DsDivisionService} from './shared/service/ds-division.service';
 import {LandRegistryService} from './shared/service/land-registry.service';
-import {CommonModule} from '@angular/common';
+import {CommonModule, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { GridComponent } from './grid/grid.component';
@@ -85,7 +85,8 @@ import {NotaryResignationService} from "./shared/service/notary-resignation.serv
     SupportingDocService,
     NewNotaryDataVarificationService,
     RequestForCorrectionService,
-    ChangeNameService],
+    ChangeNameService,
+    {provide : LocationStrategy , useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

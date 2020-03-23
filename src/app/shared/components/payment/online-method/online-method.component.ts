@@ -42,6 +42,7 @@ onlinePaymentForm: FormGroup;
       this.showPaymentResult = true;
       this.getPaymentResult(this.paymentId);
       this.returnUrl = this.decodeBase64(this.route.snapshot.paramMap.get('url'));
+      alert(this.returnUrl)
     }
   }
 
