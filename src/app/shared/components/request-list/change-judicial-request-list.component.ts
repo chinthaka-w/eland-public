@@ -1,5 +1,4 @@
 import { RequestResponse } from './../../dto/request-response.model';
-import { RequestSummary } from './../../dto/request-summary.model';
 import { CorrectionRequestService } from './../../service/correction-request.service';
 import { LanguageRequest } from './../../dto/language-request.model';
 import { LanguageChangeService } from './../../service/language-change.service';
