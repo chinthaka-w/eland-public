@@ -102,7 +102,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'LAND REGISTRY CHANGE';
         this.titleText = 'REQUEST FOR LAND REGISTRY CHANGE';
         this.newButtonURL = '/change-registry';
-        this.actionButtonURL = '/language-change-view/';
+        this.actionButtonURL = '/change-land-registry-view/';
         break;
     }
   }

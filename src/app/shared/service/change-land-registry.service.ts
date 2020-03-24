@@ -24,4 +24,8 @@ export class ChangeLandRegistryService {
     return this.http.post(this.BASE_URL + 'landRegistryChange/submitChangeRequest/' , formData );
   }
 
+  getRequestData(requestId: number): Observable<any> {
+    return this.http.get(`${this.BASE_URL}landRegistryChange/landRegistryDetail/${requestId}` , {headers: this.headers});
+  }
+
 }
