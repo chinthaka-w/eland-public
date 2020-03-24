@@ -1,3 +1,5 @@
+import { RequestResponse } from './../../dto/request-response.model';
+import { RequestSummary } from './../../dto/request-summary.model';
 import { CorrectionRequestService } from './../../service/correction-request.service';
 import { LanguageRequest } from './../../dto/language-request.model';
 import { LanguageChangeService } from './../../service/language-change.service';
@@ -99,7 +101,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       // section 35 corrections
       case Workflow.FOLIO_REQUEST_CORRECTION:
         this.getFolioCorrctionRequest();
-        this.headerText = 'Section 35 Corrction';
+        this.headerText = 'Section 35 Correction';
         this.titleText = 'REQUEST FOR Section 35 Correction';
         this.newButtonURL = '/request-for-correction';
         this.actionButtonURL = '/language-change-view/';
@@ -197,8 +199,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   }
 
   getFolioCorrctionRequest() {
-    this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // get requests
+    this.folioCorrectionService.getFolioCorrectionRequests(this.sessionService.getUser().id).subscribe(
+      (response: RequestResponse) => {
+        this.dataSource = new MatTableDataSource(response.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    );
   }
 }

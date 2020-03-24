@@ -1,3 +1,4 @@
+import { RequestResponse } from './../dto/request-response.model';
 import { SysConfigService } from './sys-config.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,33 +16,38 @@ export class CorrectionRequestService {
   // url types
   BASE_URL_WITH_JUDICIAL = this.BASE_URL + 'judicial-zone';
   BASE_URL_WITH_LAND_REGISTRY = this.BASE_URL + 'landRegistries';
-  BASE_URL_WITH_CORRECTION_REQ = this.BASE_URL + 'folioCorrectionController';
+  FOLIO_CORRECTION_URL = this.BASE_URL + 'folioCorrection';
 
   private headers;
   private headersJson = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
   //get all judicial zones names
   public getAllJudicialZones(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL_WITH_JUDICIAL + '/', { headers: this.headers });
+    return this.http.get(this.BASE_URL_WITH_JUDICIAL + '/', { headers: this.headers });
   }
 
   //get all land registries names
   public getLandRegistries(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
+    return this.http.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
   }
 
   //get all corrections to be made
   public getAllCorrectionToBeMade(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
+    return this.http.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
   }
 
  // save correction request
  saveCorrectionReq(corrReq: FormData): Observable<any> {
-  return this.httpClient.post(this.BASE_URL_WITH_CORRECTION_REQ + '/' ,corrReq);
+  return this.http.post(this.FOLIO_CORRECTION_URL + '/' ,corrReq);
+}
+
+// get correction requests
+getFolioCorrectionRequests(id: number): Observable<RequestResponse> {
+  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + id);
 }
 
 
