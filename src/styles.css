@@ -1164,7 +1164,7 @@ h5.uw-title:before {
 
 .mat-dialog-container {
     background: #ffffff;
-    color: #fff;
+    /* color: #fff; */
     border-radius: 15px !important;
     padding: 45px 40px 20px 40px !important;
 }

@@ -66,16 +66,34 @@
         <td mat-cell *matCellDef="let element"> {{element.requestTypeDes}}</td>
       </ng-container>
 
+      <!--section 35/folio no-->
+      <ng-container *ngIf="Workflow.FOLIO_REQUEST_CORRECTION==flag" matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Folio No</th>
+        <td mat-cell *matCellDef="let element"> {{element.folioNo}}</td>
+      </ng-container>
+
       <!-- Weight Column -->
-      <ng-container matColumnDef="workflowDescription">
+      <ng-container *ngIf="flag != Workflow.FOLIO_REQUEST_CORRECTION" matColumnDef="workflowDescription">
         <th mat-header-cell *matHeaderCellDef> Status</th>
         <td mat-cell *matCellDef="let element"> {{element.workflowDescription}}</td>
       </ng-container>
 
+      <!--section 35/day book no-->
+      <ng-container *ngIf="flag == Workflow.FOLIO_REQUEST_CORRECTION" matColumnDef="workflowDescription">
+        <th mat-header-cell *matHeaderCellDef> Day Book No</th>
+        <td mat-cell *matCellDef="let element"> {{element.dayBookNo}}</td>
+      </ng-container>
+
       <!-- Symbol Column -->
-      <ng-container matColumnDef="date">
+      <ng-container *ngIf="flag != Workflow.FOLIO_REQUEST_CORRECTION" matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef> Date</th>
         <td mat-cell *matCellDef="let element"> {{element.date| date:'longDate'}}</td>
+      </ng-container>
+
+      <!-- section 35/ nature of correction -->
+      <ng-container *ngIf="flag == Workflow.FOLIO_REQUEST_CORRECTION" matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Nature of Correcton</th>
+        <td mat-cell *matCellDef="let element"> {{element.natureOfCorrection}}</td>
       </ng-container>
 
       <ng-container matColumnDef="action">

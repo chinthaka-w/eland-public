@@ -35,6 +35,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
 import { LastRemarkComponent } from './components/request-view/last-remark/last-remark.component';
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
+import { FileUploadPopupComponent } from './components/file-upload-popup/file-upload-popup.component';
 import { AuthGuard } from './auth/auth-guard';
 import { FolioViewComponent } from './components/folio-view/folio-view.component';
 import { FolioHeaderComponent } from './components/sub-components/folio-header/folio-header.component';
@@ -91,7 +92,8 @@ import { TransactionViewComponent } from './components/transaction-view/transact
     PropertyComponent,
     RemarkComponent,
     UnitComponent,
-    TransactionViewComponent
+    TransactionViewComponent,
+    FileUploadPopupComponent
   ],
   imports: [
     CommonModule,
@@ -151,7 +153,8 @@ import { TransactionViewComponent } from './components/transaction-view/transact
     AuthGuard
   ],
   entryComponents: [
-    FolioViewComponent
+    FolioViewComponent,
+    FileUploadPopupComponent
   ]
 })
 export class SharedModule {}
