@@ -19,7 +19,7 @@ export class FileUploadPopupComponent implements OnInit {
   filesMeta: FileMeta[] = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public workflowStage: string,
-              private fileUploadPopupService: FileUploadPopupService, 
+              private fileUploadPopupService: FileUploadPopupService,
               private tokenStorageService: SessionService) { }
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class FileUploadPopupComponent implements OnInit {
   }
 
   onUploadDocuments(): void {
-    
+
   }
 
   convertFileToBase64(file: File, fileModel: FileModel): void {
