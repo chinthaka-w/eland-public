@@ -4,9 +4,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { correctionReq } from '../dto/correctionReq.model';
-import {SysConfigService} from './sys-config.service';
-import {RequestResponse} from '../dto/request-response.model';
-// import { correctionReq } from '../model/correctionReq.model';
 
 @Injectable({
   providedIn: 'root'

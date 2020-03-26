@@ -44,7 +44,7 @@
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Citizen ID:</dt>
-            <dd> {{user.id}} </dd>
+            <dd> {{user.id}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Status:</dt>
@@ -55,7 +55,7 @@
           </dl>
           <dl class="db-card-info">
             <dt>Name:</dt>
-            <dd> {{user.nameEng}} </dd>
+            <dd> {{user.nameEng}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Payment:</dt>
@@ -123,26 +123,16 @@
             </span>
             <span class="title"> Section 35 Correction</span>
           </a>
-          <!-- <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
-                    <div class="db-link-tile c6">
-                      <a [routerLink]="['/request_for_correction']">
-                        <span class="icon">
-                          <i class="material-icons">edit</i>
-                        </span>
-                        <span class="title">Request For Correction</span>
-                      </a>
-                    </div>
-                    <div class="db-link-tile c1" *ngIf="userType == 'public'">
-                      <a [routerLink]="['/search-document']">
+        </div>
+        <div class="db-link-tile c1" *ngIf="user.userStatus == commonStatus.ACTIVE">
+          <a [routerLink]="['/requests/'+getBase64(Workflow.SEARCH_REQUEST)]">
                         <span class="icon">
                           <i class="material-icons">search</i>
                         </span>
-                        <span class="title">Search</span>
-                      </a>
-                    </div>
-                  </a> -->
+            <span class="title">Search</span>
+          </a>
         </div>
-        <div class="db-link-tile c4" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
+        <div class="db-link-tile c4" *ngIf="user.userStatus == commonStatus.ACTIVE">
           <a [routerLink]="['/requests/'+getBase64(Workflow.EXTRACT_REQUEST)]">
             <span class="icon">
               <i class="material-icons">dns</i>
