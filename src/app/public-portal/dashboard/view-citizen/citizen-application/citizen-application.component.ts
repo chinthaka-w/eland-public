@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { PatternValidation } from './../../../../shared/enum/pattern-validation.enum';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {WorkflowStageCitizenReg} from "../../../../shared/enum/workflow-stage-citizen-reg.enum";
@@ -33,7 +35,7 @@ export class CitizenApplicationComponent implements OnInit {
 
   public publicUserForm: FormGroup;
   public PublicUserType = PublicUserType;
-  public bankUserType = BankUserType;
+  public bankUsersType = BankUserType;
   public identificationType = IdentificationType;
   fileList = {};
   landRegistriesDTOList: Array<LandRegistriesDTO> = [];
@@ -55,7 +57,8 @@ export class CitizenApplicationComponent implements OnInit {
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
               private sessionService: SessionService,
-              private snackBar: SnackBarService) {}
+              private snackBar: SnackBarService,
+              private router: Router) {}
 
   ngOnInit() {
     this.user = this.sessionService.getUser();
@@ -64,21 +67,45 @@ export class CitizenApplicationComponent implements OnInit {
     this.getApplicationDetails(this.user.id);
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
-      type: new FormControl("", [Validators.required]),
+      type: new FormControl(null, [Validators.required]),
       lawFirmName: new FormControl("", [Validators.required]),
-      nameEnglish: new FormControl("", [Validators.required]),
-      nameSinhala: new FormControl("", [Validators.required]),
-      nameTamil: new FormControl("", [Validators.required]),
+      nameEnglish: new FormControl('',
+        [Validators.required,
+          Validators.pattern(PatternValidation.nameValidation),
+          Validators.maxLength(255)]),
+      nameSinhala: new FormControl('', [
+        Validators.pattern(PatternValidation.nameValidation),
+        Validators.maxLength(255)
+      ]),
+      nameTamil: new FormControl('', [
+        Validators.pattern(PatternValidation.nameValidation),
+        Validators.maxLength(255)
+      ]),
       bankName: new FormControl("", [Validators.required]),
       bankUserType: new FormControl("", [Validators.required]),
       notaryId: new FormControl("", [Validators.required]),
-      address1: new FormControl("", [Validators.required]),
-      address2: new FormControl("", [Validators.required]),
-      address3: new FormControl("", [Validators.required]),
+      address1: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)
+      ]),
+      address2: new FormControl('', [
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)
+      ]),
+      address3: new FormControl('', [
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)
+      ]),
       identificationNo: new FormControl("", [Validators.required]),
       identificationType: new FormControl("", [Validators.required]),
-      primaryContact: new FormControl("", [Validators.required]),
-      secondaryContact: new FormControl("", [Validators.required]),
+      primaryContact: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PatternValidation.contactNumberValidation)
+      ]),
+      secondaryContact: new FormControl('', [
+        Validators.pattern(PatternValidation.contactNumberValidation)
+      ]),
       email: new FormControl("", [Validators.required]),
       userName: new FormControl("", [Validators.required]),
       reason: new FormControl("", [Validators.required]),
@@ -92,6 +119,74 @@ export class CitizenApplicationComponent implements OnInit {
       dateOfBirth: new FormControl("", [Validators.required]),
     });
 
+  }
+
+  get nameEnglish() {
+    return this.publicUserForm.get('nameEnglish');
+  }
+
+  get nameSinhala() {
+    return this.publicUserForm.get('nameSinhala');
+  }
+
+  get nameTamil() {
+    return this.publicUserForm.get('nameTamil');
+  }
+
+  get officersDesignation() {
+    return this.publicUserForm.get('officersDesignation');
+  }
+
+  get stateInstitutionName() {
+    return this.publicUserForm.get('stateInstitutionName');
+  }
+
+  get otherInstitutionName() {
+    return this.publicUserForm.get('otherInstitutionName');
+  }
+
+  get bankUserType() {
+    return this.publicUserForm.get('bankUserType');
+  }
+
+  get notaryId() {
+    return this.publicUserForm.get('notaryId');
+  }
+
+  get lawFirmName() {
+    return this.publicUserForm.get('lawFirmName');
+  }
+
+  get bankName() {
+    return this.publicUserForm.get('bankName');
+  }
+
+  get address1() {
+    return this.publicUserForm.get('address1');
+  }
+
+  get address2() {
+    return this.publicUserForm.get('address2');
+  }
+
+  get address3() {
+    return this.publicUserForm.get('address3');
+  }
+
+  get identificationNo() {
+    return this.publicUserForm.get('identificationNo');
+  }
+
+  get primaryContact() {
+    return this.publicUserForm.get('primaryContact');
+  }
+
+  get secondaryContact() {
+    return this.publicUserForm.get('secondaryContact');
+  }
+
+  get reason() {
+    return this.publicUserForm.get('reason');
   }
 
   setFiles(files, key){
@@ -171,7 +266,8 @@ export class CitizenApplicationComponent implements OnInit {
       .subscribe((result) => {
         if (result) {
           this.snackBar.success('Citizen updated successfully');
-        }else{
+          this.router.navigate(['/dashboard']);
+        } else {
           this.snackBar.error('Failed');
         }
       });

@@ -1,0 +1,61 @@
+import { SessionService } from './../../service/session.service';
+import { TokenStorageService } from './../../auth/token-storage.service';
+import { FileModel } from './../../dto/file.dto';
+import { FileMeta } from './../../dto/file-meta.model';
+import { WorkflowStageDocTypeDTO } from './../../dto/workflow-stage-doc-type-dto';
+import { FileUploadPopupService } from './../../service/file-upload-popup.service';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+
+@Component({
+  selector: 'app-file-upload-popup',
+  templateUrl: './file-upload-popup.component.html',
+  styleUrls: ['./file-upload-popup.component.css']
+})
+export class FileUploadPopupComponent implements OnInit {
+  @Input()
+  docType: string;
+  workflowDocuments: WorkflowStageDocTypeDTO[] = [];
+  filesMeta: FileMeta[] = [];
+
+  constructor(@Inject(MAT_DIALOG_DATA) public workflowStage: string,
+              private fileUploadPopupService: FileUploadPopupService, 
+              private tokenStorageService: SessionService) { }
+
+  ngOnInit() {
+    this.getWorkflowDocuments(this.workflowStage);
+  }
+
+  uploadResponse(files: File[], docTypeId: number): void {
+    const file = new FileModel(null, files[0].type === 'application/pdf' ? 2 : 1);
+    file.fileName = files[0].name;
+
+    this.convertFileToBase64(files[0], file);
+    const fileMeta = new FileMeta();
+    fileMeta.file = file;
+    fileMeta.docTypeId = docTypeId;
+
+    this.filesMeta.push(fileMeta);
+  }
+
+  getWorkflowDocuments(workflowStage: string): void {
+    this.fileUploadPopupService.getWorkflowStageDocuments(workflowStage).subscribe(
+      (documents: WorkflowStageDocTypeDTO[]) => {
+        this.workflowDocuments = documents;
+      }
+    );
+  }
+
+  onUploadDocuments(): void {
+    
+  }
+
+  convertFileToBase64(file: File, fileModel: FileModel): void {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      fileModel.base64 = reader.result.toString();
+    };
+  }
+
+}

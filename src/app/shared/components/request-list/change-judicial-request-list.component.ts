@@ -1,3 +1,5 @@
+import { RequestResponse } from './../../dto/request-response.model';
+import { CorrectionRequestService } from './../../service/correction-request.service';
 import {LanguageRequest} from './../../dto/language-request.model';
 import {LanguageChangeService} from './../../service/language-change.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
@@ -50,7 +52,8 @@ export class ChangeJudicialRequestListComponent implements OnInit {
               private router: Router,
               private sessionService: SessionService,
               private tokenStorageService: TokenStorageService,
-              private langChangeService: LanguageChangeService) {
+              private langChangeService: LanguageChangeService,
+              private folioCorrectionService: CorrectionRequestService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params['flag']); // (+) converts string 'id' to a number
     });
@@ -97,6 +100,14 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'LANGUAGE CHANGE';
         this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
         this.newButtonURL = '/language-change';
+        this.actionButtonURL = '/language-change-view/';
+        break;
+      // section 35 corrections
+      case Workflow.FOLIO_REQUEST_CORRECTION:
+        this.getFolioCorrctionRequest();
+        this.headerText = 'Section 35 Correction';
+        this.titleText = 'REQUEST FOR Section 35 Correction';
+        this.newButtonURL = '/request-for-correction';
         this.actionButtonURL = '/language-change-view/';
         break;
     }
@@ -187,6 +198,17 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       },
       (error) => {
         this.snackBar.error('Failed');
+      }
+    );
+  }
+
+  getFolioCorrctionRequest() {
+    // get requests
+    this.folioCorrectionService.getFolioCorrectionRequests(this.sessionService.getUser().id).subscribe(
+      (response: RequestResponse) => {
+        this.dataSource = new MatTableDataSource(response.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     );
   }

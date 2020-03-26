@@ -1,3 +1,4 @@
+import { PaymentMethod } from './../../../../shared/enum/payment-method.enum';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTableDataSource} from "@angular/material/table";
@@ -32,7 +33,8 @@ export class CitizenPaymentInfoComponent implements OnInit {
   isContinue: boolean = false;
   public Parameters = Parameters;
   public WorkflowCode = Workflow;
-
+  statusOnlinePayment = false;
+  returnURl: string;
 
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Amount', 'Payment Date', 'Status'];
   dataSource = new MatTableDataSource<PaymentDto>();
@@ -67,5 +69,27 @@ export class CitizenPaymentInfoComponent implements OnInit {
 
   addPayment() {
     this.isContinue = true;
+  }
+
+  paymentMethodResponse(data: PaymentResponse) {
+    if (data.paymentMethod === PaymentMethod.ONLINE) {
+      this.paymentDTO.referenceNo = data.transactionRef;
+      this.paymentDTO.applicationAmount = +data.applicationAmount;
+      this.paymentDTO.paymentMethod = data.paymentMethod;
+      this.paymentDTO.deliveryType = data.deliveryType;
+      this.citizenDTO.payment = this.paymentDTO;
+
+      // update payment
+      this.citizenService.updatePayment(this.citizenDTO).subscribe(
+        (result) => {
+          this.statusOnlinePayment = true;
+          this.returnURl = this.getBase64('view-citizen');
+        }
+      );
+    }
+  }
+
+  getBase64(url: string): string {
+    return btoa(url);
   }
 }
