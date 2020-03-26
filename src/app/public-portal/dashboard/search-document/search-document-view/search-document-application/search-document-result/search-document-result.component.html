@@ -1,0 +1,8 @@
+<h5>Search Result</h5>
+<hr/>
+<mat-nav-list>
+  <mat-list-item *ngFor="let item of folioList">
+    <a matLine (click)="onClickItem(item)">{{item.folioNo}}</a>
+  </mat-list-item>
+</mat-nav-list>
+

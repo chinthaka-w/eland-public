@@ -196,6 +196,7 @@ export class PaymentComponent implements OnInit, OnChanges {
     this.paymentService.savePayment2(this.paymentDTO).subscribe(
       (res: PaymentDto) => {
         this.paymentResponse.paymentId = res.paymentId;
+        this.paymentResponse.paymentMethod = this.PaymentMethod.FRONT_COUNTER;
         this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_TO_FRONT_COUNTER;
       }, (error: HttpErrorResponse) => {
         this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_FAILED;

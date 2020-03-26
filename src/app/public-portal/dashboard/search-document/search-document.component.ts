@@ -35,6 +35,7 @@ import {PaymentDto} from '../../../shared/dto/payment-dto';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
+import {SearchRequestWorkflowStages} from '../../../shared/enum/search-request-workflow-stages.enum';
 
 
 @Component({
@@ -199,12 +200,12 @@ export class SearchDocumentComponent implements OnInit {
       }, () => {
 
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
-        this.snackBarService.success('Your Search request saved successfully,, Proceed to online payment')
+          this.snackBarService.success('Your Search request saved successfully,, Proceed to online payment')
           this.statusOnlinePayment = true;
         } else {
-        this.isContinueToPayment = false;
-        this.resetForm();
-        this.snackBarService.success('Your Search request saved successfully,.')
+          this.isContinueToPayment = false;
+          this.resetForm();
+          this.snackBarService.success('Your Search request saved successfully,.')
         }
       }
     );
@@ -328,7 +329,6 @@ export class SearchDocumentComponent implements OnInit {
     if (isValid) {
       this.searchRequest = this.searchRequestForm.value;
       this.searchRequest.folioList = this.elements;
-      this.searchRequest.workflowStageCode = WorkflowStages.SEARCH_REQ_INITIALIZED;
       this.searchRequest.userId = this.sessionService.getUser().id;
       this.searchRequest.userType = this.sessionService.getUser().type;
       this.isContinueToPayment = !this.isContinueToPayment;
@@ -343,6 +343,11 @@ export class SearchDocumentComponent implements OnInit {
     if (data.paymentStatusCode != PaymentStatus.PAYMENT_FAILED && data.paymentMethod !== PaymentMethod.ONLINE) {
 
       this.searchRequest.paymentId = data.paymentId;
+
+      this.searchRequest.workflowStageCode =
+        data.paymentMethod == PaymentMethod.BANK_TRANSFER_OR_DIPOSIT ?
+          SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_ARL :
+          SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_CLARK;
       this.saveRequest(this.searchRequest);
     } else {
       this.snackBarService.error('Oh no, Your payment failed.')
@@ -358,6 +363,7 @@ export class SearchDocumentComponent implements OnInit {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.searchRequest.payment = this.paymentDto;
+      this.searchRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_ARL;
       this.saveRequest(this.searchRequest);
     }
 

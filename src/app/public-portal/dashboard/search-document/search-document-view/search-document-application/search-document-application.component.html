@@ -363,6 +363,10 @@
           <button [disabled]="action==ActionMode.VIEW" mat-icon-button (click)="onClickDelete(i)">
             <mat-icon>delete</mat-icon>
           </button>
+          <button *ngIf="action==ActionMode.VIEW && workflowStage == SearchWorkflowStage.SEARCH_REQ_APPROVAL_BY_ARL"
+                  mat-icon-button (click)="onClickView(i)">
+            <mat-icon>chrome_reader_mode</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -371,6 +375,7 @@
     </table>
     <div *ngIf="dataSource.data.length === 0" style="text-align: center">No records found</div>
   </div>
+
 </div>
 
 <div class="separator">&nbsp;</div>
