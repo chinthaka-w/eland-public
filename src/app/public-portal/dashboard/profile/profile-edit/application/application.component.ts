@@ -17,7 +17,7 @@ export class ApplicationComponent implements OnInit {
   requestForm: FormGroup;
   notaryDetails: Notary;
   public notary: Notary;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(private sessionService: SessionService,
               private notaryService: NotaryService,
@@ -26,28 +26,28 @@ export class ApplicationComponent implements OnInit {
 
   ngOnInit() {
     this.requestForm = this.formBuilder.group({
-      fNameEng: new FormControl(""),
-      fNameSin: new FormControl(""),
-      fNameTam: new FormControl(""),
-      nameIniEng: new FormControl(""),
-      nameIniSin: new FormControl(""),
-      nameIniTam: new FormControl(""),
-      perAddEng: new FormControl("" ),
-      perAddSin: new FormControl(""),
-      perAddTam: new FormControl(""),
-      curAddEng: new FormControl(""),
-      curAddSin: new FormControl(""),
-      curAddTam: new FormControl(""),
-      isWarLang: new FormControl(""),
-      dob: new FormControl(""),
-      nic: new FormControl(""),
-      contact: new FormControl(""),
-      mobile: new FormControl(""),
-      email: new FormControl(""),
-      judicial: new FormControl(""),
-      lRegistry: new FormControl(""),
-      clerkName: new FormControl(""),
-      clerkNic: new FormControl(""),
+      fNameEng: new FormControl(''),
+      fNameSin: new FormControl(''),
+      fNameTam: new FormControl(''),
+      nameIniEng: new FormControl(''),
+      nameIniSin: new FormControl(''),
+      nameIniTam: new FormControl(''),
+      perAddEng: new FormControl('' ),
+      perAddSin: new FormControl(''),
+      perAddTam: new FormControl(''),
+      curAddressEng: new FormControl(''),
+      curAddressSin: new FormControl(''),
+      curAddressTam: new FormControl(''),
+      isWarLang: new FormControl(''),
+      dob: new FormControl(''),
+      nic: new FormControl(''),
+      contact: new FormControl(''),
+      mobile: new FormControl(''),
+      email: new FormControl(''),
+      judicial: new FormControl(''),
+      lRegistry: new FormControl(''),
+      clerkName: new FormControl(''),
+      clerkNic: new FormControl(''),
 
     });
     this.notaryId = this.sessionService.getUser().id;
@@ -66,9 +66,9 @@ export class ApplicationComponent implements OnInit {
             perAddEng: this.notaryDetails.permanentAddressEng,
             perAddSin: this.notaryDetails.permanentAddressSin,
             perAddTam: this.notaryDetails.permanentAddressTam,
-            curAddEng: this.notaryDetails.currantAddressEng,
-            curAddSin: this.notaryDetails.currantAddressSin,
-            curAddTam: this.notaryDetails.currantAddressTam,
+            curAddressEng: this.notaryDetails.currantAddressEng,
+            curAddressSin: this.notaryDetails.currantAddressSin,
+            curAddressTam: this.notaryDetails.currantAddressTam,
             dob: this.notaryDetails.dateOfBirth,
             nic: this.notaryDetails.nic,
             contact: this.notaryDetails.contactNo,
@@ -91,16 +91,20 @@ export class ApplicationComponent implements OnInit {
     if (this.requestForm.invalid) {
       return;
     }
+
+    alert(this.requestForm.value.curAddressEng );
+    alert( this.requestForm.value.curAddressSin  );
+    alert(this.requestForm.value.curAddressTam );
     this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
       null, this.requestForm.value.mobile,  this.requestForm.value.contact,
-      this.requestForm.value.perAddEng, this.requestForm.value.curAddEng, this.requestForm.value.perAddSin,
-      this.requestForm.value.curAddSin,  this.requestForm.value.perAddTam, this.requestForm.value.curAddTam,
+      this.requestForm.value.perAddEng,  this.requestForm.value.perAddSin,  this.requestForm.value.perAddTam,
+      this.requestForm.value.curAddressEng, this.requestForm.value.curAddressSin, this.requestForm.value.curAddressTam,
       null, null, null,
       null,  null, null,
       null, null, null,
       null, null, null, null,
       null, null, null, null, new Date(),
-      null, null, null,null,null,null,this.requestForm.value.clerkName,this.requestForm.value.clerkNic,null);
+      null, null, null, null, null, null, this.requestForm.value.clerkName, this.requestForm.value.clerkNic, null);
 
 
     this.notaryService.editProfile(this.notary).subscribe(
