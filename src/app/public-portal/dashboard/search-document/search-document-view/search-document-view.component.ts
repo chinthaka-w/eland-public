@@ -32,6 +32,8 @@ export class SearchDocumentViewComponent implements OnInit {
   public requestId: any;
   public action: any;
 
+  public selectedIndex = 0;
+
   ActionMode = ActionMode;
   SearchWorkflowStages = SearchRequestWorkflowStages;
 
@@ -125,6 +127,10 @@ export class SearchDocumentViewComponent implements OnInit {
       }, () => {
       }
     );
+  }
+
+  getSelectedIndex(val: number) {
+    this.selectedIndex = val;
   }
 }
 

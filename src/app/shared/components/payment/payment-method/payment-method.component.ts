@@ -36,6 +36,8 @@ export class PaymentMethodComponent implements OnInit {
   public branches: BankBranch[] = [];
   public files: File[] = [];
 
+  toDay = new Date();
+
   paymentId: number;
 
   public paymentResponse = new PaymentResponse;
@@ -81,6 +83,7 @@ export class PaymentMethodComponent implements OnInit {
     this.paymentService.savePayment(formData).subscribe(
       (res: PaymentDto) => {
         this.paymentResponse.paymentId = res.paymentId;
+        this.paymentResponse.paymentMethod = PaymentMethod.BANK_TRANSFER_OR_DIPOSIT;
         this.isSubmitted = true;
         this.paymentId = res.paymentId;this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_SUCCESS;
       }, (error: HttpErrorResponse) => {

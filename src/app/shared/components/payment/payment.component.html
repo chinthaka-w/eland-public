@@ -1,6 +1,6 @@
 <form class="form-horizontal" [formGroup]="paymentForm" *ngIf="!isContinueToPayment">
   <div class="hc-component-wrapper payment">
-    <div class="hc-component-img" style="background-image: url('../../../assets/images/temp_img_004.jpg')"></div>
+    <div class="hc-component-img" style="background-image: url('assets/images/temp_img_004.jpg')"></div>
     <div class="hc-component-content">
       <div class="pce-container">
         <div *ngIf="isDocumentCollect" class="default-input-wrapper full-row mb-30">
@@ -56,9 +56,9 @@
         <button mat-raised-button class="lg-button" (click)="onClickBack()">Back</button>
         <button mat-raised-button class="lg-button green" (click)="onClickContinue()">
           <div class="row">
-            Continue 
+            Continue
             <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"
-            ></mat-spinner> 
+            ></mat-spinner>
           </div>
         </button>
       </div>
@@ -70,7 +70,7 @@
  *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
  [paymentAmount]="totalAmount"
  [transactionRef] = "paymentReference"
- [returnUrl] = "returnUrl"
+ [returnUrl] = "newReturnUrl"
  >
  </app-online-method>
 <app-payment-method

@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Workflow} from '../../shared/enum/workflow.enum';
-import { SessionService } from 'src/app/shared/service/session.service';
-import { UserType } from 'src/app/shared/enum/user-type.enum';
-import {NotaryService} from "../../shared/service/notary-service";
-import {RequestSearchDetailDTO} from "../../shared/dto/request-search.dto";
-import {CommonStatus} from "../../shared/enum/common-status.enum";
+import {SessionService} from 'src/app/shared/service/session.service';
+import {UserType} from 'src/app/shared/enum/user-type.enum';
+import {NotaryService} from '../../shared/service/notary-service';
+import {RequestSearchDetailDTO} from '../../shared/dto/request-search.dto';
+import {CommonStatus} from '../../shared/enum/common-status.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,23 +32,23 @@ export class DashboardComponent implements OnInit {
     this.dashboardView = true;
     this.requestView = false;
     this.user = this.sessionService.getUser();
-    this.getUserDetails();
     this.notaryId = this.user.id;
+    if (this.user.type == this.userType.NOTARY) this.getUserDetails();
   }
 
   getBase64(value: string): string {
     return btoa(value);
   }
 
-  getUserDetails(){
+  getUserDetails() {
     this.notaryService.getNotaryRequestDetails(this.user.id).subscribe(
-      (data: RequestSearchDetailDTO) =>{
+      (data: RequestSearchDetailDTO) => {
         this.searchDetails = data;
       }
     )
   }
 
-  viewDetails(){
+  viewDetails() {
     this.dashboardView = false;
     this.requestView = true;
   }

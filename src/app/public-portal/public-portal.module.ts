@@ -52,7 +52,15 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import {ImageViewerModule} from "ngx-image-viewer";
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
-import {MatBadgeModule, MatChipsModule, MatDividerModule, MatNativeDateModule, MatPaginatorModule} from '@angular/material';
+import {
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDividerModule, MatListModule,
+  MatNativeDateModule,
+  MatPaginatorModule
+} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
@@ -73,6 +81,7 @@ import { LangChangeApplicationComponent } from './dashboard/language-change/lang
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import { NameChangeRequestViewComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
 import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-data/name-change-request-data.component';
+import { SearchDocumentResultComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-result/search-document-result.component';
 
 
 @NgModule({
@@ -126,7 +135,8 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
     LangChangeApplicationComponent,
     RequestForCorrectionComponent,
     NameChangeRequestViewComponent,
-    NameChangeRequestDataComponent
+    NameChangeRequestDataComponent,
+    SearchDocumentResultComponent
 ],
   imports: [
     CommonModule,
@@ -159,7 +169,8 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
     SatDatepickerModule,
     SatNativeDateModule,
     ImageViewerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatListModule
   ],
   exports: [
     LoginComponent,
@@ -177,13 +188,16 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
     MatTableModule,
     SatDatepickerModule,
     SatNativeDateModule,
+    MatCardModule,
+    MatBottomSheetModule,
     MatTableModule,
     MatBadgeModule,
-    MatChipsModule,
+    MatChipsModule
   ],
   entryComponents:[
     RequestViewComponent,
-    PublicProfileEditComponent
+    PublicProfileEditComponent,
+    SearchDocumentResultComponent
   ],
   providers: [{
     provide: RECAPTCHA_SETTINGS,

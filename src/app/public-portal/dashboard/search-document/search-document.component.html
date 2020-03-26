@@ -1,5 +1,5 @@
 <div class="wf-img-container" *ngIf="!isContinueToPayment">
-  <div class="wf-img-wrapper" style="background-image: url('../../../../assets/images/temp_img_005.jpg')">&nbsp;</div>
+  <div class="wf-img-wrapper" style="background-image: url('assets/images/temp_img_005.jpg')">&nbsp;</div>
   <div class="wf-content-wrapper">
     <a href="#" (click)="goBack()" class="phd-back-btn"><i class="material-icons">keyboard_backspace</i></a>
     <h4>Search</h4>
@@ -399,7 +399,11 @@
 
   </div>
 </div>
-<app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
+<app-payment *ngIf="isContinueToPayment"
+             (response)="onPaymentResponse($event)"
+             (paymentMethodResponse)="paymentMethodResponse($event)"
              (back)="onBack($event)"
+             [statusOnlinePayment]="statusOnlinePayment"
+             [returnUrl]="returnURl?returnURl:'login'"
              [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
              [hasFrontCounterPayment]="true"></app-payment>

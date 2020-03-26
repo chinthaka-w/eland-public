@@ -37,7 +37,7 @@ onlinePaymentForm: FormGroup;
     }
     // show payment summary
     if (this.route.snapshot.paramMap.get('id')) {
-      this.paymentId = +this.decodeBase64(this.route.snapshot.paramMap.get('id'));
+      this.paymentId = +this.route.snapshot.paramMap.get('id');
       this.loadForm();
       this.showPaymentResult = true;
       this.getPaymentResult(this.paymentId);
@@ -79,7 +79,7 @@ onlinePaymentForm: FormGroup;
     if (!this.showPaymentResult) {
       window.location.href = this.lgpsUrl + this.onlinePaymentForm.get('encryptedPaymentRequest').value;
     } else {
-      this.router.navigate(['/', this.returnUrl]);
+      this.router.navigateByUrl(this.returnUrl);
     }
   }
 

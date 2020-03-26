@@ -7,7 +7,7 @@ import { AppConfig } from "../dto/app-config.model";
 })
 export class SysConfigService {
   public static APP_ENDPOINT = "api/";
-  public static APP_IP = "localhost:";
+  public static APP_IP = `${window.location.href.split('/')[2].split(':')[0]}:`;
   public static APP_PROTOCOL = "http://";
   public static APP_PORT = "9292/";
   // online payment configs

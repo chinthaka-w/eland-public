@@ -54,11 +54,6 @@ const routes: Routes = [
     path: 'change-judicial',
     component: ChangeJudicialComponent
   },
-  {
-    path:'request-for-correction',
-    component:RequestForCorrectionComponent
-
-  },
 {
 
   path: 'edit-public-profile',
@@ -136,8 +131,8 @@ const routes: Routes = [
     component: NameChangeRequestViewComponent
   },
   {
-    path:'request-for-correction',
-    component:RequestForCorrectionComponent
+    path: 'request-for-correction',
+    component: RequestForCorrectionComponent
   }
 
 ];

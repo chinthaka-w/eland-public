@@ -39,6 +39,7 @@ import {RequestForCorrectionService} from "./shared/service/request-for-correcti
 import {ChangeNameService} from "./shared/service/change-name.service";
 import {NotaryLeaveRequestService} from "./shared/service/notary-leave-request.service";
 import {NotaryResignationService} from "./shared/service/notary-resignation.service";
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, GridComponent],

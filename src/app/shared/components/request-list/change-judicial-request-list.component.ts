@@ -1,20 +1,22 @@
-import { LanguageRequest } from './../../dto/language-request.model';
-import { LanguageChangeService } from './../../service/language-change.service';
+import { RequestResponse } from './../../dto/request-response.model';
+import { CorrectionRequestService } from './../../service/correction-request.service';
+import {LanguageRequest} from './../../dto/language-request.model';
+import {LanguageChangeService} from './../../service/language-change.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {JudicialChange} from '../../dto/judicial-change-model';
 import {SnackBarService} from '../../service/snack-bar.service';
 import {JudicialService} from '../../service/change-judicial-service';
 import {TokenStorageService} from '../../auth/token-storage.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Workflow} from '../../enum/workflow.enum';
 import {SearchRequestService} from '../../service/search-request.service';
 import {SearchRequest} from '../../dto/search-request.model';
 import {SessionService} from '../../service/session.service';
 import {ExtractRequestService} from '../../service/extract-request.service';
 import {ExtractRequest} from '../../dto/extract-request.model';
-import {ChangeNameService} from "../../service/change-name.service";
-import {NotaryNameChangeModel} from "../../dto/notary-name-change.model";
+import {ChangeNameService} from '../../service/change-name.service';
+import {NotaryNameChangeModel} from '../../dto/notary-name-change.model';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -39,18 +41,24 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   public newButtonURL: string;
   public actionButtonURL: string;
 
+  previousUrl = '';
+
   constructor(private judicialService: JudicialService,
               private changeNameService: ChangeNameService,
               private searchRequestService: SearchRequestService,
               private extractRequestService: ExtractRequestService,
               private snackBar: SnackBarService,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private sessionService: SessionService,
               private tokenStorageService: TokenStorageService,
-              private langChangeService: LanguageChangeService) {
+              private langChangeService: LanguageChangeService,
+              private folioCorrectionService: CorrectionRequestService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params['flag']); // (+) converts string 'id' to a number
     });
+
+    this.previousUrl = this.router.url;
   }
 
   ngOnInit() {
@@ -92,6 +100,14 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'LANGUAGE CHANGE';
         this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
         this.newButtonURL = '/language-change';
+        this.actionButtonURL = '/language-change-view/';
+        break;
+      // section 35 corrections
+      case Workflow.FOLIO_REQUEST_CORRECTION:
+        this.getFolioCorrctionRequest();
+        this.headerText = 'Section 35 Correction';
+        this.titleText = 'REQUEST FOR Section 35 Correction';
+        this.newButtonURL = '/request-for-correction';
         this.actionButtonURL = '/language-change-view/';
         break;
     }
@@ -182,6 +198,17 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       },
       (error) => {
         this.snackBar.error('Failed');
+      }
+    );
+  }
+
+  getFolioCorrctionRequest() {
+    // get requests
+    this.folioCorrectionService.getFolioCorrectionRequests(this.sessionService.getUser().id).subscribe(
+      (response: RequestResponse) => {
+        this.dataSource = new MatTableDataSource(response.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     );
   }
