@@ -47,7 +47,6 @@ export class FileUploadPopupComponent implements OnInit {
   }
 
   onUploadDocuments(): void {
-
   }
 
   convertFileToBase64(file: File, fileModel: FileModel): void {

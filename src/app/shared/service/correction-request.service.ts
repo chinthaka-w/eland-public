@@ -1,9 +1,9 @@
+import { CorrectionRequest } from './../dto/correction-request.model';
 import { RequestResponse } from './../dto/request-response.model';
 import { SysConfigService } from './sys-config.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { correctionReq } from '../dto/correctionReq.model';
 // import { correctionReq } from '../model/correctionReq.model';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class CorrectionRequestService {
 
   // url types
   BASE_URL_WITH_JUDICIAL = this.BASE_URL + 'judicial-zone';
-  BASE_URL_WITH_LAND_REGISTRY = this.BASE_URL + 'landRegistries';
+  BASE_URL_WITH_LAND_REGISTRY = this.BASE_URL + 'landRegistries'; 
   FOLIO_CORRECTION_URL = this.BASE_URL + 'folioCorrection';
 
   private headers;
@@ -41,15 +41,13 @@ export class CorrectionRequestService {
   }
 
  // save correction request
- saveCorrectionReq(corrReq: FormData): Observable<any> {
-  return this.http.post(this.FOLIO_CORRECTION_URL + '/' ,corrReq);
+ saveCorrectionReq(correctionRequest: CorrectionRequest): Observable<any> {
+  return this.http.post(this.FOLIO_CORRECTION_URL + '/' , correctionRequest);
 }
 
 // get correction requests
 getFolioCorrectionRequests(id: number): Observable<RequestResponse> {
   return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + id);
 }
-
-
 
 }
