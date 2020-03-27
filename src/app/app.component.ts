@@ -9,9 +9,8 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'eland-public';
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(){
-    this.router.navigate([''])
   }
 }

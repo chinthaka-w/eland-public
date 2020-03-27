@@ -1,7 +1,7 @@
 <div class="page-header-default">
   <h2>REQUEST FOR CORECTIONS OF REGISTRATIONS</h2>
   <p>Please fill in the following information to<br />register in the system</p>
-  <a href="" class="phd-back-btn">
+  <a [routerLink]="['/requests', getBase64(workflow.FOLIO_REQUEST_CORRECTION)]" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
@@ -15,118 +15,93 @@
       </div>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
+          <div class="default-input-wrapper full-row m0">
             <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
-
             <div class="default-input-feild">
-              <mat-select formControlName="landRegId">
-                <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
-              </mat-select>
+                <mat-select formControlName="landRegId" class="form-control">
+                  <mat-option value="" disabled="true"> -- Select Land Registry -- </mat-option>
+                  <mat-option value="{{item.landRegistryId}}" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
+                </mat-select>
+                <div *ngIf="landRegId.invalid && (landRegId.dirty || landRegId.touched)">
+                  <mat-error *ngIf="landRegId.errors.required" class="errors">Please fill the form data…! </mat-error>
+                </div>
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Deed No.Related to the Correction<span class="redtxt">*</span></label>
+            <label>Folio No<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="folioNo" class="form-control">
+              </mat-form-field>
+              <div *ngIf="folioNo.invalid && (folioNo.dirty || folioNo.touched)">
+                <mat-error *ngIf="folioNo.errors.required" class="errors">Please fill the form data…! </mat-error>
+                <mat-error *ngIf="folioNo.errors.maxlength" class="errors">Please enter valid folio no </mat-error>
+                <mat-error *ngIf="folioNo.errors.pattern" class="errors">Please enter valid folio no </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Day Book No</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="dayBookNo" class="form-control">
+              </mat-form-field>      
+              <div *ngIf="dayBookNo.invalid && (dayBookNo.dirty || dayBookNo.touched)">
+                <mat-error *ngIf="dayBookNo.errors.maxlength" class="errors">Please enter valid day book no </mat-error>
+                <mat-error *ngIf="dayBookNo.errors.pattern" class="errors">Please enter valid day book no </mat-error>
+              </div>        
+            </div>
+          </div>          
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Deed No</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput formControlName="deedNo" class="form-control">
               </mat-form-field>
+              <div *ngIf="deedNo.invalid && (deedNo.dirty || deedNo.touched)">
+                <mat-error *ngIf="deedNo.errors.maxlength" class="errors">Please enter valid day book no </mat-error>
+              </div>
             </div>
           </div>
         </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>Notary Name</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="notaryName" class="form-control">
+              </mat-form-field>
+              <div *ngIf="notaryName.invalid && (notaryName.dirty || notaryName.touched)">
+                <mat-error *ngIf="notaryName.errors.pattern" class="errors">Please enter valid notary name </mat-error>
+                <mat-error *ngIf="notaryName.errors.maxlength" class="errors">Please enter valid notary name </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>Deed Attested Date</label>
             <div class="default-input-feild date-feild">
               <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker" formControlName="attestedDate" class="form-control">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="attestedDate" class="form-control">
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-              <button mat-raised-button (click)="picker.open()">
+              <button type="button" mat-raised-button (click)="picker.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Notary Name<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="notaryName" class="form-control">
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Notary Judicial Division<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-select matNativeControl required class="form-control" formControlName="judicialZoneId">
-                <mat-option *ngFor="let item of judicialzone" [value]="item.judicialZoneId">{{item.nameEng}}</mat-option>
-              </mat-select>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Land Registry:<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select matNativeControl required  formControlName="landRegistry" class="form-control" (ngModelChange)="onChange()">
-                  <option value="">Select</option>
-                  <option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
-                </select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Folio(s) Which Correction to be Made<span class="redtxt">*</span></label>
-            <div class="default-input-feild full-row date-feild">
-
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="folioNumbers" class="form-control">
-              </mat-form-field>
-              <button mat-raised-button>
-                <i class="material-icons" (click)="searchFolioNo($event)">search</i>
-              </button>
-
-            </div>
-            <button *ngIf="!disabled" type="button"  (click)="onClickRow($event)">Add</button>
-          </div>
-          <table>
-            <thead>
-            <th>Folio Number</th>
-            </thead>
-            <tbody>
-            <tr *ngFor="let policy of newRow">
-              <td>{{policy}}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Requested Correction to be Made<span class="redtxt">*</span></label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="3" formControlName="requestedCorrection" class="form-control"></textarea>
-              </mat-form-field>
             </div>
           </div>
         </div>
@@ -135,30 +110,107 @@
             <label>Nature of the Correction</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <textarea matInput rows="3" formControlName="natureOfTheCorrection" class="form-control"></textarea>
+                <textarea matInput formControlName="correctionNature" class="form-control"></textarea>
               </mat-form-field>
+              <div *ngIf="correctionNature.invalid && (correctionNature.dirty || correctionNature.touched)">
+                <mat-error *ngIf="correctionNature.errors.required" class="errors">Please fill the form data…!</mat-error>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <h5>Supporting Documents</h5>
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col"></div>
-      </div>
-      <div class="pg-inner-row mb-20">
+      <div class="pg-inner-row">
+        <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <ng-container *ngFor="let document of docList">
-              <div class="pg-inner-col-3">
-                <div class="default-input-wrapper full-row">
-                  <label>{{document.description}}
-                    <span *ngIf="document.required == true">*</span>
-                  </label>
-                  <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
-                </div>
+            <label>Correction to be made</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput formControlName="requestedCorrection" class="form-control"></textarea>
+              </mat-form-field>
+              <div *ngIf="requestedCorrection.invalid && (requestedCorrection.dirty || requestedCorrection.touched)">
+                <mat-error *ngIf="requestedCorrection.errors.required" class="errors">Please fill the form data…! </mat-error>
               </div>
-            </ng-container>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="pg-inner-row">
+        <div class="default-input-wrapper full-row">
+          <div class="pg-inner-col">
+            <button type="button" class="add-row" mat-flat-button (click)="onAddCorrection(editIndex)">
+              {{!isEdit? 'Add': 'Edit'}} <i class="material-icons"> {{!isEdit? 'add_circle_outline': 'edit'}} </i>
+              </button>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="default-input-wrapper full-row">
+          <hr />
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
+            <!-- Folio No Column -->
+            <ng-container matColumnDef="folioNo">
+              <th mat-header-cell *matHeaderCellDef> Folio No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.folioNo}} </td>
+              <td mat-footer-cell *matFooterCellDef>
+                <button *ngIf="correctionDetails.length>0" type="button" color="warn" class="add-row" mat-button (click)="onClearAll()" >
+                  Clear All <i class="material-icons">delete_forever</i>
+                </button>
+              </td> 
+            </ng-container>
+        
+            <!-- Day book No Column -->
+            <ng-container matColumnDef="dayBookNo">
+              <th mat-header-cell *matHeaderCellDef> Day Book No </th>
+              <td mat-cell *matCellDef="let element"> {{element.dayBookNo}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+        
+            <!-- Nature of correction Column -->
+            <ng-container matColumnDef="correctionNature">
+              <th mat-header-cell *matHeaderCellDef> Nature of Correction </th>
+              <td mat-cell *matCellDef="let element"> {{element.correctionNature}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td> 
+              
+            </ng-container>
+        
+            <!-- Requested correction Column -->
+            <ng-container matColumnDef="requestedCorrection">
+              <th mat-header-cell *matHeaderCellDef> Requested correction to be made </th>
+              <td mat-cell *matCellDef="let element"> {{element.requestedCorrection}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td> 
+            </ng-container>
+
+            <!-- Action colum -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <button type="button" class="add-row mr-5" mat-icon-button color="primary" (click)="onEdit(i)">
+                  <i class="material-icons">edit</i>
+                </button>
+                <button type="button" class="add-row mr-5" mat-icon-button color="warn" (click)="onClearItem(i)">
+                  <i class="material-icons">delete_outline</i>
+                </button>
+                <button type="button" class="add-row" mat-icon-button color="primary" (click)="onDocUpload(i)">
+                  <i class="material-icons">cloud_upload</i>
+                </button>
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td> 
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+          </table>
+        
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        </div>
+          
+      </div>
+      <!-- End of correction details -->
       <div class="separator">&nbsp;</div>
       <div class="pg-inner-row mb-0">
         <div class="pg-inner-col">
@@ -167,7 +219,11 @@
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>
+          <button [disabled]="isSave" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
+            Submit 
+            <mat-spinner *ngIf="isClick && isSave" [diameter]="16" class="spinner-inline"
+            ></mat-spinner> 
+          </button>
         </div>
       </div>
     </div>

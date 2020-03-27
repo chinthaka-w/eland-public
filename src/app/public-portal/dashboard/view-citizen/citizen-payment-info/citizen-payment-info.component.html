@@ -57,8 +57,11 @@
 
 <div *ngIf="isContinue">
   <app-payment (response)="onPaymentResponse($event)"
+                (paymentMethodResponse)="paymentMethodResponse($event)"
                (back)="onBack($event)"
                [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+               [statusOnlinePayment] = "statusOnlinePayment"
+               [returnUrl]="returnURl"
                [hasFrontCounterPayment]="true"
                [isDocumentCollect]="true"
                [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"></app-payment>

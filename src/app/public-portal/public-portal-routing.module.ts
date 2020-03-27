@@ -7,7 +7,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileEditComponent} from './dashboard/profile/profile-edit/profile-edit.component';
 import {AddPublicUserComponent} from './public-user-registration/add-public-user/add-public-user.component';
 import {ChangeJudicialComponent} from './dashboard/change-judicial/change-judicial.component';
-import {RequestForCorrectionComponent} from "./request-for-correction/request-for-correction.component";
+import {RequestForCorrectionComponent} from './request-for-correction/request-for-correction.component';
 import { PublicProfileEditComponent } from './dashboard/profile/public-profile-edit/public-profile-edit.component';
 import { SearchDocumentComponent } from './dashboard/search-document/search-document.component';
 import { ExtractComponent } from './dashboard/extract/extract.component';
@@ -24,7 +24,7 @@ import {ChangeJudicialRequestListComponent} from '../shared/components/request-l
 import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
-import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
+import {ViewCitizenComponent} from './dashboard/view-citizen/view-citizen.component';
 import {NameChangeRequestViewComponent} from "./dashboard/change-the-name/name-change-request-view/name-change-request-view.component";
 import { AuthGuard } from '../shared/auth/auth-guard';
 import {ChangeLandRegistryComponent} from './dashboard/change-land-registry/change-land-registry.component';
@@ -55,11 +55,6 @@ const routes: Routes = [
   {
     path: 'change-judicial',
     component: ChangeJudicialComponent
-  },
-  {
-    path:'request-for-correction',
-    component:RequestForCorrectionComponent
-
   },
 {
 
@@ -138,8 +133,8 @@ const routes: Routes = [
     component: NameChangeRequestViewComponent
   },
   {
-    path:'request-for-correction',
-    component:RequestForCorrectionComponent
+    path: 'request-for-correction',
+    component: RequestForCorrectionComponent
   },
   {
     path: 'change-registry',
@@ -148,6 +143,10 @@ const routes: Routes = [
   {
     path: 'change-land-registry-view/:workflow/:id',
     component: ChangeLandRegistryRequestViewComponent
+  },
+  {
+    path: 'request-for-correction',
+    component: RequestForCorrectionComponent
   }
 
 ];

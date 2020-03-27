@@ -35,6 +35,7 @@ import {ImageViewerModule} from "ngx-image-viewer";
 import { LastRemarkComponent } from './components/request-view/last-remark/last-remark.component';
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
+import { FileUploadPopupComponent } from './components/file-upload-popup/file-upload-popup.component';
 import { AuthGuard } from './auth/auth-guard';
 
 @NgModule({
@@ -51,7 +52,8 @@ import { AuthGuard } from './auth/auth-guard';
     ChangeJudicialRequestListComponent,
     LastRemarkComponent,
     PaymentHistoryComponent,
-    RemarkHistoryComponent
+    RemarkHistoryComponent,
+    FileUploadPopupComponent
   ],
   imports: [
     CommonModule,
@@ -104,6 +106,9 @@ import { AuthGuard } from './auth/auth-guard';
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent
+  ],
+  entryComponents: [
+    FileUploadPopupComponent
   ],
   providers: [
     AuthGuard
