@@ -52,10 +52,10 @@ export class ResignationComponent implements OnInit {
     this.notaryResignationDto.workflowStageCode = this.workflowStageNotaryResignation.NOTARY_RESIGNATION_INIT;
     this.notaryResignationService.makeDesignationRequest(this.fileList, this.notaryResignationDto)
       .subscribe((result) => {
-        if(result) {
-          this.snackBar.success('Request added successfully');
+        if (result) {
+          this.snackBar.success('Successfully submitted');
           this.router.navigate(['/dashboard']);
-        }else{
+        } else {
           this.snackBar.error('Operation failed');
         }
       });
