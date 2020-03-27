@@ -1,3 +1,4 @@
+import { RequestForCorrectionViewComponent } from './request-for-correction/request-for-correction-view/request-for-correction-view.component';
 import { LanguageChangeViewComponent } from './dashboard/language-change/language-change-view/language-change-view.component';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
@@ -132,6 +133,10 @@ const routes: Routes = [
   },
   {
     path: 'request-for-correction',
+    component: RequestForCorrectionComponent
+  },
+  {
+    path: 'request-for-correction/:workflow/:id',
     component: RequestForCorrectionComponent
   }
 
