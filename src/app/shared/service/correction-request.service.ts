@@ -50,4 +50,9 @@ getFolioCorrectionRequests(id: number): Observable<RequestResponse> {
   return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + id);
 }
 
+// get correction request
+getCorrectionRequest(reqId: number): Observable<RequestResponse> {
+  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getRequest/' + reqId);
+}
+
 }
