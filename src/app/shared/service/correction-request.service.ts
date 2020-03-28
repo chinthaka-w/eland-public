@@ -4,6 +4,7 @@ import { SysConfigService } from './sys-config.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NotaryRegistrationHistoryDto } from '../dto/notary-registration-history.dto';
 // import { correctionReq } from '../model/correctionReq.model';
 
 @Injectable({
@@ -53,6 +54,11 @@ getFolioCorrectionRequests(id: number): Observable<RequestResponse> {
 // get correction request
 getCorrectionRequest(reqId: number): Observable<RequestResponse> {
   return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getRequest/' + reqId);
+}
+
+// get request history
+getRequestHistory(reqId: number): Observable<RequestResponse> {
+  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/remarkHistory/' + reqId);
 }
 
 }

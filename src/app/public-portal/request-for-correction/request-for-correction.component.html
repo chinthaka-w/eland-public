@@ -1,9 +1,9 @@
 <div class="page-header-default">
   <h2>REQUEST FOR CORECTIONS OF REGISTRATIONS</h2>
-  <p *ngIf="!isReadOnly">Please fill in the following information to<br />register in the system</p>
+  <p *ngIf="showNewForm">Please fill in the following information to<br />register in the system</p>
   <a [routerLink]="['/requests', getBase64(workflow.FOLIO_REQUEST_CORRECTION)]" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
-<app-new-correction-request *ngIf="!isReadOnly"></app-new-correction-request>
-<app-request-for-correction-view *ngIf="isReadOnly"></app-request-for-correction-view>
+<app-new-correction-request *ngIf="showNewForm"></app-new-correction-request>
+<app-request-for-correction-view *ngIf="!showNewForm"></app-request-for-correction-view>

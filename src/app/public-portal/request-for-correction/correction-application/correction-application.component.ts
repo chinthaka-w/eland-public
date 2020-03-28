@@ -52,7 +52,6 @@ export class CorrectionApplicationComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       if (params.get('id') != null) {
         this.reqId = +this.decodeUrl(params.get('id'));
-        this.isReadonly = true;
        }
     });
     this.loadCorrectionForm();
@@ -127,8 +126,7 @@ export class CorrectionApplicationComponent implements OnInit {
     });
     this.initPaginator();
     this.getLandRegistries();
-    if (this.isReadonly) {
-      this.reqForCorrectionForm.disable();
+    if (this.reqId != null) {
       this.getCorrectionRequest();
     }
   }
@@ -150,7 +148,7 @@ export class CorrectionApplicationComponent implements OnInit {
         correctionRequest.correctionDetails = this.correctionDetails;
         correctionRequest.userId = this.sessionService.getUser().id;
         correctionRequest.userType = this.sessionService.getUser().type;
-        correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.FOLIO_CORRECTION_REQUEST_INITIATE;
+        correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.APPLICANT_INITIATE;
         this.correctionRequestService.saveCorrectionReq(correctionRequest).subscribe(
           (response: RequestResponse) => {
             if (response.status === CommonStatus.SUCCESS) {
@@ -228,7 +226,7 @@ export class CorrectionApplicationComponent implements OnInit {
   onDocUpload(index: number) {
     const dialogRef = this.dialog.open(FileUploadPopupComponent, {
       width: '750px',
-      data: FolioCorrectionWorkflowStages.FOLIO_CORRECTION_REQUEST_INITIATE
+      data: FolioCorrectionWorkflowStages.APPLICANT_INITIATE
     });
     dialogRef.afterClosed().subscribe((filesMeta: FileMeta[]) => {
       this.filesMeta = filesMeta;
@@ -290,7 +288,12 @@ export class CorrectionApplicationComponent implements OnInit {
   getCorrectionRequest(): void {
     this.correctionRequestService.getCorrectionRequest(this.reqId).subscribe(
       (response: RequestResponse) => {
-        console.log('request response ', response);
+        const correctionViewRequest: CorrectionRequest = response.data;
+        if  (correctionViewRequest.workflowStageCode !== FolioCorrectionWorkflowStages.RL_RETURN) {
+          this.reqForCorrectionForm.disable();
+          this.reqForCorrectionForm.patchValue(correctionViewRequest.correctionDetails[0]);
+          this.isReadonly = true;
+        }
       }
     );
   }

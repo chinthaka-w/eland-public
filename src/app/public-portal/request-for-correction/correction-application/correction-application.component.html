@@ -203,12 +203,12 @@
   <!-- End of correction details -->
   <div class="separator">&nbsp;</div>
   <div class="pg-inner-row mb-0">
-    <div class="pg-inner-col" *ngIf="isReadonly">
+    <div class="pg-inner-col" *ngIf="!isReadonly">
       <div class="f-captcha">
         <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
       </div>
     </div>
-    <div class="pg-inner-col right" >
+    <div class="pg-inner-col right" *ngIf="!isReadonly">
       <button [disabled]="isSave" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
         Submit
         <mat-spinner *ngIf="isClick && isSave" [diameter]="16" class="spinner-inline"></mat-spinner>

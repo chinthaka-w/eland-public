@@ -9,13 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class RequestForCorrectionComponent implements OnInit {
 
   workflow = Workflow;
-  isReadOnly = false;
+  showNewForm = true;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       if (params.get('id') != null) {
-        this.isReadOnly = true;
+        this.showNewForm = false;
       }
     });
   }
