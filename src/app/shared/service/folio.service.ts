@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DocumentType } from '../enum/document-type.enum';
 import { FolioController } from '../custom-model/folio-controller.model';
+import { PropertyController } from '../dto/property-controller.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,11 @@ export class FolioService {
 
   public constructor(private httpClient: HttpClient) { }
 
-  // tslint:disable-next-line:ban-types
-  getExpressTrustFolio(folioNo): Observable<Object> {
+  getExpressTrustFolio(folioNo: string): Observable<Object> {
     return this.httpClient.get(this.BASE_URL + 'expressTrustFolio/' + folioNo, { headers: this.headersJson });
   }
 
   setUiController(uiController, documentTypeId) {
-
-    console.log('type: ', documentTypeId)
 
     if (documentTypeId == DocumentType.NORMAL_TRUST) {
 
@@ -385,5 +383,313 @@ export class FolioService {
     }
 
     return newFolioController;
+  }
+
+  setPropertyController(propertyController: PropertyController, documentTypeId) {
+
+    if (documentTypeId == DocumentType.EXPRESS_TRUST) {
+        propertyController.allotmentNo = false;
+        propertyController.assesmentNo = true;
+        propertyController.insertedPerson = false;
+        propertyController.korale = true;
+        propertyController.landId = true;
+        propertyController.landName = true;
+        propertyController.lotNo = true;
+        propertyController.nameOfScheme = false;
+        propertyController.nameOfServayor = true;
+        propertyController.numberOfBasements = false;
+        propertyController.numberOfBlocks = false;
+        propertyController.numberOfStories = false;
+        propertyController.partitionDate = false;
+        propertyController.pattu = true;
+        propertyController.planDate = true;
+        propertyController.planNo = true;
+        propertyController.regPlanNo = false;
+        propertyController.statementOfClaimNo = false;
+        propertyController.street = true;
+        propertyController.survaryAndPartitionDate = false;
+        propertyController.titlePlanNo = true;
+        propertyController.toggle = false;
+        propertyController.village = true;
+        propertyController.propertyDetails = true;
+        propertyController.nameOfCharitable = false;
+        propertyController.grantNo = false;
+        propertyController.dateOfGrant = false;
+    }
+
+    if (documentTypeId == DocumentType.CONDOMINIUM) {
+        propertyController.allotmentNo = false;
+        propertyController.assesmentNo = true;
+        propertyController.insertedPerson = false;
+        propertyController.korale = false;
+        propertyController.landId = false;
+        propertyController.landName = true;
+        propertyController.lotNo = true;
+        propertyController.nameOfScheme = true;
+        propertyController.nameOfServayor = true;
+        propertyController.numberOfBasements = true;
+        propertyController.numberOfBlocks = true;
+        propertyController.numberOfStories = true;
+        propertyController.partitionDate = false;
+        propertyController.pattu = false;
+        propertyController.planDate = false;
+        propertyController.planNo = false;
+        propertyController.regPlanNo = false;
+        propertyController.statementOfClaimNo = false;
+        propertyController.street = true;
+        propertyController.survaryAndPartitionDate = false;
+        propertyController.titlePlanNo = false;
+        propertyController.toggle = false;
+        propertyController.village = true;
+        propertyController.propertyDetails = false;
+        propertyController.nameOfCharitable = false;
+        propertyController.grantNo = false;
+        propertyController.dateOfGrant = false;
+        propertyController.surveyPlanNo = true;
+        propertyController.surveyPlanDate = true;
+        propertyController.nameOfArchitect = true;
+    }
+
+    if (documentTypeId == DocumentType.GENERAL) {
+        propertyController.allotmentNo = false;
+        propertyController.assesmentNo = true;
+        propertyController.insertedPerson = false;
+        propertyController.korale = true;
+        propertyController.landId = false;
+        propertyController.landName = true;
+        propertyController.lotNo = true;
+        propertyController.nameOfScheme = false;
+        propertyController.nameOfServayor = true;
+        propertyController.numberOfBasements = false;
+        propertyController.numberOfBlocks = false;
+        propertyController.numberOfStories = false;
+        propertyController.partitionDate = false;
+        propertyController.pattu = true;
+        propertyController.planDate = true;
+        propertyController.planNo = true;
+        propertyController.regPlanNo = false;
+        propertyController.statementOfClaimNo = false;
+        propertyController.street = true;
+        propertyController.survaryAndPartitionDate = false;
+        propertyController.titlePlanNo = true;
+        propertyController.toggle = false;
+        propertyController.village = true;
+        propertyController.propertyDetails = false;
+        propertyController.nameOfCharitable = false;
+        propertyController.grantNo = false;
+        propertyController.dateOfGrant = false;
+    }
+
+    if (documentTypeId == DocumentType.GOV_LANDS) {
+        propertyController.allotmentNo = false;
+        propertyController.assesmentNo = true;
+        propertyController.insertedPerson = false;
+        propertyController.korale = false;
+        propertyController.landId = false;
+        propertyController.landName = true;
+        propertyController.lotNo = true;
+        propertyController.nameOfScheme = false;
+        propertyController.nameOfServayor = false;
+        propertyController.numberOfBasements = false;
+        propertyController.numberOfBlocks = false;
+        propertyController.numberOfStories = false;
+        propertyController.partitionDate = false;
+        propertyController.pattu = false;
+        propertyController.planDate = false;
+        propertyController.planNo = true;
+        propertyController.regPlanNo = false;
+        propertyController.statementOfClaimNo = false;
+        propertyController.street = false;
+        propertyController.survaryAndPartitionDate = false;
+        propertyController.titlePlanNo = true;
+        propertyController.toggle = false;
+        propertyController.village = true;
+        propertyController.propertyDetails = false;
+        propertyController.nameOfCharitable = false;
+        propertyController.grantNo = true;
+        propertyController.dateOfGrant = true;
+    }
+
+    if (documentTypeId == DocumentType.MOVABLE) {
+        propertyController.allotmentNo = false;
+        propertyController.assesmentNo = false;
+        propertyController.insertedPerson = false;
+        propertyController.korale = false;
+        propertyController.landId = false;
+        propertyController.landName = false;
+        propertyController.lotNo = false;
+        propertyController.nameOfScheme = false;
+        propertyController.nameOfServayor = false;
+        propertyController.numberOfBasements = false;
+        propertyController.numberOfBlocks = false;
+        propertyController.numberOfStories = false;
+        propertyController.partitionDate = false;
+        propertyController.pattu = false;
+        propertyController.planDate = false;
+        propertyController.planNo = false;
+        propertyController.regPlanNo = false;
+        propertyController.statementOfClaimNo = false;
+        propertyController.street = false;
+        propertyController.survaryAndPartitionDate = false;
+        propertyController.titlePlanNo = false;
+        propertyController.toggle = false;
+        propertyController.village = false;
+        propertyController.propertyDetails = true;
+        propertyController.nameOfCharitable = false;
+        propertyController.grantNo = false;
+        propertyController.dateOfGrant = false;
+    }
+
+    if (documentTypeId == DocumentType.NORMAL_TRUST) {
+        propertyController.allotmentNo = false;
+        propertyController.assesmentNo = false;
+        propertyController.insertedPerson = false;
+        propertyController.korale = false;
+        propertyController.landId = false;
+        propertyController.landName = false;
+        propertyController.lotNo = false;
+        propertyController.nameOfScheme = false;
+        propertyController.nameOfServayor = false;
+        propertyController.numberOfBasements = false;
+        propertyController.numberOfBlocks = false;
+        propertyController.numberOfStories = false;
+        propertyController.partitionDate = false;
+        propertyController.pattu = false;
+        propertyController.planDate = false;
+        propertyController.planNo = false;
+        propertyController.regPlanNo = false;
+        propertyController.statementOfClaimNo = false;
+        propertyController.street = false;
+        propertyController.survaryAndPartitionDate = false;
+        propertyController.titlePlanNo = false;
+        propertyController.toggle = false;
+        propertyController.village = false;
+        propertyController.propertyDetails = true;
+        propertyController.nameOfCharitable = true;
+        propertyController.grantNo = false;
+        propertyController.dateOfGrant = false;
+    }
+
+    if (documentTypeId == DocumentType.SPECIAL_CONDOMINIUM_DEEDS) {
+        propertyController.allotmentNo = false;
+        propertyController.assesmentNo = true;
+        propertyController.insertedPerson = false;
+        propertyController.korale = false;
+        propertyController.landId = false;
+        propertyController.landName = true;
+        propertyController.lotNo = true;
+        propertyController.nameOfScheme = true;
+        propertyController.nameOfServayor = true;
+        propertyController.numberOfBasements = true;
+        propertyController.numberOfBlocks = true;
+        propertyController.numberOfStories = true;
+        propertyController.partitionDate = false;
+        propertyController.pattu = false;
+        propertyController.planDate = false;
+        propertyController.planNo = false;
+        propertyController.regPlanNo = false;
+        propertyController.statementOfClaimNo = false;
+        propertyController.street = true;
+        propertyController.survaryAndPartitionDate = false;
+        propertyController.titlePlanNo = false;
+        propertyController.toggle = false;
+        propertyController.village = true;
+        propertyController.propertyDetails = false;
+        propertyController.nameOfCharitable = false;
+        propertyController.grantNo = false;
+        propertyController.dateOfGrant = false;
+        propertyController.surveyPlanNo = true;
+        propertyController.surveyPlanDate = true;
+        propertyController.nameOfArchitect = true;
+    }
+
+    if (documentTypeId == DocumentType.SPECIAL_DIVISION_DEEDS) {
+        propertyController.allotmentNo = true;
+        propertyController.assesmentNo = false;
+        propertyController.insertedPerson = true;
+        propertyController.korale = false;
+        propertyController.landId = false;
+        propertyController.landName = true;
+        propertyController.lotNo = false;
+        propertyController.nameOfScheme = false;
+        propertyController.nameOfServayor = false;
+        propertyController.numberOfBasements = false;
+        propertyController.numberOfBlocks = false;
+        propertyController.numberOfStories = false;
+        propertyController.partitionDate = true;
+        propertyController.pattu = false;
+        propertyController.planDate = true;
+        propertyController.planNo = true;
+        propertyController.regPlanNo = true;
+        propertyController.statementOfClaimNo = true;
+        propertyController.street = true;
+        propertyController.survaryAndPartitionDate = true;
+        propertyController.titlePlanNo = false;
+        propertyController.toggle = false;
+        propertyController.village = false;
+        propertyController.propertyDetails = false;
+        propertyController.nameOfCharitable = false;
+        propertyController.grantNo = false;
+        propertyController.dateOfGrant = false;
+    }
+
+    return propertyController;
+}
+
+  getProvinces(): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'location/provinces');
+  }
+
+  getDistricts(provinceId: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'location/districts/byProvince/' + provinceId);
+  }
+
+  getLandRegistries(districtId: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'location/landRegistries/byDistrict/' + districtId);
+  }
+
+  getGramaniladhariDivision(dsDivisionId: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'location/gnDivisions/byDsDivision/' + dsDivisionId);
+  }
+
+  getGNDivisionByLRDivision(lrDivisionId: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'gnDivision/byLandRegistryDivision/' + lrDivisionId);
+  }
+
+  getGNDivision(id: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'gnDivision/' + id);
+  }
+
+  getDivisionalSecretaries(districtId: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'location/dsDivisions/byDistrict/' + districtId);
+  }
+
+  getLocalAuthorities(dsDivisionId: string): Observable<object> {
+    return this.httpClient.get(this.BASE_URL + 'location/provincialCouncil/byDsDivision/' + dsDivisionId);
+  }
+
+
+  getDivisions(landRegistryId: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'landRegistryDivision/byLandRegistry/' + landRegistryId);
+  }
+
+  getDivisionsByFolioType(landRegistryId: number, folioType: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'landRegistryDivision/byFolioType/' + landRegistryId + '/' + folioType);
+  }
+
+  getDivision(divisionId: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'landRegistryDivision/' + divisionId);
+  }
+
+  getPaththus(koraleId: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'location/paththuwa/byKorale/' + koraleId);
+  }
+
+  getVillages(gnDivision: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'village/gnDivision/' + gnDivision);
+  }
+
+  getKorales(): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'location/korale');
   }
 }

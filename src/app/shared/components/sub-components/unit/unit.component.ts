@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UnitDto } from 'src/app/shared/dto/unit-dto.model';
+import { UiController } from 'src/app/shared/custom-model/ui-controller.model';
 
 @Component({
   selector: 'app-unit',
@@ -6,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./unit.component.css']
 })
 export class UnitComponent implements OnInit {
+
+  @Input()
+  unitDto: UnitDto;
+
+  @Input()
+  uiController: UiController;
 
   constructor() { }
 

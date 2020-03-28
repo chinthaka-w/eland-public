@@ -40,6 +40,12 @@ import {ChangeNameService} from "./shared/service/change-name.service";
 import {NotaryLeaveRequestService} from "./shared/service/notary-leave-request.service";
 import {NotaryResignationService} from "./shared/service/notary-resignation.service";
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -64,9 +70,14 @@ import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
     PublicPortalModule,
     HttpModule,
     HttpClientModule,
-    ImageViewerModule
-
-
+    ImageViewerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [MatDatepickerModule,
     HttpClient,

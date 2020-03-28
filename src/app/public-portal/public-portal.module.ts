@@ -159,7 +159,8 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
     SatDatepickerModule,
     SatNativeDateModule,
     ImageViewerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatInputModule
   ],
   exports: [
     LoginComponent,

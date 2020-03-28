@@ -1,1 +1,232 @@
-<p>folio-header works!</p>
+<div class="pg-inner-row">
+  <div *ngIf="folioController.lrDivision" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="lr-div">{{'LAND_REGISTRY_DIVISIONS.L/R_DIVISION'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <select matNativeControl id="lr-div" class="form-control" [(ngModel)]="folioDto.folioLrDivision"
+            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly || !folioDto">
+            <option *ngIf="!landRegistryDivisions" value="undefined">Loading...</option>
+            <option value="undefined">{{'LAND_REGISTRY_DIVISIONS.SELECT_L/R_DIVISION'|translate}}</option>
+            <option *ngFor="let landReg of landRegistryDivisions" [value]="landReg.landRegistryDivisionId">
+              {{landReg.divisionCode}} -
+              {{landReg.description|listTranslate:landReg.descriptionSin:landReg.descriptionTam}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.volume" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="volume">{{'COMMON.VOLUME'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <input matInput inputNumberOnly inputMaxLength="10" id="volume" type="text" min="0" [attr.maxlength]="10"
+            class="form-control" [(ngModel)]="folioDto.folioVolume" [ngModelOptions]="{standalone: true}"
+            [disabled]="uiController.isReadOnly || !folioDto">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.number" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="folio-no">{{'FOLIO_TYPE.FOLIO_NUM'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <input matInput inputNumberOnly inputMaxLength="10" id="folio-no" type="text" min="0"
+            class="form-control col-md-12" [(ngModel)]="folioDto.folioNo" [ngModelOptions]="{standalone: true}"
+            [disabled]="uiController.isReadOnly || !folioDto">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="pg-inner-row">
+  <div class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="lr-div">{{'LAND_REGISTRY_DIVISIONS.L/R_DIVISION'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<hr
+  *ngIf="folioController.province || folioController.district || folioController.landRegistry || folioController.provincialCouncil || folioController.dsDivision || folioController.gnDivision" />
+
+<div class="pg-inner-row">
+  <div *ngIf="folioController.province" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="province">{{'PROVINCE.NAME'|translate}}</label>
+      <mat-spinner *ngIf="!provinces" diameter="20"></mat-spinner>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <select matNativeControl id="province" class="form-control" [(ngModel)]="folioDto.folioProvince"
+            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+            <option value="undefined" disabled>{{'PROVINCE.SELECT_PROVINCE'|translate}}</option>
+            <option *ngFor="let province of provinces" [value]="province.code">
+              {{province.description|listTranslate:province.descriptionSin:province.descriptionTam}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.district" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="district">{{'DISTRICTS.NAME'|translate}}</label>
+      <mat-spinner *ngIf="!districts" diameter="20"></mat-spinner>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <select matNativeControl id="district" class="form-control" [(ngModel)]="folioDto.folioDistrict"
+            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+            <option value="undefined" disabled>{{'DISTRICTS.SELECT'|translate}}
+            </option>
+            <option *ngFor="let district of districts" [value]="district.code">
+              {{district?.description|listTranslate:district?.descriptionSin:district?.descriptionTam}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.landRegistry" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="land-reg">{{'LAND_REGISTRY.NAME'|translate}}</label>
+      <mat-spinner *ngIf="!landRegistries" diameter="20"></mat-spinner>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <select matNativeControl id="land-reg" class="form-control" [(ngModel)]="folioDto.folioLandRegistry"
+            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+            <option value="undefined" disabled>{{'LAND_REGISTRY.SELECT'|translate}}</option>
+            <option *ngFor="let landReg of landRegistries" [value]="landReg.code">
+              {{landReg?.description|listTranslate:landReg?.descriptionSin:landReg?.descriptionTam}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pg-inner-row">
+  <div *ngIf="folioController.dsDivision" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="ds-dev">{{'DS_DIVISION.NAME'|translate}}</label>
+      <mat-spinner *ngIf="!divisionalSecretaries && folioDto.folioDistrict" diameter="20"></mat-spinner>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <select matNativeControl id="ds-dev" class="form-control" [(ngModel)]="folioDto.folioDsDivision"
+            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+            <option value="undefined" disabled>{{'DS_DIVISION.SELECT'|translate}}</option>
+            <option *ngFor="let divisionalSecretary of divisionalSecretaries" [value]="divisionalSecretary.code">
+              {{divisionalSecretary?.description|listTranslate:divisionalSecretary?.descriptionSin:divisionalSecretary?.descriptionTam}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.gnDivision" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="gn-dev">{{'GN_DIVISION.NAME'|translate}}</label>
+      <mat-spinner *ngIf="!gramaniladhariDivisions && folioDto.folioDsDivision" diameter="20"></mat-spinner>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <select matNativeControl id="gn-dev" class="form-control" [(ngModel)]="folioDto.folioGnDivision"
+            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+            <option value="undefined" disabled>{{'GN_DIVISION.SELECT_G/N_DIVISION'|translate}}</option>
+            <option *ngFor="let gnDivision of gramaniladhariDivisions" [value]="gnDivision.code">
+              {{gnDivision.description|listTranslate:gnDivision.descriptionSin:gnDivision.descriptionTam}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.provincialCouncil" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="local-auth">{{'PROVINCIAL_COUNCIL.NAME'|translate}}</label>
+      <mat-spinner *ngIf="!localAuthorities && folioDto.folioDsDivision" diameter="20"></mat-spinner>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <select matNativeControl id="local-auth" class="form-control" [(ngModel)]="folioDto.folioProvincialCouncil"
+            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+            <option value="undefined" disabled>{{'PROVINCIAL_COUNCIL.SELECT_PROVINCIAL_COUNCIL'|translate}}
+            </option>
+            <option *ngFor="let provincialCouncil of localAuthorities" [value]="provincialCouncil.code">
+              {{provincialCouncil?.description|listTranslate:provincialCouncil?.descriptionSin:provincialCouncil?.descriptionTam}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr *ngIf="folioController.trustName || folioController.trustAddress || folioController.trustPurpose" />
+<div class="pg-inner-row">
+  <div *ngIf="folioController.trustName" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="trust-name">{{'TRUST.NAME'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+      <input matNativeControl id="trust-name" type="text" class="form-control" [(ngModel)]="folioDto.name"
+        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.trustAddress" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="trust-address">{{'TRUST.TRUST_ADDRESS'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+      <input matNativeControl id="trust-address" class="form-control" [(ngModel)]="folioDto.address"
+        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.trustPurpose" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="trust-purpose">{{'TRUST.TRUST_PURPOSE'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+      <input matNativeControl id="trust-purpose" class="form-control" [(ngModel)]="folioDto.purpose"
+        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<hr *ngIf="folioController.wardName || folioController.wardNo" />
+<div class="pg-inner-row">
+  <div *ngIf="folioController.wardName" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="ward-name">{{'OTHER.WARD_NAME'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+      <input matNativeControl inputMaxLength="255" id="ward-name" type="text" class="form-control" [(ngModel)]="folioDto.wardName"
+        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="folioController.wardNo" class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+      <label for="ward-no">{{'OTHER.WARD_NO'|translate}}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+      <input matNativeControl inputMaxLength="255" id="ward-no" class="form-control" [(ngModel)]="folioDto.wardNumber"
+        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

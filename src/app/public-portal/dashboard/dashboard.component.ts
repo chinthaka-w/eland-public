@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { FolioViewComponent } from 'src/app/shared/components/folio-view/folio-view.component';
 import { FolioService } from 'src/app/shared/service/folio.service';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
+import { FolioDto } from 'src/app/shared/dto/folio-dto.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -66,8 +67,8 @@ export class DashboardComponent implements OnInit {
 
     this.folioPending = true;
 
-    this.folioService.getExpressTrustFolio(btoa('3/Y/1/2')).subscribe(
-      (folio) =>{
+    this.folioService.getExpressTrustFolio(btoa('3/Y/1/3')).subscribe(
+      (folio: FolioDto) =>{
         this.folioPending = false;
         this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data:folio});
       },

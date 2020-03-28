@@ -57,6 +57,8 @@ import { PropertyComponent } from './components/sub-components/property/property
 import { RemarkComponent } from './components/sub-components/remark/remark.component';
 import { UnitComponent } from './components/sub-components/unit/unit.component';
 import { TransactionViewComponent } from './components/transaction-view/transaction-view.component';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { ListTranslatePipe } from './pipe/list-translate.pipe';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import { TransactionViewComponent } from './components/transaction-view/transact
     RemarkComponent,
     UnitComponent,
     TransactionViewComponent,
-    FileUploadPopupComponent
+    FileUploadPopupComponent,
+    ListTranslatePipe
   ],
   imports: [
     CommonModule,
@@ -124,7 +127,8 @@ import { TransactionViewComponent } from './components/transaction-view/transact
     ImageViewerModule,
     MatProgressSpinnerModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    TranslateModule
   ],
   exports: [
     ContentComponent,
@@ -147,10 +151,11 @@ import { TransactionViewComponent } from './components/transaction-view/transact
     FileUploadInputComponent,
     LastRemarkComponent,
     PaymentHistoryComponent,
-    RemarkHistoryComponent
+    RemarkHistoryComponent,
+    TranslatePipe
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
   ],
   entryComponents: [
     FolioViewComponent,
