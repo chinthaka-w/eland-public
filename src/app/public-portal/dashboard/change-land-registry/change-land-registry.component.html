@@ -1,0 +1,100 @@
+<div class="page-header-default" *ngIf="!isContinueToPayment">
+  <h2>APPLICATION FOR CHANGING THE LAND REGISTRY </h2>
+  <p>Please fill in the following information to<br />register in the system</p>
+  <a href="#" (click)="goBack()" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
+</div>
+<div class="page-content-wrapper" *ngIf="!(isContinue)">
+  <div class="page-content-inner-wrapper">
+
+    <div class="pg-inner-row mb-20">
+      <h5 class="mb-20"><i class="material-icons">description</i>
+        APPLICATION FOR CHANGING THE LAND REGISTRY
+      </h5>
+      <div class="separator">&nbsp;</div>
+    </div>
+    <form [formGroup]="landRegistryChangeForm" class="form pb-5">
+
+
+
+      <label>Please give the following details regarding changing the land registry </label>
+      <div>&nbsp;</div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col label">
+          <label>Land Registry:</label></div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select name="landRegistry" formControlName="landRegistry" [value]="0" matNativeControl class="form-control">
+                  <option *ngFor="let reg of landRegistrySelect" [value]="reg.landRegistryId">{{ reg.name }}
+                  </option>
+                </select>
+              </mat-form-field>
+              <!--<div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"-->
+                   <!--class="invalid-feedback">-->
+                <!--<mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Field is required</mat-error>-->
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>Reason for change:</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline" >
+            <textarea matInput rows="5" formControlName="reason" required="true">
+
+            </textarea>
+            <div *ngIf="reason.touched && reason.invalid">
+              <mat-error *ngIf="reason.errors.required">
+                Reason for change is Required
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+
+      <div class="separator">&nbsp;</div>
+
+      <div class="pg-inner-row mb-20 upload-col-3">
+        <ng-container *ngFor="let document of docList">
+          <div class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+              <label>{{document.description}}
+                <span *ngIf="document.required == true">*</span>
+              </label>
+              <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+
+      <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
+        <button  mat-raised-button class="lg-button" (click)="continue()">
+          Continue
+        </button>
+      </div>
+
+
+    </form>
+  </div>
+</div>
+
+<div class="page-content-wrapper" *ngIf="isContinue">
+  <div class="page-content-inner-wrapper">
+    <app-payment (response)="onPaymentResponse($event)"
+                 (paymentMethodResponse) = paymentMethodResponse($event)
+                 [statusOnlinePayment] = "statusOnlinePayment"
+                 [returnUrl]="returnURl"
+                 (back)="onBack($event)"
+                 [applicationFeeCode]="Parameters.LANDREG_CHG_REQ_FEE"
+                 [isDocumentCollect]="true"
+                 [workflowCode]="WorkflowCode.LANDREGISTRY_CHANGE_REQUEST_INITIATED"></app-payment>
+  </div>
+</div>
