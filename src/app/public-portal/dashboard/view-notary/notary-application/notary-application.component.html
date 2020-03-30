@@ -35,9 +35,9 @@
         <label>Language:</label>
         <div class="default-input-feild">
           <mat-radio-group class="example-section" class="form-control" formControlName="languages">
-            <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
-            <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
-            <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
+            <mat-radio-button [value]="languages.SINHALA">Sinhala</mat-radio-button>
+            <mat-radio-button [value]="languages.ENGLISH">English</mat-radio-button>
+            <mat-radio-button class="example-margin" [value]="languages.TAMIL">Tamil</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
@@ -224,7 +224,6 @@
   </div>
 
   <div class="separator">&nbsp;</div>
-
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
@@ -234,7 +233,8 @@
             <select matNativeControl required formControlName="courtZone" class="form-control">
               <option value="">Select</option>
               <option *ngFor="let judicialZone of judicialZones"
-                      [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}</option>
+                      [value]="judicialZone.highCourtZoneId">{{ judicialZone.nameEng }}
+              </option>
             </select>
           </mat-form-field>
           <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
@@ -253,7 +253,8 @@
             <select matNativeControl required formControlName="landRegistry" class="form-control">
               <option value="">Select</option>
               <option *ngFor="let landRegistries of landRegistry"
-                      [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}</option>
+                      [value]="landRegistries.landRegistryId">{{landRegistries.nameEng}}
+              </option>
             </select>
           </mat-form-field>
           <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
@@ -280,7 +281,8 @@
               <mat-option
                 *ngFor="let dsDivisions of dsDivision"
                 [value]="dsDivisions.dsDivisionId"
-              >{{ dsDivisions.description }}</mat-option
+              >{{ dsDivisions.description }}
+              </mat-option
               >
             </mat-select>
           </div>
@@ -298,7 +300,8 @@
               <ng-container *ngFor="let gnDivisions of gnDivision">
                 <mat-option
                   [value]="gnDivisions.gnDivisionId"
-                >{{ gnDivisions.description }}</mat-option
+                >{{ gnDivisions.description }}
+                </mat-option
                 >
               </ng-container>
             </mat-select>
@@ -311,7 +314,7 @@
         </button>
       </div>
     </div>
-    <button class="ml-3 mb-30 add-row" mat-flat-button color="accent" (click)="addLocation()">
+    <button class="ml-3 mb-30 add-row" mat-flat-button color="accent" (click)="addLocation()" *ngIf="isEditable">
       Add <i class="material-icons">add_circle_outline</i>
     </button>
   </div>
@@ -353,28 +356,28 @@
   </div>
 
   <div class="default-input-wrapper full-row mb-30">
-    <label>The medium you have passed the subject of convayancing:</label>
+    <label>The medium you have passed the subject of conveyancing:</label>
     <div class="form-check">
-      <mat-radio-group  class="form-control" formControlName="medium" >
-        <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
-        <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
-        <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
+      <mat-radio-group class="form-control" formControlName="medium">
+        <mat-radio-button [value]="languages.SINHALA">Sinhala</mat-radio-button>
+        <mat-radio-button [value]="languages.ENGLISH">English</mat-radio-button>
+        <mat-radio-button class="example-margin" [value]="languages.TAMIL">Tamil</mat-radio-button>
       </mat-radio-group>
     </div>
   </div>
-<!--  <div class="default-input-wrapper full-row">-->
-<!--    <ng-container *ngFor="let document of docList">-->
-<!--      <div class="pg-inner-col-3">-->
-<!--        <div class="default-input-wrapper full-row">-->
-<!--          <label>{{document.description}}-->
-<!--            <span *ngIf="document.required == true">*</span>-->
-<!--          </label>-->
-<!--          &lt;!&ndash;              <file-upload-input (response)="setFiles($event)"></file-upload-input>&ndash;&gt;-->
-<!--          <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </ng-container>-->
-<!--  </div>-->
+  <!--  <div class="default-input-wrapper full-row">-->
+  <!--    <ng-container *ngFor="let document of docList">-->
+  <!--      <div class="pg-inner-col-3">-->
+  <!--        <div class="default-input-wrapper full-row">-->
+  <!--          <label>{{document.description}}-->
+  <!--            <span *ngIf="document.required == true">*</span>-->
+  <!--          </label>-->
+  <!--          &lt;!&ndash;              <file-upload-input (response)="setFiles($event)"></file-upload-input>&ndash;&gt;-->
+  <!--          <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </ng-container>-->
+  <!--  </div>-->
 
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
@@ -396,7 +399,7 @@
         <img src="assets/images/captcha.jpg"/>
       </div>
     </div>
-    <div class="pg-inner-col right">
+    <div class="pg-inner-col right" *ngIf="isEditable">
       <button mat-raised-button class="lg-button" type="button" (click)="onFormSubmit()">Continue</button>
     </div>
   </div>

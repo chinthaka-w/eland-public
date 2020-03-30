@@ -9,7 +9,7 @@
     </div>
   </div>
 </div>
-<div  class="row">
+<div class="row">
   <mat-card *ngFor="let doc of supportingDocuments; let i = index">
     <div class="pg-inner-row mb-20">
       <h4>{{doc.name}}</h4>
@@ -30,7 +30,7 @@
     </div>
   </mat-card>
 </div>
-<div class="pg-inner-col right">
+<div *ngIf="docList.length!=0" class="pg-inner-col right">
   <button mat-raised-button class="lg-button" type="button" (click)="onFormSubmit($event)">Continue</button>
 </div>
 

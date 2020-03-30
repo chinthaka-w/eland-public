@@ -65,6 +65,7 @@ export class ViewNotaryComponent implements OnInit {
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent,event): void {
     this.selectedIndex = tabChangeEvent.index;
+    this.disabled = false;
     if( event.tab.textLabel === NotaryViewTabs.APPLICATION ){
       this.disabledPayment = true;
       this.disabledRemark = true;
