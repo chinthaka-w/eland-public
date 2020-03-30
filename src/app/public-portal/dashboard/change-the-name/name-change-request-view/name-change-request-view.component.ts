@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import {WorkflowStages} from "../../../../shared/enum/workflow-stages.enum";
-import {ActivatedRoute} from "@angular/router";
-import {DocumentResponseDto} from "../../../../shared/dto/document-response.dto";
-import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
-import {NotaryService} from "../../../../shared/service/notary-service";
-import {SessionService} from "../../../../shared/service/session.service";
-import {Notary} from "../../../../shared/dto/notary.model";
-import {NotaryNameChangeModel} from "../../../../shared/dto/notary-name-change.model";
-import {MatTabChangeEvent} from "@angular/material/tabs";
-import {SupportDocResponseModel} from "../../../../shared/dto/support-doc-response.model";
-import {SnackBarService} from "../../../../shared/service/snack-bar.service";
-import {ChangeNameService} from "../../../../shared/service/change-name.service";
+import {Component, OnInit} from '@angular/core';
+import {WorkflowStages} from '../../../../shared/enum/workflow-stages.enum';
+import {ActivatedRoute} from '@angular/router';
+import {DocumentResponseDto} from '../../../../shared/dto/document-response.dto';
+import {RequestSearchDetailDTO} from '../../../../shared/dto/request-search.dto';
+import {NotaryService} from '../../../../shared/service/notary-service';
+import {SessionService} from '../../../../shared/service/session.service';
+import {Notary} from '../../../../shared/dto/notary.model';
+import {NotaryNameChangeModel} from '../../../../shared/dto/notary-name-change.model';
+import {MatTabChangeEvent} from '@angular/material/tabs';
+import {SupportDocResponseModel} from '../../../../shared/dto/support-doc-response.model';
+import {SnackBarService} from '../../../../shared/service/snack-bar.service';
+import {ChangeNameService} from '../../../../shared/service/change-name.service';
+import {NameChangeWorkflowStagesEnum} from '../../../../shared/enum/name-change-workflow-stages.enum';
 
 @Component({
   selector: 'app-name-change-request-view',
@@ -34,6 +35,8 @@ export class NameChangeRequestViewComponent implements OnInit {
   public isApplicationValid: boolean = true;
   public docTypeId: number;
   public docId: number;
+  workflowStageCode;
+  editable: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private newNotaryService: NotaryService,
@@ -43,9 +46,13 @@ export class NameChangeRequestViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.workflow  = atob(params['workflow']);
       this.requestId  = atob(params['id']);
+      this.workflowStageCode = atob(params['workflowStage']);
       this.id = +this.requestId;
     });
 
+    if (this.workflowStageCode === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_DATA_VERIFICATION_CLERK_REJECTED) {
+      this.editable = true;
+    }
   }
 
 

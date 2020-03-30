@@ -26,6 +26,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {NewNotaryRequestsCategorySearchDto} from "../../../../../shared/dto/new-notary-requests-category-search.dto";
 import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
 import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
+import {ActivatedRoute} from '@angular/router';
+import {NameTitleEnum} from '../../../../../shared/enum/name-title.enum';
 
 @Component({
   selector: 'app-name-change-request-data',
@@ -46,7 +48,7 @@ export class NameChangeRequestDataComponent implements OnInit {
   @Output() nameChangeDetail = new EventEmitter<NotaryNameChangeModel>();
   @Input() requestDetailId: RequestSearchDetailDTO;
   @Input() workflow: string;
-  @Input() id: number;
+  @Input() id;
   @Input()
   files: File[] = [];
 
@@ -68,6 +70,8 @@ export class NameChangeRequestDataComponent implements OnInit {
   paymentId: number;
   public notaryId: number;
   public workflowStageCode: string;
+  public editable = false;
+  nameTitle = NameTitleEnum;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -79,7 +83,9 @@ export class NameChangeRequestDataComponent implements OnInit {
               private snackBar: SnackBarService,
               private location: Location,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private route: ActivatedRoute) {
+
   }
 
   ngOnInit() {
@@ -107,6 +113,11 @@ export class NameChangeRequestDataComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
     });
+    this.route.params.subscribe(params =>{
+      this.id = atob(params['id']);
+      this.workflow = atob(params['workflow']);
+      this.workflowStageCode = atob(params['workflowStage']);
+    });
     this.getNameChangeDetails(this.id);
     this.getDocumentList();
     this.getJudicialZones();
@@ -114,6 +125,9 @@ export class NameChangeRequestDataComponent implements OnInit {
     this.getDsDivisions();
     this.getGnDivisions();
     this.getPaymentDetails();
+    if (this.workflowStageCode === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_DATA_VERIFICATION_CLERK_REJECTED) {
+      this.editable = true;
+    }
   }
 
   getPaymentDetails() {
@@ -136,6 +150,7 @@ export class NameChangeRequestDataComponent implements OnInit {
         this.workflowStageCode = data.workflowStageCode;
         this.notaryForm.patchValue(
           {
+            title: this.nameChangeModel.title,
             newFullNameInEnglish: this.nameChangeModel.newFullNameEng,
             newFullNameInSinhala: this.nameChangeModel.newFullNameSin,
             newFullNameInTamil: this.nameChangeModel.newFullNameTam,
@@ -145,6 +160,7 @@ export class NameChangeRequestDataComponent implements OnInit {
           }
         );
         this.dsGnDivisions = this.nameChangeModel.newNotaryDsDivisionDTO;
+        if (!this.editable) { this.notaryForm.disable(); }
       }
     );
   }

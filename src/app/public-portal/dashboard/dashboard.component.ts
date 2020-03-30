@@ -5,6 +5,7 @@ import { UserType } from 'src/app/shared/enum/user-type.enum';
 import {NotaryService} from "../../shared/service/notary-service";
 import {RequestSearchDetailDTO} from "../../shared/dto/request-search.dto";
 import {CommonStatus} from "../../shared/enum/common-status.enum";
+import {WorkflowStages} from '../../shared/enum/workflow-stages.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,9 +20,9 @@ export class DashboardComponent implements OnInit {
   public dashboardView: boolean = false;
   public requestView: boolean = false;
   public notaryId: number;
+  public notaryNameChangeWorkFlow;
 
   commonStatus = CommonStatus;
-
   constructor(
     private sessionService: SessionService,
     private notaryService: NotaryService,
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
     this.user = this.sessionService.getUser();
     this.getUserDetails();
     this.notaryId = this.user.id;
+    this.notaryNameChangeWorkFlow = WorkflowStages.NOTARY_NAME_CHANGE;
   }
 
   getBase64(value: string): string {

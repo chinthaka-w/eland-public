@@ -40,6 +40,7 @@ import {ChangeNameService} from "./shared/service/change-name.service";
 import {NotaryLeaveRequestService} from "./shared/service/notary-leave-request.service";
 import {NotaryResignationService} from "./shared/service/notary-resignation.service";
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import {NotaryRequestService} from './shared/service/notary-request.service';
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -87,6 +88,7 @@ import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
     NewNotaryDataVarificationService,
     RequestForCorrectionService,
     ChangeNameService,
+    NotaryRequestService,
     {provide : LocationStrategy , useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })

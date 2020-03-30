@@ -124,6 +124,11 @@ export class NotaryApplicationComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
     });
 
+    this.route.params.subscribe(params =>{
+      this.requestDetailId.requestId = +atob(params['id']);
+      this.requestDetailId.workflow = atob(params['workflow']);
+      // this.workflowStageCode = atob(params['workflowStage']);
+    });
 
     this.getJudicialZones();
     this.getApplicationDetails();

@@ -27,6 +27,7 @@ import {SearchDocumentViewComponent} from './dashboard/search-document/search-do
 import {ViewCitizenComponent} from "./dashboard/view-citizen/view-citizen.component";
 import {NameChangeRequestViewComponent} from "./dashboard/change-the-name/name-change-request-view/name-change-request-view.component";
 import { AuthGuard } from '../shared/auth/auth-guard';
+import {NotaryRequestViewComponent} from './dashboard/notary-request-view/notary-request-view.component';
 
 const routes: Routes = [
   {
@@ -127,12 +128,16 @@ const routes: Routes = [
     component: JudicialChangeRequestViewComponent
   },
   {
-    path: 'change-name-request-view/:workflow/:id',
+    path: 'change-name-request-view/:workflow/:workflowStage/:id',
     component: NameChangeRequestViewComponent
   },
   {
     path: 'request-for-correction',
     component: RequestForCorrectionComponent
+  },
+  {
+    path: 'notary-requests/:workflow',
+    component: NotaryRequestViewComponent
   }
 
 ];
