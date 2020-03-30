@@ -14,8 +14,7 @@ export class ListTranslatePipe implements PipeTransform, OnDestroy {
 
   constructor(private translateService: TranslateService) {
     this.onChangeLanguage();
-    // this.language = this.translateService.currentLang;
-    this.language = 'si';
+    this.language = this.translateService.currentLang;
     if (!this.language) this.language = this.translateService.defaultLang;
   }
 
