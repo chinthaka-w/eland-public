@@ -73,6 +73,8 @@ import { LangChangeApplicationComponent } from './dashboard/language-change/lang
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import { NameChangeRequestViewComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
 import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-data/name-change-request-data.component';
+import { ChangeLandRegistryComponent } from './dashboard/change-land-registry/change-land-registry.component';
+import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
 
 
 @NgModule({
@@ -126,7 +128,9 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
     LangChangeApplicationComponent,
     RequestForCorrectionComponent,
     NameChangeRequestViewComponent,
-    NameChangeRequestDataComponent
+    NameChangeRequestDataComponent,
+    ChangeLandRegistryComponent,
+    ChangeLandRegistryRequestViewComponent,
 ],
   imports: [
     CommonModule,
