@@ -76,6 +76,8 @@ import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name
 import { RequestForCorrectionViewComponent } from './request-for-correction/request-for-correction-view/request-for-correction-view.component';
 import { CorrectionApplicationComponent } from './request-for-correction/correction-application/correction-application.component';
 import { NewCorrectionRequestComponent } from './request-for-correction/new-correction-request/new-correction-request.component';
+import { ChangeLandRegistryComponent } from './dashboard/change-land-registry/change-land-registry.component';
+import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
 
 
 @NgModule({
@@ -132,7 +134,9 @@ import { NewCorrectionRequestComponent } from './request-for-correction/new-corr
     NameChangeRequestDataComponent,
     RequestForCorrectionViewComponent,
     CorrectionApplicationComponent,
-    NewCorrectionRequestComponent
+    NewCorrectionRequestComponent,
+    ChangeLandRegistryComponent,
+    ChangeLandRegistryRequestViewComponent,
 ],
   imports: [
     CommonModule,
