@@ -10,8 +10,7 @@
     <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event,$event)">
       <mat-tab label="Application">
         <app-last-remark
-          *ngIf="workflowStage === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_USER_MODIFIED ||
-          workflowStage === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED"
+          *ngIf="workflowStage === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED"
           [requestId]="notaryRequestId"
           [workflow]="Workflow.NOTARY_REGISTRATION"></app-last-remark>
         <app-notary-application *ngIf="requestId" [requestDetailId]="requestId"
@@ -22,7 +21,7 @@
                                    (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
       <mat-tab label="Payment Info">
-        <app-notary-payment-info *ngIf="requestId" [requestDetailPayment]="requestId"></app-notary-payment-info>
+        <app-notary-payment-info *ngIf="requestId" [requestDetailPayment]="requestId" [addPayment]="false"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="Remark">
         <app-notary-remark *ngIf="requestId" [requestRemarks]="requestId"></app-notary-remark>
@@ -30,6 +29,13 @@
 
     </mat-tab-group>
     <hr/>
-    <button [disabled]="!disabled" mat-raised-button class="lg-button" (click)="onFormSubmit()">Save Changes</button>
+    <button [disabled]="!disabled"
+            [hidden]="selectedIndex==2 || selectedIndex==3"
+            mat-raised-button class="button"
+            (click)="onFormSubmit()">
+      <mat-icon class="material-icons"
+                title="Save Changes">save</mat-icon>
+      Save Changes
+    </button>
   </div>
 </div>

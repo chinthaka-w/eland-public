@@ -1,18 +1,18 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Notary} from "../../../shared/dto/notary.model";
-import {NotaryService} from "../../../shared/service/notary-service";
-import {NotaryApplicationComponent} from "./notary-application/notary-application.component";
+import {Notary} from '../../../shared/dto/notary.model';
+import {NotaryService} from '../../../shared/service/notary-service';
+import {NotaryApplicationComponent} from './notary-application/notary-application.component';
 import {Workflow} from '../../../shared/enum/workflow.enum';
-import {DocumentResponseDto} from "../../../shared/dto/document-response.dto";
-import {SupportingDocDetailComponent} from "./supporting-doc-detail/supporting-doc-detail.component";
-import {LoginComponent} from "../../login/login.component";
-import {ActivatedRoute, Router} from "@angular/router";
-import {RequestSearchDetailDTO} from "../../../shared/dto/request-search.dto";
-import {PaymentResponse} from "../../../shared/dto/payment-response.model";
-import {SnackBarService} from "../../../shared/service/snack-bar.service";
-import {SupportDocResponseModel} from "../../../shared/dto/support-doc-response.model";
-import {MatTabChangeEvent} from "@angular/material/tabs";
-import {NotaryViewTabs} from "../../../shared/enum/notary-view-tabs.enum";
+import {DocumentResponseDto} from '../../../shared/dto/document-response.dto';
+import {SupportingDocDetailComponent} from './supporting-doc-detail/supporting-doc-detail.component';
+import {LoginComponent} from '../../login/login.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RequestSearchDetailDTO} from '../../../shared/dto/request-search.dto';
+import {PaymentResponse} from '../../../shared/dto/payment-response.model';
+import {SnackBarService} from '../../../shared/service/snack-bar.service';
+import {SupportDocResponseModel} from '../../../shared/dto/support-doc-response.model';
+import {MatTabChangeEvent} from '@angular/material/tabs';
+import {NotaryViewTabs} from '../../../shared/enum/notary-view-tabs.enum';
 import {NewNotaryRegistrationWorkflowStage} from '../../../shared/enum/new-notary-registration-workflow-stage.enum';
 
 @Component({
@@ -29,7 +29,7 @@ export class ViewNotaryComponent implements OnInit {
   @Input() workflowStage: any;
   @Output() onBack = new EventEmitter<boolean>();
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
-  @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
+  @ViewChild(SupportingDocDetailComponent, {static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = false;
   public disabledPayment: boolean = true;
   public disabledRemark: boolean = true;
@@ -56,39 +56,38 @@ export class ViewNotaryComponent implements OnInit {
     });
 
   }
+
   ngOnInit() {
     this.getRequestDetails();
   }
 
-  getRequestDetails(){
+  getRequestDetails() {
     this.newNotaryService.getNotaryRequestDetails(this.notaryId).subscribe(
-      (data: RequestSearchDetailDTO) =>{
+      (data: RequestSearchDetailDTO) => {
         this.requestId = data;
         this.workFlowStage = data.workflow;
       }
     )
   }
 
-  public tabChanged(tabChangeEvent: MatTabChangeEvent,event): void {
+  public tabChanged(tabChangeEvent: MatTabChangeEvent, event): void {
     this.selectedIndex = tabChangeEvent.index;
-    this.disabled = false;
-    if( event.tab.textLabel === NotaryViewTabs.APPLICATION ){
+    if (event.tab.textLabel === NotaryViewTabs.APPLICATION) {
       this.disabledPayment = true;
       this.disabledRemark = true;
       this.disabledDocuments = true;
     }
-    if((event.tab.textLabel === NotaryViewTabs.PAYMENT_INFO) && (!this.isApplicationValid)){
+    if ((event.tab.textLabel === NotaryViewTabs.PAYMENT_INFO) && (!this.isApplicationValid)) {
       this.disabledPayment = false;
       this.disabledRemark = false;
       this.disabledDocuments = false;
     }
-    if(event.tab.textLabel === NotaryViewTabs.REMARK){
+    if (event.tab.textLabel === NotaryViewTabs.REMARK) {
       this.disabledPayment = false;
       this.disabledRemark = false;
       this.disabledDocuments = false;
     }
-    if(event.tab.textLabel === NotaryViewTabs.SUPPORTING_DOCS){
-      this.disabled = true;
+    if (event.tab.textLabel === NotaryViewTabs.SUPPORTING_DOCS) {
       this.disabledPayment = false;
       this.disabledRemark = false;
       this.disabledDocuments = false;
@@ -96,28 +95,30 @@ export class ViewNotaryComponent implements OnInit {
   }
 
 
-  getSupportingDocs(data: DocumentResponseDto[]){
+  getSupportingDocs(data: DocumentResponseDto[]) {
     this.docsList = data;
+    this.disabled = true;
   }
 
-  getApplicationDetails(data: Notary){
+  getApplicationDetails(data: Notary) {
     this.isApplicationValid = false;
+    this.disabled = true;
     this.notary = data;
     this.selectedIndex += 1;
   }
 
-  onFormSubmit(){
+  onFormSubmit() {
     this.updateNotaryDetails(this.notary);
-    this.updateDocumentDetails(this.docsList);
+    if (this.docsList.length != 0) this.updateDocumentDetails(this.docsList);
   }
 
-  updateDocumentDetails(documents: DocumentResponseDto[]){
+  updateDocumentDetails(documents: DocumentResponseDto[]) {
     documents.forEach(value => {
       this.docTypeId = value.docTypeId;
       this.docId = value.docId;
 
       const formData = new FormData();
-      const supportDocResponse = new SupportDocResponseModel(this.docId,this.docTypeId,this.requestId.requestId);
+      const supportDocResponse = new SupportDocResponseModel(this.docId, this.docTypeId, this.requestId.requestId);
       formData.append('data', JSON.stringify(supportDocResponse));
       documents.forEach(doc => {
         formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
@@ -133,14 +134,15 @@ export class ViewNotaryComponent implements OnInit {
     });
   }
 
-  updateNotaryDetails(notaryDetails: Notary){
-      this.newNotaryService.updateNotaryDetails(notaryDetails).subscribe(
-        (success: string) => {
-          this.snackBar.success('Notary Registration Success');
-        },
-        error => {
-          this.snackBar.error('Failed');
-        }
-      );
-    }
+  updateNotaryDetails(notaryDetails: Notary) {
+    this.newNotaryService.updateNotaryDetails(notaryDetails).subscribe(
+      (success: string) => {
+        this.snackBar.success('Save Changes Success');
+        this.onBack.emit(true);
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
 }

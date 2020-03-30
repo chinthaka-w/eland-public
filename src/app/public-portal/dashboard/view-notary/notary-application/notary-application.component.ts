@@ -35,6 +35,7 @@ import {Observable} from 'rxjs';
 import {GnDivisionDTO} from '../../../../shared/dto/gn-division.dto';
 import {NameTitleEnum} from '../../../../shared/enum/name-title.enum';
 import {NewNotaryRegistrationWorkflowStage} from '../../../../shared/enum/new-notary-registration-workflow-stage.enum';
+import {CommonStatus} from '../../../../shared/enum/common-status.enum';
 
 @Component({
   selector: 'app-notary-application',
@@ -43,8 +44,7 @@ import {NewNotaryRegistrationWorkflowStage} from '../../../../shared/enum/new-no
 })
 export class NotaryApplicationComponent implements OnInit {
 
-  @Input()
-  files: File[] = [];
+  @Input() files: File[] = [];
   @Output() notaryDetail = new EventEmitter<Notary>();
   @Input() requestDetailId: RequestSearchDetailDTO;
 
@@ -70,21 +70,20 @@ export class NotaryApplicationComponent implements OnInit {
   newNotaryId: number;
   userName: string;
   newNotaryRegistrationRequestId: number;
-  notaryTitle: string = '';
   judicialZoneId: number;
   public date: Date;
   public requestID: number;
   public type: string;
   public data: any;
   public hasRemarks: boolean = false;
-  public notaryType: string;
-  public isUpdatePayment: boolean = false;
-  public Workflow: Workflow;
   public workFlowStageCode: string;
   public isEditable: boolean = false;
+  public isDataChanged: boolean = false;
 
+  public Workflow: Workflow;
   Languages = Languages;
-  NameTitle = NameTitleEnum
+  NameTitle = NameTitleEnum;
+  NotaryRegisterType = NotaryRegisterType;
 
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
@@ -105,7 +104,7 @@ export class NotaryApplicationComponent implements OnInit {
     // this.notaryViewDetails = this.newNotaryDataVarificationService.ViewNotaryDetails();
 
     this.notaryForm = this.formBuilder.group({
-      // notary: new FormControl(NotaryRegisterType.NOTARY, [Validators.required]),
+      notary: new FormControl(NotaryRegisterType.NOTARY, [Validators.required]),
       title: new FormControl('', [Validators.required]),
       fullNameInEnglish: new FormControl(null, [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
       fullNameInSinhala: new FormControl(null, [Validators.pattern(PatternValidation.nameValidation)]),
@@ -135,9 +134,7 @@ export class NotaryApplicationComponent implements OnInit {
       landRegistry: new FormControl('', [Validators.required]),
       secretariatDivision: new FormControl('', [Validators.required]),
       gramaNiladhariDivision: new FormControl('', [Validators.required]),
-      medium: new FormControl('', [Validators.required]),
-      // recaptcha: new FormControl(null, Validators.required),
-      // userName: new FormControl(''),
+      medium: new FormControl('', [Validators.required])
     });
 
     this.languages.valueChanges.subscribe(
@@ -211,11 +208,8 @@ export class NotaryApplicationComponent implements OnInit {
     );
 
     this.getJudicialZones();
-    // this.getPaymentDetails();
     this.getDsDivisions();
     this.getLandRegistries();
-    // this.getLatestRemark();
-    // this.getDocumentList();
     this.getApplicationDetails();
 
   }
@@ -301,6 +295,7 @@ export class NotaryApplicationComponent implements OnInit {
         this.result = result;
         this.notaryForm.patchValue(
           {
+            notary: this.result.notaryType == 'Notary' ? NotaryRegisterType.NOTARY : NotaryRegisterType.ATTORNEY_AT_LAW,
             title: this.result.nametitle.english,
             englishNameWithInitials: this.result.nameWithInitial.english,
             sinhalaNameWithInitials: this.result.nameWithInitial.sinhala,
@@ -333,22 +328,39 @@ export class NotaryApplicationComponent implements OnInit {
         this.dsGnList = this.result.newNotaryDsDivisionDTO;
         this.newNotaryId = this.result.newNotaryId;
         this.newNotaryRegistrationRequestId = this.result.newNotaryRegistrationRequestId;
-        this.notaryType = this.result.notaryType;
         this.workFlowStageCode = this.result.workflowStageCode;
         this.setWorkflowStage();
-        if (this.requestDetailId.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_USER_MODIFIED ||
-          this.requestDetailId.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED ||
+        if (this.requestDetailId.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED ||
           this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_MODIFIED ||
           this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_DATA_VERIFICATION_CLERK_REJECTED) {
           this.notaryForm.enable();
           this.isEditable = true;
-        } else if (this.requestDetailId.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED ||
-          this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED) {
+        } else
+          // if (this.requestDetailId.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED ||
+          // this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED)
+        {
           this.notaryForm.disable();
           this.isEditable = false;
         }
       },
       error1 => {
+      }, () => {
+
+        for (let item of this.dsGnList) {
+          let dsDivision = this.getLocalDSDivisionById(item.dsDivisionId);
+
+          this.dsDivision[this.dsDivision.indexOf(dsDivision)].selected = true;
+        }
+
+        let formVal = this.notaryForm.value;
+        this.notaryForm.valueChanges.subscribe(
+          (value) => {
+
+            this.isDataChanged = (JSON.stringify(value) !== JSON.stringify(formVal));
+
+          }
+        );
+
       }
     );
   }
@@ -429,6 +441,7 @@ export class NotaryApplicationComponent implements OnInit {
     this.secretariatDivision.markAsUntouched({onlySelf: true});
     this.gramaNiladhariDivision.patchValue('');
     this.gramaNiladhariDivision.markAsUntouched({onlySelf: false});
+    this.isDataChanged = true;
   }
 
   getLocalGNDivisionById(id: any): GnDivision {
@@ -461,18 +474,47 @@ export class NotaryApplicationComponent implements OnInit {
   }
 
   saveNotaryDetails(): void {
-    // if(this.notaryForm.valid){
-    this.notaryDetails = new Notary(this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId, null, this.notaryForm.value.nic, this.notaryForm.value.email,
-      this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo,
-      this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
-      this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
-      this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
-      this.notaryForm.value.englishNameWithInitials, this.notaryForm.value.sinhalaNameWithInitials, this.notaryForm.value.tamilNameWithInitials,
-      this.notaryForm.value.title, 'Miss', 'Ms',
-      this.judicialZoneId, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(),
-      this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_MODIFIED, this.notaryForm.value.userName, this.paymentId, null, null, null, null, null);
-    this.notaryDetail.emit(this.notaryDetails);
+    if (this.dsGnList.length != 0) {
+      this.secretariatDivision.clearValidators();
+      this.secretariatDivision.updateValueAndValidity();
+      this.gramaNiladhariDivision.clearValidators();
+      this.gramaNiladhariDivision.updateValueAndValidity();
+    }
+
+    if (this.notaryForm.invalid) {
+      Object.keys(this.notaryForm.controls).forEach(field => {
+        const control = this.notaryForm.get(field);
+        control.markAsTouched({onlySelf: true});
+      });
+    } else {
+
+      this.notaryDetails = new Notary(
+        this.newNotaryId, this.notaryForm.value.notary, this.newNotaryRegistrationRequestId,
+        null, this.notaryForm.value.nic, this.notaryForm.value.email,
+        this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo,
+        this.notaryForm.value.permenentAddressInEnglish,
+        this.notaryForm.value.currentAddressInEnglish,
+        this.notaryForm.value.permenentAddressInSinhala,
+        this.notaryForm.value.currentAddressInSinhala,
+        this.notaryForm.value.permenentAddressInTamil,
+        this.notaryForm.value.currentAddressInTamil,
+        this.notaryForm.value.fullNameInEnglish,
+        this.notaryForm.value.fullNameInSinhala,
+        this.notaryForm.value.fullNameInTamil,
+        this.notaryForm.value.englishNameWithInitials,
+        this.notaryForm.value.sinhalaNameWithInitials,
+        this.notaryForm.value.tamilNameWithInitials,
+        this.notaryForm.value.title, null, null,
+        this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList,
+        this.notaryForm.value.languages,
+        this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate,
+        this.notaryForm.value.medium, CommonStatus.ACTIVE, new Date(),
+        null, WorkflowStages.REGISTRATION_REQ_MODIFIED,
+        null, null, null, null,
+        null, null, null);
+      this.notaryDetail.emit(this.notaryDetails);
+      this.isDataChanged = false;
+    }
   }
 
   private getDsDivisions(): void {
@@ -514,6 +556,7 @@ export class NotaryApplicationComponent implements OnInit {
   onRemoveDSDivision(item: NewNotaryDsDivisionDTO, index: any) {
     this.dsDivision[this.dsDivision.indexOf(this.getLocalDSDivisionById(item.dsDivisionId))].selected = false;
     this.dsGnList.splice(index, 1);
+    this.isDataChanged = true;
   }
 
   getLatestRemark() {
