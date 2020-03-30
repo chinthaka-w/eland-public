@@ -4,10 +4,7 @@
     <div class="db-right-col">
       <h2>Welcome to E-Land</h2>
       <p>Welcome back please login to your acount</p>
-      <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
-        <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
-          <a href="#">Next </a>
-        </div>
+      <div class="db-card-full" *ngIf="user.type == userType.NOTARY && user.userStatus!= (commonStatus.ACTIVE)">
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Notary Code:</dt>
@@ -77,7 +74,7 @@
           </a>
         </div>
         <div class="db-link-tile c2" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/requests/'+getBase64('NTR_NAME_CHG')]">
+          <a [routerLink]="['/notary-requests/'+getBase64(Workflow.NOTARY_NAME_CHANGE)]">
             <span class="icon">
               <i class="material-icons">cached</i>
             </span>
@@ -106,14 +103,6 @@
               <i class="material-icons">date_range</i>
             </span>
             <span class="title">Request for leave</span>
-          </a>
-        </div>
-        <div class="db-link-tile" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/applications']">
-            <span class="icon">
-              <i class="material-icons">insert_drive_file</i>
-            </span>
-            <span class="title">Applications</span>
           </a>
         </div>
         <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
