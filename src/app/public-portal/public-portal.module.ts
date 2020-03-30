@@ -138,7 +138,7 @@ import { SearchDocumentResultComponent } from './dashboard/search-document/searc
     RequestForCorrectionComponent,
     NameChangeRequestViewComponent,
     NameChangeRequestDataComponent,
-    SearchDocumentResultComponent
+    SearchDocumentResultComponent,
     NameChangeRequestDataComponent,
     ChangeLandRegistryComponent,
     ChangeLandRegistryRequestViewComponent,
