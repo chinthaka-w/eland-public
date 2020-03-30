@@ -52,4 +52,9 @@ export class DashboardComponent implements OnInit {
     this.dashboardView = false;
     this.requestView = true;
   }
+
+  onBackNotaryView(val: boolean) {
+    this.dashboardView = true;
+    this.requestView = false;
+  }
 }

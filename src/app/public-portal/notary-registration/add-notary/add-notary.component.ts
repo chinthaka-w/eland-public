@@ -39,6 +39,7 @@ import {PublicUserDetails} from '../../../shared/dto/public-user-detail.model';
 import {PublicUserService} from '../../../shared/service/public-user.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {CommonStatus} from '../../../shared/enum/common-status.enum';
 
 @Component({
   selector: 'app-add-notary',
@@ -97,7 +98,6 @@ export class AddNotaryComponent implements OnInit {
   public gnDivi: GnDivisionDTO[] = [];
 
   isPayment: boolean = false;
-  isPaymentMethod: boolean = false;
 
   paymentMethod: number;
   returnURl: string;
@@ -136,7 +136,11 @@ export class AddNotaryComponent implements OnInit {
       englishNameWithInitials: new FormControl(null, [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
       sinhalaNameWithInitials: new FormControl(null, [Validators.pattern(PatternValidation.nameValidation)]),
       tamilNameWithInitials: new FormControl(null, [Validators.pattern(PatternValidation.nameValidation)]),
-      nic: new FormControl(null, [Validators.required, Validators.pattern(PatternValidation.nicValidation)]),
+      nic: new FormControl(null, {
+        validators: [Validators.required, Validators.pattern(PatternValidation.nicValidation)],
+        asyncValidators: [this.nicValidator()],
+        updateOn: 'blur'
+      }),
       email: new FormControl(null, [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
       languages: new FormControl(this.Languages.ENGLISH),
       enrolledDate: new FormControl(null, [Validators.required]),
@@ -233,7 +237,6 @@ export class AddNotaryComponent implements OnInit {
     );
 
 
-    this.getGnDivisions();
     this.getDsDivisions();
     this.getLandRegistries();
     this.getJudicialZones();
@@ -280,12 +283,32 @@ export class AddNotaryComponent implements OnInit {
     return this.notaryForm.get('currentAddressInTamil') as FormControl;
   }
 
+  get secretariatDivision(): FormControl {
+    return this.notaryForm.get('secretariatDivision') as FormControl;
+  }
+
+  get gramaNiladhariDivision(): FormControl {
+    return this.notaryForm.get('gramaNiladhariDivision') as FormControl;
+  }
+
   usernameValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.publicUserService.checkIfUsernameExists(control.value).pipe(
         map(res => {
           // if res is true, username exists, return true
           return res ? {usernameExists: true} : null;
+          // NB: Return null if there is no error
+        })
+      );
+    };
+  }
+
+  nicValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.notaryService.findIfNotaryExist(control.value).pipe(
+        map(res => {
+          // if res is true, username exists, return true
+          return res != null ? {nicExists: true} : null;
           // NB: Return null if there is no error
         })
       );
@@ -307,60 +330,96 @@ export class AddNotaryComponent implements OnInit {
     this.documentList.push(new DocumentDto(this.files[0], docTyprId));
   }
 
+  selectGnDivision(gnDivisionList: any[], index: any) {
+    this.gnDivi = [];
+    for (let item of gnDivisionList) {
+      let gnDivision = this.getLocalGNDivisionById(item);
 
-  addLocation() {
-    this.locationList.push(this.locationDto);
-    this.previousSelections.push(-1);
-    this.locationDto = {};
+      const gnModel: GnDivisionDTO = new GnDivisionDTO(
+        gnDivision.gnDivisionId,
+        null,
+        gnDivision.gnDivisionCode,
+        gnDivision.description,
+        gnDivision.descriptionSin,
+        gnDivision.descriptionTam,
+        this.secretariatDivision.value,
+        null,
+        null);
+      this.gnDivi.push(gnModel);
+    }
   }
 
-  removeLocation(index) {
-    this.dsDivision.forEach(gsDivision => {
-      if (gsDivision.dsDivisionId == this.locationList[index].gsDivision) {
-        this.isSelected = false;
-      }
-    });
-    this.locationList.splice(index, 1);
-    this.previousSelections.splice(index, 1);
+  selectDsDivision(dsDivisionId, index) {
+    if (dsDivisionId) this.getGnDivisions(dsDivisionId);
+
   }
 
-  selectGnDivision(gsDivisionId, index) {
-    const gnModel: GnDivisionDTO = new GnDivisionDTO(gsDivisionId[0], null, null, this.notaryForm.value.secretariatDivision, null, null, this.notaryForm.value.secretariatDivision, null, null);
-    this.gnDivi.push(gnModel);
+  addToTable() {
+    this.secretariatDivision.setValidators(Validators.required);
+    this.secretariatDivision.updateValueAndValidity();
+    this.gramaNiladhariDivision.setValidators(Validators.required);
+    this.gramaNiladhariDivision.updateValueAndValidity();
 
-    const model: NewNotaryDsDivisionDTO = new NewNotaryDsDivisionDTO(this.notaryForm.value.secretariatDivision, this.notaryForm.value.secretariatDivision, this.gnDivi);
+    if (this.secretariatDivision.invalid) {
+      this.secretariatDivision.markAsTouched({onlySelf: true});
+      return
+    }
+
+    if (this.gramaNiladhariDivision.invalid) {
+      this.gramaNiladhariDivision.markAsTouched({onlySelf: true});
+      return
+    }
+
+    let dsDivision = this.getLocalDSDivisionById(this.secretariatDivision.value);
+
+    this.dsDivision[this.dsDivision.indexOf(dsDivision)].selected = true;
+
+    const model: NewNotaryDsDivisionDTO = new NewNotaryDsDivisionDTO(
+      dsDivision.dsDivisionId,
+      dsDivision.description,
+      this.gnDivi);
     this.dsGnList.push(model);
+    this.secretariatDivision.patchValue('');
+    this.secretariatDivision.markAsUntouched({onlySelf: true});
+    this.gramaNiladhariDivision.patchValue('');
+    this.gramaNiladhariDivision.markAsUntouched({onlySelf: false});
   }
 
-  selectGsDivision(dsDivisionId, index) {
-    this.dsDivision.forEach(dsDivisions => {
-      if (dsDivisions.dsDivisionId == dsDivisionId) {
-        this.isSelected = true;
-      }
-      if (dsDivisions.dsDivisionId == this.previousSelections[index]) {
-        this.isSelected = false;
-      }
+  getLocalGNDivisionById(id: any): GnDivision {
+    return this.gnDivision.find((data: GnDivision) => {
+      return data.gnDivisionId == id;
     });
-    this.previousSelections[index] = dsDivisionId;
+  }
+
+  getLocalDSDivisionById(id: any): DsDivision {
+    return this.dsDivision.find((item: DsDivision) => {
+      return item.dsDivisionId == id
+    });
+  }
+
+  getDescriptionsByArray(array: GnDivision[]): string {
+    let text = '';
+    array.forEach((val: GnDivision) => {
+      text += val.description + ', ';
+    });
+    return text;
   }
 
   public onFormSubmit() {
+    if (this.dsGnList.length != 0) {
+      this.secretariatDivision.clearValidators();
+      this.secretariatDivision.updateValueAndValidity();
+      this.gramaNiladhariDivision.clearValidators();
+      this.gramaNiladhariDivision.updateValueAndValidity();
+    }
+
     if (this.notaryForm.invalid) {
       Object.keys(this.notaryForm.controls).forEach(field => {
         const control = this.notaryForm.get(field);
         control.markAsTouched({onlySelf: true});
       });
-    }
-    else {
-      this.notaryService.findIfNotaryExist(this.notaryForm.value.nic).subscribe(
-        (data) => {
-          if (data != null) {
-            this.snackBar.warn('Already Exist')
-          } else {
-            this.isPayment = true;
-            this.isPaymentMethod = false;
-          }
-        });
+    } else {
+      this.isPayment = true;
     }
   }
 
@@ -371,9 +430,9 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
       this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.englishNameWithInitials, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
-      this.notaryForm.value.title, null,null,
+      this.notaryForm.value.title, null, null,
       this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, 'status', new Date(),
+      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, CommonStatus.PENDING, new Date(),
       this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName, this.paymentDataValue.paymentId, null, null, null, null, this.paymentDataValue);
 
     const formData = new FormData();
@@ -401,8 +460,8 @@ export class AddNotaryComponent implements OnInit {
     );
   }
 
-  private getGnDivisions(): void {
-    this.gnDivisionService.getAllGnDivisions().subscribe(
+  private getGnDivisions(dsDivisionId: any): void {
+    this.gnDivisionService.getAllGnDivisionsByDsDivisionId(dsDivisionId).subscribe(
       (data: GnDivision[]) => {
         this.gnDivision = data;
       }
@@ -477,5 +536,14 @@ export class AddNotaryComponent implements OnInit {
   // base 64 convertion
   getBase64String(url: string): string {
     return btoa(url);
+  }
+
+  onRemoveDSDivision(item: NewNotaryDsDivisionDTO, index: any) {
+    this.dsDivision[this.dsDivision.indexOf(this.getLocalDSDivisionById(item.dsDivisionId))].selected = false;
+    this.dsGnList.splice(index, 1);
+  }
+
+  onBack() {
+    this.isPayment = false;
   }
 }

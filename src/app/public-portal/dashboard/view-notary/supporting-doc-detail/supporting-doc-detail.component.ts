@@ -68,8 +68,11 @@ export class SupportingDocDetailComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDocuments !== undefined ?
-      this.requestDocuments.requestId : this.id, this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(
+      this.requestDocuments !== undefined ?
+        this.requestDocuments.requestId : this.id,
+      this.requestDocuments !== undefined ?
+        this.requestDocuments.workflow : this.workflow);
     this.notaryService.getDocumentDetails(searchType).subscribe(
       (result: NewNotarySupportingDocDetailDto[]) => {
         if (result != null && result.length != 0) {
@@ -95,7 +98,8 @@ export class SupportingDocDetailComponent implements OnInit {
 
 
   getDocumentTypes() {
-    this.documetService.getDocumentsByWorkFlow(this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow).subscribe(
+    this.documetService.getDocumentsByWorkFlow(
+      this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }

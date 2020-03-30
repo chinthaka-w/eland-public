@@ -6,7 +6,7 @@
       <p>Welcome back please login to your acount</p>
       <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
-          <a href="#">Next </a>
+          <!--<a href="#">Next </a>-->
         </div>
         <div class="db-card-content">
           <dl class="db-card-info">
@@ -171,5 +171,9 @@
 </div>
 
 <div *ngIf="requestView && !dashboardView">
-  <app-view-notary [notaryId]="notaryId"></app-view-notary>
+  <app-view-notary
+    [notaryId]="notaryId"
+    [notaryRequestId]="searchDetails.requestId"
+    [workflowStage]="searchDetails.workflow"
+    (onBack)="onBackNotaryView($event)"></app-view-notary>
 </div>

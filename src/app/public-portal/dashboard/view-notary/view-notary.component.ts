@@ -13,6 +13,7 @@ import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {SupportDocResponseModel} from "../../../shared/dto/support-doc-response.model";
 import {MatTabChangeEvent} from "@angular/material/tabs";
 import {NotaryViewTabs} from "../../../shared/enum/notary-view-tabs.enum";
+import {NewNotaryRegistrationWorkflowStage} from '../../../shared/enum/new-notary-registration-workflow-stage.enum';
 
 @Component({
   selector: 'app-view-notary',
@@ -20,10 +21,13 @@ import {NotaryViewTabs} from "../../../shared/enum/notary-view-tabs.enum";
   styleUrls: ['./view-notary.component.css']
 })
 export class ViewNotaryComponent implements OnInit {
-  Workflow: Workflow;
+  Workflow = Workflow;
   public workflow: string;
   public id: number;
   @Input() notaryId: number;
+  @Input() notaryRequestId: number;
+  @Input() workflowStage: any;
+  @Output() onBack = new EventEmitter<boolean>();
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   @ViewChild(SupportingDocDetailComponent,{static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
   public disabled: boolean = false;
@@ -38,6 +42,8 @@ export class ViewNotaryComponent implements OnInit {
   public selectedIndex: number = 0;
   public requestId: RequestSearchDetailDTO;
   public workFlowStage: string;
+
+  NewNotaryRegistrationWorkflowStage = NewNotaryRegistrationWorkflowStage;
 
   constructor(private newNotaryService: NotaryService,
               private route: ActivatedRoute,
