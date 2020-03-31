@@ -3,8 +3,8 @@
     <div class="db-left-col" style="background-image: url('assets/images/temp_img_005.jpg')">&nbsp;</div>
     <div class="db-right-col">
       <h2>Welcome to E-Land</h2>
-      <p>Welcome back please login to your acount</p>
-      <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
+      <p>Welcome back to your web portal</p>
+      <div class="db-card-full" *ngIf="user.type == userType.NOTARY && user.userStatus!=CommonStatus.ACTIVE">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
           <!--<a href="#">Next </a>-->
         </div>
