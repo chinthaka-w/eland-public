@@ -56,7 +56,8 @@ import {
   MatChipsModule,
   MatDividerModule, MatListModule,
   MatNativeDateModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
@@ -80,6 +81,9 @@ import { ChangeLandRegistryComponent } from './dashboard/change-land-registry/ch
 import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
 import { SearchDocumentResultComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-result/search-document-result.component';
 import { NotaryRequestViewComponent } from './dashboard/notary-request-view/notary-request-view.component';
+import {SharedModule} from '../shared/shared.module';
+import {ImageViewerModule} from 'ngx-image-viewer';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 @NgModule({

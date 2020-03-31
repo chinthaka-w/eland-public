@@ -31,7 +31,6 @@ import {Notary} from '../../../shared/dto/notary.model';
 import {NewNotaryDataVarificationService} from '../../../shared/service/new-notary-data-varification.service';
 import {PaymentDto} from '../../../shared/dto/payment-dto';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
-import {MatCheckboxChange} from '@angular/material';
 
 @Component({
   selector: 'app-change-the-name',
@@ -106,29 +105,22 @@ export class ChangeTheNameComponent implements OnInit {
 
   ngOnInit() {
     this.notaryId = this.sessionService.getUser().id;
+
+    this.setData();
+  }
+
+  setData(){
     this.getUserDetails();
     this.notaryForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newFullNameInSinhala: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
-      newFullNameInTamil: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
+      newFullNameInSinhala: new FormControl('', this.isSinhala? Validators.required : null),
+      newFullNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
       newInitialNameInEnglish: new FormControl('',  [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInSinhala: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInTamil: new FormControl('',[ Validators.pattern(PatternValidation.nameValidation)] ),
+      newInitialNameInSinhala: new FormControl('', this.isSinhala? Validators.required : null),
+      newInitialNameInTamil: new FormControl('',this.isTamil ? Validators.required : null ),
       dateOfBirth: new FormControl(new Date()),
       languages: new FormControl(),
-      nic: new FormControl('',[Validators.pattern(PatternValidation.nicValidation)]),
-      contactNo: new FormControl('',[ Validators.pattern(PatternValidation.contactNumberValidation)]),
-      mobileNo: new FormControl('',[ Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl('',[ Validators.pattern(PatternValidation.emailValidation)]),
-      courtZone: new FormControl('' ),
-      landRegistry: new FormControl(''),
-      secretariatDivision: new FormControl(''),
-      gramaNiladhariDivision: new FormControl(''),
-      enrolledDate: new FormControl(new Date()),
-      passedDate: new FormControl(new Date()),
-      medium: new FormControl('' ),
-      userName: new FormControl(''),
       recaptcha: new FormControl(null),
     });
     this.getDocumentList();
@@ -138,15 +130,15 @@ export class ChangeTheNameComponent implements OnInit {
     this.getGnDivisions();
     this.isPaymentSuccess = false;
     this.isContinueToPayment = false;
-
   }
+
   private addLanguageList(id:number): void {
     if(id === Languages.SINHALA)
       this.isSinhala = (!this.isSinhala);
     if(id === Languages.TAMIL)
       this.isTamil = (!this.isTamil);
 
-    this.onLanguageChange();
+    this.setData();
   }
 
   getUserDetails(){
@@ -156,7 +148,7 @@ export class ChangeTheNameComponent implements OnInit {
         this.requestId = this.searchDetails.requestId;
         this.getApplicationDetails();
       }
-    )
+    );
   }
 
   getApplicationDetails() {
@@ -214,6 +206,7 @@ export class ChangeTheNameComponent implements OnInit {
     this.nameChangeModel.newNotaryId = this.notaryId;
     this.nameChangeModel.paymentId = this.paymentDataValue.paymentId;
     this.nameChangeModel.payment = this.paymentDataValue;
+    this.nameChangeModel.title = this.notaryForm.value.title;
 
     const formData = new FormData();
     formData.append('data', JSON.stringify(this.nameChangeModel));
@@ -295,6 +288,7 @@ export class ChangeTheNameComponent implements OnInit {
 
 
   onClickSubmitSearchRequest() {
+    console.log(this.notaryForm.valid);
     if(this.notaryForm.valid)
       this.isContinueToPayment = !this.isContinueToPayment;
   }
@@ -337,25 +331,6 @@ export class ChangeTheNameComponent implements OnInit {
   goBack(): any {
     this.location.back();
     return false;
-  }
-
-  onLanguageChange() {
-    if (this.isSinhala) {
-      this.notaryForm.value.newInitialNameInSinhala.setValidators(Validators.min(3));
-      this.notaryForm.value.newFullNameInSinhala.setValidators(Validators.min(1));
-    } else {
-      this.notaryForm.value.newInitialNameInSinhala.clearValidators();
-      this.notaryForm.value.newFullNameInSinhala.clearValidators();
-    }
-
-    if (this.isTamil) {
-      this.notaryForm.value.newInitialNameInTamil.setValidators(Validators.required);
-      this.notaryForm.value.newFullNameInTamil.setValidators(Validators.required);
-
-    } else {
-      this.notaryForm.value.newInitialNameInTamil.clearValidators();
-      this.notaryForm.value.newFullNameInTamil.clearValidators();
-    }
   }
 
 }

@@ -29,6 +29,7 @@ import { AuthGuard } from '../shared/auth/auth-guard';
 import {ChangeLandRegistryComponent} from './dashboard/change-land-registry/change-land-registry.component';
 import {ChangeLandRegistryRequestViewComponent} from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
 import {NotaryRequestViewComponent} from './dashboard/notary-request-view/notary-request-view.component';
+import {NameChangeRequestViewComponent} from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
 
 const routes: Routes = [
   {
