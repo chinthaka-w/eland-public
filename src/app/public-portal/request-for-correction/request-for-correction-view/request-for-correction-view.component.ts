@@ -1,9 +1,11 @@
+import { Workflow } from 'src/app/shared/enum/workflow.enum';
+import { MetaKey } from './../../../shared/enum/meta-key.enum';
 import { ActivatedRoute } from '@angular/router';
 import { RequestResponse } from './../../../shared/dto/request-response.model';
 import { CorrectionRequestService } from './../../../shared/service/correction-request.service';
-import { Workflow } from './../../../shared/enum/workflow.enum';
 import { Component, OnInit } from '@angular/core';
 import { NotaryRegistrationHistoryDto } from 'src/app/shared/dto/notary-registration-history.dto';
+import { DocMetaKey } from 'src/app/shared/dto/doc-meta-key.model';
 
 @Component({
   selector: 'app-request-for-correction-view',
@@ -13,13 +15,18 @@ import { NotaryRegistrationHistoryDto } from 'src/app/shared/dto/notary-registra
 export class RequestForCorrectionViewComponent implements OnInit {
   workflow = Workflow;
   remarkHistory: NotaryRegistrationHistoryDto[];
+  docMetaKeys: DocMetaKey[] = [];
+  metaKey = MetaKey;
+  requestId: number;
 
   constructor(private correctionRequestService: CorrectionRequestService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.getRequestHistory(+this.decodeBase64(params.get('id')));
+      this.requestId = +this.decodeBase64(params.get('id'));
+      this.getRequestHistory(this.requestId);
+      this.setDocPreviewMeta();
     });
   }
 
@@ -30,6 +37,13 @@ export class RequestForCorrectionViewComponent implements OnInit {
         this.remarkHistory = response.data;
       }
     );
+  }
+
+  // document meta for Folio Correction
+  setDocPreviewMeta(): void {
+    const metaKey = {};
+    metaKey['folioCorrectionReqId'] = this.requestId;
+    this.docMetaKeys.push(metaKey);
   }
 
   getBase64Url(url: string): string {

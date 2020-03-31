@@ -37,6 +37,7 @@ import { PaymentHistoryComponent } from './components/payment-history/payment-hi
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 import { FileUploadPopupComponent } from './components/file-upload-popup/file-upload-popup.component';
 import { AuthGuard } from './auth/auth-guard';
+import { DocPreviewComponent } from './components/doc-preview/doc-preview.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AuthGuard } from './auth/auth-guard';
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
-    FileUploadPopupComponent
+    FileUploadPopupComponent,
+    DocPreviewComponent
   ],
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { AuthGuard } from './auth/auth-guard';
     RecaptchaFormsModule,
     MatIconModule,
     ImageViewerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule
   ],
   exports: [
     ContentComponent,
@@ -105,7 +108,8 @@ import { AuthGuard } from './auth/auth-guard';
     FileUploadInputComponent,
     LastRemarkComponent,
     PaymentHistoryComponent,
-    RemarkHistoryComponent
+    RemarkHistoryComponent,
+    DocPreviewComponent
   ],
   entryComponents: [
     FileUploadPopupComponent
