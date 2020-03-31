@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FolioService } from '../../service/folio.service';
 import { FolioController } from '../../custom-model/folio-controller.model';
 import { FolioDto } from '../../dto/folio-dto.model';
@@ -15,6 +15,9 @@ import { UnitDto } from '../../dto/unit-dto.model';
 import { SnackBarService } from '../../service/snack-bar.service';
 import * as _ from 'lodash';
 import { ExtentSubCategoryDto } from '../../dto/extent-sub-category-dto.model';
+import { SystemService } from '../../service/system.service';
+import { BoundaryDto } from '../../dto/boundary-dto.model';
+import { BoundarySubCategoryDto } from '../../dto/boundary-sub-category-dto.model';
 
 @Component({
   selector: 'app-folio-view',
@@ -48,29 +51,63 @@ export class FolioViewComponent implements OnInit {
   public selectedLandRegistry: any;
   public invalidFolio: boolean = false;
   public validatingFolio: boolean = false;
+  public boundaryDto = new BoundaryDto;
+  loading: boolean = true;
+  folioNo;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) folio: FolioDto,
+    @Inject(MAT_DIALOG_DATA) folio: string,
     private folioService: FolioService,
-    private snackBar: SnackBarService,
+    private snackbar: SnackBarService,
+    private systemService: SystemService,
+    // private dialog: MatDialog
   ) {
-    this.folioDto = folio;
+    this.folioNo = folio;
   }
 
   ngOnInit() {
+    
+    this.loading = true;
+
+    this.folioService.getFolioType(this.folioNo, 'CLERK').subscribe(
+      (data) => {
+        if (data !== null) {
+          if (data['folioTypeId'] === DocumentType.NORMAL_TRUST) this.getNormalTrustFolio(data['landRegistryId'] + '/' + data['folioCode']);
+          if (data['folioTypeId'] === DocumentType.EXPRESS_TRUST) this.getExpressTrustFolio(data['landRegistryId'] + '/' + data['folioCode']);
+          if (data['folioTypeId'] === DocumentType.GENERAL) this.getGeneralFolio(data['landRegistryId'] + '/' + data['folioCode']);
+          if (data['folioTypeId'] === DocumentType.CONDOMINIUM) this.getCondominiumFolio(data['landRegistryId'] + '/' + data['folioCode']);
+          if (data['folioTypeId'] === DocumentType.GOV_LANDS) this.getLdoFolio(data['landRegistryId'] + '/' + data['folioCode']);
+          if (data['folioTypeId'] === DocumentType.MOVABLE) this.getMovableFolio(data['landRegistryId'] + '/' + data['folioCode']);
+          if (data['folioTypeId'] === DocumentType.SPECIAL_CONDOMINIUM_DEEDS) this.getCondominiumFolio(data['landRegistryId'] + '/' + data['folioCode']);
+          if (data['folioTypeId'] === DocumentType.SPECIAL_DIVISION_DEEDS) this.getSpecialFolio(data['landRegistryId'] + '/' + data['folioCode']);
+        }
+        else {
+          this.snackbar.warn(this.systemService.getTranslation('ALERT.TITLE.NO_RESULT'));
+        }
+      },
+      error => {
+        this.snackbar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
+      }
+    )
+
+
+  }
+
+  setConfiguration(folioDto){
+    this.folioDto = folioDto;
     this.uiController.isReadOnly = true;
     this.uiController.isFolioHeader = true;
-    this.uiController = this.folioService.setUiController(this.uiController, this.folioDto.folioTypeId);
-    this.folioController = this.folioService.setFolioController(this.folioController, this.folioDto.folioTypeId);
+    this.uiController = this.folioService.setUiController(this.uiController, folioDto.folioTypeId);
+    this.folioController = this.folioService.setFolioController(this.folioController, folioDto.folioTypeId);
     this.viewTransaction(this.selectedTransaction);
     this.getProvinces();
-    if (this.folioDto.folioGnDivision) this.getVillages(this.folioDto.folioGnDivision);
-    if (this.folioDto.folioProvince) this.getDistricts(this.folioDto.folioProvince);
-    if (this.folioDto.folioDistrict) this.getDivisionalSecretaries(this.folioDto.folioDistrict);
-    if (this.folioDto.folioLandRegistry && this.folioDto.folioTypeId) this.getDivisionsByFolioType(this.folioDto.folioLandRegistry, this.folioDto.folioTypeId);
-    if (this.folioDto.folioDsDivision) this.getGramaniladhariDivision(this.folioDto.folioDsDivision);
-    if (this.folioDto.folioDistrict) this.getLandRegistries(this.folioDto.folioDistrict);
-    if (this.folioDto.folioDsDivision) this.getLocalAuthorities(this.folioDto.folioDsDivision);
+    if (folioDto.folioGnDivision) this.getVillages(folioDto.folioGnDivision);
+    if (folioDto.folioProvince) this.getDistricts(folioDto.folioProvince);
+    if (folioDto.folioDistrict) this.getDivisionalSecretaries(folioDto.folioDistrict);
+    if (folioDto.folioLandRegistry && folioDto.folioTypeId) this.getDivisionsByFolioType(folioDto.folioLandRegistry, folioDto.folioTypeId);
+    if (folioDto.folioDsDivision) this.getGramaniladhariDivision(folioDto.folioDsDivision);
+    if (folioDto.folioDistrict) this.getLandRegistries(folioDto.folioDistrict);
+    if (folioDto.folioDsDivision) this.getLocalAuthorities(folioDto.folioDsDivision);
   }
 
   viewTransaction(i) {
@@ -90,6 +127,19 @@ export class FolioViewComponent implements OnInit {
       this.propertyDto = new PropertyDto;
       this.folioDto.folioTypeId != this.documentType.NORMAL_TRUST && this.folioDto.folioTypeId != this.documentType.MOVABLE && this.folioDto.folioTypeId != this.documentType.CONDOMINIUM ? this.propertyDto.isLand = 1 : 0;
       this.propertyDto.crossNoteList = [];
+    }
+
+    if (this.folioDto.boundary  && this.folioDto.folioTypeId != this.documentType.EXPRESS_TRUST) {
+      this.boundaryDto = this.folioDto.boundary;
+    }
+    else if (this.folioDto.transactions[i].boundary && this.folioDto.folioTypeId == this.documentType.EXPRESS_TRUST) {
+      this.boundaryDto = this.folioDto.transactions[i].boundary;
+    }
+    else {
+      this.boundaryDto = new BoundaryDto;
+      this.boundaryDto.boundaryType = 1;
+      this.boundaryDto.boundaryList = new BoundarySubCategoryDto;
+      this.boundaryDto.optionalList = [];
     }
 
     if (this.folioDto.extent && this.folioDto.folioTypeId != this.documentType.EXPRESS_TRUST) {
@@ -119,6 +169,106 @@ export class FolioViewComponent implements OnInit {
     }
   }
 
+
+
+  getNormalTrustFolio(folioNo) {
+    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+      (folio: FolioDto) => {
+        this.loading = false;
+        // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.setConfiguration(folio);
+      },
+      (error) => {
+        this.loading = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
+  }
+
+  getExpressTrustFolio(folioNo) {
+    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+      (folio: FolioDto) => {
+        this.loading = false;
+        // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.setConfiguration(folio);
+      },
+      (error) => {
+        this.loading = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
+  }
+
+  getGeneralFolio(folioNo) {
+    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+      (folio: FolioDto) => {
+        this.loading = false;
+        // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.setConfiguration(folio);
+      },
+      (error) => {
+        this.loading = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
+  }
+
+  getCondominiumFolio(folioNo) {
+    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+      (folio: FolioDto) => {
+        this.loading = false;
+        // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.setConfiguration(folio);
+      },
+      (error) => {
+        this.loading = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
+  }
+
+  getMovableFolio(folioNo) {
+    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+      (folio: FolioDto) => {
+        this.loading = false;
+        // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.setConfiguration(folio);
+      },
+      (error) => {
+        this.loading = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
+  }
+
+  getLdoFolio(folioNo) {
+    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+      (folio: FolioDto) => {
+        this.loading = false;
+        // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.setConfiguration(folio);
+      },
+      (error) => {
+        this.loading = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
+  }
+
+  getSpecialFolio(folioNo) {
+    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+      (folio: FolioDto) => {
+        this.loading = false;
+        // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.setConfiguration(folio);
+      },
+      (error) => {
+        this.loading = false;
+        this.snackbar.error('Internal server error');
+      }
+    )
+  }
+
   toggleTransactionView() {
     this.showTransaction = !this.showTransaction;
   }
@@ -133,7 +283,7 @@ export class FolioViewComponent implements OnInit {
         this.villages = data;
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }
@@ -144,7 +294,7 @@ export class FolioViewComponent implements OnInit {
         this.provinces = data;
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }
@@ -155,7 +305,7 @@ export class FolioViewComponent implements OnInit {
         this.districts = data;
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }
@@ -166,7 +316,7 @@ export class FolioViewComponent implements OnInit {
         this.landRegistries = data;
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }
@@ -177,7 +327,7 @@ export class FolioViewComponent implements OnInit {
         this.gramaniladhariDivisions = data;
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }
@@ -188,7 +338,7 @@ export class FolioViewComponent implements OnInit {
         this.divisionalSecretaries = data;
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }
@@ -199,7 +349,7 @@ export class FolioViewComponent implements OnInit {
         this.localAuthorities = data;
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }
@@ -211,7 +361,7 @@ export class FolioViewComponent implements OnInit {
         this.selectedLrDivision = _.find(this.landRegistryDivisions, { landRegistryDivisionId: this.folioDto.folioLrDivision });
       },
       error => {
-        this.snackBar.error('Internal server error');
+        this.snackbar.error('Internal server error');
       }
     )
   }

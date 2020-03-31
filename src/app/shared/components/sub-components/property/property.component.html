@@ -448,7 +448,7 @@
         }}</label>
         <div class="default-input-feild">
             <mat-form-field appearance="outline">
-            <textarea id="property-details" class="form-control" [(ngModel)]="propertyDto.remark"
+            <textarea matInput id="property-details" class="form-control" [(ngModel)]="propertyDto.remark"
                 [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly"></textarea>
             </mat-form-field>
         </div>

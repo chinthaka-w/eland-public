@@ -4,24 +4,40 @@
 <ng-container *ngIf="!showTransaction">
     <mat-tab-group>
         <mat-tab *ngIf="uiController.isFolioHeader" label="Folio Details">
-            <app-folio-header [folioDto]="folioDto" [uiController]="uiController" [folioController]="folioController"
+            <app-folio-header *ngIf="!loading && folioDto" [folioDto]="folioDto" [uiController]="uiController" [folioController]="folioController"
                 [divisionalSecretaries]="divisionalSecretaries" [gramaniladhariDivisions]="gramaniladhariDivisions"
                 [landRegistryDivisions]="landRegistryDivisions" [localAuthorities]="localAuthorities"
                 [districts]="districts" [provinces]="provinces" [landRegistries]="landRegistries">
             </app-folio-header>
         </mat-tab>
         <mat-tab *ngIf="uiController.isUnit" label="Unit Details">
-            <app-unit [uiController]="uiController" [unitDto]="unitDto"></app-unit>
+            <app-unit *ngIf="!loading && folioDto" [uiController]="uiController" [unitDto]="unitDto"></app-unit>
         </mat-tab>
         <mat-tab *ngIf="uiController.isProperty" label="Property Details">
-            <app-property [uiController]="uiController" [propertyDto]="propertyDto" [folioDto]="folioDto"  [villages]="villages">
+            <app-property *ngIf="!loading && folioDto" [uiController]="uiController" [propertyDto]="propertyDto" [folioDto]="folioDto"  [villages]="villages">
             </app-property>
         </mat-tab>
+        <mat-tab
+        label="{{ 'BOUNDARIES.NAME' | translate }}"
+        *ngIf="
+          uiController.isBoundary &&
+          propertyDto.isLand == 1 &&
+          folioDto.folioTypeId != documentType.EXPRESS_TRUST &&
+          folioDto.folioTypeId != documentType.NORMAL_TRUST
+        "
+        [disabled]="false"
+      >
+        <app-boundary
+          [uiController]="uiController"
+          [boundaryDto]="boundaryDto"
+        >
+        </app-boundary>
+      </mat-tab>
         <mat-tab *ngIf="uiController.isExtent" label="Extent Details">
-            <app-extent [uiController]="uiController" [extentDto]="extentDto"></app-extent>
+            <app-extent *ngIf="!loading && folioDto" [uiController]="uiController" [extentDto]="extentDto"></app-extent>
         </mat-tab>
     </mat-tab-group>
-    <button type="button" (click)="toggleTransactionView()" mat-raised-button>
+    <button *ngIf="!loading && folioDto" type="button" (click)="toggleTransactionView()" mat-raised-button>
         View Transactions
     </button>
 </ng-container>

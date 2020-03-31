@@ -69,28 +69,30 @@ export class DashboardComponent implements OnInit {
 
   viewFolio() {
 
-    this.folioPending = true;
+    this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: this.folioNo });
 
-    this.folioService.getFolioType(this.folioNo, 'CLERK').subscribe(
-      (data) => {
-        if (data !== null) {
-          if (data['folioTypeId'] === DocumentType.NORMAL_TRUST) this.getNormalTrustFolio(data['landRegistryId'] + '/' + data['folioCode']);
-          if (data['folioTypeId'] === DocumentType.EXPRESS_TRUST) this.getExpressTrustFolio(data['landRegistryId'] + '/' + data['folioCode']);
-          if (data['folioTypeId'] === DocumentType.GENERAL) this.getGeneralFolio(data['landRegistryId'] + '/' + data['folioCode']);
-          if (data['folioTypeId'] === DocumentType.CONDOMINIUM) this.getCondominiumFolio(data['landRegistryId'] + '/' + data['folioCode']);
-          if (data['folioTypeId'] === DocumentType.GOV_LANDS) this.getLdoFolio(data['landRegistryId'] + '/' + data['folioCode']);
-          if (data['folioTypeId'] === DocumentType.MOVABLE) this.getMovableFolio(data['landRegistryId'] + '/' + data['folioCode']);
-          if (data['folioTypeId'] === DocumentType.SPECIAL_CONDOMINIUM_DEEDS) this.getCondominiumFolio(data['landRegistryId'] + '/' + data['folioCode']);
-          if (data['folioTypeId'] === DocumentType.SPECIAL_DIVISION_DEEDS) this.getSpecialFolio(data['landRegistryId'] + '/' + data['folioCode']);
-        }
-        else {
-          this.snackbar.warn(this.systemService.getTranslation('ALERT.TITLE.NO_RESULT'));
-        }
-      },
-      error => {
-        this.snackbar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
-      }
-    )
+    // this.folioPending = true;
+
+    // this.folioService.getFolioType(this.folioNo, 'CLERK').subscribe(
+    //   (data) => {
+    //     if (data !== null) {
+    //       if (data['folioTypeId'] === DocumentType.NORMAL_TRUST) this.getNormalTrustFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //       if (data['folioTypeId'] === DocumentType.EXPRESS_TRUST) this.getExpressTrustFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //       if (data['folioTypeId'] === DocumentType.GENERAL) this.getGeneralFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //       if (data['folioTypeId'] === DocumentType.CONDOMINIUM) this.getCondominiumFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //       if (data['folioTypeId'] === DocumentType.GOV_LANDS) this.getLdoFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //       if (data['folioTypeId'] === DocumentType.MOVABLE) this.getMovableFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //       if (data['folioTypeId'] === DocumentType.SPECIAL_CONDOMINIUM_DEEDS) this.getCondominiumFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //       if (data['folioTypeId'] === DocumentType.SPECIAL_DIVISION_DEEDS) this.getSpecialFolio(data['landRegistryId'] + '/' + data['folioCode']);
+    //     }
+    //     else {
+    //       this.snackbar.warn(this.systemService.getTranslation('ALERT.TITLE.NO_RESULT'));
+    //     }
+    //   },
+    //   error => {
+    //     this.snackbar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
+    //   }
+    // )
   }
 
   getNormalTrustFolio(folioNo) {
