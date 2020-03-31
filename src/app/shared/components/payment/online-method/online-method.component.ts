@@ -42,6 +42,7 @@ onlinePaymentForm: FormGroup;
       this.showPaymentResult = true;
       this.getPaymentResult(this.paymentId);
       this.returnUrl = this.decodeBase64(this.route.snapshot.paramMap.get('url'));
+      alert(this.returnUrl)
     }
   }
 
@@ -78,7 +79,7 @@ onlinePaymentForm: FormGroup;
     if (!this.showPaymentResult) {
       window.location.href = this.lgpsUrl + this.onlinePaymentForm.get('encryptedPaymentRequest').value;
     } else {
-      this.router.navigate(['/', this.returnUrl]);
+      this.router.navigateByUrl(this.returnUrl);
     }
   }
 

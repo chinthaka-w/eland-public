@@ -36,4 +36,8 @@ export class SearchRequestService {
   updateSearchRequest(searchRequest: SearchRequest): Observable<Object> {
     return this.httpClient.post(`${this.BASE_URL}/update`, searchRequest, {headers: this.headersJson});
   }
+
+  getSearchFolioResultBySearchRequestFolioId(requestId: any): Observable<Object> {
+    return this.httpClient.get(`${this.BASE_URL}/searchResult/${requestId}`, {headers: this.headersJson});
+  }
 }

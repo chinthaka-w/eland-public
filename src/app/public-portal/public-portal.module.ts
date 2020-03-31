@@ -52,7 +52,15 @@ import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import {ImageViewerModule} from "ngx-image-viewer";
 import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
-import {MatBadgeModule, MatChipsModule, MatDividerModule, MatNativeDateModule, MatPaginatorModule} from '@angular/material';
+import {
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDividerModule, MatListModule,
+  MatNativeDateModule,
+  MatPaginatorModule
+} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
@@ -75,6 +83,7 @@ import { NameChangeRequestViewComponent } from './dashboard/change-the-name/name
 import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-data/name-change-request-data.component';
 import { ChangeLandRegistryComponent } from './dashboard/change-land-registry/change-land-registry.component';
 import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
+import { SearchDocumentResultComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-result/search-document-result.component';
 
 
 @NgModule({
@@ -129,6 +138,8 @@ import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-
     RequestForCorrectionComponent,
     NameChangeRequestViewComponent,
     NameChangeRequestDataComponent,
+    SearchDocumentResultComponent,
+    NameChangeRequestDataComponent,
     ChangeLandRegistryComponent,
     ChangeLandRegistryRequestViewComponent,
 ],
@@ -163,7 +174,8 @@ import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-
     SatDatepickerModule,
     SatNativeDateModule,
     ImageViewerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatListModule
   ],
   exports: [
     LoginComponent,
@@ -181,13 +193,16 @@ import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-
     MatTableModule,
     SatDatepickerModule,
     SatNativeDateModule,
+    MatCardModule,
+    MatBottomSheetModule,
     MatTableModule,
     MatBadgeModule,
-    MatChipsModule,
+    MatChipsModule
   ],
   entryComponents:[
     RequestViewComponent,
-    PublicProfileEditComponent
+    PublicProfileEditComponent,
+    SearchDocumentResultComponent
   ],
   providers: [{
     provide: RECAPTCHA_SETTINGS,

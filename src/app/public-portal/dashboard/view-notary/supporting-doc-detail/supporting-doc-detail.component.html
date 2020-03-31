@@ -9,16 +9,22 @@
     </div>
   </div>
 </div>
-<div  class="row">
-  <mat-card *ngFor="let doc of supportingDocuments; let i = index">
+<div class="row">
+  <mat-card class="mb-10 mt-10 ml-10 mr-10 mat-elevation-z5" *ngFor="let doc of supportingDocuments; let i = index">
     <div class="pg-inner-row mb-20">
-      <h4>{{doc.name}}</h4>
+      <h5>{{doc.name}}</h5>
     </div>
     <div class="pg-inner-row mb-20">
-      <ngx-image-viewer
-        [src]="documentImages"
-      >
-      </ngx-image-viewer>
+      <div class="pg-inner-col" style="width: 500px !important; height: 500px !important;">
+        <ngx-image-viewer
+          [src]="documentImages"
+        >
+        </ngx-image-viewer>
+      </div>
+      <div class="pg-inner-col">
+
+      </div>
+
     </div>
   </mat-card>
   <mat-card *ngFor="let document of docList">
@@ -30,7 +36,7 @@
     </div>
   </mat-card>
 </div>
-<div class="pg-inner-col right">
-  <button mat-raised-button class="lg-button" type="button" (click)="onFormSubmit($event)">Continue</button>
+<div *ngIf="docList.length!=0" class="pg-inner-col float-right">
+  <button mat-raised-button class="button float-right" type="button" (click)="onFormSubmit($event)">Apply Changes</button>
 </div>
 

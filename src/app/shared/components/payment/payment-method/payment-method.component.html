@@ -11,7 +11,7 @@
               <mat-form-field appearance="outline">
                 <select matNativeControl formControlName="bank" class="form-control"
                         (change)="onChangeBank($event.target.value)">
-                  <option value="">Select</option>
+                  <option value="">--Select--</option>
                   <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
                 </select>
               </mat-form-field>
@@ -22,7 +22,7 @@
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl formControlName="branch" class="form-control">
-                  <option value="">Select</option>
+                  <option value="">--Select--</option>
                   <option *ngFor="let branch of branches" [value]="branch.bankBranchId">{{ branch.description }}
                   </option>
                 </select>
@@ -33,7 +33,8 @@
             <label>Date: <span class="redtxt">*</span></label>
             <div class="default-input-feild date-feild">
               <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker" formControlName="date" class="form-control">
+                <input matInput [matDatepicker]="picker" [max]="toDay" readonly
+                       formControlName="date" class="form-control">
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
               <button mat-raised-button (click)="picker.open()">
@@ -53,7 +54,7 @@
             <label>Bank Receipt: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
-              <!--<mat-error *ngIf="files.length==0">Please add bank receipt.</mat-error>-->
+              <mat-error *ngIf="files.length==0">Please add bank receipt.</mat-error>
             </div>
           </div>
         </div>
