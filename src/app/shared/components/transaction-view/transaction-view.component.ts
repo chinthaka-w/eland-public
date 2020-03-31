@@ -17,6 +17,8 @@ import { GrantorDto } from 'src/app/shared/dto/grantor-dto.model';
 import { GranteeDto } from 'src/app/shared/dto/grantee-dto.model';
 import { UnitDto } from 'src/app/shared/dto/unit-dto.model';
 import { CloseNote } from 'src/app/shared/dto/close-note.model';
+import { FolioDto } from '../../dto/folio-dto.model';
+import { DocumentType } from 'src/app/shared/enum/document-type.enum';
 
 @Component({
   selector: 'app-transaction-view',
@@ -29,6 +31,9 @@ export class TransactionViewComponent implements OnInit {
 
   @Input()
   uiController: UiController;
+
+  @Input()
+  folioDto: FolioDto;
 
   public trustDto = new TrustDto;
   public trustList: TrustDto[] = [];
@@ -56,6 +61,8 @@ export class TransactionViewComponent implements OnInit {
   public granteeList: GranteeDto[] = [];
   public closeNote = new CloseNote;
   public unitDto = new UnitDto;
+
+  documentType = DocumentType;
 
 
   constructor() { }

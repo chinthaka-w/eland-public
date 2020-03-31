@@ -1,9 +1,18 @@
 <mat-tab-group>
-    <mat-tab *ngIf="uiController.isUnit" label="Unit Details">
+    <mat-tab *ngIf="uiController.isUnit" label="{{ 'UNIT_DETAILS.TAB_TITLE' | translate }}">
         <app-unit [uiController]="uiController" [unitDto]="unitDto"></app-unit>
     </mat-tab>
-    <mat-tab *ngIf="uiController.isProperty" label="Property Details">
+    <mat-tab *ngIf="uiController.isProperty" label="{{ 'PROPERTY_DETAILS.TITLE' | translate }}">
         <app-property [uiController]="uiController" [propertyDto]="propertyDto"></app-property>
+    </mat-tab>
+    <mat-tab label="{{ 'BOUNDARIES.NAME' | translate }}" *ngIf="
+          uiController.isBoundary &&
+          propertyDto.isLand == 1 &&
+          folioDto.folioTypeId != documentType.EXPRESS_TRUST &&
+          folioDto.folioTypeId != documentType.NORMAL_TRUST
+        " [disabled]="false">
+        <app-boundary [uiController]="uiController" [boundaryDto]="boundaryDto">
+        </app-boundary>
     </mat-tab>
     <mat-tab *ngIf="uiController.isExtent" label="Extent Details">
         <app-extent [uiController]="uiController" [extentDto]="extentDto"></app-extent>

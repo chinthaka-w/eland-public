@@ -1,1 +1,43 @@
-<p>cross-note works!</p>
+<div class="pg-inner-row">
+    <table *ngIf="referenceFolioList?.length > 0" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>{{'FOLIO_TYPE.FOLIO_NUM' | translate}}</th>
+                <th>{{'COMMON.CROSS_NOTE' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let folio of referenceFolioList; let i = index">
+                <td>
+                    <input matInput *ngIf="!folio.forNew" [value]="folio.folioCode" class="form-control" type="text"
+                        disabled />
+                    <input matInput *ngIf="folio.forNew" class="form-control" type="text"
+                        value="{{selectedLrDivision?.divisionCode ? selectedLrDivision?.divisionCode : '--'}} / {{newFolioDto?.folioVolume ? newFolioDto?.folioVolume : '--'}} / {{newFolioDto?.folioNo ? newFolioDto?.folioNo : '--'}}"
+                        disabled />
+                </td>
+                <td>
+                    <select matNativeControl *ngIf="!uiController.isReadOnly && !folio.readOnly"
+                        (change)="selectCrossNote($event.target.value, i)" class="form-control m-2">
+                        <option disabled>{{'OTHER.SELECT_CROSS_NOTE' | translate}}</option>
+                        <option *ngFor="let crossNote of crossNotes; let crossNoteIndex = index"
+                            value="{{ crossNoteIndex }}">
+                            {{ crossNote.descriptionSin }}
+                        </option>
+                    </select>
+                    <textarea matInput class="form-control m-2" placeholder="Insert your note here"
+                        [(ngModel)]="folio.note" [ngModelOptions]="{ standalone: true }"
+                        [disabled]="uiController.isReadOnly || folio.readOnly"></textarea>
+                </td>
+                <td>
+                    <button *ngIf="!uiController.isReadOnly && !folio.readOnly" type="button" class="btn btn-sm danger"
+                        (click)="removeReferenceFolio(i)">
+                        <mat-icon color="warn">delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button *ngIf="!uiController.isReadOnly" class="btn btn-block btn-outline-primary" (click)="openDialog()"> +
+        {{'COMMON.CROSS_NOTE' | translate}}</button>
+</div>

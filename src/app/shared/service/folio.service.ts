@@ -49,6 +49,10 @@ export class FolioService {
     return this.httpClient.get(this.BASE_URL + 'specialDivisionFolio/' + folioNo, { headers: this.headersJson });
   }
 
+  getCrossNote(): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + 'folioCrossNote/');
+  }
+
   setUiController(uiController, documentTypeId) {
 
     if (documentTypeId == DocumentType.NORMAL_TRUST) {
