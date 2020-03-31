@@ -175,7 +175,9 @@ import { SearchDocumentResultComponent } from './dashboard/search-document/searc
     SatNativeDateModule,
     ImageViewerModule,
     MatSlideToggleModule,
-    MatListModule
+    MatListModule,
+    MatSlideToggleModule,
+    MatInputModule
   ],
   exports: [
     LoginComponent,

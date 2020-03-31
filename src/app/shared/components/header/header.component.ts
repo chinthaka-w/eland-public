@@ -4,6 +4,8 @@ import { AppConfig } from "../../dto/app-config.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from '../../service/session.service';
 import {PublicUserDetails} from '../../dto/public-user-detail.model';
+import { TranslateService } from '@ngx-translate/core';
+import { Languages } from '../../enum/languages.enum';
 
 
 @Component({
@@ -14,8 +16,29 @@ import {PublicUserDetails} from '../../dto/public-user-detail.model';
 export class HeaderComponent implements OnInit {
   status: boolean = false;
   dropdown: boolean = false;
+  langDropdown: boolean = false;
   appConfig: AppConfig;
   userName: any;
+
+  public languages = [
+    {
+        id   : Languages.ENGLISH,
+        label: 'English',
+        code: 'en'
+    },
+    {
+        id   : Languages.SINHALA,
+        label: 'සිංහල',
+        code: 'si'
+    },
+    {
+        id   : Languages.TAMIL,
+        label: 'தமிழ்',
+        code: 'ta'
+    }
+];
+
+public selectedLanguage = this.languages[0];
 
   clickEvent() {
     this.status = !this.status;
@@ -31,7 +54,8 @@ export class HeaderComponent implements OnInit {
     public sysConfigService: SysConfigService,
     private router: Router,
     private route: ActivatedRoute,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    public translate: TranslateService
   ) {
     router.events.subscribe(event => {
 
@@ -62,5 +86,15 @@ export class HeaderComponent implements OnInit {
       footer: false
   });
     this.router.navigate([`/login`], { relativeTo: this.route });
+  }
+
+  changeLanguage(lang){
+    this.translate.use(lang.code);
+    this.selectedLanguage = lang;
+    this.clickLangDropdown();
+  }
+
+  clickLangDropdown(){
+    this.langDropdown = !this.langDropdown;
   }
 }

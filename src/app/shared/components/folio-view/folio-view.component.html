@@ -1,0 +1,57 @@
+<button type="button" class="close" aria-label="Close" [mat-dialog-close]>
+    <span aria-hidden="true">&times;</span>
+</button>
+<ng-container *ngIf="!showTransaction">
+    <mat-tab-group>
+        <mat-tab *ngIf="uiController.isFolioHeader" label="Folio Details">
+            <app-folio-header *ngIf="!loading && folioDto" [folioDto]="folioDto" [uiController]="uiController" [folioController]="folioController"
+                [divisionalSecretaries]="divisionalSecretaries" [gramaniladhariDivisions]="gramaniladhariDivisions"
+                [landRegistryDivisions]="landRegistryDivisions" [localAuthorities]="localAuthorities"
+                [districts]="districts" [provinces]="provinces" [landRegistries]="landRegistries">
+            </app-folio-header>
+        </mat-tab>
+        <mat-tab *ngIf="uiController.isUnit" label="Unit Details">
+            <app-unit *ngIf="!loading && folioDto" [uiController]="uiController" [unitDto]="unitDto"></app-unit>
+        </mat-tab>
+        <mat-tab *ngIf="uiController.isProperty" label="Property Details">
+            <app-property *ngIf="!loading && folioDto" [uiController]="uiController" [propertyDto]="propertyDto" [folioDto]="folioDto"  [villages]="villages">
+            </app-property>
+        </mat-tab>
+        <mat-tab
+        label="{{ 'BOUNDARIES.NAME' | translate }}"
+        *ngIf="
+          uiController.isBoundary &&
+          propertyDto.isLand == 1 &&
+          folioDto.folioTypeId != documentType.EXPRESS_TRUST &&
+          folioDto.folioTypeId != documentType.NORMAL_TRUST
+        "
+        [disabled]="false"
+      >
+        <app-boundary
+          [uiController]="uiController"
+          [boundaryDto]="boundaryDto"
+        >
+        </app-boundary>
+      </mat-tab>
+        <mat-tab *ngIf="uiController.isExtent" label="Extent Details">
+            <app-extent *ngIf="!loading && folioDto" [uiController]="uiController" [extentDto]="extentDto"></app-extent>
+        </mat-tab>
+    </mat-tab-group>
+    <button *ngIf="!loading && folioDto" type="button" (click)="toggleTransactionView()" mat-raised-button>
+        View Transactions
+    </button>
+</ng-container>
+<ng-container *ngIf="showTransaction">
+    <div class="pg-inner-row">
+        <div>
+            <!-- <mat-card [class.active]="0 == selectedTransaction" style="margin: 10px; cursor:pointer" (click)="selectTransaction(0)">Transaction 1</mat-card>
+        <mat-card [class.active]="1 == selectedTransaction" style="margin: 10px; cursor: pointer;" (click)="selectTransaction(1)">Transaction 2</mat-card> -->
+        </div>
+        <div>
+            <app-transaction-view [uiController]="uiController"></app-transaction-view>
+        </div>
+    </div>
+    <button type="button" (click)="toggleTransactionView()" mat-raised-button>
+        Back
+    </button>
+</ng-container>

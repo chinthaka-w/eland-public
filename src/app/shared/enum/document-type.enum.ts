@@ -1,0 +1,11 @@
+export enum DocumentType {
+
+    NORMAL_TRUST = 7,
+    EXPRESS_TRUST = 8,
+    GENERAL = 1,
+    CONDOMINIUM = 2,
+    SPECIAL_DIVISION_DEEDS = 3,
+    SPECIAL_CONDOMINIUM_DEEDS = 4,
+    MOVABLE = 5,
+    GOV_LANDS = 6
+}
