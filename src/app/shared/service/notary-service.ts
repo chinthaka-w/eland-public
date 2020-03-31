@@ -57,6 +57,10 @@ export class NotaryService {
     return this.httpClient.get(this.BASE_URL + '/find/' + nic, {headers: this.headersJson});
   }
 
+  findLastRemark(id: number): Observable<Object> {
+    return this.httpClient.get(`${this.BASE_URL}/LastRemark/${id}`, {headers: this.headersJson});
+  }
+
   setNotaryDetails(notaryDetails: Notary) {
     this.notaryDetails = notaryDetails;
   }

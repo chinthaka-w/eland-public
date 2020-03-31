@@ -79,7 +79,7 @@ onlinePaymentForm: FormGroup;
     if (!this.showPaymentResult) {
       window.location.href = this.lgpsUrl + this.onlinePaymentForm.get('encryptedPaymentRequest').value;
     } else {
-      this.router.navigate(['/', this.returnUrl]);
+      this.router.navigateByUrl(this.returnUrl);
     }
   }
 

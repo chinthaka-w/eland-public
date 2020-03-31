@@ -10,6 +10,4 @@ export class CorrectionDetail {
     requestedCorrection: string;
     recaptcha: string;
     filesMeta: FileMeta[];
-    userRoleCode: string;
-    userId: number;
 }

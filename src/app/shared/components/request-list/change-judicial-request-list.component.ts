@@ -1,22 +1,24 @@
 import { RequestResponse } from './../../dto/request-response.model';
 import { CorrectionRequestService } from './../../service/correction-request.service';
-import { LanguageRequest } from './../../dto/language-request.model';
-import { LanguageChangeService } from './../../service/language-change.service';
+import {LanguageRequest} from './../../dto/language-request.model';
+import {LanguageChangeService} from './../../service/language-change.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {JudicialChange} from '../../dto/judicial-change-model';
 import {SnackBarService} from '../../service/snack-bar.service';
 import {JudicialService} from '../../service/change-judicial-service';
 import {TokenStorageService} from '../../auth/token-storage.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Workflow} from '../../enum/workflow.enum';
 import {SearchRequestService} from '../../service/search-request.service';
 import {SearchRequest} from '../../dto/search-request.model';
 import {SessionService} from '../../service/session.service';
 import {ExtractRequestService} from '../../service/extract-request.service';
 import {ExtractRequest} from '../../dto/extract-request.model';
-import {ChangeNameService} from "../../service/change-name.service";
-import {NotaryNameChangeModel} from "../../dto/notary-name-change.model";
+import {ChangeNameService} from '../../service/change-name.service';
+import {NotaryNameChangeModel} from '../../dto/notary-name-change.model';
+import {ChangeLandRegistryService} from '../../service/change-land-registry.service';
+import {ChangeLandRegistryDto} from '../../dto/change-land-registry.dto';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -41,19 +43,25 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   public newButtonURL: string;
   public actionButtonURL: string;
 
+  previousUrl = '';
+
   constructor(private judicialService: JudicialService,
               private changeNameService: ChangeNameService,
               private searchRequestService: SearchRequestService,
               private extractRequestService: ExtractRequestService,
               private snackBar: SnackBarService,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private sessionService: SessionService,
               private tokenStorageService: TokenStorageService,
               private langChangeService: LanguageChangeService,
+              private landregistryService: ChangeLandRegistryService,
               private folioCorrectionService: CorrectionRequestService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params['flag']); // (+) converts string 'id' to a number
     });
+
+    this.previousUrl = this.router.url;
   }
 
   ngOnInit() {
@@ -96,6 +104,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.titleText = 'REQUEST FOR LANGUAGE CHANGE';
         this.newButtonURL = '/language-change';
         this.actionButtonURL = '/language-change-view/';
+        break;
+      case Workflow.CHANGE_LAND_REGISTRY:
+        this.loadLandRegistryRequests();
+        this.headerText = 'LAND REGISTRY CHANGE';
+        this.titleText = 'REQUEST FOR LAND REGISTRY CHANGE';
+        this.newButtonURL = '/change-registry';
+        this.actionButtonURL = '/change-land-registry-view/';
         break;
       // section 35 corrections
       case Workflow.FOLIO_REQUEST_CORRECTION:
@@ -196,6 +211,21 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       }
     );
   }
+
+/**
+ * Get all land registry requests
+ */
+
+  loadLandRegistryRequests() {
+    this.landregistryService.getAllRequests(this.sessionService.getUser().id).subscribe(
+      (result: ChangeLandRegistryDto[]) => {
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+
+}
+
 
   getFolioCorrctionRequest() {
     // get requests

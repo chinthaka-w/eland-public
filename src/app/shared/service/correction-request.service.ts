@@ -1,3 +1,4 @@
+import { CorrectionRequest } from './../dto/correction-request.model';
 import { RequestResponse } from './../dto/request-response.model';
 import { SysConfigService } from './sys-config.service';
 import { Injectable } from '@angular/core';
@@ -41,15 +42,13 @@ export class CorrectionRequestService {
   }
 
  // save correction request
- saveCorrectionReq(corrReq: FormData): Observable<any> {
-  return this.http.post(this.FOLIO_CORRECTION_URL + '/' ,corrReq);
+ saveCorrectionReq(correctionRequest: CorrectionRequest): Observable<any> {
+  return this.http.post(this.FOLIO_CORRECTION_URL + '/' , correctionRequest);
 }
 
 // get correction requests
 getFolioCorrectionRequests(id: number): Observable<RequestResponse> {
   return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + id);
 }
-
-
 
 }

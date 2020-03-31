@@ -31,6 +31,9 @@ import {Location} from '@angular/common';
 import {Workflow} from '../../../../../shared/enum/workflow.enum';
 import {Action} from 'rxjs/internal/scheduler/Action';
 import {ActionMode} from '../../../../../shared/enum/action-mode.enum';
+import {SearchRequestWorkflowStages} from '../../../../../shared/enum/search-request-workflow-stages.enum';
+import {MatBottomSheet} from '@angular/material';
+import {SearchDocumentResultComponent} from './search-document-result/search-document-result.component';
 
 @Component({
   selector: 'app-search-document-application',
@@ -40,6 +43,7 @@ import {ActionMode} from '../../../../../shared/enum/action-mode.enum';
 export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
 
   @Input() workflow: string;
+  @Input() workflowStage: string;
   @Input() requestId: number;
   @Input() action: string;
   @Output() folioItem = new EventEmitter<Element>();
@@ -49,6 +53,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   Parameters = Parameters;
   WorkflowCode = Workflow;
   ActionMode = ActionMode;
+  SearchWorkflowStage = SearchRequestWorkflowStages;
 
   public isContinueToPayment: boolean = false;
 
@@ -82,6 +87,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     private searchRequestService: SearchRequestService,
     private sessionService: SessionService,
     private snackBarService: SnackBarService,
+    private _bottomSheet: MatBottomSheet,
     private location: Location) {
   }
 
@@ -295,7 +301,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   onClickDelete(index: any) {
     this.elements[index].deleted = true;
     this.folioItem.emit(this.elements[index]);
-    this.elements.splice(index,1);
+    this.elements.splice(index, 1);
     this.dataSource.data = this.elements;
   }
 
@@ -318,6 +324,18 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     );
   }
 
+  onClickView(index: any) {
+    this.getSearchResult(this.elements[index].index);
+  }
+
+  getSearchResult(requestId: any) {
+    this.searchRequestService.getSearchFolioResultBySearchRequestFolioId(requestId).subscribe(
+      (data: any[]) => {
+        console.log(data);
+        this._bottomSheet.open(SearchDocumentResultComponent, {data: data});
+      }
+    );
+  }
 }
 
 export interface Element {

@@ -8,10 +8,11 @@ import {NewNotaryRegistrationRequest} from "../dto/new-notary-registration-reque
 import {NewNotaryPaymentDetailDto} from "../dto/new-notary-payment-detail.dto";
 import {NotaryRegistrationHistoryDto} from "../dto/notary-registration-history.dto";
 import {NewNotarySupportingDocDetailDto} from "../dto/new-notary-supporting-doc-detail.dto";
+import {SysConfigService} from './sys-config.service';
 
 @Injectable()
 export class NewNotaryDataVarificationService {
-  public BASE_URL = 'http://localhost:9292/api/newNotary';
+  public BASE_URL = SysConfigService.BASE_URL +'newNotary';
   private headers;
   private headersJson = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   public viewNotaryDetails: NewNotaryViewDto;

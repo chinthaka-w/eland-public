@@ -21,7 +21,7 @@
       <div class="pg-inner-col right">
         <div class="default-input-wrapper m0 rac-col">
           <div class="default-input-feild">
-            <a [routerLink]="newButtonURL">
+            <a [routerLink]="newButtonURL" [state]="{previousUrl:previousUrl}">
               <button mat-button class="button">
                 New
               </button>
@@ -59,6 +59,22 @@
         <td mat-cell *matCellDef="let element"> {{element.judicialZoneDescription}}</td>
       </ng-container>
 
+      <!-- Name Column -->
+      <ng-container *ngIf="Workflow.CHANGE_LAND_REGISTRY==flag" matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Reason for change</th>
+        <td mat-cell *matCellDef="let element"> {{element.reasonForChange}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <!--<ng-container *ngIf="Workflow.CHANGE_LAND_REGISTRY==flag" matColumnDef="workflowDescription">-->
+        <!--<th mat-header-cell *matHeaderCellDef> Land registry id</th>-->
+        <!--<td mat-cell *matCellDef="let element"> {{element.landRegistryId}}</td>-->
+      <!--</ng-container>-->
+
+      <!--<ng-container *ngIf="Workflow.CHANGE_LAND_REGISTRY==flag" matColumnDef="date">-->
+        <!--<th mat-header-cell *matHeaderCellDef> New notary request id</th>-->
+        <!--<td mat-cell *matCellDef="let element"> {{element.notartRequestId}}</td>-->
+      <!--</ng-container>-->
 
       <!-- Name Column -->
       <ng-container *ngIf="Workflow.SEARCH_REQUEST==flag || Workflow.EXTRACT_REQUEST==flag || Workflow.LANGUAGE_CHANGE == flag" matColumnDef="description">

@@ -1,3 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonStatus } from './../../shared/enum/common-status.enum';
+import { RequestResponse } from './../../shared/dto/request-response.model';
+import { PatternValidation } from './../../shared/enum/pattern-validation.enum';
 import { SessionService } from './../../shared/service/session.service';
 import { FileMeta } from './../../shared/dto/file-meta.model';
 import { FileUploadPopupComponent } from './../../shared/components/file-upload-popup/file-upload-popup.component';
@@ -10,6 +14,8 @@ import {Workflow} from "../../shared/enum/workflow.enum";
 import { MatTableDataSource, MatDialog, MatPaginator } from '@angular/material';
 import { CorrectionDetail } from 'src/app/shared/dto/correction-detail.model';
 import { FolioCorrectionWorkflowStages } from 'src/app/shared/enum/folio-correction-workflow-stages.enum';
+import { switchAll } from 'rxjs/operators';
+import { CorrectionRequest } from 'src/app/shared/dto/correction-request.model';
 @Component({
   selector: 'app-request-for-correction',
   templateUrl: './request-for-correction.component.html',
@@ -26,21 +32,41 @@ export class RequestForCorrectionComponent implements OnInit {
   dataSource = new MatTableDataSource<CorrectionDetail>(this.correctionDetails);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   filesMeta: FileMeta[];
+  maxDate = new Date();
+  editIndex: number;
+  isEdit = false;
+  isSave = false;
+  isClick = false;
 
-  constructor(private correctionRequestService: CorrectionRequestService,private formBuilder: FormBuilder,
+  constructor(private correctionRequestService: CorrectionRequestService,
+              private formBuilder: FormBuilder,
               private snackBarService: SnackBarService,
               public dialog: MatDialog,
-              public sessionService: SessionService
-              ) { }
+              public sessionService: SessionService,
+              public router: Router
+  ) { }
 
   ngOnInit() {
     this.reqForCorrectionForm = this.formBuilder.group({
-      landRegId: [, [Validators.required]],
-      folioNo: ['', [Validators.required]],
-      dayBookNo: [''],
-      deedNo: [''],
-      notaryName: [''],
-      attestedDate: [new Date()],
+      landRegId: ['', [Validators.required]],
+      folioNo: ['', [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.FOLIO_NUMBER)
+      ]],
+      dayBookNo: ['', [
+        Validators.maxLength(255), 
+        Validators.pattern(PatternValidation.DAY_BOOK_NUMBER)
+      ]],
+      deedNo: ['', [
+        Validators.maxLength(255)
+      ]],
+      notaryName: ['', [
+        Validators.pattern(PatternValidation.nameValidation),
+        Validators.maxLength(255)
+      ]],
+      attestedDate: [new Date(), [
+      ]],
       correctionNature: [null, [Validators.required]],
       requestedCorrection: [null, [Validators.required]],
       recaptcha: [null],
@@ -55,6 +81,18 @@ export class RequestForCorrectionComponent implements OnInit {
 
   get landRegId() {
     return this.reqForCorrectionForm.get('landRegId');
+  }
+
+  get dayBookNo() {
+    return this.reqForCorrectionForm.get('dayBookNo');
+  }
+
+  get deedNo() {
+    return this.reqForCorrectionForm.get('deedNo');
+  }
+
+  get notaryName() {
+    return this.reqForCorrectionForm.get('notaryName');
   }
 
   get correctionNature() {
@@ -80,6 +118,8 @@ export class RequestForCorrectionComponent implements OnInit {
   }
 
   onFormSubmit() {
+    this.isClick = true;
+    this.isSave = true;
     if (this.correctionDetails.length > 0) {
       this.recaptcha.setValidators([Validators.required]);
       this.recaptcha.updateValueAndValidity();
@@ -87,11 +127,28 @@ export class RequestForCorrectionComponent implements OnInit {
 
       if (this.reqForCorrectionForm.invalid) {
         this.snackBarService.warn('Plase fill the form');
+        this.isSave = false;
       } else if (this.reqForCorrectionForm.valid) {
-        this.validateForm();
+        // submit correction request
+        const correctionRequest = new CorrectionRequest();
+        correctionRequest.correctionDetails = this.correctionDetails;
+        correctionRequest.userId = this.sessionService.getUser().id;
+        correctionRequest.userType = this.sessionService.getUser().type;
+        correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.FOLIO_CORRECTION_REQUEST_INITIATE;
+        this.correctionRequestService.saveCorrectionReq(correctionRequest).subscribe(
+          (response: RequestResponse) => {
+            if (response.status === CommonStatus.SUCCESS) {
+              this.isSave = false;
+              this.snackBarService.success('Successfully submitted');
+              this.router.navigate(['/requests', this.getBase64(Workflow.FOLIO_REQUEST_CORRECTION)]);
+            }
+          }
+        );
+
       }
     } else {
       this.snackBarService.warn('Plase fill the form');
+      this.isSave = false;
     }
   }
 
@@ -100,19 +157,25 @@ export class RequestForCorrectionComponent implements OnInit {
   }
 
   // add folio correction
-  onAddCorrection(): void {
+  onAddCorrection(editIndex: number): void {
     this.recaptcha.clearValidators();
-    this.updateValidationsOnAddFolioCorrection();
+    // this.updateValidationsOnAddFolioCorrection();
     if (this.reqForCorrectionForm.invalid) {
       this.snackBarService.error('Please fill the form');
-      this.validateForm();
       return;
     }
+
     let correctionData = new CorrectionDetail();
     correctionData = this.reqForCorrectionForm.value;
-    correctionData.userRoleCode = this.sessionService.getUser().type;
-    correctionData.userId = this.sessionService.getUser().id;
-    this.correctionDetails.push(correctionData);
+    if (!this.isEdit) {
+      this.correctionDetails.push(correctionData);
+    } else if (this.isEdit && editIndex != null) {
+      this.isEdit = false;
+      // set edit form and previous upload documents
+      this.filesMeta = this.correctionDetails[editIndex].filesMeta;
+      this.correctionDetails[editIndex] = this.reqForCorrectionForm.value;
+      this.correctionDetails[editIndex].filesMeta = this.filesMeta;
+    }
     this.updateDatasource(this.correctionDetails);
     this.initPaginator();
     this.resetForm();
@@ -134,6 +197,14 @@ export class RequestForCorrectionComponent implements OnInit {
     }
   }
 
+  onEdit(index: number) {
+    if (index != null) {
+      this.isEdit = true;
+      this.editIndex = index;
+      this.reqForCorrectionForm.patchValue(this.correctionDetails[index]);
+    }
+  }
+
   onDocUpload(index: number) {
     const dialogRef = this.dialog.open(FileUploadPopupComponent, {
       width: '750px',
@@ -141,6 +212,7 @@ export class RequestForCorrectionComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((filesMeta: FileMeta[]) => {
       this.filesMeta = filesMeta;
+      console.log('file meta', filesMeta);
       this.correctionDetails[index].filesMeta = filesMeta;
     });
   }
@@ -180,10 +252,14 @@ export class RequestForCorrectionComponent implements OnInit {
     this.landRegId.setValidators([Validators.required]);
     this.landRegId.updateValueAndValidity();
 
-    this.folioNo.setValidators([Validators.required]);
+    this.folioNo.setValidators(
+      [Validators.required,
+        Validators.pattern(PatternValidation.FOLIO_NUMBER)
+      ]);
     this.folioNo.updateValueAndValidity();
 
-    this.correctionNature.setValidators([Validators.required]);
+    this.correctionNature.setValidators([Validators.required
+    ]);
     this.correctionNature.updateValueAndValidity();
 
     this.requestedCorrection.setValidators([Validators.required]);

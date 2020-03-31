@@ -6,8 +6,8 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: "home",
-    pathMatch: "full"
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
     path: '',
@@ -24,7 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
