@@ -19,6 +19,7 @@ import { UnitDto } from 'src/app/shared/dto/unit-dto.model';
 import { CloseNote } from 'src/app/shared/dto/close-note.model';
 import { FolioDto } from '../../dto/folio-dto.model';
 import { DocumentType } from 'src/app/shared/enum/document-type.enum';
+import { DocumentNatures } from 'src/app/shared/enum/document-nature.enum';
 
 @Component({
   selector: 'app-transaction-view',
@@ -63,7 +64,7 @@ export class TransactionViewComponent implements OnInit {
   public unitDto = new UnitDto;
 
   documentType = DocumentType;
-
+  documentNature = DocumentNatures;
 
   constructor() { }
 

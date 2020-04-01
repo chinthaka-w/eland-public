@@ -4,47 +4,46 @@
 <ng-container *ngIf="!showTransaction">
     <mat-tab-group>
         <mat-tab *ngIf="uiController.isFolioHeader" label="{{ 'COMMON.FOLIO_NEW' | translate }}">
-            <app-folio-header *ngIf="!loading && folioDto" [folioDto]="folioDto" [uiController]="uiController" [folioController]="folioController"
-                [divisionalSecretaries]="divisionalSecretaries" [gramaniladhariDivisions]="gramaniladhariDivisions"
-                [landRegistryDivisions]="landRegistryDivisions" [localAuthorities]="localAuthorities"
-                [districts]="districts" [provinces]="provinces" [landRegistries]="landRegistries">
+            <app-folio-header *ngIf="!loading && folioDto" [folioDto]="folioDto" [uiController]="uiController"
+                [folioController]="folioController" [divisionalSecretaries]="divisionalSecretaries"
+                [gramaniladhariDivisions]="gramaniladhariDivisions" [landRegistryDivisions]="landRegistryDivisions"
+                [localAuthorities]="localAuthorities" [districts]="districts" [provinces]="provinces"
+                [landRegistries]="landRegistries">
             </app-folio-header>
         </mat-tab>
         <mat-tab
-        label="{{ uiController.isCarriedOver ? ('COMMON.BROUGHT_FORWARD' | translate) : ('COMMON.CROSS_REFERENCE' | translate) }}">
-        <app-cross-note
-          [referenceFolioList]="folioDto?.broughtForwardFolios"
-          [uiController]="uiController"
-          [landRegistries]="landRegistries"
-          [newFolioDto]="folioDto"
-          [selectedLrDivision]="selectedLrDivision"
-        >
-        </app-cross-note>
-      </mat-tab>
+            label="{{ uiController.isCarriedOver ? ('COMMON.BROUGHT_FORWARD' | translate) : ('COMMON.CROSS_REFERENCE' | translate) }}">
+            <app-cross-note [referenceFolioList]="folioDto?.broughtForwardFolios" [uiController]="uiController"
+                [landRegistries]="landRegistries" [newFolioDto]="folioDto" [selectedLrDivision]="selectedLrDivision">
+            </app-cross-note>
+        </mat-tab>
         <mat-tab *ngIf="uiController.isUnit" label="{{ 'UNIT_DETAILS.TAB_TITLE' | translate }}">
             <app-unit *ngIf="!loading && folioDto" [uiController]="uiController" [unitDto]="unitDto"></app-unit>
         </mat-tab>
-        <mat-tab *ngIf="uiController.isProperty" label="{{ 'PROPERTY_DETAILS.TITLE' | translate }}">
-            <app-property *ngIf="!loading && folioDto" [uiController]="uiController" [propertyDto]="propertyDto" [folioDto]="folioDto"  [villages]="villages">
+        <mat-tab *ngIf="
+        uiController.isProperty &&
+        folioDto.folioTypeId != documentType.EXPRESS_TRUST &&
+        folioDto.folioTypeId != documentType.NORMAL_TRUST
+      " label="{{ 'PROPERTY_DETAILS.TITLE' | translate }}">
+            <app-property *ngIf="!loading && folioDto" [uiController]="uiController" [propertyDto]="propertyDto"
+                [folioDto]="folioDto" [villages]="villages">
             </app-property>
         </mat-tab>
-        <mat-tab
-        label="{{ 'BOUNDARIES.NAME' | translate }}"
-        *ngIf="
+        <mat-tab label="{{ 'BOUNDARIES.NAME' | translate }}" *ngIf="
           uiController.isBoundary &&
           propertyDto.isLand == 1 &&
           folioDto.folioTypeId != documentType.EXPRESS_TRUST &&
           folioDto.folioTypeId != documentType.NORMAL_TRUST
-        "
-        [disabled]="false"
-      > 
-        <app-boundary
-          [uiController]="uiController"
-          [boundaryDto]="boundaryDto"
-        >
-        </app-boundary>
-      </mat-tab>
-        <mat-tab *ngIf="uiController.isExtent" label="{{ 'EXTENT_DETAILS.TAB_TITLE' | translate }}">
+        " [disabled]="false">
+            <app-boundary [uiController]="uiController" [boundaryDto]="boundaryDto">
+            </app-boundary>
+        </mat-tab>
+        <mat-tab *ngIf="
+        uiController.isExtent &&
+        propertyDto.isLand == 1 &&
+        folioDto.folioTypeId != documentType.EXPRESS_TRUST &&
+        folioDto.folioTypeId != documentType.NORMAL_TRUST
+      " label="{{ 'EXTENT_DETAILS.TAB_TITLE' | translate }}">
             <app-extent *ngIf="!loading && folioDto" [uiController]="uiController" [extentDto]="extentDto"></app-extent>
         </mat-tab>
     </mat-tab-group>
@@ -59,7 +58,7 @@
         <mat-card [class.active]="1 == selectedTransaction" style="margin: 10px; cursor: pointer;" (click)="selectTransaction(1)">Transaction 2</mat-card> -->
         </div>
         <div>
-            <app-transaction-view [uiController]="uiController"></app-transaction-view>
+            <app-transaction-view [folioDto]="folioDto" [uiController]="uiController"></app-transaction-view>
         </div>
     </div>
     <button type="button" (click)="toggleTransactionView()" mat-raised-button>

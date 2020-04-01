@@ -1,54 +1,80 @@
 <mat-tab-group>
-    <mat-tab *ngIf="uiController.isUnit" label="{{ 'UNIT_DETAILS.TAB_TITLE' | translate }}">
+    <!-- <mat-tab *ngIf="uiController.isUnit &&
+    !uiController.isCloseNote" label="{{ 'UNIT_DETAILS.TAB_TITLE' | translate }}">
         <app-unit [uiController]="uiController" [unitDto]="unitDto"></app-unit>
-    </mat-tab>
-    <mat-tab *ngIf="uiController.isProperty" label="{{ 'PROPERTY_DETAILS.TITLE' | translate }}">
+    </mat-tab> -->
+    <mat-tab *ngIf="
+    uiController.isProperty &&
+    (folioDto.folioTypeId == documentType.EXPRESS_TRUST ||
+      folioDto.folioTypeId == documentType.NORMAL_TRUST) &&
+      !uiController.isCloseNote
+  " label="{{ 'PROPERTY_DETAILS.TITLE' | translate }}">
         <app-property [uiController]="uiController" [propertyDto]="propertyDto"></app-property>
     </mat-tab>
     <mat-tab label="{{ 'BOUNDARIES.NAME' | translate }}" *ngIf="
-          uiController.isBoundary &&
-          propertyDto.isLand == 1 &&
-          folioDto.folioTypeId != documentType.EXPRESS_TRUST &&
-          folioDto.folioTypeId != documentType.NORMAL_TRUST
-        " [disabled]="false">
+    uiController.isBoundary &&
+    propertyDto.isLand == 1 &&
+    (folioDto.folioTypeId == documentType.EXPRESS_TRUST ||
+      folioDto.folioTypeId == documentType.NORMAL_TRUST) &&
+      !uiController.isCloseNote
+  " [disabled]="false">
         <app-boundary [uiController]="uiController" [boundaryDto]="boundaryDto">
         </app-boundary>
     </mat-tab>
-    <mat-tab *ngIf="uiController.isExtent" label="Extent Details">
+    <mat-tab *ngIf="
+    uiController.isExtent &&
+    propertyDto.isLand == 1 &&
+    (folioDto.folioTypeId == documentType.EXPRESS_TRUST ||
+      folioDto.folioTypeId == documentType.NORMAL_TRUST) &&
+      !uiController.isCloseNote
+  " label="{{ 'EXTENT_DETAILS.TAB_TITLE' | translate }}">
         <app-extent [uiController]="uiController" [extentDto]="extentDto"></app-extent>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isGrantor" label="Grantor">
+    <mat-tab *ngIf="uiController?.isGrantor &&
+    !uiController.isCloseNote"
+        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.PLAINTIFFS'| translate) : 'GRANTOR_DETAILS.TAB_TITLE' | translate }}">
         <app-grantor [uiController]="uiController" [grantorDto]="grantorDto" [grantorDto]="grantorList"></app-grantor>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isGrantee" label="Grantee">
+    <mat-tab *ngIf="uiController?.isGrantee &&
+    !uiController.isCloseNote"
+        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.DEFENDANT'| translate) :  'GRANTEE_DETAILS.TAB_TITLE' | translate }}">
         <app-grantee [uiController]="uiController" [granteeDto]="granteeDto" [granteeList]="granteeList"></app-grantee>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isTruster" label="Truster">
+    <mat-tab *ngIf="uiController.isTruster &&
+    !uiController.isCloseNote" label="{{ 'TRUSTER_DETAILS.TAB_TITLE' | translate }}">
         <app-truster [uiController]="uiController" [trusterDto]="trusterDto" [trusterList]="trusterList"></app-truster>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isTrustee" label="Trustee">
+    <mat-tab *ngIf="uiController?.isTrustee &&
+    !uiController.isCloseNote"
+        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.PLAINTIFFS'| translate) : 'TRUSTEE_DETAILS.TAB_TITLE' | translate }}">
         <app-trustee [uiController]="uiController" [trusteeDto]="trusteeDto" [trusteeList]="trusteeList"></app-trustee>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isCoTrustee" label="Co-Trustee">
+    <mat-tab *ngIf="uiController?.isCoTrustee &&
+    !uiController.isCloseNote"
+        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.DEFENDANT'| translate) : 'CO_TRUSTEE_DETAILS.TAB_TITLE' | translate }}">
         <app-co-trustee [uiController]="uiController" [coTrusteeDto]="coTrusteeDto" [coTrusteeDto]="coTrusteeDto">
         </app-co-trustee>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isOldTrustee" label="Old Trustee">
+    <mat-tab *ngIf="uiController?.isOldTrustee &&
+    !uiController.isCloseNote" label="{{ 'OLD_TRUSTEE_DETAILS.TAB_TITLE' | translate }}">
         <app-old-trustee [uiController]="uiController" [oldTrusteeDto]="oldTrusteeDto"
             [oldTrusteeList]="oldTrusteeList"></app-old-trustee>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isBeneficial" label="Beneficial Author">
+    <mat-tab *ngIf="uiController?.isBeneficial &&
+    !uiController.isCloseNote" label="{{ 'BENEFICIAL_ARTHUR_DETAILS.TAB_TITLE' | translate }}">
         <app-beneficial [uiController]="uiController" [beneficialDto]="beneficialDto" [beneficialList]="beneficialList">
         </app-beneficial>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isBeneficiary" label="Beneficiary">
+    <mat-tab *ngIf="uiController?.isBeneficiary &&
+    !uiController.isCloseNote" label="{{ 'BENEFICIARY_DETAILS.TAB_TITLE' | translate }}">
         <app-beneficiary [uiController]="uiController" [beneficiaryDto]="beneficiaryDto"
             [beneficiaryList]="beneficiaryList"></app-beneficiary>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isParticulars" label="Particular">
+    <mat-tab *ngIf="uiController?.isParticulars &&
+    !uiController.isCloseNote" label="{{ 'PARTICULAR.TAB_TITLE' | translate }}">
         <app-particular [uiController]="uiController" [particularDto]="particular"></app-particular>
     </mat-tab>
-    <mat-tab *ngIf="uiController?.isRemark" label="Remark">
+    <mat-tab *ngIf="uiController?.isRemark" label="{{ 'COMMON.REMARKS' | translate }}">
         <app-remark [uiController]="uiController" [remarkDto]="remark"></app-remark>
     </mat-tab>
 </mat-tab-group>
