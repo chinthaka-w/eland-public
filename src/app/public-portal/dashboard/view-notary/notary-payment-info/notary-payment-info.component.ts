@@ -25,9 +25,13 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @Input() requestDetailPayment: RequestSearchDetailDTO;
   @ViewChild(PaymentComponent, {static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent, {static: false}) paymentMethodComponent: PaymentMethodComponent;
-  @Input() workflow: string;
+  @Input() workflow: string = Workflow.NOTARY_REGISTRATION;
   @Input() id: number;
   @Input() action: number;
+  @Input() isDocumentCollect: boolean;
+  @Input() hasFrontCounterPayment: boolean;
+  @Input() addPayment: boolean = true;
+  @Input() applicationFeeCode: string = Parameters.NOTARY_REG_FEE;
   @Output() paymentResponse = new EventEmitter<PaymentResponse>();
 
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
@@ -95,6 +99,10 @@ export class NotaryPaymentInfoComponent implements OnInit {
         this.paymentDataValue = paymentData.paymentId;
         this.savePayments(this.requestDetailPayment.requestId, this.paymentDataValue);
     }
+  }
+
+  onBack(data:any){
+    this.isPayment = false;
   }
 
 }

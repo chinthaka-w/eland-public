@@ -32,6 +32,9 @@ import {Workflow} from '../../../shared/enum/workflow.enum';
 import {ExtractRequestService} from '../../../shared/service/extract-request.service';
 import {ExtractRequest} from '../../../shared/dto/extract-request.model';
 import {FolioStatus} from '../../../shared/enum/folio-status.enum';
+import {Router} from '@angular/router';
+import {PaymentDto} from '../../../shared/dto/payment-dto';
+import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 
 @Component({
   selector: 'app-extract',
@@ -58,7 +61,10 @@ export class ExtractComponent implements OnInit {
   public villages: Village[] = [];
   public searchReasons: SearchReason[] = [];
 
-  public searchRequest = new SearchRequest();
+  public searchRequest = new ExtractRequest();
+  public paymentDto: PaymentDto = new PaymentDto();
+  public returnURl;
+  statusOnlinePayment: boolean;
 
   //Mat Table Config
   public elements: Element[] = [];
@@ -77,8 +83,14 @@ export class ExtractComponent implements OnInit {
     private searchRequestService: SearchRequestService,
     private extractRequestService: ExtractRequestService,
     private sessionService: SessionService,
+    public router: Router,
     private snackBarService: SnackBarService,
     private location: Location) {
+    let data = this.router.getCurrentNavigation().extras.state;
+    if (data) {
+      this.returnURl = data.previousUrl;
+    }
+
   }
 
   ngOnInit() {
@@ -180,9 +192,14 @@ export class ExtractComponent implements OnInit {
         console.log(error);
         this.snackBarService.error(error.message);
       }, () => {
-        this.resetForm();
-        this.isContinueToPayment = false;
-        this.snackBarService.success('Your Extract request is submitted.')
+        if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
+          this.snackBarService.success('Your Extract request saved successfully,, Proceed to online payment')
+          this.statusOnlinePayment = true;
+        } else {
+          this.isContinueToPayment = false;
+          this.resetForm();
+          this.snackBarService.success('Your Extract request saved successfully,.')
+        }
       }
     );
   }
@@ -314,12 +331,26 @@ export class ExtractComponent implements OnInit {
   }
 
   onPaymentResponse(data: PaymentResponse) {
-    if (data.paymentStatusCode != PaymentStatus.PAYMENT_FAILED) {
+    if (data.paymentStatusCode != PaymentStatus.PAYMENT_FAILED && data.paymentMethod !== PaymentMethod.ONLINE) {
       this.searchRequest.paymentId = data.paymentId;
       this.saveRequest(this.searchRequest);
     } else {
       this.snackBarService.error('Oh no, Your payment failed.')
     }
+  }
+
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentDto.paymentMethod = data.paymentMethod;
+
+    // save  online payment with reference no
+    if (this.paymentDto.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.searchRequest.payment = this.paymentDto;
+      this.saveRequest(this.searchRequest);
+    }
+
   }
 
   onBack(data: boolean) {

@@ -46,8 +46,8 @@ export class DashboardComponent implements OnInit {
     this.dashboardView = true;
     this.requestView = false;
     this.user = this.sessionService.getUser();
-    this.getUserDetails();
     this.notaryId = this.user.id;
+    if (this.user.type == this.userType.NOTARY) this.getUserDetails();
   }
 
   getBase64(value: string): string {
@@ -184,5 +184,10 @@ export class DashboardComponent implements OnInit {
         this.snackbar.error('Internal server error');
       }
     )
+  }
+  
+  onBackNotaryView(val: boolean) {
+    this.dashboardView = true;
+    this.requestView = false;
   }
 }

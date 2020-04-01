@@ -8,7 +8,7 @@
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
     <div class="pg-inner-row mb-0">
-      <mat-tab-group>
+      <mat-tab-group (selectedIndexChange)="getSelectedIndex($event);">
         <mat-tab label="Application">
           <app-last-remark
             *ngIf="workflowStage==SearchWorkflowStages.SEARCH_REQ_REJECTED_BY_ARL"
@@ -16,6 +16,7 @@
             [requestId]="requestId"></app-last-remark>
           <app-search-document-application
             [workflow]="workflow"
+            [workflowStage]="workflowStage"
             [requestId]="requestId"
             [action]="action"
             (folioItem)="onChangeFolioItem($event)"
@@ -27,6 +28,9 @@
             [workflow]="workflow"
             [id]="requestId"
             [action]="action"
+            [addPayment]="false"
+            [hasFrontCounterPayment]="false"
+            [isDocumentCollect]="false"
             (paymentResponse)="onPaymentResponse($event)"
           ></app-notary-payment-info>
         </mat-tab>
@@ -38,7 +42,7 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-row mb-0">
+    <div *ngIf="action!=ActionMode.VIEW && selectedIndex==0" class="pg-inner-row mb-0">
       <div class="pg-inner-col">
         <button mat-raised-button
                 (click)="onClickSaveChanges()"

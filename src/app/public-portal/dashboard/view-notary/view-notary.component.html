@@ -1,26 +1,41 @@
 <div class="page-header-default">
   <h2>Notary Edit Profile</h2>
-  <p>Please fill in the following information to<br />register in the system</p>
-  <a href="" class="phd-back-btn">
+  <p>Please fill in the following information to<br/>register in the system</p>
+  <a style="cursor: pointer" (click)="onBack.emit(true)" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
     <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event,$event)">
-      <mat-tab label="Application" >
-        <app-notary-application *ngIf="requestId" [requestDetailId]="requestId" (notaryDetail)="getApplicationDetails($event)"></app-notary-application>
+      <mat-tab label="Application">
+        <app-last-remark
+          *ngIf="workflowStage === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED"
+          [requestId]="notaryRequestId"
+          [workflow]="Workflow.NOTARY_REGISTRATION"></app-last-remark>
+        <app-notary-application *ngIf="requestId" [requestDetailId]="requestId"
+                                (notaryDetail)="getApplicationDetails($event)"></app-notary-application>
       </mat-tab>
-      <mat-tab label="Payment Info"  disabled="disabledPayment">
-        <app-notary-payment-info *ngIf="requestId" [requestDetailPayment]="requestId"></app-notary-payment-info>
+      <mat-tab label="Supporting Documents">
+        <app-supporting-doc-detail *ngIf="requestId" [requestDocuments]="requestId"
+                                   (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
+      </mat-tab>
+      <mat-tab label="Payment Info">
+        <app-notary-payment-info *ngIf="requestId" [requestDetailPayment]="requestId" [addPayment]="false"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="Remark">
         <app-notary-remark *ngIf="requestId" [requestRemarks]="requestId"></app-notary-remark>
       </mat-tab>
-      <mat-tab label="Supporting Documents">
-        <app-supporting-doc-detail  *ngIf="requestId" [requestDocuments]="requestId" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
-      </mat-tab>
+
     </mat-tab-group>
-    <button [disabled]="!disabled" mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>
+    <hr/>
+    <button [disabled]="!disabled"
+            [hidden]="selectedIndex==2 || selectedIndex==3"
+            mat-raised-button class="button"
+            (click)="onFormSubmit()">
+      <mat-icon class="material-icons"
+                title="Save Changes">save</mat-icon>
+      Save Changes
+    </button>
   </div>
 </div>

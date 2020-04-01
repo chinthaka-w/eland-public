@@ -399,7 +399,11 @@
 
   </div>
 </div>
-<app-payment *ngIf="isContinueToPayment" (response)="onPaymentResponse($event)"
+<app-payment *ngIf="isContinueToPayment"
+             (response)="onPaymentResponse($event)"
+             (paymentMethodResponse)="paymentMethodResponse($event)"
              (back)="onBack($event)"
+             [statusOnlinePayment]="statusOnlinePayment"
+             [returnUrl]="returnURl?returnURl:'login'"
              [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
              [hasFrontCounterPayment]="true"></app-payment>

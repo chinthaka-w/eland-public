@@ -1,3 +1,5 @@
+import {PaymentDto} from './payment-dto';
+
 export class SearchRequest {
   public requestId: number;
   public landRegistryId: number;
@@ -5,7 +7,7 @@ export class SearchRequest {
   public requestTypeDes: string;
   public attestedByNotaryName: string;
   public practicedLocation: string;
-  public numberOfTheDeed: number;
+  public numberOfTheDeed: string;
   public natureOfTheDeed: string;
   public probablePeriodFrom: string;
   public probablePeriodTo: string;
@@ -29,4 +31,5 @@ export class SearchRequest {
   public paymentId: number;
   public paymentList: number[];
   public folioList: any[];
+  public payment: PaymentDto;
 }
