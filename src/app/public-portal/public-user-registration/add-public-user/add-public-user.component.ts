@@ -42,7 +42,7 @@ export class AddPublicUserComponent implements OnInit {
   citizenDTO: CitizenDTO = new CitizenDTO();
   paymentDto: PaymentDto = new PaymentDto();
   workflowStageDocTypes: Array<WorkflowStageDocTypeDTO> = [];
-
+  maxDate = new Date();
   bankUserTypeId: number;
 
   banks: Array<BankDTO> = [];

@@ -130,10 +130,12 @@
         <label class="mw-200">Date of birth <span>*</span></label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker"  formControlName="dateOfBirth" class="form-control" >
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="picker" [max]="maxDate"  formControlName="dateOfBirth" class="form-control" >
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+          <button type="button" mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
           <div *ngIf="FormControls.dateOfBirth.touched && FormControls.dateOfBirth.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">Please fill the required fields</mat-error>
