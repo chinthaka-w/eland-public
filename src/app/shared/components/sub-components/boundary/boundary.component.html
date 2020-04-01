@@ -1,0 +1,211 @@
+<div *ngIf="boundaryDto" class="pg-inner-row">
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="is-land">{{'COMMON.TYPE'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <select matNativeControl id="is-land" class="form-control" [(ngModel)]="boundaryDto.boundaryType"
+                        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                        <option value="{{boundaryType.NORMAL}}">{{'BOUNDARIES.NORMAL'|translate}}</option>
+                        <option value="{{boundaryType.DEFERENT}}">{{'BOUNDARIES.DIFFERENT'|translate}}</option>
+                        <option value="{{boundaryType.CONDOMINIUM}}">{{'FOLIO_TYPE.CONDOMINIUM'|translate}}</option>
+                    </select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pg-inner-row">
+
+    <div *ngIf="
+boundaryDto?.boundaryType == boundaryType.NORMAL ||
+boundaryDto?.boundaryType == boundaryType.CONDOMINIUM
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.NORTH'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[3]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.DEFERENT
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.NORTH_EAST'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[5]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.NORMAL ||
+    boundaryDto?.boundaryType == boundaryType.CONDOMINIUM
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.EAST'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[1]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pg-inner-row">
+
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.DEFERENT
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.SOUTH_EAST'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[7]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.NORMAL ||
+    boundaryDto?.boundaryType == boundaryType.CONDOMINIUM
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.SOUTH'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[4]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.DEFERENT
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.SOUTH_WEST'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[8]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pg-inner-row">
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.NORMAL ||
+    boundaryDto?.boundaryType == boundaryType.CONDOMINIUM
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.WEST'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[2]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.DEFERENT
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.NORTH_WEST'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[6]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.CONDOMINIUM
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.NADIR'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[9]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pg-inner-row">
+    <div *ngIf="
+    boundaryDto?.boundaryType == boundaryType.CONDOMINIUM
+    " class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="land-name">{{'BOUNDARIES.ZENITH'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <input matInput id="land-name" type="text" class="form-control"
+                        [(ngModel)]="boundaryDto.boundaryList[10]" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly" inputMaxLength="255">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pg-inner-row" *ngIf="
+  boundaryDto?.boundaryType == boundaryType.NORMAL ||
+  boundaryDto?.boundaryType == boundaryType.DEFERENT
+  ">
+    <button *ngIf="!uiController.isReadOnly" (click)="addBoundary()" class="btn btn-block btn-outline-primary m-4">
+        +
+        {{'BOUNDARIES.SUB_TITLE'|translate}}</button>
+    <table *ngIf="boundaryDto?.optionalList.length > 0" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>{{'BOUNDARIES.NAME'|translate}}</th>
+                <th>{{'BOUNDARIES.VALUE'|translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let optionalBoundary of boundaryDto?.optionalList; let i = index">
+                <td>
+                    <input [(ngModel)]="optionalBoundary.key" class="form-control" type="text"
+                        name="{{optionalBoundary.key}}" [disabled]="uiController.isReadOnly" />
+                </td>
+                <td>
+                    <input [(ngModel)]="optionalBoundary.value" class="form-control" type="text"
+                        name="{{optionalBoundary.value}}" [disabled]="uiController.isReadOnly" />
+                </td>
+                <td *ngIf="!uiController.isReadOnly">
+                    <button class="btn btn-block btn-outline-danger" (click)="deleteBoundary(i)"
+                        [disabled]="uiController.isReadOnly">
+                        <mat-icon class="material-icons" title="Delete" color="warn">delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

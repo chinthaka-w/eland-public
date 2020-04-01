@@ -1,77 +1,5 @@
 <!-- Header Home page -->
 <ng-container *ngIf="appConfig?.header">
-  <!-- <div *ngIf="!appConfig?.user" class="landing-header">
-    <div class="header transparent">
-      <div class="header-inner">
-        <div class="header-left">
-          <a href="#" class="logo">
-            <img src="assets/images/logo.svg" alt="E-Land Logo" />
-          </a>
-        </div>
-        <div class="header-right">
-          <div class="navigation" [ngClass]="status ? 'active' : 'in-active'">
-            <button class="mobile-nav-btn" (click)="clickEvent()">
-              <i class="material-icons nav">reorder</i>
-              <i class="material-icons close">close</i>
-            </button>
-            <ul>
-              <li>
-                <a href="#">News</a>
-              </li>
-              <li>
-                <a href="#">Gallery</a>
-              </li>
-              <li>
-                <a href="#">Services</a>
-              </li>
-              <li>
-                <a href="#">About</a>
-              </li>
-            </ul>
-          </div>
-          <div class="hr-button-wrapper">
-            <button mat-raised-button [routerLink]="['/login']">Login</button>
-            <div
-              class="user-profile"
-              [ngClass]="dropdown ? 'active' : 'in-active'"
-            >
-              <span class="user-title" (click)="clickDropdown()"
-                >Yohani Gamage
-                <i class="material-icons">arrow_drop_down</i></span
-              >
-              <ul class="up-dropdown">
-                <li>
-                  <a href="#">Edit Profile</a>
-                </li>
-                <li>
-                  <a (click)="logout()">Logout</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="header-banner-wrapper">
-      <div
-        class="header-banner-image"
-        style="background-image: url('assets/images/main_banner.jpg')"
-      >
-        &nbsp;
-      </div>
-      <div class="lh-content-wrapper">
-        <h1>
-          Get things <span>Done</span><br />
-          <span>Quick</span> and <span>easy</span>
-        </h1>
-        <p>
-          Issues related to Land ownership has been longstanding barrier for
-          utillization of Land as a tool for generating capital
-        </p>
-        <button mat-raised-button class="theme-light">Get Started</button>
-      </div>
-    </div>
-  </div> -->
 
   <!-- ###### Default Header ###### -->
 
@@ -102,6 +30,17 @@
               <a href="#">About</a>
             </li>
           </ul>
+        </div>
+        <div class="hr-button-wrapper">
+          <div class="user-profile" [ngClass]="langDropdown ? 'active' : 'in-active'">
+            <span class="user-title" (click)="clickLangDropdown()">{{selectedLanguage.label}} <i
+              class="material-icons">arrow_drop_down</i></span>
+            <ul class="up-dropdown">
+              <li *ngFor="let language of languages">
+                <a (click)="changeLanguage(language)" >{{language.label}}</a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="hr-button-wrapper">
           <!-- <button mat-raised-button [routerLink]="['/login']">Login</button> -->

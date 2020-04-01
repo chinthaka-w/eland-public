@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'eland-public';
 
-  constructor() {}
+  constructor(translate: TranslateService) {
+    translate.addLangs(['en', 'si', 'ta']);
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
 
   ngOnInit(){
   }

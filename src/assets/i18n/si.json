@@ -1,0 +1,888 @@
+{
+    "BUTTONS":{
+       "SEARCH_BUTTON":"සෙවීම",
+       "NEW_BUTTON":"අලුත්",
+       "RESET_BUTTON":"නැවත සකසන්න",
+       "UPDATE_BUTTON":"යාවත්කාලීන කරන්න",
+       "SAVE_BUTTON":"සුරකින්න",
+       "CANCEL_BUTTON":"අවලංගු කරන්න",
+       "VIEW_BUTTON":"බලන්න",
+       "PRINT_BUTTON":"මුද්‍රණය කරන්න",
+       "EDIT_BUTTON":"සංස්කරණය කරන්න",
+       "ISSUE_BUTTON":"නිකුත් කිරීම",
+       "ACCEPT_BUTTON":"පිළිගන්න",
+       "RETURN_BUTTON":"ආපසු",
+       "YES_BUTTON":"ඔව්",
+       "NO_BUTTON":"නැත",
+       "ADD_NEW_FOLIO":"නව පත් ඉරු/ගනුදෙනු/වසා දැමීම් සටහන් එක් කරන්න",
+       "SAVE_AS_INCOMPLETE":"අසම්පූර්ණ ලෙස සුරකින්න",
+       "SAVE_AS_COMPLETE":"සම්පුර්ණ ලෙස සුරකින්න",
+       "CONTINUE_BUTTON":"ඉදිරියට",
+       "SUBMIT_BUTTON":"ඉදිරිපත් කරන්න",
+       "CHANGE_ATTESTED_PERSON_BUTTON":"සහතික කළ පුද්ගලයා වෙනස් කරන්න",
+       "DOCUMENT_UPLOAD_BUTTON":"ලේඛන උඩුගත කිරීම",
+       "SEARCH_ATTESTED_PERSON_BUTTON":"සහතික කළ පුද්ගලයා සොයන්න",
+       "BACK_BUTTON":"ආපසු",
+       "SELECT_SCHEDULE_BUTTON":"උපලේඛන වර්ගය තෝරන්න",
+       "ADD":"එකතු කරන්න",
+       "ADD_TO_CURRENT_FOLIO":"වත්මන් පත් ඉරුව වෙත එක් කරන්න",
+       "DEED_UPLOAD":"ඔප්පු උඩුගත කිරීම",
+       "DELETE":"මකන්න",
+       "CONFIRM":"තහවුරු කරන්න",
+       "ADVANCE_SEARCH_SHOW":"තවදුරටත් සොයන්න",
+       "ADVANCE_SEARCH_HIDE":"තවදුරටත් සෙවීම සඟවන්න",
+       "CHANGE":"වෙනස් කරන්න",
+       "OKAY":"හරි"
+    },
+    "COMMON":{
+       "DEFAULT":"පෙරනිමිය",
+       "AUTO":"ස්වයංක්‍රීයව",
+       "INDEX":"දර්ශකය",
+       "SEARCH_DETAILS":"සෙවුම් විස්තර",
+       "SEARCH_RESULT":"සෙවුම් ප්‍රතිපල",
+       "WELCOME":"ආයුබෝවන්",
+       "SEARCH_REQUEST":"සෙවුම් ඉල්ලීම",
+       "DAYBOOKNO/APPLICATIONNO":"දින පොත් අංකය/ අයදුම්පත් අංකය",
+       "ALL":"සියල්ල",
+       "LOGOUT":"ඉවත් වන්න",
+       "STATUS":"තත්ත්වය",
+       "ACTIVE":"සක්‍රීයයි",
+       "INACTIVE":"අක්‍රීයයි",
+       "DETAILS":"විස්තර",
+       "ACTION":"කටයුතු",
+       "DESCRIPTION":"විස්තරය",
+       "REQUEST_MODE":"ලේඛන භාරදීමේ ආකාරය",
+       "REQUEST_DETAILS":"ලේඛන විස්තර",
+       "IF_AVAILABLE":"(තිබේ නම්)",
+       "SEARCH_HERE":"මෙතනින් සොයන්න",
+       "SELECT":"තෝරන්න",
+       "AMOUNT":"මුදල",
+       "DUE_AMOUNT":"නියමිත මුදල",
+       "TOTAL_AMOUNT":"මුලු වටිනාකම",
+       "TOTAL":"එකතුව",
+       "SELECTED_TOTAL_AMOUNT":"තෝරාගත් මුළු මුදල",
+       "RS":"රු",
+       "ADD":"ඇතුළත් කරන්න",
+       "DATE":"දිනය",
+       "TIME":"වේලාව",
+       "CODE":"කේතය",
+       "DAYBOOKREQUEST":"දින පොත් ඉල්ලීම",
+       "STAMP_FEE":"මුද්දර ගාස්තුව",
+       "DUPLICATE_STAMP_FEE":"අනුපිටපත් මුද්දර ගාස්තුව",
+       "NEW_REQUEST":"නව ඉල්ලීම් / ඉල්ලීම්",
+       "ASSIGN_TO":"වෙත පවරන්න",
+       "ASSIGNED_REQUEST":"පවරා ඇති ඉල්ලීම/ ඉල්ලීම්",
+       "SELECTED_REQUEST":"තෝරාගත් ඉල්ලීම/ ඉල්ලීම්",
+       "FROM_DATE":"දින සිට",
+       "TO_DATE":"අදට",
+       "LANGUAGE":"භාෂාව",
+       "DIVISION":"අංශය",
+       "VOLUME":"වෙලුම",
+       "FOLIO":"පත් ඉරු",
+       "FOLIO_TYPE":"පත් ඉරු වර්ගය",
+       "DATE_OF_RETURN":"ආපසු ලබා දුන් දිනය",
+       "REMARKS":"සටහන්",
+       "DAYBOOKNO":"දින පොත් අංකය",
+       "APPLICATION_NO":"අයදුම්පත් අංකය",
+       "OTHER_REMARKS":"වෙනත් සටහන්",
+       "VALUE":"වටිනාකම",
+       "REQUEST_ID":"ඉල්ලුම් හැඳුනුම්පත",
+       "USER_ACCOUNT":"පරිශීලක ගිණුම",
+       "USER":"පරිශීලකයින්",
+       "OR":"හෝ",
+       "E_G":"උදා",
+       "PAID":"ගෙවා ඇත",
+       "NOT_PAID":"නොගෙවූ",
+       "VIEW_REQUEST":"ඉල්ලීම බලන්න",
+       "REQUEST_STATUS":"තත්වය ඉල්ලන්න",
+       "FOLIO_INFO":"පත් ඉරු තොරතුරු",
+       "FOLIO_NEW":"පත් ඉරු විස්තර",
+       "CROSS_NOTE":"හරස් සටහන",
+       "OTHER_NOTE":"වෙනත් සටහන",
+       "SELECT_NOTE":"--සටහන තෝරන්න--",
+       "TYPE":"වර්ගය",
+       "INSERT_MESSAGE":"ඔබේ ප්‍රකාශය මෙහි ඇතුළත් කරන්න",
+       "REF":"යොමුව",
+       "ADD_OLD_NOTARY":"පැරණි නොතාරිස් එක් කරන්න",
+       "BROUGHT_FORWARD":"ඉදිරියට ගෙන එන පත් ඉරු",
+       "CROSS_REFERENCE":"හරස් සටහන්",
+       "CASE_ID":"නඩු අංකය",
+       "FORWARD_REQUEST":"ඉදිරියට යවන්න",
+       "YEAR":"වසර",
+       "REMARK":"සටහන්",
+       "LOADING":"පූරණය වෙමින් පවතී....",
+       "TELEPHONE":{
+          "NAME":"දුරකථන අංකය",
+          "CATEGORY":{
+             "PRIMARY":"ප්‍රාථමික",
+             "SECONDARY":"දෙවන"
+          }
+       }
+    },
+    "FOLIO_TYPE":{
+       "FOLIO_NUM":"පත් ඉරු අංක",
+       "SELECT_TYPE":"--පත් ඉරු වර්ගය තෝරන්න--",
+       "NORMAL_TRUST":"සාමාන්‍ය භාරය",
+       "EXPRESS_TRUST":"එක්ස්ප්‍රස් භාරය",
+       "GENERAL":"පොදු",
+       "CONDOMINIUM":"සහාධිපත්‍යය",
+       "SPECIAL_DIVISION_DEEDS":"විශේෂ අංශ ඔප්පු",
+       "SPECIAL_CONDOMINIUM_DEEDS":"විශේෂ සහාධිපත්‍ය ඔප්පු",
+       "MOVABLE":"චංචල දේපල",
+       "GOV_LANDS":"රජයේ ඉඩම්",
+       "REGISTERED_POST_NO_ERR":"Please enter valid Registered Post No"
+    },
+    "DESIGNATION":{
+       "SELECT":"තනතුර තෝරන්න",
+       "CODE":"තනතුරු කේතය",
+       "NAME":"තනතුර"
+    },
+    "REQUEST_MODES":{
+       "WALK_IN":"පැමිණ භාරදුන්",
+       "POST_NORMAL":"සාමාන්‍ය තැපැල්",
+       "POST_REGISTERED":"ලියාපදිංචි තැපැල්"
+    },
+    "DOCUMENT":{
+       "DOCUMENT":"ලේඛන",
+       "DOCUMENT_Details":"ලේඛන විස්තර",
+       "DOCUMENT_NO":"ලේඛන අංකය",
+       "DOCUMENT_TYPE":"ලේඛන වර්ගය",
+       "DOCUMENT_NATURE":"ලේඛන ස්වභාවය",
+       "DOCUMENT_SUB_NATURE":"ලේඛන උප ස්වභාවය",
+       "DOC_CATEGORY":"ලේඛන කාණ්ඩය",
+       "DOC_SUBCATEGORY":"ලේඛන උප කාණ්ඩය",
+       "DOC_TYPE":"ලේඛන වර්ගය",
+       "DOC_NATURE":"ලේඛන ස්වභාවය",
+       "DOC_SUB_NATURE":"ලේඛන උප ස්වභාවය",
+       "ISSUED_DOCS":"නිකුත් කළ ලේඛන",
+       "PENDING_DOCS":"අපේක්ෂිත ලේඛන",
+       "PROCESSING_DOCS":"ලේඛන සැකසීම",
+       "RETURNED_DOCS":"ආපසු ලියකියවිලි",
+       "NO_OF_DOC":"ලේඛන ගණන",
+       "NO_DOC_FOUND":"ලේඛන නොමැත",
+       "DOCUMENT_CHARGE_SEARCH":"ලේඛන ගාස්තු සෙවීම",
+       "DOCUMENT_CHARGE_ID":"ගාස්තු අංකය",
+       "DOC_NO_CHANAGE":{
+          "TITLE":"ලේඛන කාණ්ඩ අංක දර්ශක යාවත්කාලීන කිරීම",
+          "LAST_INDEX":"අවසාන දර්ශකය",
+          "SUB_TITLE":"ලේඛන අංකය යාවත්කාලීන කිරීම",
+          "NO_COUNT":"දිනපොත් අංක ගණන"
+       }
+    },
+    "LAND_REGISTRY":{
+       "SEARCH_LAND_REGISTRY":"ඉඩම් රෙජිස්ට්රි සොයන්න",
+       "NAME":"ඉඩම් රෙජිස්ට්‍රාර් කාර්යාලය",
+       "LR_NO":"එල්.ආර් අංකය",
+       "RETURN_LR":"ආපසු යවන ඉඩම් රෙජිස්ට්‍රාර් කාර්යාලය",
+       "SELECT":"--ඉඩම් රෙජිස්ට්‍රාර් කාර්යාලය තෝරන්න--"
+    },
+    "ZONAL":{
+       "NAME":"කලාප",
+       "ZONAL_OFFICE":"කලාප කාර්යාලය",
+       "SEARCH_ZONAL_OFFICE":"කලාප කාර්යාලයෙන් තොරතුරු සොයන්න"
+    },
+    "PROVINCE":{
+       "NAME":"පළාත",
+       "PROVINCE_CODE":"පළාත් කේතය",
+       "SELECT_PROVINCE":"--පළාත තෝරන්න--"
+    },
+    "LAND_REGISTRY_DIVISIONS":{
+       "SEARCH_LAND_REGISTRY_DIVISIONS":"ඉඩම් රෙජිස්ට්‍රාර් අංශ සොයන්න",
+       "NAME":"ඉඩම් රෙජිස්ට්‍රාර් අංශය",
+       "DIVISION_CODE":"අංශයේ කේතය",
+       "L/R_DIVISION":"එල් / ආර් අංශය",
+       "SELECT_L/R_DIVISION":"--එල්.ආර් අංශය තෝරන්න--"
+    },
+    "APPLICANT":{
+       "APPLICANT_INFO":"අයදුම්කරුගේ තොරතුරු",
+       "APPLICANT_NAME":"භාරදුන් අයගේ නම",
+       "NAME":"නම",
+       "NEW_APPLICANT":"නව අයදුම්කරු",
+       "APPLICANT_TYPE":"ලේඛන භාර දෙන පුද්ගල වර්ගය",
+       "APPLICANT_ADDRESS":"භාරදුන් අයගේ ලිපිනය",
+       "APPLICANT_IDENTIFICATION":"භාරදුන් අයගේ හඳුනාගැනීමේ අංකය (ජා.හැ.අං./රියදුරු බලපත් අංකය/ගමන් බලපත්‍ර අංකය)",
+       "APPLICANT_CONTACT_NO":"භාරදුන් අයගේ දුරකථන අංකය",
+       "APPLICANT_EMAIL":"භාරදුන් අයගේ විද්යුත් තැපෑල ( ඊ- මේල්)",
+       "SEARCH_APPLICANT_REQUEST":"ඉල්ලුම් පත්‍රය සොයන්න",
+       "APPLICANT_REQUEST":"අයදුම්කරුගේ ඉල්ලීම",
+       "APPLICANT_DETAILS":"අයදුම්කරුගේ විස්තර",
+       "APPLICANT_NIC":"අයදුම්කරු ජාතික හැඳුනුම්පත",
+       "DOB":"උපන්දිනය",
+       "IDENTITY_TYPE":"හඳුනාගැනීමේ වර්ගය"
+    },
+    "APPLICANT_TYPES":{
+       "INTEREST_PERSON":"උනන්දුවක් දක්වන පුද්ගලයා / බැදීමක් ඇති පුද්ගලයා",
+       "NOTARY":"නොතාරිස්",
+       "OWNER":"හිමිකරු",
+       "NOTARY_OR_OTHER_PERSON":"නොතාරිස් හෝ වෙනත් ඕනෑම පුද්ගලයෙක්",
+       "OTHER":"වෙනත්"
+    },
+    "PAYMENT_MODES":{
+       "CAS":"මුදල්",
+       "FOC":"නොමිලේ",
+       "BNKD":"බැංකු තැන්පතු",
+       "CRDT":"ණය"
+    },
+    "REPORT":{
+       "SEARCH_REPORT":"වාර්තාව සෙවීම",
+       "CATEGORY_WISE_REPORT":"කාණ්ඩ අනුව වාර්තා",
+       "ONE_DAY_REPORT":"එක් දින වාර්තාව",
+       "USER_WISE_CASH_REPORT":"පරිශීලක වශයෙන් මුදල් වාර්තාව",
+       "DAY_BOOK_REPORT":"දින පොත් වාර්තාව"
+    },
+    "USER":{
+       "LAST_UPDATED_USER":"අවසන් වරට යාවත්කාලීන කළ පරිශීලකයා",
+       "SUBJECT_CLERK":"විෂය ලිපිකරු",
+       "ASSIGNED_USER":"පවරා ඇති පරිශීලකයා"
+    },
+    "KORALE":{
+       "SEARCH_KORALE":"කෝරලේ සෙවීම",
+       "KORALE_ID":"කෝරලේ අංකය",
+       "NAME":"කෝරලේ"
+    },
+    "PATHTHUWA":{
+       "SEARCH_PATHTHUWA":"පත්තුව සොයන්න",
+       "PATHTHUWA_ID":"පත්තුව අංකය",
+       "NAME":"පත්තුව",
+       "PATHTHUWA_CODE":"පත්තුව කේතය"
+    },
+    "DS_DIVISION":{
+       "SEARCH_DS_DIVISION":"ඩී.එස් අංශය සෙවීම",
+       "DSDIVISION_CODE":"ඩී.එස් අංශයේ කේතය",
+       "NAME":"ඩී.එස් අංශය",
+       "SELECT":"--ඩී.එස් අංශය තෝරන්න--"
+    },
+    "DISTRICTS":{
+       "NAME":"දිස්ත්‍රික්කය",
+       "DISTRICT_CODE":"දිස්ත්‍රික් කේතය",
+       "SELECT":"--දිස්ත්‍රික්කය තෝරන්න--"
+    },
+    "GN_DIVISION":{
+       "SEARCH_GN_DIVISION":"ග්‍රාම නිලධාරී අංශය සෙවීම",
+       "GNDIVISION_CODE":"ග්‍රාම නිලධාරී අංශයේ කේතය",
+       "NAME":"ග්‍රාම නිලධාරී අංශය",
+       "GN_DIVISION_ID":"ග්‍රාම නිලධාරී අංශ අංකය",
+       "SELECT_G/N_DIVISION":"--ග්‍රාම නිලධාරී අංශය තෝරන්න--"
+    },
+    "VILLAGE":{
+       "SEARCH_VILLAGE":"ග්‍රාමය සෙවීම",
+       "VILLAGE_CODE":"ග්‍රාමයේ කේතය",
+       "NAME":"ග්‍රාමය"
+    },
+    "BANK":{
+       "SEARCH_BANK":"බැංකුව සෙවීම",
+       "NAME":"බැංකුවේ නම",
+       "BANK_ID":"බැංකු අංකය",
+       "SEARCH_BANK_BRANCH":"බැංකු ශාඛාව සෙවීම",
+       "BANK_BRANCH_CODE":"ශාඛා කේතය",
+       "BANK_BRANCH_ADDRESS":"ශාඛා ලිපිනය",
+       "BANK_BRANCH_CONTACTNO":"ශාඛා සම්බන්ධතා අංකය",
+       "BRANCH_NAME":"ශාඛාවේ නම",
+       "BRANCH_ID":"ශාඛා අංකය",
+       "SELECT_BANK":"බැංකුව තෝරන්න",
+       "BRANCH":"ශාඛාව"
+    },
+    "FINE_CATEGORY":{
+       "SEARCH_FINE_CATEGORY":"දඩ කාණ්ඩය සෙවීම",
+       "NAME":"දඩ කාණ්ඩය",
+       "SUB_CATEGORY_DESCRIPTION":"උප කාණ්ඩ විස්තරය",
+       "CHARGE_CATEGORY_DESCRIPTION":"ගාස්තු කාණ්ඩ විස්තරය",
+       "SUB_CATEGORY_CHARGES":"උප කාණ්ඩ ගාස්තු",
+       "ADDITIONAL_CHARGE_REQUEST":"අමතර ගාස්තු ඉල්ලීම",
+       "CHARGE_CATEGORY":"ගාස්තු කාණ්ඩය",
+       "CHARGE_SUB_CATEGORY":"ගාස්තු උප කාණ්ඩය",
+       "ADDITIONAL_CHARGE_PAYMENT":"අමතර ගාස්තු ගෙවීම"
+    },
+    "PROVINCIAL_COUNCIL":{
+       "SEARCH_PROVINCIAL_COUNCIL":"පළාත් සභාව සෙවීම",
+       "NAME":"පළාත් සභාව",
+       "PROVINCIAL_COUNCIL_CODE":"පළාත් සභා කේතය",
+       "SELECT_PROVINCIAL_COUNCIL":"--පළාත් සභාව තෝරන්න--"
+    },
+    "PROPERTY_DETAILS":{
+       "LAND_NAME":"ඉඩම් නම",
+       "NO_OF_LAND":"ඉඩම් ගණන",
+       "NO_OF_LOTS":"කැබලි අක්ෂර ගණන",
+       "TITLE":"දේපල විස්තර",
+       "SUB_TITLE":"දේපල තොරතුරු",
+       "QUESTION":"ඉඩම් තිබේද?",
+       "PLAN_NO":"සැලසුම් අංකය",
+       "PLAN_DATE":"සැලසුම් දිනය",
+       "REG_PLAN_NO":"ලියාපදිංචි කිරීමේ සැලසුම් අංකය",
+       "STATEMENT_CLAIM_NO":"හිමිකම් අංකය ප්‍රකාශය",
+       "ALLOTMENT_NO":"වෙන් කිරීමේ අංකය",
+       "INSERTED_PER":"ඇතුළත් කළ පුද්ගලයා",
+       "SURVEY_PAR_DATE":"සමීක්ෂණය සහ කොටස් කළ දිනය",
+       "PARTI_DATE":"බෙදූ දිනය",
+       "ASSES_NO":"තක්සේරු අංකය",
+       "TITLE_PLAN_NO":"හිමිකම් සැලසුම් අංකය",
+       "NAME_SURVEYER":"මිනින්දෝරුවන්ගේ නම",
+       "LOT_NO":"කැබලි අංක",
+       "LAND_ID":"ඉඩම් අංකය",
+       "KORALE":"කෝරලේ",
+       "SELECT_KORALE":"--කෝරලේ තෝරන්න--",
+       "PATTU":"පත්තුව",
+       "SELECT_PATTU":"--පත්තුව තෝරන්න--",
+       "VILLAGE":"ගම",
+       "SELECT_VILLAGE":"--ගම තෝරන්න-",
+       "STREET":"වීදිය",
+       "MESSAGE":"පුණ්‍යාධාර භාරයේ නම හෝ සංගමයේ නම",
+       "SERVEY_PLAN_NO":"සමීක්ෂණ සැලසුම් අංකය",
+       "SERVEY_PLAN_DATE":"සමීක්ෂණ සැලසුම් දිනය",
+       "NAME_OF_ARCHITECT":"ගෘහ නිර්මාණ ශිල්පියාගේ නම",
+       "GRANT_NO":"ප්‍රදාන අංකය / අවසර පත්‍ර අංකය",
+       "GRANT_DATE":"ප්‍රදාන දිනය / අවසර පත්‍ර දිනය"
+    },
+    "BOUNDARIES":{
+       "NAME":"මායිම්",
+       "SUB_TITLE":"මායිම",
+       "TITLE":"මායිම් තොරතුරු",
+       "NORMAL":"සාමාන්‍යයි",
+       "DIFFERENT":"විවිධ",
+       "EAST":"නැගෙනහිර",
+       "WEST":"බටහිර",
+       "NORTH":"උතුරු",
+       "SOUTH":"දකුණු",
+       "NADIR":"ඉහළ",
+       "ZENITH":"පහළ",
+       "NORTH_WEST":"වයඹ",
+       "NORTH_EAST":"ඊසාන",
+       "SOUTH_WEST":"නිරිතදිග",
+       "SOUTH_EAST":"අග්නිදිග",
+       "KEY":"යතුර",
+       "VALUE":"විස්තරය"
+    },
+    "EXTENT_DETAILS":{
+       "TAB_TITLE":"ප්‍රමාණ විස්තර",
+       "SUB_TITLE":"ප්‍රමාණ විස්තර",
+       "TYPE_ARP":"ඒ ආර් පී",
+       "TYPE_HEC":"හෙක්ටයාර්",
+       "TYPE_ARPHEC":"ඒ ආර් පී සහ හෙක්ටයාර්",
+       "TYPE_SQF":"වර්ග අඩි",
+       "TYPE_SQF_METER":"වර්ග මීටර",
+       "ARCHES":"අක්කර",
+       "ROUTES":"රෑඩ්",
+       "PERCHES":"පර්චස්",
+       "LENGTH":"දිග",
+       "WIDTH":"පළල",
+       "OTHER":"වෙනත් ප්‍රමාණ විස්තර"
+    },
+    "GRANTOR_DETAILS":{
+       "TAB_TITLE":"ඇපකරු",
+       "SUB_TITLE":"ඇපකරු විස්තර",
+       "ADDRESS_PERM":"ලිපිනය (ස්ථිර)",
+       "ADDRESS_RES":"ලිපිනය (නේවාසික)",
+       "TELEPHONE":"දුරකථන අංකය",
+       "EMAIL":"විද්යුත් තැපෑල",
+       "NO_GRANTOR":"ඇපකරු නැත",
+       "LIST":"ඇපකරු ලැයිස්තුව"
+    },
+    "GRANTEE_DETAILS":{
+       "TAB_TITLE":"ප්‍රදානය කරන්නා",
+       "SUB_TITLE":"ප්‍රදාන තොරතුරු",
+       "NO_GRANTEE":"ප්‍රදානය කරන්නා නැත",
+       "LIST":"ප්‍රදාන ලැයිස්තුව"
+    },
+    "PARTICULAR":{
+       "TAB_TITLE":"විස්තර",
+       "NAME":"විශේෂයෙන්"
+    },
+    "TRUST_ARTHUR_DETAILS":{
+       "TAB_TITLE":"භාර කර්තෘ",
+       "SUB_TITLE":"භාර කර්තෘගේ විස්තර",
+       "NAME":"භාර",
+       "NO_TRUST_ARTHUR":"භාර කර්තෘ නැත",
+       "LIST":"භාර කර්තෘ ලැයිස්තුව"
+    },
+    "TRUSTER_DETAILS":{
+       "TAB_TITLE":"භාරකරු",
+       "SUB_TITLE":"භාරකරුගේ තොරතුරු",
+       "NAME":"භාරකරු",
+       "NO_TRUST_ARTHUR":"භාරකරුවෙකු නැත",
+       "LIST":"භාරකරු ලැයිස්තුව"
+    },
+    "TRUSTEE_DETAILS":{
+       "TAB_TITLE":"භාරකරුවන්",
+       "SUB_TITLE":"භාරකරු තොරතුරු",
+       "NAME":"භාරකරු",
+       "NO_TRUSTEE":"භාරකරුවෙකු නැත",
+       "LIST":"භාරකරු ලැයිස්තුව"
+    },
+    "CO_TRUSTEE_DETAILS":{
+       "TAB_TITLE":"සම භාරකරු",
+       "SUB_TITLE":"සම-භාරකරු තොරතුරු",
+       "NAME":"සම භාරකරු",
+       "NO_CO_TRUSTEE":"සම-භාරකරුවෙකු නැත",
+       "LIST":"සම භාරකාර ලැයිස්තුව"
+    },
+    "OLD_TRUSTEE_DETAILS":{
+       "TAB_TITLE":"පැරණි භාරකරු",
+       "SUB_TITLE":"පැරණි භාරකරුගේ තොරතුරු",
+       "NAME":"පැරණි භාරකරු",
+       "NO_OLD_TRUSTEE":"පැරණි භාරකරුවෙකු නැත",
+       "LIST":"පැරණි භාරකාර ලැයිස්තුව"
+    },
+    "BENEFICIARY_DETAILS":{
+       "TAB_TITLE":"ප්‍රතිලාභියා",
+       "SUB_TITLE":"ප්‍රතිලාභියාගේ තොරතුරු",
+       "NAME":"ප්‍රතිලාභියා",
+       "NO_BENEFICIARY":"ප්‍රතිලාභියෙකු නැත",
+       "LIST":"ප්‍රතිලාභී ලැයිස්තුව"
+    },
+    "BENEFICIAL_ARTHUR_DETAILS":{
+       "TAB_TITLE":"ප්‍රයෝජනවත් කර්තෘ",
+       "SUB_TITLE":"ප්‍රයෝජනවත් කර්තෘ තොරතුරු",
+       "NAME":"ප්‍රයෝජනවත්",
+       "NO_BENEFICIAL_ARTHUR":"ප්‍රයෝජනවත් කතුවරයෙක් නැත",
+       "LIST":"ප්‍රයෝජනවත් කර්තෘ ලැයිස්තුව"
+    },
+    "CONTACT_DETAILS":{
+       "MOBILE":"ජංගම දුරකථන අංකය",
+       "PERSON_NAME":"පුද්ගලයාගේ නම",
+       "ADDRESS":"ලිපිනය",
+       "ADDRESSES":"ලිපිනයන්",
+       "CONTACT_NO":"ඇමතුම් අංකය",
+       "EMAIL":"විද්යුත් තැපෑල",
+       "FAX":"ෆැක්ස්",
+       "CONTACT_NAME":"සම්බන්ධතා නම",
+       "FULL_NAME":"සම්පූර්ණ නම",
+       "IDENTIFICATION_NO":"හඳුනාගැනීමේ අංකය",
+       "NIC":"ජාතික හැඳුනුම්පත් අංකය",
+       "NAME":"නම",
+       "CONTACT_PER_NAME":"පුද්ගලයාගේ නම",
+       "CONTACT_PER_MOBILE":"පුද්ගලයාගේ ජංගම දුරකථන අංකය",
+       "POSTED_DATE":"තැපැල් කර දිනය",
+       "STATUS":"තත්ත්වය",
+       "POST_NO":"තැපැල් අංකය"
+    },
+    "UNIT_DETAILS":{
+       "TAB_TITLE":"ඒකක විස්තර",
+       "NAME_OF_SCH":"යෝජනා ක්‍රමයේ නම",
+       "NUM_OF_STORIES":"මහල් ගණන",
+       "NUM_OF_BASEMENTS":"බිම් මහල් ගණන",
+       "NUM_OF_BLOCKS":"තට්ටු වාරණ ගණන",
+       "UNIT":"ඒකකය",
+       "UNIT_OR_SYM":"ඒකක අංකය හෝ සංකේතය",
+       "FLOOR_AREA":"බිම් ප්‍රදේශය"
+    },
+    "RECEIPT":{
+       "NAME":"කුවිතාන්සිය",
+       "RECEIPT_NO":"කුවිතාන්සි අංකය",
+       "RECEIPT_DATE":"කුවිතාන්සි දිනය",
+       "RECEIPT_DETAILS":"කුවිතාන්සි විස්තර",
+       "VIEW_RECEIPT":"කුවිතාන්සිය බලන්න",
+       "DATETIME_RECEIPT":"කුවිතාන්සිය ලැබුනු දිනය හා වේලාව",
+       "RECEIPT_SUMMARY":"කුවිතාන්සි සාරාංශය"
+    },
+    "POST":{
+       "POST_RECEIVED_DATE":"තැපෑලෙන් ලැබුණු දිනය",
+       "REGISTERED_POST_NO":"ලියාපදිංචි තැපැල් අංකය"
+    },
+    "TOKEN":{
+       "TOKEN_NO":"ටෝකන් අංකය"
+    },
+    "PAYMENT":{
+       "PAYMENT":"ගෙවීම",
+       "PAYMENT_DETAILS":"ගෙවීම කරනු ලබන ආකාරය",
+       "PAYMENT_MODE":"ගෙවීම් ප්‍රකාරය",
+       "PAYMENT_ID":"ගෙවීම් අංකය",
+       "AMOUNT":"මුදල",
+       "DATE":"ගෙවීම් දිනය"
+    },
+    "NOTARY":{
+       "SEARCH_NOTARY":"නොතාරිස් සොයන්න",
+       "BY_NEW_NOTARY_NO":"නව නොතාරිස් අංකයකින්",
+       "BY_OLD_NOTARY_NO":"පැරණි නොතාරිස් අංකයකින්",
+       "BY_NOTARY_NAME":"නොතාරිස් නාමයෙන්",
+       "BY_NOTARY_NIC":"නොතාරිස් හැඳුනුම්පත මගින්",
+       "NEW_NOTARY_ID":"නව නොතාරිස් අංකය",
+       "OLD_NOTARY_ID":"පැරණි නොතාරිස් අංකය",
+       "NOTARY_ID":"නොතාරිස් අංකය",
+       "NOTARY_INFO":"නොතාරිස් තොරතුරු",
+       "NOTARY":"නොතාරිස්"
+    },
+    "OTHER_PERSON":{
+       "ANY_OTHER_PERSON":"වෙනත් ඕනෑම පුද්ගලයෙක්",
+       "OTHER_PERSON_DETAILS":"වෙනත් පුද්ගලයින්ගේ විස්තර",
+       "OTHER_PERSON_NAME":"සම්පූර්ණ නම",
+       "OTHER_PERSON_DESIGNATION":"තනතුර",
+       "OTHER_PERSON_LOCATION":"ස්ථානය",
+       "OTHER_PERSON_ADDRESS":"ලිපිනය",
+       "OTHER_PERSON_CONTACT_NO":"ඇමතුම් අංකය",
+       "OTHER_PERSON_EMAIL":"විද්යුත් තැපෑල"
+    },
+    "CATEGORY":{
+       "CATEGORY":"වර්ගය",
+       "SUB_CATEGORY":"උප වර්ගය",
+       "SELECT_CATEGORY":"--වර්ගය තෝරන්න--"
+    },
+    "OTHER":{
+       "ADDITIONAL_CHARGE":"අමතර ගාස්තු",
+       "DUPLICATENO":"අනුපිටපත් අංකය",
+       "NO_OF_YEAR":"වර්ෂ ගණන",
+       "SERVICE_NO":"සේවා අංකය",
+       "ISSUE_DATE":"නිකුත් කල දිනය",
+       "VALUE_CONSIDERATION":"වටිනාකම (සලකා බැලීම)",
+       "WARNING":"අවවාදයයි",
+       "TIME_OF_RECEIPT":"කුවිතාන්සිය ලැබීමේ වේලාව",
+       "SERIAL_DAY_BOOK_NO":"අනුක්‍රමික දින පොත් අංකය",
+       "VALUE_OF_CONSIDERATION":"සලකා බැලීමේ වටිනාකම",
+       "FISCAL_SEIZURES":"පිස්කල් තහනම් කිරීම",
+       "PRIORITY_NOTICES":"පුර්වතා දැන්වීම්",
+       "RENEWALS":"අලුත් කිරීම්",
+       "CANCELLATION":"අවලංගු කිරීම",
+       "ACCEPTED_SIGNATURE_AND_DATE":"පිළිගත් පුද්ගලයාගේ අත්සන සහ දිනය",
+       "LITES_PENDENTES":"අවිනිශ්චිත නඩු",
+       "REQUEST_INFORMATION":"තොරතුරු ඉල්ලීම",
+       "SUMMARY_DETAILS":"සාරාංශ විස්තර",
+       "WORKFLOW_STAGE":"කාර්ය ප්‍රවාහ අදියර",
+       "MAIN_DETAILS":"ප්රධාන විස්තර",
+       "PRIOR_REGISTRATION_NO":"පෙර ලියාපදිංචි අංකය",
+       "DISTRICT_SECRETARY_DIVISION":"දිස්ත්‍රික් ලේකම් අංශය",
+       "GRAMANILADARI_DIVISION":"ග්‍රාමනිලදාරි අංශය",
+       "DECISION":"තීරණය",
+       "THIS_REQ_CAN":"මෙම ඉල්ලීමට පුළුවන",
+       "SELECT_DECISION":"ඔබේ තීරණය තෝරන්න",
+       "ACCEPT_REQUEST":"ඉල්ලීම පිළිගන්න",
+       "PRINT_FOLIO":"පත් ඉරු මුද්‍රණය කරන්න",
+       "INCOMPLETE_REQUEST":"අසම්පූර්ණ ඉල්ලීම",
+       "VIEW_TRANSACTION":"ගනුදෙනුව බලන්න",
+       "LAST_UPDATED_DATE":"අවසන් යාවත්කාලීන කළ දිනය",
+       "WORK_STAGE":"වැඩ අදියර",
+       "NOT_PAID":"නොගෙවූ මුදල",
+       "PAID":"ගෙවූ මුදල",
+       "TOT_AMOUNT":"මුලු වටිනාකම",
+       "REQ_COUNT":"ඉල්ලීම් ගණන",
+       "SER_COUNT":"සේවා ගණන",
+       "AMOUNT_TO_THIS":"මේ සඳහා මුදල",
+       "AMOUNT_TO_OTHER":"වෙනත් මුදල",
+       "AMOUNT_FROM_OTHER":"වෙනත් අයගෙන් ලැබෙන මුදල",
+       "AMOUNT_FROM_BANK_DEPOSIT":"බැංකු තැන්පතුවෙන් ලැබෙන මුදල",
+       "PLAINTIFFS":"පැමිණිලිකරුවන්",
+       "DEFENDANT":"විත්තිකරුවන්",
+       "FORWARD_REQUEST":"ඉල්ලීම් ඉදිරියට යවන්න",
+       "REJECT":"ප්‍රතික්ෂේප කරන්න",
+       "SELECT_CLERK":"ලිපිකරුවෙකු තෝරන්න",
+       "PLEASE_SELECT_CLERK":"කරුණාකර ලිපිකරුවෙකු තෝරන්න",
+       "ISSUANCE_DETAIL":"නිකුත් කිරීමේ විස්තර",
+       "ISSUANCE_MODE":"නිකුත් කිරීමේ ආකාරය",
+       "ISSUANCE_MODE_BY_HAND":"අතින් භාරදීම",
+       "ISSUANCE_MODE_NORMAL_POST":"සාමාන්‍ය තැපෑල",
+       "ISSUANCE_MODE_REGISTERED_POST":"ලියාපදිංචි තැපෑල",
+       "COLLECTOR_DETAILS":"ලබා ගන්නාගේ විස්තර",
+       "POST_DETAILS":"තැපැල් විස්තර",
+       "SELECT_CROSS_NOTE":"හරස් සටහන තෝරන්න",
+       "WARD_NAME":"වාට්ටුවේ නම",
+       "WARD_NO":"වාට්ටු අංක",
+       "NAME_OF_SCHEME":"යෝජනා ක්‍රමයේ නම",
+       "NUMBER_OF_STORIES":"මහල් ගණන",
+       "NUMBER_OF_BASEMENTS":"පාදම් ගණන",
+       "NUMBER_OF_BLOCKS":"වාරණ ගණන",
+       "GRANT_OR_PERMIT_NO":"ප්‍රදාන අංකය / අවසර අංකය",
+       "GRANT_OR_PERMIT_DATE":"ප්‍රදාන දිනය / අවසර දිනය",
+       "PARTY_INFO":"පාර්ශව තොරතුරු",
+       "PLAINTIFF_LIST":"පැමිණිලිකරුවන් ලයිස්තුව",
+       "NO_PLAINTIFF":"පැමිණිලිකරුවන් නොමැත",
+       "DIFENDANT_LIST":"විත්තිකරු ලයිස්තුව",
+       "NO_DIFENDANT":"විත්තිකරුවන් නොමැත",
+       "REFERENCE_FOLIOS":"පත් ඉරු යොමුව",
+       "ADD_REMARK":"සටහන් එකතු කරන්න"
+    },
+    "LR_MSGS":{
+       "ACCEPT_CASH_RECEIPT_FROM_ANOTHER_LR":"වෙනත් LR එකකින් නිකුත් කරන ලද මුදල් කුවිතාන්සිය භාර ගන්න",
+       "ACCEPT_RETURN_DOCS_FROM_ANOTHER_LR":"වෙනත් LR එකකින් එවන ලද ලියකියවිලි භාර ගන්න",
+       "RETURN_DOCS_TO_ANOTHER_LR":"වෙනත් LR වෙත ලියකියවිලි ආපසු යවන්න",
+       "DOCUMENT_ISSUANCE":"ලේඛන නිකුත් කිරීම",
+       "AMOUNT_TO_THIS_LR":"මෙම එල්.ආර් සඳහා ඇති මුදල",
+       "AMOUNT_TO_OTHER_LR":"වෙනත් එල්.ආර් සඳහා මුදල",
+       "TOTAL_CASHIER_AMT":"මුළු අයකැමි මුදල",
+       "AMOUNT_FROM_BANK_DEPOSIT":"බැංකු තැන්පතුවෙන් ලැබෙන මුදල",
+       "AMOUNT_FROM_OTHER_LR":"වෙනත් ඉඩම් රෙජිස්ට්රි වලින් ලැබෙන මුදල"
+    },
+    "REGISTRATION":{
+       "CATEGORY":"ලියාපදිංචි කාණ්ඩය",
+       "SUB_CATEGORY":"ලියාපදිංචි උප කාණ්ඩය",
+       "REGISTRATION_FEE":"ලියාපදිංචි ගාස්තු",
+       "REQUEST_HISTORY":"ලියාපදිංචි කිරීමේ ඉල්ලීම් ඉතිහාසය",
+       "TITLE_REGISTRATION_REQUEST_DETAILS":"ලියාපදිංචි ඉල්ලීම් විස්තර"
+    },
+    "STATUS":{
+       "COMPLETED":"සම්පුර්ණ කරන ලදි",
+       "PENDING":"ඉතිරිව ඇත",
+       "INCOMPLETE":"අසම්පූර්ණ"
+    },
+    "TRUST":{
+       "TRUST_REGISTRATION_REQ_DETAILS":"භාර ලියාපදිංචි කිරීමේ ඉල්ලීම් විස්තර",
+       "TRUST_NO":"භාරකාරත්ව අංකය",
+       "TRUST":"භාරකාරත්ව",
+       "NAME":"භාරයේ නම",
+       "TRUST_ADDRESS":"භාරයේ ලිපිනය",
+       "TRUST_PURPOSE":"භාරයේ අරමුණ"
+    },
+    "ATTEST":{
+       "ATTESTED_DATE":"සහතික කළ දිනය",
+       "ATTESTED_PERSON_DETAILS":"සහතික කළ පුද්ගල විස්තර",
+       "ATTESTED_PERSON":"සහතික කළ පුද්ගලයා",
+       "TITLE_ASSIGN_ATTESTED_PERSON_FOR_ALL_REQUESTS":"සියලුම ඉල්ලීම් සඳහා සහතික කළ පුද්ගලයා පත් කරන්න"
+    },
+    "DEED":{
+       "DEED_NO":"ඔප්පු අංකය",
+       "DEED_LANG":"ඔප්පු භාෂාව",
+       "DEED":"ඔප්පු",
+       "CASE_ID":"නඩු අංකය"
+    },
+    "REGISTRATION_CLERK":{
+       "SELECT_REGISTRATION_CLERK":"ලියාපදිංචි ලිපිකරු තෝරන්න"
+    },
+    "TYPES":{
+       "MOVABLE":"චංචල දේපල",
+       "LDO":"එල්.ඩී.ඕ.",
+       "NORMAL":"සාමාන්ය",
+       "TRUST":"ප්‍රකාශිත භාර"
+    },
+    "SCHEDULE":{
+       "SELECT_SCHEDULE_DETAILS":"උපලේඛන විස්තර තෝරන්න",
+       "SCHEDULE_TYPE":"උපලේඛන වර්ගය",
+       "SELECT_SCHEDULE_TYPES":"--උපලේඛන වර්ගය තෝරන්න--",
+       "NEW":"අලුත්",
+       "CARRIED_OVER":"ගෙන යන ලද",
+       "SUBDIVISION":"උප කොට්ටාශය",
+       "AMALGAMATION":"ඒකාබද්ධ කිරීම",
+       "CLOSE_NOTE":"වසා දැමීම් සටහන",
+       "TRANSACTION":"ගනුදෙනුව"
+    },
+    "ALERT":{
+       "TITLE":{
+          "SERVER_ERROR":"අභ්යන්තර සේවාදායක දෝෂයක්!",
+          "VALIDATION_ERROR":"දෝෂයක්!",
+          "SUCCESS":"සාර්ථකයි",
+          "VALID_DATA":"කරුණාකර වලංගු දත්ත තෝරන්න",
+          "NO_RESULT":"ප්‍රතිඵලයක් හමු නොවීය",
+          "PLEASE_FILL":"කරුණාකර පෝරමය පුරවන්න!",
+          "WARNING":"අවවාදයයි",
+          "PLEASE_AT_LEAST_ONE":"කරුණාකර, අවම වශයෙන් එක් අයිතමයක්වත් තෝරන්න!"
+       },
+       "CONFIRM_MESSAGE":{
+          "SUBMIT_APPLICATION":"ඔබට මෙය සුරැකීමට අවශ්‍ය බව විශ්වාසද?",
+          "SUBMIT":"ඔබට විශ්වාසද?",
+          "CONFIRM_SUBMIT":"ඔබට සුරැකීමට අවශ්‍යද?"
+       },
+       "MESSAGE":{
+          "SUBMITTED_SUCCESS":"සාර්ථකව සුරකින ලදි!",
+          "REMARK_ADDED":"ඔබේ ප්‍රකාශය මෙහි ඇතුළත් කරන්න",
+          "ACTIVATED_SUCCESS":"සාර්ථකව සක්‍රිය කර ඇත!",
+          "DEACTIVATED_SUCCESS":"සාර්ථකව අක්‍රිය කර ඇත!",
+          "ASSIGNED_SUCCESS":"සාර්ථකව පවරා ඇත!",
+          "FOLIO_NOT_FOUND":"පත්ඉරුව හමු නොවීය",
+          "LR_NOT_FOUND":"ඉඩම් රෙජිස්ට්රි හමු නොවීය",
+          "FOLIO_EXIST":"පත්ඉරුව දැනටමත් පවතී"
+       },
+       "WARNING":{
+          "FOLIO_NOT_FOUND":"පත්ඉරුව හමු නොවීය!",
+          "INTERNAL_SERVER_ERROR":"අභ්‍යන්තර සේවාදායක දෝෂයකි!",
+          "SCHEDULE_TYPE_REQUIRED":"උපලේඛන වර්ගය අවශ්‍යයි!",
+          "VILLAGE_NOT_FOUND_FOR_GN":"තෝරාගත් ග්‍රාම නිලධාරී අංශය සඳහා ගම් හමු නොවේ!",
+          "ASSIGN_USER_SELECT_ERR":"කරුණාකර, සුරැකීමට පෙර ලියාපදිංචි ලිපිකරු තෝරන්න!"
+       }
+    },
+    "VALIDATION":{
+       "STATUS_SELECT_ERR":"කරුණාකර තත්වය තෝරන්න",
+       "DESCRIPTION_EMPTY_ERR":"කරුණාකර විස්තරය ඇතුළත් කරන්න",
+       "CATEGORY_SELECT_ERR":"කරුණාකර ප්‍රවර්ගයක් තෝරන්න",
+       "NAME_EMPTY_ERR":"කරුණාකර නම ඇතුළත් කරන්න",
+       "NO_RESULT_ERR":"ප්‍රතිපලයක් හමු නොවීය",
+       "VALUE_EMPTY_ERR":"කරුණාකර අගය ඇතුළත් කරන්න",
+       "STAMPFEE_EMPTY_ERR":"කරුණාකර මුද්දර ගාස්තු ඇතුළත් කරන්න",
+       "DUPLICATE_STAMPFEE_REQ":"අනුපිටපත් මුද්දර ගාස්තුව අවශ්‍යයි",
+       "FOLIO_COMBINATION_EXISTS_ERR":"මෙම පත් ඉරු අංකයේ සංයෝජනය දැනටමත් පවතී",
+       "VALIDATING_FOLIO_NO":"පත් ඉරු අංකය වලංගු කිරීම ....",
+       "NAME_IS_REQUIRED":"නම අවශ්‍යයි",
+       "NIC_IS_REQUIRED":"ජාතික හැඳුනුම්පත අවශ්‍යයි",
+       "INVALID_NIC":"වලංගු නොවන ජාතික හැඳුනුම්පත් අංකයකි",
+       "EXIST_NIC":"මෙය දැනට පවතින ජාතික හැඳුනුම්පත් අංකයයි",
+       "PERM_ADDRESS_REQUIRED":"ස්ථිර ලිපිනය අවශ්‍යයි",
+       "INVALID_ADDRESS":"වලංගු නොවන ලිපිනයකි",
+       "INVALID_NAME":"වලංගු නොවන නමකි",
+       "INVALID_TELE_REQUIRED":"වලංගු නොවන දුරකථන අංකයකි",
+       "INVALID_EMAIL":"වලංගු නොවන විද්‍යුත් තැපැල් ලිපිනයකි",
+       "EMAIL_EMPTY_ERR":"කරුණාකර විද්‍යුත් තැපැල් ලිපිනය ඇතුළත් කරන්න!",
+       "CONTACT_EMPTY_ERR":"කරුණාකර දුරකථන අංකය ඇතුළත් කරන්න!",
+       "FAX_EMPTY_ERR":"කරුණාකර ෆැක්ස් අංකය ඇතුළත් කරන්න!",
+       "CONTACT_NAME_EMPTY_ERR":"කරුණාකර පුද්ගලයාගේ නම ඇතුළත් කරන්න!",
+       "CONTACT_MOBILE_EMPTY_ERR":"කරුණාකර පුද්ගලයාගේ දුරකථන අංකය ඇතුළත් කරන්න!",
+       "LOCATION":{
+          "LOCATION_EMPTY_ERR":"කරුණාකර ස්ථානය ඇතුළත් කරන්න"
+       },
+       "DESIGNATION":{
+          "DESIGNATION_CODE_ERR":"කරුණාකර තනතුරු කේතය ඇතුළත් කරන්න",
+          "DESIGNATION_EMPTY_ERR":"කරුණාකර තනතුර ඇතුළත් කරන්න"
+       },
+       "KORALE":{
+          "KORALE_EMPTY_ERR":"කරුණාකර කෝරලේ විස්තර ඇතුළත් කරන්න"
+       },
+       "LAND_REGISTRY_DIVISIONS":{
+          "LR_SELECT_ERR":"කරුණාකර ඉඩම් රෙජිස්ට්රියක් තෝරන්න",
+          "LRDIVISION_SELECT_ERR":"කරුණාකර ඉඩම් රෙජිස්ට්‍රාර් අංශය තෝරන්න",
+          "DIVISION_CODE_EMPTY_ERR":"කරුණාකර අංශයේ කේතය ඇතුළත් කරන්න!",
+          "LR_DIVISION_REQ":"L / R අංශය අවශ්‍යයි"
+       },
+       "PATHTHUWA":{
+          "KORALE_SELECT_ERR":"කරුණාකර කෝරලය තෝරන්න",
+          "PATHTHUWA_EMPTY_ERR":"කරුණාකර පත්තුව විස්තර ඇතුළත් කරන්න",
+          "PATHTHUWA_SELECT_ERR":"කරුණාකර පත්තුව තෝරන්න"
+       },
+       "DS_DIVISION":{
+          "DISTRICT_SELECT_ERR":"කරුණාකර දිස්ත්‍රික්කයක් තෝරන්න",
+          "DSDIVISION_CODE_EMPTY_ERR":"කරුණාකර ඩී.එස් අංශයේ කේතය ඇතුළත් කරන්න",
+          "DSDIVISION_SELECT_ERR":"කරුණාකර ඩී.එස් අංශයක් තෝරන්න"
+       },
+       "GN_DIVISION":{
+          "GNDIVISION_CODE_EMPTY_ERR":"කරුණාකර ග්‍රාම නිලධාරී අංශයේ කේතය ඇතුළත් කරන්න",
+          "GNDIVISION_SELECT_ERR":"කරුණාකර ග්‍රාම නිලධාරී අංශය තෝරන්න",
+          "GN_DIVISION_REQ":"ග්‍රාම නිලධාරී අංශය අවශ්‍යයි"
+       },
+       "VILLAGE":{
+          "VILLAGE_CODE_EMPTY_ERR":"කරුණාකර ග්‍රාමීය කේතය ඇතුළත් කරන්න"
+       },
+       "BANK":{
+          "BANK_EMPTY_ERR":"කරුණාකර බැංකු විස්තර ඇතුළත් කරන්න",
+          "BRANCH_NAME_EMPTY_ERR":"කරුණාකර ශාඛා නාමය ඇතුළත් කරන්න",
+          "BRANCH_CODE_EMPTY_ERR":"කරුණාකර ශාඛා කේතය ඇතුළත් කරන්න",
+          "BANK_SELECT_ERR":"කරුණාකර බැංකු නම තෝරන්න",
+          "BRANCH_ADDRESS_EMPTY_ERR":"කරුණාකර ශාඛා ලිපිනය ඇතුළත් කරන්න",
+          "BRANCH_CONTACTNO_EMPTY_ERR":"කරුණාකර ශාඛා සම්බන්ධතා අංකය ඇතුළත් කරන්න"
+       },
+       "PROVINCIAL_COUNCIL":{
+          "PROVINCIAL_COUNCIL_CODE_EMPTY_ERR":"කරුණාකර පළාත් සභා කේතය ඇතුළත් කරන්න",
+          "PROVINCIAL_COUNCIL_REQ":"පළාත් සභාව අවශ්‍යයි"
+       },
+       "CONTACT_DETAILS":{
+          "ADDRESS_EMPTY_ERR":"කරුණාකර ලිපිනය ඇතුළත් කරන්න",
+          "CONTACT_NO_EMPTY_ERR":"කරුණාකර වලංගු දුරකථන අංකයක් ඇතුළත් කරන්න",
+          "EMAIL_EMPTY_ERR":"කරණාකර වලංගු විද්යුත් තැපැල් ලිපිනයක් ඇතුළු කරන්න",
+          "FAX_EMPTY_ERR":"කරුණාකර වලංගු ෆැක්ස් අංකයක් එකක් ඇතුළත් කරන්න",
+          "NAME_EMPTY_ERR":"කරුණාකර නම ඇතුළත් කරන්න",
+          "NIC_EMPTY_ERR":"කරුණාකර වලංගු හඳුනා ගැනීම ඇතුළත් කරන්න"
+       },
+       "ZONAL":{
+          "ZONAL_SELECT_ERR":"කරුණාකර කලාපයක් තෝරන්න"
+       },
+       "PROVINCE":{
+          "PROVINCE_SELECT_ERR":"කරුණාකර පළාතක් තෝරන්න"
+       },
+       "PAYMENT":{
+          "PAYMENT_MODE_ERR":"කරුණාකර ගෙවීම් ප්‍රකාරය තෝරන්න"
+       },
+       "DOCUMENT":{
+          "DOCUMENT_TYPE_SELECT_ERR":"කරුණාකර ලේඛන වර්ගය තෝරන්න",
+          "DOCUMENT_NATURE_SELECT_ERR":"කරුණාකර ලේඛන ස්වභාවය තෝරන්න",
+          "DOCUMENT_SUB_NATURE_SELECT_ERR":"කරුණාකර ලේඛන උප ස්වභාවය තෝරන්න",
+          "PARTICULAR_EMPTY_ERR":"කරුණාකර විස්තර ඇතුළත් කරන්න"
+       },
+       "ATTEST":{
+          "ATTESTED_DATE_ERR":"කරුණාකර සහතික කළ දිනය ඇතුළත් කරන්න",
+          "ATTESTED_DATE_LATE_FINE_WARN":"ප්‍රමාද වූ දින {{value2}} සඳහා රු: {{value1}} ක දඩ ගාස්තුවක් අය කෙරේ"
+       },
+       "DEED":{
+          "DEED_NO_EMPTY_ERR":"කරුණාකර ඔප්පු අංකය ඇතුළත් කරන්න",
+          "DEED_LANG_SELECT_ERR":"කරුණාකර ඔප්පු භාෂාව තෝරන්න"
+       },
+       "RECEIPT":{
+          "RECEIPT_NO_ERR":"කරුණාකර වලංගු කුවිතාන්සි අංකය ඇතුළත් කරන්න"
+       },
+       "POST":{
+          "REGISTERED_POST_NO_ERR":"කරුණාකර වලංගු ලියාපදිංචි තැපැල් අංකය ඇතුළත් කරන්න"
+       }
+    },
+    "RGD_OFFICE_DETAILS":{
+       "SEARCH_TITLE":"රෙජිස්ටාර් ජෙනරල් ෙදපාර්තෙම්න්තුෙවේ තොරතුරු සෙවීම",
+       "POPUP_TITLE":"රෙජිස්ටාර් ජෙනරල් දෙපාර්තමේන්තුව",
+       "SEARCH_NAME":"නම",
+       "RGD_EMPTY_ERR":"කරුණාකර රෙජිස්ටාර් ජෙනරල් දෙපාර්තමේන්තුව තෝරන්න!"
+    },
+    "APPLICATIONS":{
+       "APPLICATIONS":"අයදුම්පත්",
+       "REF_NO":"යොමු අංකය",
+       "DOC_TYPE":"ලේඛන වර්ගය",
+       "CAVEAT_REQUEST_SEARCH":"කෙවියට් සෙවීම ඉල්ලන්න",
+       "DAY_BOOK_NUM":"දින පොත් අංකය",
+       "REQUEST_LIST":"ඉල්ලීම් ලැයිස්තුව",
+       "NATURE":"ස්වභාවය",
+       "SUB_NATURE":"උප ස්වභාවය",
+       "ATTESTED_DATE":"සහතික කළ දිනය",
+       "COURT_ORDER_REQUEST_SEARCH":"උසාවි නියෝග ඉල්ලීම සෙවීම",
+       "SEARCH_EXISTING_NOTARY":"පවතින නොතාරිස් සොයන්න",
+       "ID":"හඳුනා ගැනීම",
+       "NOTARY_CODE":"නොතාරිස් කේතය",
+       "NOTARY_REQUEST_ID":"නොතාරිස් ඉල්ලීම් හැඳුනුම්පත"
+    },
+    "DASHBOARD":{
+       "ONE_DAY_REQUESTS":"එක් දින ඉල්ලීම්",
+       "REQUESTS_PENDING":"ඉල්ලීම් විභාග වෙමින් පවතී",
+       "INCOMPLETE_REQUESTS":"අසම්පූර්ණ ඉල්ලීම්",
+       "COMPLETED_REQUESTS":"සම්පූර්ණ කරන ලද ඉල්ලීම්",
+       "PENDING_REQUESTS":"අපේක්ෂිත ඉල්ලීම්"
+    },
+    "CAVEAT":{
+       "NAME":"කේවියට් ගේ නම",
+       "ADDRESS":"කේවියට් ගේ ලිපිනය",
+       "TELEPHONE":"කේවියට් ගේ දුරකථන අංකය",
+       "EMAIL":"කේවියට් ගේ විද්‍යුත් තැපෑල",
+       "BUTTON":"කේවියට්",
+       "NO_RECORDS":"කේවියට් නැත",
+       "LIST":"කේවියට් ලැයිස්තුව",
+       "VALID":"තෙක් වලංගු වේ",
+       "GENERATE":"ජනනය කරන්න",
+       "NP_NAME":"දැනුම් දුන් පුද්ගලයා ගේ නම",
+       "NP_ADDRESS":"දැනුම් දුන් පුද්ගලයා ගේ ලිපිනය",
+       "NP_TELEPHONE":"දැනුම් දුන් පුද්ගලයා ගේ දුරකථන අංකය",
+       "NP_EMAIL":"දැනුම් දුන් පුද්ගලයා ගේ විද්‍යුත් තැපෑල"
+    },
+    "TRANSACTION":{
+       "VIEW":"ගනුදෙනු බලන්න",
+       "LIST":"ගනුදෙනු ලැයිස්තුව",
+       "TEXT":"ගනුදෙනුව",
+       "ID":"ගනුදෙනු අංකය"
+    },
+    "DOC_TYPE":{
+       "DEE":"ඔප්පු /නීත්‍යානුකුල ලේඛන",
+       "CAV":"කේවියටි"
+    },
+    "NOTARY_SEARCH":{
+       "BACK_TO_SEARCH":"ආපසු"
+    },
+    "PUBLIC_USER":{
+       "USER_TYPE":"පරිශීලක වර්ගය",
+       "APPLICATION_TITLE":"මහජන පරිශීලක ලියාපදිංචිය සඳහා ඉල්ලුම් පත්‍රය",
+       "NEAREST_LR":"අයදුම්කරුගේ ලිපිනයට ආසන්න ඉඩම් රෙජිස්ට්‍රාර් කාර්යාලය",
+       "BANK_USER_TYPE":"බැංකු පරිශීලක වර්ගය",
+       "LAW_FIRM_NAME":"නීති කාර්යාල නම",
+       "STATE_INSTITUTE":{
+          "NAME":"රාජ්‍ය ආයතනයේ නම"
+       },
+       "OTHER_INSTITUTE":{
+          "NAME":"වෙනත් ආයතනවල නම"
+       },
+       "ADDRESS":{
+          "LINE_ONE":"ලිපිනය 1",
+          "LINE_TWO":"ලිපිනය 2 ",
+          "LINE_THREE":"ලිපිනය 3"
+       },
+       "REASON":"අයදුම් කිරීමට හේතුව"
+    },
+    "NOTIFICATION":{
+       "TITLE":"දැනුම්දීම",
+       "SELECT":"--කරුණාකර තෝරන්න--",
+       "PAPER_NOTICE":"පුවත්පත් නිවේදනය",
+       "GAZETTE_NOTICE":"ගැසට් නිවේදනය",
+       "NAME":"නම",
+       "DATE":"දිනය",
+       "SIN":"සිංහල",
+       "ENG":"ඉංග්රීසි",
+       "TAM":"දෙමළ",
+       "FOLIO":"දැනුම්දීම පුරවා ඇති වෙලුම සහ පත් ඉරුව",
+       "FOLIO_NO":"පත් ඉරු අංකය",
+       "DB_NO":"දින පොත් අංකය",
+       "NAMES":"නම්"
+    }
+ }

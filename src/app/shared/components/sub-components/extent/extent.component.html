@@ -1,0 +1,133 @@
+<div *ngIf="extentDto" class="pg-inner-row">
+    <div class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="extent-type">{{'COMMON.TYPE'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <select matNativeControl id="extent-type" class="form-control" [(ngModel)]="extentDto.extentType"
+                        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                        <option value="{{extentType.ARP}}">{{'EXTENT_DETAILS.TYPE_ARP'|translate}}</option>
+                        <option value="{{extentType.HECATAR}}">{{'EXTENT_DETAILS.TYPE_HEC'|translate}}</option>
+                        <option value="{{extentType.ARPHEC}}">{{'EXTENT_DETAILS.TYPE_ARPHEC'|translate}}</option>
+                        <option value="{{extentType.SQUAREFEET}}">{{'EXTENT_DETAILS.TYPE_SQF'|translate}}</option>
+                        <option value="{{extentType.SQUAREMETER}}">{{'EXTENT_DETAILS.TYPE_SQF_METER'|translate}}
+                        </option>
+                        <option value="{{extentType.OTHER}}">{{'APPLICANT_TYPES.OTHER'|translate}}</option>
+                    </select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="extentDto">
+    <div class="pg-inner-row">
+        <div *ngIf="
+    extentDto.extentType == extentType.ARP || extentDto.extentType == extentType.ARPHEC
+    " class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="arches">{{'EXTENT_DETAILS.ARCHES'|translate}}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput id="arches" type="number" min="0" inputAmount class="form-control"
+                            [(ngModel)]="extentDto.extentList[1]" inputMaxLength="255"
+                            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="
+    extentDto.extentType == extentType.ARP || extentDto.extentType == extentType.ARPHEC
+    " class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="routes">{{'EXTENT_DETAILS.ROUTES'|translate}}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput id="routes" type="number" min="0" inputAmount class="form-control"
+                            [(ngModel)]="extentDto.extentList[2]" inputMaxLength="255"
+                            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="pg-inner-col-3" *ngIf="
+    extentDto.extentType == extentType.ARP || extentDto.extentType == extentType.ARPHEC
+    ">
+            <div class="default-input-wrapper full-row">
+                <label for="perches">{{'EXTENT_DETAILS.PERCHES'|translate}}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput id="perches" type="number" min="0" inputAmount class="form-control"
+                            [(ngModel)]="extentDto.extentList[3]" inputMaxLength="255"
+                            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div class="pg-inner-col-3" *ngIf="
+    extentDto.extentType == extentType.HECATAR || extentDto.extentType == extentType.ARPHEC
+    ">
+            <div class="default-input-wrapper full-row">
+                <label for="hecatars">{{'EXTENT_DETAILS.TYPE_HEC'|translate}}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput id="hecatars" type="number" min="0" inputAmount class="form-control"
+                            [(ngModel)]="extentDto.extentList[6]" inputMaxLength="255"
+                            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="pg-inner-col-3" *ngIf="
+    extentDto.extentType == extentType.SQUAREFEET || extentDto.extentType == extentType.SQUAREMETER
+    ">
+            <div class="default-input-wrapper full-row">
+                <label for="length">{{'EXTENT_DETAILS.LENGTH'|translate}}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput id="length" type="number" step="0.01" min="0" inputAmount class="form-control"
+                            [(ngModel)]="extentDto.extentList[4]" inputMaxLength="255"
+                            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="pg-inner-col-3" *ngIf="
+    extentDto.extentType == extentType.SQUAREFEET || extentDto.extentType == extentType.SQUAREMETER
+    ">
+            <div class="default-input-wrapper full-row">
+                <label for="width">{{'EXTENT_DETAILS.WIDTH'|translate}}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                        <input matInput id="width" type="number" step="0.01" min="0" inputAmount class="form-control"
+                            [(ngModel)]="extentDto.extentList[5]" inputMaxLength="255"
+                            [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-col-3" *ngIf="
+    (extentDto.extentType == extentType.SQUAREFEET || extentDto.extentType == extentType.SQUAREMETER)
+    && extentDto.extentList[4] && extentDto.extentList[5]">
+        <div class="default-input-wrapper full-row">
+            <h1 class="mt-5">{{extentDto.extentList[4]*extentDto.extentList[5] | number: '0.0-4'}}
+                {{extentDto.extentType == extentType.SQUAREFEET ? 'ft' : 'm'}}<sup>2</sup></h1>
+        </div>
+    </div>
+    <div class="col-md-12" *ngIf="
+    extentDto.extentType == extentType.OTHER
+    ">
+        <div class="default-input-wrapper full-row">
+            <label for="remark">{{'EXTENT_DETAILS.OTHER'|translate}}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                    <textarea matInput id="remark" type="text" min="0" class="form-control"
+                        [(ngModel)]="extentDto.extentList[7]" inputMaxLength="255" [ngModelOptions]="{standalone: true}"
+                        [disabled]="uiController.isReadOnly"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,889 @@
+{
+    "BUTTONS":{
+       "SEARCH_BUTTON":"தேடல்",
+       "NEW_BUTTON":"புதிய",
+       "RESET_BUTTON":"மீட்டமை",
+       "UPDATE_BUTTON":"புதுப்பிக்கப்பட்டது",
+       "SAVE_BUTTON":"சமர்ப்பிக்க",
+       "CANCEL_BUTTON":"ரத்து",
+       "VIEW_BUTTON":"பார்வை",
+       "PRINT_BUTTON":"அச்சு",
+       "EDIT_BUTTON":"தொகு",
+       "ISSUE_BUTTON":"பிரச்சினை",
+       "ACCEPT_BUTTON":"ஏற்க",
+       "RETURN_BUTTON":"திரும்ப",
+       "YES_BUTTON":"ஆம்",
+       "NO_BUTTON":"இல்லை",
+       "ADD_NEW_FOLIO":"புதிய ஃபோலியோவைச் சேர்க்கவும்",
+       "SAVE_AS_INCOMPLETE":"முழுமையற்றதாக சேமிக்கவும்",
+       "SAVE_AS_COMPLETE":"முழுமையானது என சேமிக்கவும்",
+       "CONTINUE_BUTTON":"தொடர்ந்து",
+       "SUBMIT_BUTTON":"சமர்ப்பி",
+       "CHANGE_ATTESTED_PERSON_BUTTON":"சான்றளிக்கப்பட்ட நபரை மாற்றவும்",
+       "DOCUMENT_UPLOAD_BUTTON":"ஆவண பதிவேற்றம்",
+       "SEARCH_ATTESTED_PERSON_BUTTON":"சான்றளிக்கப்பட்ட நபரைத் தேடுங்கள்",
+       "BACK_BUTTON":"மீண்டும்",
+       "SELECT_SCHEDULE_BUTTON":"அட்டவணை வகையைத் தேர்ந்தெடுக்கவும்",
+       "ADD":"கூட்டு",
+       "ADD_TO_CURRENT_FOLIO":"தற்போதைய ஃபோலியோவில் சேர்க்கவும்",
+       "DEED_UPLOAD":"பத்திர பதிவேற்றம்",
+       "DELETE":"அழி",
+       "CONFIRM":"உறுதிப்படுத்து",
+       "ADVANCE_SEARCH_SHOW":"மேலும் தேடல்",
+       "ADVANCE_SEARCH_HIDE":"மேலும் தேடலை மறைக்கவும்",
+       "OKAY":"சரி"
+    },
+    "COMMON":{
+       "DEFAULT":"இயல்புநிலை",
+       "AUTO":"கார்",
+       "INDEX":"குறியீட்டு",
+       "SEARCH_DETAILS":"தேடல் விவரங்கள்",
+       "SEARCH_RESULT":"தேடல் முடிவுகள்",
+       "WELCOME":"வணக்கம்",
+       "SEARCH_REQUEST":"தேடல் கோரிக்கை",
+       "DAYBOOKNO/APPLICATIONNO":"நாள் புத்தக எண்/ விண்ணப்ப எண்",
+       "ALL":"அனைத்து",
+       "LOGOUT":"வெளியேறு",
+       "STATUS":"நிலையை",
+       "ACTIVE":"செயலில்",
+       "INACTIVE":"செயலற்று",
+       "DETAILS":"விவரங்கள்",
+       "ACTION":"அதிரடி",
+       "DESCRIPTION":"விளக்கம்",
+       "REQUEST_MODE":"கோரிக்கை முறை",
+       "REQUEST_DETAILS":"விவரங்களைக் கேளுங்கள்",
+       "IF_AVAILABLE":"(கிடைத்தால்)",
+       "SEARCH_HERE":"இங்கே தேடவும்",
+       "SELECT":"தேர்வு",
+       "AMOUNT":"அளவு",
+       "DUE_AMOUNT":"நிலுவை தொகை",
+       "TOTAL_AMOUNT":"மொத்த தொகை",
+       "TOTAL":"தொகை",
+       "SELECTED_TOTAL_AMOUNT":"தேர்ந்தெடுக்கப்பட்ட மொத்த தொகை",
+       "RS":"ரூ",
+       "ADD":"சேர்க்கிறது",
+       "DATE":"தேதி",
+       "TIME":"நேரம்",
+       "CODE":"குறியீடு",
+       "DAYBOOKREQUEST":"ஒரு வேளை",
+       "STAMP_FEE":"முத்திரை கட்டணம்",
+       "DUPLICATE_STAMP_FEE":"நகல் முத்திரை கட்டணம்",
+       "NEW_REQUEST":"புதிய கோரிக்கை / கோரிக்கைகள்",
+       "ASSIGN_TO":"ஒதுக்கு",
+       "ASSIGNED_REQUEST":"ஒதுக்கப்பட்ட கோரிக்கை/ கோரிக்கைகள்",
+       "SELECTED_REQUEST":"தேர்ந்தெடுக்கப்பட்ட கோரிக்கை/ கோரிக்கைகள்",
+       "FROM_DATE":"தேதியிலிருந்து",
+       "TO_DATE":"தேதி வரை",
+       "LANGUAGE":"மொழி",
+       "DIVISION":"பிரிவு",
+       "VOLUME":"தொகுதி",
+       "FOLIO":"ஃபோலியோ",
+       "DATE_OF_RETURN":"திரும்பிய தேதி",
+       "REMARKS":"குறிப்புகள்",
+       "DAYBOOKNO":"நாள் புத்தக எண்",
+       "APPLICATION_NO":"விண்ணப்ப எண்",
+       "OTHER_REMARKS":"பிற குறிப்புகள்",
+       "VALUE":"மதிப்பு",
+       "REQUEST_ID":"ஐடியைக் கோருங்கள்",
+       "USER_ACCOUNT":"பயனர் கணக்கு",
+       "USER":"பயனர்",
+       "OR":"அல்லது",
+       "E_G":"எ.கா",
+       "PAID":"பணம்",
+       "NOT_PAID":"செலுத்தப்படவில்லை",
+       "VIEW_REQUEST":"கோரிக்கை காண்க",
+       "REQUEST_STATUS":"கோரிக்கை நிலை",
+       "FOLIO_INFO":"ஃபோலியோ தகவல்",
+       "FOLIO_NEW":"புதிய ஃபோலியோ",
+       "CROSS_NOTE":"குறுக்கு குறிப்பு",
+       "OTHER_NOTE":"பிற குறிப்பு",
+       "SELECT_NOTE":"--குறிப்பு என்பதைத் தேர்ந்தெடுக்கவும்--",
+       "TYPE":"வகை",
+       "INSERT_MESSAGE":"உங்கள் கருத்தை இங்கே செருகவும்",
+       "REF":"குறிப்பு",
+       "ADD_OLD_NOTARY":"பழைய நோட்டரியைச் சேர்க்கவும்",
+       "BROUGHT_FORWARD":"முன்னோக்கி ஃபோலியோஸ் கொண்டு வரப்பட்டது",
+       "CROSS_REFERENCE":"குறுக்கு குறிப்புகள்",
+       "CASE_ID":"வழக்கு எண்",
+       "FORWARD_REQUEST":"கோரிக்கைகளை அனுப்பவும்",
+       "FOLIO_TYPE":"ஃபோலியோ வகை",
+       "YEAR":"ஆண்டு",
+       "REMARK":"குறிப்புக்கள்",
+       "LOADING":"ஏற்றுதல்",
+       "TELEPHONE":{
+          "NAME":"தொலைபேசி எண்",
+          "CATEGORY":{
+             "PRIMARY":"முதன்மை",
+             "SECONDARY":"இரண்டாவது"
+          }
+       }
+    },
+    "FOLIO_TYPE":{
+       "FOLIO_NUM":"ஃபோலியோ எண்",
+       "SELECT_TYPE":"--ஃபோலியோ வகையைத் தேர்ந்தெடுக்கவும்--",
+       "NORMAL_TRUST":"இயல்பான நம்பிக்கை",
+       "EXPRESS_TRUST":"வெளிப்படையான நம்பிக்கை",
+       "GENERAL":"பொது",
+       "CONDOMINIUM":"தொகுப்புவீடுகள்",
+       "SPECIAL_DIVISION_DEEDS":"சிறப்பு பிரிவு பத்திரங்கள்",
+       "SPECIAL_CONDOMINIUM_DEEDS":"சிறப்பு காண்டோமினியம் செயல்கள்",
+       "MOVABLE":"நகரக்கூடிய சொத்து",
+       "GOV_LANDS":"அரசு நிலங்கள்"
+    },
+    "DESIGNATION":{
+       "SELECT":"பதவி என்பதைத் தேர்ந்தெடுக்கவும்",
+       "CODE":"பதவி குறியீடு",
+       "NAME":"பதவி"
+    },
+    "REQUEST_MODES":{
+       "WALK_IN":"வாக்-இன்",
+       "POST_NORMAL":"இடுகை இயல்பானது",
+       "POST_REGISTERED":"இடுகை பதிவு செய்யப்பட்டது"
+    },
+    "DOCUMENT":{
+       "DOCUMENT":"ஆவண",
+       "DOCUMENT_Details":"ஆவண விவரங்கள்",
+       "DOCUMENT_NO":"ஆவண எண்",
+       "DOCUMENT_TYPE":"ஆவண வகை",
+       "DOCUMENT_NATURE":"ஆவண இயற்கை",
+       "DOCUMENT_SUB_NATURE":"ஆவண துணை இயற்கை",
+       "DOC_CATEGORY":"ஆவண வகை",
+       "DOC_SUBCATEGORY":"ஆவண துணை வகை",
+       "DOC_TYPE":"ஆவண வகை",
+       "DOC_NATURE":"ஆவண இயல்பு",
+       "DOC_SUB_NATURE":"ஆவண துணை இயற்கை",
+       "ISSUED_DOCS":"வழங்கப்பட்ட ஆவணங்கள்",
+       "PENDING_DOCS":"நிலுவையில் உள்ள ஆவணங்கள்",
+       "PROCESSING_DOCS":"செயலாக்க ஆவணங்கள்",
+       "RETURNED_DOCS":"திரும்பிய ஆவணங்கள்",
+       "NO_OF_DOC":"ஆவணங்களின் எண்ணிக்கை",
+       "NO_DOC_FOUND":"ஆவணங்கள் எதுவும் கிடைக்கவில்லை",
+       "DOCUMENT_CHARGE_SEARCH":"ஆவணக் கட்டணத்தைத் தேடுங்கள்",
+       "DOCUMENT_CHARGE_ID":"கட்டணம் இல்லை",
+       "DOC_NO_CHANAGE":{
+          "TITLE":"ஆவண எண் வகை அட்டவணை புதுப்பிப்பு",
+          "LAST_INDEX":"கடைசி குறியீட்டு",
+          "SUB_TITLE":"ஆவண எண் புதுப்பிப்பு",
+          "NO_COUNT":"டைரிகளின் எண்ணிக்கை"
+       }
+    },
+    "LAND_REGISTRY":{
+       "SEARCH_LAND_REGISTRY":"நில பதிவேட்டில் தேடுங்கள்",
+       "NAME":"நில பதிவு",
+       "LR_NO":"எல்.ஆர் எண்",
+       "RETURN_LR":"திரும்ப நில பதிவு",
+       "SELECT":"--நில பதிவேட்டைத் தேர்ந்தெடுக்கவும்--"
+    },
+    "ZONAL":{
+       "NAME":"மண்டல",
+       "ZONAL_OFFICE":"மண்டல அலுவலகம்",
+       "SEARCH_ZONAL_OFFICE":"மண்டல அலுவலகத்திலிருந்து தகவலைத் தேடுங்கள்"
+    },
+    "PROVINCE":{
+       "NAME":"மாகாணத்தில்",
+       "PROVINCE_CODE":"மாகாண குறியீடு",
+       "SELECT_PROVINCE":"--மாகாணத்தைத் தேர்ந்தெடுக்கவும்--"
+    },
+    "LAND_REGISTRY_DIVISIONS":{
+       "SEARCH_LAND_REGISTRY_DIVISIONS":"நில பதிவேட்டில் தேடுங்கள்",
+       "NAME":"நில பதிவு",
+       "DIVISION_CODE":"பிரிவு குறியீடு",
+       "L/R_DIVISION":"எல்.ஆர் பிரிவு",
+       "SELECT_L/R_DIVISION":"--எல்.ஆர் பிரிவு தேர்ந்தெடுக்கவும்--"
+    },
+    "APPLICANT":{
+       "APPLICANT_INFO":"விண்ணப்பதாரர் தகவல்",
+       "APPLICANT_NAME":"விண்ணப்பதாரர் பெயர்",
+       "NAME":"பெயர்",
+       "NEW_APPLICANT":"புதிய விண்ணப்பதாரர்",
+       "APPLICANT_TYPE":"விண்ணப்பதாரர் வகை",
+       "APPLICANT_ADDRESS":"விண்ணப்பதாரர் முகவரி",
+       "APPLICANT_IDENTIFICATION":"விண்ணப்பதாரர் அடையாளம் (தேசிய அடையாள அட்டை/ ஓட்டுனர் உரிமம்/ கடவுச்சீட்டு)",
+       "APPLICANT_CONTACT_NO":"விண்ணப்பதாரர் தொடர்பு எண்",
+       "APPLICANT_EMAIL":"விண்ணப்பதாரர் மின்னஞ்சல்",
+       "SEARCH_APPLICANT_REQUEST":"விண்ணப்பதாரரின் கோரிக்கையைத் தேடுங்கள்",
+       "APPLICANT_REQUEST":"விண்ணப்பதாரர் கோரிக்கை",
+       "APPLICANT_DETAILS":"விண்ணப்பதாரர் விவரங்கள்",
+       "APPLICANT_NIC":"விண்ணப்பதாரர் என்.ஐ.சி.",
+       "DOB":"பிறந்த தேதி",
+       "IDENTITY_TYPE":"அடையாள வகை"
+    },
+    "APPLICANT_TYPES":{
+       "INTEREST_PERSON":"ஆர்வமுள்ள நபர்",
+       "NOTARY":"நோட்டரி",
+       "OWNER":"உரிமையாளர்",
+       "NOTARY_OR_OTHER_PERSON":"நோட்டரி அல்லது வேறு எந்த நபரும்",
+       "OTHER":"மற்ற"
+    },
+    "PAYMENT_MODES":{
+       "CAS":"பணம்",
+       "FOC":"இலவசம்",
+       "BNKD":"வங்கி வைப்பு",
+       "CRDT":"கடன்"
+    },
+    "REPORT":{
+       "SEARCH_REPORT":"அறிக்கை தேடல்",
+       "CATEGORY_WISE_REPORT":"வகை ஞான அறிக்கை",
+       "ONE_DAY_REPORT":"ஒரு நாள் அறிக்கை",
+       "USER_WISE_CASH_REPORT":"பயனர் வாரியாக பண அறிக்கை",
+       "DAY_BOOK_REPORT":"நாள் புத்தக அறிக்கை"
+    },
+    "USER":{
+       "LAST_UPDATED_USER":"கடைசியாக புதுப்பிக்கப்பட்ட பயனர்",
+       "SUBJECT_CLERK":"பொருள் எழுத்தர்",
+       "ASSIGNED_USER":"ஒதுக்கப்பட்ட பயனர்"
+    },
+    "KORALE":{
+       "SEARCH_KORALE":"தேடல் கோரலே",
+       "KORALE_ID":"கோரல் ஐடி",
+       "NAME":"கோர்லே "
+    },
+    "PATHTHUWA":{
+       "SEARCH_PATHTHUWA":"பத்துவா தேடல்",
+       "PATHTHUWA_ID":"பத்துவா ஐடி",
+       "NAME":"பத்துவா",
+       "PATHTHUWA_CODE":"பத்துவா குறியீடு"
+    },
+    "DS_DIVISION":{
+       "SEARCH_DS_DIVISION":"தேடல் டிஎஸ் பிரிவு",
+       "DSDIVISION_CODE":"டிஎஸ் பிரிவு குறியீடு",
+       "NAME":"டிஎஸ் பிரிவு",
+       "SELECT":"--டி / எஸ் பிரிவைத் தேர்ந்தெடுக்கவும்--"
+    },
+    "DISTRICTS":{
+       "NAME":"மாவட்டம்",
+       "DISTRICT_CODE":"மாவட்ட குறியீடு",
+       "SELECT":"--மாவட்டத்தைத் தேர்ந்தெடுக்கவும்--"
+    },
+    "GN_DIVISION":{
+       "SEARCH_GN_DIVISION":"தேடல் ஜி .என் பிரிவு",
+       "GNDIVISION_CODE":"ஜி .என்-பிரிவு குறியீடு",
+       "NAME":"ஜி .என்-பிரிவு",
+       "GN_DIVISION_ID":"ஜி .என்-பிரிவு ஐடி",
+       "SELECT_G/N_DIVISION":"--ஜி / என் பிரிவைத் தேர்ந்தெடுக்கவும்--"
+    },
+    "VILLAGE":{
+       "SEARCH_VILLAGE":"தேடல் வில்லேஜ்",
+       "VILLAGE_CODE":"கிராமக் குறியீடு",
+       "NAME":"கிராமம்"
+    },
+    "BANK":{
+       "SEARCH_BANK":"தேடல் வங்கி",
+       "NAME":"வங்கி பெயர்",
+       "BANK_ID":"வங்கி ஐடி",
+       "SEARCH_BANK_BRANCH":"வங்கி கிளை தேடு",
+       "BANK_BRANCH_CODE":"கிளை குறியீடு",
+       "BANK_BRANCH_ADDRESS":"கிளை விலாசம்",
+       "BANK_BRANCH_CONTACTNO":"கிளை தொடர்பு எண்",
+       "BRANCH_NAME":"கிளை பெயர்",
+       "BRANCH_ID":"கிளை ஐடி",
+       "SELECT_BANK":"வங்கியைத் தேர்ந்தெடுக்கவும்",
+       "BRANCH":"கிளை"
+    },
+    "FINE_CATEGORY":{
+       "SEARCH_FINE_CATEGORY":"சிறந்த வகையைத் தேடுங்கள்",
+       "NAME":"சிறந்த வகை",
+       "SUB_CATEGORY_DESCRIPTION":"துணை வகை விளக்கம்",
+       "CHARGE_CATEGORY_DESCRIPTION":"கட்டணம் வகை விளக்கம்",
+       "SUB_CATEGORY_CHARGES":"துணை வகை கட்டணங்கள்",
+       "ADDITIONAL_CHARGE_REQUEST":"கூடுதல் கட்டணம் கோரிக்கை",
+       "CHARGE_CATEGORY":"கட்டணம் வகை",
+       "CHARGE_SUB_CATEGORY":"கட்டணம் துணை வகை",
+       "ADDITIONAL_CHARGE_PAYMENT":"கூடுதல் கட்டணம் செலுத்துதல்"
+    },
+    "PROVINCIAL_COUNCIL":{
+       "SEARCH_PROVINCIAL_COUNCIL":"மாகாண சபையைத் தேடுங்கள்",
+       "NAME":"மாகாண சபை",
+       "PROVINCIAL_COUNCIL_CODE":"மாகாண சபை குறியீடு",
+       "SELECT_PROVINCIAL_COUNCIL":"--மாகாண சபையைத் தேர்ந்தெடுக்கவும்--"
+    },
+    "PROPERTY_DETAILS":{
+       "LAND_NAME":"நிலத்தின் பெயர்",
+       "NO_OF_LAND":"நிலத்தின் எண்ணிக்கை",
+       "NO_OF_LOTS":"நிறைய எண்ணிக்கை",
+       "TITLE":"சொத்து விவரங்கள்",
+       "SUB_TITLE":"சொத்து தகவல்",
+       "QUESTION":"நிலம் இருக்கிறதா?",
+       "PLAN_NO":"திட்ட எண்",
+       "PLAN_DATE":"திட்ட தேதி",
+       "REG_PLAN_NO":"பதிவு திட்டம் எண்",
+       "STATEMENT_CLAIM_NO":"உரிமைகோரல் எண் அறிக்கை",
+       "ALLOTMENT_NO":"ஒதுக்கீடு எண்",
+       "INSERTED_PER":"செருகப்பட்ட நபர்",
+       "SURVEY_PAR_DATE":"சர்வேரி மற்றும் பகிர்வு செய்யப்பட்ட தேதி",
+       "PARTI_DATE":"பகிர்வு செய்யப்பட்ட தேதி",
+       "ASSES_NO":"மதிப்பீட்டு எண்",
+       "TITLE_PLAN_NO":"தலைப்பு திட்டம் எண்",
+       "NAME_SURVEYER":"சர்வேயரின் பெயர்",
+       "LOT_NO":"நிறைய இல்லை",
+       "LAND_ID":"நில அடையாளம்",
+       "KORALE":"கோரளை",
+       "SELECT_KORALE":"--கோரலைத் தேர்ந்தெடுக்கவும்--",
+       "PATTU":"பட்டு",
+       "SELECT_PATTU":"--பட்டு என்பதைத் தேர்ந்தெடுக்கவும்--",
+       "VILLAGE":"கிராமம்",
+       "SELECT_VILLAGE":"--கிராமத்தைத் தேர்ந்தெடுக்கவும்--",
+       "STREET":"தெரு",
+       "MESSAGE":"அறக்கட்டளையின் பெயர் அல்லது சங்கத்தின் பெயர்",
+       "SERVEY_PLAN_NO":"கணக்கெடுப்பு திட்டம் எண்",
+       "SERVEY_PLAN_DATE":"கணக்கெடுப்பு திட்டம் தேதி",
+       "NAME_OF_ARCHITECT":"கட்டிடக் கலைஞரின் பெயர்",
+       "GRANT_NO":"கிராண்ட் எண் / அனுமதி எண்",
+       "GRANT_DATE":"மானிய தேதி / அனுமதி தேதி"
+    },
+    "BOUNDARIES":{
+       "NAME":"எல்லைகள்",
+       "SUB_TITLE":"எல்லை",
+       "TITLE":"எல்லைத் தகவல்",
+       "NORMAL":"இயல்பான",
+       "DIFFERENT":"வெவ்வேறு",
+       "EAST":"கிழக்கு",
+       "WEST":"மேற்கு",
+       "NORTH":"வடக்கு",
+       "SOUTH":"தெற்கு",
+       "NADIR":"நாதிர்",
+       "ZENITH":"ஜெனித்",
+       "NORTH_WEST":"வடமேற்கு",
+       "NORTH_EAST":"வட கிழக்கு",
+       "SOUTH_WEST":"தென் மேற்கு",
+       "SOUTH_EAST":"தென்கிழக்கு",
+       "KEY":"சாவி",
+       "VALUE":"மதிப்பு"
+    },
+    "EXTENT_DETAILS":{
+       "TAB_TITLE":"விரிவான விவரங்கள்",
+       "SUB_TITLE":"விரிவான தகவல்",
+       "TYPE_ARP":"எ ஆர் பி",
+       "TYPE_HEC":"ஹெக்டேர்",
+       "TYPE_ARPHEC":"எ ஆர் பி ஹெக்டேர்",
+       "TYPE_SQF":"சதுர அடி",
+       "TYPE_SQF_METER":"சதுர மீட்டர்",
+       "ARCHES":"வளைவுகள்",
+       "ROUTES":"வழித்தடங்கள்",
+       "PERCHES":"பேர்ச்",
+       "LENGTH":"நீளம்",
+       "WIDTH":"அகலம்",
+       "EXTENT_DETAILS.OTHER":"பிற நீட்டிப்புகள்"
+    },
+    "GRANTOR_DETAILS":{
+       "TAB_TITLE":"உத்தரவாதமளிப்போரும்",
+       "SUB_TITLE":"உத்தரவாத விவரங்கள்",
+       "ADDRESS_PERM":"முகவரி (நிரந்தர)",
+       "ADDRESS_RES":"முகவரி (வீட்டு)",
+       "TELEPHONE":"தொலைபேசி எண்",
+       "EMAIL":"மின்னஞ்சல்",
+       "NO_GRANTOR":"எந்த உத்தரவாதமும் இல்லை",
+       "LIST":"உத்தரவாதமளிப்போரும் பட்டியல்"
+    },
+    "GRANTEE_DETAILS":{
+       "TAB_TITLE":"பெற்றவர்",
+       "SUB_TITLE":"கிராண்டி தகவல்",
+       "NO_GRANTEE":"பெற்றவர் இல்லை",
+       "LIST":"கிராண்டி பட்டியல்"
+    },
+    "PARTICULAR":{
+       "TAB_TITLE":"விவரங்கள்",
+       "NAME":"குறிப்பிட்ட"
+    },
+    "TRUST_ARTHUR_DETAILS":{
+       "TAB_TITLE":"நம்பிக்கை எழுத்தாளர்",
+       "SUB_TITLE":"நம்பிக்கை எழுத்தாளர் தகவல்",
+       "NAME":"அறக்கட்டளை",
+       "NO_TRUST_ARTHUR":"நம்பிக்கை எழுத்தாளர் இல்லை",
+       "LIST":"நம்பிக்கை எழுத்தாளர் பட்டியல்"
+    },
+    "TRUSTER_DETAILS":{
+       "TAB_TITLE":"அறங்காவலர்",
+       "SUB_TITLE":"அறங்காவலர் தகவல்",
+       "NAME":"அறங்காவலர்",
+       "NO_TRUST_ARTHUR":"அறங்காவலர் கிடைக்கவில்லை",
+       "LIST":"அறங்காவலர் பட்டியல்"
+    },
+    "TRUSTEE_DETAILS":{
+       "TAB_TITLE":"அறங்காவலர்",
+       "SUB_TITLE":"அறங்காவலர் தகவல்",
+       "NAME":"அறங்காவலர்",
+       "NO_TRUSTEE":"அறங்காவலர் இல்லை",
+       "LIST":"அறங்காவலர் பட்டியல்"
+    },
+    "CO_TRUSTEE_DETAILS":{
+       "TAB_TITLE":"கூட்டுறவு அறங்காவலர்",
+       "SUB_TITLE":"இணை அறங்காவலர் தகவல்",
+       "NAME":"கூட்டுறவு அறங்காவலர்",
+       "NO_CO_TRUSTEE":"இணை அறங்காவலர் இல்லை",
+       "LIST":"இணை அறங்காவலர் பட்டியல்"
+    },
+    "OLD_TRUSTEE_DETAILS":{
+       "TAB_TITLE":"பழைய அறங்காவலர்",
+       "SUB_TITLE":"பழைய அறங்காவலர் தகவல்",
+       "NAME":"பழைய அறங்காவலர்",
+       "NO_OLD_TRUSTEE":"பழைய அறங்காவலர் இல்லை",
+       "LIST":"பழைய அறங்காவலர் பட்டியல்"
+    },
+    "BENEFICIARY_DETAILS":{
+       "TAB_TITLE":"பயனாளியின்",
+       "SUB_TITLE":"பயனாளியின் தகவல்",
+       "NAME":"பயனாளியின்",
+       "NO_BENEFICIARY":"பயனாளி இல்லை",
+       "LIST":"பயனாளி பட்டியல்"
+    },
+    "BENEFICIAL_ARTHUR_DETAILS":{
+       "TAB_TITLE":"நன்மை பயக்கும் ஆசிரியர்",
+       "SUB_TITLE":"நன்மை பயக்கும் ஆசிரியர் தகவல்",
+       "NAME":"நன்மை",
+       "NO_BENEFICIAL_ARTHUR":"நன்மை பயக்கும் ஆசிரியர் இல்லை",
+       "LIST":"நன்மை பயக்கும் ஆசிரியர் பட்டியல்"
+    },
+    "CONTACT_DETAILS":{
+       "MOBILE":"மொபைல்",
+       "PERSON_NAME":"நபரின் பெயர்",
+       "ADDRESS":"முகவரி",
+       "ADDRESSES":"முகவரிகள்",
+       "CONTACT_NO":"தொடர்பு எண்",
+       "EMAIL":"மின்னஞ்சல்l",
+       "FAX":"தொலைநகல்",
+       "CONTACT_NAME":"தொடர்பு பெயர்",
+       "FULL_NAME":"முழு பெயர்",
+       "IDENTIFICATION_NO":"அடையாள எண்",
+       "NIC":"தேசிய அடையாள எண்",
+       "NAME":"பெயர்",
+       "CONTACT_PER_NAME":"நபரின் பெயர்",
+       "CONTACT_PER_MOBILE":"நபரின் மொபைல் எண் தொடர்பு கொள்ளவும்",
+       "POSTED_DATE":"வெளியிடப்பட்ட தேதி",
+       "STATUS":"நிலையை",
+       "POST_NO":"இடுகை எண்"
+    },
+    "UNIT_DETAILS":{
+       "TAB_TITLE":"அலகு விவரங்கள்",
+       "NAME_OF_SCH":"திட்டத்தின் பெயர்",
+       "NUM_OF_STORIES":"கதைகளின் எண்ணிக்கை",
+       "NUM_OF_BASEMENTS":"அடித்தளங்களின் எண்ணிக்கை",
+       "NUM_OF_BLOCKS":"தொகுதிகள் எண்ணிக்கை",
+       "UNIT":"அலகு",
+       "UNIT_OR_SYM":"அலகு எண் அல்லது சின்னம்",
+       "FLOOR_AREA":"தரை பகுதி"
+    },
+    "RECEIPT":{
+       "NAME":"ரசீது",
+       "RECEIPT_NO":"ரசீது எண்",
+       "RECEIPT_DATE":"ரசீது தேதி",
+       "RECEIPT_DETAILS":"ரசீது விவரங்கள்",
+       "VIEW_RECEIPT":"ரசீதைக் காண்க",
+       "DATETIME_RECEIPT":"ரசீது தேதி மற்றும் நேரம்",
+       "RECEIPT_SUMMARY":"ரசீது சுருக்கம்"
+    },
+    "POST":{
+       "POST_RECEIVED_DATE":"இடுகை பெறப்பட்ட தேதி",
+       "REGISTERED_POST_NO":"பதிவு செய்யப்பட்ட தபால் எண்"
+    },
+    "TOKEN":{
+       "TOKEN_NO":"டோக்கன் எண்"
+    },
+    "PAYMENT":{
+       "PAYMENT":"கொடுப்பனவு",
+       "PAYMENT_DETAILS":"கட்டண விவரங்கள்",
+       "PAYMENT_MODE":"கட்டண முறை",
+       "PAYMENT_ID":"கட்டண ஐடி",
+       "AMOUNT":"தொகை",
+       "DATE":"கட்டணம் தேதி"
+    },
+    "NOTARY":{
+       "SEARCH_NOTARY":"நோட்டரியைத் தேடுங்கள்",
+       "BY_NEW_NOTARY_NO":"புதிய நோட்டரி எண்ணால்",
+       "BY_OLD_NOTARY_NO":"பழைய நோட்டரி எண்ணால்",
+       "BY_NOTARY_NAME":"நோட்டரி பெயரால்",
+       "BY_NOTARY_NIC":"நோட்டரி ஐடி மூலம்",
+       "NEW_NOTARY_ID":"புதிய நோட்டரி எண்",
+       "OLD_NOTARY_ID":"பழைய நோட்டரி எண்",
+       "NOTARY_ID":"நோட்டரி ஐடி",
+       "NOTARY_INFO":"நோட்டரி தகவல்",
+       "NOTARY":"நோட்டரி"
+    },
+    "OTHER_PERSON":{
+       "ANY_OTHER_PERSON":"வேறு எந்த நபரும்",
+       "OTHER_PERSON_DETAILS":"பிற நபர் விவரங்கள்",
+       "OTHER_PERSON_NAME":"முழு பெயர்",
+       "OTHER_PERSON_DESIGNATION":"பதவி",
+       "OTHER_PERSON_LOCATION":"இருப்பிடம்",
+       "OTHER_PERSON_ADDRESS":"முகவரி",
+       "OTHER_PERSON_CONTACT_NO":"தொடர்பு எண்",
+       "OTHER_PERSON_EMAIL":"மின்னஞ்சல்"
+    },
+    "CATEGORY":{
+       "CATEGORY":"வகை",
+       "SUB_CATEGORY":"துணை வகை",
+       "SELECT_CATEGORY":"--வகையைத் தேர்ந்தெடுக்கவும்--"
+    },
+    "OTHER":{
+       "ADDITIONAL_CHARGE":"கூடுதல் கட்டணம்",
+       "DUPLICATENO":"நகல் எண்",
+       "NO_OF_YEAR":"ஆண்டு இல்லை",
+       "SERVICE_NO":"சேவை எண்",
+       "ISSUE_DATE":"வெளியீட்டு தேதி",
+       "VALUE_CONSIDERATION":"மதிப்பு (கருத்தில்)",
+       "WARNING":"எச்சரிக்கை",
+       "TIME_OF_RECEIPT":"ரசீது நேரம்",
+       "SERIAL_DAY_BOOK_NO":"வரிசை நாள் புத்தக எண்",
+       "VALUE_OF_CONSIDERATION":"கருத்தில் கொள்ள வேண்டிய மதிப்பு",
+       "FISCAL_SEIZURES":"நிதி வலிப்புத்தாக்கங்கள்",
+       "PRIORITY_NOTICES":"முன்னுரிமை அறிவிப்புகள்",
+       "RENEWALS":"புதுப்பித்தல்களை",
+       "CANCELLATION":"ரத்து",
+       "ACCEPTED_SIGNATURE_AND_DATE":"ஏற்றுக்கொண்ட நபரின் கையொப்பம் மற்றும் தேதி",
+       "LITES_PENDENTES":"வழக்கு நிலுவையில் உள்ளது",
+       "REQUEST_INFORMATION":"தகவல் கோருங்கள்",
+       "SUMMARY_DETAILS":"சுருக்கம் விவரங்கள்",
+       "WORKFLOW_STAGE":"பணிப்பாய்வு நிலை",
+       "MAIN_DETAILS":"முக்கிய விவரங்கள்",
+       "PRIOR_REGISTRATION_NO":"முன் பதிவு எண்",
+       "DISTRICT_SECRETARY_DIVISION":"மாவட்ட செயலாளர் பிரிவு",
+       "GRAMANILADARI_DIVISION":"கிராமிளதரி பிரிவு",
+       "DECISION":"முடிவு",
+       "THIS_REQ_CAN":"இந்த கோரிக்கை முடியும்",
+       "SELECT_DECISION":"உங்கள் முடிவைத் தேர்ந்தெடுக்கவும்",
+       "ACCEPT_REQUEST":"கோரிக்கையை ஏற்றுக்கொள்",
+       "PRINT_FOLIO":"ஃபோலியோவை அச்சிடுங்கள்",
+       "INCOMPLETE_REQUEST":"முழுமையற்ற கோரிக்கை",
+       "VIEW_TRANSACTION":"பரிவர்த்தனை காண்க",
+       "LAST_UPDATED_DATE":"கடைசியாக புதுப்பிக்கப்பட்ட தேதி",
+       "WORK_STAGE":"வேலை நிலை",
+       "NOT_PAID":"செலுத்தப்படாத தொகை",
+       "PAID":"செலுத்திய தொகை",
+       "TOT_AMOUNT":"மொத்த தொகை",
+       "REQ_COUNT":"கோரிக்கை கோரிக்கை",
+       "SER_COUNT":"சேவை எண்ணிக்கை",
+       "AMOUNT_TO_THIS":"இதற்கான தொகை",
+       "AMOUNT_TO_OTHER":"பிற தொகை",
+       "AMOUNT_FROM_OTHER":"பிறரிடமிருந்து தொகை",
+       "AMOUNT_FROM_BANK_DEPOSIT":"வங்கி வைப்புத்தொகையின் தொகை",
+       "PLAINTIFFS":"வாதிகளின்",
+       "DEFENDANT":"பிரதிவாதிகள்",
+       "REJECT":"நிராகரி",
+       "SELECT_CLERK":"ஒரு எழுத்தரைத் தேர்ந்தெடுக்கவும்",
+       "PLEASE_SELECT_CLERK":"ஒரு எழுத்தரைத் தேர்ந்தெடுக்கவும்",
+       "ISSUANCE_DETAIL":"விவரங்களை வழங்குதல்",
+       "ISSUANCE_MODE":"வெளியீட்டு முறை",
+       "ISSUANCE_MODE_BY_HAND":"கையால்",
+       "ISSUANCE_MODE_NORMAL_POST":"இயல்பான இடுகை",
+       "ISSUANCE_MODE_REGISTERED_POST":"பதிவு அஞ்சல்",
+       "COLLECTOR_DETAILS":"கலெக்டர் விவரங்கள்",
+       "POST_DETAILS":"அஞ்சல் விவரங்கள்",
+       "SELECT_CROSS_NOTE":"குறுக்கு குறிப்பைத் தேர்ந்தெடுக்கவும்",
+       "WARD_NAME":"வார்டு பெயர்",
+       "WARD_NO":"வார்டு எண்",
+       "NAME_OF_SCHEME":"திட்டத்தின் பெயர்",
+       "NUMBER_OF_STORIES":"கதைகளின் எண்ணிக்கை",
+       "NUMBER_OF_BASEMENTS":"அடித்தளங்களின் எண்ணிக்கை",
+       "NUMBER_OF_BLOCKS":"தொகுதியின் எண்ணிக்கை",
+       "GRANT_OR_PERMIT_NO":"Gகிராண்ட் எண் / அனுமதி எண்",
+       "GRANT_OR_PERMIT_DATE":"மானிய தேதி / அனுமதி தேதி",
+       "PARTY_INFO":"கட்சி தகவல்",
+       "PLAINTIFF_LIST":"விரிவான விவரங்கள் பட்டியல்",
+       "NO_PLAINTIFF":"வாதிகள் கிடைக்கவில்லை",
+       "DIFENDANT_LIST":"பிரதிவாதி பட்டியல்",
+       "NO_DIFENDANT":"பிரதிவாதிகள் யாரும் இல்லை",
+       "REFERENCE_FOLIOS":"ஃபோலியோ குறிப்புகள்",
+       "ADD_REMARK":"கருத்தைச் சேர்க்கவும்"
+    },
+    "LR_MSGS":{
+       "ACCEPT_CASH_RECEIPT_FROM_ANOTHER_LR":"மற்றொரு எல்.ஆரிடமிருந்து பண ரசீதை ஏற்றுக்கொள்ளுங்கள்",
+       "ACCEPT_RETURN_DOCS_FROM_ANOTHER_LR":"மற்றொரு எல்.ஆரிடமிருந்து திரும்ப டாக்ஸை ஏற்கவும்",
+       "RETURN_DOCS_TO_ANOTHER_LR":"டாக்ஸை மற்றொரு எல்.ஆருக்குத் திரும்புக",
+       "DOCUMENT_ISSUANCE":"ஆவண வெளியீடு",
+       "AMOUNT_TO_THIS_LR":"இந்த நில பதிவேட்டில் தொகை",
+       "AMOUNT_TO_OTHER_LR":"பிற நிலப் பதிவேட்டில் தொகை",
+       "TOTAL_CASHIER_AMT":"மொத்த காசாளர் தொகை",
+       "AMOUNT_FROM_BANK_DEPOSIT":"வங்கி வைப்புத்தொகையின் தொகை",
+       "AMOUNT_FROM_OTHER_LR":"பிற நில பதிவேட்டில் இருந்து தொகை"
+    },
+    "REGISTRATION":{
+       "CATEGORY":"பதிவு வகை",
+       "SUB_CATEGORY":"பதிவு துணை வகை",
+       "REGISTRATION_FEE":"பதிவு கட்டணம்",
+       "REQUEST_HISTORY":"பதிவு கோரிக்கை வரலாறு",
+       "TITLE_REGISTRATION_REQUEST_DETAILS":"பதிவு கோரிக்கை விவரங்கள்"
+    },
+    "STATUS":{
+       "COMPLETED":"நிறைவு",
+       "PENDING":"நிலுவையில்",
+       "INCOMPLETE":"முழுமையற்ற"
+    },
+    "TRUST":{
+       "TRUST_REGISTRATION_REQ_DETAILS":"நம்பிக்கை பதிவு கோரிக்கை விவரங்கள்",
+       "TRUST_NO":"நம்பிக்கை எண்",
+       "TRUST":"ஒரு நம்பிக்கை",
+       "NAME":"நம்பிக்கையின் பெயர்",
+       "TRUST_ADDRESS":"அறக்கட்டளையின் முகவரி",
+       "TRUST_PURPOSE":"நம்பிக்கையின் நோக்கம்"
+    },
+    "ATTEST":{
+       "ATTESTED_DATE":"சான்றளிக்கப்பட்ட தேதி",
+       "ATTESTED_PERSON_DETAILS":"சான்றளிக்கப்பட்ட நபர் விவரங்கள்",
+       "ATTESTED_PERSON":"சான்றளிக்கப்பட்ட நபர்",
+       "TITLE_ASSIGN_ATTESTED_PERSON_FOR_ALL_REQUESTS":"அனைத்து கோரிக்கைகளுக்கும் சான்றளிக்கப்பட்ட நபரை நியமிக்கவும்"
+    },
+    "DEED":{
+       "DEED_NO":"பத்திரம் இல்லை",
+       "DEED_LANG":"பத்திர மொழி",
+       "DEED":"பத்திரம்",
+       "CASE_ID":"வழக்கு எண்"
+    },
+    "REGISTRATION_CLERK":{
+       "SELECT_REGISTRATION_CLERK":"பதிவு எழுத்தர் என்பதைத் தேர்ந்தெடுக்கவும்"
+    },
+    "TYPES":{
+       "MOVABLE":"அசையும்",
+       "LDO":"எல்.டி.ஓ",
+       "NORMAL":"சாதாரண",
+       "TRUST":"நம்பிக்கை"
+    },
+    "SCHEDULE":{
+       "SELECT_SCHEDULE_DETAILS":"அட்டவணை விவரங்களைத் தேர்ந்தெடுக்கவும்",
+       "SCHEDULE_TYPE":"அட்டவணை வகை",
+       "SELECT_SCHEDULE_TYPES":"--அட்டவணை வகையைத் தேர்ந்தெடுக்கவும்--",
+       "NEW":"புதிய",
+       "CARRIED_OVER":"எடுத்துச் சென்றார்",
+       "SUBDIVISION":"உட்பிரிவு",
+       "AMALGAMATION":"கலவையாகும்",
+       "CLOSE_NOTE":"குறிப்பு மூடு",
+       "TRANSACTION":"பரிவர்த்தனை"
+    },
+    "ALERT":{
+       "TITLE":{
+          "SERVER_ERROR":"உள் சேவையக பிழை!",
+          "VALIDATION_ERROR":"பிழை!",
+          "SUCCESS":"வெற்றி",
+          "VALID_DATA":"செல்லுபடியாகும் தரவைத் தேர்ந்தெடுக்கவும்",
+          "NO_RESULT":"எந்த முடிவும் கிடைக்கவில்லை",
+          "PLEASE_FILL":"படிவத்தை நிரப்பவும்!",
+          "WARNING":"எச்சரிக்கை",
+          "PLEASE_AT_LEAST_ONE":"தயவுசெய்து, குறைந்தது ஒரு உருப்படியைத் தேர்ந்தெடுக்கவும்!"
+       },
+       "CONFIRM_MESSAGE":{
+          "SUBMIT_APPLICATION":"இந்த விண்ணப்பத்தை சமர்ப்பிக்க விரும்புகிறீர்களா?",
+          "SUBMIT":"நீ சொல்வது உறுதியா?",
+          "CONFIRM_SUBMIT":"நீங்கள் சேமிக்க விரும்புகிறீர்களா?"
+       },
+       "MESSAGE":{
+          "SUBMITTED_SUCCESS":"வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது!",
+          "REMARK_ADDED":"உங்கள் கருத்தை இங்கே செருகவும்",
+          "ACTIVATED_SUCCESS":"வெற்றிகரமாக செயல்படுத்தப்பட்டது!",
+          "DEACTIVATED_SUCCESS":"வெற்றிகரமாக செயலிழக்க செய்யப்பட்டது!",
+          "ASSIGNED_SUCCESS":"வெற்றிகரமாக ஒதுக்கப்பட்டுள்ளது!",
+          "FOLIO_NOT_FOUND":"ஃபோலியோ காணப்படவில்லை",
+          "LR_NOT_FOUND":"நில பதிவேட்டைத் கிடைக்கவில்லை",
+          "FOLIO_EXIST":"ஃபோலியோ ஏற்கனவே உள்ளது"
+       },
+       "WARNING":{
+          "FOLIO_NOT_FOUND":"ஃபோலியோ காணப்படவில்லை!",
+          "INTERNAL_SERVER_ERROR":"உள் சேவையக பிழை!",
+          "SCHEDULE_TYPE_REQUIRED":"அட்டவணை வகை தேவை!",
+          "VILLAGE_NOT_FOUND_FOR_GN":"தேர்ந்தெடுக்கப்பட்ட ஜி.என் பிரிவுக்கு கிராமங்கள் இல்லை!",
+          "ASSIGN_USER_SELECT_ERR":"தயவுசெய்து, சேமிப்பதற்கு முன் பதிவு எழுத்தரைத் தேர்ந்தெடுக்கவும்!"
+       }
+    },
+    "VALIDATION":{
+       "STATUS_SELECT_ERR":"தயவுசெய்து நிலையைத் தேர்ந்தெடுக்கவும்",
+       "DESCRIPTION_EMPTY_ERR":"விளக்கத்தை உள்ளிடவும்",
+       "CATEGORY_SELECT_ERR":"ஒரு வகையைத் தேர்ந்தெடுக்கவும்",
+       "NAME_EMPTY_ERR":"பெயரை உள்ளிடவும்",
+       "NO_RESULT_ERR":"எந்த முடிவும் கிடைக்கவில்லை",
+       "VALUE_EMPTY_ERR":"மதிப்பை உள்ளிடவும்",
+       "DUPLICATE_STAMPFEE_REQ":"நகல் முத்திரை கட்டணம் தேவை",
+       "STAMPFEE_EMPTY_ERR":"முத்திரை கட்டணத்தை உள்ளிடவும்",
+       "FOLIO_COMBINATION_EXISTS_ERR":"இந்த ஃபோலியோ எண்ணின் சேர்க்கை ஏற்கனவே உள்ளது",
+       "VALIDATING_FOLIO_NO":"ஃபோலியோ எண்ணை சரிபார்க்கிறது ....",
+       "NAME_IS_REQUIRED":"பெயர் தேவை",
+       "NIC_IS_REQUIRED":"தேசிய அடையாள எண் தேவை",
+       "INVALID_NIC":"தவறான என்ஐசி எண்",
+       "EXIST_NIC":"இது ஏற்கனவே உள்ள என்ஐசி எண்.",
+       "PERM_ADDRESS_REQUIRED":"நிரந்தர முகவரி தேவை",
+       "INVALID_ADDRESS":"தவறான முகவரி",
+       "INVALID_NAME":"தவறான பெயர்",
+       "INVALID_TELE_REQUIRED":"தவறான தொலைபேசி எண்",
+       "INVALID_EMAIL":"தவறான மின்னஞ்சல் முகவரி",
+       "EMAIL_EMPTY_ERR":"மின்னஞ்சல் முகவரியை உள்ளிடவும்!",
+       "CONTACT_EMPTY_ERR":"தொலைபேசி எண் உள்ளிடவும்!",
+       "FAX_EMPTY_ERR":"தொலைநகல் எண் உள்ளிடவும்!",
+       "CONTACT_NAME_EMPTY_ERR":"தொடர்பு நபரின் பெயரை உள்ளிடவும்!",
+       "CONTACT_MOBILE_EMPTY_ERR":"தொடர்பு நபரின் தொலைபேசி எண்ணை உள்ளிடவும்!",
+       "LOCATION":{
+          "LOCATION_EMPTY_ERR":"இருப்பிடத்தை உள்ளிடவும்"
+       },
+       "DESIGNATION":{
+          "DESIGNATION_CODE_ERR":"பதவி குறியீட்டை உள்ளிடவும்",
+          "DESIGNATION_EMPTY_ERR":"தயவுசெய்து பதவியை உள்ளிடவும்"
+       },
+       "KORALE":{
+          "KORALE_EMPTY_ERR":"கோரல் விவரங்களை உள்ளிடவும்"
+       },
+       "LAND_REGISTRY_DIVISIONS":{
+          "LR_SELECT_ERR":"நில பதிவேட்டைத் தேர்ந்தெடுக்கவும்",
+          "LRDIVISION_SELECT_ERR":"நில பதிவு பிரிவைத் தேர்ந்தெடுக்கவும்",
+          "DIVISION_CODE_EMPTY_ERR":"பிரிவு குறியீட்டை உள்ளிடவும்!",
+          "LR_DIVISION_REQ":"எல் / ஆர் பிரிவு தேவை"
+       },
+       "PATHTHUWA":{
+          "KORALE_SELECT_ERR":"கோரலைத் தேர்ந்தெடுக்கவும்",
+          "PATHTHUWA_EMPTY_ERR":"ஒரு வேளை",
+          "PATHTHUWA_SELECT_ERR":"தயவுசெய்து பாத்துவாவைத் தேர்ந்தெடுக்கவும்"
+       },
+       "DS_DIVISION":{
+          "DISTRICT_SELECT_ERR":"ஒரு மாவட்டத்தைத் தேர்ந்தெடுக்கவும்",
+          "DSDIVISION_CODE_EMPTY_ERR":"Ds-Division குறியீட்டை உள்ளிடவும்",
+          "DSDIVISION_SELECT_ERR":"தயவுசெய்து ds-division ஐத் தேர்ந்தெடுக்கவும்"
+       },
+       "GN_DIVISION":{
+          "GNDIVISION_CODE_EMPTY_ERR":"Gn- பிரிவு குறியீட்டை உள்ளிடவும்",
+          "GNDIVISION_SELECT_ERR":"தயவுசெய்து gn பிரிவைத் தேர்ந்தெடுக்கவும்",
+          "GN_DIVISION_REQ":"ஜி / என் பிரிவு தேவை"
+       },
+       "VILLAGE":{
+          "VILLAGE_CODE_EMPTY_ERR":"கிராமக் குறியீட்டை உள்ளிடவும்"
+       },
+       "BANK":{
+          "BANK_EMPTY_ERR":"வங்கி விவரங்களை உள்ளிடவும்",
+          "BRANCH_NAME_EMPTY_ERR":"கிளை பெயரை உள்ளிடவும்",
+          "BRANCH_CODE_EMPTY_ERR":"கிளைக் குறியீட்டை உள்ளிடவும்",
+          "BANK_SELECT_ERR":"வங்கியின் பெயரைத் தேர்ந்தெடுக்கவும்",
+          "BRANCH_ADDRESS_EMPTY_ERR":"கிளை முகவரியை உள்ளிடவும்",
+          "BRANCH_CONTACTNO_EMPTY_ERR":"கிளை தொடர்பு எண் உள்ளிடவும்"
+       },
+       "PROVINCIAL_COUNCIL":{
+          "PROVINCIAL_COUNCIL_CODE_EMPTY_ERR":"மாகாண சபை குறியீட்டை உள்ளிடவும்",
+          "PROVINCIAL_COUNCIL_REQ":"மாகாண சபை தேவை"
+       },
+       "CONTACT_DETAILS":{
+          "ADDRESS_EMPTY_ERR":"முகவரியை உள்ளிடவும்",
+          "CONTACT_NO_EMPTY_ERR":"செல்லுபடியாகும் தொடர்பு எண்ணை உள்ளிடவும்",
+          "EMAIL_EMPTY_ERR":"செல்லுபடியாகும் மின்னஞ்சல் முகவரியை உள்ளிடவும்",
+          "FAX_EMPTY_ERR":"செல்லுபடியாகும் தொலைநகலை உள்ளிடவும்",
+          "NAME_EMPTY_ERR":"பெயரை உள்ளிடவும்",
+          "NIC_EMPTY_ERR":"செல்லுபடியாகும் அடையாளத்தை உள்ளிடவும்"
+       },
+       "ZONAL":{
+          "ZONAL_SELECT_ERR":"தயவுசெய்து ஒரு மண்டலத்தைத் தேர்ந்தெடுக்கவும்"
+       },
+       "PROVINCE":{
+          "PROVINCE_SELECT_ERR":"தயவுசெய்து ஒரு மாகாணத்தைத் தேர்ந்தெடுக்கவும்"
+       },
+       "PAYMENT":{
+          "PAYMENT_MODE_ERR":"கட்டண பயன்முறையைத் தேர்ந்தெடுக்கவும்"
+       },
+       "DOCUMENT":{
+          "DOCUMENT_TYPE_SELECT_ERR":"ஆவண வகையைத் தேர்ந்தெடுக்கவும்",
+          "DOCUMENT_NATURE_SELECT_ERR":"ஆவண இயல்பைத் தேர்ந்தெடுக்கவும்",
+          "DOCUMENT_SUB_NATURE_SELECT_ERR":"ஆவண துணை இயற்கையைத் தேர்ந்தெடுக்கவும்",
+          "PARTICULAR_EMPTY_ERR":"குறிப்பிட்ட விவரங்களை உள்ளிடவும்"
+       },
+       "ATTEST":{
+          "ATTESTED_DATE_ERR":"சான்றளிக்கப்பட்ட தேதியை உள்ளிடவும்",
+          "ATTESTED_DATE_LATE_FINE_WARN":"{{value2}} தாமதமான நாள் (நாட்களுக்கு) ரூ: {{value1}} அபராதம் வசூலிக்கப்படுகிறது"
+       },
+       "DEED":{
+          "DEED_NO_EMPTY_ERR":"பத்திரம் எண் உள்ளிடவும்",
+          "DEED_LANG_SELECT_ERR":"பத்திர மொழி என்பதைத் தேர்ந்தெடுக்கவும்"
+       },
+       "RECEIPT":{
+          "RECEIPT_NO_ERR":"செல்லுபடியாகும் ரசீது எண் உள்ளிடவும்"
+       },
+       "POST":{
+          "REGISTERED_POST_NO_ERR":"செல்லுபடியாகும் பதிவு செய்யப்பட்ட இடுகை எண் உள்ளிடவும்"
+       }
+    },
+    "RGD_OFFICE_DETAILS":{
+       "SEARCH_TITLE":"பதிவாளர் ஜெனரல் துறை தேடுங்கள்",
+       "POPUP_TITLE":"பதிவாளர் ஜெனரல் துறை",
+       "SEARCH_NAME":"பெயர்",
+       "RGD_EMPTY_ERR":"பதிவாளர் ஜெனரல் துறை அலுவலகத்தைத் தேர்ந்தெடுக்கவும்!"
+    },
+    "APPLICATIONS":{
+       "APPLICATIONS":"பயன்பாடுகள்",
+       "REF_NO":"குறிப்பு எண்",
+       "DOC_TYPE":"ஆவண வகை",
+       "CAVEAT_REQUEST_SEARCH":"கேவியட் கோரிக்கை தேடல்",
+       "DAY_BOOK_NUM":"நாள் புத்தக எண்",
+       "REQUEST_LIST":"கோரிக்கை பட்டியல்",
+       "NATURE":"இயற்கை",
+       "SUB_NATURE":"துணை இயல்பு",
+       "ATTESTED_DATE":"சான்றளிக்கப்பட்ட தேதி",
+       "COURT_ORDER_REQUEST_SEARCH":"நீதிமன்ற உத்தரவு கோரிக்கை தேடல்",
+       "SEARCH_EXISTING_NOTARY":"இருக்கும் நோட்டரியைத் தேடுங்கள்",
+       "ID":"அடையாள",
+       "NOTARY_CODE":"நோட்டரி குறியீடு",
+       "NOTARY_REQUEST_ID":"நோட்டரி கோரிக்கை ஐடி"
+    },
+    "DASHBOARD":{
+       "ONE_DAY_REQUESTS":"ஒரு நாள் கோரிக்கைகள்",
+       "REQUESTS_PENDING":"கோரிக்கைகள் நிலுவையில் உள்ளன",
+       "INCOMPLETE_REQUESTS":"முழுமையற்ற கோரிக்கைகள்",
+       "COMPLETED_REQUESTS":"பூர்த்தி செய்யப்பட்ட கோரிக்கைகள்",
+       "PENDING_REQUESTS":"நிலுவையிலுள்ள கோரிக்கைகள்"
+    },
+    "CAVEAT":{
+       "NAME":"கேவியட் பெயர்",
+       "ADDRESS":"கேவியட் முகவரி",
+       "TELEPHONE":"கேவியட் தொலைபேசி",
+       "EMAIL":"கேவியட் மின்னஞ்சல்",
+       "BUTTON":"கேவியட்",
+       "NO_RECORDS":"கேவியட் இல்லை",
+       "LIST":"கேவியட் பட்டியல்",
+       "VALID":"வரை செல்லுபடியாகும்",
+       "GENERATE":"உருவாக்குதல்",
+       "NP_NAME":"கவனிக்கப்பட்ட நபர் பெயர்",
+       "NP_ADDRESS":"கவனிக்கப்பட்ட நபர் முகவரி",
+       "NP_TELEPHONE":"கவனிக்கப்பட்ட நபர் தொலைபேசி",
+       "NP_EMAIL":"கவனிக்கப்பட்ட நபர் மின்னஞ்சல்",
+       "REQUESTS_PENDING":"கோரிக்கைகள் நிலுவையில் உள்ளன",
+       "INCOMPLETE_REQUESTS":"முழுமையற்ற கோரிக்கைகள்",
+       "COMPLETED_REQUESTS":"பூர்த்தி செய்யப்பட்ட கோரிக்கைகள்",
+       "PENDING_REQUESTS":"நிலுவையிலுள்ள கோரிக்கைகள்"
+    },
+    "TRANSACTION":{
+       "VIEW":"பரிவர்த்தனைகளைக் காண்க",
+       "LIST":"பரிவர்த்தனை பட்டியல்",
+       "TEXT":"பரிவர்த்தனை",
+       "ID":"பரிவர்த்தனை எண்"
+    },
+    "DOC_TYPE":{
+       "DEE":"உறுதி அல்லது ஆவணங்கள்",
+       "CAV":"கேவியற்​"
+    },
+    "NOTARY_SEARCH":{
+       "BACK_TO_SEARCH":"திரும்ப"
+    },
+    "PUBLIC_USER":{
+       "USER_TYPE":"பயனர் வகை",
+       "APPLICATION_TITLE":"பொது பயனர் பதிவுக்கான விண்ணப்பம்",
+       "NEAREST_LR":"விண்ணப்பதாரர் முகவரிக்கு அருகிலுள்ள நிலப் பதிவு",
+       "BANK_USER_TYPE":"வங்கி பயனர் வகை",
+       "LAW_FIRM_NAME":"சட்ட நிறுவனத்தின் பெயர்",
+       "STATE_INSTITUTE":{
+          "NAME":"மாநில நிறுவனத்தின் பெயர்"
+       },
+       "OTHER_INSTITUTE":{
+          "NAME":"பிற நிறுவனத்தின் பெயர்"
+       },
+       "ADDRESS":{
+          "LINE_ONE":"முகவரி 1",
+          "LINE_TWO":"முகவரி 2 ",
+          "LINE_THREE":"முகவரி 3"
+       },
+       "REASON":"விண்ணப்பத்திற்கான காரணம்"
+    },
+    "NOTIFICATION":{
+       "TITLE":"அறிவிப்பு",
+       "SELECT":"--தயவு செய்து தேர்வு செய்யவும்--",
+       "PAPER_NOTICE":"செய்தித்தாள் அறிவிப்பு",
+       "GAZETTE_NOTICE":"வர்த்தமானி அறிவிப்பு",
+       "NAME":"பெயர்",
+       "DATE":"தேதி",
+       "SIN":"சிங்கள",
+       "ENG":"ஆங்கிலம்",
+       "TAM":"தமிழ்",
+       "FOLIO":"அறிவிப்பு நிரப்பப்பட்ட தொகுதி மற்றும் ஃபோலியோ",
+       "FOLIO_NO":"ஃபோலியோ எண்",
+       "DB_NO":"நாள் புத்தக எண்",
+       "NAMES":"பெயர்கள்"
+    }
+ }
