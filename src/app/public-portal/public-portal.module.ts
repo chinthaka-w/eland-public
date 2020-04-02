@@ -141,14 +141,11 @@ import { SearchDocumentResultComponent } from './dashboard/search-document/searc
     RequestForCorrectionComponent,
     NameChangeRequestViewComponent,
     NameChangeRequestDataComponent,
-<<<<<<< HEAD
     RequestForCorrectionViewComponent,
     CorrectionApplicationComponent,
     NewCorrectionRequestComponent,
-=======
     SearchDocumentResultComponent,
     NameChangeRequestDataComponent,
->>>>>>> 6bf16a7a688c79fb904469f4a749574792c083b2
     ChangeLandRegistryComponent,
     ChangeLandRegistryRequestViewComponent,
 ],

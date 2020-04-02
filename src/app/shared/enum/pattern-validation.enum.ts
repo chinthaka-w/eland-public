@@ -6,8 +6,6 @@ export enum PatternValidation {
   ADDRESS_PATTERN = '^[\'$\"&\\-&.& &,&/&:&A-Za-z0-9\\U+2386\u0D80-\u0DFF\u0B80-\u0BFF\u200D\n]+$',
   FOLIO_NUMBER = '^[0-9]+/[a-zA-Z0-9]+/[0-9]+/[0-9]+',
   DAY_BOOK_NUMBER = '^[0-9]/[0-9]{1,2}/[0-9]{4}/[0-9]{6}',
-<<<<<<< HEAD
-=======
   PERSON_NAME_PATTERN = "^[.& &a-zA-Z\u0D80-\u0DFF\u0B80-\u0BFF\u200D]+$",
   EMAIL_PATTERN = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
   CONTACT_NUMBER_PATTERN = "^(\\+\\d{1,3}[- ]?)?\\d{10}$",
@@ -16,5 +14,4 @@ export enum PatternValidation {
   SPECIAL_CHARACTES_PATTERN = "[!@#$%^&*(),.?\":{}|<>]",
   FOLIO_CODE_PATTERN = "^([a-zA-Z]{1,9})(\/)([0-9]+)(\/)([0-9]+)$",
   DESIGNATION_PATTERN = '^[-& &,A-Za-z0-9\u0D80-\u0DFF\u0B80-\u0BFF\u200D]+$',
->>>>>>> 6bf16a7a688c79fb904469f4a749574792c083b2
 }
