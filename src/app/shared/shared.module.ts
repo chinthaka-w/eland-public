@@ -37,6 +37,7 @@ import { PaymentHistoryComponent } from './components/payment-history/payment-hi
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 import { FileUploadPopupComponent } from './components/file-upload-popup/file-upload-popup.component';
 import { AuthGuard } from './auth/auth-guard';
+<<<<<<< HEAD
 import { FolioViewComponent } from './components/folio-view/folio-view.component';
 import { FolioHeaderComponent } from './components/sub-components/folio-header/folio-header.component';
 import { GrantorComponent } from './components/sub-components/grantor/grantor.component';
@@ -59,6 +60,9 @@ import { UnitComponent } from './components/sub-components/unit/unit.component';
 import { TransactionViewComponent } from './components/transaction-view/transaction-view.component';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { ListTranslatePipe } from './pipe/list-translate.pipe';
+=======
+import { DocPreviewComponent } from './components/doc-preview/doc-preview.component';
+>>>>>>> ac6bc6f3ef4c8c0bb4450f54c7f7ee36e27101ac
 
 @NgModule({
   declarations: [
@@ -75,6 +79,7 @@ import { ListTranslatePipe } from './pipe/list-translate.pipe';
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
+<<<<<<< HEAD
     FolioViewComponent,
     FolioHeaderComponent,
     GrantorComponent,
@@ -97,6 +102,10 @@ import { ListTranslatePipe } from './pipe/list-translate.pipe';
     TransactionViewComponent,
     FileUploadPopupComponent,
     ListTranslatePipe
+=======
+    FileUploadPopupComponent,
+    DocPreviewComponent
+>>>>>>> ac6bc6f3ef4c8c0bb4450f54c7f7ee36e27101ac
   ],
   imports: [
     CommonModule,
@@ -126,9 +135,13 @@ import { ListTranslatePipe } from './pipe/list-translate.pipe';
     MatIconModule,
     ImageViewerModule,
     MatProgressSpinnerModule,
+<<<<<<< HEAD
     MatTabsModule,
     MatCardModule,
     TranslateModule
+=======
+    MatCardModule
+>>>>>>> ac6bc6f3ef4c8c0bb4450f54c7f7ee36e27101ac
   ],
   exports: [
     ContentComponent,
@@ -152,10 +165,14 @@ import { ListTranslatePipe } from './pipe/list-translate.pipe';
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
+<<<<<<< HEAD
     TranslatePipe
   ],
   providers: [
     AuthGuard,
+=======
+    DocPreviewComponent
+>>>>>>> ac6bc6f3ef4c8c0bb4450f54c7f7ee36e27101ac
   ],
   entryComponents: [
     FolioViewComponent,

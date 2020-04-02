@@ -1,10 +1,11 @@
+import { PatternValidation } from './../../../shared/enum/pattern-validation.enum';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Location} from '@angular/common';
 import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
 import {JudicialService} from '../../../shared/service/change-judicial-service';
 import {DsDivision} from '../../../shared/dto/ds-division.model';
 import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
 import {Languages} from '../../../shared/enum/languages.enum';
 import {JudicialChange} from '../../../shared/dto/judicial-change-model';
@@ -37,9 +38,9 @@ export class ChangeJudicialComponent implements OnInit {
   public docList: WorkflowStageDocDto[];
   public notaryId: number;
   public langArr: number[];
-  public isSinhala: boolean;
-  public isTamil: boolean;
-  public isEnglish: boolean;
+  public isSinhala = false;
+  public isTamil = false;
+  public isEnglish = false;
   public fromDate: Date;
   public toDate: Date;
   public dsDivisionId: number;
@@ -77,25 +78,35 @@ export class ChangeJudicialComponent implements OnInit {
     private judicialService: JudicialService,
     private location: Location,
     private snackBar: SnackBarService,
-    private sessionService: SessionService,) {
+    private sessionService: SessionService,
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    this.judicialChangeForm = new FormGroup({
-      addressEng: new FormControl('',),
-      addressSin: new FormControl('',),
-      addressTam: new FormControl('',),
-      notarialWorkStartDate: new FormControl('', ),
-      certificateYear: new FormControl('', ),
-      nameOfLr: new FormControl('', ),
-      isDuplicateHandedOver: new FormControl('', ),
-      datePeriod: new FormControl('', ),
-      judicialZoneId: new FormControl('', ),
-      landRegistry: new FormControl('', ),
+    this.judicialChangeForm = this.formBuilder.group({
+      addressEng: ['', [
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]],
+      addressSin: ['', [
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]],
+      addressTam: ['', [
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]],
+      notarialWorkStartDate: ['', ],
+      certificateYear: ['', ],
+      nameOfLr: ['', ],
+      isDuplicateHandedOver: ['', ],
+      datePeriod: ['', ],
+      judicialZoneId: ['', [
+        Validators.required
+      ]],
+      landRegistry: ['', ],
     });
-    this.isSinhala = false;
-    this.isTamil = false;
-    this.isEnglish = false;
+
     this.notaryId = this.sessionService.getUser().id;
     this.getLandRegistries();
     this.getJudicialZone();
@@ -106,8 +117,24 @@ export class ChangeJudicialComponent implements OnInit {
     this.isPaymentSuccess = false;
     this.isContinueToPayment = false;
 
-
   }
+
+  get addressEng() {
+    return this.judicialChangeForm.get('addressEng');
+  }
+
+  get addressSin() {
+    return this.judicialChangeForm.get('addressSin');
+  }
+
+  get addressTam() {
+    return this.judicialChangeForm.get('addressTam');
+  }
+
+  get judicialZoneId() {
+    return this.judicialChangeForm.get('judicialZoneId');
+  }
+
 
   private getDsDivision(): void {
     this.judicialService.getDsDivision().subscribe(
@@ -156,12 +183,30 @@ export class ChangeJudicialComponent implements OnInit {
         for (const langId of this.langArr) {
           if (langId === Languages.ENGLISH) {
             this.isEnglish = true;
+            this.addressEng.setValidators([
+              Validators.required,
+              Validators.maxLength(255),
+              Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+            ]);
+            this.addressEng.updateValueAndValidity();
           }
           if (langId === Languages.SINHALA) {
             this.isSinhala = true;
+            this.addressSin.setValidators([
+              Validators.required,
+              Validators.maxLength(255),
+              Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+            ]);
+            this.addressSin.updateValueAndValidity();
           }
           if (langId === Languages.TAMIL) {
             this.isTamil = true;
+            this.addressTam.setValidators([
+              Validators.required,
+              Validators.maxLength(255),
+              Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+            ]);
+            this.addressTam.updateValueAndValidity();
           }
         }
       }

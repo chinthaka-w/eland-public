@@ -118,7 +118,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'Section 35 Correction';
         this.titleText = 'REQUEST FOR Section 35 Correction';
         this.newButtonURL = '/request-for-correction';
-        this.actionButtonURL = '/language-change-view/';
+        this.actionButtonURL = '/request-for-correction/';
         break;
     }
   }
