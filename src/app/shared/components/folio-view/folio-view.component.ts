@@ -167,6 +167,8 @@ export class FolioViewComponent implements OnInit {
     else {
       this.unitDto.unitList = [];
     }
+
+    this.folioDto.documentNatureId = this.folioDto.transactions[i].documentNatureId;
   }
 
 
