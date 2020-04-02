@@ -104,9 +104,11 @@ export class AddPublicUserComponent implements OnInit {
         Validators.pattern(PatternValidation.ADDRESS_PATTERN),
         Validators.maxLength(255)
       ]),
-      identificationNo: new FormControl("",
-        [Validators.required,
-          Validators.maxLength(15)]),
+      identificationNo: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(15),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]),
       identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl("",
         [Validators.required,
