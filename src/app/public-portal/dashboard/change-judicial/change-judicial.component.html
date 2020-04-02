@@ -186,10 +186,8 @@
           <div class="default-input-wrapper full-row">
 
             <div class="default-input-feild">
-                <mat-select formControlName="judicialZoneId" class="form-control">
-                  <mat-option value="" disabled="true">-- Select Judicial Zone --
-                  </mat-option>
-                  <mat-option *ngFor="let jud of judicialZone" value="jud.judicialZoneId">{{ jud.nameEng }}
+                <mat-select formControlName="judicialZoneId" class="form-control" placeholder="-- Select Judicial Zone --">
+                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">{{ jud.nameEng }}
                   </mat-option>
                 </mat-select>
               <div *ngIf="judicialZoneId.invalid && (judicialZoneId.touched || judicialZoneId.dirty)">
@@ -206,72 +204,54 @@
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select name="landRegistry" formControlName="landRegistry" matNativeControl class="form-control">
-                  <option *ngFor="let reg of landRegistry" [value]="reg.landRegistryId">{{ reg.name }}
-                  </option>
-                </select>
-              </mat-form-field>
-              <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
+                <mat-select name="landRegistry" formControlName="landRegistry" class="form-control"
+                  placeholder="-- Select Land Registry --">
+                  <mat-option *ngFor="let reg of landRegistries" [value]="reg.landRegistryId">{{ reg.name }}
+                  </mat-option>
+                </mat-select>              
+              <div *ngIf="landRegistry.invalid && (landRegistry.touched || landRegistry.dirty)"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Field is required</mat-error>
+                <mat-error *ngIf="landRegistry.errors.required" class="errors">Please fill the required fields</mat-error>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div>
-      <table style="width: 91%;">
-        <tr style="text-align: left">
-          <th>DS Division</th>
-          <th>GN Division</th>
-          <th></th>
-        </tr>
-        <tbody>
-        <tr *ngFor="let location of locationList; let i = index">
-          <td>
-            <div class="pg-inner-col">
-              <div class="default-input-wrapper full-row">
-                <label></label>
-                <div class="default-input-feild">
-                  <mat-select class="form-control" ngModel [ngModelOptions]="{standalone: true}"
-                              (selectionChange)="selectGsDivision($event.value, i)">
-                    <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.divisionId}}"
-                                [disabled]="gsDivision.isSelected">{{ gsDivision.description }}</mat-option>
-                  </mat-select>
-                </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>DS Division</label>
+            <div class="default-input-feild">
+              <mat-select class="form-control" formControlName="dsDivision" class="form-control"
+                placeholder="-- Select DS Division --" (selectionChange)="selectGsDivision($event.value, i)">
+                <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.divisionId}}"
+                  [disabled]="gsDivision.isSelected">{{ gsDivision.description }}</mat-option>
+              </mat-select>
+              <div *ngIf="dsDivision.invalid && (dsDivision.touched || dsDivision.dirty)">
+                <mat-error *ngIf="dsDivision.errors.required" class="errors">"Please fill the required fields</mat-error>
               </div>
             </div>
-          </td>
-          <td>
-            <div class="pg-inner-col">
-              <div class="default-input-wrapper full-row">
-                <label></label>
-                <div class="default-input-feild">
-                  <mat-select multiple class="form-control"
-                              (selectionChange)="selectGnDivision($event.value,i)">
-                    <ng-container *ngFor="let gnDivision of gnDivisions">
-                      <mat-option *ngIf="!gnDivision.isSelected" value="{{gnDivision.gnDivisionId}}">
+          </div>
+        </div>
+
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>GN Division</label>
+            <div class="default-input-feild">
+              <mat-select multiple class="form-control" formControlName="gnDivision" class="form-control"
+                    (selectionChange)="selectGnDivision($event.value[$event.value.length -1])" placeholder="-- Select DS Division --"
+                    focused="isGnFocus">
+                      <mat-option *ngFor="let gnDivision of gnDivisions" [value]="gnDivision.gnDivisionId">
                         {{ gnDivision.description }}
                       </mat-option>
-                    </ng-container>
                   </mat-select>
-                </div>
-              </div>
+                  <div *ngIf="gnDivision.invalid && (gnDivision.touched || gnDivision.dirty)">
+                    <mat-error *ngIf="gnDivision.errors.required" class="errors">"Please fill the required fields</mat-error>
+                  </div>
             </div>
-          </td>
-          <td>
-            <!--<button class="row-close" mat-icon-button color="warn" (click)="removeLocation(i)">-->
-              <!--<mat-icon>close</mat-icon>-->
-            <!--</button>-->
-          </td>
-        </tr>
-        <!--<button class="ml-3 mb-3" mat-flat-button type="button" (click)="addLocation()">-->
-          <!--+ Add-->
-        <!--</button>-->
-        </tbody>
-      </table>
+          </div>
+        </div>
+
       </div>
 
       <div class="separator">&nbsp;</div>
@@ -294,7 +274,7 @@
 
       <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
         <div class="pg-inner-col">
-          <re-captcha></re-captcha>
+          <re-captcha formControlName="recaptcha"></re-captcha>
         </div>
         <div class="pg-inner-col middle">
           By signing up, you agree to E-Land's

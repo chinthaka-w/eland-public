@@ -3,4 +3,5 @@ export class LandRegistryModel {
   public nameEng: string;
   public nameSin: string;
   public nameTam: string;
+  public name: string;
 }

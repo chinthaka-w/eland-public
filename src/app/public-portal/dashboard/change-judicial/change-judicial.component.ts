@@ -1,3 +1,5 @@
+import { Workflow } from './../../../shared/enum/workflow.enum';
+import { Router } from '@angular/router';
 import { PatternValidation } from './../../../shared/enum/pattern-validation.enum';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Location} from '@angular/common';
@@ -26,7 +28,7 @@ import {PaymentDto} from '../../../shared/dto/payment-dto';
   styleUrls: ['./change-judicial.component.css']
 })
 export class ChangeJudicialComponent implements OnInit {
-  public landRegistry: LandRegistryModel[];
+  public landRegistries: LandRegistryModel[];
   public judicialZone: JudicialZoneModel[];
   public locationList: any[] = [];
   public previousSelections: any[] = [];
@@ -79,7 +81,8 @@ export class ChangeJudicialComponent implements OnInit {
     private location: Location,
     private snackBar: SnackBarService,
     private sessionService: SessionService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -96,15 +99,13 @@ export class ChangeJudicialComponent implements OnInit {
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)
       ]],
-      notarialWorkStartDate: ['', ],
-      certificateYear: ['', ],
-      nameOfLr: ['', ],
-      isDuplicateHandedOver: ['', ],
-      datePeriod: ['', ],
       judicialZoneId: ['', [
         Validators.required
       ]],
-      landRegistry: ['', ],
+      landRegistry: ['', [Validators.required]],
+      dsDivision: ['', [Validators.required]],
+      gnDivision: ['', [Validators.required]],
+      recaptcha: ['', [Validators.required]]
     });
 
     this.notaryId = this.sessionService.getUser().id;
@@ -135,6 +136,18 @@ export class ChangeJudicialComponent implements OnInit {
     return this.judicialChangeForm.get('judicialZoneId');
   }
 
+  get landRegistry() {
+    return this.judicialChangeForm.get('landRegistry');
+  }
+
+  get dsDivision() {
+    return this.judicialChangeForm.get('dsDivision');
+  }
+
+  get gnDivision() {
+    return this.judicialChangeForm.get('gnDivision');
+  }
+
 
   private getDsDivision(): void {
     this.judicialService.getDsDivision().subscribe(
@@ -155,7 +168,7 @@ export class ChangeJudicialComponent implements OnInit {
   private getLandRegistries(): void {
     this.judicialService.getAllLandRegistries().subscribe(
       (data: LandRegistryModel[]) => {
-        this.landRegistry = data;
+        this.landRegistries = data;
       }
     );
   }
@@ -245,7 +258,8 @@ export class ChangeJudicialComponent implements OnInit {
 
 
   selectGnDivision(gsDivisionId) {
-    this.dsGnList.push(new DsGnDivisionDTO(this.dsDivisionId, gsDivisionId[0]));
+    this.dsGnList.push(new DsGnDivisionDTO(+this.dsDivisionId, gsDivisionId));
+
   }
   setFiles(data: any, docTyprId: number) {
     this.files = data;
@@ -257,13 +271,7 @@ export class ChangeJudicialComponent implements OnInit {
     this.judicialChange.addressEng = this.judicialChangeForm.value.addressEng;
     this.judicialChange.addressSin = this.judicialChangeForm.value.addressSin;
     this.judicialChange.addressTam = this.judicialChangeForm.value.addressTam;
-    this.judicialChange.notarialWorkStartDate = this.judicialChangeForm.value.notarialWorkStartDate;
-    this.judicialChange.certificateYear = this.judicialChangeForm.value.certificateYear;
-    this.judicialChange.nameOfLr = this.judicialChangeForm.value.nameOfLr;
-    this.judicialChange.isDuplicateHandedOver = this.judicialChangeForm.value.isDuplicateHandedOver;
     this.judicialChange.landRegistry = this.judicialChangeForm.value.landRegistry;
-    this.judicialChange.fromDate = this.fromDate;
-    this.judicialChange.toDate = this.toDate;
     this.judicialChange.newNotaryId = this.notaryId;
     this.judicialChange.dsGnList = this.dsGnList;
     this.judicialChange.paymentId = this.paymentId;
@@ -277,6 +285,7 @@ export class ChangeJudicialComponent implements OnInit {
     this.judicialService.save(formData).subscribe((result) => {
       if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
         this.snackBar.success('Judicial Change Request Success');
+        this.router.navigate(['/requests', this.getBase64Url(Workflow.JUDICIAL_ZONE_CHANGE)]);
       } else if (this.paymentMethod === PaymentMethod.ONLINE) {
         this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
         this.isContinue = true;
@@ -316,6 +325,7 @@ export class ChangeJudicialComponent implements OnInit {
 
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.returnURl = this.getBase64Url('login');
       this.judicialChange.payment = this.paymentDto;
       this.submitForm();
     }
@@ -333,5 +343,9 @@ export class ChangeJudicialComponent implements OnInit {
 
   continue(): void {
     this.isContinue = true;
+  }
+
+  getBase64Url(url: string): string {
+    return btoa(url);
   }
 }
