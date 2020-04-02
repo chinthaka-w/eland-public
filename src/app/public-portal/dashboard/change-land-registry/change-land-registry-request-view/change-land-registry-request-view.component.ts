@@ -49,8 +49,6 @@ export class ChangeLandRegistryRequestViewComponent implements OnInit {
     this.changelandRegistryService.getRequestData(this.id).subscribe(
       (data: LandRegistryChangeRequestModel) => {
         this.getData = data;
-        // this.landRegistryId =this.getData.landRegistryId
-        console.log("my logs"+this.getData.notaryId);
         this.requestForm.patchValue(
           {
             notaryName: this.getData.notaryName,

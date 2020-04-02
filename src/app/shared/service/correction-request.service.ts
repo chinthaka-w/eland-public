@@ -16,7 +16,7 @@ export class CorrectionRequestService {
 
   // url types
   BASE_URL_WITH_JUDICIAL = this.BASE_URL + 'judicial-zone';
-  BASE_URL_WITH_LAND_REGISTRY = this.BASE_URL + 'landRegistries'; 
+  BASE_URL_WITH_LAND_REGISTRY = this.BASE_URL + 'landRegistries';
   FOLIO_CORRECTION_URL = this.BASE_URL + 'folioCorrection';
 
   private headers;

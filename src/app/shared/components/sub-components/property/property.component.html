@@ -1,0 +1,496 @@
+<div *ngIf="propertyController.toggle" class="pg-inner-row">
+    <div class="pg-inner-col-3">
+    <div class="default-input-wrapper full-row">
+            <label for="is-land">{{ "PROPERTY_DETAILS.QUESTION" | translate }}</label>
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+            <select matNativeControl id="is-land" class="form-control" (change)="isLand($event)" [disabled]="uiController.isReadOnly">
+                <option value="yes" [selected]="propertyDto.isLand">Yes</option>
+                <option value="no" [selected]="!propertyDto.isLand">No</option>
+            </select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="propertyDto.isLand == 1">
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.landName" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="land-name">{{
+            "PROPERTY_DETAILS.LAND_NAME" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="land-name" maxlength="255" type="text" class="form-control"
+                    [(ngModel)]="propertyDto.landName" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.planNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="plan-no">{{
+            "PROPERTY_DETAILS.PLAN_NO" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="plan-no" type="text" maxlength="255" class="form-control" [(ngModel)]="propertyDto.planNo"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.planDate" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="plan-date">{{
+            "PROPERTY_DETAILS.PLAN_DATE" | translate
+          }}</label>
+                <!-- <input matInput id="plan-date" (click)="fd.toggle(); $event.stopPropagation();" ngbDatepicker #fd="ngbDatepicker"
+             class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="planDate"
+            (dateSelect)="onDateChange('planDate')" [maxDate]="today" [ngModelOptions]="{ standalone: true }" readonly /> -->
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                <input matInput id="plan-date" type="date" class="form-control" [max]="getToday()"
+                    [(ngModel)]="propertyDto.planDate" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+                </mat-form-field>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.regPlanNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="land-name">{{
+            "PROPERTY_DETAILS.REG_PLAN_NO" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="land-name" type="text" maxlength="255" class="form-control"
+                    [(ngModel)]="propertyDto.registrationPlanNo" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.statementOfClaimNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="claim-no">{{
+            "PROPERTY_DETAILS.STATEMENT_CLAIM_NO" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="claim-no" type="text" maxlength="255" class="form-control"
+                    [(ngModel)]="propertyDto.statementOfClaimNo" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.allotmentNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="allotment-no">{{
+            "PROPERTY_DETAILS.ALLOTMENT_NO" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="allotment-no" type="number" maxlength="255" class="form-control"
+                    [(ngModel)]="propertyDto.allotmentNo" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.insertedPerson" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="inserted-person">{{
+            "PROPERTY_DETAILS.INSERTED_PER" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="inserted-person" type="text" maxlength="255" class="form-control"
+                    [(ngModel)]="propertyDto.nameOfInserted" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.survaryAndPartitionDate" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="servery-date">{{
+            "PROPERTY_DETAILS.SURVEY_PAR_DATE" | translate
+          }}</label>
+                <!-- <input matInput id="servery-date" (click)="fd.toggle(); $event.stopPropagation();" ngbDatepicker #fd="ngbDatepicker"
+             class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="surveyedAndPartitionedDate"
+            (dateSelect)="onDateChange('surveyedAndPartitionedDate')" [maxDate]="today" [ngModelOptions]="{ standalone: true }" readonly /> -->
+            <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                <input matInput id="servery-date" type="date" class="form-control" [max]="getToday()"
+                    [(ngModel)]="propertyDto.surveyedAndPartitionedDate" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+                </mat-form-field>
+            </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.partitionDate" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="partition-date">{{
+            "PROPERTY_DETAILS.PARTI_DATE" | translate
+          }}</label>
+                <!-- <input matInput id="partition-date" (click)="fd.toggle(); $event.stopPropagation();" ngbDatepicker #fd="ngbDatepicker"
+           class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="partitionedDate"
+          (dateSelect)="onDateChange('partitionedDate')" [maxDate]="today" [ngModelOptions]="{ standalone: true }" readonly /> -->
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="partition-date" type="date" class="form-control" [max]="getToday()"
+                    [(ngModel)]="propertyDto.partitionedDate" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.assesmentNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="asst-no">{{
+            "PROPERTY_DETAILS.ASSES_NO" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="asst-no" type="text" class="form-control" maxlength="255" [(ngModel)]="propertyDto.asstNo"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.titlePlanNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="title-plan-no">{{
+            "PROPERTY_DETAILS.TITLE_PLAN_NO" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="title-plan-no" type="text" maxlength="255" class="form-control"
+                    [(ngModel)]="propertyDto.titlePlanNo" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.nameOfServayor" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="name-surveyor">{{
+            "PROPERTY_DETAILS.NAME_SURVEYER" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="name-surveyor" type="text" class="form-control" maxlength="255"
+                    [(ngModel)]="propertyDto.nameOfSurveyor" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.lotNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="lot-no">{{ "PROPERTY_DETAILS.LOT_NO" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <input matInput id="lot-no" type="text" class="form-control" maxlength="255" [(ngModel)]="propertyDto.lotNo"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="propertyController.landId" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="land-id">{{
+            "PROPERTY_DETAILS.LAND_ID" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="land-id" type="text" class="form-control" [(ngModel)]="propertyDto.landNo" inputNumberOnly=""
+                    maxlength="10" [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+
+        <!-- ================================== -->
+
+
+        <div *ngIf="propertyController.surveyPlanNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="servey-plan">{{
+        "PROPERTY_DETAILS.SERVEY_PLAN_NO" | translate
+      }}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+                <input matInput id="servey-plan" type="text" maxlength="255" class="form-control"
+                    [(ngModel)]="propertyDto.surveyPlanNo" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+        </mat-form-field>
+      </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.surveyPlanDate" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="servey-plan-date">{{
+        "PROPERTY_DETAILS.SERVEY_PLAN_DATE" | translate
+      }}</label>
+                <!-- <input matInput id="servey-plan-date" (click)="fd.toggle(); $event.stopPropagation();" ngbDatepicker #fd="ngbDatepicker"
+           class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="surveyPlanDate"
+          (dateSelect)="onDateChange('surveyPlanDate')" [maxDate]="today" [ngModelOptions]="{ standalone: true }" readonly /> -->
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="servey-plan-date" type="date" class="form-control" max="getToday"
+                    [(ngModel)]="propertyDto.surveyPlanDate" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+
+        <div *ngIf="propertyController.nameOfArchitect" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="archi-name">{{
+        "PROPERTY_DETAILS.NAME_OF_ARCHITECT" | translate
+      }}</label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+                <input matInput id="archi-name" type="text" maxlength="255" class="form-control"
+                    [(ngModel)]="propertyDto.nameOfArchitect" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+        </mat-form-field>
+      </div>
+            </div>
+        </div>
+
+        <!-- ================================== -->
+
+        <div *ngIf="propertyController.nameOfScheme" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="scheme">{{ "OTHER.NAME_OF_SCHEME" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <input matInput id="scheme" class="form-control" maxlength="255" [(ngModel)]="propertyDto.nameOfScheme"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.numberOfStories" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="stories">{{ "OTHER.NUMBER_OF_STORIES" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <input matInput id="stories" type="number" class="form-control" maxlength="255"
+                    [(ngModel)]="propertyDto.numberOfStoreys" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.numberOfBasements" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="basement">{{ "OTHER.NUMBER_OF_BASEMENTS" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <input matInput id="basement" type="number" class="form-control" [(ngModel)]="propertyDto.numberOfBasements"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.numberOfBlocks" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="blocks">{{ "OTHER.NUMBER_OF_BLOCKS" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <input matInput id="blocks" type="number" class="form-control" maxlength="255"
+                    [(ngModel)]="propertyDto.numberOfBlock" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.grantNo" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="grantNo">{{ "OTHER.GRANT_OR_PERMIT_NO" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <input matInput id="grantNo" type="text" class="form-control" maxlength="255" [(ngModel)]="propertyDto.grantNo"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.dateOfGrant" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="grant-date">{{ "OTHER.GRANT_OR_PERMIT_DATE" | translate }}</label>
+                <!-- <input matInput id="grantDate" (click)="fd.toggle(); $event.stopPropagation();" ngbDatepicker #fd="ngbDatepicker"
+           class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="grantDate"
+          (dateSelect)="onDateChange('grantDate')" [maxDate]="today" [ngModelOptions]="{ standalone: true }" readonly /> -->
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                <input matInput id="grant-date" type="date" class="form-control" [max]="getToday()"
+                    [(ngModel)]="propertyDto.grantDate" [ngModelOptions]="{ standalone: true }"
+                    [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.korale" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="korale">{{ "PROPERTY_DETAILS.KORALE" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <select matNativeControl id="korale" class="form-control" [(ngModel)]="propertyDto.korale"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly"
+                    (change)="getPaththus($event.target.value)">
+                    <option value="undefined" disabled>{{
+              "PROPERTY_DETAILS.SELECT_KORALE" | translate
+            }}</option>
+                    <option *ngFor="let korale of korales" [value]="korale.code">
+                        {{korale.description|listTranslate:korale.descriptionSin:korale.descriptionTam}}
+                    </option>
+                </select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-inner-row">
+        <div *ngIf="propertyController.pattu" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="pattu">{{ "PROPERTY_DETAILS.PATTU" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <select matNativeControl id="pattu" class="form-control" [(ngModel)]="propertyDto.pattu"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly || pattus.length < 1">
+                    <option value="undefined" disabled>{{
+              "PROPERTY_DETAILS.SELECT_PATTU" | translate
+            }}</option>
+                    <option *ngFor="let pattu of pattus" [value]="pattu.code">
+                        {{pattu.description|listTranslate:pattu.descriptionSin:pattu.descriptionTam}}
+                    </option>
+                </select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.village" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="village-town">{{
+            "PROPERTY_DETAILS.VILLAGE" | translate
+          }}</label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+                    <select matNativeControl id="pattu" class="form-control" [(ngModel)]="propertyDto.village"
+                        [ngModelOptions]="{ standalone: true }"
+                        [disabled]="uiController.isReadOnly || villages.length < 1">
+                        <option value="undefined" disabled>{{
+              "PROPERTY_DETAILS.SELECT_VILLAGE" | translate
+            }}</option>
+                        <option *ngFor="let village of villages" [value]="village.villageId">
+                            {{village.description|listTranslate:village.descriptionSin:village.descriptionTam}}
+                        </option>
+                    </select>
+            </mat-form-field>
+          </div>
+            </div>
+        </div>
+        <div *ngIf="propertyController.street" class="pg-inner-col-3">
+            <div class="default-input-wrapper full-row">
+                <label for="street">{{ "PROPERTY_DETAILS.STREET" | translate }}</label>
+                <div class="default-input-feild">
+                    <mat-form-field appearance="outline">
+                <input matInput id="street" class="form-control" [(ngModel)]="propertyDto.street"
+                    [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="propertyDto.isLand != 1" class="pg-inner-row">
+    <div *ngIf="propertyController.nameOfCharitable" class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="property-name">{{
+          "PROPERTY_DETAILS.MESSAGE" | translate
+        }}</label>
+        <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+            <input matInput id="property-name" class="form-control" [(ngModel)]="propertyDto.name"
+                [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly" />
+            </mat-form-field>
+        </div>
+        </div>
+    </div>
+    <div *ngIf="propertyController.propertyDetails || propertyDto.isLand != 1" class="pg-inner-col-3">
+        <div class="default-input-wrapper full-row">
+            <label for="property-details">{{
+          "PROPERTY_DETAILS.TITLE" | translate
+        }}</label>
+        <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+            <textarea matInput id="property-details" class="form-control" [(ngModel)]="propertyDto.remark"
+                [ngModelOptions]="{ standalone: true }" [disabled]="uiController.isReadOnly"></textarea>
+            </mat-form-field>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-0 p-0 mt-5">
+    <!-- <button *ngIf="!uiController.isReadOnly" (click)="addCrossNote()" class="btn btn-block btn-outline-primary"> +
+          {{'COMMON.CROSS_NOTE'|translate}}</button> -->
+    <table *ngIf="propertyDto?.crossNoteList && propertyDto?.crossNoteList.length > 0" class="table table-bordered">
+        <thead>
+            <tr>
+                <th width="20%">{{ "COMMON.FOLIO" | translate }}</th>
+                <th>{{ "COMMON.CROSS_NOTE" | translate }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let crossNote of propertyDto.crossNoteList; let i = index">
+                <td>
+                    <input matInput [(ngModel)]="crossNote.folio" class="form-control" type="text"
+                        name="{{ crossNote.folio }}" />
+                </td>
+                <td>
+                    <select class="form-control">
+                        <option [value]="undefined" disabled>{{
+                "COMMON.SELECT_NOTE" | translate
+              }}</option>
+                        <!-- <option [value]="other">{{
+                "COMMON.OTHER_NOTE" | translate
+              }}</option> -->
+                    </select>
+                    <!-- <textarea [(ngModel)]="crossNote.description" class="form-control" type="text"
+              name="{{ crossNote.description }}"></textarea> -->
+                </td>
+                <td>
+                    <button class="btn btn-block btn-outline-danger" (click)="deleteCrossNote(i)">
+                        <i class="ft-x"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

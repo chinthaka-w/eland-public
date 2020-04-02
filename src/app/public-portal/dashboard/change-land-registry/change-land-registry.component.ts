@@ -63,8 +63,6 @@ export class ChangeLandRegistryComponent implements OnInit {
   this.changelandregistry.landRegistryId = this.landRegistryChangeForm.value.landRegistry;
   this.changelandregistry.reasonForChange = this.landRegistryChangeForm.value.reason;
   this.changelandregistry.notaryRequestId = this.notaryId;
-  console.log(this.changelandregistry.reasonForChange);
-  console.log(this.changelandregistry.landRegistryId);
 
   const formData = new FormData();
   formData.append('data', JSON.stringify(this.changelandregistry));
