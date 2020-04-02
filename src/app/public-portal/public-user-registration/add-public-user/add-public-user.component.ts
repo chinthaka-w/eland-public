@@ -130,7 +130,6 @@ export class AddPublicUserComponent implements OnInit {
     this.getAllLandRegistries();
     this.getAllBanks();
     this.citizenDTO.userType = this.PublicUserType.CITIZEN;
-    this.publicUserForm.patchValue({type: this.citizenDTO.userType});
     this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
     this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
     this.disableUselessFormControls(this.citizenDTO.userType);
