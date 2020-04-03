@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WorkflowStages} from '../../../../shared/enum/workflow-stages.enum';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentResponseDto} from '../../../../shared/dto/document-response.dto';
 import {RequestSearchDetailDTO} from '../../../../shared/dto/request-search.dto';
 import {NotaryService} from '../../../../shared/service/notary-service';
@@ -12,6 +12,8 @@ import {SupportDocResponseModel} from '../../../../shared/dto/support-doc-respon
 import {SnackBarService} from '../../../../shared/service/snack-bar.service';
 import {ChangeNameService} from '../../../../shared/service/change-name.service';
 import {NameChangeWorkflowStagesEnum} from '../../../../shared/enum/name-change-workflow-stages.enum';
+import {NotaryRequestView} from '../../../../shared/custom-model/notary-request-view.model';
+import {NotaryRequestService} from '../../../../shared/service/notary-request.service';
 
 @Component({
   selector: 'app-name-change-request-view',
@@ -39,10 +41,12 @@ export class NameChangeRequestViewComponent implements OnInit {
   editable: boolean = false;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private newNotaryService: NotaryService,
               private sessionService: SessionService,
               private snackBar: SnackBarService,
-              private changeNameService: ChangeNameService) {
+              private changeNameService: ChangeNameService,
+              private notaryRequestService: NotaryRequestService) {
     this.route.params.subscribe(params => {
       this.workflow  = atob(params['workflow']);
       this.requestId  = atob(params['id']);
@@ -110,8 +114,24 @@ export class NameChangeRequestViewComponent implements OnInit {
     this.disabled = true;
   }
 
-  onFormSubmit(){
-    this.updateDocumentDetails(this.docsList);
+  onFormSubmit() {
+    const notaryRequestView = new NotaryRequestView();
+    notaryRequestView.requestId = this.id;
+    notaryRequestView.workFlowStageCode = NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_MODIFIED;
+
+    this.notaryRequestService.update(notaryRequestView).subscribe(
+      (success: boolean) => {
+        if (success) {
+          this.snackBar.success('Notary Name Change Request Success');
+          this.router.navigateByUrl('/dashboard');
+        } else {
+          this.snackBar.error('Failed');
+        }
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
   }
 
   updateDocumentDetails(documents: DocumentResponseDto[]){

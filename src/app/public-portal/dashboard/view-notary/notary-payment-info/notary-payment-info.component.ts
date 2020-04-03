@@ -34,6 +34,8 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @Input() applicationFeeCode: string = Parameters.NOTARY_REG_FEE;
   @Output() paymentResponse = new EventEmitter<PaymentResponse>();
 
+  @Input() editable : boolean = false;
+
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
 
   public type = ApplicationRequestDataType.PAYMENT;

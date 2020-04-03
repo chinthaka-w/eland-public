@@ -31,6 +31,7 @@ import {Notary} from '../../../shared/dto/notary.model';
 import {NewNotaryDataVarificationService} from '../../../shared/service/new-notary-data-varification.service';
 import {PaymentDto} from '../../../shared/dto/payment-dto';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-change-the-name',
@@ -101,6 +102,7 @@ export class ChangeTheNameComponent implements OnInit {
               private sessionService: SessionService,
               private notaryService: NotaryService,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
+              private router: Router
               ) { }
 
   ngOnInit() {
@@ -219,6 +221,7 @@ export class ChangeTheNameComponent implements OnInit {
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
           this.snackBar.success('Notary Name Change Request Success');
           this.notaryForm.reset();
+          this.router.navigateByUrl('/dashboard');
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
           this.snackBar.success('Notary Name Change Request Success, Proceed to online payment');
           this.isPayment = true;

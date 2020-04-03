@@ -30,6 +30,11 @@ export class ChangeNameService {
   }
 
   /** update Name Change Request */
+  updateDetails(formData: FormData): Observable<any> {
+    return this.httpClient.put(this.BASE_URL + '/' , formData );
+  }
+
+  /** update Name Change Request */
   update(nameChangeDto: NotaryNameChangeModel): Observable<any> {
     return this.httpClient.post(this.BASE_URL + '/update/' , nameChangeDto ,{headers: this.headers} );
   }

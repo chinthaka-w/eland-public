@@ -27,6 +27,9 @@ export class SupportingDocDetailComponent implements OnInit {
   public docsList: DocumentResponseDto[] = [];
   @Output() supportDocs = new EventEmitter<DocumentResponseDto[]>();
 
+
+  @Input() editable : boolean = false;
+
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
   supportingDocuments: NewNotarySupportingDocDetailDto[] = [];
   supportingDocForm: FormGroup;

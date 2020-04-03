@@ -87,17 +87,20 @@
         <div class="separator mt-30">&nbsp;</div>
 
         <div class="pg-inner-row mb-20 upload-col-3">
-          <div class="pg-inner-col-3" *ngFor="let doc of docList">
-            <div class="default-input-wrapper full-row">
-              <label
-              >{{doc.description}}
-                <span *ngIf="doc.required">*</span></label>
-              <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
-            </div>
+        <div class="pg-inner-col-3" *ngFor="let doc of docList">
+          <div class="default-input-wrapper full-row">
+            <label
+            >{{doc.description}}
+              <span *ngIf="doc.required">*</span></label>
+            <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
           </div>
         </div>
+      </div>
 
       </div>
+
+      <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">Change Details</button>
+
     </div>
   </div>
 </form>
