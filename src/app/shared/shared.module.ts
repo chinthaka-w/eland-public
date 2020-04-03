@@ -59,6 +59,7 @@ import { UnitComponent } from './components/sub-components/unit/unit.component';
 import { TransactionViewComponent } from './components/transaction-view/transaction-view.component';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { ListTranslatePipe } from './pipe/list-translate.pipe';
+import { ImagePriviewComponent } from './components/image-priview/image-priview.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { ListTranslatePipe } from './pipe/list-translate.pipe';
     UnitComponent,
     TransactionViewComponent,
     FileUploadPopupComponent,
-    ListTranslatePipe
+    ListTranslatePipe,
+    ImagePriviewComponent
   ],
   imports: [
     CommonModule,
@@ -152,7 +154,8 @@ import { ListTranslatePipe } from './pipe/list-translate.pipe';
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
-    TranslatePipe
+    TranslatePipe,
+    ImagePriviewComponent
   ],
   providers: [
     AuthGuard,

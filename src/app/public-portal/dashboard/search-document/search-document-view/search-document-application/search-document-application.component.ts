@@ -34,6 +34,7 @@ import {ActionMode} from '../../../../../shared/enum/action-mode.enum';
 import {SearchRequestWorkflowStages} from '../../../../../shared/enum/search-request-workflow-stages.enum';
 import {MatBottomSheet} from '@angular/material';
 import {SearchDocumentResultComponent} from './search-document-result/search-document-result.component';
+import {DocumentService} from '../../../../../shared/service/document.service';
 
 @Component({
   selector: 'app-search-document-application',
@@ -70,6 +71,9 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
 
   public searchRequest = new SearchRequest();
 
+  public docId;
+  public documentDTO: any;
+
   //Mat Table Config
   public elements: Element[] = [];
   public displayedColumns: string[] = ['Folio No', 'No. of years', 'Status', 'Action'];
@@ -87,6 +91,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     private searchRequestService: SearchRequestService,
     private sessionService: SessionService,
     private snackBarService: SnackBarService,
+    private documentService: DocumentService,
     private _bottomSheet: MatBottomSheet,
     private location: Location) {
   }
@@ -320,6 +325,21 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
         this.searchRequestForm.patchValue(data);
         this.elements = data.folioList;
         this.dataSource.data = this.elements;
+        this.docId = data.docId;
+      }, (error1) => {
+      },
+      () => {
+        if (this.docId != 0) {
+          this.getDocument(this.docId);
+        }
+      }
+    );
+  }
+
+  getDocument(docId: any) {
+    this.documentService.getDocumentById(docId).subscribe(
+      (data: any) => {
+        this.documentDTO = data;
       }
     );
   }
@@ -331,7 +351,6 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   getSearchResult(requestId: any) {
     this.searchRequestService.getSearchFolioResultBySearchRequestFolioId(requestId).subscribe(
       (data: any[]) => {
-        console.log(data);
         this._bottomSheet.open(SearchDocumentResultComponent, {data: data});
       }
     );

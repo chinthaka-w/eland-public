@@ -54,7 +54,7 @@ export class SearchDocumentViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.action = this.workflowStage != SearchRequestWorkflowStages.SEARCH_REQ_REJECTED_BY_ARL ? ActionMode.VIEW : ActionMode.UPDATE;
+    this.action = this.workflowStage != SearchRequestWorkflowStages.SEARCH_REQ_RETURN_BY_ARL ? ActionMode.VIEW : ActionMode.UPDATE;
   }
 
   goBack(): any {

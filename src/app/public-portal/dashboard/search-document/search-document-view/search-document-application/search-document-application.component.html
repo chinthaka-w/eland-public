@@ -352,7 +352,7 @@
         <th mat-header-cell *matHeaderCellDef> Status</th>
         <td mat-cell *matCellDef="let element">
           <!--<span class="t-status">{{element.status}}</span>-->
-          <span>{{element.status}}</span>
+          <span>{{element.statusDes}}</span>
         </td>
       </ng-container>
 
@@ -376,6 +376,12 @@
     <div *ngIf="dataSource.data.length === 0" style="text-align: center">No records found</div>
   </div>
 
+</div>
+
+<div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT">
+  <h5 class="mb-10">Deed search result</h5>
+  <div class="separator">&nbsp;</div>
+  <app-image-priview *ngIf="documentDTO" [isDeedPreview]="true" [files]="[documentDTO]"></app-image-priview>
 </div>
 
 <div class="separator">&nbsp;</div>

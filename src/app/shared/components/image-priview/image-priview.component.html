@@ -1,0 +1,26 @@
+<div [class]="isDeedPreview?'row justify-content-center':'row'">
+  <div *ngFor="let file of files; let i = index;" [class]="isDeedPreview?'col-5':'col-md-4 p-5 h-5'">
+    <mat-card class="example-card" style="min-height: 100%;">
+      <mat-card-header>
+        <h6 class="ml-2">{{file.name}}</h6>
+      </mat-card-header>
+      <ngx-image-viewer [src]="file.pages" [config]="viewerConfig"></ngx-image-viewer>
+      <mat-card-actions>
+        <span *ngIf="file.pages.length > 1">Pages <strong>{{file.pages.length}}</strong></span>
+        <!-- <a class="text-dark" [href]="file.transformedContent" download>
+          <button mat-icon-button title="download">
+            <mat-icon>cloud_download_outline</mat-icon>
+          </button>
+        </a> -->
+        <!-- <button mat-icon-button title="share" disabled>
+          <mat-icon>share_outline</mat-icon>
+        </button> -->
+        <!-- <button mat-icon-button title="delete" (click)="deleteFile(file.documentId)">
+          <mat-icon>delete_outline</mat-icon>
+        </button> -->
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<h1 *ngIf="files.length < 1" class="p-5 m-5">{{'DOCUMENT.NO_DOC_FOUND'|translate}}</h1>

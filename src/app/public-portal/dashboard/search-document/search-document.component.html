@@ -405,5 +405,5 @@
              (back)="onBack($event)"
              [statusOnlinePayment]="statusOnlinePayment"
              [returnUrl]="returnURl?returnURl:'login'"
-             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
-             [hasFrontCounterPayment]="true"></app-payment>
+             [requestItemCount]="dataSource.data.length"
+             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"></app-payment>

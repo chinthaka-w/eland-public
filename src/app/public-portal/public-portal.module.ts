@@ -165,6 +165,7 @@ import { SearchDocumentResultComponent } from './dashboard/search-document/searc
     MatDividerModule,
     MatBadgeModule,
     MatChipsModule,
+    MatCardModule,
     HttpModule,
     RecaptchaModule,
     RecaptchaFormsModule,
