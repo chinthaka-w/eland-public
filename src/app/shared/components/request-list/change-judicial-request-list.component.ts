@@ -75,7 +75,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.headerText = 'JUDICIAL ZONE CHANGING';
         this.titleText = 'REQUEST FOR CHANGING THE JUDICIAL ZONE';
         this.newButtonURL = '/change-judicial';
-        this.actionButtonURL = `/change-judicial-request-view/${btoa(Workflow.JUDICIAL_ZONE_CHANGE)}/`;
+        this.actionButtonURL = '/change-judicial-request-view/';
         break;
       case Workflow.NOTARY_NAME_CHANGE:
         this.loadNameChangeRequests();

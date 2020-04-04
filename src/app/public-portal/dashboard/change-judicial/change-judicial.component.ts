@@ -109,7 +109,6 @@ export class ChangeJudicialComponent implements OnInit {
     });
 
     this.notaryId = this.sessionService.getUser().id;
-    this.getLandRegistries();
     this.getJudicialZone();
     this.getDsDivision();
     this.getDocumentList();
@@ -165,10 +164,18 @@ export class ChangeJudicialComponent implements OnInit {
     );
   }
 
-  private getLandRegistries(): void {
+  private getLandRegistries(judicialCode: number): void {
     this.judicialService.getAllLandRegistries().subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistries = data;
+      }
+    );
+  }
+
+  getLandRegistriesByJudicial(judicalCode: number) {
+    this.judicialService.getLandRegistriesByJudicialZone(judicalCode).subscribe(
+      (response) => {
+        this.landRegistries = response;
       }
     );
   }
@@ -343,6 +350,10 @@ export class ChangeJudicialComponent implements OnInit {
 
   continue(): void {
     this.isContinue = true;
+  }
+
+  onSelectJudicial(judicialCode: number) {
+    this.getLandRegistriesByJudicial(judicialCode);
   }
 
   getBase64Url(url: string): string {

@@ -398,7 +398,7 @@ export class AddPublicUserComponent implements OnInit {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.citizenDTO.payment = this.paymentDto;
-      this.returnURl = this.getBase64('login');
+      this.returnURl = ('login');
       this.saveCitizen();
     }
 
