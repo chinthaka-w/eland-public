@@ -26,10 +26,12 @@
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl required  formControlName="title"  class="form-control">
-              <option value="" disabled>Select the title</option>
-              <option value="{{nameTitle.Mr}}">Mr</option>
-              <option value="{{nameTitle.Mrs}}">Mrs</option>
-              <option value="{{nameTitle.Miss}}">Miss</option>
+              <option value="0" disabled>Select the title</option>
+              <option *ngFor="let title of nameTitles"
+                      [value]="title.nameTitleId"
+              >
+                {{title.titleEng}}
+              </option>
             </select>
           </mat-form-field>
         </div>

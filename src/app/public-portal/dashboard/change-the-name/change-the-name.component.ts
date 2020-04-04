@@ -32,6 +32,8 @@ import {NewNotaryDataVarificationService} from '../../../shared/service/new-nota
 import {PaymentDto} from '../../../shared/dto/payment-dto';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {Router} from '@angular/router';
+import {NameTitleDTO} from '../../../shared/dto/name-title.dto';
+import {LanguageChangeService} from '../../../shared/service/language-change.service';
 
 @Component({
   selector: 'app-change-the-name',
@@ -84,6 +86,8 @@ export class ChangeTheNameComponent implements OnInit {
   public paymentDataValue: PaymentDto;
   paymentDto: PaymentDto = new PaymentDto();
 
+  nameTitles: NameTitleDTO[] = [];
+
   paymentMethod: number;
   returnURl: string;
   statusOnlinePayment: boolean;
@@ -101,6 +105,7 @@ export class ChangeTheNameComponent implements OnInit {
               private location: Location,
               private sessionService: SessionService,
               private notaryService: NotaryService,
+              private languageChangeService: LanguageChangeService,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private router: Router
               ) { }
@@ -125,6 +130,7 @@ export class ChangeTheNameComponent implements OnInit {
       languages: new FormControl(),
       recaptcha: new FormControl(null),
     });
+    this.getNameTitles();
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
@@ -141,6 +147,17 @@ export class ChangeTheNameComponent implements OnInit {
       this.isTamil = (!this.isTamil);
 
     this.setData();
+  }
+
+  private getNameTitles() {
+    this.languageChangeService.getNameTitle().subscribe(
+      (result: NameTitleDTO[]) => {
+        this.nameTitles = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   getUserDetails(){
@@ -160,7 +177,7 @@ export class ChangeTheNameComponent implements OnInit {
         this.result = result;
         this.notaryForm.patchValue(
           {
-            title: this.result.nametitle.english,
+            title: this.result.nametitle.titleId,
             newInitialNameInEnglish: this.result.nameWithInitial.english,
             newInitialNameInSinhala: this.result.nameWithInitial.sinhala,
             newInitialNameInTamil: this.result.nameWithInitial.tamil,

@@ -7,7 +7,7 @@ export class NotaryNameChangeModel {
   public judicialZoneId: number;
   public workflowDescription: string;
   public requestId: number;
-  public title: string;
+  public title: number;
   public date: string;
   public newFullNameSin: string;
   public newFullNameTam: string;

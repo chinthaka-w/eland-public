@@ -28,6 +28,8 @@ import {NewNotaryPaymentDetailDto} from '../../../../../shared/dto/new-notary-pa
 import {NewNotaryDataVarificationService} from '../../../../../shared/service/new-notary-data-varification.service';
 import {ActivatedRoute} from '@angular/router';
 import {NameTitleEnum} from '../../../../../shared/enum/name-title.enum';
+import {NameTitleDTO} from '../../../../../shared/dto/name-title.dto';
+import {LanguageChangeService} from '../../../../../shared/service/language-change.service';
 
 @Component({
   selector: 'app-name-change-request-data',
@@ -52,6 +54,8 @@ export class NameChangeRequestDataComponent implements OnInit {
   @Input() files: File[] = [];
 
   @Input() editable: boolean = false;
+
+  nameTitles: NameTitleDTO[] = [];
 
   public isSinhala: boolean = false;
   public isTamil: boolean = false;
@@ -88,6 +92,7 @@ export class NameChangeRequestDataComponent implements OnInit {
               private location: Location,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private sessionService: SessionService,
+              private languageChangeService: LanguageChangeService,
               private route: ActivatedRoute) {
 
   }
@@ -108,7 +113,7 @@ export class NameChangeRequestDataComponent implements OnInit {
 
   setData() {
     this.notaryForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required]),
+      title: new FormControl(0, [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
       newFullNameInSinhala: new FormControl('', this.isSinhala ? Validators.required : null),
       newFullNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
@@ -117,14 +122,25 @@ export class NameChangeRequestDataComponent implements OnInit {
       newInitialNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
       languages: new FormControl(),
     });
-    this.getNameChangeDetails(this.id);
+    this.getNameTitles();
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
     this.getDsDivisions();
     this.getGnDivisions();
     this.getPaymentDetails();
+    this.getNameChangeDetails(this.id);
+  }
 
+  private getNameTitles() {
+    this.languageChangeService.getNameTitle().subscribe(
+      (result: NameTitleDTO[]) => {
+        this.nameTitles = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   private addLanguageList(id:number): void {
