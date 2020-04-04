@@ -177,6 +177,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     SatNativeDateModule,
     ImageViewerModule,
     MatSlideToggleModule,
+    MatInputModule,
     MatListModule
   ],
   exports: [

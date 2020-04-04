@@ -39,6 +39,12 @@ import {MatCardModule, MatTableModule} from '@angular/material';
 import {ImageViewerModule} from 'ngx-image-viewer';
 import {PaymentService} from './shared/service/payment.service';
 import {NotaryRequestService} from './shared/service/notary-request.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 @NgModule({
   declarations: [AppComponent, GridComponent],
@@ -63,9 +69,14 @@ import {NotaryRequestService} from './shared/service/notary-request.service';
     PublicPortalModule,
     HttpModule,
     HttpClientModule,
-    ImageViewerModule
-
-
+    ImageViewerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [MatDatepickerModule,
     HttpClient,

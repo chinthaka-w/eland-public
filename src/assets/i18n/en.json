@@ -1,0 +1,887 @@
+{
+    "BUTTONS":{
+       "SEARCH_BUTTON":"Search",
+       "NEW_BUTTON":"New",
+       "RESET_BUTTON":"Reset",
+       "UPDATE_BUTTON":"Update",
+       "SAVE_BUTTON":"Save",
+       "CANCEL_BUTTON":"Cancel",
+       "VIEW_BUTTON":"View",
+       "PRINT_BUTTON":"Print",
+       "EDIT_BUTTON":"Edit",
+       "ISSUE_BUTTON":"Issue",
+       "ACCEPT_BUTTON":"Accept",
+       "RETURN_BUTTON":"Return",
+       "YES_BUTTON":"Yes",
+       "NO_BUTTON":"No",
+       "ADD_NEW_FOLIO":"Add New Folio/Transaction/Close Note",
+       "SAVE_AS_INCOMPLETE":"Save as Incomplete",
+       "SAVE_AS_COMPLETE":"Save as Complete",
+       "CONTINUE_BUTTON":"Continue",
+       "SUBMIT_BUTTON":"Submit",
+       "CHANGE_ATTESTED_PERSON_BUTTON":"Change Attested Person",
+       "DOCUMENT_UPLOAD_BUTTON":"Document Upload",
+       "SEARCH_ATTESTED_PERSON_BUTTON":"Search Attested Person",
+       "BACK_BUTTON":"Back",
+       "SELECT_SCHEDULE_BUTTON":"Select Schedule Type",
+       "ADD":"Add",
+       "ADD_TO_CURRENT_FOLIO":"Add to Current Folio",
+       "DEED_UPLOAD":"Deed Upload",
+       "DELETE":"Delete",
+       "CONFIRM":"Confirm",
+       "ADVANCE_SEARCH_SHOW":"Show Advance Search",
+       "ADVANCE_SEARCH_HIDE":"Hide Advance Search",
+       "CHANGE":"Change",
+       "OKAY":"Ok"
+    },
+    "COMMON":{
+       "DEFAULT":"default",
+       "AUTO":"default",
+       "INDEX":"Index",
+       "SEARCH_DETAILS":"Search Details",
+       "SEARCH_RESULT":"Search Result",
+       "WELCOME":"Welcome",
+       "SEARCH_REQUEST":"Search Request",
+       "DAYBOOKNO/APPLICATIONNO":"Day Book No/ Application No",
+       "ALL":"All",
+       "LOGOUT":"Logout",
+       "STATUS":"Status",
+       "ACTIVE":"Active",
+       "INACTIVE":"In-Active",
+       "DETAILS":"Details",
+       "ACTION":"Action",
+       "DESCRIPTION":"Description",
+       "REQUEST_MODE":"Request Mode",
+       "REQUEST_DETAILS":"Request Details",
+       "IF_AVAILABLE":"(If Available)",
+       "SEARCH_HERE":"Search Here",
+       "SELECT":"Select",
+       "AMOUNT":"Amount",
+       "DUE_AMOUNT":"Due Amount",
+       "TOTAL_AMOUNT":"Total Amount",
+       "TOTAL":"Total",
+       "SELECTED_TOTAL_AMOUNT":"Selected Total Amount",
+       "RS":"Rs",
+       "ADD":"ADD",
+       "DATE":"Date",
+       "TIME":"Time",
+       "CODE":"Code",
+       "DAYBOOKREQUEST":"Day Book Request/s",
+       "STAMP_FEE":"Stamp Fee",
+       "DUPLICATE_STAMP_FEE":"Duplicate Stamp Fee",
+       "NEW_REQUEST":"New Request/s",
+       "ASSIGN_TO":"Assign To",
+       "ASSIGNED_REQUEST":"Assigned Request/s",
+       "SELECTED_REQUEST":"Selected Request/s",
+       "FROM_DATE":"From Date",
+       "TO_DATE":"To Date",
+       "LANGUAGE":"Language",
+       "DIVISION":"Division",
+       "VOLUME":"Volume",
+       "FOLIO":"Folio",
+       "FOLIO_TYPE":"Folio Type",
+       "DATE_OF_RETURN":"Date of Return",
+       "REMARKS":"Remarks",
+       "DAYBOOKNO":"Day Book No",
+       "APPLICATION_NO":"Application No",
+       "OTHER_REMARKS":"Other Remarks",
+       "VALUE":"Value",
+       "REQUEST_ID":"Request Id",
+       "USER_ACCOUNT":"User Account",
+       "USER":"User",
+       "OR":"or",
+       "E_G":"E.g",
+       "PAID":"Paid",
+       "NOT_PAID":"Not Paid",
+       "VIEW_REQUEST":"View Request",
+       "REQUEST_STATUS":"Request Status",
+       "FOLIO_INFO":"Folio Information",
+       "FOLIO_NEW":"Folio Details",
+       "CROSS_NOTE":"Cross Note",
+       "OTHER_NOTE":"Other Note",
+       "SELECT_NOTE":"--Select Note--",
+       "TYPE":"Type",
+       "INSERT_MESSAGE":"Insert your remark here",
+       "REF":"Reference",
+       "ADD_OLD_NOTARY":"Add Old Notary",
+       "BROUGHT_FORWARD":"Brought Forward Folios",
+       "CROSS_REFERENCE":"Cross References",
+       "CASE_ID":"Case Id",
+       "FORWARD_REQUEST":"Forward Request",
+       "YEAR":"Year",
+       "REMARK":"Remark",
+       "LOADING":"Loading....",
+       "TELEPHONE":{
+          "NAME":"Telephone Number",
+          "CATEGORY":{
+             "PRIMARY":"Primary",
+             "SECONDARY":"Secondary"
+          }
+       }
+    },
+    "FOLIO_TYPE":{
+       "FOLIO_NUM":"Folio No",
+       "SELECT_TYPE":"--Select Folio Type--",
+       "NORMAL_TRUST":"Normal Trust",
+       "EXPRESS_TRUST":"Express Trust",
+       "GENERAL":"General",
+       "CONDOMINIUM":"Condominium",
+       "SPECIAL_DIVISION_DEEDS":"Special Division Deeds",
+       "SPECIAL_CONDOMINIUM_DEEDS":"Special Condominium Deeds",
+       "MOVABLE":"Movable",
+       "GOV_LANDS":"Gov Lands",
+       "POAR":"Power of Attorney"
+    },
+    "DESIGNATION":{
+       "SELECT":"Select Designation",
+       "CODE":"Designation Code",
+       "NAME":"Designation"
+    },
+    "REQUEST_MODES":{
+       "WALK_IN":"Walk-in",
+       "POST_NORMAL":"Post Normal",
+       "POST_REGISTERED":"Post Registered"
+    },
+    "DOCUMENT":{
+       "DOCUMENT":"Documents",
+       "DOCUMENT_Details":"Document Details",
+       "DOCUMENT_NO":"Document No",
+       "DOCUMENT_TYPE":"Document Type",
+       "DOCUMENT_NATURE":"Document Nature",
+       "DOCUMENT_SUB_NATURE":"Document Sub Nature",
+       "DOC_CATEGORY":"Doc. Category",
+       "DOC_SUBCATEGORY":"Doc. Sub-Category",
+       "DOC_TYPE":"Doc. Type",
+       "DOC_NATURE":"Doc. Nature",
+       "DOC_SUB_NATURE":"Doc. Sub Nature",
+       "ISSUED_DOCS":"Issued Documents",
+       "PENDING_DOCS":"Pending Documents",
+       "PROCESSING_DOCS":"Processing Documents",
+       "RETURNED_DOCS":"Returned Documents",
+       "NO_OF_DOC":"No.of Doc",
+       "NO_DOC_FOUND":"No documents found",
+       "DOCUMENT_CHARGE_SEARCH":"Search Document Charge",
+       "DOCUMENT_CHARGE_ID":"Charge ID",
+       "DOC_NO_CHANAGE":{
+          "TITLE":"Document No Category Index Update",
+          "LAST_INDEX":"Last Index",
+          "SUB_TITLE":"Document No Update",
+          "NO_COUNT":"Day Book No Count"
+       }
+    },
+    "LAND_REGISTRY":{
+       "SEARCH_LAND_REGISTRY":"Search Land Registry",
+       "NAME":"Land Registry",
+       "LR_NO":"L.R No",
+       "RETURN_LR":"Return Land Registry",
+       "SELECT":"--Select Land Registry--"
+    },
+    "ZONAL":{
+       "NAME":"Zonal",
+       "ZONAL_OFFICE":"Zonal Office",
+       "SEARCH_ZONAL_OFFICE":"Search Zonal Office"
+    },
+    "PROVINCE":{
+       "NAME":"Province",
+       "PROVINCE_CODE":"Province Code",
+       "SELECT_PROVINCE":"--Select Province--"
+    },
+    "LAND_REGISTRY_DIVISIONS":{
+       "SEARCH_LAND_REGISTRY_DIVISIONS":"Search Land Registry Divisions",
+       "NAME":"Land Registry Division",
+       "DIVISION_CODE":"Division Code",
+       "L/R_DIVISION":"L/R Division",
+       "SELECT_L/R_DIVISION":"--Select L/R Division--"
+    },
+    "APPLICANT":{
+       "APPLICANT_INFO":"Applicant Information",
+       "APPLICANT_NAME":"Applicant Name",
+       "NAME":"Name",
+       "NEW_APPLICANT":"New Applicant",
+       "APPLICANT_TYPE":"Applicant Type",
+       "APPLICANT_ADDRESS":"Applicant Address",
+       "APPLICANT_IDENTIFICATION":"Applicant Identification (NIC/ Driving Licence/ Passport)",
+       "APPLICANT_CONTACT_NO":"Applicant Contact No",
+       "APPLICANT_EMAIL":"Applicant Email",
+       "SEARCH_APPLICANT_REQUEST":"Search Applicant Request",
+       "APPLICANT_REQUEST":"Applicant Request",
+       "APPLICANT_DETAILS":"Applicant Details",
+       "APPLICANT_NIC":"Applicant NIC",
+       "DOB":"Date of birth",
+       "IDENTITY_TYPE":"Identification Type"
+    },
+    "APPLICANT_TYPES":{
+       "INTEREST_PERSON":"Interest Person",
+       "NOTARY":"Notary",
+       "OWNER":"Owner",
+       "NOTARY_OR_OTHER_PERSON":"Notary or Any Other Person",
+       "OTHER":"Other"
+    },
+    "PAYMENT_MODES":{
+       "CAS":"Cash",
+       "FOC":"Free Of Charge",
+       "BNKD":"Bank Deposit",
+       "CRDT":"Credit"
+    },
+    "REPORT":{
+       "SEARCH_REPORT":"Search Report",
+       "CATEGORY_WISE_REPORT":"Category Wise Report",
+       "ONE_DAY_REPORT":"One Day Report",
+       "USER_WISE_CASH_REPORT":"User Wise Cash Report",
+       "DAY_BOOK_REPORT":"Day Book Report"
+    },
+    "USER":{
+       "LAST_UPDATED_USER":"Last Updated User",
+       "SUBJECT_CLERK":"Subject Clerk",
+       "ASSIGNED_USER":"Assigned User"
+    },
+    "KORALE":{
+       "SEARCH_KORALE":"Search Korale",
+       "KORALE_ID":"Korale Id",
+       "NAME":"Korale"
+    },
+    "PATHTHUWA":{
+       "SEARCH_PATHTHUWA":"Search Paththuwa",
+       "PATHTHUWA_ID":"Paththuwa Id",
+       "NAME":"Paththuwa",
+       "PATHTHUWA_CODE":"Paththuwa Code"
+    },
+    "DS_DIVISION":{
+       "SEARCH_DS_DIVISION":"Search Ds-Division",
+       "DSDIVISION_CODE":"Ds-Division Code",
+       "NAME":"D/S Division",
+       "SELECT":"--Select D/S Division--"
+    },
+    "DISTRICTS":{
+       "NAME":"District",
+       "DISTRICT_CODE":"District Code",
+       "SELECT":"--Select District--"
+    },
+    "GN_DIVISION":{
+       "SEARCH_GN_DIVISION":"Search Gn-Division",
+       "GNDIVISION_CODE":"GN-Division Code",
+       "NAME":"GN Division",
+       "GN_DIVISION_ID":"Gn Division Id",
+       "SELECT_G/N_DIVISION":"--Select G/N Division--"
+    },
+    "VILLAGE":{
+       "SEARCH_VILLAGE":"Search Village",
+       "VILLAGE_CODE":"Village Code",
+       "NAME":"Village"
+    },
+    "BANK":{
+       "SEARCH_BANK":"Search Bank",
+       "NAME":"Bank Name",
+       "BANK_ID":"Bank Id",
+       "SEARCH_BANK_BRANCH":"Search Bank Branch",
+       "BANK_BRANCH_CODE":"Branch Code",
+       "BANK_BRANCH_ADDRESS":"Branch Address",
+       "BANK_BRANCH_CONTACTNO":"Branch Contact No",
+       "BRANCH_NAME":"Branch Name",
+       "BRANCH_ID":"Branch Id",
+       "SELECT_BANK":"Select Bank",
+       "BRANCH":"Branch"
+    },
+    "FINE_CATEGORY":{
+       "SEARCH_FINE_CATEGORY":"Search Fine Category",
+       "NAME":"Fine Category",
+       "SUB_CATEGORY_DESCRIPTION":"Sub Category Description",
+       "CHARGE_CATEGORY_DESCRIPTION":"Charge Category Description",
+       "SUB_CATEGORY_CHARGES":"Sub Category Charges",
+       "ADDITIONAL_CHARGE_REQUEST":"Additional Charge Request",
+       "CHARGE_CATEGORY":"Charge Category",
+       "CHARGE_SUB_CATEGORY":"Charge Sub Category",
+       "ADDITIONAL_CHARGE_PAYMENT":"Additional Charge Payment"
+    },
+    "PROVINCIAL_COUNCIL":{
+       "SEARCH_PROVINCIAL_COUNCIL":"Search Provincial Council",
+       "NAME":"Provincial Council",
+       "PROVINCIAL_COUNCIL_CODE":"Provincial Council Code",
+       "SELECT_PROVINCIAL_COUNCIL":"--Select Provincial Council--"
+    },
+    "PROPERTY_DETAILS":{
+       "LAND_NAME":"Land Name",
+       "NO_OF_LAND":"No.of Land",
+       "NO_OF_LOTS":"No.of Lots",
+       "TITLE":"Property Details",
+       "SUB_TITLE":"Property Information",
+       "QUESTION":"Is there Land?",
+       "PLAN_NO":"Plan No",
+       "PLAN_DATE":"Plan Date",
+       "REG_PLAN_NO":"Registration Plan No",
+       "STATEMENT_CLAIM_NO":"Statement of Claim No",
+       "ALLOTMENT_NO":"Allotment No",
+       "INSERTED_PER":"Inserted Person",
+       "SURVEY_PAR_DATE":"Survery & Partitioned Date",
+       "PARTI_DATE":"Partitioned Date",
+       "ASSES_NO":"Assessment No",
+       "TITLE_PLAN_NO":"Title Plan No",
+       "NAME_SURVEYER":"Name of Surveyor",
+       "LOT_NO":"Lot No",
+       "LAND_ID":"Land Id",
+       "KORALE":"Korale",
+       "SELECT_KORALE":"--Select Korale--",
+       "PATTU":"Pattu",
+       "SELECT_PATTU":"--Select Pattu--",
+       "VILLAGE":"Village",
+       "SELECT_VILLAGE":"--Select Village--",
+       "STREET":"Street",
+       "MESSAGE":"Name of Charitable Trust or Name of Association",
+       "SERVEY_PLAN_NO":"Survey Plan No",
+       "SERVEY_PLAN_DATE":"Survey Plan Date",
+       "NAME_OF_ARCHITECT":"Name of Architect",
+       "GRANT_NO":"Grant No/Permit No",
+       "GRANT_DATE":"Grant Date/Permit Date"
+    },
+    "BOUNDARIES":{
+       "NAME":"Boundaries",
+       "SUB_TITLE":"Boundary",
+       "TITLE":"Boundary Information",
+       "NORMAL":"Normal",
+       "DIFFERENT":"Different",
+       "EAST":"East",
+       "WEST":"West",
+       "NORTH":"North",
+       "SOUTH":"South",
+       "NADIR":"Nadir",
+       "ZENITH":"Zenith",
+       "NORTH_WEST":"North West",
+       "NORTH_EAST":"North East",
+       "SOUTH_WEST":"South West",
+       "SOUTH_EAST":"South East",
+       "KEY":"Key",
+       "VALUE":"Value"
+    },
+    "EXTENT_DETAILS":{
+       "TAB_TITLE":"Extent Details",
+       "SUB_TITLE":"Extent Information",
+       "TYPE_ARP":"A R P",
+       "TYPE_HEC":"Hectare",
+       "TYPE_ARPHEC":"A R P and Hectare",
+       "TYPE_SQF":"Square Feet",
+       "TYPE_SQF_METER":"Square Meter",
+       "ARCHES":"Acres",
+       "ROUTES":"Roods",
+       "PERCHES":"Perches",
+       "LENGTH":"Length",
+       "WIDTH":"Width",
+       "OTHER":"Other Extents"
+    },
+    "GRANTOR_DETAILS":{
+       "TAB_TITLE":"Grantor",
+       "SUB_TITLE":"Grantor Information",
+       "ADDRESS_PERM":"Address(Permanent)",
+       "ADDRESS_RES":"Address(Residential)",
+       "TELEPHONE":"Telephone",
+       "EMAIL":"Email",
+       "NO_GRANTOR":"No Grantor",
+       "LIST":"Grantor List"
+    },
+    "GRANTEE_DETAILS":{
+       "TAB_TITLE":"Grantee",
+       "SUB_TITLE":"Grantee Information",
+       "NO_GRANTEE":"No Grantee",
+       "LIST":"Grantee List"
+    },
+    "PARTICULAR":{
+       "TAB_TITLE":"Particulars",
+       "NAME":"Particular"
+    },
+    "TRUST_ARTHUR_DETAILS":{
+       "TAB_TITLE":"Trust Author",
+       "SUB_TITLE":"Trust Author Information",
+       "NAME":"Trust",
+       "NO_TRUST_ARTHUR":"No Trust Author",
+       "LIST":"Trust Author List"
+    },
+    "TRUSTER_DETAILS":{
+       "TAB_TITLE":"Truster",
+       "SUB_TITLE":"Truster Information",
+       "NAME":"Truster",
+       "NO_TRUSTER":"No Truster",
+       "LIST":"Truster List"
+    },
+    "TRUSTEE_DETAILS":{
+       "TAB_TITLE":"Trustee",
+       "SUB_TITLE":"Trustee Information",
+       "NAME":"Trustee",
+       "NO_TRUSTEE":"No Trustee",
+       "LIST":"Trustee List"
+    },
+    "CO_TRUSTEE_DETAILS":{
+       "TAB_TITLE":"Co-Trustee",
+       "SUB_TITLE":"Co-Trustee Information",
+       "NAME":"Co-Trustee",
+       "NO_CO_TRUSTEE":"No Co-Trustee",
+       "LIST":"Co-Trustee List"
+    },
+    "OLD_TRUSTEE_DETAILS":{
+       "TAB_TITLE":"Old-Trustee",
+       "SUB_TITLE":"Old Trustee Information",
+       "NAME":"Old Trustee",
+       "NO_OLD_TRUSTEE":"No Old Trustee",
+       "LIST":"Old Trustee List"
+    },
+    "BENEFICIARY_DETAILS":{
+       "TAB_TITLE":"Beneficiary",
+       "SUB_TITLE":"Beneficiary Information",
+       "NAME":"Beneficiary",
+       "NO_BENEFICIARY":"No Beneficiary",
+       "LIST":"Beneficiary List"
+    },
+    "BENEFICIAL_ARTHUR_DETAILS":{
+       "TAB_TITLE":"Beneficial Author",
+       "SUB_TITLE":" Beneficial Author Information",
+       "NAME":"Beneficial",
+       "NO_BENEFICIAL_ARTHUR":"No Beneficial Author",
+       "LIST":"Beneficial Author List"
+    },
+    "CONTACT_DETAILS":{
+       "MOBILE":"Mobile",
+       "PERSON_NAME":"Person Name",
+       "ADDRESS":"Address",
+       "ADDRESSES":"Addresses",
+       "CONTACT_NO":"Contact No",
+       "EMAIL":"E-mail",
+       "FAX":"Fax",
+       "CONTACT_NAME":"Contact Name",
+       "FULL_NAME":"Full Name",
+       "IDENTIFICATION_NO":"Identification No",
+       "NIC":"NIC",
+       "NAME":"Name",
+       "CONTACT_PER_NAME":"Contact Person Name",
+       "CONTACT_PER_MOBILE":"Contact Person Mobile No",
+       "POSTED_DATE":"Posted Date",
+       "STATUS":"Status",
+       "POST_NO":"Post Number"
+    },
+    "UNIT_DETAILS":{
+       "TAB_TITLE":"Unit Details",
+       "NAME_OF_SCH":"Name of Scheme",
+       "NUM_OF_STORIES":"Number of Stories",
+       "NUM_OF_BASEMENTS":"Number of Basements",
+       "NUM_OF_BLOCKS":"Number of Blocks",
+       "UNIT":"Unit",
+       "UNIT_OR_SYM":"Unit No. or Symbol",
+       "FLOOR_AREA":"Floor Area"
+    },
+    "RECEIPT":{
+       "NAME":"Receipt",
+       "RECEIPT_NO":"Receipt No",
+       "RECEIPT_DATE":"Receipt Date",
+       "RECEIPT_DETAILS":"Receipt Details",
+       "VIEW_RECEIPT":"View Receipt",
+       "DATETIME_RECEIPT":"Date and Time of Receipt",
+       "RECEIPT_SUMMARY":"Receipt Summary"
+    },
+    "POST":{
+       "POST_RECEIVED_DATE":"Post Received Date",
+       "REGISTERED_POST_NO":"Registered Post No"
+    },
+    "TOKEN":{
+       "TOKEN_NO":"Token No"
+    },
+    "PAYMENT":{
+       "PAYMENT":"Payment",
+       "PAYMENT_DETAILS":"Payment Details",
+       "PAYMENT_MODE":"Payment Mode",
+       "PAYMENT_ID":"Payment ID",
+       "AMOUNT":"Amount",
+       "DATE":"Payment Date"
+    },
+    "NOTARY":{
+       "SEARCH_NOTARY":"Search Notary",
+       "BY_NEW_NOTARY_NO":"By New Notary No",
+       "BY_OLD_NOTARY_NO":"By Old Notary No",
+       "BY_NOTARY_NAME":"By Notary Name",
+       "BY_NOTARY_NIC":"By Notary NIC",
+       "NEW_NOTARY_ID":"New Notary ID",
+       "OLD_NOTARY_ID":"Old Notary ID",
+       "NOTARY_ID":"Notary ID",
+       "NOTARY_INFO":"Notary Information",
+       "NOTARY":"Notary"
+    },
+    "OTHER_PERSON":{
+       "ANY_OTHER_PERSON":"Any Other Person",
+       "OTHER_PERSON_DETAILS":"Other Person Details",
+       "OTHER_PERSON_NAME":"Full Name",
+       "OTHER_PERSON_DESIGNATION":"Designation",
+       "OTHER_PERSON_LOCATION":"Location",
+       "OTHER_PERSON_ADDRESS":"Address",
+       "OTHER_PERSON_CONTACT_NO":"Contact No",
+       "OTHER_PERSON_EMAIL":"E-mail"
+    },
+    "CATEGORY":{
+       "CATEGORY":"Category",
+       "SUB_CATEGORY":"Sub Category",
+       "SELECT_CATEGORY":"--Select Category--"
+    },
+    "OTHER":{
+       "ADDITIONAL_CHARGE":"Additional Charge",
+       "DUPLICATENO":"Duplicate No",
+       "NO_OF_YEAR":"No.of Year",
+       "SERVICE_NO":"Service No",
+       "ISSUE_DATE":"Issue Date",
+       "VALUE_CONSIDERATION":"Value (Consideration)",
+       "WARNING":"Warning",
+       "TIME_OF_RECEIPT":"Time of Receipt",
+       "SERIAL_DAY_BOOK_NO":"Serial Day Book No",
+       "VALUE_OF_CONSIDERATION":"Value of Consideration",
+       "FISCAL_SEIZURES":"Fiscal Seizures",
+       "PRIORITY_NOTICES":"Priority Notices",
+       "RENEWALS":"Renewals",
+       "CANCELLATION":"Cancellation",
+       "ACCEPTED_SIGNATURE_AND_DATE":"Signature of person who accepted and Date",
+       "LITES_PENDENTES":"Lites Pendentes",
+       "REQUEST_INFORMATION":"Request Information",
+       "SUMMARY_DETAILS":"Summary Details",
+       "WORKFLOW_STAGE":"Workflow Stage",
+       "MAIN_DETAILS":"Main Details",
+       "PRIOR_REGISTRATION_NO":"Prior Registration Number",
+       "DISTRICT_SECRETARY_DIVISION":"District Secretary Division",
+       "GRAMANILADARI_DIVISION":"Gramaniladari Division",
+       "DECISION":"Decision",
+       "THIS_REQ_CAN":"This Request can",
+       "SELECT_DECISION":"Select your decision",
+       "ACCEPT_REQUEST":"Accept Request",
+       "PRINT_FOLIO":"Print Folio",
+       "INCOMPLETE_REQUEST":"Incomplete Request",
+       "VIEW_TRANSACTION":"View Transaction",
+       "LAST_UPDATED_DATE":"Last Updated Date",
+       "WORK_STAGE":"Work Stage",
+       "NOT_PAID":"Not Paid Amount",
+       "PAID":"Paid Amount",
+       "TOT_AMOUNT":"Total Amount",
+       "REQ_COUNT":"Request Count",
+       "SER_COUNT":"Service Count",
+       "AMOUNT_TO_THIS":"Amount To This",
+       "AMOUNT_TO_OTHER":"Amount To Other",
+       "AMOUNT_FROM_OTHER":"Amount From Other",
+       "AMOUNT_FROM_BANK_DEPOSIT":"Amount From Bank Deposit",
+       "PLAINTIFFS":"Plaintiffs",
+       "DEFENDANT":"Defendant",
+       "REJECT":"Reject",
+       "SELECT_CLERK":"Select a clerk",
+       "PLEASE_SELECT_CLERK":"Please select a clerk",
+       "ISSUANCE_DETAIL":"Issuing Details",
+       "ISSUANCE_MODE":"Issuing Mode",
+       "ISSUANCE_MODE_BY_HAND":"By Hand",
+       "ISSUANCE_MODE_NORMAL_POST":"Normal Post",
+       "ISSUANCE_MODE_REGISTERED_POST":"Registered Post",
+       "COLLECTOR_DETAILS":"Collector Details",
+       "POST_DETAILS":"Postal Details",
+       "SELECT_CROSS_NOTE":"Select Cross Note",
+       "WARD_NAME":"Ward Name",
+       "WARD_NO":"Ward No",
+       "NAME_OF_SCHEME":"Name of Scheme",
+       "NUMBER_OF_STORIES":"Number of Stories",
+       "NUMBER_OF_BASEMENTS":"Number of Basements",
+       "NUMBER_OF_BLOCKS":"Number of Block",
+       "GRANT_OR_PERMIT_NO":"Grant No/Permit No",
+       "GRANT_OR_PERMIT_DATE":"Grant Date/Permit Date",
+       "PARTY_INFO":"Party Information",
+       "PLAINTIFF_LIST":"Plaintiffs List",
+       "NO_PLAINTIFF":"No Plaintiffs",
+       "DIFENDANT_LIST":"Defendant List",
+       "NO_DIFENDANT":"No Defendant",
+       "REFERENCE_FOLIOS":"Folio References",
+       "ADD_REMARK":"Add Remark"
+    },
+    "LR_MSGS":{
+       "ACCEPT_CASH_RECEIPT_FROM_ANOTHER_LR":"Accept cash receipt from another LR",
+       "ACCEPT_RETURN_DOCS_FROM_ANOTHER_LR":"Accept return docs from another LR",
+       "RETURN_DOCS_TO_ANOTHER_LR":"Return docs to another LR",
+       "DOCUMENT_ISSUANCE":"Document Issuance",
+       "AMOUNT_TO_THIS_LR":"Amount To This LR",
+       "AMOUNT_TO_OTHER_LR":"Amount To Other LR",
+       "TOTAL_CASHIER_AMT":"Total Cashier Amount",
+       "AMOUNT_FROM_BANK_DEPOSIT":"Amount From Bank Deposit",
+       "AMOUNT_FROM_OTHER_LR":"Amount From Other LR"
+    },
+    "REGISTRATION":{
+       "CATEGORY":"Registration Category",
+       "SUB_CATEGORY":"Registration Sub Category",
+       "REGISTRATION_FEE":"Registration Fee",
+       "REQUEST_HISTORY":"Registration Request History",
+       "TITLE_REGISTRATION_REQUEST_DETAILS":"Registration Request Details"
+    },
+    "STATUS":{
+       "COMPLETED":"Completed",
+       "PENDING":"Pending",
+       "INCOMPLETE":"Incomplete"
+    },
+    "TRUST":{
+       "TRUST_REGISTRATION_REQ_DETAILS":"Trust Registration Request Details",
+       "TRUST_NO":"Trust No",
+       "TRUST":"Trust",
+       "NAME":"Name of Trust",
+       "TRUST_ADDRESS":"Address of Trust",
+       "TRUST_PURPOSE":"Purpose of Trust"
+    },
+    "ATTEST":{
+       "ATTESTED_DATE":"Attested Date",
+       "ATTESTED_PERSON_DETAILS":"Attested Person Details",
+       "ATTESTED_PERSON":"Attested Person",
+       "TITLE_ASSIGN_ATTESTED_PERSON_FOR_ALL_REQUESTS":"Assign Attested Person For All Requests"
+    },
+    "DEED":{
+       "DEED_NO":"Deed No",
+       "DEED_LANG":"Deed Language",
+       "DEED":"Deed",
+       "CASE_ID":"Case ID"
+    },
+    "REGISTRATION_CLERK":{
+       "SELECT_REGISTRATION_CLERK":"Select Registration Clerk"
+    },
+    "TYPES":{
+       "MOVABLE":"Movable",
+       "LDO":"LDO",
+       "NORMAL":"Normal",
+       "TRUST":"Trust"
+    },
+    "SCHEDULE":{
+       "SELECT_SCHEDULE_DETAILS":"Select Schedule Details",
+       "SCHEDULE_TYPE":"Schedule Type",
+       "SELECT_SCHEDULE_TYPES":"--Select Schedule Type--",
+       "NEW":"New",
+       "CARRIED_OVER":"Carried Over",
+       "SUBDIVISION":"Subdivision",
+       "AMALGAMATION":"Amalgamation",
+       "CLOSE_NOTE":"Close Note",
+       "TRANSACTION":"Transaction"
+    },
+    "ALERT":{
+       "TITLE":{
+          "SERVER_ERROR":"Internal Server Error!",
+          "VALIDATION_ERROR":"Error!",
+          "SUCCESS":"Success",
+          "VALID_DATA":"Please Select Valid Data",
+          "NO_RESULT":"No result found",
+          "PLEASE_FILL":"Please fill the form..!",
+          "PLEASE_AT_LEAST_ONE":"Please, select at least one item !",
+          "WARNING":"Warning"
+       },
+       "CONFIRM_MESSAGE":{
+          "SUBMIT_APPLICATION":"Are you sure, you want to submit this application?",
+          "SUBMIT":"Are you sure?",
+          "CONFIRM_SUBMIT":"Are you want to submit?"
+       },
+       "MESSAGE":{
+          "SUBMITTED_SUCCESS":"Successfully submitted!",
+          "REMARK_ADDED":"Insert your remark here",
+          "ACTIVATED_SUCCESS":"Successfully activated!",
+          "DEACTIVATED_SUCCESS":"Successfully deactivated!",
+          "ASSIGNED_SUCCESS":"Successfully assigned!",
+          "FOLIO_NOT_FOUND":"Folio not found",
+          "LR_NOT_FOUND":"Land Registries not found",
+          "FOLIO_EXIST":"Folio already exist"
+       },
+       "WARNING":{
+          "FOLIO_NOT_FOUND":"Folio not found!",
+          "INTERNAL_SERVER_ERROR":"Internal Server Error!",
+          "SCHEDULE_TYPE_REQUIRED":"Schedule Type Required!",
+          "VILLAGE_NOT_FOUND_FOR_GN":"Villages not found for selected GN Division!",
+          "ASSIGN_USER_SELECT_ERR":"Please, select registration clerk before submit!"
+       }
+    },
+    "VALIDATION":{
+       "STATUS_SELECT_ERR":"Please Select Status!",
+       "DESCRIPTION_EMPTY_ERR":"Please Enter Description",
+       "CATEGORY_SELECT_ERR":"Please select a Category",
+       "NAME_EMPTY_ERR":"Please Enter the Name",
+       "NO_RESULT_ERR":"No Result Found.",
+       "VALUE_EMPTY_ERR":"Please enter Value",
+       "STAMPFEE_EMPTY_ERR":"Please enter Stamp Fees",
+       "DUPLICATE_STAMPFEE_REQ":"Duplicate Stamp Fee Required",
+       "FOLIO_COMBINATION_EXISTS_ERR":"Combination of this Folio number already exists",
+       "VALIDATING_FOLIO_NO":"Validating Folio number....",
+       "NAME_IS_REQUIRED":"Name is Required",
+       "NIC_IS_REQUIRED":"NIC is Required",
+       "INVALID_NIC":"Invalid NIC Number",
+       "EXIST_NIC":"This is existing NIC number",
+       "PERM_ADDRESS_REQUIRED":"Permanent Address is Required",
+       "INVALID_ADDRESS":"Invalid Address",
+       "INVALID_NAME":"Invalid Name",
+       "INVALID_TELE_REQUIRED":"Invalid Telephone Number",
+       "INVALID_EMAIL":"Invalid Email Address",
+       "EMAIL_EMPTY_ERR":"Please Enter Email Address!",
+       "CONTACT_EMPTY_ERR":"Please Enter Contact No!",
+       "FAX_EMPTY_ERR":"Please Enter Fax No!",
+       "CONTACT_NAME_EMPTY_ERR":"Please Enter Contact Person Name!",
+       "CONTACT_MOBILE_EMPTY_ERR":"Please Enter Contact Person Phone No!",
+       "LOCATION":{
+          "LOCATION_EMPTY_ERR":"Please Enter Location"
+       },
+       "DESIGNATION":{
+          "DESIGNATION_CODE_ERR":"Please Enter Designation Code",
+          "DESIGNATION_EMPTY_ERR":"Please Enter Designation"
+       },
+       "KORALE":{
+          "KORALE_EMPTY_ERR":"Please Enter Korale Details"
+       },
+       "LAND_REGISTRY_DIVISIONS":{
+          "LR_SELECT_ERR":"Please Select a Land Registry",
+          "LRDIVISION_SELECT_ERR":"Please Select Land Registry Division",
+          "DIVISION_CODE_EMPTY_ERR":"Please enter Division Code!",
+          "LR_DIVISION_REQ":"L/R Division Required"
+       },
+       "PATHTHUWA":{
+          "KORALE_SELECT_ERR":"Please Select Korale",
+          "PATHTHUWA_EMPTY_ERR":"Please enter Paththuwa Details",
+          "PATHTHUWA_SELECT_ERR":"Please select Paththuwa"
+       },
+       "DS_DIVISION":{
+          "DISTRICT_SELECT_ERR":"Please Select a District!",
+          "DSDIVISION_CODE_EMPTY_ERR":"Please enter Ds-Division Code",
+          "DSDIVISION_SELECT_ERR":"Please Select Ds-Division"
+       },
+       "GN_DIVISION":{
+          "GNDIVISION_CODE_EMPTY_ERR":"Please enter Gn-Division Code",
+          "GNDIVISION_SELECT_ERR":"Please Select Gn-Division",
+          "GN_DIVISION_REQ":"G/N Division Required"
+       },
+       "VILLAGE":{
+          "VILLAGE_CODE_EMPTY_ERR":"Please enter Village Code"
+       },
+       "BANK":{
+          "BANK_EMPTY_ERR":"Please enter Bank Details",
+          "BRANCH_NAME_EMPTY_ERR":"Please enter Branch Name",
+          "BRANCH_CODE_EMPTY_ERR":"Please enter Branch Code",
+          "BANK_SELECT_ERR":"Please Select Bank",
+          "BRANCH_ADDRESS_EMPTY_ERR":"Please enter Branch Address",
+          "BRANCH_CONTACTNO_EMPTY_ERR":"Please enter Branch Contact No"
+       },
+       "PROVINCIAL_COUNCIL":{
+          "PROVINCIAL_COUNCIL_CODE_EMPTY_ERR":"Please enter Provincial Council Code",
+          "PROVINCIAL_COUNCIL_REQ":"Provincial Council Required"
+       },
+       "CONTACT_DETAILS":{
+          "ADDRESS_EMPTY_ERR":"Please enter the Address",
+          "CONTACT_NO_EMPTY_ERR":"Please enter valid Contact Number",
+          "EMAIL_EMPTY_ERR":"Please enter a valid Email Address",
+          "FAX_EMPTY_ERR":"Please enter a valid Fax",
+          "NAME_EMPTY_ERR":"Please enter the Name",
+          "NIC_EMPTY_ERR":"Please enter valid Identification"
+       },
+       "ZONAL":{
+          "ZONAL_SELECT_ERR":"Please Select a Zonal"
+       },
+       "PROVINCE":{
+          "PROVINCE_SELECT_ERR":"Please Select a Province!"
+       },
+       "PAYMENT":{
+          "PAYMENT_MODE_ERR":"Please Select Payment Mode"
+       },
+       "DOCUMENT":{
+          "DOCUMENT_TYPE_SELECT_ERR":"Please Select Document Type",
+          "DOCUMENT_NATURE_SELECT_ERR":"Please Select Document Nature",
+          "DOCUMENT_SUB_NATURE_SELECT_ERR":"Please Select Document Sub Nature",
+          "PARTICULAR_EMPTY_ERR":"Please enter particular details"
+       },
+       "ATTEST":{
+          "ATTESTED_DATE_ERR":"Please enter Attested Date",
+          "ATTESTED_DATE_LATE_FINE_WARN":"There is a Rs: {{value1}} fine charge for  {{value2}}  late day(s)"
+       },
+       "DEED":{
+          "DEED_NO_EMPTY_ERR":"Please enter Deed No",
+          "DEED_LANG_SELECT_ERR":"Please select Deed Language"
+       },
+       "RECEIPT":{
+          "RECEIPT_NO_ERR":"Please enter valid Receipt No"
+       },
+       "POST":{
+          "REGISTERED_POST_NO_ERR":"Please enter valid Registered Post No"
+       }
+    },
+    "RGD_OFFICE_DETAILS":{
+       "SEARCH_TITLE":"Search RGD Office",
+       "POPUP_TITLE":"RGD OFFICE",
+       "SEARCH_NAME":"Name",
+       "RGD_EMPTY_ERR":"Please Select Rdg Office!"
+    },
+    "APPLICATIONS":{
+       "APPLICATIONS":"Applications",
+       "REF_NO":"Ref. No",
+       "DOC_TYPE":"Doc. Type",
+       "CAVEAT_REQUEST_SEARCH":"Caveat Request Search",
+       "DAY_BOOK_NUM":"Day Book Number",
+       "REQUEST_LIST":"Request List",
+       "NATURE":"Nature",
+       "SUB_NATURE":"Sub nature",
+       "ATTESTED_DATE":"Attested Date",
+       "COURT_ORDER_REQUEST_SEARCH":"Court Order Request Search",
+       "SEARCH_EXISTING_NOTARY":"Search Existing Notary",
+       "ID":"ID",
+       "NOTARY_CODE":"Notary Code",
+       "NOTARY_REQUEST_ID":"Notary Request ID"
+    },
+    "DASHBOARD":{
+       "ONE_DAY_REQUESTS":"One Day Requests",
+       "REQUESTS_PENDING":"Requests pending",
+       "INCOMPLETE_REQUESTS":"Incomplete Requests",
+       "COMPLETED_REQUESTS":"Completed Requests",
+       "PENDING_REQUESTS":"Pending Requests"
+    },
+    "CAVEAT":{
+       "NAME":"Caveator Name",
+       "ADDRESS":"Caveator Address",
+       "TELEPHONE":"Caveator Telephone",
+       "EMAIL":"Caveator Email",
+       "BUTTON":"Caveator",
+       "NO_RECORDS":"No Caveators",
+       "LIST":"Caveator List",
+       "VALID":"Valid Until",
+       "GENERATE":"Generate",
+       "NP_NAME":"Notice Person Name",
+       "NP_ADDRESS":"Notice Person Address",
+       "NP_TELEPHONE":"Notice Person Telephone",
+       "NP_EMAIL":"Notice Person Email"
+    },
+    "TRANSACTION":{
+       "VIEW":"View Transactions",
+       "LIST":"Transaction List",
+       "TEXT":"Transaction",
+       "ID":"Transaction Id"
+    },
+    "DOC_TYPE":{
+       "DEE":"Deed/Document",
+       "CAV":"Caveat"
+    },
+    "NOTARY_SEARCH":{
+       "BACK_TO_SEARCH":"Back to Notary Search"
+    },
+    "PUBLIC_USER":{
+       "USER_TYPE":"User Type",
+       "APPLICATION_TITLE":"Application for public user registration",
+       "NEAREST_LR":"The land registry nearest to the applicant address",
+       "BANK_USER_TYPE":"Bank User Type",
+       "LAW_FIRM_NAME":"Law Firm Name",
+       "STATE_INSTITUTE":{
+          "NAME":"State Institution Name"
+       },
+       "OTHER_INSTITUTE":{
+          "NAME":"Other Institution Name"
+       },
+       "ADDRESS":{
+          "LINE_ONE":"Address Line 1",
+          "LINE_TWO":"Address Line 2 ",
+          "LINE_THREE":"Address Line 3"
+       },
+       "REASON":"Reason for application"
+    },
+    "NOTIFICATION":{
+       "TITLE":"Notification",
+       "SELECT":"--Please Select--",
+       "PAPER_NOTICE":"Paper Notice",
+       "GAZETTE_NOTICE":"Gazette Notice",
+       "NAME":"Name",
+       "DATE":"Date",
+       "SIN":"Sinhala",
+       "ENG":"English",
+       "TAM":"Tamil",
+       "FOLIO":"Volume and Folio where notification filled",
+       "FOLIO_NO":"Folio No",
+       "DB_NO":"Daybook No",
+       "NAMES":"Names"
+    }
+ }
