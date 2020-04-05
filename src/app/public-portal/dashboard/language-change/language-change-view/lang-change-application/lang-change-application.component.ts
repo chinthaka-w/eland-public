@@ -142,12 +142,12 @@ languageChange(code: number): void {
     addressEng: [this.langChangeViewForm.value.addressEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
     addressSin: [this.langChangeViewForm.value.addressSin, code === this.langMode.SINHALA ? [Validators.required] : null],
     addressTam: [this.langChangeViewForm.value.addressTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-    startingDate: [this.langChangeViewForm.value.startingDate, [Validators.required]],
-    highCourtCertificateYear: [this.langChangeViewForm.value.highCourtCertificateYear, [Validators.required]],
-    lrName: [this.langChangeViewForm.value.lrName, [Validators.required]],
-    returnAttestedStatus: [this.langChangeViewForm.value.returnAttestedStatus, null],
-    unavailableTimePeriod: [this.langChangeViewForm.value.unavailableTimePeriod, null],
-    date: [this.langChangeViewForm.value.date, [Validators.required]]
+    // startingDate: [this.langChangeViewForm.value.startingDate, [Validators.required]],
+    // highCourtCertificateYear: [this.langChangeViewForm.value.highCourtCertificateYear, [Validators.required]],
+    // lrName: [this.langChangeViewForm.value.lrName, [Validators.required]],
+    // returnAttestedStatus: [this.langChangeViewForm.value.returnAttestedStatus, null],
+    // unavailableTimePeriod: [this.langChangeViewForm.value.unavailableTimePeriod, null],
+    // date: [this.langChangeViewForm.value.date, [Validators.required]]
   });
   // Disable already applied languages
 

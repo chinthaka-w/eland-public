@@ -219,12 +219,12 @@ export class LanguageChangeComponent implements OnInit {
       addressEng: [this.languageChangForm.value.addressEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
       addressSin: [this.languageChangForm.value.addressSin, code === this.langMode.SINHALA ? [Validators.required] : null],
       addressTam: [this.languageChangForm.value.addressTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      startingDate: [this.languageChangForm.value.startingDate, [Validators.required]],
-      highCourtCertificateYear: [this.languageChangForm.value.highCourtCertificateYear, [Validators.required]],
-      lrName: [this.languageChangForm.value.lrName, [Validators.required]],
-      returnAttestedStatus: [this.languageChangForm.value.returnAttestedStatus, null],
-      unavailableTimePeriod: [this.languageChangForm.value.unavailableTimePeriod, null],
-      date: [this.languageChangForm.value.date, [Validators.required]]
+      // startingDate: [this.languageChangForm.value.startingDate, [Validators.required]],
+      // highCourtCertificateYear: [this.languageChangForm.value.highCourtCertificateYear, [Validators.required]],
+      // lrName: [this.languageChangForm.value.lrName, [Validators.required]],
+      // returnAttestedStatus: [this.languageChangForm.value.returnAttestedStatus, null],
+      // unavailableTimePeriod: [this.languageChangForm.value.unavailableTimePeriod, null],
+      // date: [this.languageChangForm.value.date, [Validators.required]]
     });
     // Disable already applied languages
 
@@ -316,7 +316,7 @@ export class LanguageChangeComponent implements OnInit {
     const langPayment: PaymentDto = new PaymentDto();
     langPayment.paymentId = paymentId;
     model.payment = langPayment;
-
+console.log("model: ", model)
     this.formData.append('model', JSON.stringify(model));
     // save form data
     this.languageChangeService.saveLanguageChange(this.formData).subscribe(

@@ -41,6 +41,7 @@ import {NotaryLeaveRequestService} from "./shared/service/notary-leave-request.s
 import {NotaryResignationService} from "./shared/service/notary-resignation.service";
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -76,7 +77,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    AngularFontAwesomeModule
   ],
   providers: [MatDatepickerModule,
     HttpClient,
