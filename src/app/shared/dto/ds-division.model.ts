@@ -4,5 +4,6 @@ export class DsDivision {
   public description: string;
   public descriptionSin: string;
   public descriptionTam: string;
-  public selected:boolean;
+  public selected: boolean;
+  public divisionId: number;
 }

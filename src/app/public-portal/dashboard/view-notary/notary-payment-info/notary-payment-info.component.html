@@ -22,8 +22,10 @@
 </form>
 <div *ngIf="isPayment" class="container">
   <app-payment (response)="getPaymentData($event)"
-               (paymentMethodResponse)="getPaymentData($event)"
+               (paymentMethodResponse)="addOnlinePayment($event)"
                [applicationFeeCode]="applicationFeeCode"
+               [returnUrl]="returnUrl"
+               [statusOnlinePayment]="statusOnlinePayment"
                [hasFrontCounterPayment]="hasFrontCounterPayment"
                [isDocumentCollect]="isDocumentCollect"
                [workflowCode]="workflow"

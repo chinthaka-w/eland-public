@@ -29,15 +29,15 @@ onlinePaymentForm: FormGroup;
 
   ngOnInit() {
     // set payment confirmation details if payment id not available
-    if (!this.route.snapshot.paramMap.get('id')) {
+    if (!this.route.snapshot.paramMap.get('paymentId')) {
 
       this.loadForm();
       this.showEncryptedPaymentRequest = true;
       this.initTransaction();
     }
     // show payment summary
-    if (this.route.snapshot.paramMap.get('id')) {
-      this.paymentId = +this.route.snapshot.paramMap.get('id');
+    if (this.route.snapshot.paramMap.get('paymentId')) {
+      this.paymentId = +this.route.snapshot.paramMap.get('paymentId');
       this.loadForm();
       this.showPaymentResult = true;
       this.getPaymentResult(this.paymentId);

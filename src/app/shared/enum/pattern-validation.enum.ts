@@ -3,7 +3,7 @@ export enum PatternValidation {
   nicValidation = '[0-9]{12}|[0-9]{9}[x|X|v|V]$',
   emailValidation = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}',
   contactNumberValidation = '(?:0|94|\\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\\d)\\d{6}$',
-  ADDRESS_PATTERN = '^[\'$\"&\\-&.& &,&/&:&A-Za-z0-9\\U+2386\u0D80-\u0DFF\u0B80-\u0BFF\u200D]+$',
+  ADDRESS_PATTERN = '^[\'$\"&\\-&.& &,&/&:&A-Za-z0-9\\U+2386\u0D80-\u0DFF\u0B80-\u0BFF\u200D\n]+$',
   FOLIO_NUMBER = '^[0-9]+/[a-zA-Z0-9]+/[0-9]+/[0-9]+',
   DAY_BOOK_NUMBER = '^[0-9]/[0-9]{1,2}/[0-9]{4}/[0-9]{6}',
   PERSON_NAME_PATTERN = "^[.& &a-zA-Z\u0D80-\u0DFF\u0B80-\u0BFF\u200D]+$",

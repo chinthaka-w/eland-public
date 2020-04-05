@@ -1,7 +1,8 @@
 export class DocumentDTO {
   documentId: number;
-  name:string;
+  name: string;
   type: string;
   reqId: number;
   pages: string[];
+  metaData: any;
 }

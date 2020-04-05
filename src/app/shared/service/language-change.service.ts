@@ -1,6 +1,5 @@
 import { DocumentResponseDto } from './../dto/document-response.dto';
 import { StatusDTO } from './../dto/status-dto';
-import { WorkflowStageDocDto } from './../dto/workflow-stage-doc.dto';
 import { NameTitleDTO } from './../dto/name-title.dto';
 import { Observable } from 'rxjs';
 import { SysConfigService } from './sys-config.service';
@@ -10,6 +9,7 @@ import {LanguageChange} from '../dto/language-change.model';
 import { LanguageRequest } from '../dto/language-request.model';
 import { NewNotaryPaymentDetailDto } from '../dto/new-notary-payment-detail.dto';
 import { NotaryRegistrationHistoryDto } from '../dto/notary-registration-history.dto';
+import { WorkflowStageDocDto } from '../dto/workflow-stage-doc-dto';
 
 @Injectable({
   providedIn: 'root'
