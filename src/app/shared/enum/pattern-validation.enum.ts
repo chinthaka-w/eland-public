@@ -11,6 +11,7 @@ export enum PatternValidation {
   CONTACT_NUMBER_PATTERN = "^(\\+\\d{1,3}[- ]?)?\\d{10}$",
   NIC_PATTERN = "^([0-9]{9}[x|X|v|V]|[0-9]{12})$",
   WITHOUT_SPECIAL_CHARACTES_PATTERN = "^[A-Za-z0-9]+$",
+  WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN = "^[A-Za-z0-9 ]+$",
   SPECIAL_CHARACTES_PATTERN = "[!@#$%^&*(),.?\":{}|<>]",
   FOLIO_CODE_PATTERN = "^([a-zA-Z]{1,9})(\/)([0-9]+)(\/)([0-9]+)$",
   DESIGNATION_PATTERN = '^[-& &,A-Za-z0-9\u0D80-\u0DFF\u0B80-\u0BFF\u200D]+$',
