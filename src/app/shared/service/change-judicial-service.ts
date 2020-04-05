@@ -21,6 +21,10 @@ export class JudicialService {
     return this.httpClient.get(this.BASE_URL + 'landRegistries/get' );
   }
 
+  getAllLandRegistriesByJudicialZone(userId: number): Observable <any> {
+    return this.httpClient.get(this.BASE_URL + 'landRegistries/getList/' + userId );
+  }
+
   getDsDivision(): Observable<any> {
     return this.httpClient.get(this.BASE_URL + 'dsDivision/findAll' );
   }
