@@ -1,32 +1,39 @@
-<div id="payment" class="page-layout simple fullwidth" fxLayout="column">
-  <div class="p-24">
-    <div
-      class="mb-24"
-      fxLayout="column"
-      fxLayoutAlign="start"
-      fxLayout.gt-md="row"
-    >
-    </div>
-  </div>
-</div>
+
 <div class="row">
   <mat-card class="mb-10 mt-10 ml-10 mr-10 mat-elevation-z5" *ngFor="let doc of supportingDocuments; let i = index">
+    <mat-card-header>
+      <mat-card-title>{{doc.name}}</mat-card-title>
+    </mat-card-header>
     <div class="pg-inner-row mb-20">
-      <h5>{{doc.name}}</h5>
-    </div>
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col" style="width: 500px !important; height: 500px !important;">
+      <div class="pg-inner-col">
         <ngx-image-viewer
           [src]="documentImages"
+          [config]="{
+            btnIcons: {
+              zoomIn: 'open_with',
+              zoomOut: 'fa fa-minus',
+              rotateClockwise: 'fa fa-repeat',
+              rotateCounterClockwise: 'fa fa-undo',
+              next: 'fa fa-arrow-right',
+              prev: 'fa fa-arrow-left',
+              fullscreen: 'material-icons open_with'
+            },
+            btnShow: {
+              zoomIn: true,
+              zoomOut: true,
+              rotateClockwise: false,
+              rotateCounterClockwise: false,
+              next: true,
+              prev: true
+            }
+          }"
         >
         </ngx-image-viewer>
       </div>
-      <div class="pg-inner-col">
-
-      </div>
-
     </div>
   </mat-card>
+</div>
+<div *ngIf="enableDocUpload">
   <mat-card *ngFor="let document of docList">
     <div class="default-input-wrapper full-row">
       <label>{{document.description}}
@@ -36,7 +43,7 @@
     </div>
   </mat-card>
 </div>
-<div *ngIf="docList.length!=0" class="pg-inner-col float-right">
+<div *ngIf="docList.length!=0 && enableDocUpload" class="pg-inner-col float-right">
   <button mat-raised-button class="button float-right" type="button" (click)="onFormSubmit($event)">Apply Changes</button>
 </div>
 

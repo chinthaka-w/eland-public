@@ -19,7 +19,7 @@
               <label>Leave Period (From)</label>
               <div class="default-input-feild date-feild">
                 <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="pickerFrom" formControlName="fromDate" class="form-control">
+                  <input matInput [matDatepicker]="pickerFrom" [readonly]="true" formControlName="fromDate" class="form-control">
                   <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
                   <mat-datepicker #pickerFrom></mat-datepicker>
                 </mat-form-field>
@@ -36,7 +36,7 @@
               <label>Leave Period (To)</label>
               <div class="default-input-feild date-feild">
                 <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="pickerTo" formControlName="toDate" class="form-control">
+                  <input matInput [matDatepicker]="pickerTo" [readonly]="true" formControlName="toDate" class="form-control">
                   <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                   <mat-datepicker #pickerTo></mat-datepicker>
                 </mat-form-field>

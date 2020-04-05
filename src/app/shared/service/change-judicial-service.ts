@@ -1,3 +1,4 @@
+import { PaymentDto } from './../dto/payment-dto';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -18,6 +19,10 @@ export class JudicialService {
 
   getAllLandRegistries(): Observable<any> {
     return this.httpClient.get(this.BASE_URL + 'landRegistries/get' );
+  }
+
+  getAllLandRegistriesByJudicialZone(userId: number): Observable <any> {
+    return this.httpClient.get(this.BASE_URL + 'landRegistries/getList/' + userId );
   }
 
   getDsDivision(): Observable<any> {
@@ -58,6 +63,10 @@ export class JudicialService {
 
   findLastRemark(id: number): Observable<any> {
     return this.httpClient.get(this.BASE_URL + 'judicial-zone/getLastRemark/' + id, {headers: this.headersJson});
+  }
+
+  getLandRegistriesByJudicialZone(judicialCode: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'location/landRegistry/byJudicial/' + judicialCode);
   }
 
 }
