@@ -1,3 +1,5 @@
+import { CommonStatus } from './../../../../shared/enum/common-status.enum';
+import { RequestResponse } from './../../../../shared/dto/request-response.model';
 import { NewNotaryDataVarificationService } from './../../../../shared/service/new-notary-data-varification.service';
 import { NewNotaryPaymentDto } from './../../../../shared/dto/new-notary-payment.dto';
 import { PaymentDto } from './../../../../shared/dto/payment-dto';
@@ -97,10 +99,6 @@ export class JudicialChangeRequestViewComponent implements OnInit {
     }
   }
 
-  getSupportingDocs(data: DocumentResponseDto[]){
-    this.docsList = data;
-    this.disabled = true;
-  }
 
   getApplicationDetails(data: JudicialChange){
     this.judicial = data;
@@ -114,8 +112,18 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   }
 
   onFormSubmit(){
-    this.updateDetails();
-    this.updateDocumentDetails(this.docsList);
+    const judicialData = new JudicialChange();
+    judicialData.requestId = this.id;
+    judicialData.workflowCode = JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_MODIFIED;
+
+    this.judicialService.setUserAction(judicialData).subscribe(
+      (response: RequestResponse) => {
+        if  (response.status === CommonStatus.SUCCESS) {
+          this.snackBar.success('Successfully updated');
+          this.router.navigate(['/requests', this.getBase64Url(this.workflowCode)]);
+        }
+      }
+    );
   }
 
   updateDocumentDetails(documents: DocumentResponseDto[]){

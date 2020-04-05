@@ -117,7 +117,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
       if (this.requestDetailPayment.workflow === Workflow.JUDICIAL_ZONE_CHANGE) {
         this.paymentReturnBaseUrl = '/change-judicial-request-view/';
       }
-      this.returnUrl =  + this.paymentReturnBaseUrl +
+      this.returnUrl =  this.paymentReturnBaseUrl +
       btoa(this.requestDetailPayment.workflowStage).split('=')[0] + '/' +
       btoa(this.requestDetailPayment.requestId.toString());
     }

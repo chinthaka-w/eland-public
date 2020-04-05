@@ -228,7 +228,7 @@
                   [disabled]="gsDivision.isSelected">{{ gsDivision.description }}</mat-option>
               </mat-select>
               <div *ngIf="dsDivision.invalid && (dsDivision.touched || dsDivision.dirty)">
-                <mat-error *ngIf="dsDivision.errors.required" class="errors">"Please fill the required fields</mat-error>
+                <mat-error *ngIf="dsDivision.errors.required" class="errors">Please fill the required fields</mat-error>
               </div>
             </div>
           </div>
@@ -246,7 +246,7 @@
                       </mat-option>
                   </mat-select>
                   <div *ngIf="gnDivision.invalid && (gnDivision.touched || gnDivision.dirty)">
-                    <mat-error *ngIf="gnDivision.errors.required" class="errors">"Please fill the required fields</mat-error>
+                    <mat-error *ngIf="gnDivision.errors.required" class="errors">Please fill the required fields</mat-error>
                   </div>
             </div>
           </div>
@@ -263,7 +263,7 @@
               <label>{{document.description}}
                 <span *ngIf="document.required == true">*</span>
               </label>
-              <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+              <file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>
             </div>
           </div>
         </ng-container>
@@ -282,7 +282,7 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
-          <button [disabled]="!judicialChangeForm.valid" mat-raised-button class="lg-button" (click)="continue()">
+          <button [disabled]="!(judicialChangeForm.valid && isRequiredDocsUpload)" mat-raised-button class="lg-button" (click)="continue()">
             Continue
           </button>
         </div>

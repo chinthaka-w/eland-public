@@ -4,4 +4,6 @@ export enum CommonStatus {
   PENDING = "PENDING",
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
+  REQUIRED = 'REQUIRED',
+  OPTIONAL = 'OPTIONAL'
 }
