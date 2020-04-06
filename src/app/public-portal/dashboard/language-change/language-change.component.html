@@ -348,9 +348,16 @@
     <div class="page-content-wrapper" *ngIf="showPayment">
         <div class="page-content-inner-wrapper">
             <div>
-                <app-payment (response)="getPaymentData($event)"
-                    [applicationFeeCode]="parameters.NOTARY_REG_LANGUAGE_CHANGE" [hasFrontCounterPayment]="false"
-                    [isDocumentCollect]="true" [workflowCode]="workflowStage.LANGUAGE_CHANGE_REQUEST_INIT"></app-payment>
+                <app-payment 
+                (response)="getPaymentData($event)" 
+                (paymentMethodResponse) = paymentMethodResponse($event) 
+                [statusOnlinePayment] = "statusOnlinePayment"
+                [returnUrl]="returnURl"
+                (back)="onBack($event)"
+                [applicationFeeCode]="parameters.NOTARY_REG_LANGUAGE_CHANGE" 
+                [hasFrontCounterPayment]="false"
+                [isDocumentCollect]="true" 
+                [workflowCode]="workflowStage.LANGUAGE_CHANGE_REQUEST_INIT"></app-payment>
             </div>
         </div>
     </div>

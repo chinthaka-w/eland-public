@@ -15,6 +15,8 @@ import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../../../shared/auth/token-storage.service';
 import {SessionService} from '../../../shared/service/session.service';
 import {LanguageChange} from '../../../shared/dto/language-change.model';
+import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
+
 
 @Component({
   selector: 'app-language-change',
@@ -35,6 +37,10 @@ export class LanguageChangeComponent implements OnInit {
   formData: FormData = new FormData();
   parameters = Parameters;
   workflowStage = LanguageChangeWorkflowStages;
+  returnURl: string;
+  paymentMethod: number;
+  paymentDto: PaymentDto = new PaymentDto();
+  statusOnlinePayment: boolean = false;
 
   constructor(private formBulder: FormBuilder,
               private languageChangeService: LanguageChangeService,
@@ -298,11 +304,13 @@ export class LanguageChangeComponent implements OnInit {
 
   // Save language change request after payment
   getPaymentData(paymentData: PaymentResponse): void {
-    console.log('payment data', paymentData.paymentId);
-    this.saveRegistrationData(this.fileList, this.languageChangForm.value, paymentData.paymentId);
+
+    const langPayment: PaymentDto = new PaymentDto();
+    langPayment.paymentId = paymentData.paymentId;
+    this.saveRegistrationData(this.fileList, this.languageChangForm.value, langPayment);
   }
 
-  saveRegistrationData(fileList: object, model: LanguageChange, paymentId: number) {
+  saveRegistrationData(fileList: object, model: LanguageChange, paymentData: PaymentDto) {
     // add files to FormData
     const keys = Object.keys(fileList);
     for (const index in keys) {
@@ -313,16 +321,18 @@ export class LanguageChangeComponent implements OnInit {
 
     model.workflowStage = LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT;
     model.id = this.sessionService.getUser().id;
-    const langPayment: PaymentDto = new PaymentDto();
-    langPayment.paymentId = paymentId;
-    model.payment = langPayment;
-console.log("model: ", model)
+    model.payment = paymentData;
     this.formData.append('model', JSON.stringify(model));
     // save form data
     this.languageChangeService.saveLanguageChange(this.formData).subscribe(
       (result) => {
+        if(paymentData.paymentMethod == PaymentMethod.ONLINE){
+          this.returnURl = `requests/${btoa(Workflow.LANGUAGE_CHANGE)}`;
+          this.statusOnlinePayment = true;
+        }
+        else{
         this.snackBarService.success('Request submitted successfully!');
-        this.router.navigate(['/requests', btoa(Workflow.LANGUAGE_CHANGE)]);
+        }
       },
       error => {
         this.snackBarService.error('Error in Save!');
@@ -331,5 +341,21 @@ console.log("model: ", model)
     );
   }
 
+  paymentMethodResponse(data: PaymentResponse) {
+    this.paymentMethod = data.paymentMethod;
+
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
+
+      this.paymentDto.referenceNo = data.transactionRef;
+      this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.paymentDto.paymentMethod = PaymentMethod.ONLINE;
+      this.saveRegistrationData(this.fileList, this.languageChangForm.value, this.paymentDto);
+    }
+
+  }
+
+  onBack(data: boolean) {
+    this.showPayment = false;
+  }
 
 }

@@ -72,6 +72,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log("xxxxx: ",this.statusOnlinePayment);
     if (changes['statusOnlinePayment']) {
       if (this.statusOnlinePayment) {
         this.isContinueToPayment = true;
