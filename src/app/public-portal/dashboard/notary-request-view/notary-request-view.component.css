@@ -1,0 +1,29 @@
+/* Structure */
+table {
+  width: 100%;
+  background-color: white;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.mat-cell  {
+  color: #5c5c5c;
+  text-align: center;
+}
+
+.mat-header-cell {
+  color: #5c5c5c;
+  text-align: center;
+}
+
+.mat-header-row {
+  color: white;
+}
+
+.button {
+  margin-left: 765%;
+  background-color: #c7c7c7;
+  color: white;
+}

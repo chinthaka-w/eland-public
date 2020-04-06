@@ -40,6 +40,8 @@ export class NotaryPaymentInfoComponent implements OnInit {
   paymentReturnBaseUrl: string;
 
 
+  @Input() editable : boolean = false;
+
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
 
   public type = ApplicationRequestDataType.PAYMENT;

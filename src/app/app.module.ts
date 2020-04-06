@@ -26,19 +26,19 @@ import { GridComponent } from './grid/grid.component';
 import {JudicialZoneService} from './shared/service/judicial-zone.service';
 import {BankService} from './shared/service/bank.service';
 import {BankBranchService} from './shared/service/bank-branch.service';
-import {PaymentService} from "./shared/service/payment.service";
-import {ParameterService} from "./shared/service/parameter.service";
-import {TokenStorageService} from "./shared/auth/token-storage.service";
-import {NewNotaryDataVarificationService} from "./shared/service/new-notary-data-varification.service";
-import {MatCardModule} from "@angular/material/card";
-import {ImageViewerModule} from "ngx-image-viewer";
-import {MatTableModule} from "@angular/material/table";
-import {SupportingDocService} from "./shared/service/supporting-doc.service";
-import {CitizenService} from "./shared/service/citizen.service";
-import {RequestForCorrectionService} from "./shared/service/request-for-correction.service";
-import {ChangeNameService} from "./shared/service/change-name.service";
-import {NotaryLeaveRequestService} from "./shared/service/notary-leave-request.service";
-import {NotaryResignationService} from "./shared/service/notary-resignation.service";
+import {CitizenService} from './shared/service/citizen.service';
+import {NotaryResignationService} from './shared/service/notary-resignation.service';
+import {NotaryLeaveRequestService} from './shared/service/notary-leave-request.service';
+import {ParameterService} from './shared/service/parameter.service';
+import {TokenStorageService} from './shared/auth/token-storage.service';
+import {SupportingDocService} from './shared/service/supporting-doc.service';
+import {NewNotaryDataVarificationService} from './shared/service/new-notary-data-varification.service';
+import {RequestForCorrectionService} from './shared/service/request-for-correction.service';
+import {ChangeNameService} from './shared/service/change-name.service';
+import {MatCardModule, MatTableModule} from '@angular/material';
+import {ImageViewerModule} from 'ngx-image-viewer';
+import {PaymentService} from './shared/service/payment.service';
+import {NotaryRequestService} from './shared/service/notary-request.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -97,6 +97,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     NewNotaryDataVarificationService,
     RequestForCorrectionService,
     ChangeNameService,
+    NotaryRequestService,
     {provide : LocationStrategy , useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
