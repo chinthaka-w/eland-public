@@ -883,5 +883,9 @@
        "FOLIO_NO":"Folio No",
        "DB_NO":"Daybook No",
        "NAMES":"Names"
+    },
+    "CITIZEN":{
+      "TITLE":"The land registry nearest to the applicant address"
+
     }
  }
