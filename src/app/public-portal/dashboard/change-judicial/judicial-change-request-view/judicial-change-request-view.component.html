@@ -22,7 +22,7 @@
         <app-notary-remark [workflow]="workflowCode" [id]="id"></app-notary-remark>
       </mat-tab>
       <mat-tab label="Supporting Documents">
-      <app-supporting-doc-detail [enableDocUpload]="enableFormEdit" [workflow]="workflow" [id]="id" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
+      <app-supporting-doc-detail [enableDocUpload]="enableFormEdit" [workflow]="workflowCode" [id]="id"></app-supporting-doc-detail>
       </mat-tab>
     </mat-tab-group>
     <button *ngIf="enableFormEdit" mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>

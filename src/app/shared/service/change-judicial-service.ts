@@ -69,4 +69,8 @@ export class JudicialService {
     return this.httpClient.get(this.BASE_URL + 'location/landRegistry/byJudicial/' + judicialCode);
   }
 
+  setUserAction(judicialData: JudicialChange): Observable<any> {
+    return this.httpClient.post<any>(this.BASE_URL + 'judicial-zone/setAction', judicialData);
+  }
+
 }
