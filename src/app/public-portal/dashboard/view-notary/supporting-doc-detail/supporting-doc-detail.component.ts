@@ -20,6 +20,7 @@ import {RequestSearchDetailDTO} from '../../../../shared/dto/request-search.dto'
 export class SupportingDocDetailComponent implements OnInit {
   @Input()
   files: File[] = [];
+  @Input() enableDocUpload = false;
   public requestId: RequestSearchDetailDTO;
   @Input() requestDocuments: RequestSearchDetailDTO;
   @Input() id: number;

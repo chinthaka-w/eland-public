@@ -1,4 +1,5 @@
 export class RequestSearchDetailDTO {
+  public workflowStage: string;
   constructor(
     public notaryId: number,
     public requestId: number,

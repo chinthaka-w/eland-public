@@ -78,6 +78,11 @@ export class PaymentComponent implements OnInit, OnChanges {
         this.showSpinner = false;
       }
     }
+    if (changes['returnUrl']) {
+      if (this.newReturnUrl) {
+        this.newReturnUrl = btoa(this.returnUrl);
+      }
+    }
   }
 
   getApplicationAmount(parameterCode: any): void {

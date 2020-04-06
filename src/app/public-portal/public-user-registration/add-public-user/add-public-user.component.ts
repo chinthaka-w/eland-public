@@ -42,7 +42,7 @@ export class AddPublicUserComponent implements OnInit {
   citizenDTO: CitizenDTO = new CitizenDTO();
   paymentDto: PaymentDto = new PaymentDto();
   workflowStageDocTypes: Array<WorkflowStageDocTypeDTO> = [];
-
+  maxDate = new Date();
   bankUserTypeId: number;
 
   banks: Array<BankDTO> = [];
@@ -104,9 +104,11 @@ export class AddPublicUserComponent implements OnInit {
         Validators.pattern(PatternValidation.ADDRESS_PATTERN),
         Validators.maxLength(255)
       ]),
-      identificationNo: new FormControl("",
-        [Validators.required,
-          Validators.maxLength(15)]),
+      identificationNo: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(15),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]),
       identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl("",
         [Validators.required,
@@ -130,7 +132,6 @@ export class AddPublicUserComponent implements OnInit {
     this.getAllLandRegistries();
     this.getAllBanks();
     this.citizenDTO.userType = this.PublicUserType.CITIZEN;
-    this.publicUserForm.patchValue({type: this.citizenDTO.userType});
     this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
     this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
     this.disableUselessFormControls(this.citizenDTO.userType);
@@ -398,7 +399,7 @@ export class AddPublicUserComponent implements OnInit {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.citizenDTO.payment = this.paymentDto;
-      this.returnURl = this.getBase64('login');
+      this.returnURl = ('login');
       this.saveCitizen();
     }
 
