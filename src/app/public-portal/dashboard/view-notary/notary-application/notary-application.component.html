@@ -413,11 +413,11 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <label>Title: <span class="redtxt">*</span></label>
-      <mat-select formControlName="title" class="form-control">
-        <mat-option value="" disabled>--Select--</mat-option>
-        <mat-option [value]="NameTitle.Mr">Mr</mat-option>
-        <mat-option [value]="NameTitle.Mrs">Mrs</mat-option>
-        <mat-option [value]="NameTitle.Miss">Miss</mat-option>
+      <mat-select  formControlName="title" class="form-control">
+        <mat-option [value]="''" disabled>--Select--</mat-option>
+        <mat-option *ngFor="let item of nameTitles" [value]="item.nameTitleId">
+          {{item.titleEng}}
+        </mat-option>
       </mat-select>
       <div *ngIf="FormControls.title.touched && FormControls.title.errors"
            class="invalid-feedback">

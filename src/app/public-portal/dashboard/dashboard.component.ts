@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Workflow } from '../../shared/enum/workflow.enum';
-import { SessionService } from 'src/app/shared/service/session.service';
-import { UserType } from 'src/app/shared/enum/user-type.enum';
-import { NotaryService } from "../../shared/service/notary-service";
-import { RequestSearchDetailDTO } from "../../shared/dto/request-search.dto";
-import { CommonStatus } from "../../shared/enum/common-status.enum";
-import { MatDialog } from '@angular/material';
-import { FolioViewComponent } from 'src/app/shared/components/folio-view/folio-view.component';
-import { FolioService } from 'src/app/shared/service/folio.service';
-import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
-import { FolioDto } from 'src/app/shared/dto/folio-dto.model';
-import { DocumentType } from 'src/app/shared/enum/document-type.enum';
-import { SystemService } from 'src/app/shared/service/system.service';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Workflow} from '../../shared/enum/workflow.enum';
+import {SessionService} from 'src/app/shared/service/session.service';
+import {UserType} from 'src/app/shared/enum/user-type.enum';
+import {NotaryService} from '../../shared/service/notary-service';
+import {RequestSearchDetailDTO} from '../../shared/dto/request-search.dto';
+import {CommonStatus} from '../../shared/enum/common-status.enum';
+import {MatDialog} from '@angular/material';
+import {FolioViewComponent} from 'src/app/shared/components/folio-view/folio-view.component';
+import {FolioService} from 'src/app/shared/service/folio.service';
+import {SnackBarService} from 'src/app/shared/service/snack-bar.service';
+import {FolioDto} from 'src/app/shared/dto/folio-dto.model';
+import {DocumentType} from 'src/app/shared/enum/document-type.enum';
+import {SystemService} from 'src/app/shared/service/system.service';
+import {NewNotaryRegistrationWorkflowStage} from '../../shared/enum/new-notary-registration-workflow-stage.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,9 @@ export class DashboardComponent implements OnInit {
   user;
   userType = UserType;
   Workflow = Workflow;
+
+  NotrayWorkflowStage = NewNotaryRegistrationWorkflowStage;
+
   public searchDetails: RequestSearchDetailDTO;
   public dashboardView: boolean = false;
   public requestView: boolean = false;
@@ -67,9 +71,28 @@ export class DashboardComponent implements OnInit {
     this.requestView = true;
   }
 
+  getStatus(): string {
+    let status = 'Pending Approval';
+    if (this.searchDetails) {
+
+      switch (this.searchDetails.workflow) {
+        case NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_SC_ISSUED:
+          status = 'Approved';
+          break;
+        case NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_ARG_APPROVED:
+          status = 'Approved';
+          break;
+        case NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED:
+          status = 'Further Document Pending';
+          break;
+      }
+    }
+    return status;
+  }
+
   viewFolio() {
 
-    this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: this.folioNo });
+    this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: this.folioNo});
 
     // this.folioPending = true;
 
@@ -99,7 +122,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
       },
       (error) => {
         this.folioPending = false;
@@ -112,7 +135,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
       },
       (error) => {
         this.folioPending = false;
@@ -125,7 +148,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
       },
       (error) => {
         this.folioPending = false;
@@ -138,7 +161,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
       },
       (error) => {
         this.folioPending = false;
@@ -151,7 +174,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
       },
       (error) => {
         this.folioPending = false;
@@ -164,7 +187,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
       },
       (error) => {
         this.folioPending = false;
@@ -177,7 +200,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
+        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
       },
       (error) => {
         this.folioPending = false;
@@ -185,8 +208,9 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
-  
+
   onBackNotaryView(val: boolean) {
+    if (this.user.type == this.userType.NOTARY) this.getUserDetails();
     this.dashboardView = true;
     this.requestView = false;
   }

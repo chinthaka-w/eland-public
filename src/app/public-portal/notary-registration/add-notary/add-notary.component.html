@@ -30,11 +30,11 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <label>Title: <span class="redtxt">*</span></label>
-          <mat-select formControlName="title" class="form-control">
+          <mat-select  formControlName="title" class="form-control">
             <mat-option [value]="''" disabled>--Select--</mat-option>
-            <mat-option [value]="NameTitle.Mr">Mr</mat-option>
-            <mat-option [value]="NameTitle.Mrs">Mrs</mat-option>
-            <mat-option [value]="NameTitle.Miss">Miss</mat-option>
+            <mat-option *ngFor="let item of nameTitles" [value]="item.nameTitleId">
+              {{item.titleEng}}
+            </mat-option>
           </mat-select>
           <div *ngIf="FormControls.title.touched && FormControls.title.errors"
                class="invalid-feedback">
@@ -525,7 +525,9 @@
               </mat-form-field>
               <div *ngIf="FormControls.enrolledDate.touched && FormControls.enrolledDate.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.enrolledDate.errors.required" class="errors">Enrolled date as an Attorney at LAW is required</mat-error>
+                <mat-error *ngIf="FormControls.enrolledDate.errors.required" class="errors">Enrolled date as an Attorney
+                  at LAW is required
+                </mat-error>
               </div>
               <button mat-raised-button (click)="picker2.open()">
                 <i class="material-icons">calendar_today</i>
@@ -550,7 +552,9 @@
               </mat-form-field>
               <div *ngIf="FormControls.passedDate.touched && FormControls.passedDate.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.passedDate.errors.required" class="errors">Subject passed date is required</mat-error>
+                <mat-error *ngIf="FormControls.passedDate.errors.required" class="errors">Subject passed date is
+                  required
+                </mat-error>
               </div>
               <button mat-raised-button (click)="picker3.open()">
                 <i class="material-icons">calendar_today</i>
@@ -570,7 +574,8 @@
           </mat-radio-group>
           <div *ngIf="FormControls.medium.touched && FormControls.medium.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.medium.errors.required" class="errors">Subject passed medium is required</mat-error>
+            <mat-error *ngIf="FormControls.medium.errors.required" class="errors">Subject passed medium is required
+            </mat-error>
           </div>
         </div>
       </div>

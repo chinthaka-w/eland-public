@@ -1,10 +1,11 @@
-import { SysConfigService } from 'src/app/shared/service/sys-config.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PaymentResponse } from './../../../dto/payment-response.model';
-import { PaymentDto } from './../../../dto/payment-dto';
-import { PaymentService } from './../../../service/payment.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {SysConfigService} from 'src/app/shared/service/sys-config.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PaymentResponse} from './../../../dto/payment-response.model';
+import {PaymentDto} from './../../../dto/payment-dto';
+import {PaymentService} from './../../../service/payment.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-online-method',
@@ -12,20 +13,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./online-method.component.css']
 })
 export class OnlineMethodComponent implements OnInit {
-@Input() transactionRef: string;
-@Input() paymentAmount: number;
-@Input() returnUrl: string;
-serviceCode = SysConfigService.LGPS_SERVICE_CODE;
-showEncryptedPaymentRequest = false;
-showPaymentResult = false;
-paymentId: number;
-lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
+  @Input() transactionRef: string;
+  @Input() paymentAmount: number;
+  @Input() returnUrl: string;
+  serviceCode = SysConfigService.LGPS_SERVICE_CODE;
+  showEncryptedPaymentRequest = false;
+  showPaymentResult = false;
+  loadIframe = false;
+  paymentId: number;
+  lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
 
-onlinePaymentForm: FormGroup;
+  onlinePaymentForm: FormGroup;
+
   constructor(private formBuilder: FormBuilder,
               private paymentService: PaymentService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private sanitizer: DomSanitizer,
+              private router: Router) {
+  }
 
   ngOnInit() {
     // set payment confirmation details if payment id not available
@@ -42,7 +47,6 @@ onlinePaymentForm: FormGroup;
       this.showPaymentResult = true;
       this.getPaymentResult(this.paymentId);
       this.returnUrl = this.decodeBase64(this.route.snapshot.paramMap.get('url'));
-      alert(this.returnUrl)
     }
   }
 

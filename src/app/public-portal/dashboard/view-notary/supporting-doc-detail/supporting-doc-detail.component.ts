@@ -11,6 +11,7 @@ import {NotaryService} from '../../../../shared/service/notary-service';
 import {SupportingDocService} from '../../../../shared/service/supporting-doc.service';
 import {NewNotaryRequestsCategorySearchDto} from '../../../../shared/dto/new-notary-requests-category-search.dto';
 import {RequestSearchDetailDTO} from '../../../../shared/dto/request-search.dto';
+import {NewNotaryRegistrationWorkflowStage} from '../../../../shared/enum/new-notary-registration-workflow-stage.enum';
 
 @Component({
   selector: 'app-supporting-doc-detail',
@@ -37,6 +38,8 @@ export class SupportingDocDetailComponent implements OnInit {
   public docTypeId: number;
   public docId: number;
 
+  isSubmitted: boolean;
+
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
               private notaryService: NewNotaryDataVarificationService,
@@ -55,7 +58,7 @@ export class SupportingDocDetailComponent implements OnInit {
     this.supportingDocForm = new FormGroup({
       remarks: new FormArray([])
     });
-    this.getDocumentTypesForNotaryNameChange();
+    // this.getDocumentTypesForNotaryNameChange();
     this.getDocumentTypes();
   }
 
@@ -89,15 +92,21 @@ export class SupportingDocDetailComponent implements OnInit {
     this.files = data;
     this.docTypeId = docTyprId;
     this.docId = docId;
+    this.docsList.push(new DocumentResponseDto(this.docId, this.docTypeId, this.files[0], ''));
+    this.isSubmitted = true;
   }
 
   onFormSubmit(docsList: DocumentResponseDto[]) {
-    this.docsList.push(new DocumentResponseDto(this.docId, this.docTypeId, this.files[0], ''));
     this.supportDocs.emit(this.docsList);
+    this.isSubmitted = false;
   }
 
 
   getDocumentTypes() {
+    if (this.requestDocuments &&
+      this.requestDocuments.workflow == NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED) {
+      return;
+    }
     this.documetService.getDocumentsByWorkFlow(
       this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow).subscribe(
       (data: WorkflowStageDocDto[]) => {

@@ -24,10 +24,12 @@
                              (change)="onChangePaymentMethod($event);">
               <!--(change)="setPaymentMethod(this.paymentForm.value.paymentMethod)"-->
               <mat-radio-button class="example-margin" [value]="PaymentMethod.ONLINE">Online</mat-radio-button>
-              <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">Bank Transfer or Deposit
+              <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">Bank Transfer or
+                Deposit
               </mat-radio-button>
               <!--<mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_SLIP">Bank Slip</mat-radio-button>-->
-              <mat-radio-button *ngIf="hasFrontCounterPayment" class="example-margin" [value]="PaymentMethod.FRONT_COUNTER">Front Counter
+              <mat-radio-button *ngIf="hasFrontCounterPayment" class="example-margin"
+                                [value]="PaymentMethod.FRONT_COUNTER">Front Counter
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -67,12 +69,12 @@
 </form>
 
 <app-online-method
- *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
- [paymentAmount]="totalAmount"
- [transactionRef] = "paymentReference"
- [returnUrl] = "newReturnUrl"
- >
- </app-online-method>
+  *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
+  [paymentAmount]="totalAmount"
+  [transactionRef]="paymentReference"
+  [returnUrl]="newReturnUrl"
+>
+</app-online-method>
 <app-payment-method
   *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
   (response)="onPaymentResponseFromBankSlip($event)"
