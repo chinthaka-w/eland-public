@@ -9,13 +9,13 @@
   <div class="page-content-inner-wrapper">
     <form [formGroup]="publicUserForm">
       <div class="default-input-wrapper full-row half-cols">
-        <label>The land registry nearest to the applicant address
+        <label>{{'CITIZEN.TITLE'|translate}}
           <span>*</span></label>
         <div class="default-input-feild gray">
           <mat-form-field appearance="outline">
             <select matNativeControl formControlName="nearestLr" required (change)="getCurrentLandRegistry($event)">
-              <option value="" [disabled]="true">Select Land Registry</option>
-              <option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name}}</option>
+              <option value="" [disabled]="true">{{'CITIZEN.SELECT_LAND_REG'|translate}}</option>
+              <option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</option>
             </select>
           </mat-form-field>
           <div *ngIf="FormControls.nearestLr.touched && FormControls.nearestLr.errors"
@@ -99,7 +99,7 @@
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.nameEnglish.errors.required" class="errors">Please fill the required fields</mat-error>
             <mat-error *ngIf="FormControls.nameEnglish.errors.pattern" class="errors">Please enter valid name</mat-error>
-            <mat-error *ngIf="nameEnglish.errors.maxlength" class="errors">Please enter valid name</mat-error> 
+            <mat-error *ngIf="nameEnglish.errors.maxlength" class="errors">Please enter valid name</mat-error>
           </div>
         </div>
       </div>
@@ -341,13 +341,13 @@
           <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
           and <a href="#">Privacy Policy</a> .
         </div>
-        
+
           <div class="pg-inner-col right">
             <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="continue()">
               Continue
             </button>
           </div>
-          
+
       </div>
     </form>
   </div>

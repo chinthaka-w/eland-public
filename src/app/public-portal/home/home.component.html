@@ -28,6 +28,17 @@
                             </li>
                         </ul>
                     </div>
+                  <div class="hr-button-wrapper">
+                    <div class="user-profile" [ngClass]="langDropdown ? 'active' : 'in-active'">
+            <span class="user-title" (click)="clickLangDropdown()">{{selectedLanguage.label}} <i
+              class="material-icons">arrow_drop_down</i></span>
+                      <ul class="up-dropdown">
+                        <li *ngFor="let language of languages">
+                          <a (click)="changeLanguage(language)" >{{language.label}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                     <div class="hr-button-wrapper">
                         <button mat-raised-button [routerLink]="['/login']">Login</button>
                         <!-- <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
