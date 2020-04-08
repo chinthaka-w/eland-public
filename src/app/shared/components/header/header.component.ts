@@ -3,7 +3,7 @@ import { SysConfigService } from "../../service/sys-config.service";
 import { AppConfig } from "../../dto/app-config.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from '../../service/session.service';
-import {PublicUserDetails} from '../../dto/public-user-detail.model';
+import { PublicUserDetails } from '../../dto/public-user-detail.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Languages } from '../../enum/languages.enum';
 
@@ -19,26 +19,28 @@ export class HeaderComponent implements OnInit {
   langDropdown: boolean = false;
   appConfig: AppConfig;
   userName: any;
+  isHome: boolean;
+  isLogin: boolean;
 
   public languages = [
     {
-        id   : Languages.ENGLISH,
-        label: 'English',
-        code: 'en'
+      id: Languages.ENGLISH,
+      label: 'English',
+      code: 'en'
     },
     {
-        id   : Languages.SINHALA,
-        label: 'සිංහල',
-        code: 'si'
+      id: Languages.SINHALA,
+      label: 'සිංහල',
+      code: 'si'
     },
     {
-        id   : Languages.TAMIL,
-        label: 'தமிழ்',
-        code: 'ta'
+      id: Languages.TAMIL,
+      label: 'தமிழ்',
+      code: 'ta'
     }
-];
+  ];
 
-public selectedLanguage = this.languages[0];
+  public selectedLanguage = this.languages[0];
 
   clickEvent() {
     this.status = !this.status;
@@ -59,42 +61,57 @@ public selectedLanguage = this.languages[0];
   ) {
     router.events.subscribe(event => {
 
+      if (event['url'] == '/home') {
+        this.isHome = true;
+        this.isLogin = false;
+      }
+      else if (event['url'] == '/login') {
+        this.isHome = false;
+        this.isLogin = true;
+      }
+      else if(event['url']){
+        this.isHome = false;
+        this.isLogin = false;
+      }
+
       this.sysConfigService.appConfig.subscribe((config: AppConfig) => {
         this.appConfig = config;
       });
-  
+
       this.userName = this.sessionService.getUser().nameEng;
 
-      window.scroll(0,0);
-  });
-    
+      window.scroll(0, 0);
+    });
+
   }
 
   ngOnInit() {
     this.sysConfigService.appConfig.subscribe((config: AppConfig) => {
       this.appConfig = config;
     });
+
+
   }
 
   logout() {
 
     this.sessionService.removeUser();
-    
+
     this.sysConfigService.appConfig.emit({
       user: false,
       header: false,
       footer: false
-  });
+    });
     this.router.navigate([`/login`], { relativeTo: this.route });
   }
 
-  changeLanguage(lang){
+  changeLanguage(lang) {
     this.translate.use(lang.code);
     this.selectedLanguage = lang;
     this.clickLangDropdown();
   }
 
-  clickLangDropdown(){
+  clickLangDropdown() {
     this.langDropdown = !this.langDropdown;
   }
 }
