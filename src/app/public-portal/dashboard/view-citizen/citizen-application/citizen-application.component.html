@@ -79,7 +79,7 @@
       </mat-form-field>
       <div *ngIf="nameEnglish.invalid && (nameEnglish.dirty || nameEnglish.touched)">
         <mat-error *ngIf="nameEnglish.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
-        <mat-error *ngIf="nameEnglish.errors.pattern || nameEnglish.errors.maxLength" class="errors">Please enter valid name</mat-error>
+        <mat-error *ngIf="nameEnglish.errors.pattern || nameEnglish.errors.maxLength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
       </div>
     </div>
   </div>
@@ -90,7 +90,7 @@
         <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME_SIN'|translate}}" formControlName="nameSinhala" />
       </mat-form-field>
       <div *ngIf="nameSinhala.invalid && (nameSinhala.dirty || nameSinhala.touched)">
-        <mat-error *ngIf="nameSinhala.errors.pattern || nameSinhala.errors.maxLength" class="errors">Please enter valid name</mat-error>
+        <mat-error *ngIf="nameSinhala.errors.pattern || nameSinhala.errors.maxLength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@
         <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME_TAM'|translate}}" formControlName="nameTamil" />
       </mat-form-field>
       <div *ngIf="nameTamil.invalid && (nameTamil.dirty || nameTamil.touched)">
-        <mat-error *ngIf="nameTamil.errors.pattern || nameTamil.errors.maxLength" class="errors">Please enter valid name</mat-error>
+        <mat-error *ngIf="nameTamil.errors.pattern || nameTamil.errors.maxLength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
       </div>
     </div>
   </div>
@@ -132,7 +132,7 @@
     </div>
   </div>
   <div *ngIf="publicUserType.value == PublicUserType.STATE" class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">S{{'CITIZEN.STATE_INS_NAME'|translate}} <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.STATE_INS_NAME'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="State Institution Name" formControlName="stateInstitutionName" />
@@ -147,7 +147,7 @@
     <label class="mw-200">{{'CITIZEN.OTHER_INS_NAME'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Other Institution Name" formControlName="otherInstitutionName" />
+        <input matInput placeholder="{{'CITIZEN.OTHER_INS_NAME'|translate}}" formControlName="otherInstitutionName" />
       </mat-form-field>
       <div *ngIf="otherInstitutionName.invalid && (otherInstitutionName.dirty || otherInstitutionName.touched)">
         <mat-error *ngIf="otherInstitutionName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>

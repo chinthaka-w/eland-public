@@ -2,7 +2,7 @@
 
   <div class="pg-inner-row mb-40">
     <div class="pg-inner-col">
-      <h4 class="m0">Payment Informations</h4>
+      <h4 class="m0">{{'CITIZEN.PAYMNT_INFO'|translate}}</h4>
     </div>
   </div>
   <div class="default-input-wrapper full-row" id="payment-table">
@@ -16,27 +16,27 @@
 
         <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="Payment ID">
-            <th mat-header-cell *matHeaderCellDef>Payment ID</th>
+            <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.PAY_ID'|translate}}</th>
             <td mat-cell *matCellDef="let row"> {{row.paymentId}}</td>
           </ng-container>
 
           <ng-container matColumnDef="Payment Method">
-            <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+            <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.PAY_METH'|translate}}</th>
             <td mat-cell *matCellDef="let row"> {{row.paymentMethodDes}}</td>
           </ng-container>
 
           <ng-container matColumnDef="Amount">
-            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.PAY_AMNT'|translate}}</th>
             <td mat-cell *matCellDef="let row"> {{row.totalAmount}}</td>
           </ng-container>
 
           <ng-container matColumnDef="Payment Date">
-            <th mat-header-cell *matHeaderCellDef>Payment Date</th>
+            <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.PAY_DATE'|translate}}</th>
             <td mat-cell *matCellDef="let row"> {{row.paymentDate}}</td>
           </ng-container>
 
           <ng-container matColumnDef="Status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.PAY_STAT'|translate}}</th>
             <td mat-cell *matCellDef="let row"> {{row.status}}</td>
           </ng-container>
 
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="pg-inner-col right">
-    <button mat-raised-button class="lg-button" (click)="addPayment()">Add Payment</button>
+    <button mat-raised-button class="lg-button" (click)="addPayment()">{{'CITIZEN.PAY_ADD'|translate}}</button>
     <a href="#" class="pdf-link">Save PDF <i class="material-icons">vertical_align_bottom</i></a>
   </div>
 
