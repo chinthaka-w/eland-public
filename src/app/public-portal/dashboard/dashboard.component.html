@@ -42,28 +42,28 @@
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Citizen ID:</dt>
-            <dd> {{searchDetails.id}}</dd>
+            <dd> {{searchDetails?.id}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Status:</dt>
             <dd>
-                <span class="{{searchDetails.status === commonStatus.PENDING ? 'status-pending': 
-                              searchDetails.status === commonStatus.INACTIVE? 'status-pending': 
-                              searchDetails.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
-                  {{searchDetails.status === commonStatus.PENDING ? 'Pending Approval': 
-                                    searchDetails.status === commonStatus.INACTIVE? 'Further Details Submission': 
-                                    searchDetails.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
+                <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending': 
+                              searchDetails?.status === commonStatus.INACTIVE? 'status-pending': 
+                              searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
+                  {{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval': 
+                                    searchDetails?.status === commonStatus.INACTIVE? 'Further Details Submission': 
+                                    searchDetails?.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
                 </span>
             </dd>
           </dl>
           <dl class="db-card-info">
             <dt>Name:</dt>
-            <dd> {{searchDetails.name}}</dd>
+            <dd> {{searchDetails?.name}}</dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>
         <div class="db-card-bottom">
-          <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails.status)]">View</button>
+          <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails?.status)]">View</button>
         </div>
       </div>
       <div class="db-main-wp">
