@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { CitizenService } from './../../shared/service/citizen.service';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-=======
-import { Component, OnInit} from '@angular/core';
->>>>>>> 13cd9b5e93310d1cb63d8504f4b4f087298b99ea
 import { Workflow } from '../../shared/enum/workflow.enum';
 import { SessionService } from 'src/app/shared/service/session.service';
 import { UserType } from 'src/app/shared/enum/user-type.enum';
@@ -55,12 +51,8 @@ export class DashboardComponent implements OnInit {
     this.requestView = false;
     this.user = this.sessionService.getUser();
     this.notaryId = this.user.id;
-<<<<<<< HEAD
     this.getUserDetails();
-=======
     this.notaryNameChangeWorkFlow = WorkflowStages.NOTARY_NAME_CHANGE;
-    if (this.user.type == this.userType.NOTARY) this.getUserDetails();
->>>>>>> 13cd9b5e93310d1cb63d8504f4b4f087298b99ea
   }
 
   getBase64(value: string): string {

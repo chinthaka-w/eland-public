@@ -48,18 +48,12 @@
           <dl class="db-card-info">
             <dt>Status:</dt>
             <dd>
-<<<<<<< HEAD
                 <span class="{{searchDetails.status === commonStatus.PENDING ? 'status-pending': 
                               searchDetails.status === commonStatus.INACTIVE? 'status-pending': 
                               searchDetails.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
                   {{searchDetails.status === commonStatus.PENDING ? 'Pending Approval': 
                                     searchDetails.status === commonStatus.INACTIVE? 'Further Details Submission': 
                                     searchDetails.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
-=======
-                <span class="{{user.userStatus === commonStatus.PENDING ? 'status-pending':
-                                              user.userStatus === commonStatus.INACTIVE? 'status-pending': 'status-success'}}">
-                  {{user.userStatus === commonStatus.PENDING ? 'Pending approval': user.userStatus === commonStatus.INACTIVE? 'Further document submission': 'Approved' }}
->>>>>>> 13cd9b5e93310d1cb63d8504f4b4f087298b99ea
                 </span>
             </dd>
           </dl>
