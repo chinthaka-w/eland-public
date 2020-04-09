@@ -26,10 +26,11 @@ import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/ju
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
 import {ViewCitizenComponent} from './dashboard/view-citizen/view-citizen.component';
-import {NameChangeRequestViewComponent} from "./dashboard/change-the-name/name-change-request-view/name-change-request-view.component";
 import { AuthGuard } from '../shared/auth/auth-guard';
 import {ChangeLandRegistryComponent} from './dashboard/change-land-registry/change-land-registry.component';
 import {ChangeLandRegistryRequestViewComponent} from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
+import {NotaryRequestViewComponent} from './dashboard/notary-request-view/notary-request-view.component';
+import {NameChangeRequestViewComponent} from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
 
 const routes: Routes = [
   {
@@ -130,7 +131,7 @@ const routes: Routes = [
     component: JudicialChangeRequestViewComponent
   },
   {
-    path: 'change-name-request-view/:workflow/:id',
+    path: 'change-name-request-view/:workflow/:workflowStage/:id',
     component: NameChangeRequestViewComponent
   },
   {
@@ -148,6 +149,10 @@ const routes: Routes = [
   {
     path: 'request-for-correction/:workflow/:id',
     component: RequestForCorrectionComponent
+  },
+  {
+    path: 'notary-requests/:workflow',
+    component: NotaryRequestViewComponent
   }
 
 ];
