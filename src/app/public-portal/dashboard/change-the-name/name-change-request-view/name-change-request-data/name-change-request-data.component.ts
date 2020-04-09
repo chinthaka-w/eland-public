@@ -1,31 +1,35 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Languages} from "../../../../../shared/enum/languages.enum";
-import {SupportingDocService} from "../../../../../shared/service/supporting-doc.service";
-import {LandRegistryService} from "../../../../../shared/service/land-registry.service";
-import {GnDivisionService} from "../../../../../shared/service/gn-division.service";
-import {DsDivisionService} from "../../../../../shared/service/ds-division.service";
-import {SnackBarService} from "../../../../../shared/service/snack-bar.service";
-import {Location} from "@angular/common";
-import {WorkflowStageDocDto} from "../../../../../shared/dto/workflow-stage-doc-dto";
-import {JudicialZoneModel} from "../../../../../shared/dto/judicial-zone.model";
-import {LandRegistryModel} from "../../../../../shared/dto/land-registry.model.";
-import {GnDivision} from "../../../../../shared/dto/gn-division.model";
-import {DsDivision} from "../../../../../shared/dto/ds-division.model";
-import {DocumentDto} from "../../../../../shared/dto/document-list";
-import {NewNotaryDsDivisionDTO} from "../../../../../shared/dto/new-notary-ds-division.model";
-import {PatternValidation} from "../../../../../shared/enum/pattern-validation.enum";
-import {ChangeNameService} from "../../../../../shared/service/change-name.service";
-import {NotaryNameChangeModel} from "../../../../../shared/dto/notary-name-change.model";
-import {JudicialZoneService} from "../../../../../shared/service/judicial-zone.service";
-import {NameChangeWorkflowStagesEnum} from "../../../../../shared/enum/name-change-workflow-stages.enum";
-import {SessionService} from "../../../../../shared/service/session.service";
-import {DsGnDivisionDTO} from "../../../../../shared/dto/gs-gn-model";
-import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {NewNotaryRequestsCategorySearchDto} from "../../../../../shared/dto/new-notary-requests-category-search.dto";
-import {NewNotaryPaymentDetailDto} from "../../../../../shared/dto/new-notary-payment-detail.dto";
-import {NewNotaryDataVarificationService} from "../../../../../shared/service/new-notary-data-varification.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Languages} from '../../../../../shared/enum/languages.enum';
+import {SupportingDocService} from '../../../../../shared/service/supporting-doc.service';
+import {LandRegistryService} from '../../../../../shared/service/land-registry.service';
+import {GnDivisionService} from '../../../../../shared/service/gn-division.service';
+import {DsDivisionService} from '../../../../../shared/service/ds-division.service';
+import {SnackBarService} from '../../../../../shared/service/snack-bar.service';
+import {Location} from '@angular/common';
+import {WorkflowStageDocDto} from '../../../../../shared/dto/workflow-stage-doc-dto';
+import {JudicialZoneModel} from '../../../../../shared/dto/judicial-zone.model';
+import {LandRegistryModel} from '../../../../../shared/dto/land-registry.model.';
+import {GnDivision} from '../../../../../shared/dto/gn-division.model';
+import {DsDivision} from '../../../../../shared/dto/ds-division.model';
+import {DocumentDto} from '../../../../../shared/dto/document-list';
+import {NewNotaryDsDivisionDTO} from '../../../../../shared/dto/new-notary-ds-division.model';
+import {PatternValidation} from '../../../../../shared/enum/pattern-validation.enum';
+import {ChangeNameService} from '../../../../../shared/service/change-name.service';
+import {NotaryNameChangeModel} from '../../../../../shared/dto/notary-name-change.model';
+import {JudicialZoneService} from '../../../../../shared/service/judicial-zone.service';
+import {NameChangeWorkflowStagesEnum} from '../../../../../shared/enum/name-change-workflow-stages.enum';
+import {SessionService} from '../../../../../shared/service/session.service';
+import {DsGnDivisionDTO} from '../../../../../shared/dto/gs-gn-model';
+import {RequestSearchDetailDTO} from '../../../../../shared/dto/request-search.dto';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {NewNotaryRequestsCategorySearchDto} from '../../../../../shared/dto/new-notary-requests-category-search.dto';
+import {NewNotaryPaymentDetailDto} from '../../../../../shared/dto/new-notary-payment-detail.dto';
+import {NewNotaryDataVarificationService} from '../../../../../shared/service/new-notary-data-varification.service';
+import {ActivatedRoute} from '@angular/router';
+import {NameTitleEnum} from '../../../../../shared/enum/name-title.enum';
+import {NameTitleDTO} from '../../../../../shared/dto/name-title.dto';
+import {LanguageChangeService} from '../../../../../shared/service/language-change.service';
 
 @Component({
   selector: 'app-name-change-request-data',
@@ -46,9 +50,16 @@ export class NameChangeRequestDataComponent implements OnInit {
   @Output() nameChangeDetail = new EventEmitter<NotaryNameChangeModel>();
   @Input() requestDetailId: RequestSearchDetailDTO;
   @Input() workflow: string;
-  @Input() id: number;
-  @Input()
-  files: File[] = [];
+  @Input() id;
+  @Input() files: File[] = [];
+
+  @Input() editable: boolean = false;
+
+  nameTitles: NameTitleDTO[] = [];
+
+  public isSinhala: boolean = false;
+  public isTamil: boolean = false;
+  public isEnglish: boolean = true;
 
   public docList: WorkflowStageDocDto[];
   public judicialZones: JudicialZoneModel[];
@@ -68,6 +79,7 @@ export class NameChangeRequestDataComponent implements OnInit {
   paymentId: number;
   public notaryId: number;
   public workflowStageCode: string;
+  nameTitle = NameTitleEnum;
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -79,41 +91,65 @@ export class NameChangeRequestDataComponent implements OnInit {
               private snackBar: SnackBarService,
               private location: Location,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private languageChangeService: LanguageChangeService,
+              private route: ActivatedRoute) {
+
   }
 
   ngOnInit() {
-    this.notaryForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required]),
-      newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newFullNameInSinhala: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
-      newFullNameInTamil: new FormControl('', [ Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInSinhala: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInTamil: new FormControl('',[Validators.required , Validators.pattern(PatternValidation.nameValidation)] ),
-      dateOfBirth: new FormControl(new Date(), [Validators.required]),
-      languages: new FormControl('' ),
-      nic: new FormControl('',[Validators.required,Validators.pattern(PatternValidation.nicValidation)]),
-      contactNo: new FormControl('',[Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-      mobileNo: new FormControl('',[Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl('',[Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
-      courtZone: new FormControl('', [Validators.required]),
-      landRegistry: new FormControl('', [Validators.required]),
-      secretariatDivision: new FormControl('', [Validators.required]),
-      gramaNiladhariDivision: new FormControl('', [Validators.required]),
-      enrolledDate: new FormControl(new Date(), [Validators.required]),
-      passedDate: new FormControl(new Date(), [Validators.required]),
-      medium: new FormControl('' , [Validators.required]),
-      userName: new FormControl('', [Validators.required]),
-      recaptcha: new FormControl(null, Validators.required),
+
+    this.route.params.subscribe(params =>{
+      this.id = atob(params['id']);
+      this.workflow = atob(params['workflow']);
+      this.workflowStageCode = atob(params['workflowStage']);
     });
-    this.getNameChangeDetails(this.id);
+
+    if (this.workflowStageCode === NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_DATA_VERIFICATION_CLERK_REJECTED) {
+      this.editable = true;
+    }
+    this.setData();
+  }
+
+  setData() {
+    this.notaryForm = this.formBuilder.group({
+      title: new FormControl(0, [Validators.required]),
+      newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+      newFullNameInSinhala: new FormControl('', this.isSinhala ? Validators.required : null),
+      newFullNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
+      newInitialNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
+      newInitialNameInSinhala: new FormControl('', this.isSinhala ? Validators.required : null),
+      newInitialNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
+      languages: new FormControl(),
+    });
+    this.getNameTitles();
     this.getDocumentList();
     this.getJudicialZones();
     this.getLandRegistries();
     this.getDsDivisions();
     this.getGnDivisions();
     this.getPaymentDetails();
+    this.getNameChangeDetails(this.id);
+  }
+
+  private getNameTitles() {
+    this.languageChangeService.getNameTitle().subscribe(
+      (result: NameTitleDTO[]) => {
+        this.nameTitles = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private addLanguageList(id:number): void {
+    if(id === Languages.SINHALA)
+      this.isSinhala = (!this.isSinhala);
+    if(id === Languages.TAMIL)
+      this.isTamil = (!this.isTamil);
+
+    this.setData();
   }
 
   getPaymentDetails() {
@@ -136,6 +172,7 @@ export class NameChangeRequestDataComponent implements OnInit {
         this.workflowStageCode = data.workflowStageCode;
         this.notaryForm.patchValue(
           {
+            title: this.nameChangeModel.title,
             newFullNameInEnglish: this.nameChangeModel.newFullNameEng,
             newFullNameInSinhala: this.nameChangeModel.newFullNameSin,
             newFullNameInTamil: this.nameChangeModel.newFullNameTam,
@@ -145,6 +182,7 @@ export class NameChangeRequestDataComponent implements OnInit {
           }
         );
         this.dsGnDivisions = this.nameChangeModel.newNotaryDsDivisionDTO;
+        if (!this.editable) { this.notaryForm.disable(); }
       }
     );
   }
@@ -230,6 +268,42 @@ export class NameChangeRequestDataComponent implements OnInit {
     this.documentList.push(new DocumentDto(this.files[0], docTyprId));
   }
 
+
+  // Update Name change data and documents
+  onFormSubmit() {
+    if (this.notaryForm.invalid)
+      return;
+
+    this.nameChangeModel.newFullNameEng = this.notaryForm.value.newFullNameInEnglish;
+    this.nameChangeModel.newFullNameSin = this.notaryForm.value.newFullNameInSinhala;
+    this.nameChangeModel.newFullNameTam = this.notaryForm.value.newFullNameInTamil;
+    this.nameChangeModel.newInitialNameEng = this.notaryForm.value.newInitialNameInEnglish;
+    this.nameChangeModel.newInitialNameSin = this.notaryForm.value.newInitialNameInSinhala;
+    this.nameChangeModel.newInitialNameTam = this.notaryForm.value.newInitialNameInTamil;
+    this.nameChangeModel.newNotaryId = this.notaryId;
+    this.nameChangeModel.title = this.notaryForm.value.title;
+    this.nameChangeModel.requestId = this.id;
+
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(this.nameChangeModel));
+    this.documentList.forEach(doc => {
+      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+    });
+
+    this.changeNameService.updateDetails(formData).subscribe(
+      (success: boolean) => {
+        if (success) {
+          this.snackBar.success('Notary Name Change Request updated Successfully');
+          this.setData();
+        } else {
+          this.snackBar.error('Operation failed');
+        }
+      },
+      error => {
+        this.snackBar.error('Failed');
+      }
+    );
+  }
 
 
 }

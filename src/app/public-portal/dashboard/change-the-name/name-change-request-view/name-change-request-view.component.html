@@ -1,6 +1,11 @@
 <div class="page-header-default">
+  <div *ngIf="editable">
   <h2>Edit Notary Name Change Request</h2>
   <p>Please fill in the following information to<br />register in the system</p>
+  </div>
+  <div *ngIf="!editable">
+    <h2>Notary Name Change Request View</h2>
+  </div>
   <a href="" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
@@ -9,21 +14,21 @@
   <div class="page-content-inner-wrapper">
     <mat-tab-group  [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event,$event)">
       <mat-tab label="Application">
-        <app-name-change-request-data  [workflow]="workflow" [id]="id"  [requestDetailId]="requestID" (nameChangeDetail)="getApplicationDetails($event)"></app-name-change-request-data>
+        <app-name-change-request-data  [editable]="editable" [workflow]="workflow" [id]="id"  [requestDetailId]="requestID" (nameChangeDetail)="getApplicationDetails($event)"></app-name-change-request-data>
       </mat-tab>
-      <mat-tab label="Application Details" >
+      <mat-tab label="Current Details" >
         <app-notary-application *ngIf="requestID" [requestDetailId]="requestID" (notaryDetail)="getNewApplicationDetails($event)"></app-notary-application>
       </mat-tab>
+      <mat-tab label="Supporting Documents">
+        <app-supporting-doc-detail [editable]="editable" [workflow]="workflow" [id]="id"  [requestDocuments]="requestID" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
+      </mat-tab>
       <mat-tab label="Payment Info" >
-        <app-notary-payment-info [workflow]="workflow" [id]="id"></app-notary-payment-info>
+        <app-notary-payment-info [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="Remark">
-        <app-notary-remark [workflow]="workflow" [id]="id"></app-notary-remark>
-      </mat-tab>
-      <mat-tab label="Supporting Documents">
-        <app-supporting-doc-detail [workflow]="workflow" [id]="id"  [requestDocuments]="requestID" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
+        <app-notary-remark [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-remark>
       </mat-tab>
     </mat-tab-group>
-    <button mat-raised-button class="lg-button" disabled="!disabled" (click)="onFormSubmit()">Submit</button>
   </div>
+  <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">Submit</button>
 </div>

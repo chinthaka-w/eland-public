@@ -1,3 +1,4 @@
+import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { Workflow } from './../../../shared/enum/workflow.enum';
 import { Router } from '@angular/router';
 import { PatternValidation } from './../../../shared/enum/pattern-validation.enum';
@@ -60,6 +61,8 @@ export class ChangeJudicialComponent implements OnInit {
   paymentMethod: number;
   paymentDto: PaymentDto = new PaymentDto();
   statusOnlinePayment: boolean;
+  isRequiredDocsUpload = false;
+  
   public languages: any[] = [
     {
       id: Languages.ENGLISH,
@@ -268,9 +271,38 @@ export class ChangeJudicialComponent implements OnInit {
     this.dsGnList.push(new DsGnDivisionDTO(+this.dsDivisionId, gsDivisionId));
 
   }
-  setFiles(data: any, docTyprId: number) {
+  setFiles(data: any, docTyprId: number, status: boolean) {
     this.files = data;
-    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
+    const document = new DocumentDto(this.files[0], docTyprId);
+    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
+    if (document.files) {
+      this.documentList.push(document);
+    } else {
+      this.documentList.forEach((doc, index) => {
+        if (doc.fileType === document.fileType) {
+          this.documentList.splice(index, 1);
+        }
+      });
+    }
+
+    let workflowManatoryDocs = 0;
+    let uploadedMandatoryDocs = 0;
+
+    this.docList.forEach(doc => {
+      if  (doc.required) {
+        workflowManatoryDocs += 1;
+      }
+    });
+
+    this.documentList.forEach(doc => {
+      if (doc.status === CommonStatus.REQUIRED) {
+        uploadedMandatoryDocs += 1;
+      }
+    });
+
+    if (workflowManatoryDocs === uploadedMandatoryDocs) {
+      this.isRequiredDocsUpload = true;
+    } else {this.isRequiredDocsUpload = false; }
   }
 
   submitForm() {
@@ -332,7 +364,7 @@ export class ChangeJudicialComponent implements OnInit {
 
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
-      this.returnURl = this.getBase64Url('login');
+      this.returnURl = 'requests/' + this.getBase64Url(Workflow.JUDICIAL_ZONE_CHANGE);
       this.judicialChange.payment = this.paymentDto;
       this.submitForm();
     }
