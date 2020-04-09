@@ -1,6 +1,6 @@
 <div class="page-header-default">
-  <h2>Notary Edit Profile</h2>
-  <p>Please fill in the following information to<br/>register in the system</p>
+  <h2>{{'NOTARY.NOTARY_EDIT_PROFILE'|translate}}</h2>
+  <p>{{'NOTARY.NOTARY_EDIT_PROFILE_FILL_INFO'|translate}}</p>
   <a style="cursor: pointer" (click)="onBack.emit(true)" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
@@ -8,7 +8,7 @@
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
     <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event,$event)">
-      <mat-tab label="Application">
+      <mat-tab label="{{'NOTARY.NOTARY_APPLICATION'|translate}}">
         <app-last-remark
           *ngIf="workflowStage === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED"
           [requestId]="notaryRequestId"
@@ -16,14 +16,14 @@
         <app-notary-application *ngIf="requestId" [requestDetailId]="requestId"
                                 (notaryDetail)="getApplicationDetails($event)"></app-notary-application>
       </mat-tab>
-      <mat-tab label="Supporting Documents">
+      <mat-tab label="{{'NOTARY.NOTARY_SUPPORTING_DOCS'|translate}}">
         <app-supporting-doc-detail *ngIf="requestId" [requestDocuments]="requestId"
                                    (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
-      <mat-tab label="Payment Info">
+      <mat-tab label="{{'NOTARY.NOTARY_PAYMENT_INFO'|translate}}">
         <app-notary-payment-info *ngIf="requestId" [requestDetailPayment]="requestId" [addPayment]="false"></app-notary-payment-info>
       </mat-tab>
-      <mat-tab label="Remark">
+      <mat-tab label="{{'NOTARY.NOTARY_REMARK'|translate}}">
         <app-notary-remark *ngIf="requestId" [requestRemarks]="requestId"></app-notary-remark>
       </mat-tab>
 
@@ -35,7 +35,7 @@
             (click)="onFormSubmit()">
       <mat-icon class="material-icons"
                 title="Save Changes">save</mat-icon>
-      Save Changes
+                {{'BUTTONS.SAVE_CHANGES_BUTTON'|translate}}
     </button>
   </div>
 </div>
