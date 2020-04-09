@@ -116,9 +116,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let element">
           <a
-            [routerLink]="flag!=Workflow.JUDICIAL_ZONE_CHANGE?
-            actionButtonURL+getBase64(element.workflowStageCode)+'/'+getBase64(element.requestId):
-            actionButtonURL+getBase64(element.requestId)">
+            [routerLink]="actionButtonURL+getBase64(element.workflowStageCode)+'/'+getBase64(element.requestId)">
             <button mat-stroked-button color="accent">
               View
             </button>

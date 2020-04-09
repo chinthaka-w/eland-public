@@ -1,42 +1,47 @@
-<div id="payment" class="page-layout simple fullwidth" fxLayout="column">
-  <div class="p-24">
-    <div
-      class="mb-24"
-      fxLayout="column"
-      fxLayoutAlign="start"
-      fxLayout.gt-md="row"
-    >
-    </div>
-  </div>
-</div>
+
 <div class="row">
   <mat-card class="mb-10 mt-10 ml-10 mr-10 mat-elevation-z5" *ngFor="let doc of supportingDocuments; let i = index">
+    <mat-card-header>
+      <mat-card-title>{{doc.name}}</mat-card-title>
+    </mat-card-header>
     <div class="pg-inner-row mb-20">
-      <h5>{{doc.name}}</h5>
-    </div>
-    <div class="pg-inner-row mb-20">
-      <div class="pg-inner-col" style="width: 500px !important; height: 500px !important;">
+      <div class="pg-inner-col">
         <ngx-image-viewer
-          [src]="documentImages"
+          [src]="doc.document"
+          [config]="{
+            btnIcons: {
+              zoomIn: 'open_with',
+              zoomOut: 'fa fa-minus',
+              rotateClockwise: 'fa fa-repeat',
+              rotateCounterClockwise: 'fa fa-undo',
+              next: 'fa fa-arrow-right',
+              prev: 'fa fa-arrow-left',
+              fullscreen: 'material-icons open_with'
+            },
+            btnShow: {
+              zoomIn: true,
+              zoomOut: true,
+              rotateClockwise: false,
+              rotateCounterClockwise: false,
+              next: true,
+              prev: true
+            }
+          }"
         >
         </ngx-image-viewer>
       </div>
-      <div class="pg-inner-col">
-
-      </div>
-
-    </div>
-  </mat-card>
-  <mat-card *ngFor="let document of docList">
-    <div class="default-input-wrapper full-row">
-      <label>{{document.description}}
-        <span *ngIf="document.required == true">*</span>
-      </label>
-      <file-upload-input (response)="setFiles($event,document.docTypeId,document.docId)"></file-upload-input>
     </div>
   </mat-card>
 </div>
-<div *ngIf="docList.length!=0" class="pg-inner-col float-right">
-  <button mat-raised-button class="button float-right" type="button" (click)="onFormSubmit($event)">Apply Changes</button>
+<div *ngIf="enableDocUpload">
+    <div class="default-input-wrapper full-row" *ngFor="let document of docList">
+      <label>{{document.description}}
+        <span *ngIf="document.required === true" style="color: red;">*</span>
+      </label>
+      <file-upload-input (response)="setFiles($event,document.docTypeId,document.docId, document.required)"></file-upload-input>
+    </div>
+</div>
+<div *ngIf="docList.length!=0 && enableDocUpload" class="pg-inner-col float-right mt-10">
+  <button mat-raised-button [disabled]="!(docsList.length> 0 && enableDocUpload)" class="button float-right" type="button" (click)="onFormSubmit($event)">Apply Changes</button>
 </div>
 

@@ -12,13 +12,10 @@
         <label>{{'CITIZEN.TITLE'|translate}}
           <span>*</span></label>
         <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select matNativeControl formControlName="nearestLr" required (change)="getCurrentLandRegistry($event)">
-              <option value="" [disabled]="true">{{'CITIZEN.SELECT_LAND_REG'|translate}}</option>
-              <option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</option>
-
-            </select>
-          </mat-form-field>
+            <mat-select formControlName="nearestLr" (change)="getCurrentLandRegistry($event)">
+              <mat-option value="" [disabled]="true">{{'CITIZEN.SELECT_LAND_REG'|translate}}</mat-option>
+              <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option>
+            </mat-select>
           <div *ngIf="FormControls.nearestLr.touched && FormControls.nearestLr.errors"
                      class="invalid-feedback">
           <mat-error *ngIf="FormControls.nearestLr.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
@@ -29,19 +26,17 @@
       <div class="default-input-wrapper full-row sc-half-cols">
         <label>{{'CITIZEN.BANK_USER_TYPE'|translate}}<span>*</span></label>
         <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select matNativeControl formControlName="type" required (change)="getCurrentUserType($event)">
-              <option value="" disabled>{{'CITIZEN.SELECT'|translate}}</option>
-              <option value="{{PublicUserType.CITIZEN}}">{{'CITIZEN.CITIZEN'|translate}}</option>
-              <option value="{{PublicUserType.BANK}}">{{'CITIZEN.BANK'|translate}}</option>
-              <option value="{{PublicUserType.LAWYER}}">{{'CITIZEN.LAWYER'|translate}}</option>
-              <option value="{{PublicUserType.STATE}}">{{'CITIZEN.STATE'|translate}}</option>
-              <option value="{{PublicUserType.OTHER}}">{{'CITIZEN.OTHER1'|translate}}</option>
-            </select>
-          </mat-form-field>
+            <mat-select formControlName="type" required (change)="getCurrentUserType($event)">
+              <mat-option value="" disabled>{{'CITIZEN.SELECT'|translate}}</mat-option>
+              <mat-option value="{{PublicUserType.CITIZEN}}">{{'CITIZEN.CITIZEN'|translate}}</mat-option>
+              <mat-option value="{{PublicUserType.BANK}}">{{'CITIZEN.BANK'|translate}}</mat-option>
+              <mat-option value="{{PublicUserType.LAWYER}}">{{'CITIZEN.LAWYER'|translate}}</mat-option>
+              <mat-option value="{{PublicUserType.STATE}}">{{'CITIZEN.STATE'|translate}}</mat-option>
+              <mat-option value="{{PublicUserType.OTHER}}">{{'CITIZEN.OTHER1'|translate}}</mat-option>
+            </mat-select>
           <div *ngIf="FormControls.type.touched && FormControls.type.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.type.errors.required" class="errors">User Type Required</mat-error>
+            <mat-error *ngIf="FormControls.type.errors.required" class="errors">Please fill the required fields</mat-error>
           </div>
         </div>
       </div>
@@ -131,10 +126,12 @@
         <label class="mw-200">{{'CITIZEN.DOB'|translate}} <span>*</span></label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker"  formControlName="dateOfBirth" class="form-control" >
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="picker" [max]="maxDate"  formControlName="dateOfBirth" class="form-control" >
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+          <button type="button" mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
           <div *ngIf="FormControls.dateOfBirth.touched && FormControls.dateOfBirth.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
@@ -237,14 +234,14 @@
       <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200">{{'CITIZEN.IDENT_TYPE'|translate}} <span>*</span></label>
         <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select formControlName="identificationType" matNativeControl required (change)="getCurrentIdentificationType($event)">
-              <option value="" disabled>{{'CITIZEN.SELECT_IDEN_TYP'|translate}}</option>
-              <option value="{{identificationType.NIC}}" >{{'CITIZEN.NIC'|translate}}</option>
-              <option value="{{identificationType.PASSPORT}}" >{{'CITIZEN.PASSPORT'|translate}}</option>
-              <option value="{{identificationType.DRIVING_LICENSE}}" >{{'CITIZEN.DRIVING_LIC'|translate}}</option>
-            </select>
-          </mat-form-field>
+
+            <mat-select formControlName="identificationType" matNativeControl required (change)="getCurrentIdentificationType($event)">
+              <mat-option value="" disabled="true">{{'CITIZEN.SELECT_IDEN_TYP'|translate}}</mat-option>
+              <mat-option value="{{identificationType.NIC}}" >{{'CITIZEN.NIC'|translate}}</mat-option>
+              <mat-option value="{{identificationType.PASSPORT}}" >{{'CITIZEN.PASSPORT'|translate}}</mat-option>
+              <mat-option value="{{identificationType.DRIVING_LICENSE}}" >{{'CITIZEN.DRIVING_LIC'|translate}}</mat-option>
+            </mat-select>
+
           <div *ngIf="FormControls.identificationType.touched && FormControls.identificationType.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.identificationType.errors.required" class="errors">{{'CITIZEN.IDENT_TYP_REQ'|translate}}</mat-error>
@@ -260,7 +257,7 @@
           <div *ngIf="FormControls.identificationNo.touched && FormControls.identificationNo.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.identificationNo.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
-            <mat-error *ngIf="identificationNo.errors.maxlength" class="errors">{{'CITIZEN.VALID_REF_NUM'|translate}}</mat-error>
+            <mat-error *ngIf="identificationNo.errors.maxlength || identificationNo.errors.pattern" class="errors">{{'CITIZEN.VALID_REF_NUM'|translate}}</mat-error>
           </div>
         </div>
       </div>
