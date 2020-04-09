@@ -1,3 +1,4 @@
+import { CitizenService } from './../../shared/service/citizen.service';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Workflow } from '../../shared/enum/workflow.enum';
 import { SessionService } from 'src/app/shared/service/session.service';
@@ -38,7 +39,8 @@ export class DashboardComponent implements OnInit {
     private dialog: MatDialog,
     private folioService: FolioService,
     private snackbar: SnackBarService,
-    private systemService: SystemService
+    private systemService: SystemService,
+    private citizenService: CitizenService
   ) {
   }
 
@@ -47,7 +49,7 @@ export class DashboardComponent implements OnInit {
     this.requestView = false;
     this.user = this.sessionService.getUser();
     this.notaryId = this.user.id;
-    if (this.user.type == this.userType.NOTARY) this.getUserDetails();
+    this.getUserDetails();
   }
 
   getBase64(value: string): string {
@@ -55,11 +57,19 @@ export class DashboardComponent implements OnInit {
   }
 
   getUserDetails() {
-    this.notaryService.getNotaryRequestDetails(this.user.id).subscribe(
-      (data: RequestSearchDetailDTO) => {
-        this.searchDetails = data;
-      }
-    )
+    if (this.user.type === UserType.NOTARY) {
+      this.notaryService.getNotaryRequestDetails(this.user.id).subscribe(
+        (data: RequestSearchDetailDTO) => {
+          this.searchDetails = data;
+        }
+      );
+    } else if (this.user.type === UserType.CITIZEN) {
+      this.citizenService.getPublicUserDetails(this.user.id).subscribe(
+        (response: RequestSearchDetailDTO) => {
+          this.searchDetails = response;
+        }
+      );
+    }
   }
 
   viewDetails() {

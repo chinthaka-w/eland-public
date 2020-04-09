@@ -5,6 +5,7 @@ import { PaymentDto } from './../../../dto/payment-dto';
 import { PaymentService } from './../../../service/payment.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-online-method',
@@ -57,6 +58,15 @@ onlinePaymentForm: FormGroup;
     });
     this.onlinePaymentForm.disable();
   }
+
+  get applicationAmount() {
+    return this.onlinePaymentForm.get('applicationAmount');
+  }
+
+  get totalFee() {
+    return this.onlinePaymentForm.get('totalFee');
+  }
+
 
   // payment confirmation
   initTransaction(): void {

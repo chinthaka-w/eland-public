@@ -12,7 +12,7 @@
         <label>The land registry nearest to the applicant address
           <span>*</span></label>
         <div class="default-input-feild gray">
-            <mat-select formControlName="nearestLr" (change)="getCurrentLandRegistry($event)"> 
+            <mat-select formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)"> 
               <mat-option value="" [disabled]="true">-- Select Land Registry --</mat-option>
               <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name}}</mat-option>
             </mat-select>
@@ -23,14 +23,14 @@
         </div>
       </div>
 
-      <div class="default-input-wrapper full-row sc-half-cols">
+      <div class="default-input-wrapper full-row half-cols">
         <label>User Type <span>*</span></label>
         <div class="default-input-feild gray">
-            <mat-select formControlName="type" required (change)="getCurrentUserType($event)">
+            <mat-select formControlName="type" required (selectionChange)="getCurrentUserType(type.value)">
               <mat-option value="" disabled>-- Select User Type --</mat-option>
               <mat-option value="{{PublicUserType.CITIZEN}}">Citizen</mat-option>
               <mat-option value="{{PublicUserType.BANK}}">Bank</mat-option>
-              <mat-option value="{{PublicUserType.LAWYER}}">Lawyer/Low firm</mat-option>
+              <mat-option value="{{PublicUserType.LAWYER}}">Lawyer / Law Firm</mat-option>
               <mat-option value="{{PublicUserType.STATE}}">State Institution</mat-option>
               <mat-option value="{{PublicUserType.OTHER}}">Other Institution</mat-option>
             </mat-select>
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
+      <!-- <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Bank User Type <span>*</span></label>
         <div class="default-input-feild gray">
           <mat-form-field appearance="outline">
@@ -57,9 +57,9 @@
             <mat-error *ngIf="FormControls.bankUserType.errors.required" class="errors">Please fill the required fields</mat-error>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div *ngIf="publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.STATE || publicUserType.value == PublicUserType.OTHER || bankUserTypeId == 2" class="default-input-wrapper full-row half-cols">
+      <!-- <div *ngIf="publicUserType.value == PublicUserType.STATE || publicUserType.value == PublicUserType.OTHER || bankUserTypeId == 2" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Notary ID <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
@@ -69,7 +69,7 @@
             <mat-error *ngIf="notaryId.errors.required" class="errors">Please fill the required fields</mat-error>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="separator mt-30">&nbsp;</div>
 
@@ -81,6 +81,8 @@
           </mat-form-field>
           <div *ngIf="lawFirmName.invalid && (lawFirmName.dirty || lawFirmName.touched)">
             <mat-error *ngIf="lawFirmName.errors.required" class="errors">Please fill the required fields</mat-error>
+            <mat-error *ngIf="lawFirmName.errors.maxlength" class="errors">Please enter valid name</mat-error>
+            <mat-error *ngIf="lawFirmName.errors.pattern" class="errors">Please enter valid name</mat-error>
           </div>
         </div>
       </div>
@@ -122,25 +124,7 @@
         </div>
       </div>
 
-      <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">Date of birth <span>*</span></label>
-        <div class="default-input-feild date-feild">
-          <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker" [max]="maxDate"  formControlName="dateOfBirth" class="form-control" >
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          <button type="button" mat-raised-button (click)="picker.open()">
-            <i class="material-icons">calendar_today</i>
-          </button>
-          <div *ngIf="FormControls.dateOfBirth.touched && FormControls.dateOfBirth.errors"
-               class="invalid-feedback">
-            <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">Please fill the required fields</mat-error>
-          </div>
-
-        </div>
-      </div>
-
-      <div *ngIf="publicUserType.value == PublicUserType.STATE" class="default-input-wrapper full-row half-cols">
+      <div *ngIf="publicUserType.value == PublicUserType.OTHER" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Officer's Designation <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
@@ -148,6 +132,7 @@
           </mat-form-field>
           <div *ngIf="officersDesignation.invalid && (officersDesignation.dirty || officersDesignation.touched)">
             <mat-error *ngIf="officersDesignation.errors.required" class="errors">Please fill the required fields</mat-error>
+            <mat-error *ngIf="officersDesignation.errors.maxlength || officersDesignation.errors.pattern" class="errors">Please enter valid designation</mat-error>
           </div>
         </div>
       </div>
@@ -159,6 +144,7 @@
           </mat-form-field>
           <div *ngIf="stateInstitutionName.invalid && (stateInstitutionName.dirty || stateInstitutionName.touched)">
             <mat-error *ngIf="stateInstitutionName.errors.required" class="errors">Please fill the required fields</mat-error>
+            <mat-error *ngIf="stateInstitutionName.errors.maxlength || stateInstitutionName.errors.pattern" class="errors">Please enter valid name</mat-error>
           </div>
         </div>
       </div>
@@ -172,6 +158,7 @@
           <div *ngIf="FormControls.otherInstitutionName.touched && FormControls.otherInstitutionName.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.otherInstitutionName.errors.required" class="errors">Please fill the required fields</mat-error>
+            <mat-error *ngIf="FormControls.otherInstitutionName.errors.maxlength || FormControls.otherInstitutionName.errors.pattern" class="errors">Please enter valid name</mat-error>
           </div>
         </div>
       </div>
@@ -179,12 +166,12 @@
       <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Bank Name <span>*</span></label>
         <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select matNativeControl formControlName="bankName" required (change)="getCurrentBank($event)">
-              <option value="" disabled>Select Bank Name</option>
-              <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
-            </select>
-          </mat-form-field>
+          
+            <mat-select formControlName="bankName" required (selectionChange)="getCurrentBank($event)">
+              <mat-option value="" disabled>-- Select Bank Name --</mat-option>
+              <mat-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</mat-option>
+            </mat-select>
+          
           <div *ngIf="FormControls.bankName.touched && FormControls.bankName.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.bankName.errors.required" class="errors">Please fill the required fields</mat-error>
@@ -192,50 +179,53 @@
         </div>
       </div>
 
-      <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">Address <span>*</span></label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Address in English" formControlName="address1" />
-          </mat-form-field>
-          <div *ngIf="FormControls.address1.touched && FormControls.address1.errors"
-               class="invalid-feedback">
-            <mat-error *ngIf="address1.errors.required" class="errors">Please fill the required fields</mat-error>
-            <mat-error *ngIf="address1.errors.maxlength || address1.errors.pattern" class="errors">Please enter valid address</mat-error>
+      <div *ngIf="publicUserType.value != PublicUserType.OTHER">
+        <div class="default-input-wrapper full-row half-cols">
+          <label class="mw-200">Address <span>*</span></label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Address in English" formControlName="address1" />
+            </mat-form-field>
+            <div *ngIf="FormControls.address1.touched && FormControls.address1.errors"
+                 class="invalid-feedback">
+              <mat-error *ngIf="address1.errors.required" class="errors">Please fill the required fields</mat-error>
+              <mat-error *ngIf="address1.errors.maxlength || address1.errors.pattern" class="errors">Please enter valid address</mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="default-input-wrapper full-row half-cols">
+          <label class="mw-200"></label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Address in Sinhala" formControlName="address2" />
+            </mat-form-field>
+            <div *ngIf="address2.invalid && (address2.dirty || address2.touched)"
+                 class="invalid-feedback">
+              <mat-error *ngIf="address2.errors.maxlength  || address2.errors.pattern" class="errors">Please enter valid address</mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="default-input-wrapper full-row half-cols">
+          <label class="mw-200"></label>
+          <div class="default-input-feild">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Address in Tamil" formControlName="address3" />
+            </mat-form-field>
+            <div *ngIf="address3.invalid && (address3.touched || address3.dirty)"
+                 class="invalid-feedback">
+              <mat-error *ngIf="address3.errors.maxlength  || address3.errors.pattern" class="errors">Please enter valid address</mat-error>
+            </div>
           </div>
         </div>
       </div>
-      <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200"></label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Address in Sinhala" formControlName="address2" />
-          </mat-form-field>
-          <div *ngIf="address2.invalid && (address2.dirty || address2.touched)"
-               class="invalid-feedback">
-            <mat-error *ngIf="address2.errors.maxlength  || address1.errors.pattern" class="errors">Please enter valid address</mat-error>
-          </div>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200"></label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Address in Tamil" formControlName="address3" />
-          </mat-form-field>
-          <div *ngIf="address3.invalid && (address3.touched || address3.dirty)"
-               class="invalid-feedback">
-            <mat-error *ngIf="address3.errors.maxlength  || address1.errors.pattern" class="errors">Please enter valid address</mat-error>
-          </div>
-        </div>
-      </div>
+      
 
 
       <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Identification Type <span>*</span></label>
         <div class="default-input-feild gray">
           
-            <mat-select formControlName="identificationType" matNativeControl required (change)="getCurrentIdentificationType($event)">
+            <mat-select formControlName="identificationType" matNativeControl required (selectionChange)="getCurrentIdentificationType($event)">
               <mat-option value="" disabled="true">-- Select Identification Type --</mat-option>
               <mat-option value="{{identificationType.NIC}}" >NIC</mat-option>
               <mat-option value="{{identificationType.PASSPORT}}" >Passport</mat-option>
@@ -249,7 +239,7 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">NIC/Passport/ Driving license Number <span>*</span></label>
+        <label class="mw-200">Reference Number <span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput placeholder="Identification No" formControlName="identificationNo" />
@@ -311,6 +301,7 @@
           </mat-form-field>
           <div *ngIf="reason.invalid && (reason.dirty || reason.touched)">
             <mat-error *ngIf="reason.errors.required" class="errors">Please fill the required fields</mat-error>
+            <mat-error *ngIf="reason.errors.pattern || reason.errors.maxlength" class="errors">Please enter valid reason</mat-error>
           </div>
         </div>
       </div>
@@ -323,7 +314,7 @@
             <label
               >{{doc.description}}
               <span *ngIf="doc.required">*</span></label>
-            <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
+            <file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>
           </div>
         </div>
       </div>
@@ -340,8 +331,8 @@
           and <a href="#">Privacy Policy</a> .
         </div>
         
-          <div class="pg-inner-col right">
-            <button [disabled]="!publicUserForm.valid" mat-raised-button class="lg-button" (click)="continue()">
+          <div class="pg-inner-col float-right">
+            <button [disabled]="!(publicUserForm.valid && isMadatoryDocsUploaded)" mat-raised-button class="lg-button float-right" (click)="continue()">
               Continue
             </button>
           </div>
@@ -356,9 +347,11 @@
     <app-payment (response)="onPaymentResponse($event)"
                  (paymentMethodResponse) = paymentMethodResponse($event)
                  [statusOnlinePayment] = "statusOnlinePayment"
+                 [isDocumentCollect]= "false"
+                 [hasFrontCounterPayment]= "false"
                  [returnUrl]="returnURl"
                  (back)="onBack($event)"
-                 [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+                 [applicationFeeCode]="workflowPayment"
                  [isDocumentCollect]="true"
                  [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"></app-payment>
   </div>

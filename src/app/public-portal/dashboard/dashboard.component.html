@@ -42,25 +42,28 @@
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Citizen ID:</dt>
-            <dd> {{user.id}}</dd>
+            <dd> {{searchDetails.id}}</dd>
           </dl>
           <dl class="db-card-info">
             <dt>Status:</dt>
             <dd>
-                <span class="{{user.userStatus === commonStatus.PENDING ? 'status-pending': 
-                                              user.userStatus === commonStatus.INACTIVE? 'status-pending': 'status-success'}}">
-                  {{user.userStatus === commonStatus.PENDING ? 'Pending approval': user.userStatus === commonStatus.INACTIVE? 'Further document submission': 'Approved' }}
+                <span class="{{searchDetails.status === commonStatus.PENDING ? 'status-pending': 
+                              searchDetails.status === commonStatus.INACTIVE? 'status-pending': 
+                              searchDetails.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
+                  {{searchDetails.status === commonStatus.PENDING ? 'Pending Approval': 
+                                    searchDetails.status === commonStatus.INACTIVE? 'Further Details Submission': 
+                                    searchDetails.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
                 </span>
             </dd>
           </dl>
           <dl class="db-card-info">
             <dt>Name:</dt>
-            <dd> {{user.nameEng}}</dd>
+            <dd> {{searchDetails.name}}</dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>
         <div class="db-card-bottom">
-          <button mat-raised-button class="green" [routerLink]="['/view-citizen']">View</button>
+          <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails.status)]">View</button>
         </div>
       </div>
       <div class="db-main-wp">
@@ -160,7 +163,7 @@
             <span class="title">Request for Corrections of Resignation</span>
           </a>
         </div>
-        <div class="db-link-tile c2">
+        <div *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE" class="db-link-tile c2">
           <a *ngIf="!folioPending" (click)="viewFolio()">
             <span class="icon">
               <i class="material-icons">label</i>

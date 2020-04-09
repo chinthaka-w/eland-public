@@ -112,7 +112,7 @@ const routes: Routes = [
     component: ViewNotaryComponent
   },
   {
-    path: 'view-citizen',
+    path: 'view-citizen/:status',
     component: ViewCitizenComponent
   },
   {

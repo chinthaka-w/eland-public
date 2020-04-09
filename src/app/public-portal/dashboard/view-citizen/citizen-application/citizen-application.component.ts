@@ -1,6 +1,7 @@
+import { state } from '@angular/animations';
 import { Router } from '@angular/router';
 import { PatternValidation } from './../../../../shared/enum/pattern-validation.enum';
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
 import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {WorkflowStageCitizenReg} from "../../../../shared/enum/workflow-stage-citizen-reg.enum";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -25,6 +26,7 @@ import {IdentificationType} from "../../../../shared/enum/identification-type.en
   styleUrls: ['./citizen-application.component.css']
 })
 export class CitizenApplicationComponent implements OnInit {
+  @Input() isEdit = false;
   user;
   formControlStatus: boolean = false;
   commonStatus = CommonStatus;
@@ -64,11 +66,10 @@ export class CitizenApplicationComponent implements OnInit {
     this.user = this.sessionService.getUser();
     this.getAllLandRegistries();
     this.getAllBanks();
-    this.getApplicationDetails(this.user.id);
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl(null, [Validators.required]),
-      lawFirmName: new FormControl("", [Validators.required]),
+      lawFirmName: new FormControl('', []),
       nameEnglish: new FormControl('',
         [Validators.required,
           Validators.pattern(PatternValidation.nameValidation),
@@ -81,11 +82,8 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)
       ]),
-      bankName: new FormControl("", [Validators.required]),
-      bankUserType: new FormControl("", [Validators.required]),
-      notaryId: new FormControl("", [Validators.required]),
+      bankName: new FormControl('', []),
       address1: new FormControl('', [
-        Validators.required,
         Validators.pattern(PatternValidation.ADDRESS_PATTERN),
         Validators.maxLength(255)
       ]),
@@ -97,7 +95,11 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.pattern(PatternValidation.ADDRESS_PATTERN),
         Validators.maxLength(255)
       ]),
-      identificationNo: new FormControl("", [Validators.required]),
+      identificationNo: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(15),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]),
       identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl('', [
         Validators.required,
@@ -106,18 +108,20 @@ export class CitizenApplicationComponent implements OnInit {
       secondaryContact: new FormControl('', [
         Validators.pattern(PatternValidation.contactNumberValidation)
       ]),
-      email: new FormControl("", [Validators.required]),
-      userName: new FormControl("", [Validators.required]),
-      reason: new FormControl("", [Validators.required]),
-      renewalCertificate: new FormControl("", [Validators.required]),
-      nicCopy: new FormControl("", [Validators.required]),
-      signatureAndSeal: new FormControl("", [Validators.required]),
+      reason: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]),
       recaptcha: new FormControl(null, Validators.required),
-      officersDesignation: new FormControl("", [Validators.required]),
-      stateInstitutionName: new FormControl("", [Validators.required]),
-      otherInstitutionName: new FormControl("", [Validators.required]),
-      dateOfBirth: new FormControl("", [Validators.required]),
+      officersDesignation: new FormControl('', []),
+      stateInstitutionName: new FormControl('', []),
+      otherInstitutionName: new FormControl('', []),
     });
+    if (!this.isEdit) {
+      this.publicUserForm.disable();
+    }
+    this.getApplicationDetails(this.user.id);
 
   }
 
@@ -207,36 +211,22 @@ export class CitizenApplicationComponent implements OnInit {
   }
 
   getCurrentLandRegistry(event) {
-    this.citizenDTO.landRegistry = event.target.value;
+    this.citizenDTO.landRegistry = event.value;
   }
   getCurrentBankUserType(event) {
     this.bankUserTypeId = event.target.value;
     this.citizenDTO.bankUserType = this.bankUserTypeId;
   }
   getCurrentBank(event) {
-    this.citizenDTO.bankId = event.target.value;
+    this.citizenDTO.bankId = event.value;
   }
   getCurrentIdentificationType(event) {
-    this.citizenDTO.identificationNoType = event.target.value;
+    this.citizenDTO.identificationNoType = event.value;
   }
   getCurrentUserType(event) {
-    this.citizenDTO.userType = event.target.value;
-
-    if(this.citizenDTO.userType = PublicUserType.CITIZEN) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
-    }
-    else if(this.citizenDTO.userType = PublicUserType.BANK) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.BANK_INIT;
-    }
-    else if(this.citizenDTO.userType = PublicUserType.LAWYER) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.LAWYER_OR_LAW_FIRM_INIT;
-    }
-    else if(this.citizenDTO.userType = PublicUserType.STATE) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.STATE_INSTITUTE_INIT;
-    }
-    else if(this.citizenDTO.userType = PublicUserType.OTHER) {
-      this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
-    }
+    console.log('value', event.value);
+    this.citizenDTO.userType = event.value;
+    this.updateValidators(event.value);
   }
 
   saveCitizen() {
@@ -247,26 +237,19 @@ export class CitizenApplicationComponent implements OnInit {
     this.citizenDTO.addressEng = this.publicUserForm.controls.address1.value;
     this.citizenDTO.addressSin = this.publicUserForm.controls.address2.value;
     this.citizenDTO.addressTam = this.publicUserForm.controls.address3.value;
-    this.citizenDTO.email = this.publicUserForm.controls.email.value;
     this.citizenDTO.residentialTelephone = this.publicUserForm.controls.primaryContact.value;
     this.citizenDTO.mobileNo = this.publicUserForm.controls.secondaryContact.value;
     this.citizenDTO.reason = this.publicUserForm.controls.reason.value;
     this.citizenDTO.identificationNo = this.publicUserForm.controls.identificationNo.value;
-    this.citizenDTO.dateOfBirth = this.publicUserForm.controls.dateOfBirth.value;
-    this.citizenDTO.username = this.publicUserForm.controls.userName.value;
     this.citizenDTO.lawFirmName = this.publicUserForm.controls.lawFirmName.value;
     this.citizenDTO.stateInstituteName = this.publicUserForm.controls.stateInstitutionName.value;
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
-    this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
-
-    this.citizenDTO.workFlowStageCode = this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED;
 
     this.citizenService.updateCitizen(this.citizenDTO)
       .subscribe((result) => {
         if (result) {
-          this.snackBar.success('Citizen updated successfully');
-          this.router.navigate(['/dashboard']);
+          this.snackBar.success('Successfully updated');
         } else {
           this.snackBar.error('Failed');
         }
@@ -276,15 +259,8 @@ export class CitizenApplicationComponent implements OnInit {
   getApplicationDetails(citizenId: number) {
     this.citizenService.getApplicationDetails(citizenId)
       .subscribe((result) => {
-        if(result) {
+        if (result) {
           this.citizenDTO = result;
-          if(this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.BANK_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.LAWYER_OR_LAW_FIRM_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.STATE_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.OTHER_INSTITUTE_INIT || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_APPROVED || this.citizenDTO.workFlowStageCode == this.WorkflowStageForCitizenReg.CITIZEN_MODIFIED) {
-            this.publicUserForm.disable();
-          }
-          if(this.citizenDTO.userType == this.PublicUserType.BANK) {
-            this.bankUserTypeId = this.citizenDTO.bankUserType;
-          }
-          // this.citizenService.paymentDetails.emit(this.citizenDTO.paymentHistory);
           this.citizenService.citizenDto.emit(this.citizenDTO);
           this.publicUserForm.patchValue({
             nameEnglish: this.citizenDTO.nameEng,
@@ -293,13 +269,10 @@ export class CitizenApplicationComponent implements OnInit {
             address1: this.citizenDTO.addressEng,
             address2: this.citizenDTO.addressSin,
             address3: this.citizenDTO.addressTam,
-            email: this.citizenDTO.email,
             primaryContact: this.citizenDTO.residentialTelephone,
             secondaryContact: this.citizenDTO.mobileNo,
             reason: this.citizenDTO.reason,
             identificationNo: this.citizenDTO.identificationNo,
-            dateOfBirth: this.citizenDTO.dateOfBirth,
-            userName: this.citizenDTO.username,
             lawFirmName: this.citizenDTO.lawFirmName,
             stateInstitutionName: this.citizenDTO.stateInstituteName,
             officersDesignation: this.citizenDTO.officerDesignation,
@@ -308,11 +281,75 @@ export class CitizenApplicationComponent implements OnInit {
             type: this.citizenDTO.userType,
             bankName: this.citizenDTO.bankId,
             identificationType: this.citizenDTO.identificationNoType,
-            bankUserType: this.citizenDTO.bankUserType,
-            notaryId: this.citizenDTO.notaryId
           });
         }
+
+        this.updateValidators(result.userType);
       });
+  }
+
+  updateValidators(userType: number) {
+    if (userType !== PublicUserType.OTHER) {
+      this.address1.setValidators([
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]);
+    }
+    if (userType === PublicUserType.CITIZEN) {
+      this.bankName.clearValidators();
+      this.lawFirmName.clearValidators();
+      this.stateInstitutionName.clearValidators();
+      this.otherInstitutionName.clearValidators();
+      this.officersDesignation.clearValidators();
+    }
+    if (userType === PublicUserType.BANK) {
+      this.bankName.setValidators([
+        Validators.required
+      ]);
+      this.lawFirmName.clearValidators();
+      this.stateInstitutionName.clearValidators();
+      this.otherInstitutionName.clearValidators();
+      this.officersDesignation.clearValidators();
+    }
+    if (userType === PublicUserType.LAWYER) {
+      this.lawFirmName.setValidators([
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]);
+      this.bankName.clearValidators();
+      this.stateInstitutionName.clearValidators();
+      this.otherInstitutionName.clearValidators();
+      this.officersDesignation.clearValidators();
+    }
+    if (userType === PublicUserType.STATE) {
+      this.stateInstitutionName.setValidators([
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]);
+      this.bankName.clearValidators();
+      this.lawFirmName.clearValidators();
+      this.otherInstitutionName.clearValidators();
+      this.officersDesignation.clearValidators();
+    }
+    if (userType === PublicUserType.OTHER) {
+      this.otherInstitutionName.setValidators([
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]);
+      this.officersDesignation.setValidators([
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]);
+      this.bankName.clearValidators();
+      this.lawFirmName.clearValidators();
+      this.stateInstitutionName.clearValidators();
+      this.address1.clearAsyncValidators();
+    }
   }
 
 }
