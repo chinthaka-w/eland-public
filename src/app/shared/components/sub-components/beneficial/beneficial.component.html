@@ -1,1 +1,223 @@
-<p>beneficial works!</p>
+<!-- <h4
+  class="form-section">
+  <i class="ft-user"></i>
+  {{'BENEFICIAL_ARTHUR_DETAILS.SUB_TITLE'|translate}}
+</h4> -->
+<div class="row m-0 p-0 mt-5">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="addBeneficial()"
+      [ngClass]="{
+        'col-md-8': uiController.isMultipleBeneficial,
+        'col-md-12': !uiController.isMultipleBeneficial
+      }"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="beneficial_name">{{
+              "CONTACT_DETAILS.FULL_NAME" | translate
+            }}</label
+            ><sup class="danger"> *</sup>
+            <input
+              formControlName="name"
+              id="beneficial_name"
+              class="form-control"
+            />
+            <div
+              *ngIf="name.touched && name.invalid"
+              class="text-danger font-small-2"
+            >
+              <div *ngIf="name.errors.required">
+                {{ "VALIDATION.NAME_IS_REQUIRED" | translate }}
+              </div>
+              <div *ngIf="name.errors.pattern">
+                {{ "VALIDATION.INVALID_NAME" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="beneficial_nic">{{
+              "CONTACT_DETAILS.NIC" | translate
+            }}</label
+            ><sup class="danger"> *</sup>
+            <input
+              formControlName="nic"
+              id="beneficial_nic"
+              class="form-control"
+            />
+            <div
+              *ngIf="nic.touched && nic.invalid"
+              class="text-danger font-small-2"
+            >
+              <div *ngIf="nic.errors.required">
+                {{ "VALIDATION.NIC_IS_REQUIRED" | translate }}
+              </div>
+              <div *ngIf="nic.errors.pattern">
+                {{ "VALIDATION.INVALID_NIC" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="beneficial_address_per">{{
+              "GRANTOR_DETAILS.ADDRESS_PERM" | translate
+            }}</label
+            ><sup class="danger"> *</sup>
+            <textarea
+              formControlName="addressPermanent"
+              id="beneficial_address_per"
+              class="form-control"
+            >
+            </textarea>
+            <div
+              *ngIf="addressPermanent.touched && addressPermanent.invalid"
+              class="text-danger font-small-2"
+            >
+              <div *ngIf="addressPermanent.errors.required">
+                {{ "VALIDATION.PERM_ADDRESS_REQUIRED" | translate }}
+              </div>
+              <div *ngIf="addressPermanent.errors.pattern">{{'VALIDATION.INVALID_ADDRESS'|translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 text-center pt-4">
+          <button
+            type="button"
+            class="btn btn-sm"
+            (click)="copyAddress()"
+            [disabled]="uiController.isReadOnly"
+          >
+            <i class="material-icons">
+              arrow_forward
+            </i>
+          </button>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="beneficial_address_res">{{
+              "GRANTOR_DETAILS.ADDRESS_RES" | translate
+            }}</label>
+            <textarea
+              formControlName="addressResidential"
+              id="beneficial_address_res"
+              class="form-control"
+            >
+            </textarea>
+            <div *ngIf="addressResidential.touched && addressResidential.invalid" class="text-danger font-small-2">
+              <div *ngIf="addressResidential.errors.pattern">{{'VALIDATION.INVALID_ADDRESS'|translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="beneficial_tp">{{
+              "GRANTOR_DETAILS.TELEPHONE" | translate
+            }}</label>
+            <input
+              formControlName="telephone"
+              id="beneficial_tp"
+              class="form-control"
+            />
+            <div
+              *ngIf="telephone.touched && telephone.invalid"
+              class="text-danger font-small-2"
+            >
+              <div *ngIf="telephone.errors.pattern">
+                {{ "VALIDATION.INVALID_TELE_REQUIRED" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="beneficial_mail">{{
+              "GRANTOR_DETAILS.EMAIL" | translate
+            }}</label>
+            <input
+              formControlName="email"
+              id="beneficial_mail"
+              class="form-control"
+            />
+            <div
+              *ngIf="email.touched && email.invalid"
+              class="text-danger font-small-2"
+            >
+              <div *ngIf="email.errors.pattern">
+                {{ "VALIDATION.INVALID_EMAIL" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="uiController.isMultipleBeneficial && !uiController.isReadOnly"
+      >
+        <div class="col-md-12">
+          <button
+            *ngIf="!isEdit"
+            type="submit"
+            class="btn btn-block btn-outline-primary"
+          >
+            {{ "BENEFICIAL_ARTHUR_DETAILS.TAB_TITLE" | translate }}
+          </button>
+          <button
+            *ngIf="isEdit"
+            type="submit"
+            class="btn btn-block btn-outline-primary"
+          >
+            {{ "BUTTONS.UPDATE_BUTTON" | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="col-md-4 p-2" *ngIf="uiController.isMultipleBeneficial">
+      <h5>{{ "BENEFICIAL_ARTHUR_DETAILS.LIST" | translate }}</h5>
+      <div class="text-center reference-person-list">
+        <span class="text-secondary" *ngIf="beneficialList?.length < 1">{{
+          "BENEFICIAL_ARTHUR_DETAILS.NO_BENEFICIAL_ARTHUR" | translate
+        }}</span>
+        <table class="table" *ngIf="beneficialList?.length > 0">
+          <tbody>
+            <tr *ngFor="let beneficial of beneficialList; index as i">
+              <td>
+                {{ beneficial.name }}
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-sm info"
+                  (click)="updateBeneficial(i)"
+                >
+                  <mat-icon 
+                class="material-icons"
+                title="View"
+                color="accent">remove_red_eye</mat-icon>
+                </button>
+                <button
+                  *ngIf="!uiController.isReadOnly"
+                  type="button"
+                  class="btn btn-sm danger"
+                  (click)="removeBeneficial(i)"
+                >
+                  <mat-icon 
+                class="material-icons"
+                title="Delete"
+                color="warn">delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

@@ -12,12 +12,10 @@
         <label>The land registry nearest to the applicant address
           <span>*</span></label>
         <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select matNativeControl formControlName="nearestLr" required (change)="getCurrentLandRegistry($event)">
-              <option value="" [disabled]="true">Select Land Registry</option>
-              <option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name}}</option>
-            </select>
-          </mat-form-field>
+            <mat-select formControlName="nearestLr" (change)="getCurrentLandRegistry($event)"> 
+              <mat-option value="" [disabled]="true">-- Select Land Registry --</mat-option>
+              <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name}}</mat-option>
+            </mat-select>
           <div *ngIf="FormControls.nearestLr.touched && FormControls.nearestLr.errors"
                      class="invalid-feedback">
           <mat-error *ngIf="FormControls.nearestLr.errors.required" class="errors">Please fill the required fields</mat-error>
@@ -28,19 +26,17 @@
       <div class="default-input-wrapper full-row sc-half-cols">
         <label>User Type <span>*</span></label>
         <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select matNativeControl formControlName="type" required (change)="getCurrentUserType($event)">
-              <option value="" disabled>Select</option>
-              <option value="{{PublicUserType.CITIZEN}}">Citizen</option>
-              <option value="{{PublicUserType.BANK}}">Bank</option>
-              <option value="{{PublicUserType.LAWYER}}">Lawyer/Low firm</option>
-              <option value="{{PublicUserType.STATE}}">State Institution</option>
-              <option value="{{PublicUserType.OTHER}}">Other Institution</option>
-            </select>
-          </mat-form-field>
+            <mat-select formControlName="type" required (change)="getCurrentUserType($event)">
+              <mat-option value="" disabled>-- Select User Type --</mat-option>
+              <mat-option value="{{PublicUserType.CITIZEN}}">Citizen</mat-option>
+              <mat-option value="{{PublicUserType.BANK}}">Bank</mat-option>
+              <mat-option value="{{PublicUserType.LAWYER}}">Lawyer/Low firm</mat-option>
+              <mat-option value="{{PublicUserType.STATE}}">State Institution</mat-option>
+              <mat-option value="{{PublicUserType.OTHER}}">Other Institution</mat-option>
+            </mat-select>
           <div *ngIf="FormControls.type.touched && FormControls.type.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.type.errors.required" class="errors">User Type Required</mat-error>
+            <mat-error *ngIf="FormControls.type.errors.required" class="errors">Please fill the required fields</mat-error>
           </div>
         </div>
       </div>
@@ -130,10 +126,12 @@
         <label class="mw-200">Date of birth <span>*</span></label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker"  formControlName="dateOfBirth" class="form-control" >
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="picker" [max]="maxDate"  formControlName="dateOfBirth" class="form-control" >
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+          <button type="button" mat-raised-button (click)="picker.open()">
+            <i class="material-icons">calendar_today</i>
+          </button>
           <div *ngIf="FormControls.dateOfBirth.touched && FormControls.dateOfBirth.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">Please fill the required fields</mat-error>
@@ -236,17 +234,17 @@
       <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200">Identification Type <span>*</span></label>
         <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select formControlName="identificationType" matNativeControl required (change)="getCurrentIdentificationType($event)">
-              <option value="" disabled>Select Identification Type</option>
-              <option value="{{identificationType.NIC}}" >NIC</option>
-              <option value="{{identificationType.PASSPORT}}" >Passport</option>
-              <option value="{{identificationType.DRIVING_LICENSE}}" >Driving License</option>
-            </select>
-          </mat-form-field>
+          
+            <mat-select formControlName="identificationType" matNativeControl required (change)="getCurrentIdentificationType($event)">
+              <mat-option value="" disabled="true">-- Select Identification Type --</mat-option>
+              <mat-option value="{{identificationType.NIC}}" >NIC</mat-option>
+              <mat-option value="{{identificationType.PASSPORT}}" >Passport</mat-option>
+              <mat-option value="{{identificationType.DRIVING_LICENSE}}" >Driving License</mat-option>
+            </mat-select>
+          
           <div *ngIf="FormControls.identificationType.touched && FormControls.identificationType.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.identificationType.errors.required" class="errors">Identification Type required</mat-error>
+            <mat-error *ngIf="FormControls.identificationType.errors.required" class="errors">Please fill the required fields</mat-error>
           </div>
         </div>
       </div>
@@ -259,7 +257,7 @@
           <div *ngIf="FormControls.identificationNo.touched && FormControls.identificationNo.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.identificationNo.errors.required" class="errors">Please fill the required fields</mat-error>
-            <mat-error *ngIf="identificationNo.errors.maxlength" class="errors">Please enter valid reference number</mat-error>
+            <mat-error *ngIf="identificationNo.errors.maxlength || identificationNo.errors.pattern" class="errors">Please enter valid reference number</mat-error>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ export class WorkflowStageDocDto {
     public docId: number,
     public docTypeId: number,
     public description: string,
-    public required: string,
+    public required: boolean,
   ) {}
 
   }

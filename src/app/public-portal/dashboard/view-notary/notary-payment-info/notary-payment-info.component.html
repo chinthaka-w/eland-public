@@ -1,7 +1,7 @@
 <form *ngIf="!isPayment">
   <div class="pg-inner-row mb-40">
     <div class="pg-inner-col">
-      <h5 class="m0">Payment Information</h5>
+      <h5 class="m0">{{'PAYMENT.PAYMENT_DETAILS'|translate}}</h5>
     </div>
   </div>
   <div class="default-input-wrapper full-row" id="payment-table">
@@ -22,8 +22,10 @@
 </form>
 <div *ngIf="isPayment" class="container">
   <app-payment (response)="getPaymentData($event)"
-               (paymentMethodResponse)="getPaymentData($event)"
+               (paymentMethodResponse)="addOnlinePayment($event)"
                [applicationFeeCode]="applicationFeeCode"
+               [returnUrl]="returnUrl"
+               [statusOnlinePayment]="statusOnlinePayment"
                [hasFrontCounterPayment]="hasFrontCounterPayment"
                [isDocumentCollect]="isDocumentCollect"
                [workflowCode]="workflow"

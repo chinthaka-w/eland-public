@@ -37,6 +37,7 @@ import { PaymentHistoryComponent } from './components/payment-history/payment-hi
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 import { FileUploadPopupComponent } from './components/file-upload-popup/file-upload-popup.component';
 import { AuthGuard } from './auth/auth-guard';
+import { DocPreviewComponent } from './components/doc-preview/doc-preview.component';
 import { FolioViewComponent } from './components/folio-view/folio-view.component';
 import { FolioHeaderComponent } from './components/sub-components/folio-header/folio-header.component';
 import { GrantorComponent } from './components/sub-components/grantor/grantor.component';
@@ -76,6 +77,8 @@ import { ImagePriviewComponent } from './components/image-priview/image-priview.
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
+    FileUploadPopupComponent,
+    DocPreviewComponent,
     FolioViewComponent,
     FolioHeaderComponent,
     GrantorComponent,
@@ -154,6 +157,7 @@ import { ImagePriviewComponent } from './components/image-priview/image-priview.
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
+    DocPreviewComponent,
     TranslatePipe,
     ImagePriviewComponent
   ],

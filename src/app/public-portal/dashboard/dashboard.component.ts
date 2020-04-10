@@ -12,6 +12,21 @@ import {SnackBarService} from 'src/app/shared/service/snack-bar.service';
 import {FolioDto} from 'src/app/shared/dto/folio-dto.model';
 import {DocumentType} from 'src/app/shared/enum/document-type.enum';
 import {SystemService} from 'src/app/shared/service/system.service';
+import { Component, OnInit} from '@angular/core';
+import { Workflow } from '../../shared/enum/workflow.enum';
+import { SessionService } from 'src/app/shared/service/session.service';
+import { UserType } from 'src/app/shared/enum/user-type.enum';
+import { NotaryService } from '../../shared/service/notary-service';
+import { RequestSearchDetailDTO } from '../../shared/dto/request-search.dto';
+import { MatDialog } from '@angular/material';
+import { FolioViewComponent } from 'src/app/shared/components/folio-view/folio-view.component';
+import { FolioService } from 'src/app/shared/service/folio.service';
+import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
+import { FolioDto } from 'src/app/shared/dto/folio-dto.model';
+import { DocumentType } from 'src/app/shared/enum/document-type.enum';
+import { SystemService } from 'src/app/shared/service/system.service';
+import {CommonStatus} from '../../shared/enum/common-status.enum';
+import {WorkflowStages} from '../../shared/enum/workflow-stages.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +42,7 @@ export class DashboardComponent implements OnInit {
   public dashboardView: boolean = false;
   public requestView: boolean = false;
   public notaryId: number;
+  public notaryNameChangeWorkFlow;
 
   commonStatus = CommonStatus;
 
@@ -48,6 +64,7 @@ export class DashboardComponent implements OnInit {
     this.requestView = false;
     this.user = this.sessionService.getUser();
     this.notaryId = this.user.id;
+    this.notaryNameChangeWorkFlow = WorkflowStages.NOTARY_NAME_CHANGE;
     if (this.user.type == this.userType.NOTARY) this.getUserDetails();
   }
 
@@ -190,5 +207,10 @@ export class DashboardComponent implements OnInit {
         this.snackbar.error('Internal server error');
       }
     )
+  }
+
+  onBackNotaryView(val: boolean) {
+    this.dashboardView = true;
+    this.requestView = false;
   }
 }

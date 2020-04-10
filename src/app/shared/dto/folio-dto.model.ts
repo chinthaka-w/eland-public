@@ -47,4 +47,5 @@ export class FolioDto {
     public wardName: string;
     public wardNumber: number;
     public folioTypeId: number;
+    public documentNatureId: number;
 }

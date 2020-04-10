@@ -1,0 +1,26 @@
+<div id="doc-preview" class="page-layout simple fullwidth" fxLayout="column">
+    <div class="p-24">
+        <div
+          class="mb-24"
+          fxLayout="column"
+          fxLayoutAlign="start"
+          fxLayout.gt-md="row"
+        >
+        </div>
+      </div>
+<div class="row">
+    <div class="pg-inner-col">
+        <mat-card *ngFor="let doc of docData; let i = index">
+            <div class="pg-inner-row mb-20">
+              <h4>{{doc.name}}</h4>
+            </div>
+            <div class="pg-inner-row mb-20">
+              <ngx-image-viewer
+                [src]="doc.pages"
+              >
+              </ngx-image-viewer>
+            </div>
+          </mat-card>
+    </div>
+</div>
+</div>

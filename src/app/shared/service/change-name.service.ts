@@ -21,12 +21,17 @@ export class ChangeNameService {
 
   /** get Name Change Request by requestId */
   getNameChangeRequestData(requestId: number): Observable<any> {
-    return this.httpClient.get(this.BASE_URL + '/getRequestDetails/' + requestId.toString() , {headers: this.headers});
+    return this.httpClient.get(this.BASE_URL + '/getRequestDetails/' + requestId , {headers: this.headers});
   }
 
   /** save Name Change Request */
   save(formData: FormData): Observable<any> {
     return this.httpClient.post(this.BASE_URL + '/submitChangeRequest/' , formData );
+  }
+
+  /** update Name Change Request */
+  updateDetails(formData: FormData): Observable<any> {
+    return this.httpClient.put(this.BASE_URL + '/' , formData );
   }
 
   /** update Name Change Request */

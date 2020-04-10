@@ -41,7 +41,6 @@ import { LeaveRequestComponent } from './dashboard/leave-request/leave-request.c
 import { ResignationComponent } from './dashboard/resignation/resignation.component';
 import { ApplicationsComponent } from './dashboard/applications/applications.component';
 import { RequestViewComponent } from './dashboard/requests/request-view/request-view.component';
-import {SharedModule} from "../shared/shared.module";
 import { ViewNotaryComponent } from './dashboard/view-notary/view-notary.component';
 import { NotaryApplicationComponent } from './dashboard/view-notary/notary-application/notary-application.component';
 import { NotaryPaymentInfoComponent } from './dashboard/view-notary/notary-payment-info/notary-payment-info.component';
@@ -50,8 +49,6 @@ import { DsGnDivisionTableComponent } from './dashboard/view-notary/notary-appli
 import { PaymentTableComponent } from './dashboard/view-notary/notary-payment-info/payment-table/payment-table.component';
 import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk-table/remrk-table.component';
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
-import {ImageViewerModule} from "ngx-image-viewer";
-import {ChangeJudicialRequestListComponent} from '../shared/components/request-list/change-judicial-request-list.component';
 import {
   MatBadgeModule,
   MatBottomSheetModule,
@@ -59,14 +56,14 @@ import {
   MatChipsModule,
   MatDividerModule, MatListModule,
   MatNativeDateModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { JudicialChangeRequestViewComponent } from './dashboard/change-judicial/judicial-change-request-view/judicial-change-request-view.component';
 import { RequestDataComponent } from './dashboard/change-judicial/judicial-change-request-view/request-data/request-data.component';
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { ViewCitizenComponent } from './dashboard/view-citizen/view-citizen.component';
 import { CitizenApplicationComponent } from './dashboard/view-citizen/citizen-application/citizen-application.component';
 import { CitizenPaymentInfoComponent } from './dashboard/view-citizen/citizen-payment-info/citizen-payment-info.component';
@@ -78,12 +75,18 @@ import { SearchDocumentApplicationComponent } from './dashboard/search-document/
 import { ExtractApplicationComponent } from './dashboard/extract/extract-view/extract-application/extract-application.component';
 import { LanguageChangeViewComponent } from './dashboard/language-change/language-change-view/language-change-view.component';
 import { LangChangeApplicationComponent } from './dashboard/language-change/language-change-view/lang-change-application/lang-change-application.component';
-import {DashboardComponent} from "./dashboard/dashboard.component";
 import { NameChangeRequestViewComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
 import { NameChangeRequestDataComponent } from './dashboard/change-the-name/name-change-request-view/name-change-request-data/name-change-request-data.component';
+import { RequestForCorrectionViewComponent } from './request-for-correction/request-for-correction-view/request-for-correction-view.component';
+import { CorrectionApplicationComponent } from './request-for-correction/correction-application/correction-application.component';
+import { NewCorrectionRequestComponent } from './request-for-correction/new-correction-request/new-correction-request.component';
 import { ChangeLandRegistryComponent } from './dashboard/change-land-registry/change-land-registry.component';
 import { ChangeLandRegistryRequestViewComponent } from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
 import { SearchDocumentResultComponent } from './dashboard/search-document/search-document-view/search-document-application/search-document-result/search-document-result.component';
+import { NotaryRequestViewComponent } from './dashboard/notary-request-view/notary-request-view.component';
+import {SharedModule} from '../shared/shared.module';
+import {ImageViewerModule} from 'ngx-image-viewer';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -138,6 +141,11 @@ import { SearchDocumentResultComponent } from './dashboard/search-document/searc
     RequestForCorrectionComponent,
     NameChangeRequestViewComponent,
     NameChangeRequestDataComponent,
+    NotaryRequestViewComponent,
+    NameChangeRequestDataComponent,
+    RequestForCorrectionViewComponent,
+    CorrectionApplicationComponent,
+    NewCorrectionRequestComponent,
     SearchDocumentResultComponent,
     NameChangeRequestDataComponent,
     ChangeLandRegistryComponent,
@@ -179,6 +187,8 @@ import { SearchDocumentResultComponent } from './dashboard/search-document/searc
     MatListModule,
     MatSlideToggleModule,
     MatInputModule
+    MatInputModule,
+    MatListModule
   ],
   exports: [
     LoginComponent,
