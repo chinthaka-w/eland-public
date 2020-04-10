@@ -186,7 +186,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     MatSlideToggleModule,
     MatListModule,
     MatSlideToggleModule,
-    MatInputModule
+    MatInputModule,
     MatInputModule,
     MatListModule
   ],
