@@ -35,6 +35,9 @@ import {SearchRequestWorkflowStages} from '../../../../../shared/enum/search-req
 import {MatBottomSheet} from '@angular/material';
 import {SearchDocumentResultComponent} from './search-document-result/search-document-result.component';
 import {DocumentService} from '../../../../../shared/service/document.service';
+import {LandRegistryDivision} from '../../../../../shared/dto/land-registry-division.model';
+import {LandRegistryDivisionService} from '../../../../../shared/service/land-registry-division.service';
+import {FolioStatus} from '../../../../../shared/enum/folio-status.enum';
 
 @Component({
   selector: 'app-search-document-application',
@@ -55,6 +58,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   WorkflowCode = Workflow;
   ActionMode = ActionMode;
   SearchWorkflowStage = SearchRequestWorkflowStages;
+  FolioStatus = FolioStatus;
 
   public isContinueToPayment: boolean = false;
 
@@ -68,20 +72,19 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   public gnDivisions: GnDivision[] = [];
   public villages: Village[] = [];
   public searchReasons: SearchReason[] = [];
+  public lrDivisions: LandRegistryDivision[] = [];
 
   public searchRequest = new SearchRequest();
 
   public docId;
   public documentDTO: any;
 
-  //Mat Table Config
-  public elements: Element[] = [];
-  public displayedColumns: string[] = ['Folio No', 'No. of years', 'Status', 'Action'];
-  public dataSource = new MatTableDataSource<any>(this.elements);
+  folioStatus: Enum = null;
 
   constructor(
     private landRegistryService: LandRegistryService,
     private paththuwaService: PaththuwaService,
+    private lrDivisionService: LandRegistryDivisionService,
     private koraleService: KoraleService,
     private dsDivisionService: DsDivisionService,
     private gnDivisionService: GnDivisionService,
@@ -109,24 +112,22 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
       'probablePeriodTo': new FormControl(''),
       'nameOfTheGranter': new FormControl(''),
       'nameOfTheGrantee': new FormControl(''),
-      'nameOfTheLand': new FormControl('', Validators.required),
-      'extent': new FormControl('', Validators.required),
-      'paththuId': new FormControl('', Validators.required),
-      'koraleId': new FormControl('', Validators.required),
-      'dsDivisionId': new FormControl('', Validators.required),
-      'gnDivisionId': new FormControl('', Validators.required),
-      'villageId': new FormControl('', Validators.required),
+      'nameOfTheLand': new FormControl(''),
+      'extent': new FormControl(''),
+      'paththuId': new FormControl(''),
+      'koraleId': new FormControl(''),
+      'dsDivisionId': new FormControl(''),
+      'gnDivisionId': new FormControl(''),
+      'villageId': new FormControl(''),
       'searchReasonId': new FormControl('', Validators.required),
-    });
-
-    this.folioForm = new FormGroup({
+      'lrDivisionId': new FormControl('', Validators.required),
+      'volume': new FormControl('', Validators.required),
       'folioNo': new FormControl('', Validators.required),
       'noOfYears': new FormControl('', Validators.required),
     });
 
     if (this.action === ActionMode.VIEW) {
       this.searchRequestForm.disable();
-      this.folioForm.disable();
     }
 
     this.loadLandRegistries();
@@ -134,7 +135,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     this.loadDSDivision();
     this.loadReasonForSearch();
 
-    this.searchRequestForm.get('requestType').disable();
+    this.setDisable();
 
     this.searchRequestForm.get('koraleId').valueChanges.subscribe(value => {
       this.loadPaththu(value);
@@ -146,6 +147,10 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
 
     this.searchRequestForm.get('gnDivisionId').valueChanges.subscribe(value => {
       this.loadVillage(value);
+    });
+
+    this.searchRequestForm.get('landRegistryId').valueChanges.subscribe(value => {
+      this.loadLRDivision(value);
     });
 
     this.searchRequestForm.valueChanges.subscribe(
@@ -162,6 +167,15 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
   }
 
   // Api call
+
+  setDisable() {
+    this.searchRequestForm.get('requestType').disable();
+    this.searchRequestForm.get('landRegistryId').disable();
+    this.searchRequestForm.get('lrDivisionId').disable();
+    this.searchRequestForm.get('volume').disable();
+    this.searchRequestForm.get('folioNo').disable();
+    this.searchRequestForm.get('noOfYears').disable();
+  }
 
   loadLandRegistries(): void {
     this.landRegistryService.getAllLandRegistry().subscribe(
@@ -219,6 +233,14 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     );
   }
 
+  loadLRDivision(id: any): void {
+    this.lrDivisionService.getAllByLandRegistryId(id).subscribe(
+      (data: LandRegistryDivision[]) => {
+        this.lrDivisions = data;
+      }
+    );
+  }
+
 //Local changes
 
   goBack(): any {
@@ -230,84 +252,61 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     return this.searchRequestForm.get('requestType').value;
   }
 
+  get form(): FormGroup {
+    return this.searchRequestForm as FormGroup;
+  }
+
   onChangeRequestType() {
-    // this.resetForm();
+    this.searchRequestForm.patchValue({
+      'attestedByNotaryName': '',
+      'practicedLocation': '',
+      'numberOfTheDeed': '',
+      'natureOfTheDeed': '',
+      'probablePeriodFrom': '',
+      'probablePeriodTo': '',
+      'nameOfTheGranter': '',
+      'nameOfTheGrantee': '',
+      'nameOfTheLand': '',
+      'extent': '',
+      'paththuId': '',
+      'koraleId': '',
+      'dsDivisionId': '',
+      'gnDivisionId': '',
+      'villageId': '',
+      'searchReasonId': '',
+      'lrDivisionId': '',
+      'volume': '',
+      'folioNo': '',
+      'noOfYears': '',
+    });
+
     if (this.requestType == SearchRequestType.FOLIO_DOCUMENT) {
       this.searchRequestForm.get('attestedByNotaryName').clearValidators();
-      this.searchRequestForm.get('practicedLocation').clearValidators();
+      this.searchRequestForm.get('attestedByNotaryName').updateValueAndValidity();
       this.searchRequestForm.get('numberOfTheDeed').clearValidators();
-      this.searchRequestForm.get('natureOfTheDeed').clearValidators();
-      this.searchRequestForm.get('probablePeriodFrom').clearValidators();
-      this.searchRequestForm.get('probablePeriodTo').clearValidators();
-      this.searchRequestForm.get('nameOfTheGranter').clearValidators();
-      this.searchRequestForm.get('nameOfTheGrantee').clearValidators();
+      this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
+      this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
+      this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
+      this.searchRequestForm.get('volume').setValidators(Validators.required);
+      this.searchRequestForm.get('volume').updateValueAndValidity();
+      this.searchRequestForm.get('folioNo').setValidators(Validators.required);
+      this.searchRequestForm.get('folioNo').updateValueAndValidity();
+      this.searchRequestForm.get('noOfYears').setValidators(Validators.required);
+      this.searchRequestForm.get('noOfYears').updateValueAndValidity();
     } else if (this.requestType == SearchRequestType.DEED_DOCUMENT) {
       this.searchRequestForm.get('attestedByNotaryName').setValidators(Validators.required);
-      this.searchRequestForm.get('practicedLocation').setValidators(Validators.required);
+      this.searchRequestForm.get('attestedByNotaryName').updateValueAndValidity();
       this.searchRequestForm.get('numberOfTheDeed').setValidators(Validators.required);
-      this.searchRequestForm.get('natureOfTheDeed').setValidators(Validators.required);
-      this.searchRequestForm.get('probablePeriodFrom').setValidators(Validators.required);
-      this.searchRequestForm.get('probablePeriodTo').setValidators(Validators.required);
-      this.searchRequestForm.get('nameOfTheGranter').setValidators(Validators.required);
-      this.searchRequestForm.get('nameOfTheGrantee').setValidators(Validators.required);
+      this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
+      this.searchRequestForm.get('lrDivisionId').clearValidators();
+      this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
+      this.searchRequestForm.get('volume').clearValidators();
+      this.searchRequestForm.get('volume').updateValueAndValidity();
+      this.searchRequestForm.get('folioNo').clearValidators();
+      this.searchRequestForm.get('folioNo').updateValueAndValidity();
+      this.searchRequestForm.get('noOfYears').clearValidators();
+      this.searchRequestForm.get('noOfYears').updateValueAndValidity();
     }
-  }
-
-  onClickAddButton() {
-
-    let isValid = true;
-    let errorMassage = '';
-
-    if (!this.searchRequestForm.valid) {
-      isValid = false;
-      errorMassage = 'Please fill application form, before search folio status.';
-    }
-
-    if (this.searchRequestForm.valid && !this.folioForm.valid) {
-      isValid = false;
-      errorMassage = 'Folio No or No.of Years can not be empty';
-    }
-    //
-    // if (isValid && this.folioForm.get('noOfYears').value != null && this.folioForm.get('noOfYears').value != '') {
-    //   isValid = false;
-    //   errorMassage = 'No. of Years can not be empty';
-    // }
-
-
-    if (isValid) {
-      let folioStatus: Enum = null;
-      this.folioNoService.findByFolioNo(
-        btoa(`${this.searchRequestForm.get('landRegistryId').value}/${this.folioForm.get('folioNo').value}`)
-      ).subscribe(
-        (data: Enum) => {
-          folioStatus = data;
-        }, (error: HttpErrorResponse) => {
-          this.snackBarService.error(error.message);
-        }, () => {
-          let element: Element = {
-            index: 0,
-            folioNo: this.folioForm.get('folioNo').value,
-            noOfYears: this.folioForm.get('noOfYears').value,
-            statusDes: folioStatus.desc,
-            status: folioStatus.code,
-            deleted: false,
-          };
-          this.elements.push(element);
-          this.folioItem.emit(element);
-          this.dataSource.data = this.elements;
-          this.folioForm.reset();
-        }
-      );
-    } else {
-      this.snackBarService.error(errorMassage)
-    }
-  }
-
-  onClickDelete(index: any) {
-    this.elements[index].deleted = true;
-    this.folioItem.emit(this.elements[index]);
-    this.elements.splice(index, 1);
-    this.dataSource.data = this.elements;
   }
 
   onPaymentResponse(data: PaymentResponse) {
@@ -321,48 +320,68 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
 
   loadSearchRequest(): void {
     this.searchRequestService.findById(this.requestId).subscribe(
-      (data: any) => {
+      (data: SearchRequest) => {
         this.searchRequestForm.patchValue(data);
-        this.elements = data.folioList;
-        this.dataSource.data = this.elements;
-        this.docId = data.docId;
+        let enumData = new Enum();
+
+        enumData.code = data.folioNoStatus;
+        enumData.desc = data.folioNoStatusDes;
+
+        this.folioStatus = enumData;
+
       }, (error1) => {
       },
       () => {
-        if (this.docId != 0) {
-          this.getDocument(this.docId);
+
+      }
+    );
+  }
+
+  onClickSaveChanges() {
+    let isValid = true;
+    let errorMassage = '';
+
+    if (!this.searchRequestForm.valid) {
+      isValid = false;
+      errorMassage = 'Please fill application form, before Apply Changes.';
+    }
+
+    // if (isValid && this.elements.length == 0) {
+    //   isValid = false;
+    //   errorMassage = 'Please add one or more folio, before continue.';
+    // }
+
+    if (isValid) {
+      this.searchRequestForm.enable();
+      this.searchRequest = this.searchRequestForm.value;
+      this.searchRequest.requestId = this.requestId;
+      // this.searchRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED;
+      // this.searchRequest.folioList = this.folioList;
+      // this.searchRequest.paymentList = this.paymentList;
+      this.searchRequest.userId = this.sessionService.getUser().id;
+      this.searchRequest.userType = this.sessionService.getUser().type;
+      this.setDisable();
+      this.updateRequest(this.searchRequest);
+    } else {
+      this.snackBarService.error(errorMassage);
+    }
+  }
+
+  updateRequest(searchRequest: SearchRequest): void {
+    this.searchRequestService.updateSearchRequest(searchRequest).subscribe(
+      (data) => {
+        if (data) {
+          this.snackBarService.success('Your Search request is updated.');
+        } else {
+          this.snackBarService.warn('Please try again.')
         }
+      }, (error: HttpErrorResponse) => {
+        console.log(error);
+        this.snackBarService.error(error.message);
+      }, () => {
       }
     );
   }
 
-  getDocument(docId: any) {
-    this.documentService.getDocumentById(docId).subscribe(
-      (data: any) => {
-        this.documentDTO = data;
-      }
-    );
-  }
-
-  onClickView(index: any) {
-    this.getSearchResult(this.elements[index].index);
-  }
-
-  getSearchResult(requestId: any) {
-    this.searchRequestService.getSearchFolioResultBySearchRequestFolioId(requestId).subscribe(
-      (data: any[]) => {
-        this._bottomSheet.open(SearchDocumentResultComponent, {data: data});
-      }
-    );
-  }
-}
-
-export interface Element {
-  index: number;
-  folioNo: string;
-  noOfYears: string;
-  deleted: boolean;
-  statusDes: string;
-  status: string;
 }
 

@@ -88,28 +88,30 @@ export class SearchDocumentViewComponent implements OnInit {
     let isValid = true;
     let errorMassage = '';
 
-    if (!this.searchDocumentApplicationComponent.searchRequestForm.valid) {
-      isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
-    }
+    // if (!this.searchDocumentApplicationComponent.searchRequestForm.valid) {
+    //   isValid = false;
+    //   errorMassage = 'Please fill application form, before continue.';
+    // }
+    //
+    // if (isValid && this.searchDocumentApplicationComponent.elements.length == 0) {
+    //   isValid = false;
+    //   errorMassage = 'Please add one or more folio, before continue.';
+    // }
+    //
+    // if (isValid) {
+    //   this.searchRequest = this.searchDocumentApplicationComponent.searchRequestForm.value;
+    //   this.searchRequest.requestId = this.requestId;
+    //   this.searchRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED;
+    //   // this.searchRequest.folioList = this.folioList;
+    //   // this.searchRequest.paymentList = this.paymentList;
+    //   this.searchRequest.userId = this.sessionService.getUser().id;
+    //   this.searchRequest.userType = this.sessionService.getUser().type;
+    //   this.updateRequest(this.searchRequest);
+    // } else {
+    //   this.snackBarService.error(errorMassage);
+    // }
 
-    if (isValid && this.searchDocumentApplicationComponent.elements.length == 0) {
-      isValid = false;
-      errorMassage = 'Please add one or more folio, before continue.';
-    }
-
-    if (isValid) {
-      this.searchRequest = this.searchDocumentApplicationComponent.searchRequestForm.value;
-      this.searchRequest.requestId = this.requestId;
-      this.searchRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED;
-      this.searchRequest.folioList = this.folioList;
-      this.searchRequest.paymentList = this.paymentList;
-      this.searchRequest.userId = this.sessionService.getUser().id;
-      this.searchRequest.userType = this.sessionService.getUser().type;
-      this.updateRequest(this.searchRequest);
-    } else {
-      this.snackBarService.error(errorMassage);
-    }
+    this.actionUpdate(SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED);
   }
 
   updateRequest(searchRequest: SearchRequest): void {
@@ -125,6 +127,22 @@ export class SearchDocumentViewComponent implements OnInit {
         console.log(error);
         this.snackBarService.error(error.message);
       }, () => {
+      }
+    );
+  }
+
+  actionUpdate(workflowStage: string): void {
+
+    let searchRequestAction = new SearchRequest();
+    searchRequestAction.workflowStageCode = workflowStage;
+    searchRequestAction.requestId = this.requestId;
+
+    this.searchRequestService.action(searchRequestAction).subscribe(
+      (data) => {
+        if (data != null) {
+          this.snackBarService.success('Successfully submitted');
+          this.goBack();
+        }
       }
     );
   }
