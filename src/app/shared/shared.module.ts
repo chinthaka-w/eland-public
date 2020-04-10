@@ -155,8 +155,9 @@ import { ListTranslatePipe } from './pipe/list-translate.pipe';
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
+    TranslatePipe,
+    ListTranslatePipe,
     DocPreviewComponent,
-    TranslatePipe
   ],
   providers: [
     AuthGuard,

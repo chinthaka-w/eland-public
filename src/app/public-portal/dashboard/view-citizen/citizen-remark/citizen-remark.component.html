@@ -10,22 +10,22 @@
 
       <table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="Workflow Stage">
-          <th mat-header-cell *matHeaderCellDef>Workflow Stage</th>
+          <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.WRK_STG'|translate}}</th>
           <td mat-cell *matCellDef="let row"> {{row.workflowStage}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Remark">
-          <th mat-header-cell *matHeaderCellDef>Remark</th>
+          <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.REMARK'|translate}}</th>
           <td mat-cell *matCellDef="let row"> {{row.remark}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Created Time">
-          <th mat-header-cell *matHeaderCellDef>Created Time</th>
+          <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.CRTIME'|translate}}</th>
           <td mat-cell *matCellDef="let row"> {{row.createdTime}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Created User">
-          <th mat-header-cell *matHeaderCellDef>Created User</th>
+          <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.CRUSER'|translate}}</th>
           <td mat-cell *matCellDef="let row"> {{row.createdUser}}</td>
         </ng-container>
 

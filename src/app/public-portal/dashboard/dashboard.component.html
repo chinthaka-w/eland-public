@@ -2,32 +2,33 @@
   <div class="dashboard-inner-container">
     <div class="db-left-col" style="background-image: url('assets/images/temp_img_005.jpg')">&nbsp;</div>
     <div class="db-right-col">
-      <h2>Welcome to E-Land</h2>
+      <h2>{{'DASOBOARD.TITLE1'|translate}}</h2>
+      <p>{{'DASOBOARD.TITLE2'|translate}}</p>
       <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
           <!--<a href="#">Next </a>-->
         </div>
         <div class="db-card-content">
           <dl class="db-card-info">
-            <dt>Notary Code:</dt>
+            <dt>{{'DASOBOARD.NOTARY_CODE'|translate}}</dt>
             <dd>{{searchDetails?.notaryCode}}</dd>
           </dl>
           <dl class="db-card-info">
-            <dt>Notary ID:</dt>
+            <dt>{{'DASOBOARD.NOTARYID'|translate}}</dt>
             <dd>{{searchDetails?.notaryId}}</dd>
           </dl>
           <dl class="db-card-info">
-            <dt>Status:</dt>
+            <dt>{{'DASOBOARD.STATUS'|translate}}</dt>
             <dd>
               <span class="status-pending">{{searchDetails?.status}}</span>
             </dd>
           </dl>
           <dl class="db-card-info">
-            <dt>Name:</dt>
+            <dt>{{'DASOBOARD.NAME'|translate}}</dt>
             <dd>{{searchDetails?.name}}</dd>
           </dl>
           <dl class="db-card-info">
-            <dt>Payment:</dt>
+            <dt>{{'DASOBOARD.PAYMENT'|translate}}</dt>
             <dd>{{searchDetails?.paymentMethod}}</dd>
           </dl>
           <div class="clear">&nbsp;</div>
@@ -38,14 +39,15 @@
       </div>
       <div class="db-card-full" *ngIf="user.type == userType.CITIZEN">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
+          <!-- <a href="#">{{'DASOBOARD.NEXT'|translate}} ></a> -->
         </div>
         <div class="db-card-content">
           <dl class="db-card-info">
-            <dt>Citizen ID:</dt>
+            <dt>{{'DASOBOARD.CITIZENID'|translate}}</dt>
             <dd> {{searchDetails?.id}}</dd>
           </dl>
           <dl class="db-card-info">
-            <dt>Status:</dt>
+            <dt>{{'DASOBOARD.PAYMENT'|translate}}</dt>
             <dd>
                 <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending': 
                               searchDetails?.status === commonStatus.INACTIVE? 'status-pending': 
@@ -57,8 +59,12 @@
             </dd>
           </dl>
           <dl class="db-card-info">
-            <dt>Name:</dt>
+            <dt>{{'DASOBOARD.NAME'|translate}}</dt>
             <dd> {{searchDetails?.name}}</dd>
+          </dl>
+          <dl class="db-card-info">
+            <dt>{{'DASOBOARD.PAYMENT'|translate}}</dt>
+            <dd></dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>
@@ -72,7 +78,7 @@
             <span class="icon">
               <i class="material-icons">room</i>
             </span>
-            <span class="title">Change Judicial Zone</span>
+            <span class="title">{{'DASOBOARD.CHG_JUD_ZONE'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c1" *ngIf="user.type == userType.NOTARY">
@@ -80,7 +86,7 @@
             <span class="icon">
               <i class="material-icons">room</i>
             </span>
-            <span class="title">Change Land Registry</span>
+            <span class="title">{{'DASOBOARD.CHG_LAND_REG'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c2" *ngIf="user.type == userType.NOTARY">
@@ -88,7 +94,7 @@
             <span class="icon">
               <i class="material-icons">cached</i>
             </span>
-            <span class="title">Change The Name</span>
+            <span class="title">{{'DASOBOARD.CHG_NAME'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c3" *ngIf="user.type == userType.NOTARY">
@@ -96,7 +102,7 @@
             <span class="icon">
               <i class="material-icons">label</i>
             </span>
-            <span class="title">Resignation</span>
+            <span class="title">{{'DASOBOARD.CHG_RESIGNATION'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c4" *ngIf="user.type == userType.NOTARY">
@@ -104,7 +110,7 @@
                         <span class="icon">
                             <i class="material-icons">speaker_notes</i>
                         </span>
-            <span class="title">Language Change</span>
+            <span class="title">{{'DASOBOARD.CHG_LANG'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c5" *ngIf="user.type == userType.NOTARY">
@@ -112,7 +118,15 @@
             <span class="icon">
               <i class="material-icons">date_range</i>
             </span>
-            <span class="title">Request for leave</span>
+            <span class="title">{{'DASOBOARD.REQ_LEAVE'|translate}}</span>
+          </a>
+        </div>
+        <div class="db-link-tile" *ngIf="user.type == userType.NOTARY">
+          <a [routerLink]="['/applications']">
+            <span class="icon">
+              <i class="material-icons">insert_drive_file</i>
+            </span>
+            <span class="title">{{'DASOBOARD.APPLICATIONS'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c1" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
@@ -120,7 +134,7 @@
             <span class="icon">
               <i class="material-icons"> edit </i>
             </span>
-            <span class="title"> Section 35 Correction</span>
+            <span class="title">{{'DASOBOARD.SECTION35'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c1" *ngIf="user.userStatus == commonStatus.ACTIVE">
@@ -128,7 +142,7 @@
                         <span class="icon">
                           <i class="material-icons">search</i>
                         </span>
-            <span class="title">Search</span>
+            <span class="title">{{'DASOBOARD.SEARCH'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c4" *ngIf="user.userStatus == commonStatus.ACTIVE">
@@ -136,7 +150,7 @@
             <span class="icon">
               <i class="material-icons">dns</i>
             </span>
-            <span class="title">Extract</span>
+            <span class="title">{{'DASOBOARD.EXTRACT'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c3" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
@@ -144,7 +158,7 @@
             <span class="icon">
               <i class="material-icons">feedback</i>
             </span>
-            <span class="title">Requests</span>
+            <span class="title">{{'DASOBOARD.REQUESTS'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
@@ -152,7 +166,7 @@
             <span class="icon">
               <i class="material-icons">label</i>
             </span>
-            <span class="title">Request for Corrections of Resignation</span>
+            <span class="title">{{'DASOBOARD.REQUEST_FOR_CORRECTION'|translate}}</span>
           </a>
         </div>
         <div *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE" class="db-link-tile c2">
@@ -160,7 +174,7 @@
             <span class="icon">
               <i class="material-icons">label</i>
             </span>
-            <span class="title">Folio View</span>
+            <span class="title">{{'DASOBOARD.FOLIO_VIEW'|translate}}</span>
           </a>
           <mat-spinner *ngIf="folioPending"></mat-spinner>
         </div>

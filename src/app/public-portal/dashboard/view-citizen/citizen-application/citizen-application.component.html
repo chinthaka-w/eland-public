@@ -1,26 +1,26 @@
 <app-last-remark *ngIf="isEdit" [requestId]="citizenDTO.reqId" [workflow]="WorkflowCode.CITIZEN_REGISTRATION"></app-last-remark>
 <form [formGroup]="publicUserForm">
   <div class="default-input-wrapper full-row half-cols">
-    <label>The land registry nearest to the applicant address
+    <label>{{'CITIZEN.TITLE'|translate}}
       <span>*</span></label>
     <div class="default-input-feild gray"> 
         <mat-select formControlName="nearestLr" required (selectionChange)="getCurrentLandRegistry($event)">
-          <mat-option value="" disabled>Select Land Registry</mat-option>
+          <mat-option value="" disabled>{{'CITIZEN.SELECT_LAND_REG'|translate}}</mat-option>
           <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name}}</mat-option>
         </mat-select>
     </div>
   </div>
 
   <div class="default-input-wrapper full-row half-cols">
-    <label>User Type <span>*</span></label>
+    <label>{{'CITIZEN.USER_TYPE'|translate}}<span>*</span></label>
     <div class="default-input-feild gray">
         <mat-select [disabled]="true" formControlName="type" required (selectionChange)="getCurrentUserType($event)">
-          <mat-option value=null disabled="true">Select</mat-option>
-          <mat-option [value]="PublicUserType.CITIZEN">Citizen</mat-option>
-          <mat-option [value]="PublicUserType.BANK">Bank</mat-option>
-          <mat-option [value]="PublicUserType.LAWYER">Lawyer / Law Firm</mat-option>
-          <mat-option [value]="PublicUserType.STATE">State Institution</mat-option>
-          <mat-option [value]="PublicUserType.OTHER">Other Institution</mat-option>
+          <mat-option value=null disabled="true">{{'CITIZEN.SELECT'|translate}}</mat-option>
+          <mat-option [value]="PublicUserType.CITIZEN">{{'CITIZEN.CITIZEN'|translate}}</mat-option>
+          <mat-option [value]="PublicUserType.BANK">{{'CITIZEN.BANK'|translate}}</mat-option>
+          <mat-option [value]="PublicUserType.LAWYER">{{'CITIZEN.LAWYER'|translate}}</mat-option>
+          <mat-option [value]="PublicUserType.STATE">{{'CITIZEN.STATE'|translate}}</mat-option>
+          <mat-option [value]="PublicUserType.OTHER">{{'CITIZEN.OTHER1'|translate}}</mat-option>
         </mat-select>
     </div>
   </div>
@@ -28,27 +28,27 @@
   <div class="separator mt-30">&nbsp;</div>
 
   <div *ngIf="publicUserType.value == PublicUserType.LAWYER" class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Law Firm Name <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.LAW_FIRM_NAME'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Law Firm Name" formControlName="lawFirmName" />
       </mat-form-field>
       <div *ngIf="lawFirmName.invalid && (lawFirmName.dirty || lawFirmName.touched)">
-        <mat-error *ngIf="lawFirmName.errors.required" class="errors">Please fill the required fields</mat-error>
+        <mat-error *ngIf="lawFirmName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
         <mat-error *ngIf="lawFirmName.errors.maxlength || lawFirmName.errors.pattern" class="errors">Please enter valid name</mat-error>
       </div>
     </div>
   </div>
 
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Applicant Name <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.APPLICANT_NAME'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Applicant Name(English)" formControlName="nameEnglish" />
+        <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME'|translate}}" formControlName="nameEnglish" />
       </mat-form-field>
       <div *ngIf="nameEnglish.invalid && (nameEnglish.dirty || nameEnglish.touched)">
-        <mat-error *ngIf="nameEnglish.errors.required" class="errors">Please fill the required fields</mat-error>
-        <mat-error *ngIf="nameEnglish.errors.pattern || nameEnglish.errors.maxlength" class="errors">Please enter valid name</mat-error>
+        <mat-error *ngIf="nameEnglish.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
+        <mat-error *ngIf="nameEnglish.errors.pattern || nameEnglish.errors.maxlength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
       </div>
     </div>
   </div>
@@ -56,10 +56,10 @@
     <label class="mw-200"></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Applicant Name(Sinhala)" formControlName="nameSinhala" />
+        <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME_SIN'|translate}}" formControlName="nameSinhala" />
       </mat-form-field>
       <div *ngIf="nameSinhala.invalid && (nameSinhala.dirty || nameSinhala.touched)">
-        <mat-error *ngIf="nameSinhala.errors.pattern || nameSinhala.errors.maxlength" class="errors">Please enter valid name</mat-error>
+        <mat-error *ngIf="nameSinhala.errors.pattern || nameSinhala.errors.maxlength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
       </div>
     </div>
   </div>
@@ -67,74 +67,74 @@
     <label class="mw-200"></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Applicant Name(Tamil)" formControlName="nameTamil" />
+        <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME_TAM'|translate}}" formControlName="nameTamil" />
       </mat-form-field>
       <div *ngIf="nameTamil.invalid && (nameTamil.dirty || nameTamil.touched)">
-        <mat-error *ngIf="nameTamil.errors.pattern || nameTamil.errors.maxlength" class="errors">Please enter valid name</mat-error>
+        <mat-error *ngIf="nameTamil.errors.pattern || nameTamil.errors.maxlength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
       </div>
     </div>
   </div>
 
   <div *ngIf="publicUserType.value == PublicUserType.OTHER" class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Officer's Designation <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.OFFICERS_DESIGNATION'|translate}}<span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Officer's Designation" formControlName="officersDesignation" />
       </mat-form-field>
       <div *ngIf="officersDesignation.invalid && (officersDesignation.dirty || officersDesignation.touched)">
-        <mat-error *ngIf="officersDesignation.errors.required" class="errors">Please fill the required fields</mat-error>
+        <mat-error *ngIf="officersDesignation.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
         <mat-error *ngIf="officersDesignation.errors.maxlength || officersDesignation.errors.pattern" class="errors">Please enter valid designation</mat-error>
       </div>
     </div>
   </div>
   <div *ngIf="publicUserType.value == PublicUserType.STATE" class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">State Institution Name <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.STATE_INS_NAME'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="State Institution Name" formControlName="stateInstitutionName" />
       </mat-form-field>
       <div *ngIf="stateInstitutionName.invalid && (stateInstitutionName.dirty || stateInstitutionName.touched)">
-        <mat-error *ngIf="stateInstitutionName.errors.required" class="errors">Please fill the required fields</mat-error>
+        <mat-error *ngIf="stateInstitutionName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
         <mat-error *ngIf="stateInstitutionName.errors.maxlength || stateInstitutionName.errors.pattern"  class="errors">Please enter valid name</mat-error>
       </div>
     </div>
   </div>
 
   <div *ngIf="publicUserType.value == PublicUserType.OTHER" class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Other Institution Name <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.OTHER_INS_NAME'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Other Institution Name" formControlName="otherInstitutionName" />
+        <input matInput placeholder="{{'CITIZEN.OTHER_INS_NAME'|translate}}" formControlName="otherInstitutionName" />
       </mat-form-field>
       <div *ngIf="otherInstitutionName.invalid && (otherInstitutionName.dirty || otherInstitutionName.touched)">
-        <mat-error *ngIf="otherInstitutionName.errors.required" class="errors">Please fill the required fields</mat-error>
+        <mat-error *ngIf="otherInstitutionName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
         <mat-error *ngIf="otherInstitutionName.errors.maxlength || otherInstitutionName.errors.pattern" class="errors">Please enter valid name</mat-error>
       </div>
     </div>
   </div>
 
   <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Bank Name <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
     <div class="default-input-feild gray">
-        <mat-select formControlName="bankName" required (selectionChange)="getCurrentBank($event)" placeholder="Select Bank Name">
+        <mat-select formControlName="bankName" required (selectionChange)="getCurrentBank($event)" placeholder="{{'CITIZEN.SELECT_BANK'|translate}}">
           <mat-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</mat-option>
         </mat-select>
       <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)">
-        <mat-error *ngIf="bankName.errors.required" class="errors">Please fill the required fields</mat-error>
+        <mat-error *ngIf="bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
       </div>
     </div>
   </div>
 
   <div *ngIf="publicUserType.value != PublicUserType.OTHER">
     <div class="default-input-wrapper full-row half-cols">
-      <label class="mw-200">Address <span>*</span></label>
+      <label class="mw-200">{{'CITIZEN.ADDRESS'|translate}}<span>*</span></label>
       <div class="default-input-feild">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Address Line 1" formControlName="address1" />
+          <input matInput placeholder="{{'CITIZEN.LINE_ONE'|translate}}" formControlName="{{'CITIZEN.ADDRESS'|translate}}" />
         </mat-form-field>
         <div *ngIf="address1.invalid && (address1.dirty || address1.touched)">
-          <mat-error *ngIf="address1.errors.required" class="errors">Please fill the required fields</mat-error>
-          <mat-error *ngIf="address1.errors.pattern || address1.errors.maxlength" class="errors">Please enter valid address</mat-error>
+          <mat-error *ngIf="address1.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
+          <mat-error *ngIf="address1.errors.pattern || address1.errors.maxlength" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
         </div>
       </div>
     </div>
@@ -142,10 +142,10 @@
       <label class="mw-200"></label>
       <div class="default-input-feild">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Address Line 2" formControlName="address2" />
+          <input matInput placeholder="{{'CITIZEN.LINE_TWO'|translate}}" formControlName="address2" />
         </mat-form-field>
         <div *ngIf="address2.invalid && (address2.dirty || address2.touched)">
-          <mat-error *ngIf="address2.errors.pattern || address2.errors.maxlength" class="errors">Please enter valid address</mat-error>
+          <mat-error *ngIf="address2.errors.pattern || address2.errors.maxlength" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
         </div>
       </div>
     </div>
@@ -153,72 +153,71 @@
       <label class="mw-200"></label>
       <div class="default-input-feild">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Address Line 3" formControlName="address3" />
+          <input matInput placeholder="{{'CITIZEN.LINE_THREE'|translate}}" formControlName="address3" />
         </mat-form-field>
         <div *ngIf="address3.invalid && (address3.dirty || address3.touched)">
-          <mat-error *ngIf="address3.errors.pattern || address3.errors.maxlength" class="errors">Please enter valid address</mat-error>
+          <mat-error *ngIf="address3.errors.pattern || address3.errors.maxlength" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
         </div>
       </div>
     </div>
   </div>
   
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Identification Type <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.IDENT_TYPE'|translate}} <span>*</span></label>
     <div class="default-input-feild gray">
-      
         <mat-select formControlName="identificationType" required (selectionChange)="getCurrentIdentificationType($event)">
-          <mat-option value="" disabled>Select Identification Type</mat-option>
-          <mat-option [value]="identificationType.NIC" >NIC</mat-option>
-          <mat-option [value]="identificationType.PASSPORT" >Passport</mat-option>
-          <mat-option [value]="identificationType.DRIVING_LICENSE" >Driving License</mat-option>
+          <mat-option value="" disabled>{{'CITIZEN.SELECT_IDEN_TYP'|translate}}</mat-option>
+          <mat-option [value]="identificationType.NIC" >{{'CITIZEN.NIC'|translate}}</mat-option>
+          <mat-option [value]="identificationType.PASSPORT" >{{'CITIZEN.PASSPORT'|translate}}</mat-option>
+          <mat-option [value]="identificationType.DRIVING_LICENSE" >{{'CITIZEN.DRIVING_LIC'|translate}}</mat-option>
         </mat-select>
     </div>
   </div>
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Reference Number <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.IDENTITY_NUMBER'|translate}}<span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Identification No" formControlName="identificationNo" />
       </mat-form-field>
       <div *ngIf="identificationNo.invalid && (identificationNo.dirty || identificationNo.touched)">
-        <mat-error *ngIf="identificationNo.errors.required" class="errors">Please fill the required fields</mat-error>
+        <mat-error *ngIf="identificationNo.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
         <mat-error *ngIf="identificationNo.errors.maxlength || identificationNo.errors.pattern" class="errors">Please enter valid reference number</mat-error>
       </div>
     </div>
   </div>
 
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Telephone Number <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.TEL_NO'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Telephone Number(Primary)" formControlName="primaryContact" />
       </mat-form-field>
       <div *ngIf="primaryContact.invalid && (primaryContact.dirty || primaryContact.touched)">
-        <mat-error *ngIf="primaryContact.errors.required" class="errors">Please fill the required fields</mat-error>
-        <mat-error *ngIf="primaryContact.errors.pattern" class="errors">Please enter valid telephone number</mat-error>
+        <mat-error *ngIf="primaryContact.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
+        <mat-error *ngIf="primaryContact.errors.pattern" class="errors">{{'CITIZEN.VALID_TEL'|translate}}</mat-error>
       </div>
     </div>
   </div>
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Telephone Number </label>
+    <label class="mw-200">{{'CITIZEN.TEL_NO'|translate}} </label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Telephone Number(Secondary)" formControlName="secondaryContact" />
       </mat-form-field>
       <div *ngIf="secondaryContact.invalid && (secondaryContact.dirty || secondaryContact.touched)">
-        <mat-error *ngIf="secondaryContact.errors.pattern" class="errors">Please enter valid telephone number</mat-error>
+        <mat-error *ngIf="secondaryContact.errors.pattern" class="errors">{{'CITIZEN.VALID_TEL'|translate}}</mat-error>
       </div>
     </div>
   </div>
  
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">Reason for application <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.REASON_FOR_APP'|translate}} <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <textarea matInput rows="5" placeholder="Reason" formControlName="reason"></textarea>
       </mat-form-field>
       <div *ngIf="reason.invalid && (reason.dirty || reason.touched)">
-        <mat-error *ngIf="reason.errors.required" class="errors">Please fill the required fields</mat-error>
+        <mat-error *ngIf="reason.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
         <mat-error *ngIf="reason.errors.maxlength || reason.errors.pattern" class="errors">Please enter valid reason</mat-error>
       </div>
     </div>
@@ -236,7 +235,7 @@
 
     <div class="pg-inner-col float-right" *ngIf="isEdit">
       <button [disabled]="!publicUserForm.valid" mat-raised-button class="button float-right" (click)="saveCitizen()">
-        Update
+        {{'CITIZEN.UPDATE'|translate}}
       </button>
     </div>
   </div>

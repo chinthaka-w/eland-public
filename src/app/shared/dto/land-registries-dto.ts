@@ -1,4 +1,6 @@
 export class LandRegistriesDTO {
   landRegistryId: number;
-  name: number;
+  name: string;
+  nameSin: string;
+  nameTam: string;
 }
