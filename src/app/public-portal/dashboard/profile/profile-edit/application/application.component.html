@@ -115,9 +115,10 @@
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="contact" class="form-control">
                 </mat-form-field>
-              <div *ngIf="submitted  && f.contact.errors" >
-                <div *ngIf="f.contact.errors.required" class="invalid-feedback">
-                  Contact No is required</div>
+              <div *ngIf="f.contact.errors" >
+                <!--<div *ngIf="f.contact.errors.required" class="invalid-feedback">-->
+                  <!--Contact No is required</div>-->
+                <mat-error *ngIf="f.contact.errors.pattern" class="errors">Please enter valid telephone number</mat-error>
               </div>
             </div>
         </div>
@@ -129,9 +130,8 @@
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="mobile" class="form-control">
                 </mat-form-field>
-              <div *ngIf="submitted  && f.contact.errors" >
-                <div *ngIf="f.mobile.errors.required" class="invalid-feedback">
-                  Mobile No is required</div>
+              <div *ngIf="f.mobile.errors" >
+                <mat-error *ngIf="f.mobile.errors.pattern" class="errors">Please enter valid telephone number</mat-error>
               </div>
             </div>
         </div>
@@ -146,9 +146,8 @@
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="email" class="form-control">
                 </mat-form-field>
-              <div *ngIf="submitted  && f.email.errors" >
-                <div *ngIf="f.email.errors.required" class="invalid-feedback">
-                  Email is required</div>
+              <div *ngIf="f.email.errors" >
+                <mat-error *ngIf="f.email.errors.pattern" class="errors">Please enter valid email address</mat-error>
               </div>
             </div>
         </div>
