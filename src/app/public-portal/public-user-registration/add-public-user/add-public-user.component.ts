@@ -225,7 +225,6 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   setFiles(files, key, status: boolean){
-    console.log('files: ', files);
     this.fileList[key] = files;
     console.log('file list: ', this.fileList);
 
@@ -233,7 +232,6 @@ export class AddPublicUserComponent implements OnInit {
     if (files.length > 0 ) {
       const docMetaData = new DocumentResponseDto(null, key, files[0], status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL);
       this.docMetaList.push(docMetaData);
-      console.log('file meta data', docMetaData);
     } else {
       this.docMetaList.forEach((doc, index) => {
         if (doc.docTypeId === key) {
@@ -418,7 +416,6 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   onBack(data: boolean) {
-    console.log('on back', data);
     this.isContinue = !data;
   }
   onPaymentResponse(data: PaymentResponse) {

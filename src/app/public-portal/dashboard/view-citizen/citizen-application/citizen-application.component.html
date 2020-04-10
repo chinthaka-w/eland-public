@@ -115,7 +115,7 @@
     <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
     <div class="default-input-feild gray">
         <mat-select formControlName="bankName" required (selectionChange)="getCurrentBank($event)" placeholder="{{'CITIZEN.SELECT_BANK'|translate}}">
-          <mat-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</mat-option>
+          <mat-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName| listTranslate: bank.bankNameSin: bank.bankNameTam}}</mat-option>
         </mat-select>
       <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)">
         <mat-error *ngIf="bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>

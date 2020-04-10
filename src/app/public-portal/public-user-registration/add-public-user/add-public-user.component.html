@@ -12,8 +12,7 @@
         <label>{{'CITIZEN.TITLE'|translate}}
           <span>*</span></label>
         <div class="default-input-feild gray">
-            <mat-select formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)"> 
-              <mat-option value="" [disabled]="true">{{'CITIZEN.SELECT_LAND_REG'|translate}}</mat-option>
+            <mat-select placeholder="{{'CITIZEN.SELECT_LAND_REG'|translate}}" formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)"> 
               <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option>
             </mat-select>
           <div *ngIf="FormControls.nearestLr.touched && FormControls.nearestLr.errors"
@@ -24,25 +23,14 @@
       </div>
       
       <div class="default-input-wrapper full-row half-cols">
-        <label>{{'CITIZEN.BANK_USER_TYPE'|translate}}<span>*</span></label>
+        <label>{{'CITIZEN.USER_TYPE'|translate}}<span>*</span></label>
         <div class="default-input-feild gray">
-            <mat-select formControlName="type" required (selectionChange)="getCurrentUserType(type.value)">
-              <mat-option value="" disabled>{{'CITIZEN.SELECT'|translate}}</mat-option>
-              <mat-option value="{{PublicUserType.CITIZEN}}">{{'CITIZEN.CITIZEN'|translate}}</mat-option>
-              <mat-option value="{{PublicUserType.BANK}}">{{'CITIZEN.BANK'|translate}}</mat-option>
-              <mat-option value="{{PublicUserType.LAWYER}}">{{'CITIZEN.BANK'|translate}} / Law Firm</mat-option>
-              <mat-option value="{{PublicUserType.STATE}}">{{'CITIZEN.STATE'|translate}}</mat-option>
-              <mat-option value="{{PublicUserType.OTHER}}">{{'CITIZEN.OTHER1'|translate}}</mat-option>
-      <!-- <div class="default-input-wrapper full-row sc-half-cols">
-        <label>{{'CITIZEN.BANK_USER_TYPE'|translate}}<span>*</span></label>
-        <div class="default-input-feild gray">
-            <mat-select formControlName="type" required (change)="getCurrentUserType($event)">
-              <mat-option value="" disabled>{{'CITIZEN.SELECT'|translate}}</mat-option>
+            <mat-select placeholder="{{'CITIZEN.SELECT'|translate}}" formControlName="type" required (selectionChange)="getCurrentUserType(type.value)">
               <mat-option value="{{PublicUserType.CITIZEN}}">{{'CITIZEN.CITIZEN'|translate}}</mat-option>
               <mat-option value="{{PublicUserType.BANK}}">{{'CITIZEN.BANK'|translate}}</mat-option>
               <mat-option value="{{PublicUserType.LAWYER}}">{{'CITIZEN.LAWYER'|translate}}</mat-option>
               <mat-option value="{{PublicUserType.STATE}}">{{'CITIZEN.STATE'|translate}}</mat-option>
-              <mat-option value="{{PublicUserType.OTHER}}">{{'CITIZEN.OTHER1'|translate}}</mat-option> -->
+              <mat-option value="{{PublicUserType.OTHER}}">{{'CITIZEN.OTHER1'|translate}}</mat-option>
             </mat-select>
           <div *ngIf="FormControls.type.touched && FormControls.type.errors"
                class="invalid-feedback">
@@ -50,40 +38,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">Bank User Type <span>*</span></label>
-      <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">{{'CITIZEN.BANK_USER_TYPE'|translate}} <span>*</span></label>
-        <div class="default-input-feild gray">
-          <mat-form-field appearance="outline">
-            <select formControlName="bankUserType" matNativeControl required (change)="getCurrentBankUserType($event)">
-              <option value="" disabled>{{'CITIZEN.SELECT_BANK_USER_TYPE'|translate}}</option>
-              <option value="{{bankUserType.MANAGER}}" >{{'CITIZEN.MANAGER'|translate}}</option>
-              <option value="{{bankUserType.NOTARY}}" >{{'CITIZEN.NOTARY'|translate}}</option>
-              <option value="{{bankUserType.OTHER}}" >{{'CITIZEN.OTHER'|translate}}</option>
-            </select>
-          </mat-form-field>
-          <div *ngIf="FormControls.bankUserType.touched && FormControls.bankUserType.errors"
-               class="invalid-feedback">
-            <mat-error *ngIf="FormControls.bankUserType.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div *ngIf="publicUserType.value == PublicUserType.STATE || publicUserType.value == PublicUserType.OTHER || bankUserTypeId == 2" class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">Notary ID <span>*</span></label>
-      <div *ngIf="publicUserType.value == PublicUserType.LAWYER || publicUserType.value == PublicUserType.STATE || publicUserType.value == PublicUserType.OTHER || bankUserTypeId == 2" class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">{{'CITIZEN.NOTARYID'|translate}}<span>*</span></label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Notary ID" formControlName="notaryId" />
-          </mat-form-field>
-          <div *ngIf="notaryId.invalid && (notaryId.dirty || notaryId.touched)">
-            <mat-error *ngIf="notaryId.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
-          </div>
-        </div>
-      </div> -->
 
       <div class="separator mt-30">&nbsp;</div>
 
@@ -97,7 +51,6 @@
             <mat-error *ngIf="lawFirmName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
             <mat-error *ngIf="lawFirmName.errors.maxlength" class="errors">Please enter valid name</mat-error>
             <mat-error *ngIf="lawFirmName.errors.pattern" class="errors">Please enter valid name</mat-error>
-            <!-- <mat-error *ngIf="lawFirmName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error> -->
           </div>
         </div>
       </div>
@@ -182,8 +135,7 @@
         <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
         <div class="default-input-feild gray">
           
-            <mat-select formControlName="bankName" required (selectionChange)="getCurrentBank($event)">
-              <mat-option value="" disabled>{{'CITIZEN.SELECT_BANK'|translate}}</mat-option>
+            <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankName" required (selectionChange)="getCurrentBank($event)">
               <mat-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName|listTranslate:bank.bankNameSin:bank.bankNameTam}}</mat-option>
             </mat-select>
           
@@ -233,15 +185,12 @@
           </div>
         </div>
       </div>
-      
-
 
       <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200">{{'CITIZEN.IDENT_TYPE'|translate}} <span>*</span></label>
         <div class="default-input-feild gray">
           
-            <mat-select formControlName="identificationType" matNativeControl required (selectionChange)="getCurrentIdentificationType($event)">
-              <mat-option value="" disabled="true">{{'CITIZEN.SELECT_IDEN_TYP'|translate}}</mat-option>
+            <mat-select placeholder="{{'CITIZEN.SELECT_IDEN_TYP'|translate}}" formControlName="identificationType" matNativeControl required (selectionChange)="getCurrentIdentificationType($event)">
               <mat-option value="{{identificationType.NIC}}" >{{'CITIZEN.NIC'|translate}}</mat-option>
               <mat-option value="{{identificationType.PASSPORT}}" >{{'CITIZEN.PASSPORT'|translate}}</mat-option>
               <mat-option value="{{identificationType.DRIVING_LICENSE}}" >{{'CITIZEN.DRIVING_LIC'|translate}}</mat-option>

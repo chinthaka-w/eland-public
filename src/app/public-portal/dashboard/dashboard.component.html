@@ -45,7 +45,7 @@
             <dd> {{searchDetails?.id}}</dd>
           </dl>
           <dl class="db-card-info">
-            <dt>{{'DASOBOARD.PAYMENT'|translate}}</dt>
+            <dt>{{'DASOBOARD.STATUS'|translate}}</dt>
             <dd>
                 <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending': 
                               searchDetails?.status === commonStatus.INACTIVE? 'status-pending': 
@@ -63,7 +63,7 @@
           <div class="clear">&nbsp;</div>
         </div>
         <div class="db-card-bottom">
-          <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails?.status)]">View</button>
+          <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails?.status)]">{{'BUTTONS.VIEW_BUTTON'| translate}}</button>
         </div>
       </div>
       <div class="db-main-wp">

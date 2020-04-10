@@ -1,5 +1,6 @@
 <div class="page-header-default">
-  <h2>{{userStatus == commonStatus.PENDING ? 'View Profile' : userStatus == commonStatus.ACTIVE ? 'View Profile' : 'Citizen Edit Profile'}}</h2>
+  <h2 *ngIf="userStatus === commonStatus.INACTIVE">{{'CITIZEN.CITI_EDIT_TIT'| translate}}</h2>
+  <h2 *ngIf="userStatus !== commonStatus.INACTIVE">{{'CITIZEN.CITI_VIEW_TIT'| translate}}</h2>
   <p *ngIf="userStatus == commonStatus.INACTIVE">{{'CITIZEN.CITI_EDIT_TIT1'|translate}}<br />{{'CITIZEN.CITI_EDIT_TIT2'|translate}}</p>
   <a [routerLink]="['/dashboard']" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
