@@ -1,6 +1,6 @@
 <ng-container>
-    <div *ngIf="!appConfig?.user" class="landing-header">
-        <div class="header transparent">
+    <div class="landing-header">
+        <!-- <div class="header transparent">
             <div class="header-inner">
                 <div class="header-left">
                     <a href="#" class="logo">
@@ -29,7 +29,7 @@
                         </ul>
                     </div>
                     <div class="hr-button-wrapper">
-                        <button mat-raised-button [routerLink]="['/login']">Login</button>
+                        <button mat-raised-button [routerLink]="['/login']">Login</button> -->
                         <!-- <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
                             <span class="user-title" (click)="clickDropdown()">Yohani Gamage
                                 <i class="material-icons">arrow_drop_down</i></span>
@@ -42,10 +42,10 @@
                                 </li>
                             </ul>
                         </div> -->
-                    </div>
+                    <!-- </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="header-banner-wrapper">
             <div class="header-banner-image" style="background-image: url('assets/images/main_banner.jpg')">
                 &nbsp;
@@ -93,6 +93,7 @@
                     </div>
                     <h4>Public Services</h4>
                     <ul>
+                        <li>User Registration</li>
                         <li>Search for Folio</li>
                         <li>Search for Deeds</li>
                         <li>Obtain Extract of Folio</li>

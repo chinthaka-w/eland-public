@@ -64,11 +64,11 @@ export class PaymentComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.paymentForm = new FormGroup({
-      licenseMethod: new FormControl(0),
-      paymentMethod: new FormControl(0)
+      licenseMethod: new FormControl(2),
+      paymentMethod: new FormControl(1)
     });
     this.getApplicationAmount(this.applicationFeeCode);
-    this.newReturnUrl = this.returnUrl ? btoa(this.returnUrl) : btoa('/login');
+    this.newReturnUrl = this.returnUrl ? btoa(this.returnUrl) : btoa('/dashboard');
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -76,6 +76,11 @@ export class PaymentComponent implements OnInit, OnChanges {
       if (this.statusOnlinePayment) {
         this.isContinueToPayment = true;
         this.showSpinner = false;
+      }
+    }
+    if (changes['returnUrl']) {
+      if (this.newReturnUrl) {
+        this.newReturnUrl = btoa(this.returnUrl);
       }
     }
   }

@@ -1,13 +1,14 @@
 <form class="form-horizontal" [formGroup]="paymentForm" *ngIf="!isContinueToPayment">
   <div class="hc-component-wrapper payment">
-    <div class="hc-component-img" style="background-image: url('assets/images/temp_img_004.jpg')"></div>
+    <div class="hc-component-img" style="background-image: url('assets/images/payment.svg'); background-size: cover;">
+    </div>
     <div class="hc-component-content">
       <div class="pce-container">
         <div *ngIf="isDocumentCollect" class="default-input-wrapper full-row mb-30">
           <label><strong>License Issue</strong>In which way you like to receive the license?</label>
           <div class="default-input-feild">
             <mat-radio-group formControlName="licenseMethod" class="form-control"
-                             (change)="onChangeIssueMethod($event)">
+              (change)="onChangeIssueMethod($event)">
               <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_HAND">By Hand</mat-radio-button>
               <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_POST_NORMAL">By Post (Normal)
               </mat-radio-button>
@@ -21,15 +22,14 @@
           <label><strong>Payment</strong>Payment method</label>
           <div class="default-input-feild">
             <mat-radio-group formControlName="paymentMethod" class="form-control"
-                             (change)="onChangePaymentMethod($event);">
+              (change)="onChangePaymentMethod($event);">
               <!--(change)="setPaymentMethod(this.paymentForm.value.paymentMethod)"-->
               <mat-radio-button class="example-margin" [value]="PaymentMethod.ONLINE">Online</mat-radio-button>
               <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">Bank Transfer or
                 Deposit
               </mat-radio-button>
               <!--<mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_SLIP">Bank Slip</mat-radio-button>-->
-              <mat-radio-button *ngIf="hasFrontCounterPayment" class="example-margin"
-                                [value]="PaymentMethod.FRONT_COUNTER">Front Counter
+              <mat-radio-button *ngIf="hasFrontCounterPayment" class="example-margin" [value]="PaymentMethod.FRONT_COUNTER">Front Counter
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -59,8 +59,7 @@
         <button mat-raised-button class="lg-button green" (click)="onClickContinue()">
           <div class="row">
             Continue
-            <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"
-            ></mat-spinner>
+            <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
           </div>
         </button>
       </div>
@@ -69,12 +68,12 @@
 </form>
 
 <app-online-method
-  *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
-  [paymentAmount]="totalAmount"
-  [transactionRef]="paymentReference"
-  [returnUrl]="newReturnUrl"
->
-</app-online-method>
+ *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
+ [paymentAmount]="totalAmount"
+ [transactionRef] = "paymentReference"
+ [returnUrl] = "newReturnUrl"
+ >
+ </app-online-method>
 <app-payment-method
   *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
   (response)="onPaymentResponseFromBankSlip($event)"

@@ -17,9 +17,6 @@ export class HomeComponent implements OnInit {
   }
 
   constructor() {
-    var cc = JSON.parse(window.sessionStorage.getItem("appConfig"));
-
-    console.log(cc);
   }
 
   ngOnInit() {

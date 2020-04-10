@@ -13,6 +13,7 @@ import {FolioDto} from 'src/app/shared/dto/folio-dto.model';
 import {DocumentType} from 'src/app/shared/enum/document-type.enum';
 import {SystemService} from 'src/app/shared/service/system.service';
 import {NewNotaryRegistrationWorkflowStage} from '../../shared/enum/new-notary-registration-workflow-stage.enum';
+import {WorkflowStages} from '../../shared/enum/workflow-stages.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
   public dashboardView: boolean = false;
   public requestView: boolean = false;
   public notaryId: number;
+  public notaryNameChangeWorkFlow;
 
   commonStatus = CommonStatus;
 
@@ -51,6 +53,7 @@ export class DashboardComponent implements OnInit {
     this.requestView = false;
     this.user = this.sessionService.getUser();
     this.notaryId = this.user.id;
+    this.notaryNameChangeWorkFlow = WorkflowStages.NOTARY_NAME_CHANGE;
     if (this.user.type == this.userType.NOTARY) this.getUserDetails();
   }
 
@@ -161,7 +164,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
+        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
       },
       (error) => {
         this.folioPending = false;
@@ -174,7 +177,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
+        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
       },
       (error) => {
         this.folioPending = false;
@@ -187,7 +190,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
+        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
       },
       (error) => {
         this.folioPending = false;
@@ -200,7 +203,7 @@ export class DashboardComponent implements OnInit {
     this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.folioPending = false;
-        this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: folio});
+        this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
       },
       (error) => {
         this.folioPending = false;

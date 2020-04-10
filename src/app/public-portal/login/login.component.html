@@ -9,9 +9,7 @@
             <mat-form-field appearance="outline fill">
               <mat-label>Userename</mat-label>
               <input matInput formControlName="username" />
-              <mat-icon matSuffix style="color: #A7A6A6;"
-                >perm_identity</mat-icon
-              >
+              <mat-icon matSuffix style="color: #A7A6A6;">perm_identity</mat-icon>
               <div *ngIf="username.touched && username.invalid">
                 <mat-error *ngIf="username.errors.required">
                   Username is Required
@@ -37,11 +35,7 @@
               </mat-error>
             </div>
             <a href="#">Forgot Password ?</a>
-            <button
-              mat-raised-button
-              (click)="login()"
-              [disabled]="!loginForm.valid"
-            >
+            <button mat-raised-button (click)="login()" [disabled]="!loginForm.valid">
               Login
             </button>
           </div>
@@ -49,11 +43,8 @@
       </div>
     </div>
     <div class="hc-component-bottom">
-      Don’t have an account <a href="">Sign Up</a>
+      Don’t have an account <a [routerLink]="['/home']">Sign Up</a>
     </div>
   </div>
-  <div
-    class="hc-component-img"
-    style="background-image: url('assets/images/temp_img_003.jpg')"
-  ></div>
+  <div class="hc-component-img" style="background-image: url('assets/images/login-public.svg');"></div>
 </div>

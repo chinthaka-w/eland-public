@@ -1,9 +1,9 @@
 <!-- Header Home page -->
-<ng-container *ngIf="appConfig?.header">
+<!-- <ng-container *ngIf="appConfig?.header"> -->
 
   <!-- ###### Default Header ###### -->
 
-  <div *ngIf="appConfig?.user" class="header default">
+  <div [ngClass]="isHome ? 'header transparent' : 'header default'">
     <div class="header-inner">
       <div class="header-left">
         <a href="#" class="logo">
@@ -42,7 +42,7 @@
             </ul>
           </div>
         </div>
-        <div class="hr-button-wrapper">
+        <div *ngIf="appConfig?.user" class="hr-button-wrapper">
           <!-- <button mat-raised-button [routerLink]="['/login']">Login</button> -->
           <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
             <span class="user-title" (click)="clickDropdown()">{{userName}}<i
@@ -63,7 +63,10 @@
             </ul>
           </div>
         </div>
+        <div *ngIf="!appConfig?.user && !isLogin" class="hr-button-wrapper">
+          <button mat-raised-button [routerLink]="['/login']">Login</button>
+        </div>
       </div>
     </div>
   </div>
-</ng-container>
+<!-- </ng-container> -->

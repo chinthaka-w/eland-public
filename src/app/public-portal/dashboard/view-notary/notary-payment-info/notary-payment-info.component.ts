@@ -1,3 +1,4 @@
+import { PaymentMethod } from './../../../../shared/enum/payment-method.enum';
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Input, OnInit} from '@angular/core';
 import {NewNotaryRequestsCategorySearchDto} from '../../../../shared/dto/new-notary-requests-category-search.dto';
@@ -23,6 +24,7 @@ import {ActionMode} from '../../../../shared/enum/action-mode.enum';
 export class NotaryPaymentInfoComponent implements OnInit {
   @Output() notaryPayment = new EventEmitter<NewNotaryPaymentDto>();
   @Input() requestDetailPayment: RequestSearchDetailDTO;
+  @Input() enablePayment = false;
   @ViewChild(PaymentComponent, {static: false}) paymentComponent: PaymentComponent;
   @ViewChild(PaymentMethodComponent, {static: false}) paymentMethodComponent: PaymentMethodComponent;
   @Input() workflow: string = Workflow.NOTARY_REGISTRATION;
@@ -33,6 +35,12 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @Input() addPayment: boolean = true;
   @Input() applicationFeeCode: string = Parameters.NOTARY_REG_FEE;
   @Output() paymentResponse = new EventEmitter<PaymentResponse>();
+  returnUrl: string;
+  statusOnlinePayment = false;
+  paymentReturnBaseUrl: string;
+
+
+  @Input() editable : boolean = false;
 
   paymentDetails: NewNotaryPaymentDetailDto[] = [];
 
@@ -81,6 +89,10 @@ export class NotaryPaymentInfoComponent implements OnInit {
       (result) => {
         this.notaryPayment.emit(model);
         this.snackBar.success('Payment Success');
+      },
+      (error) => {},
+      () => {
+        this.getPaymentDetails();
       }
     );
   }
@@ -99,6 +111,27 @@ export class NotaryPaymentInfoComponent implements OnInit {
         this.paymentDataValue = paymentData.paymentId;
         // this.savePayments(this.requestDetailPayment.requestId, this.paymentDataValue);
     }
+  }
+
+  addOnlinePayment(paymentData: PaymentResponse) {
+    // Add workflow wise return urls
+    if (paymentData.paymentMethod === PaymentMethod.ONLINE) {
+      if (this.requestDetailPayment.workflow === Workflow.JUDICIAL_ZONE_CHANGE) {
+        this.paymentReturnBaseUrl = '/change-judicial-request-view/';
+      }
+      this.returnUrl =  this.paymentReturnBaseUrl +
+      btoa(this.requestDetailPayment.workflowStage).split('=')[0] + '/' +
+      btoa(this.requestDetailPayment.requestId.toString());
+    }
+    const model = new NewNotaryPaymentDto(this.requestDetailPayment.requestId, null);
+    model.transactionRef = paymentData.transactionRef;
+    model.applicationAmount = paymentData.applicationAmount;
+    model.paymentMethod = paymentData.paymentMethod;
+    this.newNotaryService.savePayments(model).subscribe(
+      (response) => {
+        this.statusOnlinePayment = true;
+      }
+    );
   }
 
   onBack(data:any){

@@ -1,3 +1,10 @@
+import { CommonStatus } from './../../../../shared/enum/common-status.enum';
+import { RequestResponse } from './../../../../shared/dto/request-response.model';
+import { NewNotaryDataVarificationService } from './../../../../shared/service/new-notary-data-varification.service';
+import { NewNotaryPaymentDto } from './../../../../shared/dto/new-notary-payment.dto';
+import { PaymentDto } from './../../../../shared/dto/payment-dto';
+import { PaymentResponse } from './../../../../shared/dto/payment-response.model';
+import { Workflow } from './../../../../shared/enum/workflow.enum';
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {JudicialChangeWorkflowStagesEnum} from '../../../../shared/enum/judicial-change-workflow-stages.enum';
 import {WorkflowStages} from '../../../../shared/enum/workflow-stages.enum';
@@ -41,18 +48,32 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   public docTypeId: number;
   public docId: number;
   public judicial: JudicialChange;
+  public enableFormEdit = false;
+  public workflowCode = Workflow.JUDICIAL_ZONE_CHANGE;
+  showSpinner = false;
+  requestDetailPayment = new RequestSearchDetailDTO(null, null, null, null, null, null, null, null);
 
-  constructor(private route: ActivatedRoute, private newNotaryService: NotaryService, private snackBar: SnackBarService,
-              private judicialService: JudicialService, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private newNotaryService: NotaryService,
+              private snackBar: SnackBarService,
+              private judicialService: JudicialService,
+              private router: Router,
+              private newNotaryDataVerificationService: NewNotaryDataVarificationService) {
     this.route.params.subscribe(params => {
       this.workflow  = atob(params['workflow']);
       this.requestId  = atob(params['id']);
+      this.requestDetailPayment.requestId = +this.requestId;
+      this.requestDetailPayment.workflow = this.workflowCode;
+      this.requestDetailPayment.workflowStage = JudicialChangeWorkflowStagesEnum.DATA_VERIFICATION_CLERK_REJECTED;
       this.id = +this.requestId;
     });
 
    }
 
   ngOnInit() {
+    if (this.workflow === JudicialChangeWorkflowStagesEnum.DATA_VERIFICATION_CLERK_REJECTED) {
+      this.enableFormEdit = true;
+    }
   }
 
 
@@ -78,15 +99,10 @@ export class JudicialChangeRequestViewComponent implements OnInit {
     }
   }
 
-  getSupportingDocs(data: DocumentResponseDto[]){
-    this.docsList = data;
-    this.disabled = true;
-  }
 
   getApplicationDetails(data: JudicialChange){
-    this.isApplicationValid = false;
     this.judicial = data;
-    this.selectedIndex += 1;
+    this.updateDetails();
   }
 
   getJudicialChangeDetails(data: JudicialChange){
@@ -96,8 +112,18 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   }
 
   onFormSubmit(){
-    this.updateDetails();
-    this.updateDocumentDetails(this.docsList);
+    const judicialData = new JudicialChange();
+    judicialData.requestId = this.id;
+    judicialData.workflowCode = JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_MODIFIED;
+
+    this.judicialService.setUserAction(judicialData).subscribe(
+      (response: RequestResponse) => {
+        if  (response.status === CommonStatus.SUCCESS) {
+          this.snackBar.success('Successfully updated');
+          this.router.navigate(['/requests', this.getBase64Url(this.workflowCode)]);
+        }
+      }
+    );
   }
 
   updateDocumentDetails(documents: DocumentResponseDto[]){
@@ -126,10 +152,16 @@ export class JudicialChangeRequestViewComponent implements OnInit {
     this.judicialService.update(this.judicial).subscribe(
       (success: string) => {
         this.snackBar.success('Judicial Change Request Update Success');
+        this.showSpinner = false;
       },
       error => {
         this.snackBar.error('Failed');
+        this.showSpinner = false;
       }
     );
+  }
+
+  getBase64Url(url: string): string {
+    return btoa(url);
   }
 }

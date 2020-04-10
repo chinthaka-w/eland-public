@@ -83,7 +83,7 @@ export class CitizenPaymentInfoComponent implements OnInit {
       this.citizenService.updatePayment(this.citizenDTO).subscribe(
         (result) => {
           this.statusOnlinePayment = true;
-          this.returnURl = this.getBase64('view-citizen');
+          this.returnURl = ('view-citizen');
         }
       );
     }

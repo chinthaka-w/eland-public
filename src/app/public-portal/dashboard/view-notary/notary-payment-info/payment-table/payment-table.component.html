@@ -1,27 +1,27 @@
 <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="Payment ID">
-    <th mat-header-cell *matHeaderCellDef>Payment Ref:</th>
+    <th mat-header-cell *matHeaderCellDef>{{'PAYMENT.PAYMENT_ID'|translate}}</th>
     <td mat-cell *matCellDef="let row"> {{row.paymentId}}</td>
   </ng-container>
 
   <ng-container matColumnDef="Payment Method">
-    <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+    <th mat-header-cell *matHeaderCellDef>{{'PAYMENT.PAYMENT_MODE'|translate}}</th>
     <td mat-cell *matCellDef="let row"> {{row.paymentType}}</td>
   </ng-container>
 
   <ng-container matColumnDef="Amount">
-    <th mat-header-cell *matHeaderCellDef>Total Amount</th>
-    <td mat-cell *matCellDef="let row"> {{row.amount}}</td>
+    <th mat-header-cell *matHeaderCellDef>{{'PAYMENT.AMOUNT'|translate}}</th>
+    <td mat-cell *matCellDef="let row"> {{row.amount| currency: 'LKR': 'Rs'}}</td>
   </ng-container>
 
   <ng-container matColumnDef="Payment Date">
-    <th mat-header-cell *matHeaderCellDef>Payment Date</th>
+    <th mat-header-cell *matHeaderCellDef>{{'PAYMENT.DATE'|translate}}</th>
     <td mat-cell *matCellDef="let row"> {{row.paymentDate}}</td>
   </ng-container>
 
   <ng-container matColumnDef="Status">
-    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <th mat-header-cell *matHeaderCellDef>{{'COMMON.STATUS'|translate}}</th>
     <td mat-cell *matCellDef="let row"> {{row.status}}</td>
   </ng-container>
 
