@@ -15,9 +15,6 @@
             <mat-select formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)"> 
               <mat-option value="" [disabled]="true">{{'CITIZEN.SELECT_LAND_REG'|translate}}</mat-option>
               <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option>
-            <!-- <mat-select formControlName="nearestLr" (change)="getCurrentLandRegistry($event)">
-              <mat-option value="" [disabled]="true">{{'CITIZEN.SELECT_LAND_REG'|translate}}</mat-option>
-              <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option> -->
             </mat-select>
           <div *ngIf="FormControls.nearestLr.touched && FormControls.nearestLr.errors"
                      class="invalid-feedback">
@@ -26,7 +23,6 @@
         </div>
       </div>
       
-
       <div class="default-input-wrapper full-row half-cols">
         <label>{{'CITIZEN.BANK_USER_TYPE'|translate}}<span>*</span></label>
         <div class="default-input-feild gray">

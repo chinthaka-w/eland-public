@@ -3,7 +3,6 @@
     <div class="db-left-col" style="background-image: url('assets/images/temp_img_005.jpg')">&nbsp;</div>
     <div class="db-right-col">
       <h2>{{'DASOBOARD.TITLE1'|translate}}</h2>
-      <p>{{'DASOBOARD.TITLE2'|translate}}</p>
       <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
           <!--<a href="#">Next </a>-->
@@ -39,7 +38,6 @@
       </div>
       <div class="db-card-full" *ngIf="user.type == userType.CITIZEN">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
-          <!-- <a href="#">{{'DASOBOARD.NEXT'|translate}} ></a> -->
         </div>
         <div class="db-card-content">
           <dl class="db-card-info">
@@ -61,10 +59,6 @@
           <dl class="db-card-info">
             <dt>{{'DASOBOARD.NAME'|translate}}</dt>
             <dd> {{searchDetails?.name}}</dd>
-          </dl>
-          <dl class="db-card-info">
-            <dt>{{'DASOBOARD.PAYMENT'|translate}}</dt>
-            <dd></dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>

@@ -68,7 +68,7 @@ export class CitizenApplicationComponent implements OnInit {
     this.getAllBanks();
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
-      type: new FormControl(null, [Validators.required]),
+      type: new FormControl({value: '', disabled: true}, [Validators.required]),
       lawFirmName: new FormControl('', []),
       nameEnglish: new FormControl('',
         [Validators.required,
