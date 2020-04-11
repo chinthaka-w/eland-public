@@ -18,4 +18,7 @@ export class PaymentDto {
   public transactionRef: number;
   public serviceCode: string;
   public returnUrl: string;
+  public workflowStageCode: string;
+  public userId: string;
+  public userType: string;
 }

@@ -1041,38 +1041,17 @@
     "":""
 
   },
-  "SEARCH_DOC":{
-    "SEARCH":"සොයන්න",
-    "LAND_REG":"ඉඩම් රෙජිස්ට්රි:",
-    "SELECT":"--තෝරන්න--",
-    "DOC_TY":"Doc type:",
-    "FOLIO_DOC":"Folio Document",
-    "DEED_DOC":"Deed Document",
-    "NOND":"Name of the Notary public who attested by the deed:",
-    "DSWHP":"District or station where he practiced at that time:",
-    "NOD":"Number of the deed:",
-    "NAOD":"Nature of the deed:",
-    "FROM":"From:",
-    "TO":"To:",
-    "NOG":"Name of the granter / Transferor:",
-    "NOGR":"Name of the grantee / transferee:",
-    "NOL":"Name of the land:",
-    "EXTENT":"Extent:",
-    "KORALA":"Korale:",
-    "PATTU":"Pattu:",
-    "DS":"DS Division:",
-    "GN":"GN Division:",
-    "SELECTDS":"Please select Ds Division",
-    "VILLAGE":"Village:",
-    "SELECTGN":"Please select Gn Division",
-    "RSD":"Reason for search of deed as:",
-    "RLR":"Reason for land register as:",
-    "RRFS":"Registers required for search",
-    "FOLIONO":"Folio No",
-    "NOYEARS":"No. of years",
-    "STATUS":"Status",
-    "ACTION":"Action",
-    "CONTINUE":"Continue"
+
+  "CHG_LANDREG": {
+    "TITLE1": "ඉඩම් ලියාපදිංචිය වෙනස් කිරීම සඳහා ඉල්ලුම් කිරීම",
+    "TITLE2": "කරුණාකර පහත තොරතුරු පුරවන්න",
+    "TITLE3": "ඉඩම් ලේඛනය වෙනස් කරන්න",
+    "TITLE4": "ඉඩම් ලියාපදිංචිය වෙනස් කිරීම සඳහා ඉල්ලුම් කිරීම",
+    "TITLE5": "ඉඩම් ලේඛනය වෙනස් කිරීම සම්බන්ධයෙන් කරුණාකර පහත විස්තර ලබා දෙන්න",
+    "LANDREG": "ඉඩම් රෙජිස්ට්රි:",
+    "REASON": "වෙනස් වීමට හේතුව:",
+    "REASONREQ": "වෙනස් වීමට හේතුව අවශ්‍යයි",
+    "CONTINUE": "දිගටම කරගෙන යන්න"
   }
 
  }

@@ -1,3 +1,4 @@
+import { SessionService } from 'src/app/shared/service/session.service';
 import { DocumentResponseDto } from './../../../shared/dto/document-response.dto';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PaymentMethod } from './../../../shared/enum/payment-method.enum';
@@ -68,6 +69,8 @@ export class AddPublicUserComponent implements OnInit {
   paymentMethod: number;
   returnURl: string;
   statusOnlinePayment: boolean;
+  userType: string;
+  userId: number;
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -76,7 +79,8 @@ export class AddPublicUserComponent implements OnInit {
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
               private snackBar: SnackBarService,
-              private router: Router) {}
+              private router: Router,
+              private sessionService: SessionService) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
@@ -154,6 +158,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.userType = this.PublicUserType.CITIZEN;
     this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
     this.disableUselessFormControls(this.citizenDTO.userType);
+    this.userType = this.sessionService.getUser().type;
   }
 
   get FormControls() {
@@ -388,6 +393,7 @@ export class AddPublicUserComponent implements OnInit {
           this.snackBar.success('Citizen saved successfully, Proceed to online payment');
           this.isContinue = true;
           this.statusOnlinePayment = true;
+          this.userId = result.id;
         } else {
           this.snackBar.error('Operation failed');
         }
