@@ -106,7 +106,7 @@ export class ApplicationComponent implements OnInit {
 
     this.notaryService.editProfile(this.notary).subscribe(
       (success: string) => {
-        this.snackBar.success('Judicial Change Request Success');
+        this.snackBar.success('Submitted the profile edit request successfully!');
         //this.requestForm.reset();
       },
       error => {
@@ -118,5 +118,5 @@ export class ApplicationComponent implements OnInit {
   get f() {
     return this.requestForm.controls;
   }
-  
+
 }
