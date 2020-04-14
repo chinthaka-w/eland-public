@@ -56,8 +56,8 @@
 
       <div class="hc-component-bottom">
         <span class="bt-line">&nbsp;</span>
-        <button mat-raised-button class="lg-button" (click)="onClickBack()">Back</button>
-        <button mat-raised-button class="lg-button green" (click)="onClickContinue()">
+        <button mat-raised-button class="button" (click)="onClickBack()">Back</button>
+        <button mat-raised-button class="button green" (click)="onClickContinue()">
           <div class="row">
             Continue
             <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
@@ -81,5 +81,6 @@
 <app-payment-method
   *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
   (response)="onPaymentResponseFromBankSlip($event)"
+  (back)="onBackFromBankSlip($event)"
   [paymentDTO]="paymentDTO"
 ></app-payment-method>

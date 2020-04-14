@@ -1,3 +1,4 @@
+import { SessionService } from './../../../../shared/service/session.service';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
 import { UserType } from 'src/app/shared/enum/user-type.enum';
@@ -38,16 +39,21 @@ export class CitizenPaymentInfoComponent implements OnInit {
   public WorkflowCode = Workflow;
   statusOnlinePayment = false;
   returnURl: string;
+  userType: string;
+  userId: number;
   @Input() isEdit = false;
 
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Amount', 'Payment Date', 'Status'];
   dataSource = new MatTableDataSource<PaymentDto>();
 
   constructor(private notaryService: NewNotaryDataVarificationService,
-              private route: ActivatedRoute, private citizenService: CitizenService) {
+              private route: ActivatedRoute, private citizenService: CitizenService,
+              private sessionService: SessionService) {
   }
 
   ngOnInit() {
+    this.userType = this.sessionService.getUser().type;
+    this.userId = this.sessionService.getUser().id;
     this.citizenService.citizenDto.subscribe(history => {
       this.citizenDTO = history;
       this.dataSource = history.paymentHistory;

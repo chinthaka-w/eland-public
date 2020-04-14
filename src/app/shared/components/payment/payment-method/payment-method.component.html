@@ -54,16 +54,16 @@
             <label>Bank Receipt: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
-              <mat-error *ngIf="files.length==0">Please add bank receipt.</mat-error>
+              <mat-error *ngIf="files.length==0 && isButtonClick">Please add bank receipt.</mat-error>
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="hc-component-bottom">
         <span class="bt-line">&nbsp;</span>
-        <button mat-raised-button class="lg-button green" (click)="savePayment()">Submit</button>
+        <button mat-raised-button class="button" (click)="onBack()">Back</button>
+        <button mat-raised-button class="button green" (click)="savePayment()">Submit</button>
       </div>
     </div>
   </div>

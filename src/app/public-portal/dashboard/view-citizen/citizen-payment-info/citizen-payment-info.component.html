@@ -61,5 +61,10 @@
                [returnUrl]="returnURl"
                [hasFrontCounterPayment]="true"
                [isDocumentCollect]="true"
-               [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"></app-payment>
+               [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"
+               [workflowStageCode]="citizenDTO.workFlowStageCode"
+               [userType]="userType"
+               [userId]= "userId"
+               >
+              </app-payment>
 </div>

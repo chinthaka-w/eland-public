@@ -222,4 +222,11 @@ export class PaymentComponent implements OnInit, OnChanges {
   onClickBack() {
     this.back.emit(true);
   }
+
+  onBackFromBankSlip(result: boolean) {
+    if (result) {
+      this.isContinueToPayment = false;
+      this.showSpinner = false;
+    }
+  }
 }
