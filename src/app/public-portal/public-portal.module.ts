@@ -173,6 +173,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     MatDividerModule,
     MatBadgeModule,
     MatChipsModule,
+    MatCardModule,
     HttpModule,
     RecaptchaModule,
     RecaptchaFormsModule,
@@ -183,6 +184,9 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     SatNativeDateModule,
     ImageViewerModule,
     MatSlideToggleModule,
+    MatListModule,
+    MatSlideToggleModule,
+    MatInputModule,
     MatInputModule,
     MatListModule
   ],
