@@ -34,6 +34,9 @@ export class PaymentComponent implements OnInit, OnChanges {
   @Input() paymentReference: string;
   @Input() returnUrl: string;
   @Input() statusOnlinePayment = false;
+  @Input() workflowStageCode: string;
+  @Input() userType: string;
+  @Input() userId: number;
   @Input() requestItemCount: number = 1;
   showSpinner: boolean;
   public isContinueToPayment: boolean = false;
@@ -81,7 +84,7 @@ export class PaymentComponent implements OnInit, OnChanges {
     }
     if (changes['returnUrl']) {
       if (this.newReturnUrl) {
-        this.newReturnUrl = btoa(this.returnUrl);
+        this.newReturnUrl = btoa(this.returnUrl).split('=')[0];
       }
     }
   }

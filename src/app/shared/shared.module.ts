@@ -157,6 +157,8 @@ import { ImagePriviewComponent } from './components/image-priview/image-priview.
     LastRemarkComponent,
     PaymentHistoryComponent,
     RemarkHistoryComponent,
+    TranslatePipe,
+    ListTranslatePipe,
     DocPreviewComponent,
     TranslatePipe,
     ImagePriviewComponent

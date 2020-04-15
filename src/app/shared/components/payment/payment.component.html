@@ -68,8 +68,18 @@
   </div>
 </form>
 
-<app-online-method *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE" [paymentAmount]="totalAmount"
-  [transactionRef]="paymentReference" [returnUrl]="newReturnUrl">
-</app-online-method>
-<app-payment-method *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
-  (response)="onPaymentResponseFromBankSlip($event)" [paymentDTO]="paymentDTO"></app-payment-method>
+<app-online-method
+ *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
+ [paymentAmount]="totalAmount"
+ [transactionRef] = "paymentReference"
+ [returnUrl] = "newReturnUrl"
+ [workflowStageCode]= "workflowStageCode"
+ [userType]="userType"
+ [userId]="userId"
+ >
+ </app-online-method>
+<app-payment-method
+  *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
+  (response)="onPaymentResponseFromBankSlip($event)"
+  [paymentDTO]="paymentDTO"
+></app-payment-method>
