@@ -56,7 +56,6 @@ export class SearchDocumentComponent implements OnInit {
   public isContinueToPayment: boolean = false;
 
   public searchRequestForm: FormGroup;
-  public folioForm: FormGroup;
 
 
   public landRegistries: LandRegistryModel[] = [];

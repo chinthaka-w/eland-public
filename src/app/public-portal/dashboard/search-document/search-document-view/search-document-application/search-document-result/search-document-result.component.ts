@@ -46,6 +46,7 @@ export class SearchDocumentResultComponent implements OnInit, OnChanges {
   }
 
   onClickItem(item: Element) {
+    console.log(item);
     this.dialog.open(FolioViewComponent, {width: '90%', height: '90%', data: item.folioNoWithLR});
   }
 
