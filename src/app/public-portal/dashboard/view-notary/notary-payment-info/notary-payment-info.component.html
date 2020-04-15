@@ -29,5 +29,10 @@
                [hasFrontCounterPayment]="hasFrontCounterPayment"
                [isDocumentCollect]="isDocumentCollect"
                [workflowCode]="workflow"
-               (back)="onBack($event)"></app-payment>
+               (back)="onBack($event)"
+               [userType]="userType"
+               [userId]="userId"
+               [workflowStageCode]="workflowStage"
+               >
+              </app-payment>
 </div>

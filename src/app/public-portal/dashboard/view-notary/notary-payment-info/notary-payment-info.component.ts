@@ -1,3 +1,4 @@
+import { SessionService } from './../../../../shared/service/session.service';
 import { PaymentMethod } from './../../../../shared/enum/payment-method.enum';
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Input, OnInit} from '@angular/core';
@@ -35,9 +36,12 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @Input() addPayment: boolean = true;
   @Input() applicationFeeCode: string = Parameters.NOTARY_REG_FEE;
   @Output() paymentResponse = new EventEmitter<PaymentResponse>();
+  @Input() workflowStage: string;
   returnUrl: string;
   statusOnlinePayment = false;
   paymentReturnBaseUrl: string;
+  userId: number;
+  userType: string;
 
 
   @Input() editable : boolean = false;
@@ -58,10 +62,13 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
   constructor(private notaryService: NewNotaryDataVarificationService,
               private newNotaryService: NotaryService,
-              private snackBar: SnackBarService,) {
+              private snackBar: SnackBarService,
+              private sessionService: SessionService) {
   }
 
   ngOnInit() {
+    this.userId = this.sessionService.getUser().id;
+    this.userType = this.sessionService.getUser().type;
     this.getPaymentDetails();
   }
 
