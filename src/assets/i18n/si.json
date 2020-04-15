@@ -541,7 +541,12 @@
        "ALREADY_EXISIS":"දැනටමත් පවතී",
        "USER_NAME":"පරිශීලක නාමය",
        "USER_NAME_SHOULD_CONTAIN_SIX_CHARACTORS":"අවම වශයෙන් අකුරු 6 ක් අඩංගු විය යුතුය",
-       "USER_NAME_ALREADY_TAKEN":"දැනටමත් අරගෙන"
+       "USER_NAME_ALREADY_TAKEN":"දැනටමත් අරගෙන",
+       "REQUEST_FOR_RESIGNATION":"ඉල්ලා අස්වීමේ ඉල්ලීම",
+       "APPLICATION":"අයදුම්පත",
+       "REASON_FOR_RESIGNATION":"ඉල්ලා අස්වීමට හේතුව",
+       "RESIGNATION_LETTER":"ඉල්ලා අස්වීමේ ලිපිය",
+       "IF_ANY":"යම්"
     },
     "OTHER_PERSON":{
        "ANY_OTHER_PERSON":"වෙනත් ඕනෑම පුද්ගලයෙක්",
