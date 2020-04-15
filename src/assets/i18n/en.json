@@ -541,7 +541,12 @@
        "ALREADY_EXISIS":"Already exists",
        "USER_NAME":"Username",
        "USER_NAME_SHOULD_CONTAIN_SIX_CHARACTORS":"Should contain atleast 6 charactors",
-       "USER_NAME_ALREADY_TAKEN":"Already Taken"
+       "USER_NAME_ALREADY_TAKEN":"Already Taken",
+       "REQUEST_FOR_RESIGNATION":"Request for Resignation",
+       "APPLICATION":"Application",
+       "REASON_FOR_RESIGNATION":"Reason for Resignation",
+       "RESIGNATION_LETTER":"Resignation Letter",
+       "IF_ANY":"If any"
     },
     "OTHER_PERSON":{
        "ANY_OTHER_PERSON":"Any Other Person",

@@ -37,6 +37,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   @Input() workflowStageCode: string;
   @Input() userType: string;
   @Input() userId: number;
+  @Input() requestItemCount: number = 1;
   showSpinner: boolean;
   public isContinueToPayment: boolean = false;
 
@@ -96,6 +97,8 @@ export class PaymentComponent implements OnInit, OnChanges {
         }
       }, (error: HttpErrorResponse) => {
       }, () => {
+        if (!this.requestItemCount && this.requestItemCount == 0) this.requestItemCount++;
+        this.applicationAmount = (this.applicationAmount * this.requestItemCount);
         this.totalAmount = this.applicationAmount;
       }
     );
@@ -128,7 +131,7 @@ export class PaymentComponent implements OnInit, OnChanges {
           this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_NORMAL_AMOUNT);
         } else if (this.workflowCode == this.Workflow.EXTRACT_REQUEST) {
           this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_NORMAL_AMOUNT);
-        }else if(this.workflowCode == this.Workflow.NOTARY_NAME_CHANGE){
+        } else if (this.workflowCode == this.Workflow.NOTARY_NAME_CHANGE) {
           this.getIssueOptionAmount(this.Parameter.NOTARY_NAME_CHG);
         }
         break;

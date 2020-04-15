@@ -13,6 +13,7 @@
               <mat-form-field appearance="outline">
                 <select matNativeControl
                         required
+                        (change)="onChangeLandRegistry($event.target.value)"
                         class="form-control"
                         formControlName="landRegistryId">
                   <option value="">--Select--</option>
@@ -44,7 +45,7 @@
       <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Name of the Notary public who attested by the deed:<span class="redtxt">*</span></label>
+            <label>Name of the Notary who attested by the deed:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -56,7 +57,7 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>District or station where he practiced at that time:<span class="redtxt">*</span></label>
+            <label>District or station where he practiced at that time:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -71,7 +72,7 @@
       <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Number of the deed:<span class="redtxt">*</span></label>
+            <label>Deed No:<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -83,7 +84,7 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Nature of the deed:<span class="redtxt">*</span></label>
+            <label>Nature of the deed:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -100,7 +101,7 @@
       <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>From:<span class="redtxt">*</span></label>
+            <label>From:</label>
             <div class="default-input-feild date-feild">
               <mat-form-field appearance="outline">
                 <input matInput readonly
@@ -117,7 +118,7 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>To:<span class="redtxt">*</span></label>
+            <label>To:</label>
             <div class="default-input-feild date-feild">
               <mat-form-field appearance="outline">
                 <input matInput readonly
@@ -137,7 +138,7 @@
       <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Name of the granter / Transferor:<span class="redtxt">*</span></label>
+            <label>Name of the granter / Transferor:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -148,7 +149,7 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Name of the grantee / transferee:<span class="redtxt">*</span></label>
+            <label>Name of the grantee / transferee:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -160,9 +161,9 @@
       </div>
 
       <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
+        <div class="pg-inner-col" *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">
           <div class="default-input-wrapper full-row">
-            <label>Name of the land:<span class="redtxt">*</span></label>
+            <label>Name of the land:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -173,7 +174,7 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Extent:<span class="redtxt">*</span></label>
+            <label>Extent:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
@@ -187,11 +188,10 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Korale:<span class="redtxt">*</span></label>
+            <label>Korale:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl
-                        required
                         class="form-control"
                         (change)="onChangeKorale($event.target.value)"
                         formControlName="koraleId">
@@ -204,11 +204,10 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Pattu:<span class="redtxt">*</span></label>
+            <label>Pattu:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl
-                        required
                         class="form-control"
                         formControlName="paththuId">
                   <option value="">--Select--</option>
@@ -222,11 +221,10 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>DS Division:<span class="redtxt">*</span></label>
+            <label>DS Division:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl
-                        required
                         class="form-control"
                         (change)="onChangeDsDivision($event.target.value)"
                         formControlName="dsDivisionId">
@@ -239,18 +237,17 @@
         </div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>GN Division:<span class="redtxt">*</span></label>
+            <label>GN Division:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl
-                        required
                         class="form-control"
                         (change)="onChangeGnDivision($event.target.value)"
                         formControlName="gnDivisionId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description}}</option>
                 </select>
-                <mat-error *ngIf="gnDivisions.length==0">Please select Ds Division</mat-error>
+                <mat-error *ngIf="gnDivisions?.length==0">Please select Ds Division</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -260,30 +257,39 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>Village:<span class="redtxt">*</span></label>
+            <label>Village:</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl
-                        required
                         class="form-control"
                         formControlName="villageId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of villages" [value]="item.villageId">{{item.description}}</option>
                 </select>
-                <mat-error *ngIf="villages.length==0">Please select Gn Division</mat-error>
+                <mat-error
+                  *ngIf="form.get('villageId').untouched">
+                  Please select Gn Division
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
         </div>
         <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label *ngIf="requestType==SearchRequestType.DEED_DOCUMENT">Reason for search of deed as:<span
-              class="redtxt">*</span></label>
-            <label *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">Reason for land register as:<span
+          <div *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT" class="default-input-wrapper full-row">
+            <label>Reason for Search:<span
               class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <select matNativeControl required
+                <input matInput
+                       class="form-control" formControlName="searchReasonId"/>
+              </mat-form-field>
+            </div>
+          </div>
+          <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="default-input-wrapper full-row">
+            <label>Reason for search of deed as: <span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <select matNativeControl
                         class="form-control" formControlName="searchReasonId">
                   <option value="">--Select--</option>
                   <option *ngFor="let item of searchReasons" [value]="item.searchReasonId">{{item.descriptionEng}}
@@ -295,73 +301,90 @@
         </div>
       </div>
 
-    </form>
-    <div *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">
-      <span class="mb-10" style="display: block;">Registers required for search</span>
-      <hr/>
-      <form class="wf-form-wp  mb-20" [formGroup]="folioForm">
 
-        <div class="pg-inner-row">
-          <div class="pg-inner-col-7">
+      <div *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">
+        <span class="mb-10" style="display: block;">Registers required for search</span>
+        <div class="separator">&nbsp;</div>
+
+        <div class="pg-inner-row mb-20">
+          <div class="pg-inner-col">
             <div class="default-input-wrapper full-row">
+              <label>LR Division: <span class="redtxt">*</span></label>
               <div class="default-input-feild">
                 <mat-form-field appearance="outline">
-                  <input matInput
-                         class="form-control"
-                         placeholder="Folio No"
-                         formControlName="folioNo">
+                  <select matNativeControl
+                          class="form-control"
+                          formControlName="lrDivisionId">
+                    <option value="">--Select--</option>
+                    <option *ngFor="let item of lrDivisions" [value]="item.landRegistryDivisionId">
+                      {{item.divisionCode+' - '+item.description}}
+                    </option>
+                  </select>
                 </mat-form-field>
               </div>
             </div>
           </div>
-          <div class="pg-inner-col-2">
-            <button type="button" mat-raised-button (click)="onClickAddButton()">
-              <i class="material-icons">add</i>
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>Volume: <span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                  <input matInput type="number"
+                         min="1"
+                         class="form-control" formControlName="volume">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-row mb-20">
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>Folio No: <span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                  <input matInput
+                         type="number"
+                         min="1"
+                         class="form-control" formControlName="folioNo">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="pg-inner-col">
+            <div class="default-input-wrapper full-row">
+              <label>No. of Years: <span class="redtxt">*</span></label>
+              <div class="default-input-feild">
+                <mat-form-field appearance="outline">
+                  <input matInput
+                         type="number"
+                         min="1"
+                         class="form-control" formControlName="noOfYears">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="folioStatus" class="pg-inner-row mb-10">
+          <mat-chip-list>
+            <mat-chip [selected]="true"
+                      [color]="folioStatus.code==FolioStatus.AVAILABLE?
+                                                      'primary':(folioStatus.code==FolioStatus.NOT_AVAILABLE?'accent':'warn')">
+              {{folioStatus.desc}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="pg-inner-row mb-10">
+          <div class="pg-inner-col float-right ">
+            <button [disabled]="folioStatus" mat-raised-button
+                    (click)="onClickSearch()"
+                    class="button float-right">Search
             </button>
           </div>
         </div>
-      </form>
-
-      <div class="b-table-wrapper">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 b-table">
-
-          <!-- Folio Column -->
-          <ng-container matColumnDef="Folio No">
-            <th mat-header-cell *matHeaderCellDef> Folio No</th>
-            <td mat-cell *matCellDef="let element">
-              {{element.folioNo}}
-            </td>
-          </ng-container>
-
-          <!-- Status Column -->
-          <ng-container matColumnDef="Status">
-            <th mat-header-cell *matHeaderCellDef> Status</th>
-            <td mat-cell *matCellDef="let element">
-              <mat-chip-list>
-                <mat-chip [selected]="true"
-                          [color]="element.status==FolioStatus.AVAILABLE?
-                                                      'primary':(element.status==FolioStatus.NOT_AVAILABLE?'accent':'warn')">
-                  {{element.statusDes}}</mat-chip>
-              </mat-chip-list>
-            </td>
-          </ng-container>
-
-          <!-- Action Column -->
-          <ng-container matColumnDef="Action">
-            <th mat-header-cell *matHeaderCellDef> Action</th>
-            <td mat-cell *matCellDef="let element; let i = index;">
-              <button mat-icon-button (click)="onClickDelete(i)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <div *ngIf="dataSource.data.length === 0" style="text-align: center">No records found</div>
       </div>
-    </div>
+
+    </form>
 
     <div class="separator">&nbsp;</div>
 
@@ -369,7 +392,7 @@
       <div class="pg-inner-col right ">
         <button mat-raised-button
                 class="lg-button green"
-                (click)="onClickSubmitSearchRequest()">Continue
+                (click)="onClickSubmitExtractRequest()">Continue
         </button>
         <!--<button mat-raised-button class="lg-button" disabled><i class="material-icons">refresh</i> Reset</button>-->
         <!--<button mat-raised-button class="lg-button green">Submit Search Request</button>-->
