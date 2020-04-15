@@ -58,7 +58,47 @@
         <mat-card [class.active]="1 == selectedTransaction" style="margin: 10px; cursor: pointer;" (click)="selectTransaction(1)">Transaction 2</mat-card> -->
         </div>
         <div>
-            <app-transaction-view [folioDto]="folioDto" [uiController]="uiController"></app-transaction-view>
+
+            <div class="row">
+                <div class="col-md-2 bg-light p-2" *ngIf="folioDto?.transactions.length > 1">
+                    <h5>{{ 'TRANSACTION.LIST' | translate }}</h5>
+                    <div style="position: relative; height: 80%; overflow: auto; display: block;">
+                        <table class="table" style="margin-bottom: 0rem">
+                            <thead>
+                                <tr></tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let transaction of folioDto?.transactions; index as i" [ngClass]="{
+                            'bg-primary': selectedTransaction === i,
+                            '': selectedTransaction !== i
+                          }">
+                                    <td style="width: 50px; vertical-align:middle" (click)="viewTransaction(i)">
+                                        {{ 'TRANSACTION.TEXT' | translate }} {{ i + 1 }}
+                                    </td>
+                                    <td style="width: 50px; vertical-align:middle">
+                                        <!-- <button
+                              *ngIf="!uiController.isReadOnly"
+                              type="button"
+                              class="btn"
+                              (click)="removeTransaction(i)"
+                            >
+                              <mat-icon class="material-icons" title="Delete" color="warn"
+                                >delete</mat-icon
+                              >
+                            </button> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div [ngClass]="{
+                    'col-md-10': folioDto?.transactions.length > 1,
+                    'col-md-12': folioDto?.transactions.length <= 1
+                  }">
+                    <app-transaction-view [transactionDto]="folioDto" [uiController]="uiController"></app-transaction-view>
+                </div>
+            </div>
         </div>
     </div>
     <button type="button" (click)="toggleTransactionView()" mat-raised-button>

@@ -162,15 +162,15 @@
             <span class="title">{{'DASOBOARD.REQUEST_FOR_CORRECTION'|translate}}</span>
           </a>
         </div>
-        <div *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE" class="db-link-tile c2">
-          <a *ngIf="!folioPending" (click)="viewFolio()">
-            <span class="icon">
-              <i class="material-icons">label</i>
-            </span>
-            <span class="title">{{'DASOBOARD.FOLIO_VIEW'|translate}}</span>
-          </a>
-          <mat-spinner *ngIf="folioPending"></mat-spinner>
-        </div>
+        <!--<div class="db-link-tile c2">-->
+          <!--<a *ngIf="!folioPending" (click)="viewFolio()">-->
+            <!--<span class="icon">-->
+              <!--<i class="material-icons">label</i>-->
+            <!--</span>-->
+            <!--<span class="title">Folio View</span>-->
+          <!--</a>-->
+          <!--<mat-spinner *ngIf="folioPending"></mat-spinner>-->
+        <!--</div>-->
         <!-- Search -->
         <div class="db-search">
           <div class="default-input-feild">
