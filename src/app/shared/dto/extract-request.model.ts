@@ -20,7 +20,13 @@ export class ExtractRequest {
   public dsDivisionId: number;
   public gnDivisionId: number;
   public villageId: number;
-  public searchReasonId: number;
+  public searchReasonId: any;
+  public lrDivisionId: any;
+  public volume: any;
+  public folioNo: any;
+  public folioNoStatus: any;
+  public folioNoStatusDes: string;
+  public noOfYears: any;
   public workflowStageCode: string;
   public date: string;
   public workflowDescription: string;

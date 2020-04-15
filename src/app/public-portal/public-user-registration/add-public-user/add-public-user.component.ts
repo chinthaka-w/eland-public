@@ -1,3 +1,6 @@
+import { SessionService } from 'src/app/shared/service/session.service';
+import { DocumentResponseDto } from './../../../shared/dto/document-response.dto';
+import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PaymentMethod } from './../../../shared/enum/payment-method.enum';
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -28,13 +31,12 @@ import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-ty
 })
 export class AddPublicUserComponent implements OnInit {
   public SearchRequestType = SearchRequestType;
-  public Parameters = Parameters;
+  public workflowPayment: string;
   public WorkflowCode = Workflow;
   public WorkflowStageForCitizenReg = WorkflowStageCitizenReg;
 
   public publicUserForm: FormGroup;
   public PublicUserType = PublicUserType;
-  public bankUserType = BankUserType;
   public identificationType = IdentificationType;
   fileList = {};
   landRegistriesDTOList: Array<LandRegistriesDTO> = [];
@@ -50,6 +52,9 @@ export class AddPublicUserComponent implements OnInit {
   publicUserExist: boolean = false;
   isContinue: boolean = false;
   formData: FormData = new FormData();
+  isMadatoryDocsUploaded = false;
+  docMetaList: DocumentResponseDto[] = [];
+  
 
   /**
    * **Online payment method**
@@ -64,6 +69,8 @@ export class AddPublicUserComponent implements OnInit {
   paymentMethod: number;
   returnURl: string;
   statusOnlinePayment: boolean;
+  userType: string;
+  userId: number;
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -72,15 +79,19 @@ export class AddPublicUserComponent implements OnInit {
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
               private snackBar: SnackBarService,
-              private router: Router) {}
+              private router: Router,
+              private sessionService: SessionService) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl("", [Validators.required]),
       bankName: new FormControl("", [Validators.required]),
-      bankUserType: new FormControl("", [Validators.required]),
-      lawFirmName: new FormControl("", [Validators.required]),
+      lawFirmName: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+      ]),
       nameEnglish: new FormControl("",
         [Validators.required,
         Validators.pattern(PatternValidation.nameValidation),
@@ -92,10 +103,11 @@ export class AddPublicUserComponent implements OnInit {
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)
       ]),
-      notaryId: new FormControl("", [Validators.required]),
       address1: new FormControl("",
         [Validators.required,
-          Validators.maxLength(255)]),
+          Validators.maxLength(255),
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ]),
       address2: new FormControl('', [
         Validators.pattern(PatternValidation.ADDRESS_PATTERN),
         Validators.maxLength(255)
@@ -119,26 +131,42 @@ export class AddPublicUserComponent implements OnInit {
         [Validators.required,
           Validators.pattern(PatternValidation.emailValidation)]),
       userName: new FormControl("", [Validators.required]),
-      reason: new FormControl("", [Validators.required]),
-      renewalCertificate: new FormControl("", [Validators.required]),
-      nicCopy: new FormControl("", [Validators.required]),
-      signatureAndSeal: new FormControl("", [Validators.required]),
+      reason: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]),
       recaptcha: new FormControl(null, Validators.required),
-      officersDesignation: new FormControl("", [Validators.required]),
-      stateInstitutionName: new FormControl("", [Validators.required]),
-      otherInstitutionName: new FormControl("", [Validators.required]),
-      dateOfBirth: new FormControl("", [Validators.required]),
+      officersDesignation: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]),
+      stateInstitutionName: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]),
+      otherInstitutionName: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)
+      ]),
     });
     this.getAllLandRegistries();
     this.getAllBanks();
     this.citizenDTO.userType = this.PublicUserType.CITIZEN;
     this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
-    this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
     this.disableUselessFormControls(this.citizenDTO.userType);
+    this.userType = this.sessionService.getUser().type;
   }
 
   get FormControls() {
     return this.publicUserForm.controls;
+  }
+
+  get nearestLr() {
+    return this.publicUserForm.get('nearestLr');
   }
 
   get nameEnglish() {
@@ -197,10 +225,47 @@ export class AddPublicUserComponent implements OnInit {
     return this.publicUserForm.get('address3');
   }
 
-  setFiles(files, key){
-    console.log('files: ', files);
+  get type() {
+    return this.publicUserForm.get('type');
+  }
+
+  setFiles(files, key, status: boolean){
     this.fileList[key] = files;
     console.log('file list: ', this.fileList);
+
+    // validate mandatory doc upload
+    if (files.length > 0 ) {
+      const docMetaData = new DocumentResponseDto(null, key, files[0], status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL);
+      this.docMetaList.push(docMetaData);
+    } else {
+      this.docMetaList.forEach((doc, index) => {
+        if (doc.docTypeId === key) {
+          this.docMetaList.splice(index, 1);
+        }
+      });
+    }
+
+    let workflowMandatoryDocs = 0;
+    let uploadMadatoryDocs = 0;
+    this.workflowStageDocTypes.forEach((doc) => {
+      if (doc.required) {
+        workflowMandatoryDocs += 1;
+      }
+    });
+
+    this.docMetaList.forEach((doc) => {
+      if (doc.status === CommonStatus.REQUIRED) {
+        uploadMadatoryDocs += 1;
+      }
+    });
+
+    if (workflowMandatoryDocs === uploadMadatoryDocs) {
+      this.isMadatoryDocsUploaded = true;
+    } else {
+      this.isMadatoryDocsUploaded = false;
+    }
+
+
   }
   getAllLandRegistries() {
     this.citizenService.getAllLandRegistries()
@@ -216,44 +281,43 @@ export class AddPublicUserComponent implements OnInit {
       });
   }
 
-  getCurrentLandRegistry(event) {
-    this.citizenDTO.landRegistry = event.target.value;
+  getCurrentLandRegistry(lrCode: number) {
+    this.citizenDTO.landRegistry = lrCode;
   }
-  getCurrentBankUserType(event) {
-    this.bankUserTypeId = event.target.value;
-    this.publicUserForm.controls['notaryId'].enable();
-    if(this.citizenDTO.userType == this.PublicUserType.BANK){
-      if((this.bankUserTypeId == this.bankUserType.MANAGER) || (this.bankUserTypeId == this.bankUserType.OTHER)) {
-        this.publicUserForm.controls['notaryId'].disable();
-      }
-    }
-    this.citizenDTO.bankUserType = this.bankUserTypeId;
-  }
+  
   getCurrentBank(event) {
-    this.citizenDTO.bankId = event.target.value;
+    this.citizenDTO.bankId = event.value;
   }
   getCurrentIdentificationType(event) {
-    this.citizenDTO.identificationNoType = event.target.value;
+    this.citizenDTO.identificationNoType = event.value;
   }
-  getCurrentUserType(event) {
-    this.citizenDTO.userType = event.target.value;
+  getCurrentUserType(userType: number) {
+
+    this.docMetaList = [];
+    this.isMadatoryDocsUploaded = false;
+    this.citizenDTO.userType = userType;
     this.publicUserForm.enable();
     this.disableUselessFormControls(this.citizenDTO.userType);
 
     if(this.citizenDTO.userType == PublicUserType.CITIZEN) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
+      this.workflowPayment = Parameters.CITIZEN_REGISTRATION_FEE;
     }
     else if(this.citizenDTO.userType == PublicUserType.BANK) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.BANK_INIT;
+      this.workflowPayment = Parameters.BANK_REGISTRATION_FEE;
     }
     else if(this.citizenDTO.userType == PublicUserType.LAWYER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.LAWYER_OR_LAW_FIRM_INIT;
+      this.workflowPayment = Parameters.LAWYER_LAW_FIRM_REGISTRATION_FEE;
     }
     else if(this.citizenDTO.userType == PublicUserType.STATE) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.STATE_INSTITUTE_INIT;
+      this.workflowPayment = Parameters.STATE_INSTITUTE_REGISTRATION_FEE;
     }
     else if(this.citizenDTO.userType == PublicUserType.OTHER) {
       this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT;
+      this.workflowPayment = Parameters.OTHER_INSTITUTE_REGISTRATION_FEE;
     }
     this.getRelatedDocTypes(this.citizenDTO.workFlowStageCode);
   }
@@ -268,53 +332,36 @@ export class AddPublicUserComponent implements OnInit {
   disableUselessFormControls(type: number) {
     if(type == this.PublicUserType.CITIZEN) {
       this.publicUserForm.controls['bankName'].disable();
-      this.publicUserForm.controls['bankUserType'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['notaryId'].disable();
-      this.publicUserForm.controls['renewalCertificate'].disable();
-      this.publicUserForm.controls['nicCopy'].disable();
-      this.publicUserForm.controls['signatureAndSeal'].disable();
       this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.BANK) {
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['renewalCertificate'].disable();
-      this.publicUserForm.controls['nicCopy'].disable();
-      this.publicUserForm.controls['signatureAndSeal'].disable();
       this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.LAWYER) {
       this.publicUserForm.controls['bankName'].disable();
-      this.publicUserForm.controls['bankUserType'].disable();
-      this.publicUserForm.controls['renewalCertificate'].disable();
-      this.publicUserForm.controls['nicCopy'].disable();
-      this.publicUserForm.controls['signatureAndSeal'].disable();
       this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.STATE) {
       this.publicUserForm.controls['bankName'].disable();
-      this.publicUserForm.controls['bankUserType'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['renewalCertificate'].disable();
-      this.publicUserForm.controls['nicCopy'].disable();
-      this.publicUserForm.controls['signatureAndSeal'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
+      this.publicUserForm.controls['officersDesignation'].disable();
     }
     else if (type == this.PublicUserType.OTHER) {
       this.publicUserForm.controls['bankName'].disable();
-      this.publicUserForm.controls['bankUserType'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['renewalCertificate'].disable();
-      this.publicUserForm.controls['nicCopy'].disable();
-      this.publicUserForm.controls['signatureAndSeal'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
+      this.publicUserForm.controls['address1'].disable();
+      this.publicUserForm.controls['address2'].disable();
+      this.publicUserForm.controls['address3'].disable();
     }
   }
 
@@ -331,13 +378,11 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.mobileNo = this.publicUserForm.controls.secondaryContact.value;
     this.citizenDTO.reason = this.publicUserForm.controls.reason.value;
     this.citizenDTO.identificationNo = this.publicUserForm.controls.identificationNo.value;
-    this.citizenDTO.dateOfBirth = this.publicUserForm.controls.dateOfBirth.value;
     this.citizenDTO.username = this.publicUserForm.controls.userName.value;
     this.citizenDTO.lawFirmName = this.publicUserForm.controls.lawFirmName.value;
     this.citizenDTO.stateInstituteName = this.publicUserForm.controls.stateInstitutionName.value;
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
-    this.citizenDTO.notaryId = this.publicUserForm.controls.notaryId.value;
 
     this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
       .subscribe((result) => {
@@ -348,6 +393,7 @@ export class AddPublicUserComponent implements OnInit {
           this.snackBar.success('Citizen saved successfully, Proceed to online payment');
           this.isContinue = true;
           this.statusOnlinePayment = true;
+          this.userId = result.id;
         } else {
           this.snackBar.error('Operation failed');
         }
@@ -376,7 +422,6 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   onBack(data: boolean) {
-    console.log('on back', data);
     this.isContinue = !data;
   }
   onPaymentResponse(data: PaymentResponse) {

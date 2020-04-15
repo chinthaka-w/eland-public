@@ -14,10 +14,21 @@ export class RemarkComponent implements OnInit {
 
   @Input()
   remarkDto: RemarkDto;
+  
+  private reference: any = {};
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  addReference() {
+    this.remarkDto.referenceList.push(this.reference)
+    this.reference = {};
+  }
+
+  deleteReference(index) {
+    this.remarkDto.referenceList.splice(index, 1);
   }
 
 }

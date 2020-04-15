@@ -1,3 +1,4 @@
+import { RequestResponse } from './../dto/request-response.model';
 import { PaymentResponse } from './../dto/payment-response.model';
 import { Injectable, EventEmitter } from '@angular/core';
 import {PaymentDto} from '../dto/payment-dto';
@@ -49,5 +50,9 @@ export class PaymentService {
     return this.httpClient.get<PaymentResponse>(this.BASE_URL + '/onlinePaymentResult/' + id);
   }
 
+  // generateEmail(paymentData: PaymentDto)
+  generateMail(mailData: PaymentDto): Observable<RequestResponse> {
+    return this.httpClient.post<RequestResponse>(this.BASE_URL + '/sendMail', mailData);
+  }
 
 }

@@ -1,3 +1,4 @@
+import { RequestResponse } from './../dto/request-response.model';
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -8,6 +9,7 @@ import {SysConfigService} from "./sys-config.service";
 import {PaymentDto} from "../dto/payment-dto";
 import {StatusDTO} from "../dto/status-dto";
 import {WorkflowStageDocTypeDTO} from "../dto/workflow-stage-doc-type-dto";
+import { RequestSearchDetailDTO } from '../dto/request-search.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +70,22 @@ export class CitizenService {
     formData.append('model', JSON.stringify(citizen));
     return this.httpClient.post<StatusDTO>(this.BASE_URL + 'citizen/updateDocs', formData, {headers: this.headers});
 
+  }
+
+  getLastRemark(reqId: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'citizen/lastRemark/' + reqId);
+  }
+
+  getUploadedDocuments(citizenId: number): Observable<CitizenDTO> {
+    return this.httpClient.get<CitizenDTO>(this.BASE_URL + 'citizen/viewDocs/' + citizenId);
+  }
+
+  completeAction(citizenDto: CitizenDTO): Observable<RequestResponse> {
+    return this.httpClient.post<RequestResponse>(this.BASE_URL + 'citizen/setUserAction', citizenDto);
+  }
+
+  getPublicUserDetails(citizenId: number): Observable<RequestSearchDetailDTO> {
+    return this.httpClient.get<RequestSearchDetailDTO>(this.BASE_URL + 'citizen/getUserDetails/' + citizenId);
   }
 
 }

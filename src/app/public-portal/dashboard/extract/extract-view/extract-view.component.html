@@ -26,6 +26,9 @@
           <app-notary-payment-info
             [workflow]="workflow"
             [id]="requestId"
+            [addPayment]="false"
+            [hasFrontCounterPayment]="false"
+            [isDocumentCollect]="false"
             [action]="action"
             (paymentResponse)="onPaymentResponse($event)"
           ></app-notary-payment-info>
