@@ -18,7 +18,11 @@
           <dl class="db-card-info">
             <dt>{{'DASOBOARD.STATUS'|translate}}</dt>
             <dd>
-              <span class="status-pending">{{searchDetails?.status}}</span>
+              <span
+                [class]="user.userStatus === commonStatus.PENDING ?'status-pending': 'status-success'">
+                {{getStatus()}}
+              </span>
+
             </dd>
           </dl>
           <dl class="db-card-info">
@@ -46,11 +50,11 @@
           <dl class="db-card-info">
             <dt>{{'DASOBOARD.STATUS'|translate}}</dt>
             <dd>
-                <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending': 
-                              searchDetails?.status === commonStatus.INACTIVE? 'status-pending': 
+                <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':
+                              searchDetails?.status === commonStatus.INACTIVE? 'status-pending':
                               searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
-                  {{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval': 
-                                    searchDetails?.status === commonStatus.INACTIVE? 'Further Details Submission': 
+                  {{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval':
+                                    searchDetails?.status === commonStatus.INACTIVE? 'Further Details Submission':
                                     searchDetails?.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
                 </span>
             </dd>
@@ -65,7 +69,7 @@
           <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails?.status)]">{{'BUTTONS.VIEW_BUTTON'| translate}}</button>
         </div>
       </div>
-      <div class="db-main-wp">
+      <div class="db-main-wp" *ngIf="user.userStatus === commonStatus.ACTIVE">
         <div class="db-link-tile c1" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/requests/'+getBase64(Workflow.JUDICIAL_ZONE_CHANGE)]">
             <span class="icon">

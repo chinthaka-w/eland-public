@@ -1,4 +1,3 @@
-import { RequestResponse } from './../../../dto/request-response.model';
 import { SysConfigService } from 'src/app/shared/service/sys-config.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentResponse } from './../../../dto/payment-response.model';
@@ -6,6 +5,7 @@ import { PaymentDto } from './../../../dto/payment-dto';
 import { PaymentService } from './../../../service/payment.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { RequestResponse } from './../../../dto/request-response.model';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -19,18 +19,20 @@ export class OnlineMethodComponent implements OnInit {
 @Input() returnUrl: string;
 @Input() workflowStageCode: string;
 @Input() userType: string;
-@Input() userId: number;
-serviceCode = SysConfigService.LGPS_SERVICE_CODE;
+@Input() userId: number;serviceCode = SysConfigService.LGPS_SERVICE_CODE;
 showEncryptedPaymentRequest = false;
 showPaymentResult = false;
+loadIframe = false;
 paymentId: number;
 lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
 
-onlinePaymentForm: FormGroup;
+  onlinePaymentForm: FormGroup;
+
   constructor(private formBuilder: FormBuilder,
               private paymentService: PaymentService,
               private route: ActivatedRoute,
-              private router: Router) { }
+             private router: Router) {
+  }
 
   ngOnInit() {
     // set payment confirmation details if payment id not available

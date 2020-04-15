@@ -4,6 +4,7 @@ import {LanguageDescriptionDto} from "./language-description.dto";
 export class NewNotaryViewDto {
   public subjectMediumId: number;
   public languageId: number;
+  public nameTitleId: number;
  constructor(
    public newNotaryId: number,
   public newNotaryRegistrationRequestId: number,

@@ -109,7 +109,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
         break;
       default:
         this.paymentDataValue = paymentData.paymentId;
-        this.savePayments(this.requestDetailPayment.requestId, this.paymentDataValue);
+        // this.savePayments(this.requestDetailPayment.requestId, this.paymentDataValue);
     }
   }
 
