@@ -44,4 +44,6 @@ export class TransactionDto {
     public notificationFolioNo: string;
     public notificationTransactionId: number;
     public scheduleType: string;
+    public documentNatureId: number;
+
 }

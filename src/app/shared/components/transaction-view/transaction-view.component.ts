@@ -34,7 +34,7 @@ export class TransactionViewComponent implements OnInit {
   uiController: UiController;
 
   @Input()
-  folioDto: FolioDto;
+  transactionDto: FolioDto;
 
   public trustDto = new TrustDto;
   public trustList: TrustDto[] = [];
