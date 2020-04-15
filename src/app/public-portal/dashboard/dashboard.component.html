@@ -3,9 +3,8 @@
     <div class="db-left-col" style="background-image: url('assets/images/temp_img_005.jpg')">&nbsp;</div>
     <div class="db-right-col">
       <h2>{{'DASOBOARD.TITLE1'|translate}}</h2>
-      <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
+      <div class="db-card-full" *ngIf="user.type == userType.NOTARY && user.userStatus != CommonStatus.ACTIVE">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
-          <!--<a href="#">Next </a>-->
         </div>
         <div class="db-card-content">
           <dl class="db-card-info">

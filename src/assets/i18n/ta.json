@@ -539,7 +539,12 @@
        "ALREADY_EXISIS":"ஏற்கனவே இருக்கிறது",
        "USER_NAME":"பயனர்பெயர்",
        "USER_NAME_SHOULD_CONTAIN_SIX_CHARACTORS":"குறைந்தபட்சம் 6 குணாதிசயங்களைக் கொண்டிருக்க வேண்டும்",
-       "USER_NAME_ALREADY_TAKEN":"முன்பே எடுத்தாகி விட்டது"
+       "USER_NAME_ALREADY_TAKEN":"முன்பே எடுத்தாகி விட்டது",
+       "REQUEST_FOR_RESIGNATION":"ராஜினாமா செய்வதற்கான கோரிக்கை",
+       "APPLICATION":"விண்ணப்பம்",
+       "REASON_FOR_RESIGNATION":"ராஜினாமா செய்வதற்கான காரணம்",
+       "RESIGNATION_LETTER":"ராஜினாமா கடிதம்",
+       "IF_ANY":"ஏதாவது"
     },
     "OTHER_PERSON":{
        "ANY_OTHER_PERSON":"வேறு எந்த நபரும்",
