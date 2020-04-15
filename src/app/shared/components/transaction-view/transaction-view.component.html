@@ -5,8 +5,8 @@
     </mat-tab> -->
     <mat-tab *ngIf="
     uiController.isProperty &&
-    (folioDto.folioTypeId == documentType.EXPRESS_TRUST ||
-      folioDto.folioTypeId == documentType.NORMAL_TRUST) &&
+    (transactionDto.folioTypeId == documentType.EXPRESS_TRUST ||
+      transactionDto.folioTypeId == documentType.NORMAL_TRUST) &&
       !uiController.isCloseNote
   " label="{{ 'PROPERTY_DETAILS.TITLE' | translate }}">
         <app-property [uiController]="uiController" [propertyDto]="propertyDto"></app-property>
@@ -14,8 +14,8 @@
     <mat-tab label="{{ 'BOUNDARIES.NAME' | translate }}" *ngIf="
     uiController.isBoundary &&
     propertyDto.isLand == 1 &&
-    (folioDto.folioTypeId == documentType.EXPRESS_TRUST ||
-      folioDto.folioTypeId == documentType.NORMAL_TRUST) &&
+    (transactionDto.folioTypeId == documentType.EXPRESS_TRUST ||
+      transactionDto.folioTypeId == documentType.NORMAL_TRUST) &&
       !uiController.isCloseNote
   " [disabled]="false">
         <app-boundary [uiController]="uiController" [boundaryDto]="boundaryDto">
@@ -24,20 +24,20 @@
     <mat-tab *ngIf="
     uiController.isExtent &&
     propertyDto.isLand == 1 &&
-    (folioDto.folioTypeId == documentType.EXPRESS_TRUST ||
-      folioDto.folioTypeId == documentType.NORMAL_TRUST) &&
+    (transactionDto.folioTypeId == documentType.EXPRESS_TRUST ||
+      transactionDto.folioTypeId == documentType.NORMAL_TRUST) &&
       !uiController.isCloseNote
   " label="{{ 'EXTENT_DETAILS.TAB_TITLE' | translate }}">
         <app-extent [uiController]="uiController" [extentDto]="extentDto"></app-extent>
     </mat-tab>
     <mat-tab *ngIf="uiController?.isGrantor &&
     !uiController.isCloseNote"
-        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.PLAINTIFFS'| translate) : 'GRANTOR_DETAILS.TAB_TITLE' | translate }}">
+        label="{{ transactionDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.PLAINTIFFS'| translate) : 'GRANTOR_DETAILS.TAB_TITLE' | translate }}">
         <app-grantor [uiController]="uiController" [grantorDto]="grantorDto" [grantorDto]="grantorList"></app-grantor>
     </mat-tab>
     <mat-tab *ngIf="uiController?.isGrantee &&
     !uiController.isCloseNote"
-        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.DEFENDANT'| translate) :  'GRANTEE_DETAILS.TAB_TITLE' | translate }}">
+        label="{{ transactionDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.DEFENDANT'| translate) :  'GRANTEE_DETAILS.TAB_TITLE' | translate }}">
         <app-grantee [uiController]="uiController" [granteeDto]="granteeDto" [granteeList]="granteeList"></app-grantee>
     </mat-tab>
     <mat-tab *ngIf="uiController.isTruster &&
@@ -46,12 +46,12 @@
     </mat-tab>
     <mat-tab *ngIf="uiController?.isTrustee &&
     !uiController.isCloseNote"
-        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.PLAINTIFFS'| translate) : 'TRUSTEE_DETAILS.TAB_TITLE' | translate }}">
+        label="{{ transactionDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.PLAINTIFFS'| translate) : 'TRUSTEE_DETAILS.TAB_TITLE' | translate }}">
         <app-trustee [uiController]="uiController" [trusteeDto]="trusteeDto" [trusteeList]="trusteeList"></app-trustee>
     </mat-tab>
     <mat-tab *ngIf="uiController?.isCoTrustee &&
     !uiController.isCloseNote"
-        label="{{ folioDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.DEFENDANT'| translate) : 'CO_TRUSTEE_DETAILS.TAB_TITLE' | translate }}">
+        label="{{ transactionDto.documentNatureId == documentNature.COURT_ORDER ? ('OTHER.DEFENDANT'| translate) : 'CO_TRUSTEE_DETAILS.TAB_TITLE' | translate }}">
         <app-co-trustee [uiController]="uiController" [coTrusteeDto]="coTrusteeDto" [coTrusteeDto]="coTrusteeDto">
         </app-co-trustee>
     </mat-tab>

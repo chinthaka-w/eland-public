@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   commonStatus = CommonStatus;
 
   folioPending: boolean = false;
-  folioNo = 'Y/1/1';
+  folioNo = '3/Y/1/1';
 
   constructor(
     private sessionService: SessionService,

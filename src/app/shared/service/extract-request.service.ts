@@ -34,4 +34,8 @@ export class ExtractRequestService {
   updateSearchRequest(extractRequest: ExtractRequest): Observable<Object> {
     return this.httpClient.post(`${this.BASE_URL}/update`, extractRequest, {headers: this.headersJson});
   }
+
+  action(searchRequestAction: SearchRequest): Observable<Object> {
+    return this.httpClient.post(`${this.BASE_URL}/actionUpdate`, searchRequestAction, {headers: this.headersJson});
+  }
 }
