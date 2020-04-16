@@ -28,6 +28,17 @@
                             </li>
                         </ul>
                     </div>
+                  <div class="hr-button-wrapper">
+                    <div class="user-profile" [ngClass]="langDropdown ? 'active' : 'in-active'">
+            <span class="user-title" (click)="clickLangDropdown()">{{selectedLanguage.label}} <i
+              class="material-icons">arrow_drop_down</i></span>
+                      <ul class="up-dropdown">
+                        <li *ngFor="let language of languages">
+                          <a (click)="changeLanguage(language)" >{{language.label}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                     <div class="hr-button-wrapper">
                         <button mat-raised-button [routerLink]="['/login']">Login</button>
                         <!-- <div class="user-profile" [ngClass]="dropdown ? 'active' : 'in-active'">
@@ -74,16 +85,16 @@
                     <div class="cc-icon">
                         <img src="assets/images/icons/notary-services.png" alt="" />
                     </div>
-                    <h4>Notary Services</h4>
+                    <h4>{{'HOME_PAGE.NOTARY_SERVICES'|translate}}</h4>
                     <ul>
-                        <li>New Registration</li>
-                        <li>Name Change</li>
-                        <li>Renewal</li>
-                        <li>Region Change</li>
-                        <li>Language Change</li>
+                        <li>{{'HOME_PAGE.NEW_REG'|translate}}</li>
+                        <li>{{'HOME_PAGE.NAME_CHG'|translate}}</li>
+                        <li>{{'HOME_PAGE.RENEWAL'|translate}}</li>
+                        <li>{{'HOME_PAGE.RCHG'|translate}}</li>
+                        <li>{{'HOME_PAGE.LCHG'|translate}}</li>
                     </ul>
                     <div class="clear">&nbsp;</div>
-                    <button mat-raised-button [routerLink]="['/notary-registration']">Get Started</button>
+                    <button mat-raised-button [routerLink]="['/notary-registration']">{{'HOME_PAGE.GETsTART'|translate}}</button>
                 </div>
             </div>
             <div class="col-half">
@@ -91,15 +102,16 @@
                     <div class="cc-icon">
                         <img src="assets/images/icons/public-services.png" alt="" />
                     </div>
-                    <h4>Public Services</h4>
+                    <h4>{{'HOME_PAGE.PUBLIC_SERVICES'|translate}}</h4>
                     <ul>
-                        <li>Search for Folio</li>
-                        <li>Search for Deeds</li>
-                        <li>Obtain Extract of Folio</li>
-                        <li>Obtain Extract of Deeds</li>
+                        <li>User Registration</li>
+                        <li>{{'HOME_PAGE.SEARCH_FOL'|translate}}</li>
+                        <li>{{'HOME_PAGE.SRCH_DEED'|translate}}</li>
+                        <li>{{'HOME_PAGE.OBT_EXTR_FOL'|translate}}</li>
+                        <li>{{'HOME_PAGE.OBT_EXTR_DEED'|translate}}</li>
                     </ul>
                     <div class="clear">&nbsp;</div>
-                    <button mat-raised-button [routerLink]="['/user-registration']">Get Started</button>
+                    <button mat-raised-button [routerLink]="['/user-registration']">{{'HOME_PAGE.GETsTART'|translate}}</button>
                 </div>
             </div>
             <div class="clear">&nbsp;</div>

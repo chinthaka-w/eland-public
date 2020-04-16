@@ -11,7 +11,7 @@
       <mat-tab-group (selectedIndexChange)="getSelectedIndex($event);">
         <mat-tab label="Application">
           <app-last-remark
-            *ngIf="workflowStage==SearchWorkflowStages.SEARCH_REQ_REJECTED_BY_ARL"
+            *ngIf="workflowStage==SearchWorkflowStages.SEARCH_REQ_RETURN_BY_ARL"
             [workflow]="workflow"
             [requestId]="requestId"></app-last-remark>
           <app-search-document-application
@@ -22,6 +22,11 @@
             (folioItem)="onChangeFolioItem($event)"
             (formData)="onChangeFormData($event)"
           ></app-search-document-application>
+        </mat-tab>
+        <mat-tab *ngIf="workflowStage==SearchWorkflowStages.SEARCH_REQ_APPROVAL_BY_ARL" label="Search Result">
+          <app-search-document-result
+            [requestId]="requestId"
+            [workflowStageCode]="workflowStage"></app-search-document-result>
         </mat-tab>
         <mat-tab label="Payment Info">
           <app-notary-payment-info
@@ -42,11 +47,12 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div *ngIf="action!=ActionMode.VIEW && selectedIndex==0" class="pg-inner-row mb-0">
-      <div class="pg-inner-col">
+    <div class="separator">&nbsp;</div>
+    <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-row mb-10">
+      <div class="pg-inner-col float-right">
         <button mat-raised-button
                 (click)="onClickSaveChanges()"
-                class="button green">Save Changes
+                class="button green float-right">Submit
         </button>
       </div>
     </div>

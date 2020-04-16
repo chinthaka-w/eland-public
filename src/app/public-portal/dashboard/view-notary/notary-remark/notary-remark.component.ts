@@ -16,6 +16,8 @@ export class NotaryRemarkComponent implements OnInit {
   notaryRequestHistory: NotaryRegistrationHistoryDto[] = [];
   constructor(private notaryService: NewNotaryDataVarificationService) { }
 
+  @Input() editable : boolean = false;
+
   ngOnInit() {
     this.getHistoryDetails();
   }

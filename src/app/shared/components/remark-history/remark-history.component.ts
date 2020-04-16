@@ -11,7 +11,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
   templateUrl: './remark-history.component.html',
   styleUrls: ['./remark-history.component.css']
 })
-export class RemarkHistoryComponent implements OnInit, OnChanges {
+export class RemarkHistoryComponent implements OnInit {
   @Input() remarkHistory: NotaryRegistrationHistoryDto[] = [];
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
@@ -31,7 +31,7 @@ export class RemarkHistoryComponent implements OnInit, OnChanges {
   }
 
   setRemarkHistory(): void {
-    this.dataSource.data = this.remarkHistory;
+    this.dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.remarkHistory);
     this.dataSource.paginator = this.paginator;
   }
 

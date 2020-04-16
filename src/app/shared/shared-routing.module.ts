@@ -25,7 +25,7 @@ const routes: Routes = [
     component: PaymentMethodComponent
   },
   {
-    path: 'payment-result/:id/:url',
+    path: 'payment-result/:paymentId/:url/:workflowStageCode/:userType/:userId',
     component: OnlineMethodComponent
   }
 ];

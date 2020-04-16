@@ -1,3 +1,6 @@
+import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
+import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
+import { UserType } from 'src/app/shared/enum/user-type.enum';
 import { PaymentMethod } from './../../../../shared/enum/payment-method.enum';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -31,10 +34,11 @@ export class CitizenPaymentInfoComponent implements OnInit {
   citizenDTO: CitizenDTO = new CitizenDTO();
   paymentDTO: PaymentDto = new PaymentDto();
   isContinue: boolean = false;
-  public Parameters = Parameters;
+  public workflowPayment: string;
   public WorkflowCode = Workflow;
   statusOnlinePayment = false;
   returnURl: string;
+  @Input() isEdit = false;
 
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Amount', 'Payment Date', 'Status'];
   dataSource = new MatTableDataSource<PaymentDto>();
@@ -47,6 +51,7 @@ export class CitizenPaymentInfoComponent implements OnInit {
     this.citizenService.citizenDto.subscribe(history => {
       this.citizenDTO = history;
       this.dataSource = history.paymentHistory;
+      this.setWorkflowPayment(this.citizenDTO.userType);
     });
   }
 
@@ -83,9 +88,23 @@ export class CitizenPaymentInfoComponent implements OnInit {
       this.citizenService.updatePayment(this.citizenDTO).subscribe(
         (result) => {
           this.statusOnlinePayment = true;
-          this.returnURl = this.getBase64('view-citizen');
+          this.returnURl = ('view-citizen/' + this.getBase64(CommonStatus.INACTIVE));
         }
       );
+    }
+  }
+
+  setWorkflowPayment(userType: number) {
+    if (userType === PublicUserType.CITIZEN) {
+      this.workflowPayment = Parameters.CITIZEN_REGISTRATION_FEE;
+    } else if (userType === PublicUserType.BANK) {
+      this.workflowPayment = Parameters.BANK_REGISTRATION_FEE;
+    } else if (userType === PublicUserType.LAWYER) {
+      this.workflowPayment = Parameters.LAWYER_LAW_FIRM_REGISTRATION_FEE;
+    } else if (userType === PublicUserType.STATE) {
+      this.workflowPayment = Parameters.STATE_INSTITUTE_REGISTRATION_FEE;
+    } else if (userType === PublicUserType.OTHER) {
+      this.workflowPayment = Parameters.OTHER_INSTITUTE_REGISTRATION_FEE;
     }
   }
 

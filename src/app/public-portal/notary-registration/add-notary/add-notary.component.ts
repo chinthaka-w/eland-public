@@ -40,6 +40,8 @@ import {PublicUserService} from '../../../shared/service/public-user.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
+import {NameTitleService} from '../../../shared/service/name-title.service';
+import {NameTitleDTO} from '../../../shared/dto/name-title.dto';
 
 @Component({
   selector: 'app-add-notary',
@@ -82,8 +84,8 @@ export class AddNotaryComponent implements OnInit {
   public dsDivision: DsDivision[];
   public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
+  public nameTitles: NameTitleDTO[];
   public notaryDetails: Notary;
-  public previousSelections: any[] = [];
   public isSelected: boolean;
   public disabled: boolean = false;
   paymentDto: PaymentDto = new PaymentDto();
@@ -92,8 +94,7 @@ export class AddNotaryComponent implements OnInit {
   public docList: WorkflowStageDocDto[];
   public documentList: DocumentDto[] = [];
 
-  public locationDto: any = {};
-  public locationList: any[] = [];
+
   public dsGnList: NewNotaryDsDivisionDTO[] = [];
   public gnDivi: GnDivisionDTO[] = [];
 
@@ -117,6 +118,7 @@ export class AddNotaryComponent implements OnInit {
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
               private paymentService: PaymentService,
+              private nameTitleService: NameTitleService,
               private documetService: SupportingDocService,
               private router: Router) {
     this.today = new Date();
@@ -236,15 +238,12 @@ export class AddNotaryComponent implements OnInit {
       }
     );
 
-
+    this.getNameTitles();
     this.getDsDivisions();
     this.getLandRegistries();
     this.getJudicialZones();
     this.getDocumentList();
 
-    this.locationList.push(this.locationDto);
-    this.previousSelections.push(-1);
-    this.locationDto = {};
   }
 
   get languages(): FormControl {
@@ -424,16 +423,23 @@ export class AddNotaryComponent implements OnInit {
   }
 
   saveNotaryDetails(): void {
-    this.notaryDetails = new Notary(0, this.notaryForm.value.notary, 0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
+    this.notaryDetails = new Notary(0, this.notaryForm.value.notary,
+      0, null, this.notaryForm.value.nic, this.notaryForm.value.email,
       this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo,
-      this.notaryForm.value.permenentAddressInEnglish, this.notaryForm.value.currentAddressInEnglish, this.notaryForm.value.permenentAddressInSinhala,
-      this.notaryForm.value.currentAddressInSinhala, this.notaryForm.value.permenentAddressInTamil, this.notaryForm.value.currentAddressInTamil,
+      this.notaryForm.value.permenentAddressInEnglish,
+      this.notaryForm.value.permenentAddressInSinhala,
+      this.notaryForm.value.permenentAddressInTamil,
+      this.notaryForm.value.currentAddressInEnglish,
+      this.notaryForm.value.currentAddressInSinhala,
+      this.notaryForm.value.currentAddressInTamil,
       this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.englishNameWithInitials, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
       this.notaryForm.value.title, null, null,
       this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
       this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, CommonStatus.PENDING, new Date(),
-      this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED, this.notaryForm.value.userName, this.paymentDataValue.paymentId, null, null, null, null, this.paymentDataValue);
+      this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED,
+      this.notaryForm.value.userName, this.paymentDataValue.paymentId,
+      null, null, null, null, this.paymentDataValue, this.notaryForm.value.title);
 
     const formData = new FormData();
     formData.append('data', JSON.stringify(this.notaryDetails));
@@ -498,6 +504,14 @@ export class AddNotaryComponent implements OnInit {
     this.landRegistryService.getAllLandRegistry().subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistry = data;
+      }
+    );
+  }
+
+  private getNameTitles(): void {
+    this.nameTitleService.findAll().subscribe(
+      (data: NameTitleDTO[]) => {
+        this.nameTitles = data;
       }
     );
   }

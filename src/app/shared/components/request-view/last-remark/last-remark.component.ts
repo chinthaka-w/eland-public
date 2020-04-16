@@ -1,3 +1,4 @@
+import { CitizenService } from './../../../service/citizen.service';
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Workflow} from '../../../enum/workflow.enum';
 import {SearchRequestService} from '../../../service/search-request.service';
@@ -14,7 +15,7 @@ import {NotaryService} from '../../../service/notary-service';
   templateUrl: './last-remark.component.html',
   styleUrls: ['./last-remark.component.css']
 })
-export class LastRemarkComponent implements OnInit {
+export class LastRemarkComponent implements OnInit, OnChanges {
 
   @Input() workflow: string;
   @Input() requestId: number;
@@ -25,7 +26,13 @@ export class LastRemarkComponent implements OnInit {
               private newNotaryDataVerificationService: NewNotaryDataVarificationService,
               private notaryService: NotaryService,
               private extractRequestService: ExtractRequestService,
-              private judicialService: JudicialService) {
+              private judicialService: JudicialService,
+              private citizenService: CitizenService) {
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['requestId']) {
+      this.loadData();
+    }
   }
 
   ngOnInit() {
@@ -45,6 +52,9 @@ export class LastRemarkComponent implements OnInit {
         break;
       case Workflow.NOTARY_REGISTRATION:
         this.loadNotaryRegistrationRequest();
+        break;
+        case Workflow.CITIZEN_REGISTRATION:
+        this.loadCitizenRegistrationRequest();
         break;
     }
   }
@@ -87,6 +97,18 @@ export class LastRemarkComponent implements OnInit {
         }
       }
     )
+  }
+
+  loadCitizenRegistrationRequest() {
+    if (this.requestId) {
+      this.citizenService.getLastRemark(this.requestId).subscribe(
+        (data: LastRemark) => {
+          if (data != null) {
+            this.lastRemark = data;
+          }
+        }
+      );
+    }
   }
 
 

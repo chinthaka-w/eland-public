@@ -30,13 +30,13 @@
                     </div>
                 </div>
 
-                
+
 
                 <div class="default-input-wrapper full-row mb-30">
                     <label>Amount</label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
-                            <input matInput class="form-control" formControlName="applicationAmount" />
+                            <input [value]="applicationAmount.value | currency: 'LKR': 'Rs.'" matInput class="form-control" formControlName="applicationAmount" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <label>Total Amount</label>
                     <div class="default-input-feild">
                         <mat-form-field appearance="outline">
-                            <input matInput class="form-control" formControlName="totalFee" />
+                            <input [value]="totalFee.value | currency: 'LKR': 'Rs.'" matInput class="form-control" formControlName="totalFee" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 name="clientPaymentRequest"
                 formControlName="encryptedPaymentRequest"
                 />
-                
+
             </form>
         </div>
         <div class="hc-component-bottom">

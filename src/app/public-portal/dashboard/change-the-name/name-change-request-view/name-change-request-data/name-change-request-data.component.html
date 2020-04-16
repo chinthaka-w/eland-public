@@ -1,74 +1,43 @@
-<div class="page-header-default" >
-  <h2>APPLICATION FOR CHANGING THE NAME OF THE NOTARY LICENCE</h2>
-  <p>Please fill in the following information to create<br />request for change name</p>
-  <a href="" class="phd-back-btn">
-    <i class="material-icons">keyboard_backspace</i>
-  </a>
-</div>
-<form class="form-horizontal"  [formGroup]="notaryForm">
+
+<form class="form-horizontal"  [formGroup]="notaryForm" >
   <div class="page-content-wrapper">
     <div class="page-content-inner-wrapper">
 
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <h5 class="mb-20"><i class="material-icons">description</i>
-            APPLICATION FOR CHANGING THE NAME OF THE NOTARY LICENCE
-          </h5>
-          <div class="separator">&nbsp;</div>
-        </div>
-      </div>
+       <div class="separator">&nbsp;</div>
+     <br>
 
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <mat-form-field appearance="outline">
-            <select matNativeControl required  formControlName="title"  class="form-control">
-              <option value="">Select</option>
-              <option value="Mr">Mr</option>
-              <option value="Mrs">Mrs</option>
-              <option value="Miss">Miss</option>
-            </select>
-          </mat-form-field>
-        </div>
-        <div class="pg-inner-col right">
+      <div *ngIf="editable" class="pg-inner-row mb-20">
+        <div class="right">
           <div class="default-input-wrapper m0 rac-col">
-            <label>Language:<span class="redtxt">*</span></label>
+            <label>Language: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-radio-group  class="form-control" formControlName="languages">
-                <mat-radio-button value="{{languages.SINHALA}}">Sinhala</mat-radio-button>
-                <mat-radio-button value="{{languages.ENGLISH}}">English</mat-radio-button>
-                <mat-radio-button class="example-margin" value="{{languages.TAMIL}}">Tamil</mat-radio-button>
-              </mat-radio-group>
+              <section class="example-section">
+                <mat-checkbox class="pr-3" disabled="true" [checked]="true" (change)="addLanguageList(3)">English</mat-checkbox>
+                <mat-checkbox class="pr-3" (change)="addLanguageList(1)">Sinhala</mat-checkbox>
+                <mat-checkbox class="pr-3" (change)="addLanguageList(2)">Tamil</mat-checkbox>
+              </section>
             </div>
           </div>
         </div>
       </div>
+
       <div class="default-input-wrapper full-row">
-        <label>New name - Full (English):</label>
+        <label>Name Title: <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput class="form-control" formControlName="newFullNameInEnglish">
+            <select matNativeControl required  formControlName="title"  class="form-control">
+              <option value="0" disabled>Select the title</option>
+              <option *ngFor="let title of nameTitles"
+                      [value]="title.nameTitleId"
+              >
+                {{title.titleEng}}
+              </option>
+            </select>
           </mat-form-field>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New name - Full (Sinhala):</label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput class="form-control" formControlName="newFullNameInSinhala">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row">
-        <label>New name - Full (Tamil):</label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput class="form-control" formControlName="newFullNameInTamil">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="default-input-wrapper full-row">
-        <label>New name with initial (English):</label>
+        <label>New Name with Initial (English): <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newInitialNameInEnglish">
@@ -76,7 +45,15 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New name with initial (Sinhala):</label>
+        <label>New Full Name (English): <span class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput class="form-control" formControlName="newFullNameInEnglish">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>New Name with Initial (Sinhala): <span *ngIf="isSinhala" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newInitialNameInSinhala">
@@ -84,30 +61,48 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New name with initial (Tamil):</label>
+        <label>New Full Name (Sinhala): <span *ngIf="isSinhala" class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput class="form-control" formControlName="newFullNameInSinhala">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="default-input-wrapper full-row">
+        <label>New Name with Initial (Tamil): <span *ngIf="isTamil" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newInitialNameInTamil">
           </mat-form-field>
         </div>
       </div>
-      <div class="separator">&nbsp;</div>
-
-      <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
-        <div class="pg-inner-col">
-          <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
-        </div>
-        <div class="pg-inner-col middle">
-          By signing up, you agree to E-Land's
-          <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
-          and <a href="#">Privacy Policy</a> .
-        </div>
-        <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="submitForm()">
-            Submit
-          </button>
+      <div class="default-input-wrapper full-row">
+        <label>New Full Name (Tamil): <span *ngIf="isTamil" class="redtxt">*</span></label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput class="form-control" formControlName="newFullNameInTamil">
+          </mat-form-field>
         </div>
       </div>
+
+      <div *ngIf="editable">
+        <div class="separator mt-30">&nbsp;</div>
+
+        <div class="pg-inner-row mb-20 upload-col-3">
+        <div class="pg-inner-col-3" *ngFor="let doc of docList">
+          <div class="default-input-wrapper full-row">
+            <label
+            >{{doc.description}}
+              <span *ngIf="doc.required">*</span></label>
+            <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
+          </div>
+        </div>
+      </div>
+
+      </div>
+
+      <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">Change Details</button>
+
     </div>
   </div>
 </form>

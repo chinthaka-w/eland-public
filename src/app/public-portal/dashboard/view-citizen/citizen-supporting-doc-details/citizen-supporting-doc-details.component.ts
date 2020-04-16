@@ -1,3 +1,4 @@
+import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DocumentResponseDto} from "../../../../shared/dto/document-response.dto";
 import {NewNotarySupportingDocDetailDto} from "../../../../shared/dto/new-notary-supporting-doc-detail.dto";
@@ -24,6 +25,7 @@ import {PublicUserType} from "../../../../shared/enum/public-user-type.enum";
 })
 export class CitizenSupportingDocDetailsComponent implements OnInit {
 
+  @Input() isEdit: false;
   item1: NewNotarySupportingDocDetailDto = new NewNotarySupportingDocDetailDto();
   supportingDocuments: DocumentDTO[] = [];
   supportingDocForm: FormGroup;
@@ -44,6 +46,8 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
   public workflowStageCitizenReg = WorkflowStageCitizenReg;
   public publicUserType = PublicUserType;
   workFlowStage: string;
+  uploadedDocs: DocumentResponseDto[] = [];
+  isButtonEnable: false;
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -85,21 +89,61 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
     console.log(data);
   }
 
-  setFiles(files, key){
-    this.fileList[key] = files;
+  setFiles(files, key, status) {
+    if (files.length > 0) {
+      this.fileList[key] = files;
+      const docMeta = new DocumentResponseDto(null, key, files[files.length - 1], status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL);
+      this.uploadedDocs.push(docMeta);
+    } else {
+      this.uploadedDocs.forEach((doc, index) => {
+        if (key === doc.docTypeId) {
+          this.uploadedDocs.splice(index, 1);
+        }
+      });
+    }
+
   }
 
   updateCitizenSupportingDocs() {
+    // check mandatory docs submission
+    let workflowMandatoryDocs = 0;
+    let uploadedMandatoryDocs = 0;
+
+    this.workflowStageDocTypes.forEach((doc, index) => {
+      if (doc.required) {
+        workflowMandatoryDocs += 1;
+      }
+    });
+
+    this.uploadedDocs.forEach((doc, index) => {
+      if (doc.status === CommonStatus.REQUIRED) {
+        uploadedMandatoryDocs += 1;
+      }
+    });
+
+    if (workflowMandatoryDocs !== uploadedMandatoryDocs) {
+      this.snackBar.warn('Plese upload mandatory documents');
+      return;
+    }
     this.citizenNew.id = this.citizen.id;
     this.citizenNew.reqId = this.citizen.reqId;
     this.citizenService.updateSupportingDocs(this.fileList, this.citizenNew)
       .subscribe((result) => {
         if (result) {
           this.snackBar.success('Documents updated successfully');
-        }else{
+          this.getUploadedDocuments(this.citizen.id);
+        } else {
           this.snackBar.error('Update Failed');
         }
       });
+  }
+
+  getUploadedDocuments(citizeId: number) {
+    this.citizenService.getUploadedDocuments(citizeId).subscribe(
+      (result: CitizenDTO) => {
+        this.supportingDocuments = result.supportingDocuments;
+      }
+    );
   }
 
   onFormSubmit(docsList: DocumentResponseDto[]){

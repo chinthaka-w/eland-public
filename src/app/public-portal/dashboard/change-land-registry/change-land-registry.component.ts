@@ -40,7 +40,7 @@ export class ChangeLandRegistryComponent implements OnInit {
   WorkflowCode = LandRegistryChangeWorkflowStagesEnum;
   public files: File[] = [];
   public notaryId: number;
-
+  user: string;
 
 
 
@@ -54,9 +54,9 @@ export class ChangeLandRegistryComponent implements OnInit {
       reason: new FormControl('', Validators.required ),
       landRegistry: new FormControl('', Validators.required )
     });
+    this.notaryId = this.sessionService.getUser().id;
     this.getLandRegistries();
     this.getDocumentList();
-    this.notaryId = this.sessionService.getUser().id;
   }
 
   saveRequest() {
@@ -84,8 +84,7 @@ export class ChangeLandRegistryComponent implements OnInit {
 
 
   private getLandRegistries(): void {
-
-    this.judicialService.getAllLandRegistries().subscribe(
+    this.judicialService.getAllLandRegistriesByJudicialZone(this.notaryId).subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistrySelect = data;
       }

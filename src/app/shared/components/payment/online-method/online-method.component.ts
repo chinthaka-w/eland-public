@@ -5,6 +5,8 @@ import { PaymentDto } from './../../../dto/payment-dto';
 import { PaymentService } from './../../../service/payment.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { RequestResponse } from './../../../dto/request-response.model';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-online-method',
@@ -15,34 +17,41 @@ export class OnlineMethodComponent implements OnInit {
 @Input() transactionRef: string;
 @Input() paymentAmount: number;
 @Input() returnUrl: string;
-serviceCode = SysConfigService.LGPS_SERVICE_CODE;
+@Input() workflowStageCode: string;
+@Input() userType: string;
+@Input() userId: number;serviceCode = SysConfigService.LGPS_SERVICE_CODE;
 showEncryptedPaymentRequest = false;
 showPaymentResult = false;
+loadIframe = false;
 paymentId: number;
 lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
 
-onlinePaymentForm: FormGroup;
+  onlinePaymentForm: FormGroup;
+
   constructor(private formBuilder: FormBuilder,
               private paymentService: PaymentService,
               private route: ActivatedRoute,
-              private router: Router) { }
+             private router: Router) {
+  }
 
   ngOnInit() {
     // set payment confirmation details if payment id not available
-    if (!this.route.snapshot.paramMap.get('id')) {
+    if (!this.route.snapshot.paramMap.get('paymentId')) {
 
       this.loadForm();
       this.showEncryptedPaymentRequest = true;
       this.initTransaction();
     }
     // show payment summary
-    if (this.route.snapshot.paramMap.get('id')) {
-      this.paymentId = +this.route.snapshot.paramMap.get('id');
+    if (this.route.snapshot.paramMap.get('paymentId')) {
+      this.paymentId = +this.route.snapshot.paramMap.get('paymentId');
       this.loadForm();
       this.showPaymentResult = true;
       this.getPaymentResult(this.paymentId);
       this.returnUrl = this.decodeBase64(this.route.snapshot.paramMap.get('url'));
-      alert(this.returnUrl)
+      this.workflowStageCode = this.decodeBase64(this.route.snapshot.paramMap.get('workflowStageCode'));
+      this.userType = this.decodeBase64(this.route.snapshot.paramMap.get('userType'));
+      this.userId = +this.decodeBase64(this.route.snapshot.paramMap.get('userId'));
     }
   }
 
@@ -59,11 +68,23 @@ onlinePaymentForm: FormGroup;
     this.onlinePaymentForm.disable();
   }
 
+  get applicationAmount() {
+    return this.onlinePaymentForm.get('applicationAmount');
+  }
+
+  get totalFee() {
+    return this.onlinePaymentForm.get('totalFee');
+  }
+
+
   // payment confirmation
   initTransaction(): void {
     let paymentDetails = new PaymentDto();
     paymentDetails = this.onlinePaymentForm.value;
     paymentDetails.returnUrl = this.returnUrl;
+    paymentDetails.workflowStageCode = this.getBase64(this.workflowStageCode).split('=')[0];
+    paymentDetails.userType = this.getBase64(this.userType).split('=')[0];
+    paymentDetails.userId = this.getBase64(this.userId.toString()).split('=')[0];
 
     this.paymentService.confirmOnlinePayment(paymentDetails).subscribe(
       (result: PaymentResponse) => {
@@ -80,6 +101,17 @@ onlinePaymentForm: FormGroup;
       window.location.href = this.lgpsUrl + this.onlinePaymentForm.get('encryptedPaymentRequest').value;
     } else {
       this.router.navigateByUrl(this.returnUrl);
+      // generate email
+      const mailData = new PaymentDto();
+      mailData.workflowStageCode = this.workflowStageCode;
+      mailData.userType = this.userType;
+      mailData.userId = this.userId.toString();
+      mailData.paymentId = this.paymentId;
+
+      this.paymentService.generateMail(mailData).subscribe(
+        (response: RequestResponse) => {
+        }
+      );
     }
   }
 
@@ -93,6 +125,10 @@ onlinePaymentForm: FormGroup;
 
   decodeBase64(code: string): string {
     return atob(code);
+  }
+
+  getBase64(url: string): string {
+    return btoa(url);
   }
 
 }
