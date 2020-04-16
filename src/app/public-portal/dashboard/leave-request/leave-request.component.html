@@ -1,7 +1,6 @@
 <div class="page-header-default">
   <h2>Request for leave</h2>
-  <p>Please fill in the following information to<br />register in the system</p>
-  <a href="" class="phd-back-btn">
+  <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
@@ -16,10 +15,10 @@
         <div class="pg-inner-row mb-20">
           <div class="pg-inner-col">
             <div class="default-input-wrapper full-row">
-              <label>Leave Period (From)</label>
+              <label>Leave Period (From)<span class="redtxt">*</span></label>
               <div class="default-input-feild date-feild">
                 <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="pickerFrom" [readonly]="true" formControlName="fromDate" class="form-control">
+                  <input matInput [matDatepicker]="pickerFrom"  [min]="minDate" [readonly]="true" formControlName="fromDate" class="form-control">
                   <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
                   <mat-datepicker #pickerFrom></mat-datepicker>
                 </mat-form-field>
@@ -33,10 +32,10 @@
           </div>
           <div class="pg-inner-col">
             <div class="default-input-wrapper full-row">
-              <label>Leave Period (To)</label>
+              <label>Leave Period (To)<span class="redtxt">*</span></label>
               <div class="default-input-feild date-feild">
                 <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="pickerTo" [readonly]="true" formControlName="toDate" class="form-control">
+                  <input matInput [matDatepicker]="pickerTo" [min]="minDate" [readonly]="true" formControlName="toDate" class="form-control">
                   <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                   <mat-datepicker #pickerTo></mat-datepicker>
                 </mat-form-field>
@@ -50,7 +49,7 @@
         </div>
 
         <div class="default-input-wrapper full-row">
-          <label>Leave Reason:</label>
+          <label>Leave Reason:<span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <textarea matInput rows="5" formControlName="reason"></textarea>
@@ -62,16 +61,18 @@
           </div>
         </div>
 
-        <div class="default-input-wrapper full-row" *ngFor="let doc of workflowStageDocTypes">
-          <label>{{doc.description}} (if any)</label>
-          <div class="default-input-feild">
-            <div class="drag-drop">
-              <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
-            </div>
-          </div>
-        </div>
+
 
       </form>
+
+      <div class="default-input-wrapper full-row" *ngFor="let doc of workflowStageDocTypes">
+        <label>{{doc.description}} (if any)</label>
+        <div class="default-input-feild">
+          <div class="drag-drop">
+            <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
+          </div>
+        </div>
+      </div>
 
 
       <div class="separator">&nbsp;</div>
@@ -79,7 +80,7 @@
       <div class="pg-inner-row mb-0">
         <div class="pg-inner-col">
           <div class="f-captcha">
-            <img src="assets/images/captcha.jpg" />
+            <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
           </div>
         </div>
         <div class="pg-inner-col right">
