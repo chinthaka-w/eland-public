@@ -98,6 +98,9 @@ export class ViewNotaryComponent implements OnInit {
   getSupportingDocs(data: DocumentResponseDto[]) {
     this.docsList = data;
     this.disabled = true;
+    if (!this.notary) {
+      this.notaryApplicationComponent.saveNotaryDetails();
+    }
   }
 
   getApplicationDetails(data: Notary) {
@@ -108,7 +111,7 @@ export class ViewNotaryComponent implements OnInit {
   }
 
   onFormSubmit() {
-    this.updateNotaryDetails(this.notary);
+    if(this.notary) this.updateNotaryDetails(this.notary);
     if (this.docsList.length != 0) this.updateDocumentDetails(this.docsList);
   }
 
@@ -118,20 +121,19 @@ export class ViewNotaryComponent implements OnInit {
       this.docId = value.docId;
 
       const formData = new FormData();
-      const supportDocResponse = new SupportDocResponseModel(this.docId, this.docTypeId, this.requestId.requestId);
+      const supportDocResponse = new SupportDocResponseModel(value.docId, value.docTypeId, this.requestId.requestId);
       formData.append('data', JSON.stringify(supportDocResponse));
-      documents.forEach(doc => {
-        formData.append('file', doc.files, doc.files.name + '|' + doc.docTypeId);
-      });
+        formData.append('file', value.files, value.files.name + '|' + value.docTypeId);
       this.newNotaryService.updateSupportDocuments(formData).subscribe(
         (success: string) => {
-          this.snackBar.success('Document Update Success');
+          this.snackBar.success(value.files.name +' - File Update Success');
         },
         error => {
           this.snackBar.error('Failed');
         }
       )
     });
+    this.onBack.emit(true);
   }
 
   updateNotaryDetails(notaryDetails: Notary) {

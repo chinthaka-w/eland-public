@@ -41,7 +41,6 @@ import {ImageViewerModule} from 'ngx-image-viewer';
 import {NotaryRequestService} from './shared/service/notary-request.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -78,7 +77,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    AngularFontAwesomeModule
   ],
   providers: [MatDatepickerModule,
     HttpClient,

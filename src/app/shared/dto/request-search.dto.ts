@@ -9,6 +9,7 @@ export class RequestSearchDetailDTO {
     public paymentMethod: string,
     public workflow: string,
     public status: string,
+    public statusDescription: string,
     public date: Date,
   ){}
 }

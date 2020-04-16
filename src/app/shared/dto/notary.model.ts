@@ -45,6 +45,7 @@ export class Notary {
      public clrName: string,
      public clerkNic: string,
      public  payment: PaymentDto,
+     public nameTitleId:number,
    ) {
    }
 }
