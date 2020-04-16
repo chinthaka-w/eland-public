@@ -63,7 +63,10 @@
       <div class="hc-component-bottom">
         <span class="bt-line">&nbsp;</span>
         <button mat-raised-button class="button" (click)="onBack()">Back</button>
-        <button mat-raised-button class="button green" (click)="savePayment()">Submit</button>
+        <button [disabled]="showSpinner" mat-raised-button class="button green" (click)="savePayment()">
+          Submit
+          <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
+        </button>
       </div>
     </div>
   </div>
