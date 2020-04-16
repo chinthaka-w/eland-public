@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SysConfigService } from 'src/app/shared/service/sys-config.service';
+import { SessionService } from 'src/app/shared/service/session.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,16 @@ export class HomeComponent implements OnInit {
     this.dropdown = false;
   }
 
-  constructor() {
+  constructor(
+    private sessionService: SessionService,
+    private location: Location
+  ) {
   }
 
   ngOnInit() {
-
-
+    if (this.sessionService.getUser().id) {
+      this.location.back()
+    }
   }
 
 }
