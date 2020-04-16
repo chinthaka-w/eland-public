@@ -228,13 +228,10 @@
     </div>
   </div>
 
-  <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
-
-    <div class="pg-inner-col float-right" *ngIf="isEdit">
-      <button [disabled]="!publicUserForm.valid" mat-raised-button class="button float-right" (click)="saveCitizen()">
-        {{'CITIZEN.UPDATE'|translate}}
-      </button>
-    </div>
+  <div class="pg-inner-col float-right" *ngIf="isEdit">
+    <button [disabled]="!publicUserForm.valid" mat-raised-button class="button float-right" (click)="saveCitizen()">
+      {{'CITIZEN.UPDATE'|translate}}
+    </button>
   </div>
 </form>
 

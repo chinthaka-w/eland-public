@@ -153,7 +153,7 @@ export class SupportingDocDetailComponent implements OnInit {
           }
         );
       } else {
-        this.snackBarService.error('Plase upload mandatory documennts');
+        this.snackBarService.warn('Plase upload mandatory documennts');
       }
 
     }

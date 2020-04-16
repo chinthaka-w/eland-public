@@ -1,3 +1,4 @@
+import { UserType } from './../../../shared/enum/user-type.enum';
 import { SessionService } from 'src/app/shared/service/session.service';
 import { DocumentResponseDto } from './../../../shared/dto/document-response.dto';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
@@ -69,7 +70,7 @@ export class AddPublicUserComponent implements OnInit {
   paymentMethod: number;
   returnURl: string;
   statusOnlinePayment: boolean;
-  userType: string;
+  userType = UserType.CITIZEN;
   userId: number;
 
   get publicUserType() {
@@ -158,7 +159,6 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.userType = this.PublicUserType.CITIZEN;
     this.citizenDTO.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_INIT;
     this.disableUselessFormControls(this.citizenDTO.userType);
-    this.userType = this.sessionService.getUser().type;
   }
 
   get FormControls() {

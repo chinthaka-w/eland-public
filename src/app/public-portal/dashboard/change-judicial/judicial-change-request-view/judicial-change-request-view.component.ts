@@ -1,3 +1,4 @@
+import { Parameters } from './../../../../shared/enum/parameters.enum';
 import { CommonStatus } from './../../../../shared/enum/common-status.enum';
 import { RequestResponse } from './../../../../shared/dto/request-response.model';
 import { NewNotaryDataVarificationService } from './../../../../shared/service/new-notary-data-varification.service';
@@ -52,6 +53,7 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   public workflowCode = Workflow.JUDICIAL_ZONE_CHANGE;
   showSpinner = false;
   requestDetailPayment = new RequestSearchDetailDTO(null, null, null, null, null, null, null, null);
+  paymentParameter = Parameters.JUDICIAL_CHANGE_FEE;
 
   constructor(private route: ActivatedRoute,
               private newNotaryService: NotaryService,
