@@ -244,7 +244,6 @@ export class AddNotaryComponent implements OnInit {
 
     this.getNameTitles();
     this.getDsDivisions();
-    this.getLandRegistries();
     this.getJudicialZones();
     this.getDocumentList();
 
@@ -317,7 +316,6 @@ export class AddNotaryComponent implements OnInit {
       );
     };
   }
-
 
   private getDocumentList(): void {
     this.documetService.getDocuments(NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED).subscribe(
