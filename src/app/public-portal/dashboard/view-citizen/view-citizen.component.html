@@ -1,6 +1,7 @@
 <div class="page-header-default">
-  <h2>{{'CITIZEN.CITI_EDIT_TIT'|translate}}</h2>
-  <p>{{'CITIZEN.CITI_EDIT_TIT1'|translate}}<br />{{'CITIZEN.CITI_EDIT_TIT2'|translate}}</p>
+  <h2 *ngIf="userStatus === commonStatus.INACTIVE">{{'CITIZEN.CITI_EDIT_TIT'| translate}}</h2>
+  <h2 *ngIf="userStatus !== commonStatus.INACTIVE">{{'CITIZEN.CITI_VIEW_TIT'| translate}}</h2>
+  <p *ngIf="userStatus == commonStatus.INACTIVE">{{'CITIZEN.CITI_EDIT_TIT1'|translate}}<br />{{'CITIZEN.CITI_EDIT_TIT2'|translate}}</p>
   <a [routerLink]="['/dashboard']" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
@@ -9,17 +10,18 @@
   <div class="page-content-inner-wrapper">
     <mat-tab-group>
       <mat-tab label="{{'CITIZEN.APPL'|translate}}">
-        <app-citizen-application></app-citizen-application>
-      </mat-tab>
-        <mat-tab label="{{'CITIZEN.PAYMENT_INFO'|translate}}">
-        <app-citizen-payment-info></app-citizen-payment-info>
-      </mat-tab>
-      <mat-tab label="{{'CITIZEN.REMARK'|translate}}">
-        <app-citizen-remark></app-citizen-remark>
+        <app-citizen-application [isEdit]="isEdit"></app-citizen-application>
       </mat-tab>
       <mat-tab label="{{'CITIZEN.SUP_DOCS'|translate}}">
-        <app-citizen-supporting-doc-details></app-citizen-supporting-doc-details>
+        <app-citizen-supporting-doc-details [isEdit]="isEdit"></app-citizen-supporting-doc-details>
+      </mat-tab>
+      <mat-tab label="{{'CITIZEN.PAYMENT_INFO'|translate}}">
+        <app-citizen-payment-info [isEdit]="isEdit"></app-citizen-payment-info>
+      </mat-tab>
+      <mat-tab label="{{'CITIZEN.HISTORY'|translate}}">
+        <app-citizen-remark></app-citizen-remark>
       </mat-tab>
     </mat-tab-group>
+    <button *ngIf="isEdit" mat-raised-button class="lg-button"  (click)="onFormSubmit()">Submit</button>
   </div>
 </div>

@@ -13,6 +13,7 @@ import {NotaryService} from '../../../../shared/service/notary-service';
 import {SupportingDocService} from '../../../../shared/service/supporting-doc.service';
 import {NewNotaryRequestsCategorySearchDto} from '../../../../shared/dto/new-notary-requests-category-search.dto';
 import {RequestSearchDetailDTO} from '../../../../shared/dto/request-search.dto';
+import {NewNotaryRegistrationWorkflowStage} from '../../../../shared/enum/new-notary-registration-workflow-stage.enum';
 import { SupportDocResponseModel } from 'src/app/shared/dto/support-doc-response.model';
 
 @Component({
@@ -43,6 +44,8 @@ export class SupportingDocDetailComponent implements OnInit {
   dataSource = new MatTableDataSource<NewNotarySupportingDocDetailDto>(this.supportingDocuments);
   public docTypeId: number;
   public docId: number;
+
+  isSubmitted: boolean;
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -116,6 +119,7 @@ export class SupportingDocDetailComponent implements OnInit {
   onFormSubmit(docsList: DocumentResponseDto[]) {
     // this.docsList.push(new DocumentResponseDto(this.docId, this.docTypeId, this.files[0], ''));
     this.supportDocs.emit(this.docsList);
+    this.isSubmitted = false;
     // save notary documents
     if (this.docsList.length > 0) {
       // check mandatory docs validity
@@ -157,6 +161,10 @@ export class SupportingDocDetailComponent implements OnInit {
 
 
   getDocumentTypes() {
+    if (this.requestDocuments &&
+      this.requestDocuments.workflow == NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED) {
+      return;
+    }
     this.documetService.getDocumentsByWorkFlow(
       this.requestDocuments !== undefined ? this.requestDocuments.workflow : this.workflow).subscribe(
       (data: WorkflowStageDocDto[]) => {
