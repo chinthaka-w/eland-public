@@ -4,7 +4,7 @@
     <div class="db-right-col">
       <h2>Welcome to E-Land</h2>
       <p>Welcome back please login to your acount</p>
-      <div class="db-card-full" *ngIf="user.type == userType.NOTARY">
+      <div class="db-card-full" *ngIf="user.type == userType.NOTARY && user.userStatus != (commonStatus.ACTIVE)">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
           <!--<a href="#">Next </a>-->
         </div>
@@ -20,7 +20,7 @@
           <dl class="db-card-info">
             <dt>Status:</dt>
             <dd>
-              <span class="status-pending">{{searchDetails?.status}}</span>
+              <span class="status-pending">{{searchDetails?.statusDescription}}</span>
             </dd>
           </dl>
           <dl class="db-card-info">
@@ -38,9 +38,6 @@
         </div>
       </div>
       <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus != (commonStatus.ACTIVE)">
-        <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
-          <a href="#">Next ></a>
-        </div>
         <div class="db-card-content">
           <dl class="db-card-info">
             <dt>Citizen ID:</dt>
@@ -67,7 +64,7 @@
           <button mat-raised-button class="green" [routerLink]="['/view-citizen']">View</button>
         </div>
       </div>
-      <div class="db-main-wp">
+      <div class="db-main-wp" *ngIf="user.userStatus == (commonStatus.ACTIVE)">
         <div class="db-link-tile c1" *ngIf="user.type == userType.NOTARY">
           <a [routerLink]="['/requests/'+getBase64(Workflow.JUDICIAL_ZONE_CHANGE)]">
             <span class="icon">

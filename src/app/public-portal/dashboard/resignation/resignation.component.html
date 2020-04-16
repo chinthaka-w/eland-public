@@ -1,18 +1,44 @@
 <div class="page-header-default">
     <h2>Request for Resignation</h2>
-    <p>Please fill in the following information to<br />register in the system</p>
-    <a href="" class="phd-back-btn">
+    <p *ngIf="!registrationExist" >Please fill in the following information to create<br />request for resignation</p>
+    <a (click)="this.router.navigate(['/dashboard'])" class="phd-back-btn">
         <i class="material-icons">keyboard_backspace</i>
     </a>
 </div>
-<form class="form-horizontal" [formGroup]="resignationForm">
+
+<div *ngIf="registrationExist"  class="page-content-wrapper">
+  <div class="page-content-inner-wrapper">
+
+    <div class="default-input-wrapper full-row">
+    <h5><span>Resignation Request is in progress</span></h5>
+    </div>
+    <div class="default-input-wrapper full-row">
+      <label>Reasons for resignation : </label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <textarea disabled matInput rows="5" [value]="oldResignation.reason"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="default-input-wrapper full-row">
+      <label>Status : </label>
+      <div class="default-input-feild">
+        <mat-form-field appearance="outline">
+          <input disabled matInput [value]="oldResignation.status"/>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form *ngIf="!registrationExist" class="form-horizontal" [formGroup]="resignationForm">
     <div class="page-content-wrapper">
         <div class="page-content-inner-wrapper">
 
             <h5 class="uw-title"><span>Application</span></h5>
 
             <div class="default-input-wrapper full-row">
-                <label>Reasons for resignation<span>*</span> : </label>
+                <label>Reasons for resignation<span class="redtxt">*</span> : </label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <textarea matInput rows="5" formControlName="reason"></textarea>

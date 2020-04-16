@@ -27,7 +27,7 @@ export class LanguageChangeViewComponent implements OnInit {
   paymentAction: boolean;
   remarkHistory: NotaryRegistrationHistoryDto[] = [];
   workflowStage: string;
-  paymentHistory: NewNotaryPaymentDetailDto[] = []; 
+  paymentHistory: NewNotaryPaymentDetailDto[] = [];
   requestDocuments: RequestSearchDetailDTO;
 
   constructor(private route: ActivatedRoute,
@@ -48,6 +48,7 @@ export class LanguageChangeViewComponent implements OnInit {
         null,
         null,
         'LAN_REQ_INI',
+        null,
         null,
         null
         );
