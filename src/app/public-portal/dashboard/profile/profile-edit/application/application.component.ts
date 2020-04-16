@@ -7,6 +7,7 @@ import {SnackBarService} from '../../../../../shared/service/snack-bar.service';
 import {JudicialChange} from '../../../../../shared/dto/judicial-change-model';
 import {WorkflowStages} from '../../../../../shared/enum/workflow-stages.enum';
 import {PatternValidation} from '../../../../../shared/enum/pattern-validation.enum';
+import {unescapeIdentifier} from '@angular/compiler';
 
 @Component({
   selector: 'app-application',
@@ -19,7 +20,8 @@ export class ApplicationComponent implements OnInit {
   notaryDetails: Notary;
   public notary: Notary;
   submitted = false;
-
+  x1: any;
+  x2: any;
   constructor(private sessionService: SessionService,
               private notaryService: NotaryService,
               private snackBar: SnackBarService,
@@ -42,9 +44,9 @@ export class ApplicationComponent implements OnInit {
       isWarLang: new FormControl(''),
       dob: new FormControl(''),
       nic: new FormControl(''),
-      contact: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      mobile: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl('', [ Validators.pattern(PatternValidation.emailValidation)]),
+      contact: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      mobile: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      email: new FormControl('', [ Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
       judicial: new FormControl(''),
       lRegistry: new FormControl(''),
       clerkName: new FormControl(''),
@@ -53,8 +55,54 @@ export class ApplicationComponent implements OnInit {
     });
     this.notaryId = this.sessionService.getUser().id;
     this.getNotaryDetails();
-  }
+     // alert(this.x1.perAddEng);
+    this.requestForm.valueChanges.subscribe(x => {
+      this.x2 = x;
+      console.log(this.x2);
+    });
 
+
+  //  this.comparevaluesOfform();
+  }
+   comparevaluesOfform(): boolean {
+    if (this.x1.perAddEng === this.x2.perAddEng) {
+      console.log(this.x1.perAddEng + 'and ' + this.x2.perAddEng);
+    }
+
+    if (this.x1.perAddEng === this.x2.perAddEng
+        && this.x1.perAddSin === this.x2.perAddSin
+        && this.x1.perAddTam === this.x2.perAddTam
+        && this.x1.curAddressEng === this.x2.curAddressEng
+        && this.x1.curAddressSin === this.x2.curAddressSin
+        && this.x1.curAddressTam === this.x2.curAddressTam
+        && this.x1.contact === this.x2.contact
+        && this.x1.mobile === this.x2.mobile
+        && this.x1.email === this.x2.email ) {
+        return false;
+
+      } else {
+        return true;
+      }
+
+   }
+
+   checkEmptyValues():boolean{
+     if (this.x1.perAddEng === ' '
+       && this.x1.perAddSin === ' '
+       && this.x1.perAddTam === ' '
+       && this.x1.curAddressEng === ' '
+       && this.x1.curAddressSin === ' '
+       && this.x1.curAddressTam === ' '
+       && this.x1.contact === ' '
+       && this.x1.mobile === ' '
+       && this.x1.email === ' ') {
+       return false;
+
+     }
+
+
+
+   }
   private getNotaryDetails(): void {
     this.notaryService.getNotary(this.notaryId).subscribe(
       (data: Notary) => {
@@ -82,7 +130,7 @@ export class ApplicationComponent implements OnInit {
             title: this.notaryDetails.titleEng,
           }
         );
-
+        this.x1 = this.requestForm.value;
       }
     );
   }
@@ -92,27 +140,35 @@ export class ApplicationComponent implements OnInit {
     if (this.requestForm.invalid) {
       return;
     }
-    this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
-      null, this.requestForm.value.mobile,  this.requestForm.value.contact,
-      this.requestForm.value.perAddEng,  this.requestForm.value.perAddSin,  this.requestForm.value.perAddTam,
-      this.requestForm.value.curAddressEng, this.requestForm.value.curAddressSin, this.requestForm.value.curAddressTam,
-      this.requestForm.value.fNameEng, this.requestForm.value.fNameSin, this.requestForm.value.fNameTam,
-      null,  null, null,
-      null, null, null,
-      null, null, null, null,
-      null, null, null, null, new Date(),
-      null, null, null, null, null, null, this.requestForm.value.clerkName, this.requestForm.value.clerkNic, null);
+    if (this.comparevaluesOfform()) {
+
+      this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
+        null, this.requestForm.value.mobile,  this.requestForm.value.contact,
+        this.requestForm.value.perAddEng,  this.requestForm.value.perAddSin,  this.requestForm.value.perAddTam,
+        this.requestForm.value.curAddressEng, this.requestForm.value.curAddressSin, this.requestForm.value.curAddressTam,
+        this.requestForm.value.fNameEng, this.requestForm.value.fNameSin, this.requestForm.value.fNameTam,
+        null,  null, null,
+        null, null, null,
+        null, null, null, null,
+        null, null, null, null, new Date(),
+        null, null, null, null, null, null, this.requestForm.value.clerkName, this.requestForm.value.clerkNic, null);
 
 
-    this.notaryService.editProfile(this.notary).subscribe(
-      (success: string) => {
-        this.snackBar.success('Submitted the profile edit request successfully!');
-        //this.requestForm.reset();
-      },
-      error => {
-        this.snackBar.error('Failed');
-      }
-    );
+      this.notaryService.editProfile(this.notary).subscribe(
+        (success: string) => {
+          this.snackBar.success('Submitted the profile edit request successfully!');
+          // this.requestForm.reset();
+        },
+        error => {
+          this.snackBar.error('Failed');
+        }
+      );
+
+    } else {
+
+      this.snackBar.warn('There are no fields to update!');
+    }
+
   }
 
   get f() {

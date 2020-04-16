@@ -184,7 +184,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     ImageViewerModule,
     MatSlideToggleModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
   ],
   exports: [
     LoginComponent,
