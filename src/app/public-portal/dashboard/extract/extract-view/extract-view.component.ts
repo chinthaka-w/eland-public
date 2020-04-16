@@ -87,28 +87,30 @@ export class ExtractViewComponent implements OnInit {
     let isValid = true;
     let errorMassage = '';
 
-    if (!this.extractApplicationComponent.searchRequestForm.valid) {
-      isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
-    }
+    // if (!this.extractApplicationComponent.searchRequestForm.valid) {
+    //   isValid = false;
+    //   errorMassage = 'Please fill application form, before continue.';
+    // }
+    //
+    // if (isValid && this.extractApplicationComponent.elements.length == 0) {
+    //   isValid = false;
+    //   errorMassage = 'Please add one or more folio, before continue.';
+    // }
+    //
+    // if (isValid) {
+    //   this.extractRequest = this.extractApplicationComponent.searchRequestForm.value;
+    //   this.extractRequest.requestId = this.requestId;
+    //   this.extractRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED;
+    //   this.extractRequest.folioList = this.folioList;
+    //   this.extractRequest.paymentList = this.paymentList;
+    //   this.extractRequest.userId = this.sessionService.getUser().id;
+    //   this.extractRequest.userType = this.sessionService.getUser().type;
+    //   this.updateRequest(this.extractRequest);
+    // } else {
+    //   this.snackBarService.error(errorMassage);
+    // }
 
-    if (isValid && this.extractApplicationComponent.elements.length == 0) {
-      isValid = false;
-      errorMassage = 'Please add one or more folio, before continue.';
-    }
-
-    if (isValid) {
-      this.extractRequest = this.extractApplicationComponent.searchRequestForm.value;
-      this.extractRequest.requestId = this.requestId;
-      this.extractRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED;
-      this.extractRequest.folioList = this.folioList;
-      this.extractRequest.paymentList = this.paymentList;
-      this.extractRequest.userId = this.sessionService.getUser().id;
-      this.extractRequest.userType = this.sessionService.getUser().type;
-      this.updateRequest(this.extractRequest);
-    } else {
-      this.snackBarService.error(errorMassage);
-    }
+    this.actionUpdate(ExtractRequestWorkflowStages.EXTRACT_REQ_MODIFIED);
   }
 
   updateRequest(extractRequest: ExtractRequest): void {
@@ -124,6 +126,22 @@ export class ExtractViewComponent implements OnInit {
         console.log(error);
         this.snackBarService.error(error.message);
       }, () => {
+      }
+    );
+  }
+
+  actionUpdate(workflowStage: string): void {
+
+    let searchRequestAction = new SearchRequest();
+    searchRequestAction.workflowStageCode = workflowStage;
+    searchRequestAction.requestId = this.requestId;
+
+    this.extractRequestService.action(searchRequestAction).subscribe(
+      (data) => {
+        if (data != null) {
+          this.snackBarService.success('Successfully submitted');
+          this.goBack();
+        }
       }
     );
   }

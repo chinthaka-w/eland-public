@@ -36,6 +36,8 @@ import {GnDivisionDTO} from '../../../../shared/dto/gn-division.dto';
 import {NameTitleEnum} from '../../../../shared/enum/name-title.enum';
 import {NewNotaryRegistrationWorkflowStage} from '../../../../shared/enum/new-notary-registration-workflow-stage.enum';
 import {CommonStatus} from '../../../../shared/enum/common-status.enum';
+import {NameTitleService} from '../../../../shared/service/name-title.service';
+import {NameTitleDTO} from '../../../../shared/dto/name-title.dto';
 
 @Component({
   selector: 'app-notary-application',
@@ -56,6 +58,7 @@ export class NotaryApplicationComponent implements OnInit {
   public dsGnList: NewNotaryDsDivisionDTO[] = [];
   public gnDivi: GnDivisionDTO[] = [];
   public docList: WorkflowStageDocDto[];
+  public nameTitles: NameTitleDTO[];
 
   public documentList: DocumentDto[] = [];
   public notaryRequestHistoryByRemark: NotaryRegistrationHistoryDto;
@@ -85,6 +88,9 @@ export class NotaryApplicationComponent implements OnInit {
   NameTitle = NameTitleEnum;
   NotaryRegisterType = NotaryRegisterType;
 
+  today: any;
+  defaultBirthDay: any;
+
   constructor(private formBuilder: FormBuilder,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private route: ActivatedRoute,
@@ -93,10 +99,16 @@ export class NotaryApplicationComponent implements OnInit {
               private dsDivisionService: DsDivisionService,
               private landRegistryService: LandRegistryService,
               private judicialZoneService: JudicialZoneService,
+              private nameTitleService: NameTitleService,
               private sanitizer: DomSanitizer,
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
               private documetService: SupportingDocService) {
+    this.today = new Date();
+
+    let dob = new Date();
+    dob.setFullYear(dob.getFullYear() - 18);
+    this.defaultBirthDay = dob;
   }
 
   ngOnInit() {
@@ -207,6 +219,7 @@ export class NotaryApplicationComponent implements OnInit {
       }
     );
 
+    this.getNameTitles();
     this.getJudicialZones();
     this.getDsDivisions();
     this.getLandRegistries();
@@ -296,7 +309,7 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryForm.patchValue(
           {
             notary: this.result.notaryType == 'Notary' ? NotaryRegisterType.NOTARY : NotaryRegisterType.ATTORNEY_AT_LAW,
-            title: this.result.nametitle.english,
+            title: this.result.nameTitleId,
             englishNameWithInitials: this.result.nameWithInitial.english,
             sinhalaNameWithInitials: this.result.nameWithInitial.sinhala,
             tamilNameWithInitials: this.result.nameWithInitial.tamil,
@@ -336,8 +349,8 @@ export class NotaryApplicationComponent implements OnInit {
           this.notaryForm.enable();
           this.isEditable = true;
         } else
-          // if (this.requestDetailId.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED ||
-          // this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED)
+        // if (this.requestDetailId.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED ||
+        // this.requestDetailId.workflow === NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED)
         {
           this.notaryForm.disable();
           this.isEditable = false;
@@ -493,10 +506,10 @@ export class NotaryApplicationComponent implements OnInit {
         null, this.notaryForm.value.nic, this.notaryForm.value.email,
         this.notaryForm.value.dateOfBirth, this.notaryForm.value.mobileNo, this.notaryForm.value.contactNo,
         this.notaryForm.value.permenentAddressInEnglish,
-        this.notaryForm.value.currentAddressInEnglish,
         this.notaryForm.value.permenentAddressInSinhala,
-        this.notaryForm.value.currentAddressInSinhala,
         this.notaryForm.value.permenentAddressInTamil,
+        this.notaryForm.value.currentAddressInEnglish,
+        this.notaryForm.value.currentAddressInSinhala,
         this.notaryForm.value.currentAddressInTamil,
         this.notaryForm.value.fullNameInEnglish,
         this.notaryForm.value.fullNameInSinhala,
@@ -511,7 +524,8 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryForm.value.medium, CommonStatus.ACTIVE, new Date(),
         null, WorkflowStages.REGISTRATION_REQ_MODIFIED,
         null, null, null, null,
-        null, null, null);
+        null, null, null,
+        this.notaryForm.value.title);
       this.notaryDetail.emit(this.notaryDetails);
       this.isDataChanged = false;
     }
@@ -529,6 +543,14 @@ export class NotaryApplicationComponent implements OnInit {
     this.gnDivisionService.getAllGnDivisionsByDsDivisionId(dsDivisionId).subscribe(
       (data: GnDivision[]) => {
         this.gnDivision = data;
+      }
+    );
+  }
+
+  private getNameTitles(): void {
+    this.nameTitleService.findAll().subscribe(
+      (data: NameTitleDTO[]) => {
+        this.nameTitles = data;
       }
     );
   }

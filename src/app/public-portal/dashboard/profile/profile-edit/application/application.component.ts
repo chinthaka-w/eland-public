@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SessionService} from '../../../../../shared/service/session.service';
 import {NotaryService} from '../../../../../shared/service/notary-service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -35,7 +35,7 @@ export class ApplicationComponent implements OnInit {
       nameIniEng: new FormControl(''),
       nameIniSin: new FormControl(''),
       nameIniTam: new FormControl(''),
-      perAddEng: new FormControl('' ),
+      perAddEng: new FormControl(''),
       perAddSin: new FormControl(''),
       perAddTam: new FormControl(''),
       curAddressEng: new FormControl(''),
@@ -58,7 +58,6 @@ export class ApplicationComponent implements OnInit {
      // alert(this.x1.perAddEng);
     this.requestForm.valueChanges.subscribe(x => {
       this.x2 = x;
-      console.log(this.x2);
     });
 
 
@@ -86,23 +85,6 @@ export class ApplicationComponent implements OnInit {
 
    }
 
-   checkEmptyValues():boolean{
-     if (this.x1.perAddEng === ' '
-       && this.x1.perAddSin === ' '
-       && this.x1.perAddTam === ' '
-       && this.x1.curAddressEng === ' '
-       && this.x1.curAddressSin === ' '
-       && this.x1.curAddressTam === ' '
-       && this.x1.contact === ' '
-       && this.x1.mobile === ' '
-       && this.x1.email === ' ') {
-       return false;
-
-     }
-
-
-
-   }
   private getNotaryDetails(): void {
     this.notaryService.getNotary(this.notaryId).subscribe(
       (data: Notary) => {
@@ -121,7 +103,7 @@ export class ApplicationComponent implements OnInit {
             dob: this.notaryDetails.dateOfBirth,
             nic: this.notaryDetails.nic,
             contact: this.notaryDetails.contactNo,
-            mobile : this.notaryDetails.mobile,
+            mobile: this.notaryDetails.mobile,
             email: this.notaryDetails.email,
             judicial: this.notaryDetails.judicialZoneDesc,
             lRegistry: this.notaryDetails.landRegistryDesc,

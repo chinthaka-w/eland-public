@@ -1,6 +1,6 @@
 <div class="page-header-default" *ngIf="!isContinueToPayment">
-  <h2>APPLICATION FOR CHANGING THE LAND REGISTRY </h2>
-  <p>Please fill in the following information to<br />register in the system</p>
+  <h2>{{'CHG_LANDREG.TITLE1'|translate}} </h2>
+  <p>{{'CHG_LANDREG.TITLE2'|translate}}<br />{{'CHG_LANDREG.TITLE3'|translate}}</p>
   <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
@@ -10,7 +10,7 @@
 
     <div class="pg-inner-row mb-20">
       <h5 class="mb-20"><i class="material-icons">description</i>
-        APPLICATION FOR CHANGING THE LAND REGISTRY
+        {{'CHG_LANDREG.TITLE4'|translate}}
       </h5>
       <div class="separator">&nbsp;</div>
     </div>
@@ -18,18 +18,18 @@
 
 
 
-      <label>Please give the following details regarding changing the land registry </label>
+      <label>{{'CHG_LANDREG.TITLE5'|translate}} </label>
       <div>&nbsp;</div>
 
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>Land Registry:</label></div>
+          <label>{{'CHG_LANDREG.LANDREG'|translate}}</label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select name="landRegistry" formControlName="landRegistry" [value]="0" matNativeControl class="form-control">
-                  <option *ngFor="let reg of landRegistrySelect" [value]="reg.landRegistryId">{{ reg.name }}
+                  <option *ngFor="let reg of landRegistrySelect" [value]="reg.landRegistryId">{{ reg.name|listTranslate:reg.nameSinhala:reg.nameTamil}}
                   </option>
                 </select>
               </mat-form-field>
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>Reason for change:</label>
+        <label>{{'CHG_LANDREG.REASON'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline" >
             <textarea matInput rows="5" formControlName="reason" required="true">
@@ -50,7 +50,7 @@
             </textarea>
             <div *ngIf="reason.touched && reason.invalid">
               <mat-error *ngIf="reason.errors.required">
-                Reason for change is Required
+                {{'CHG_LANDREG.REASONREQ'|translate}}
               </mat-error>
             </div>
           </mat-form-field>
@@ -77,7 +77,7 @@
 
       <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
         <button  mat-raised-button class="lg-button" (click)="continue()">
-          Continue
+          {{'CHG_LANDREG.CONTINUE'|translate}}
         </button>
       </div>
 

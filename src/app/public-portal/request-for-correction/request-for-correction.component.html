@@ -1,9 +1,231 @@
 <div class="page-header-default">
-  <h2>REQUEST FOR CORECTIONS OF REGISTRATIONS</h2>
-  <p *ngIf="showNewForm">Please fill in the following information to<br />register in the system</p>
+  <h2>{{'CITIZEN.CITIZEN_CORRECTION.TITLE1'|translate}}</h2>
+  <p>{{'CITIZEN.CITIZEN_CORRECTION.TITLE2'|translate}}<br />{{'CITIZEN.CITIZEN_CORRECTION.TITLE3'|translate}}</p>
   <a [routerLink]="['/requests', getBase64(workflow.FOLIO_REQUEST_CORRECTION)]" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
 </div>
-<app-new-correction-request *ngIf="showNewForm"></app-new-correction-request>
-<app-request-for-correction-view *ngIf="!showNewForm"></app-request-for-correction-view>
+<form class="form-horizontal" [formGroup]="reqForCorrectionForm">
+  <div class="page-content-wrapper">
+    <div class="page-content-inner-wrapper">
+      <div class="pg-inner-row mb-40">
+        <div class="pg-inner-col">
+          <h5 class="uw-title"><span>{{'CITIZEN.CITIZEN_CORRECTION.APPLICATION'|translate}}</span></h5>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row m0">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.NEAR_LAND_APPL'|translate}}<span class="redtxt"></span></label>
+            <div class="default-input-feild">
+                <mat-select formControlName="landRegId" class="form-control">
+                  <mat-option value="" disabled="true"> {{'CITIZEN.CITIZEN_CORRECTION.SLECT_LAND'|translate}} </mat-option>
+                  <mat-option value="{{item.landRegistryId}}" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
+                </mat-select>
+                <div *ngIf="landRegId.invalid && (landRegId.dirty || landRegId.touched)">
+                  <mat-error *ngIf="landRegId.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'|translate}} </mat-error>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.TITLE2'|translate}}<span class="redtxt">*</span></label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="folioNo" class="form-control">
+              </mat-form-field>
+              <div *ngIf="folioNo.invalid && (folioNo.dirty || folioNo.touched)">
+                <mat-error *ngIf="folioNo.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'|translate}} </mat-error>
+                <mat-error *ngIf="folioNo.errors.maxlength" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALID_FOLIO'|translate}} </mat-error>
+                <mat-error *ngIf="folioNo.errors.pattern" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALID_FOLIO'|translate}}</mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.DAYBOOK'|translate}}</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="dayBookNo" class="form-control">
+              </mat-form-field>
+              <div *ngIf="dayBookNo.invalid && (dayBookNo.dirty || dayBookNo.touched)">
+                <mat-error *ngIf="dayBookNo.errors.maxlength" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALID_DAYBOOK'|translate}} </mat-error>
+                <mat-error *ngIf="dayBookNo.errors.pattern" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALID_DAYBOOK'|translate}} </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.DEED_NO'|translate}} </label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="deedNo" class="form-control">
+              </mat-form-field>
+              <div *ngIf="deedNo.invalid && (deedNo.dirty || deedNo.touched)">
+                <mat-error *ngIf="deedNo.errors.maxlength" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALID_DAYBOOK'|translate}} </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.NOTARY_NAME'|translate}}</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="notaryName" class="form-control">
+              </mat-form-field>
+              <div *ngIf="notaryName.invalid && (notaryName.dirty || notaryName.touched)">
+                <mat-error *ngIf="notaryName.errors.pattern" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALD_NOTARTY'|translate}} </mat-error>
+                <mat-error *ngIf="notaryName.errors.maxlength" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALD_NOTARTY'|translate}} </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.DEED_DATE'|translate}}</label>
+            <div class="default-input-feild date-feild">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="attestedDate" class="form-control">
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <button type="button" mat-raised-button (click)="picker.open()">
+                <i class="material-icons">calendar_today</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.NATURE_OF_CORRECTION'|translate}}</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput formControlName="correctionNature" class="form-control"></textarea>
+              </mat-form-field>
+              <div *ngIf="correctionNature.invalid && (correctionNature.dirty || correctionNature.touched)">
+                <mat-error *ngIf="correctionNature.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'|translate}}</mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row">
+        <div class="pg-inner-col">
+          <div class="default-input-wrapper full-row">
+            <label>{{'CITIZEN.CITIZEN_CORRECTION.cORRECTION'|translate}}</label>
+            <div class="default-input-feild">
+              <mat-form-field appearance="outline">
+                <textarea matInput formControlName="requestedCorrection" class="form-control"></textarea>
+              </mat-form-field>
+              <div *ngIf="requestedCorrection.invalid && (requestedCorrection.dirty || requestedCorrection.touched)">
+                <mat-error *ngIf="requestedCorrection.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'|translate}} </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row">
+        <div class="default-input-wrapper full-row">
+          <div class="pg-inner-col">
+            <button type="button" class="add-row" mat-flat-button (click)="onAddCorrection(editIndex)">
+              {{!isEdit? 'Add': 'Edit'}} <i class="material-icons"> {{!isEdit? 'add_circle_outline': 'edit'}} </i>
+              </button>
+          </div>
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="default-input-wrapper full-row">
+          <hr />
+        </div>
+      </div>
+      <div class="pg-inner-row mb-20">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
+            <!-- Folio No Column -->
+            <ng-container matColumnDef="folioNo">
+              <th mat-header-cell *matHeaderCellDef> {{'CITIZEN.CITIZEN_CORRECTION.FOLIO_NO'|translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.folioNo}} </td>
+              <td mat-footer-cell *matFooterCellDef>
+                <button *ngIf="correctionDetails.length>0" type="button" color="warn" class="add-row" mat-button (click)="onClearAll()" >
+                  {{'CITIZEN.CITIZEN_CORRECTION.DLT_FORVR'|translate}} <i class="material-icons">delete_forever</i>
+                </button>
+              </td>
+            </ng-container>
+
+            <!-- Day book No Column -->
+            <ng-container matColumnDef="dayBookNo">
+              <th mat-header-cell *matHeaderCellDef>  {{'CITIZEN.CITIZEN_CORRECTION.DAY_BOOKNO'|translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.dayBookNo}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <!-- Nature of correction Column -->
+            <ng-container matColumnDef="correctionNature">
+              <th mat-header-cell *matHeaderCellDef> {{'CITIZEN.CITIZEN_CORRECTION.NATURE_CORREC'|translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.correctionNature}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+
+            </ng-container>
+
+            <!-- Requested correction Column -->
+            <ng-container matColumnDef="requestedCorrection">
+              <th mat-header-cell *matHeaderCellDef> {{'CITIZEN.CITIZEN_CORRECTION.REQ_CORE_MAD'|translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.requestedCorrection}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <!-- Action colum -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.CITIZEN_CORRECTION.ACTION'|translate}} </th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <button type="button" class="add-row mr-5" mat-icon-button color="primary" (click)="onEdit(i)">
+                  <i class="material-icons">edit</i>
+                </button>
+                <button type="button" class="add-row mr-5" mat-icon-button color="warn" (click)="onClearItem(i)">
+                  <i class="material-icons">delete_outline</i>
+                </button>
+                <button type="button" class="add-row" mat-icon-button color="primary" (click)="onDocUpload(i)">
+                  <i class="material-icons">cloud_upload</i>
+                </button>
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+          </table>
+
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        </div>
+
+      </div>
+      <!-- End of correction details -->
+      <div class="separator">&nbsp;</div>
+      <div class="pg-inner-row mb-0">
+        <div class="pg-inner-col">
+          <div class="f-captcha">
+            <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
+          </div>
+        </div>
+        <div class="pg-inner-col right">
+          <button [disabled]="isSave" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
+            {{'CITIZEN.CITIZEN_CORRECTION.SUBMIT'|translate}}
+            <mat-spinner *ngIf="isClick && isSave" [diameter]="16" class="spinner-inline"
+            ></mat-spinner>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
