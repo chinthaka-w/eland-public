@@ -32,4 +32,8 @@ export class NotaryResignationService {
   getRelatedDocTypes(code: string): Observable<Array<WorkflowStageDocTypeDTO>> {
     return this.httpClient.get<Array<WorkflowStageDocTypeDTO>>(this.BASE_URL + 'supportingDocument/' + code, {headers: this.headers} );
   }
+
+  getResignationByNoatry(id){
+    return this.httpClient.get(this.BASE_URL + 'notaryResignation/byNotary/' + id, {headers: this.headers} );
+  }
 }
