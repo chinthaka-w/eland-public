@@ -42,11 +42,10 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isEdit" class="pg-inner-row mb-0 pg-form-bottom-3-col">
-    <div class="pg-inner-col float-right">
-      <button mat-raised-button class="button float-right" (click)="addPayment()">{{'CITIZEN.PAY_ADD'|translate}}</button>
-    </div>
+  <div class="pg-inner-col float-right" *ngIf="isEdit">
+    <button mat-raised-button class="button float-right" (click)="addPayment()">{{'CITIZEN.PAY_ADD'|translate}}</button>
   </div>
+  
   
 </div>
 
@@ -61,5 +60,10 @@
                [returnUrl]="returnURl"
                [hasFrontCounterPayment]="true"
                [isDocumentCollect]="true"
-               [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"></app-payment>
+               [workflowCode]="WorkflowCode.CITIZEN_REGISTRATION"
+               [workflowStageCode]="citizenDTO.workFlowStageCode"
+               [userType]="userType"
+               [userId]= "userId"
+               >
+              </app-payment>
 </div>

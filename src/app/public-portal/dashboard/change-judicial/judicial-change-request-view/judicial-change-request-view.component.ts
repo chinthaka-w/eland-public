@@ -1,3 +1,4 @@
+import { Parameters } from './../../../../shared/enum/parameters.enum';
 import { CommonStatus } from './../../../../shared/enum/common-status.enum';
 import { RequestResponse } from './../../../../shared/dto/request-response.model';
 import { NewNotaryDataVarificationService } from './../../../../shared/service/new-notary-data-varification.service';
