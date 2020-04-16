@@ -20,8 +20,8 @@ export class ApplicationComponent implements OnInit {
   notaryDetails: Notary;
   public notary: Notary;
   submitted = false;
-  x1: any;
-  x2: any;
+  firstValue: any;
+  lastValue: any;
   constructor(private sessionService: SessionService,
               private notaryService: NotaryService,
               private snackBar: SnackBarService,
@@ -57,26 +57,26 @@ export class ApplicationComponent implements OnInit {
     this.getNotaryDetails();
      // alert(this.x1.perAddEng);
     this.requestForm.valueChanges.subscribe(x => {
-      this.x2 = x;
+      this.lastValue = x;
     });
 
 
   //  this.comparevaluesOfform();
   }
    comparevaluesOfform(): boolean {
-    if (this.x1.perAddEng === this.x2.perAddEng) {
-      console.log(this.x1.perAddEng + 'and ' + this.x2.perAddEng);
+    if (this.firstValue.perAddEng === this.lastValue.perAddEng) {
+      console.log(this.lastValue.perAddEng + 'and ' + this.lastValue.perAddEng);
     }
 
-    if (this.x1.perAddEng === this.x2.perAddEng
-        && this.x1.perAddSin === this.x2.perAddSin
-        && this.x1.perAddTam === this.x2.perAddTam
-        && this.x1.curAddressEng === this.x2.curAddressEng
-        && this.x1.curAddressSin === this.x2.curAddressSin
-        && this.x1.curAddressTam === this.x2.curAddressTam
-        && this.x1.contact === this.x2.contact
-        && this.x1.mobile === this.x2.mobile
-        && this.x1.email === this.x2.email ) {
+    if (this.firstValue.perAddEng === this.lastValue.perAddEng
+        && this.firstValue.perAddSin === this.lastValue.perAddSin
+        && this.firstValue.perAddTam === this.lastValue.perAddTam
+        && this.firstValue.curAddressEng === this.lastValue.curAddressEng
+        && this.firstValue.curAddressSin === this.lastValue.curAddressSin
+        && this.firstValue.curAddressTam === this.lastValue.curAddressTam
+        && this.firstValue.contact === this.lastValue.contact
+        && this.firstValue.mobile === this.lastValue.mobile
+        && this.firstValue.email === this.lastValue.email ) {
         return false;
 
       } else {
@@ -111,7 +111,7 @@ export class ApplicationComponent implements OnInit {
             title: this.notaryDetails.titleEng,
           }
         );
-        this.x1 = this.requestForm.value;
+        this.firstValue = this.requestForm.value;
       }
     );
   }
