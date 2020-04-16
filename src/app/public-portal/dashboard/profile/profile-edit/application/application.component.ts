@@ -84,7 +84,6 @@ export class ApplicationComponent implements OnInit {
       }
 
    }
-
   private getNotaryDetails(): void {
     this.notaryService.getNotary(this.notaryId).subscribe(
       (data: Notary) => {
@@ -133,7 +132,7 @@ export class ApplicationComponent implements OnInit {
         null, null, null,
         null, null, null, null,
         null, null, null, null, new Date(),
-        null, null, null, null, null, null, this.requestForm.value.clerkName, this.requestForm.value.clerkNic, null);
+        null, null, null, null, null, null, this.requestForm.value.clerkName, this.requestForm.value.clerkNic, null, null);
 
 
       this.notaryService.editProfile(this.notary).subscribe(
