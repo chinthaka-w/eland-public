@@ -1092,6 +1092,35 @@
     "REASONREQ":"Reason for change is Required",
     "CONTINUE":"Continue"
 
+  },
+
+  "PAYMENT":{
+    "LICENSE_ISSUE":"License Issue",
+    "LICENSE_WAY":"In which way you like to receive the license?",
+    "BY_HAND":"By Hand",
+    "BY_POST_NO":"By Post (Normal)",
+    "BY_POST_RE":"By Post(Registered)",
+    "PAYMENT":"Payment",
+    "PAYMENT_METHOD":"Payment method",
+    "ONLINE":"Online",
+    "BANK_TR_DE":"Bank Transfer or Deposit",
+    "FRONT_COUNTER":"Front Counter",
+    "AMOUNT":"Amount",
+    "ISSUE":"Issue (Post)",
+    "TOTAL":"Total",
+    "BACK":"Back",
+    "CONTINUE":"Continue",
+    "ONLINE_METHOD":{
+      "SERVICE_CODE":"Service Code",
+      "TRANS_STATUS":"Transaction Status",
+      "TRANS_REF_NO":"Transaction Ref No",
+      "TOTAL_AMOUNT":"Total Amount",
+      "PAY":"Pay",
+      "":"",
+      "":"",
+      "":""
+
+    }
   }
 
 
