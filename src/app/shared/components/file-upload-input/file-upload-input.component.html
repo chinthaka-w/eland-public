@@ -2,11 +2,12 @@
   <div class="drag-drop">
     <div class="drag-drop-inner">
       <button type="button" class="f-uploader" (click)="onClick($event)">
-        <i class="material-icons">cloud_upload</i> Upload
+        <i class="material-icons">cloud_upload</i> Upload (image / pfd)
         <input
           #fileUpload
           type="file"
           class="input_fileupload--hidden"
+          accept="image/*,application/pdf"
           (change)="onFileSelected($event)"
         />
       </button>

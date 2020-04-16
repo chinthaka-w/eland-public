@@ -6,6 +6,7 @@ import {NotaryResignationService} from "../../../shared/service/notary-resignati
 import {WorkflowStageNotaryResignation} from "../../../shared/enum/workflow-stage-notary-resignation.enum";
 import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
+import {SessionService} from '../../../shared/service/session.service';
 
 @Component({
   selector: 'app-resignation',
@@ -18,9 +19,13 @@ export class ResignationComponent implements OnInit {
   notaryResignationDto: NotaryResignationDto = new NotaryResignationDto();
   workflowStageNotaryResignation = WorkflowStageNotaryResignation;
   workflowStageDocTypes: Array<WorkflowStageDocTypeDTO> = [];
+  oldResignation: NotaryResignationDto = new NotaryResignationDto();
+  registrationExist: boolean = false;
+
   constructor(private route: ActivatedRoute,
               private notaryResignationService: NotaryResignationService,
               private snackBar: SnackBarService,
+              private sessionService: SessionService,
               private router: Router) { }
 
   ngOnInit() {
@@ -38,6 +43,8 @@ export class ResignationComponent implements OnInit {
           this.workflowStageDocTypes = result;
         }
       });
+
+    this.getResignationRequest();
   }
 
   setFiles(files, key) {
@@ -57,6 +64,19 @@ export class ResignationComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         } else {
           this.snackBar.error('Operation failed');
+        }
+      });
+  }
+
+  getResignationRequest(){
+    const id = this.sessionService.getUser().id;
+    this.notaryResignationService.getResignationByNoatry(id)
+      .subscribe((result: NotaryResignationDto ) => {
+        if (result) {
+          this.oldResignation = result;
+          this.registrationExist = true;
+        } else {
+
         }
       });
   }

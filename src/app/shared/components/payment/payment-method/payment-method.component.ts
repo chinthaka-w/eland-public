@@ -27,6 +27,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class PaymentMethodComponent implements OnInit {
   @Output() response = new EventEmitter<PaymentResponse>();
   @Input() paymentDTO: PaymentDto;
+  @Output() back = new EventEmitter<boolean>();
+  isButtonClick = false;
 
 
   public paymentMethodForm: FormGroup;
@@ -64,12 +66,14 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   savePayment() {
+    this.isButtonClick = true;
     let isValid = true;
     let errorMassage = '';
 
-    if (!this.paymentMethodForm.valid) {
+    if (!(this.paymentMethodForm.valid && this.files.length > 0)) {
       isValid = false;
       errorMassage = 'Please fill application form, before submit.';
+      return;
     }
 
     if (isValid) {this.paymentDTO.bankId = this.paymentMethodForm.get('bank').value;
@@ -122,6 +126,10 @@ export class PaymentMethodComponent implements OnInit {
 
   onChangeBank(data: any) {
     this.getAllBranchByBankId(data);
+  }
+
+  onBack() {
+    this.back.emit(true);
   }
 
 }

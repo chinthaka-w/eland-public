@@ -756,6 +756,7 @@
        "FAX_EMPTY_ERR":"Please Enter Fax No!",
        "CONTACT_NAME_EMPTY_ERR":"Please Enter Contact Person Name!",
        "CONTACT_MOBILE_EMPTY_ERR":"Please Enter Contact Person Phone No!",
+       "REQUIRED_FIELD_ERR": "Please fill the required fields",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"Please Enter Location"
        },
