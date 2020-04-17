@@ -484,9 +484,6 @@
                   formControlName="secretariatDivision"
                   (selectionChange)="selectDsDivision($event.value)">
                   <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
-                  <!--<mat-option *ngFor="let dsDivisions of dsDivision" [value]="dsDivisions.dsDivisionId" [disabled]="dsDivisions.selected">-->
-                  <!--{{ dsDivisions.description|listTranslate:dsDivisions.descriptionSin:dsDivisions.descriptionTam}}-->
-                  <!--</mat-option>-->
                   <mat-option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</mat-option>
                 </mat-select>
                 <div *ngIf="FormControls.secretariatDivision.touched && FormControls.secretariatDivision.errors"
