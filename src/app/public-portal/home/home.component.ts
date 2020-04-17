@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/shared/service/session.service';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +20,14 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private sessionService: SessionService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {
   }
 
   ngOnInit() {
     if (this.sessionService.getUser().id) {
-      this.location.back()
+      this.router.navigate(['/login']);
     }
   }
 
