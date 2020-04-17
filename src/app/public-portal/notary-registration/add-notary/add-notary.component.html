@@ -1,13 +1,13 @@
-<form *ngIf="!isPayment" class="form-horizontal" [formGroup]="notaryForm">
-  <div class="page-header-default">
-    <h2>{{'NOTARY.NOTARY_REGISTRATION'|translate}}</h2>
-    <p>{{'NOTARY.NOTARY_EDIT_PROFILE_FILL_INFO'|translate}}</p>
-    <a [routerLink]="['/home']" class="phd-back-btn">
-      <i class="material-icons">keyboard_backspace</i>
-    </a>
-  </div>
-  <div class="page-content-wrapper">
-    <div class="page-content-inner-wrapper">
+<div class="page-header-default">
+  <h2>{{'NOTARY.NOTARY_REGISTRATION'|translate}}</h2>
+  <p>{{'NOTARY.NOTARY_EDIT_PROFILE_FILL_INFO'|translate}}</p>
+  <a [routerLink]="['/home']" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
+</div>
+<div class="page-content-wrapper" *ngIf="!isPayment">
+  <div class="page-content-inner-wrapper">
+    <form class="form-horizontal" [formGroup]="notaryForm">
 
       <div class="pg-inner-row mb-40">
         <div class="pg-inner-col">
@@ -17,7 +17,9 @@
           <div class="default-input-wrapper m0">
             <label>{{'NOTARY.REGISTER_AS'|translate}}: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-select formControlName="notary" class="form-control text-left">
+              <mat-select formControlName="notary"
+                          (selectionChange)="selectNotaryType($event.value)"
+                          class="form-control text-left">
                 <mat-option [value]="NotaryRegisterType.NOTARY">{{'NOTARY.NOTARY'|translate}}</mat-option>
                 <mat-option [value]="NotaryRegisterType.ATTORNEY_AT_LAW">{{'NOTARY.ATTORNEY_AT_LAW'|translate}}</mat-option>
               </mat-select>
@@ -31,7 +33,7 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <label>{{'NOTARY.TITLE'|translate}}: <span class="redtxt">*</span></label>
-          <mat-select  formControlName="title" class="form-control">
+          <mat-select formControlName="title" class="form-control">
             <mat-option [value]="''" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
             <mat-option *ngFor="let item of nameTitles" [value]="item.nameTitleId">
               {{item.titleEng|listTranslate:item.titleSin:item.titleTam}}
@@ -39,7 +41,8 @@
           </mat-select>
           <div *ngIf="FormControls.title.touched && FormControls.title.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.title.errors.required" class="errors">{{'NOTARY.TITLE_REQUIRED'|translate}}</mat-error>
+            <mat-error *ngIf="FormControls.title.errors.required" class="errors">{{'NOTARY.TITLE_REQUIRED'|translate}}
+            </mat-error>
           </div>
         </div>
         <div class="pg-inner-col right">
@@ -61,97 +64,127 @@
       </div>
 
       <div class="default-input-wrapper full-row">
-        <label>{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span class="redtxt">*</span></label>
+        <label>{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span
+          class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput required formControlName="fullNameInEnglish" class="form-control">
           </mat-form-field>
           <div *ngIf="FormControls.fullNameInEnglish.touched && FormControls.fullNameInEnglish.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.fullNameInEnglish.errors.required" class="errors">{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+            <mat-error *ngIf="FormControls.fullNameInEnglish.errors.required" class="errors">
+              {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+              {{'NOTARY.REQUIRED'|translate}}
             </mat-error>
-            <mat-error *ngIf="FormControls.fullNameInEnglish.errors.pattern" class="errors">{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}}) {{'NOTARY.INVALID'|translate}}
+            <mat-error *ngIf="FormControls.fullNameInEnglish.errors.pattern" class="errors">
+              {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+              {{'NOTARY.INVALID'|translate}}
             </mat-error>
           </div>
         </div>
       </div>
 
       <div class="default-input-wrapper full-row">
-        <label>{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span *ngIf="languages.value == Languages.SINHALA" class="redtxt">*</span></label>
+        <label>{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span
+          *ngIf="languages.value == Languages.SINHALA" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="fullNameInSinhala" class="form-control">
           </mat-form-field>
           <div *ngIf="FormControls.fullNameInSinhala.touched && FormControls.fullNameInSinhala.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.fullNameInSinhala.errors.required" class="errors">{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+            <mat-error *ngIf="FormControls.fullNameInSinhala.errors.required" class="errors">
+              {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+              {{'NOTARY.REQUIRED'|translate}}
             </mat-error>
-            <mat-error *ngIf="FormControls.fullNameInSinhala.errors.pattern" class="errors">{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}}) {{'NOTARY.INVALID'|translate}}
+            <mat-error *ngIf="FormControls.fullNameInSinhala.errors.pattern" class="errors">
+              {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+              {{'NOTARY.INVALID'|translate}}
             </mat-error>
           </div>
         </div>
       </div>
 
       <div class="default-input-wrapper full-row">
-        <label>{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span *ngIf="languages.value == Languages.TAMIL" class="redtxt">*</span></label>
+        <label>{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span
+          *ngIf="languages.value == Languages.TAMIL" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="fullNameInTamil" class="form-control">
           </mat-form-field>
           <div *ngIf="FormControls.fullNameInTamil.touched && FormControls.fullNameInTamil.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.fullNameInTamil.errors.required" class="errors">{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+            <mat-error *ngIf="FormControls.fullNameInTamil.errors.required" class="errors">
+              {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+              {{'NOTARY.REQUIRED'|translate}}
             </mat-error>
-            <mat-error *ngIf="FormControls.fullNameInTamil.errors.pattern" class="errors">{{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}}) {{'NOTARY.INVALID'|translate}}
+            <mat-error *ngIf="FormControls.fullNameInTamil.errors.pattern" class="errors">
+              {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+              {{'NOTARY.INVALID'|translate}}
             </mat-error>
           </div>
         </div>
       </div>
 
       <div class="default-input-wrapper full-row">
-        <label>{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span class="redtxt">*</span></label>
+        <label>{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span
+          class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="englishNameWithInitials" class="form-control">
           </mat-form-field>
           <div *ngIf="FormControls.englishNameWithInitials.touched && FormControls.englishNameWithInitials.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.englishNameWithInitials.errors.required" class="errors">{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+            <mat-error *ngIf="FormControls.englishNameWithInitials.errors.required" class="errors">
+              {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+              {{'NOTARY.REQUIRED'|translate}}
             </mat-error>
-            <mat-error *ngIf="FormControls.englishNameWithInitials.errors.pattern" class="errors">{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}}) {{'NOTARY.INVALID'|translate}}
+            <mat-error *ngIf="FormControls.englishNameWithInitials.errors.pattern" class="errors">
+              {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+              {{'NOTARY.INVALID'|translate}}
             </mat-error>
           </div>
         </div>
       </div>
 
       <div class="default-input-wrapper full-row">
-        <label>{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span *ngIf="languages.value == Languages.SINHALA" class="redtxt">*</span></label>
+        <label>{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span
+          *ngIf="languages.value == Languages.SINHALA" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="sinhalaNameWithInitials" class="form-control">
           </mat-form-field>
           <div *ngIf="FormControls.sinhalaNameWithInitials.touched && FormControls.sinhalaNameWithInitials.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.sinhalaNameWithInitials.errors.required" class="errors">{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+            <mat-error *ngIf="FormControls.sinhalaNameWithInitials.errors.required" class="errors">
+              {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+              {{'NOTARY.REQUIRED'|translate}}
             </mat-error>
-            <mat-error *ngIf="FormControls.sinhalaNameWithInitials.errors.pattern" class="errors">{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}}) {{'NOTARY.INVALID'|translate}}
+            <mat-error *ngIf="FormControls.sinhalaNameWithInitials.errors.pattern" class="errors">
+              {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+              {{'NOTARY.INVALID'|translate}}
             </mat-error>
           </div>
         </div>
       </div>
 
       <div class="default-input-wrapper full-row">
-        <label>{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span *ngIf="languages.value == Languages.TAMIL"
-                                                                                                        class="redtxt">*</span></label>
+        <label>{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span
+          *ngIf="languages.value == Languages.TAMIL"
+          class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="tamilNameWithInitials" class="form-control">
           </mat-form-field>
           <div *ngIf="FormControls.tamilNameWithInitials.touched && FormControls.tamilNameWithInitials.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.tamilNameWithInitials.errors.required" class="errors">{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+            <mat-error *ngIf="FormControls.tamilNameWithInitials.errors.required" class="errors">
+              {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+              {{'NOTARY.REQUIRED'|translate}}
             </mat-error>
-            <mat-error *ngIf="FormControls.tamilNameWithInitials.errors.pattern" class="pattern">{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}}) {{'NOTARY.INVALID'|translate}}
+            <mat-error *ngIf="FormControls.tamilNameWithInitials.errors.pattern" class="pattern">
+              {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+              {{'NOTARY.INVALID'|translate}}
             </mat-error>
           </div>
         </div>
@@ -161,7 +194,8 @@
 
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span class="redtxt">*</span></label>
+            <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span
+              class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="permenentAddressInEnglish" class="form-control"></textarea>
@@ -169,7 +203,9 @@
               <div
                 *ngIf="FormControls.permenentAddressInEnglish.touched && FormControls.permenentAddressInEnglish.errors"
                 class="invalid-feedback">
-                <mat-error *ngIf="FormControls.permenentAddressInEnglish.errors.required" class="errors">{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.permenentAddressInEnglish.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -178,8 +214,9 @@
 
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span *ngIf="languages.value == Languages.SINHALA"
-                                                                                                               class="redtxt">*</span></label>
+            <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span
+              *ngIf="languages.value == Languages.SINHALA"
+              class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="permenentAddressInSinhala" class="form-control"></textarea>
@@ -187,7 +224,9 @@
               <div
                 *ngIf="FormControls.permenentAddressInSinhala.touched && FormControls.permenentAddressInSinhala.errors"
                 class="invalid-feedback">
-                <mat-error *ngIf="FormControls.permenentAddressInSinhala.errors.required" class="errors">{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.permenentAddressInSinhala.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -196,15 +235,18 @@
 
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span *ngIf="languages.value == Languages.TAMIL"
-                                                                                                               class="redtxt">*</span></label>
+            <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span
+              *ngIf="languages.value == Languages.TAMIL"
+              class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="permenentAddressInTamil" class="form-control"></textarea>
               </mat-form-field>
               <div *ngIf="FormControls.permenentAddressInTamil.touched && FormControls.permenentAddressInTamil.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.permenentAddressInTamil.errors.required" class="errors">{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.permenentAddressInTamil.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -216,14 +258,17 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span class="redtxt">*</span></label>
+            <label>{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}}): <span
+              class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="currentAddressInEnglish" class="form-control"></textarea>
               </mat-form-field>
               <div *ngIf="FormControls.currentAddressInEnglish.touched && FormControls.currentAddressInEnglish.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.currentAddressInEnglish.errors.required" class="errors">{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.currentAddressInEnglish.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -232,14 +277,17 @@
 
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span *ngIf="languages.value == Languages.SINHALA" class="redtxt">*</span></label>
+            <label>{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span
+              *ngIf="languages.value == Languages.SINHALA" class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="currentAddressInSinhala" class="form-control"></textarea>
               </mat-form-field>
               <div *ngIf="FormControls.currentAddressInSinhala.touched && FormControls.currentAddressInSinhala.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.currentAddressInSinhala.errors.required" class="errors">{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.currentAddressInSinhala.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -248,15 +296,18 @@
 
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span *ngIf="languages.value == Languages.TAMIL"
-                                                                                                             class="redtxt">*</span></label>
+            <label>{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span
+              *ngIf="languages.value == Languages.TAMIL"
+              class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="currentAddressInTamil" class="form-control"></textarea>
               </mat-form-field>
               <div *ngIf="FormControls.currentAddressInTamil.touched && FormControls.currentAddressInTamil.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.currentAddressInTamil.errors.required" class="errors">{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}) {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.currentAddressInTamil.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -280,7 +331,8 @@
               </mat-form-field>
               <div *ngIf="FormControls.dateOfBirth.touched && FormControls.dateOfBirth.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">{{'APPLICANT.DOB'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.dateOfBirth.errors.required" class="errors">{{'APPLICANT.DOB'|translate}}
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
               <button mat-raised-button (click)="picker.open()">
@@ -298,11 +350,14 @@
               </mat-form-field>
               <div *ngIf="FormControls.nic.touched && FormControls.nic.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.nic.errors.required" class="errors">{{'CONTACT_DETAILS.NIC'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.nic.errors.required" class="errors">{{'CONTACT_DETAILS.NIC'|translate}}
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
-                <mat-error *ngIf="FormControls.nic.errors.pattern" class="errors">{{'CONTACT_DETAILS.NIC'|translate}} {{'NOTARY.INVALID'|translate}}
+                <mat-error *ngIf="FormControls.nic.errors.pattern" class="errors">{{'CONTACT_DETAILS.NIC'|translate}}
+                  {{'NOTARY.INVALID'|translate}}
                 </mat-error>
-                <mat-error *ngIf="FormControls.nic.errors.nicExists" class="errors">{{'CONTACT_DETAILS.NIC'|translate}} {{'NOTARY.ALREADY_EXISIS'|translate}}!
+                <mat-error *ngIf="FormControls.nic.errors.nicExists" class="errors">{{'CONTACT_DETAILS.NIC'|translate}}
+                  {{'NOTARY.ALREADY_EXISIS'|translate}}!
                 </mat-error>
               </div>
             </div>
@@ -320,10 +375,12 @@
               </mat-form-field>
               <div *ngIf="FormControls.contactNo.touched && FormControls.contactNo.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.contactNo.errors.required" class="errors">{{'CONTACT_DETAILS.CONTACT_NO'|translate}}
+                <mat-error *ngIf="FormControls.contactNo.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.CONTACT_NO'|translate}}
                   {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
-                <mat-error *ngIf="FormControls.contactNo.errors.pattern" class="errors">{{'CONTACT_DETAILS.CONTACT_NO'|translate}}
+                <mat-error *ngIf="FormControls.contactNo.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.CONTACT_NO'|translate}}
                   {{'NOTARY.INVALID'|translate}}
                 </mat-error>
               </div>
@@ -339,7 +396,9 @@
               </mat-form-field>
               <div *ngIf="FormControls.mobileNo.touched && FormControls.mobileNo.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.mobileNo.errors.pattern" class="errors">{{'CONTACT_DETAILS.MOBILE'|translate}} {{'NOTARY.INVALID'|translate}}</mat-error>
+                <mat-error *ngIf="FormControls.mobileNo.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.MOBILE'|translate}} {{'NOTARY.INVALID'|translate}}
+                </mat-error>
               </div>
             </div>
           </div>
@@ -356,8 +415,12 @@
               </mat-form-field>
               <div *ngIf="FormControls.email.touched && FormControls.email.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.email.errors.required" class="errors">{{'CONTACT_DETAILS.EMAIL'|translate}} {{'NOTARY.REQUIRED'|translate}}</mat-error>
-                <mat-error *ngIf="FormControls.email.errors.pattern" class="errors">{{'CONTACT_DETAILS.EMAIL'|translate}} {{'NOTARY.INVALID'|translate}}</mat-error>
+                <mat-error *ngIf="FormControls.email.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.EMAIL'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.email.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.EMAIL'|translate}} {{'NOTARY.INVALID'|translate}}
+                </mat-error>
               </div>
             </div>
           </div>
@@ -368,25 +431,6 @@
       <div class="separator">&nbsp;</div>
 
       <div class="pg-inner-row mb-20">
-        <!--<div class="pg-inner-col">-->
-        <!--<div class="default-input-wrapper full-row">-->
-        <!--<label>{{'NOTARY.JUDICIAL_ZONE'|translate}}: <span class="redtxt">*</span></label>-->
-        <!--<div class="default-input-feild">-->
-        <!--<mat-select matNativeControl required formControlName="courtZone" class="form-control">-->
-        <!--<mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>-->
-        <!--<mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">-->
-        <!--{{judicialZone.nameEng|listTranslate:judicialZone.nameSin:judicialZone.nameTam }}-->
-        <!--</mat-option>-->
-        <!--</mat-select>-->
-        <!--<div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"-->
-        <!--class="invalid-feedback">-->
-        <!--<mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">{{'NOTARY.JUDICIAL_ZONE'|translate}} {{'NOTARY.REQUIRED'|translate}}-->
-        <!--</mat-error>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>{{'NOTARY.JUDICIAL_ZONE'|translate}}: <span class="redtxt">*</span></label>
@@ -399,13 +443,13 @@
               </mat-select>
               <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">{{'NOTARY.JUDICIAL_ZONE'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">
+                  {{'NOTARY.JUDICIAL_ZONE'|translate}} {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
           </div>
         </div>
-
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>{{'NOTARY.LAND_REGISTRY'|translate}}: <span class="redtxt">*</span></label>
@@ -418,7 +462,8 @@
               </mat-select>
               <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">{{'NOTARY.LAND_REGISTRY'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                <mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">
+                  {{'NOTARY.LAND_REGISTRY'|translate}} {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -446,7 +491,8 @@
                 </mat-select>
                 <div *ngIf="FormControls.secretariatDivision.touched && FormControls.secretariatDivision.errors"
                      class="invalid-feedback">
-                  <mat-error *ngIf="FormControls.secretariatDivision.errors.required" class="errors">{{'NOTARY.DS_DIVISION'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                  <mat-error *ngIf="FormControls.secretariatDivision.errors.required" class="errors">
+                    {{'NOTARY.DS_DIVISION'|translate}} {{'NOTARY.REQUIRED'|translate}}
                   </mat-error>
                 </div>
               </div>
@@ -473,7 +519,8 @@
                 </mat-select>
                 <div *ngIf="FormControls.gramaNiladhariDivision.touched && FormControls.gramaNiladhariDivision.errors"
                      class="invalid-feedback">
-                  <mat-error *ngIf="FormControls.gramaNiladhariDivision.errors.required" class="errors">{{'NOTARY.GN_DIVISION'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                  <mat-error *ngIf="FormControls.gramaNiladhariDivision.errors.required" class="errors">
+                    {{'NOTARY.GN_DIVISION'|translate}} {{'NOTARY.REQUIRED'|translate}}
                   </mat-error>
                 </div>
               </div>
@@ -499,7 +546,13 @@
           <tr *ngFor="let item of dsGnList; let i = index">
             <td class="text-center">{{i+1}}</td>
             <td>{{item.dsDivisionDescription}}</td>
-            <td>{{getDescriptionsByArray(item.gnDivisions)}}</td>
+            <td>
+              <mat-chip-list style="justify-content: center;display: flex;flex-flow: row;flex-wrap: wrap;">
+                <mat-chip [color]="i%2==0?'primary':'accent'" *ngFor="let chip of item.gnDivisions">
+                  {{chip.description}}
+                </mat-chip>
+              </mat-chip-list>
+            </td>
             <td class="text-center">
               <a style="cursor: pointer" (click)="onRemoveDSDivision(item,i)">
                 <mat-icon
@@ -534,7 +587,9 @@
               </mat-form-field>
               <div *ngIf="FormControls.enrolledDate.touched && FormControls.enrolledDate.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.enrolledDate.errors.required" class="errors">{{'NOTARY.THE_DAY_ENROLLED'|translate}} {{'NOTARY.REQUIRED'|translate}}</mat-error>
+                <mat-error *ngIf="FormControls.enrolledDate.errors.required" class="errors">
+                  {{'NOTARY.THE_DAY_ENROLLED'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
               </div>
               <button mat-raised-button (click)="picker2.open()">
                 <i class="material-icons">calendar_today</i>
@@ -559,7 +614,9 @@
               </mat-form-field>
               <div *ngIf="FormControls.passedDate.touched && FormControls.passedDate.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.passedDate.errors.required" class="errors">{{'NOTARY.THE_DAY_PASSED'|translate}} {{'NOTARY.REQUIRED'|translate}}</mat-error>
+                <mat-error *ngIf="FormControls.passedDate.errors.required" class="errors">
+                  {{'NOTARY.THE_DAY_PASSED'|translate}} {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
               </div>
               <button mat-raised-button (click)="picker3.open()">
                 <i class="material-icons">calendar_today</i>
@@ -575,11 +632,14 @@
           <mat-radio-group class="form-control" formControlName="medium">
             <mat-radio-button [value]="Languages.SINHALA">{{'NOTIFICATION.SIN'|translate}}</mat-radio-button>
             <mat-radio-button [value]="Languages.ENGLISH">{{'NOTIFICATION.ENG'|translate}}</mat-radio-button>
-            <mat-radio-button class="example-margin" [value]="Languages.TAMIL">{{'NOTIFICATION.TAM'|translate}}</mat-radio-button>
+            <mat-radio-button class="example-margin" [value]="Languages.TAMIL">{{'NOTIFICATION.TAM'|translate}}
+            </mat-radio-button>
           </mat-radio-group>
           <div *ngIf="FormControls.medium.touched && FormControls.medium.errors"
                class="invalid-feedback">
-            <mat-error *ngIf="FormControls.medium.errors.required" class="errors">{{'NOTARY.THE_MEDIUM_PASSED'|translate}} {{'NOTARY.REQUIRED'|translate}}</mat-error>
+            <mat-error *ngIf="FormControls.medium.errors.required" class="errors">
+              {{'NOTARY.THE_MEDIUM_PASSED'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
           </div>
         </div>
       </div>
@@ -611,10 +671,14 @@
               </mat-form-field>
               <div *ngIf="FormControls.userName.touched && FormControls.userName.errors"
                    class="invalid-feedback">
-                <mat-error *ngIf="FormControls.userName.errors.required" class="errors">{{'NOTARY.USER_NAME'|translate}} {{'NOTARY.REQUIRED'|translate}}</mat-error>
-                <mat-error *ngIf="FormControls.userName.errors.minlength" class="errors">{{'NOTARY.USER_NAME'|translate}} {{'NOTARY.USER_NAME_SHOULD_CONTAIN_SIX_CHARACTORS'|translate}}!
+                <mat-error *ngIf="FormControls.userName.errors.required" class="errors">{{'NOTARY.USER_NAME'|translate}}
+                  {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
-                <mat-error *ngIf="FormControls.userName.errors.usernameExists" class="errors">{{'NOTARY.USER_NAME'|translate}} {{'NOTARY.USER_NAME_ALREADY_TAKEN'|translate}}!
+                <mat-error *ngIf="FormControls.userName.errors.minlength" class="errors">
+                  {{'NOTARY.USER_NAME'|translate}} {{'NOTARY.USER_NAME_SHOULD_CONTAIN_SIX_CHARACTORS'|translate}}!
+                </mat-error>
+                <mat-error *ngIf="FormControls.userName.errors.usernameExists" class="errors">
+                  {{'NOTARY.USER_NAME'|translate}} {{'NOTARY.USER_NAME_ALREADY_TAKEN'|translate}}!
                 </mat-error>
               </div>
             </div>
@@ -630,20 +694,26 @@
           </div>
         </div>
         <div class="pg-inner-col right">
-          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'BUTTONS.CONTINUE_BUTTON'|translate}}</button>
+          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'BUTTONS.CONTINUE_BUTTON'|translate}}
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
-</form>
-<div *ngIf="isPayment" class="container">
-  <app-payment (response)="getPaymentData($event)"
-               (paymentMethodResponse)=paymentMethodResponse($event)
-               [statusOnlinePayment]="statusOnlinePayment"
-               [returnUrl]="returnURl"
-               [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
-               [isDocumentCollect]="true"
-               (back)="onBack()"
-               [workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>
+</div>
+<div class="page-content-wrapper" *ngIf="isPayment">
+  <div class="page-content-inner-wrapper">
+    <app-payment (response)="getPaymentData($event)"
+                 (paymentMethodResponse)=paymentMethodResponse($event)
+                 [statusOnlinePayment]="statusOnlinePayment"
+                 [returnUrl]="returnURl"
+                 [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
+                 [workflowStageCode]=""
+                 [userType]="NotaryRegisterType.NOTARY"
+                 [userId]="userId"
+                 [isDocumentCollect]="true"
+                 (back)="onBack()"
+                 [workflowCode]="WorkflowCode.NOTARY_REGISTRATION"></app-payment>
 
+  </div>
 </div>

@@ -74,7 +74,9 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
 
   getPaymentDetails() {
-    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(this.requestDetailPayment !== undefined ? this.requestDetailPayment.requestId : this.id, this.requestDetailPayment !== undefined ? this.requestDetailPayment.workflow : this.workflow);
+    let searchType: NewNotaryRequestsCategorySearchDto = new NewNotaryRequestsCategorySearchDto(
+      this.requestDetailPayment !== undefined ? this.requestDetailPayment.requestId : this.id,
+      this.requestDetailPayment !== undefined ? Workflow.NOTARY_REGISTRATION : this.workflow);
     this.notaryService.getPaymentDetails(searchType).subscribe(
       (result: NewNotaryPaymentDetailDto[]) => {
         this.paymentDetails = result;
@@ -116,7 +118,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
         break;
       default:
         this.paymentDataValue = paymentData.paymentId;
-        // this.savePayments(this.requestDetailPayment.requestId, this.paymentDataValue);
+        this.savePayments(this.requestDetailPayment.requestId, this.paymentDataValue);
     }
   }
 

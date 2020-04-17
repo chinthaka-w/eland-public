@@ -308,8 +308,13 @@
                  [statusOnlinePayment] = "statusOnlinePayment"
                  [returnUrl]="returnURl"
                  (back)="onBack($event)"
-                 [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+                 [applicationFeeCode]="Parameters.JUDICIAL_CHANGE_FEE"
                  [isDocumentCollect]="true"
-                 [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"></app-payment>
+                 [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"
+                 [userType]="userType"
+                 [userId]="userId"
+                 [workflowStageCode]="workflowStageCode"
+                 >
+                </app-payment>
   </div>
 </div>

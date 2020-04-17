@@ -29,7 +29,7 @@ export class PaymentMethodComponent implements OnInit {
   @Input() paymentDTO: PaymentDto;
   @Output() back = new EventEmitter<boolean>();
   isButtonClick = false;
-
+  showSpinner = false;
 
   public paymentMethodForm: FormGroup;
 
@@ -66,6 +66,7 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   savePayment() {
+    this.showSpinner = true;
     this.isButtonClick = true;
     let isValid = true;
     let errorMassage = '';
@@ -73,6 +74,7 @@ export class PaymentMethodComponent implements OnInit {
     if (!(this.paymentMethodForm.valid && this.files.length > 0)) {
       isValid = false;
       errorMassage = 'Please fill application form, before submit.';
+      this.showSpinner = false;
       return;
     }
 

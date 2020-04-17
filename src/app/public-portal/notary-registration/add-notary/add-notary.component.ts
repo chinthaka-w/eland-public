@@ -42,6 +42,8 @@ import {Observable} from 'rxjs';
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {NameTitleService} from '../../../shared/service/name-title.service';
 import {NameTitleDTO} from '../../../shared/dto/name-title.dto';
+import {PublicUserType} from '../../../shared/enum/public-user-type.enum';
+import {NewNotaryRegistrationWorkflowStage} from '../../../shared/enum/new-notary-registration-workflow-stage.enum';
 
 @Component({
   selector: 'app-add-notary',
@@ -107,6 +109,8 @@ export class AddNotaryComponent implements OnInit {
 
   today: any;
   defaultBirthDay: any;
+
+  userId: any;
 
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
@@ -241,7 +245,6 @@ export class AddNotaryComponent implements OnInit {
 
     this.getNameTitles();
     this.getDsDivisions();
-    this.getLandRegistries();
     this.getJudicialZones();
     this.getDocumentList();
 
@@ -315,9 +318,8 @@ export class AddNotaryComponent implements OnInit {
     };
   }
 
-
   private getDocumentList(): void {
-    this.documetService.getDocuments(Workflow.NOTARY_REGISTRATION).subscribe(
+    this.documetService.getDocuments(NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }
@@ -351,6 +353,14 @@ export class AddNotaryComponent implements OnInit {
 
   selectDsDivision(dsDivisionId, index) {
     if (dsDivisionId) this.getGnDivisions(dsDivisionId);
+
+  }
+
+  selectJudicialZone(judicialId: any) {
+    if (judicialId) this.getLandRegistries(judicialId);
+  }
+
+  selectNotaryType(value: any) {
 
   }
 
@@ -397,14 +407,6 @@ export class AddNotaryComponent implements OnInit {
     });
   }
 
-  getDescriptionsByArray(array: GnDivision[]): string {
-    let text = '';
-    array.forEach((val: GnDivision) => {
-      text += val.description + ', ';
-    });
-    return text;
-  }
-
   public onFormSubmit() {
     if (this.dsGnList.length != 0) {
       this.secretariatDivision.clearValidators();
@@ -449,7 +451,8 @@ export class AddNotaryComponent implements OnInit {
     });
 
     this.notaryService.saveNotaryDetails(formData).subscribe(
-      (success: string) => {
+      (notaryId: any) => {
+        this.userId = notaryId;
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
           this.snackBar.success('Notary Registration Success');
           this.router.navigate(['/login']);
@@ -509,8 +512,8 @@ export class AddNotaryComponent implements OnInit {
     //  this.previousSelections[index] = this.notaryForm.value.secretariatDivision;
   }
 
-  private getLandRegistries(): void {
-    this.landRegistryService.getAllLandRegistry().subscribe(
+  private getLandRegistries(id: any): void {
+    this.landRegistryService.getLandRegistriesByJudicialId(id).subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistry = data;
       }
