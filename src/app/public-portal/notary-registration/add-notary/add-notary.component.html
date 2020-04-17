@@ -32,9 +32,9 @@
         <div class="pg-inner-col">
           <label>{{'NOTARY.TITLE'|translate}}: <span class="redtxt">*</span></label>
           <mat-select  formControlName="title" class="form-control">
-            <mat-option [value]="''" disabled>--Select--</mat-option>
+            <mat-option [value]="''" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
             <mat-option *ngFor="let item of nameTitles" [value]="item.nameTitleId">
-              {{item.titleEng}}
+              {{item.titleEng|listTranslate:item.titleSin:item.titleTam}}
             </mat-option>
           </mat-select>
           <div *ngIf="FormControls.title.touched && FormControls.title.errors"
@@ -142,7 +142,7 @@
 
       <div class="default-input-wrapper full-row">
         <label>{{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span *ngIf="languages.value == Languages.TAMIL"
-                                                 class="redtxt">*</span></label>
+                                                                                                        class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="tamilNameWithInitials" class="form-control">
@@ -179,7 +179,7 @@
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
             <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}}): <span *ngIf="languages.value == Languages.SINHALA"
-                                                      class="redtxt">*</span></label>
+                                                                                                               class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="permenentAddressInSinhala" class="form-control"></textarea>
@@ -197,7 +197,7 @@
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
             <label>{{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span *ngIf="languages.value == Languages.TAMIL"
-                                                    class="redtxt">*</span></label>
+                                                                                                               class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="permenentAddressInTamil" class="form-control"></textarea>
@@ -249,7 +249,7 @@
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
             <label>{{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}}): <span *ngIf="languages.value == Languages.TAMIL"
-                                                  class="redtxt">*</span></label>
+                                                                                                             class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <textarea matInput rows="5" formControlName="currentAddressInTamil" class="form-control"></textarea>
@@ -368,14 +368,33 @@
       <div class="separator">&nbsp;</div>
 
       <div class="pg-inner-row mb-20">
+        <!--<div class="pg-inner-col">-->
+        <!--<div class="default-input-wrapper full-row">-->
+        <!--<label>{{'NOTARY.JUDICIAL_ZONE'|translate}}: <span class="redtxt">*</span></label>-->
+        <!--<div class="default-input-feild">-->
+        <!--<mat-select matNativeControl required formControlName="courtZone" class="form-control">-->
+        <!--<mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>-->
+        <!--<mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">-->
+        <!--{{judicialZone.nameEng|listTranslate:judicialZone.nameSin:judicialZone.nameTam }}-->
+        <!--</mat-option>-->
+        <!--</mat-select>-->
+        <!--<div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"-->
+        <!--class="invalid-feedback">-->
+        <!--<mat-error *ngIf="FormControls.courtZone.errors.required" class="errors">{{'NOTARY.JUDICIAL_ZONE'|translate}} {{'NOTARY.REQUIRED'|translate}}-->
+        <!--</mat-error>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>{{'NOTARY.JUDICIAL_ZONE'|translate}}: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-select matNativeControl required formControlName="courtZone" class="form-control">
-                <mat-option value="" disabled>--Select--</mat-option>
-                <mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">{{
-                  judicialZone.nameEng }}
+                <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
+                <mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">
+                  {{judicialZone.nameEng|listTranslate:judicialZone.nameSin:judicialZone.nameTam}}
                 </mat-option>
               </mat-select>
               <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
@@ -386,14 +405,15 @@
             </div>
           </div>
         </div>
+
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <label>{{'NOTARY.LAND_REGISTRY'|translate}}: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-select matNativeControl required formControlName="landRegistry" class="form-control">
-                <mat-option value="" disabled>--Select--</mat-option>
+                <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
                 <mat-option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">
-                  {{landRegistries.nameEng}}
+                  {{landRegistries.nameEng|listTranslate:landRegistries.nameSin:landRegistries.nameTam}}
                 </mat-option>
               </mat-select>
               <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
@@ -419,12 +439,10 @@
                   formControlName="secretariatDivision"
                   (selectionChange)="selectDsDivision($event.value)">
                   <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
-                  <mat-option
-                    *ngFor="let dsDivisions of dsDivision"
-                    [value]="dsDivisions.dsDivisionId"
-                    [disabled]="dsDivisions.selected">
-                    {{ dsDivisions.description }}
-                  </mat-option>
+                  <!--<mat-option *ngFor="let dsDivisions of dsDivision" [value]="dsDivisions.dsDivisionId" [disabled]="dsDivisions.selected">-->
+                  <!--{{ dsDivisions.description|listTranslate:dsDivisions.descriptionSin:dsDivisions.descriptionTam}}-->
+                  <!--</mat-option>-->
+                  <mat-option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</mat-option>
                 </mat-select>
                 <div *ngIf="FormControls.secretariatDivision.touched && FormControls.secretariatDivision.errors"
                      class="invalid-feedback">
@@ -448,7 +466,7 @@
                   <ng-container *ngFor="let gnDivisions of gnDivision">
                     <mat-option
                       [value]="gnDivisions.gnDivisionId"
-                    >{{ gnDivisions.description }}
+                    >{{ gnDivisions.description|listTranslate:gnDivisions.descriptionSin:gnDivisions.descriptionTam }}
                     </mat-option
                     >
                   </ng-container>
@@ -468,36 +486,36 @@
       </div>
 
       <div class="pg-inner-row mb-20">
-      <table class="b-table mat-elevation-z4">
-        <thead>
-        <tr>
-          <th style="width: 5%">#</th>
-          <th style="width: 20%">{{'NOTARY.DS_DIVISION'|translate}}</th>
-          <th style="width: 65%">{{'NOTARY.GN_DIVISION'|translate}}</th>
-          <th style="width: 10%">{{'COMMON.ACTION'|translate}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of dsGnList; let i = index">
-          <td class="text-center">{{i+1}}</td>
-          <td>{{item.dsDivisionDescription}}</td>
-          <td>{{getDescriptionsByArray(item.gnDivisions)}}</td>
-          <td class="text-center">
-            <a style="cursor: pointer" (click)="onRemoveDSDivision(item,i)">
-              <mat-icon
-                class="material-icons"
-                title="Delete"
-                color="warn">delete
-              </mat-icon>
-            </a>
-          </td>
-        </tr>
-        <tr *ngIf="dsGnList.length==0">
-          <td colspan="4" class="text-center">{{'NOTARY.NO_SELECTED_ITEMS'|translate}}.</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+        <table class="b-table mat-elevation-z4">
+          <thead>
+          <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 20%">{{'NOTARY.DS_DIVISION'|translate}}</th>
+            <th style="width: 65%">{{'NOTARY.GN_DIVISION'|translate}}</th>
+            <th style="width: 10%">{{'COMMON.ACTION'|translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of dsGnList; let i = index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{item.dsDivisionDescription}}</td>
+            <td>{{getDescriptionsByArray(item.gnDivisions)}}</td>
+            <td class="text-center">
+              <a style="cursor: pointer" (click)="onRemoveDSDivision(item,i)">
+                <mat-icon
+                  class="material-icons"
+                  title="Delete"
+                  color="warn">delete
+                </mat-icon>
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="dsGnList.length==0">
+            <td colspan="4" class="text-center">{{'NOTARY.NO_SELECTED_ITEMS'|translate}}.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">

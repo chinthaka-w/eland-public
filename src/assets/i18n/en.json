@@ -1115,13 +1115,79 @@
       "TRANS_STATUS":"Transaction Status",
       "TRANS_REF_NO":"Transaction Ref No",
       "TOTAL_AMOUNT":"Total Amount",
-      "PAY":"Pay",
-      "":"",
+      "PAY":"Pay"
+    },
+    "OTHER_METHOD":{
+      "BANK":"Bank:",
+      "SELECT":"--Select--",
+      "BANK_BRANCH":"Bank Branch:",
+      "DATE":"Date:",
+      "REF_NO":"Reference No: ",
+      "BANK_RECPT":"Bank Receipt:",
+      "PLZ_BANK_RECPT":"Please add bank receipt.",
+      "SUBMIT":"Submit"
+
+    }
+  },
+  "LOGIN":{
+    "TITLE1":"Welcome to E-Land",
+    "TITLE2":"Welcome back please login to your account",
+    "USERNAME":"Username",
+    "RE_USERNAME":"Username is Required",
+    "PASSWORD":"Password",
+    "RE_PASSWORD":"Password is Required",
+    "FORGOT_PWD":"Forgot Password ?",
+    "TITLE3":"Don’t have an account",
+    "TITLE4":"Sign Up",
+    "LOGIN":"Login"
+  },
+  "SEARCH_DOC":{
+    "SEARCH":"Search",
+    "LAND_REG":"Land Registry:",
+    "SELECT":"--Select--",
+    "DOC_TYPE":"Doc type:",
+    "FOLIO_DOC":"Folio Document",
+    "DEED_DOC":"Deed Document",
+    "NAME_OF_ATTESTED":"Name of the Notary who attested by the deed:",
+    "DISTRICT_STATION":"District or station where he practiced at that time:",
+    "DEED_NO":"Deed No:",
+    "NATURE_DEED":"Nature of the deed:",
+    "DATE_PROB":"Date or probable period",
+    "FROM":"From:",
+    "TO":"To:",
+    "NAME_GRANTER":"Name of the granter / Transferor:",
+    "NAME_GRANT":"Name of the grantee / transferee:",
+    "NAME_AND":"Name of the land:",
+    "EXTENT":"Extent:",
+    "KORALE":"Korale:",
+    "PATTU":"Pattu:",
+    "DS_DIV":"DS Division:",
+    "GN_DIV":"GN Division:",
+    "SELECT_DS":"Please select Ds Division",
+    "VILLAGE":"Village:",
+    "SELECT_GN":"Please select Gn Division",
+    "REASON_SEARCH":"Reason for Search:",
+    "REASON_SEARCH_DEED":"Reason for search of deed as:",
+    "REGISTERED_REQ_SEARCH":"Registers required for search",
+    "LR_DIV":"LR Division:",
+    "VOLUME":"Volume:",
+    "FOL_NO":"Folio No: ",
+    "NO_OF_YRS":"No. of Years:",
+    "CONTINUE":"Continue",
+    "EXTRACT":{
+      "":"Extract",
       "":"",
       "":""
 
     }
+
+
+
+
+
+
   }
+
 
 
 

@@ -1,28 +1,28 @@
 <div class="hc-component-wrapper">
   <div class="hc-component-content">
     <div class="hc-component-inner-col">
-      <h1>Welcome to E-Land</h1>
-      <p>Welcome back please login to your acount</p>
+      <h1>{{'LOGIN.TITLE1'|translate}}</h1>
+      <p>{{'LOGIN.TITLE2'|translate}}</p>
       <div class="form-wp">
         <form [formGroup]="loginForm">
           <div class="hc-mat-input-wp">
             <mat-form-field appearance="outline fill">
-              <mat-label>Userename</mat-label>
+              <mat-label>{{'LOGIN.USERNAME'|translate}}</mat-label>
               <input matInput formControlName="username" />
               <mat-icon matSuffix style="color: #A7A6A6;">perm_identity</mat-icon>
               <div *ngIf="username.touched && username.invalid">
                 <mat-error *ngIf="username.errors.required">
-                  Username is Required
+                  {{'LOGIN.RE_USERNAME'|translate}}
                 </mat-error>
               </div>
             </mat-form-field>
             <mat-form-field appearance="outline fill">
-              <mat-label>Password</mat-label>
+              <mat-label>{{'LOGIN.PASSWORD'|translate}}</mat-label>
               <input matInput type="password" formControlName="password" />
               <mat-icon matSuffix style="color: #A7A6A6;">lock</mat-icon>
               <div *ngIf="password.touched && password.invalid">
                 <mat-error *ngIf="password.errors.required">
-                  Password is Required
+                  {{'LOGIN.RE_PASSWORD'|translate}}
                 </mat-error>
               </div>
             </mat-form-field>
@@ -34,16 +34,16 @@
                 {{ formError }}
               </mat-error>
             </div>
-            <a href="#">Forgot Password ?</a>
+            <a href="#">{{'LOGIN.FORGOT_PWD'|translate}}</a>
             <button mat-raised-button (click)="login()" [disabled]="!loginForm.valid">
-              Login
+              {{'LOGIN.LOGIN'|translate}}
             </button>
           </div>
         </form>
       </div>
     </div>
     <div class="hc-component-bottom">
-      Don’t have an account <a [routerLink]="['/home']">Sign Up</a>
+      {{'LOGIN.TITLE3'|translate}} <a [routerLink]="['/home']"> {{'LOGIN.TITLE4'|translate}}</a>
     </div>
   </div>
   <div class="hc-component-img" style="background-image: url('assets/images/login-public.svg');"></div>

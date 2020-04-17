@@ -3,4 +3,6 @@ export class WorkflowStageDocTypeDTO {
   docTypeId: number;
   description: string;
   required: boolean;
+  descriptionSin: string;
+  descriptionTam: string;
 }
