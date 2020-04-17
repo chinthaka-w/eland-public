@@ -1173,19 +1173,7 @@
     "VOLUME":"Volume:",
     "FOL_NO":"Folio No: ",
     "NO_OF_YRS":"No. of Years:",
-    "CONTINUE":"Continue",
-    "EXTRACT":{
-      "":"Extract",
-      "":"",
-      "":""
-
-    }
-
-
-
-
-
-
+    "CONTINUE":"Continue"
   }
 
 
