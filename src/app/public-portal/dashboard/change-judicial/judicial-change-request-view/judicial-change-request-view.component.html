@@ -1,6 +1,7 @@
 <div class="page-header-default">
-  <h2>Edit Judicial Change Request</h2>
-  <p>Please fill in the following information to<br />register in the system</p>
+  <h2 *ngIf="!enableFormEdit">View Judicial Change Request</h2>
+  <h2 *ngIf="enableFormEdit">Edit Judicial Change Request</h2>
+  <p *ngIf="enableFormEdit">Please fill in the following information to<br />register in the system</p>
   <a [routerLink]="['/requests', getBase64Url(workflowCode)]" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>

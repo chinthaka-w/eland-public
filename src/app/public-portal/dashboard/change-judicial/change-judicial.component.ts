@@ -62,7 +62,10 @@ export class ChangeJudicialComponent implements OnInit {
   paymentDto: PaymentDto = new PaymentDto();
   statusOnlinePayment: boolean;
   isRequiredDocsUpload = false;
-  
+  userType: string;
+  userId: number;
+  workflowStageCode: string;
+
   public languages: any[] = [
     {
       id: Languages.ENGLISH,
@@ -119,6 +122,9 @@ export class ChangeJudicialComponent implements OnInit {
     this.getLanguages();
     this.isPaymentSuccess = false;
     this.isContinueToPayment = false;
+    this.userType = this.sessionService.getUser().type;
+    this.userId = this.sessionService.getUser().id;
+    this.workflowStageCode = JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIATED;
 
   }
 
