@@ -41,6 +41,8 @@ export class ChangeLandRegistryComponent implements OnInit {
   public files: File[] = [];
   public notaryId: number;
   user: string;
+  userType: string;
+  userId: number;
 
 
 
@@ -57,6 +59,7 @@ export class ChangeLandRegistryComponent implements OnInit {
     this.notaryId = this.sessionService.getUser().id;
     this.getLandRegistries();
     this.getDocumentList();
+    this.userType = this.sessionService.getUser().type;
   }
 
   saveRequest() {
