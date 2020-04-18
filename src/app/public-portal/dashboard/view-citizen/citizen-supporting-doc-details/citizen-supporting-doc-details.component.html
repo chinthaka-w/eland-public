@@ -47,7 +47,10 @@
 </div>
 
 <div class="pg-inner-col float-right" *ngIf="isEdit">
-  <button [disabled]="uploadedDocs.length == 0" mat-raised-button class="button float-right" type="button" (click)="updateCitizenSupportingDocs()">Update</button>
+  <button [disabled]="uploadedDocs.length == 0 || showSpinner" mat-raised-button class="button float-right" type="button" (click)="updateCitizenSupportingDocs()">
+    Update
+    <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
+  </button>
 </div>
 
 </div>

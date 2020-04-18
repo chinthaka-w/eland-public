@@ -18,6 +18,7 @@ export class ViewCitizenComponent implements OnInit {
   userStatus: string;
   commonStatus = CommonStatus;
   isEdit = false;
+  showSpinner = false;
 
   constructor(private citizenService: CitizenService,
               private sessionService: SessionService,
@@ -40,6 +41,7 @@ export class ViewCitizenComponent implements OnInit {
   }
 
   onFormSubmit(): void  {
+    this.showSpinner = true;
     const citizenModel = new CitizenDTO();
     citizenModel.id = this.sessionService.getUser().id;
     citizenModel.workFlowStageCode = WorkflowStageCitizenReg.CITIZEN_MODIFIED;
@@ -51,6 +53,9 @@ export class ViewCitizenComponent implements OnInit {
         } else {
           this.snackBarService.error('Error in submission');
         }
+      }, () => { },
+      () => {
+        this.showSpinner = false;
       }
     );
   }

@@ -229,8 +229,9 @@
   </div>
 
   <div class="pg-inner-col float-right" *ngIf="isEdit">
-    <button [disabled]="!publicUserForm.valid" mat-raised-button class="button float-right" (click)="saveCitizen()">
-      {{'CITIZEN.UPDATE'|translate}}
+    <button [disabled]="!publicUserForm.valid || showSpinner" mat-raised-button class="button float-right" (click)="saveCitizen()">
+      {{'CITIZEN.UPDATE'|translate}} 
+      <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
     </button>
   </div>
 </form>

@@ -51,6 +51,7 @@ export class CitizenApplicationComponent implements OnInit {
   publicUserExist: boolean = false;
   isContinue: boolean = false;
   formData: FormData = new FormData();
+  showSpinner = false;
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -231,6 +232,8 @@ export class CitizenApplicationComponent implements OnInit {
 
   saveCitizen() {
 
+    this.showSpinner = true;
+
     this.citizenDTO.nameEng = this.publicUserForm.controls.nameEnglish.value;
     this.citizenDTO.nameSin = this.publicUserForm.controls.nameSinhala.value;
     this.citizenDTO.nameTam = this.publicUserForm.controls.nameTamil.value;
@@ -253,7 +256,11 @@ export class CitizenApplicationComponent implements OnInit {
         } else {
           this.snackBar.error('Failed');
         }
-      });
+      }, () => {
+      },
+        () => {
+          this.showSpinner = false;
+        });
   }
 
   getApplicationDetails(citizenId: number) {
