@@ -3,14 +3,14 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row m0">
-        <label>Nearest Land Registry to the Applicant<span class="redtxt"></span></label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.NEAR_LAND_APPL'| translate}}<span class="redtxt"></span></label>
         <div class="default-input-feild">
-          <mat-select formControlName="landRegId" class="form-control">
-            <mat-option value="" disabled="true"> -- Select Land Registry -- </mat-option>
-            <mat-option value="{{item.landRegistryId}}" *ngFor="let item of landRegs">{{item.nameEng}}</mat-option>
+          <mat-select formControlName="landRegId" class="form-control"
+            placeholder="{{'LAND_REGISTRY.SELECT'| translate}}">
+            <mat-option value="{{item.landRegistryId}}" *ngFor="let item of landRegs">{{item.nameEng| listTranslate: item.nameSin: item.nameTam}}</mat-option>
           </mat-select>
           <div *ngIf="landRegId.invalid && (landRegId.dirty || landRegId.touched)">
-            <mat-error *ngIf="landRegId.errors.required" class="errors">Please fill the form data…! </mat-error>
+            <mat-error *ngIf="landRegId.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -20,29 +20,29 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Folio No<span class="redtxt">*</span></label>
+        <label>{{'FOLIO_TYPE.FOLIO_NUM'| translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="folioNo" class="form-control">
           </mat-form-field>
           <div *ngIf="folioNo.invalid && (folioNo.dirty || folioNo.touched)">
-            <mat-error *ngIf="folioNo.errors.required" class="errors">Please fill the form data…! </mat-error>
-            <mat-error *ngIf="folioNo.errors.maxlength" class="errors">Please enter valid folio no </mat-error>
-            <mat-error *ngIf="folioNo.errors.pattern" class="errors">Please enter valid folio no </mat-error>
+            <mat-error *ngIf="folioNo.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="folioNo.errors.maxlength" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
+            <mat-error *ngIf="folioNo.errors.pattern" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Day Book No</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.DAYBOOK'| translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="dayBookNo" class="form-control">
           </mat-form-field>
           <div *ngIf="dayBookNo.invalid && (dayBookNo.dirty || dayBookNo.touched)">
-            <mat-error *ngIf="dayBookNo.errors.maxlength" class="errors">Please enter valid day book no </mat-error>
-            <mat-error *ngIf="dayBookNo.errors.pattern" class="errors">Please enter valid day book no </mat-error>
+            <mat-error *ngIf="dayBookNo.errors.maxlength" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALID_DAYBOOK'| translate}}</mat-error>
+            <mat-error *ngIf="dayBookNo.errors.pattern" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.VALID_DAYBOOK'| translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -51,27 +51,27 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Deed No</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.DEED_NO'| translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="deedNo" class="form-control">
           </mat-form-field>
           <div *ngIf="deedNo.invalid && (deedNo.dirty || deedNo.touched)">
-            <mat-error *ngIf="deedNo.errors.maxlength" class="errors">Please enter valid day book no </mat-error>
+            <mat-error *ngIf="(deedNo.errors.maxlength || deedNo.errors.pattern)" class="errors">{{'VALIDATION.DEED.DEED_INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Notary Name</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.NOTARY_NAME'| translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="notaryName" class="form-control">
           </mat-form-field>
           <div *ngIf="notaryName.invalid && (notaryName.dirty || notaryName.touched)">
-            <mat-error *ngIf="notaryName.errors.pattern" class="errors">Please enter valid notary name </mat-error>
-            <mat-error *ngIf="notaryName.errors.maxlength" class="errors">Please enter valid notary name </mat-error>
+            <mat-error *ngIf="notaryName.errors.pattern" class="errors">{{'VALIDATION.NAME_INVALID_ERR'| translate}}</mat-error>
+            <mat-error *ngIf="notaryName.errors.maxlength" class="errors">{{'VALIDATION.NAME_INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Deed Attested Date</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.DEED_DATE'| translate}}</label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
             <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="attestedDate"
@@ -95,13 +95,14 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Nature of the Correction</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.NATURE_OF_CORRECTION'| translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <textarea matInput formControlName="correctionNature" class="form-control"></textarea>
           </mat-form-field>
           <div *ngIf="correctionNature.invalid && (correctionNature.dirty || correctionNature.touched)">
-            <mat-error *ngIf="correctionNature.errors.required" class="errors">Please fill the form data…!</mat-error>
+            <mat-error *ngIf="correctionNature.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="correctionNature.errors.maxlength || correctionNature.errors.pattern" class="errors">{{'VALIDATION.SECTION35.NATURE_INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -110,14 +111,14 @@
   <div class="pg-inner-row">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Correction to be made</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.CORRECTION'| translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <textarea matInput formControlName="requestedCorrection" class="form-control"></textarea>
           </mat-form-field>
           <div *ngIf="requestedCorrection.invalid && (requestedCorrection.dirty || requestedCorrection.touched)">
-            <mat-error *ngIf="requestedCorrection.errors.required" class="errors">Please fill the form data…!
-            </mat-error>
+            <mat-error *ngIf="requestedCorrection.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="requestedCorrection.errors.maxlength || requestedCorrection.errors.pattern" class="errors">{{'VALIDATION.SECTION35.CORRECTION_INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
       </div>

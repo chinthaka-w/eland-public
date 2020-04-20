@@ -112,7 +112,8 @@ export class CorrectionApplicationComponent implements OnInit {
         Validators.pattern(PatternValidation.DAY_BOOK_NUMBER)
       ]],
       deedNo: ['', [
-        Validators.maxLength(255)
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]],
       notaryName: ['', [
         Validators.pattern(PatternValidation.nameValidation),
@@ -120,8 +121,17 @@ export class CorrectionApplicationComponent implements OnInit {
       ]],
       attestedDate: [new Date(), [
       ]],
-      correctionNature: [null, [Validators.required]],
-      requestedCorrection: [null, [Validators.required]],
+      correctionNature: [null, [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]
+      ],
+      requestedCorrection: [null, [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]],
       recaptcha: [null],
     });
     this.initPaginator();
@@ -135,8 +145,8 @@ export class CorrectionApplicationComponent implements OnInit {
     this.isClick = true;
     this.isSave = true;
     if (this.correctionDetails.length > 0) {
-      this.recaptcha.setValidators([Validators.required]);
-      this.recaptcha.updateValueAndValidity();
+      // this.recaptcha.setValidators([Validators.required]);
+      // this.recaptcha.updateValueAndValidity();
       this.updateValidationsOnSubmit();
 
       if (this.reqForCorrectionForm.invalid) {

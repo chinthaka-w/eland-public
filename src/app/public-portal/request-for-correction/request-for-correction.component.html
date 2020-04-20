@@ -1,6 +1,6 @@
 <div class="page-header-default">
-  <h2>REQUEST FOR CORECTIONS OF REGISTRATIONS</h2>
-  <p *ngIf="showNewForm">Please fill in the following information to<br />register in the system</p>
+  <h2>{{'REQUEST_REGISTRATION.SECTION_35.NEW_REQUEST.TITLE'| translate}}</h2>
+  <p *ngIf="showNewForm">{{'REQUEST_REGISTRATION.SECTION_35.NEW_REQUEST.SUB_TITLE'| translate}}</p>
   <a [routerLink]="['/requests', getBase64(workflow.FOLIO_REQUEST_CORRECTION)]" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
