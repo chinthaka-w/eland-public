@@ -23,6 +23,7 @@ export class OnlineMethodComponent implements OnInit {
 showEncryptedPaymentRequest = false;
 showPaymentResult = false;
 loadIframe = false;
+enablePayment = false;
 paymentId: number;
 lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
 
@@ -92,6 +93,10 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
           encryptedPaymentRequest: result.encriptedPaymentResponse,
           totalFee: result.totalFee
         });
+      },
+      () => {},
+      () => {
+        this.enablePayment = true;
       }
     );
   }

@@ -36,7 +36,7 @@ export class CorrectionRequestService {
     return this.http.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
   }
 
-  //get all corrections to be made
+  // get all corrections to be made
   public getAllCorrectionToBeMade(): Observable<Object> {
     return this.http.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
   }
@@ -47,8 +47,8 @@ export class CorrectionRequestService {
 }
 
 // get correction requests
-getFolioCorrectionRequests(id: number): Observable<RequestResponse> {
-  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + id);
+getFolioCorrectionRequests(id: number, userType: string): Observable<RequestResponse> {
+  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + userType + '/' + id);
 }
 
 // get correction request
