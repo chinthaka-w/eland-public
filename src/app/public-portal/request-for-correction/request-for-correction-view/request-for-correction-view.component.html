@@ -4,11 +4,11 @@
       <mat-tab label="{{'CITIZEN.APPL'| translate}}">
         <app-correction-application [isReadonly]=!isEdit></app-correction-application>
       </mat-tab>
-      <mat-tab label="Remark">
-        <app-remark-history [remarkHistory]="remarkHistory"></app-remark-history>
-      </mat-tab>
-      <mat-tab label="Supporting Documents">
+      <mat-tab label="{{'CITIZEN.SUP_DOCS'| translate}}">
         <app-doc-preview [docMetaKeys]=docMetaKeys></app-doc-preview>
+      </mat-tab>
+      <mat-tab label="{{'CITIZEN.HISTORY'| translate}}">
+        <app-remark-history [remarkHistory]="remarkHistory"></app-remark-history>
       </mat-tab>
     </mat-tab-group>
   </div>
