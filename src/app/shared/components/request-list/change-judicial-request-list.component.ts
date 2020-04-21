@@ -149,22 +149,22 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         break;
       case Workflow.EXTRACT_REQUEST:
         this.loadExtractRequests();
-        this.headerText = this.translate.instant('PUBLIC_COMMON.SEARCH_TITLE1');
-        this.titleText = this.translate.instant('PUBLIC_COMMON.SEARCH_TITLE2');
+        this.headerText = this.translate.instant('PUBLIC_COMMON.EXTRACT_TIT1');
+        this.titleText = this.translate.instant('PUBLIC_COMMON.EXTRACT_TIT2');
         this.newButtonURL = '/extract';
         this.actionButtonURL = `/extract-view/`;
         break;
       case Workflow.LANGUAGE_CHANGE:
         this.loadLanguageChangeRequests();
-        this.headerText = this.translate.instant('PUBLIC_COMMON.REGISTRY1');
-        this.titleText = this.translate.instant('PUBLIC_COMMON.REGISTRY2');
+        this.headerText = this.translate.instant('PUBLIC_COMMON.LANG1');
+        this.titleText = this.translate.instant('PUBLIC_COMMON.LANG2');
         this.newButtonURL = '/language-change';
         this.actionButtonURL = '/language-change-view/';
         break;
       case Workflow.CHANGE_LAND_REGISTRY:
         this.loadLandRegistryRequests();
-        this.headerText = this.translate.instant('PUBLIC_COMMON.JUD_TITLE1');
-        this.titleText = this.translate.instant('PUBLIC_COMMON.JUD_TITLE2');
+        this.headerText = this.translate.instant('PUBLIC_COMMON.REGISTRY1');
+        this.titleText = this.translate.instant('PUBLIC_COMMON.REGISTRY2');
         this.newButtonURL = '/change-registry';
         this.actionButtonURL = '/change-land-registry-view/';
         break;

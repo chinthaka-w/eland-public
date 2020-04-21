@@ -1271,6 +1271,19 @@
     "TITLE6":"Terms of Service",
     "TITLE7":"Code of Conduct",
     "TITLE8":"Privacy Policy"
+  },
+  "RESIGNATION":{
+    "TITLE1":"Request for Resignation",
+    "TITLE2":"Please fill in the following information to create",
+    "TITLE3":"request for resignation",
+    "RESIGNATION_PROGRESS":"Resignation Request is in progress",
+    "STATUS":"Status :",
+    "APPLICATION":"Application",
+    "REASON_FOR_RESIGNATION":"Reason for Resignation",
+    "REASON_REQ":"Please fill Reason for Resignation",
+    "RESIGNATION_LETTER":"Resignation Letter",
+    "IF_ANY":"(If any)"
+
   }
 
 
