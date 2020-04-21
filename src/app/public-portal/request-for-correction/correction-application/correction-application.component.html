@@ -7,8 +7,9 @@
         <div class="default-input-feild">
           <mat-select formControlName="landRegId" class="form-control"
             placeholder="{{'LAND_REGISTRY.SELECT'| translate}}">
-            <mat-option value="{{item.landRegistryId}}" *ngFor="let item of landRegs">{{item.nameEng| listTranslate: item.nameSin: item.nameTam}}</mat-option>
+            <mat-option [value]="item.landRegistryId" *ngFor="let item of landRegs">{{item.nameEng| listTranslate: item.nameSin: item.nameTam}}</mat-option>
           </mat-select>
+          <mat-spinner *ngIf="!isLrLoaded && !isReadonly" [diameter]="16" class="spinner-input"></mat-spinner>
           <div *ngIf="landRegId.invalid && (landRegId.dirty || landRegId.touched)">
             <mat-error *ngIf="landRegId.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
           </div>
@@ -128,7 +129,7 @@
     <div class="default-input-wrapper full-row">
       <div class="pg-inner-col">
         <button type="button" class="add-row" mat-flat-button (click)="onAddCorrection(editIndex)">
-          {{!isEdit? 'Add': 'Edit'}} <i class="material-icons"> {{!isEdit? 'add_circle_outline': 'edit'}} </i>
+          {{!isEdit? ('BUTTONS.ADD'| translate): ('BUTTONS.EDIT_BUTTON'| translate)}} <i class="material-icons"> {{!isEdit? 'add_circle_outline': 'edit'}} </i>
         </button>
       </div>
     </div>
@@ -143,26 +144,26 @@
       <table mat-table [dataSource]="dataSource">
         <!-- Folio No Column -->
         <ng-container matColumnDef="folioNo">
-          <th mat-header-cell *matHeaderCellDef> Folio No. </th>
+          <th mat-header-cell *matHeaderCellDef> {{'FOLIO_TYPE.FOLIO_NUM'| translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.folioNo}} </td>
           <td mat-footer-cell *matFooterCellDef>
             <button *ngIf="correctionDetails.length>0" type="button" color="warn" class="add-row" mat-button
               (click)="onClearAll()">
-              Clear All <i class="material-icons">delete_forever</i>
+              {{'CITIZEN.CITIZEN_CORRECTION.DLT_FORVR'| translate}} <i class="material-icons">delete_forever</i>
             </button>
           </td>
         </ng-container>
 
         <!-- Day book No Column -->
         <ng-container matColumnDef="dayBookNo">
-          <th mat-header-cell *matHeaderCellDef> Day Book No </th>
+          <th mat-header-cell *matHeaderCellDef> {{'CITIZEN.CITIZEN_CORRECTION.DAYBOOK'| translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.dayBookNo}} </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <!-- Nature of correction Column -->
         <ng-container matColumnDef="correctionNature">
-          <th mat-header-cell *matHeaderCellDef> Nature of Correction </th>
+          <th mat-header-cell *matHeaderCellDef> {{'CITIZEN.CITIZEN_CORRECTION.NATURE_CORREC'| translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.correctionNature}} </td>
           <td mat-footer-cell *matFooterCellDef> </td>
 
@@ -170,14 +171,14 @@
 
         <!-- Requested correction Column -->
         <ng-container matColumnDef="requestedCorrection">
-          <th mat-header-cell *matHeaderCellDef> Requested correction to be made </th>
+          <th mat-header-cell *matHeaderCellDef> {{'CITIZEN.CITIZEN_CORRECTION.REQ_CORE_MAD'| translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.requestedCorrection}} </td>
           <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
         <!-- Action colum -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <th mat-header-cell *matHeaderCellDef> {{'COMMON.ACTION'| translate}} </th>
           <td mat-cell *matCellDef="let element; let i = index">
             <button type="button" class="add-row mr-5" mat-icon-button color="primary" (click)="onEdit(i)">
               <i class="material-icons">edit</i>
@@ -211,7 +212,7 @@
     </div>
     <div class="pg-inner-col right" *ngIf="!isReadonly">
       <button [disabled]="isSave" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
-        Submit
+        {{'BUTTONS.SUBMIT_BUTTON'| translate}}
         <mat-spinner *ngIf="isClick && isSave" [diameter]="16" class="spinner-inline"></mat-spinner>
       </button>
     </div>

@@ -30,7 +30,7 @@ export class RequestForCorrectionViewComponent implements OnInit {
       this.workflowStageCode = this.decodeBase64(params.get('workflowStage'));
 
       // form disable
-      if (this.workflowStageCode === FolioCorrectionWorkflowStages.APPLICANT_INITIATE) {
+      if (this.workflowStageCode === FolioCorrectionWorkflowStages.APPLICANT_MODIFIED) {
         this.isEdit = true;
       }
       this.requestId = +this.decodeBase64(params.get('id'));

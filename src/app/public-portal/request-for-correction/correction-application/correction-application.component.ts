@@ -1,3 +1,4 @@
+import { SystemService } from './../../../shared/service/system.service';
 import { FileUploadPopupComponent } from './../../../shared/components/file-upload-popup/file-upload-popup.component';
 import { FileMeta } from './../../../shared/dto/file-meta.model';
 import { SessionService } from 'src/app/shared/service/session.service';
@@ -39,6 +40,7 @@ export class CorrectionApplicationComponent implements OnInit {
   isSave = false;
   isClick = false;
   reqId: number;
+  isLrLoaded = false;
 
   constructor(private correctionRequestService: CorrectionRequestService,
               private formBuilder: FormBuilder,
@@ -46,7 +48,8 @@ export class CorrectionApplicationComponent implements OnInit {
               public dialog: MatDialog,
               public sessionService: SessionService,
               public router: Router,
-              public route: ActivatedRoute) { }
+              public route: ActivatedRoute,
+              private systemService: SystemService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -96,6 +99,15 @@ export class CorrectionApplicationComponent implements OnInit {
   private getLandRegistries(): void {
     this.correctionRequestService.getLandRegistries().subscribe(res => {
       this.landRegs = res;
+    },
+    () => {
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.TITLE.VALIDATION_ERROR'));
+    },
+    () => {
+      this.isLrLoaded = true;
+      if (this.reqId != null) {
+        this.getCorrectionRequest();
+      }
     });
   }
 
@@ -136,21 +148,18 @@ export class CorrectionApplicationComponent implements OnInit {
     });
     this.initPaginator();
     this.getLandRegistries();
-    if (this.reqId != null) {
-      this.getCorrectionRequest();
-    }
   }
 
   onFormSubmit() {
     this.isClick = true;
     this.isSave = true;
     if (this.correctionDetails.length > 0) {
-      // this.recaptcha.setValidators([Validators.required]);
-      // this.recaptcha.updateValueAndValidity();
+      this.recaptcha.setValidators([Validators.required]);
+      this.recaptcha.updateValueAndValidity();
       this.updateValidationsOnSubmit();
 
       if (this.reqForCorrectionForm.invalid) {
-        this.snackBarService.warn('Plase fill the form');
+        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
         this.isSave = false;
       } else if (this.reqForCorrectionForm.valid) {
         // submit correction request
@@ -171,7 +180,7 @@ export class CorrectionApplicationComponent implements OnInit {
 
       }
     } else {
-      this.snackBarService.warn('Plase fill the form');
+      this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
       this.isSave = false;
     }
   }
@@ -189,7 +198,7 @@ export class CorrectionApplicationComponent implements OnInit {
     this.recaptcha.clearValidators();
     // this.updateValidationsOnAddFolioCorrection();
     if (this.reqForCorrectionForm.invalid) {
-      this.snackBarService.error('Please fill the form');
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
       return;
     }
 
@@ -296,12 +305,13 @@ export class CorrectionApplicationComponent implements OnInit {
 
   // get request details
   getCorrectionRequest(): void {
+    console.log('form enable', this.isReadonly);
     this.correctionRequestService.getCorrectionRequest(this.reqId).subscribe(
       (response: RequestResponse) => {
         const correctionViewRequest: CorrectionRequest = response.data;
-        if  (correctionViewRequest.workflowStageCode !== FolioCorrectionWorkflowStages.RL_RETURN) {
+        this.reqForCorrectionForm.patchValue(correctionViewRequest.correctionDetails[0]);
+        if  (this.isReadonly) {
           this.reqForCorrectionForm.disable();
-          this.reqForCorrectionForm.patchValue(correctionViewRequest.correctionDetails[0]);
           this.isReadonly = true;
         }
       }

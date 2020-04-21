@@ -1,8 +1,8 @@
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
     <mat-tab-group>
-      <mat-tab label="Application">
-        <app-correction-application></app-correction-application>
+      <mat-tab label="{{'CITIZEN.APPL'| translate}}">
+        <app-correction-application [isReadonly]=!isEdit></app-correction-application>
       </mat-tab>
       <mat-tab label="Remark">
         <app-remark-history [remarkHistory]="remarkHistory"></app-remark-history>
