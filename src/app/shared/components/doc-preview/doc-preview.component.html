@@ -1,26 +1,25 @@
-<div id="doc-preview" class="page-layout simple fullwidth" fxLayout="column">
-    <div class="p-24">
-        <div
-          class="mb-24"
-          fxLayout="column"
-          fxLayoutAlign="start"
-          fxLayout.gt-md="row"
-        >
-        </div>
-      </div>
 <div class="row">
-    <div class="pg-inner-col">
-        <mat-card *ngFor="let doc of docData; let i = index">
-            <div class="pg-inner-row mb-20">
-              <h4>{{doc.name}}</h4>
-            </div>
-            <div class="pg-inner-row mb-20">
-              <ngx-image-viewer
-                [src]="doc.pages"
-              >
-              </ngx-image-viewer>
-            </div>
-          </mat-card>
+  <mat-card class="mb-10 mt-10 ml-10 mr-10 mat-elevation-z5" *ngFor="let doc of docData; let i = index">
+    <mat-card-header>
+      <mat-card-title>{{doc.description| listTranslate: doc.descriptionSin: doc.descriptionTam}}</mat-card-title>
+    </mat-card-header>
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col">
+        <ngx-image-viewer
+          [src]="doc.pages"
+          [config]="{
+            btnShow: {
+              zoomIn: true,
+              zoomOut: true,
+              rotateClockwise: false,
+              rotateCounterClockwise: false,
+              next: true,
+              prev: true
+            }
+          }"
+        >
+        </ngx-image-viewer>
+      </div>
     </div>
-</div>
+  </mat-card>
 </div>
