@@ -1,6 +1,6 @@
 <div class="page-header-default" *ngIf="!isContinueToPayment">
-  <h2>APPLICATION FOR CHANGING THE JUDICIAL ZONE </h2>
-  <p>Please fill in the following information to<br />register in the system</p>
+  <h2>{{'CHG_JUD_ZONE.TITLE1'|translate}} </h2>
+  <p>{{'CHG_JUD_ZONE.TITLE2'|translate}}<br />{{'CHG_JUD_ZONE.TITLE3'|translate}}</p>
   <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
@@ -10,7 +10,7 @@
 
     <div class="pg-inner-row mb-20">
       <h5 class="mb-20"><i class="material-icons">description</i>
-        APPLICATION FOR CHANGING THE JUDICIAL ZONE
+        {{'CHG_JUD_ZONE.TITLE4'|translate}}
       </h5>
       <div class="separator">&nbsp;</div>
     </div>
@@ -19,12 +19,12 @@
 
         <div class="pg-inner-col right">
           <div class="default-input-wrapper m0 rac-col">
-            <label>Language:</label>
+            <label>{{'CHG_JUD_ZONE.LANGUAGE'|translate}}</label>
             <div class="default-input-feild">
               <section class="example-section">
-                <mat-checkbox class="example-margin" disabled="true" [checked]="isSinhala">Sinhala</mat-checkbox>
-                <mat-checkbox class="example-margin" disabled="true" [checked]="isEnglish">English</mat-checkbox>
-                <mat-checkbox class="example-margin" disabled="true" [checked]="isTamil">Tamil</mat-checkbox>
+                <mat-checkbox class="example-margin" disabled="true" [checked]="isSinhala">{{'CHG_JUD_ZONE.SINHALA'|translate}}</mat-checkbox>
+                <mat-checkbox class="example-margin" disabled="true" [checked]="isEnglish">{{'CHG_JUD_ZONE.ENGLISH'|translate}}</mat-checkbox>
+                <mat-checkbox class="example-margin" disabled="true" [checked]="isTamil">{{'CHG_JUD_ZONE.TAMIL'|translate}}</mat-checkbox>
               </section>
             </div>
           </div>
@@ -36,45 +36,45 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Permenent address in new judicial zone (English):</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_ENG'|translate}}</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressEng"></textarea>
               </mat-form-field>
               <div *ngIf="addressEng.invalid && (addressEng.dirty || addressEng.touched)">
-                <mat-error *ngIf="addressEng.errors.required" class="errors">Please fill the required fields</mat-error>
-                <mat-error *ngIf="addressEng.errors.maxLength" class="errors">Please enter valid permenent address (English)</mat-error>
-                <mat-error *ngIf="addressEng.errors.pattern" class="errors">Please enter valid permenent address (English)</mat-error>
+                <mat-error *ngIf="addressEng.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
+                <mat-error *ngIf="addressEng.errors.maxLength" class="errors">{{'CHG_JUD_ZONE.VALID_ADDRESS'|translate}}</mat-error>
+                <mat-error *ngIf="addressEng.errors.pattern" class="errors">{{'CHG_JUD_ZONE.VALID_ADDRESS'|translate}}</mat-error>
               </div>
             </div>
           </div>
         </div>
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Permenent address in new judicial zone (Sinhala):</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_SIN'|translate}}</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressSin"></textarea>
               </mat-form-field>
               <div *ngIf="addressSin.invalid && (addressSin.dirty || addressSin.touched)">
-                <mat-error *ngIf="addressSin.errors.required" class="errors">Please fill the required fields</mat-error>
-                <mat-error *ngIf="addressSin.errors.maxLength" class="errors">Please enter valid permenent address (Sinhala)</mat-error>
-                <mat-error *ngIf="addressSin.errors.pattern" class="errors">Please enter valid permenent address (Sinhala)</mat-error>
+                <mat-error *ngIf="addressSin.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
+                <mat-error *ngIf="addressSin.errors.maxLength" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_SIN'|translate}}</mat-error>
+                <mat-error *ngIf="addressSin.errors.pattern" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_SIN'|translate}}</mat-error>
               </div>
             </div>
           </div>
         </div>
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Permenent address in new judicial zone (Tamil):</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_TAM'|translate}}</label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressTam"></textarea>
               </mat-form-field>
               <div *ngIf="addressTam.invalid && (addressTam.dirty || addressTam.touched)">
-                <mat-error *ngIf="addressTam.errors.required" class="errors">Please fill the required fields</mat-error>
-                <mat-error *ngIf="addressTam.errors.maxLength" class="errors">Please enter valid permenent address (Tamil)</mat-error>
-                <mat-error *ngIf="addressTam.errors.pattern" class="errors">Please enter valid permenent address (Tamil)</mat-error>
+                <mat-error *ngIf="addressTam.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
+                <mat-error *ngIf="addressTam.errors.maxLength" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_TAM'|translate}}</mat-error>
+                <mat-error *ngIf="addressTam.errors.pattern" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_TAM'|translate}}</mat-error>
               </div>
             </div>
           </div>
@@ -177,21 +177,21 @@
 
       <div class="separator">&nbsp;</div>
 
-      <label>Please give the following details regarding new judicial zone </label>
+      <label>{{'CHG_JUD_ZONE.DETAIL_JUD'|translate}}</label>
       <div>&nbsp;</div>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>Judicial Zone:</label></div>
+          <label>{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}}</label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
 
             <div class="default-input-feild">
-                <mat-select formControlName="judicialZoneId" (selectionChange)="onSelectJudicial(judicialZoneId.value)" class="form-control" placeholder="-- Select Judicial Zone --">
-                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">{{ jud.nameEng }}
+                <mat-select formControlName="judicialZoneId" (selectionChange)="onSelectJudicial(judicialZoneId.value)" class="form-control" placeholder="{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}}">
+                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">{{ jud.nameEng|listTranslate:jud.nameSin:jud.nameTam}}
                   </mat-option>
                 </mat-select>
               <div *ngIf="judicialZoneId.invalid && (judicialZoneId.touched || judicialZoneId.dirty)">
-                <mat-error *ngIf="judicialZoneId.errors.required" class="errors">Please fill the required fields
+                <mat-error *ngIf="judicialZoneId.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}
                 </mat-error>
               </div>
             </div>
@@ -200,18 +200,18 @@
       </div>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>Land Registry:</label></div>
+          <label>{{'CHG_JUD_ZONE.LAND_REG'|translate}}</label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
                 <mat-select name="landRegistry" formControlName="landRegistry" class="form-control"
-                  placeholder="-- Select Land Registry --">
-                  <mat-option *ngFor="let reg of landRegistries" [value]="reg.code">{{ reg.description }}
+                  placeholder="{{'CHG_JUD_ZONE.SELECT_LAND'|translate}}">
+                  <mat-option *ngFor="let reg of landRegistries" [value]="reg.code">{{ reg.description |listTranslate:reg.descriptionSin:reg.descriptionTam}}
                   </mat-option>
-                </mat-select>              
+                </mat-select>
               <div *ngIf="landRegistry.invalid && (landRegistry.touched || landRegistry.dirty)"
                    class="invalid-feedback">
-                <mat-error *ngIf="landRegistry.errors.required" class="errors">Please fill the required fields</mat-error>
+                <mat-error *ngIf="landRegistry.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
               </div>
             </div>
           </div>
@@ -220,15 +220,15 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>DS Division</label>
+            <label>{{'CHG_JUD_ZONE.DS_DIV'|translate}}</label>
             <div class="default-input-feild">
               <mat-select class="form-control" formControlName="dsDivision" class="form-control"
-                placeholder="-- Select DS Division --" (selectionChange)="selectGsDivision($event.value, i)">
+                placeholder="{{'CHG_JUD_ZONE.SLECT_DS'|translate}}" (selectionChange)="selectGsDivision($event.value, i)">
                 <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.divisionId}}"
-                  [disabled]="gsDivision.isSelected">{{ gsDivision.description }}</mat-option>
+                  [disabled]="gsDivision.isSelected">{{ gsDivision.description|listTranslate:gsDivision.descriptionSin: gsDivision.descriptionTam }}</mat-option>
               </mat-select>
               <div *ngIf="dsDivision.invalid && (dsDivision.touched || dsDivision.dirty)">
-                <mat-error *ngIf="dsDivision.errors.required" class="errors">Please fill the required fields</mat-error>
+                <mat-error *ngIf="dsDivision.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
               </div>
             </div>
           </div>
@@ -236,17 +236,17 @@
 
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>GN Division</label>
+            <label>{{'CHG_JUD_ZONE.GN_DIV'|translate}}</label>
             <div class="default-input-feild">
               <mat-select multiple class="form-control" formControlName="gnDivision" class="form-control"
-                    (selectionChange)="selectGnDivision($event.value[$event.value.length -1])" placeholder="-- Select DS Division --"
+                    (selectionChange)="selectGnDivision($event.value[$event.value.length -1])" placeholder="{{'CHG_JUD_ZONE.SELECT_GN'|translate}}"
                     focused="isGnFocus">
                       <mat-option *ngFor="let gnDivision of gnDivisions" [value]="gnDivision.gnDivisionId">
                         {{ gnDivision.description }}
                       </mat-option>
                   </mat-select>
                   <div *ngIf="gnDivision.invalid && (gnDivision.touched || gnDivision.dirty)">
-                    <mat-error *ngIf="gnDivision.errors.required" class="errors">Please fill the required fields</mat-error>
+                    <mat-error *ngIf="gnDivision.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
                   </div>
             </div>
           </div>
@@ -260,7 +260,7 @@
         <ng-container *ngFor="let document of docList">
           <div class="pg-inner-col-3">
             <div class="default-input-wrapper full-row">
-              <label>{{document.description}}
+              <label>{{document.description|listTranslate:document.descriptionSin:document.descriptionTam}}
                 <span *ngIf="document.required == true">*</span>
               </label>
               <file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>
@@ -277,13 +277,13 @@
           <re-captcha formControlName="recaptcha"></re-captcha>
         </div>
         <div class="pg-inner-col middle">
-          By signing up, you agree to E-Land's
-          <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
-          and <a href="#">Privacy Policy</a> .
+          {{'CHG_JUD_ZONE.TITLE5'|translate}}
+          <a href="#">{{'CHG_JUD_ZONE.TITLE6'|translate}}</a> , <a href="#">{{'CHG_JUD_ZONE.TITLE7'|translate}}</a> ,
+          and <a href="#">{{'CHG_JUD_ZONE.TITLE8'|translate}}</a> .
         </div>
         <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
           <button [disabled]="!(judicialChangeForm.valid && isRequiredDocsUpload)" mat-raised-button class="lg-button" (click)="continue()">
-            Continue
+            {{'CHG_JUD_ZONE.CONTINUE'|translate}}
           </button>
         </div>
         <!--<div class="pg-inner-col right" *ngIf="isPaymentSuccess">-->

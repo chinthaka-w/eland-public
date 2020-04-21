@@ -1,5 +1,5 @@
 <div class="page-header-default">
-  <h2>Request for leave</h2>
+  <h2>{{'LEAVE_REQUEST.TITILE'|translate}}</h2>
   <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
@@ -8,14 +8,14 @@
   <div class="page-content-wrapper">
     <div class="page-content-inner-wrapper">
 
-      <h5 class="uw-title"><span>Application</span></h5>
+      <h5 class="uw-title"><span>{{'LEAVE_REQUEST.APPPLICATION'|translate}}</span></h5>
 
       <form [formGroup]="notaryLeaveRequestForm">
 
         <div class="pg-inner-row mb-20">
           <div class="pg-inner-col">
             <div class="default-input-wrapper full-row">
-              <label>Leave Period (From)<span class="redtxt">*</span></label>
+              <label>{{'LEAVE_REQUEST.FROM'|translate}}<span class="redtxt">*</span></label>
               <div class="default-input-feild date-feild">
                 <mat-form-field appearance="outline">
                   <input matInput [matDatepicker]="pickerFrom"  [min]="minDate" [readonly]="true" formControlName="fromDate" class="form-control">
@@ -23,7 +23,7 @@
                   <mat-datepicker #pickerFrom></mat-datepicker>
                 </mat-form-field>
                 <div *ngIf="FormControls.fromDate.touched && FormControls.fromDate.errors" class="invalid-feedback">
-                  <mat-error *ngIf="FormControls.fromDate.errors.required" class="errors">From date is required
+                  <mat-error *ngIf="FormControls.fromDate.errors.required" class="errors">{{'LEAVE_REQUEST.FROM_REQ'|translate}}
                   </mat-error>
                 </div>
 
@@ -32,7 +32,7 @@
           </div>
           <div class="pg-inner-col">
             <div class="default-input-wrapper full-row">
-              <label>Leave Period (To)<span class="redtxt">*</span></label>
+              <label>{{'LEAVE_REQUEST.TO'|translate}}<span class="redtxt">*</span></label>
               <div class="default-input-feild date-feild">
                 <mat-form-field appearance="outline">
                   <input matInput [matDatepicker]="pickerTo" [min]="minDate" [readonly]="true" formControlName="toDate" class="form-control">
@@ -40,7 +40,7 @@
                   <mat-datepicker #pickerTo></mat-datepicker>
                 </mat-form-field>
                 <div *ngIf="FormControls.toDate.touched && FormControls.toDate.errors" class="invalid-feedback">
-                  <mat-error *ngIf="FormControls.toDate.errors.required" class="errors">To date is required</mat-error>
+                  <mat-error *ngIf="FormControls.toDate.errors.required" class="errors">{{'LEAVE_REQUEST.TO_REQ'|translate}}</mat-error>
                 </div>
 
               </div>
@@ -49,13 +49,13 @@
         </div>
 
         <div class="default-input-wrapper full-row">
-          <label>Leave Reason:<span class="redtxt">*</span></label>
+          <label>{{'LEAVE_REQUEST.LEAVE_REASON'|translate}}<span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <textarea matInput rows="5" formControlName="reason"></textarea>
             </mat-form-field>
             <div *ngIf="FormControls.reason.touched && FormControls.reason.errors" class="invalid-feedback">
-              <mat-error *ngIf="FormControls.reason.errors.required" class="errors">Reason for leave Required
+              <mat-error *ngIf="FormControls.reason.errors.required" class="errors">{{'LEAVE_REQUEST.REASON_REQ'|translate}}
               </mat-error>
             </div>
           </div>
@@ -66,7 +66,7 @@
       </form>
 
       <div class="default-input-wrapper full-row" *ngFor="let doc of workflowStageDocTypes">
-        <label>{{doc.description}} (if any)</label>
+        <label>{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}} {{'LEAVE_REQUEST.IF_ANY'|translate}}</label>
         <div class="default-input-feild">
           <div class="drag-drop">
             <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
@@ -85,7 +85,7 @@
         </div>
         <div class="pg-inner-col right">
           <button mat-raised-button class="lg-button" [disabled]="!notaryLeaveRequestForm.valid"
-            (click)="makeLeaveRequest()">Submit</button>
+            (click)="makeLeaveRequest()">{{'LEAVE_REQUEST.SUBMIT'|translate}}</button>
         </div>
       </div>
 
