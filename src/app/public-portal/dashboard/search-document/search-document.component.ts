@@ -71,6 +71,8 @@ export class SearchDocumentComponent implements OnInit {
   public paymentDto: PaymentDto = new PaymentDto();
   public returnURl;
   statusOnlinePayment: boolean;
+  userType: string;
+  userId: number;
 
   folioStatus: Enum = null;
 
@@ -132,6 +134,10 @@ export class SearchDocumentComponent implements OnInit {
     this.loadDSDivision();
     this.loadReasonForSearch();
     this.onChangeFolioFormController();
+
+    // set online payment
+    this.userType = this.sessionService.getUser().type;
+    this.userId = this.sessionService.getUser().id;
 
   }
 
