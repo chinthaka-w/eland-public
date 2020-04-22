@@ -41,6 +41,8 @@ export class LanguageChangeComponent implements OnInit {
   paymentMethod: number;
   paymentDto: PaymentDto = new PaymentDto();
   statusOnlinePayment: boolean = false;
+  userType: string;
+  userId: number;
 
   constructor(private formBulder: FormBuilder,
               private languageChangeService: LanguageChangeService,
@@ -54,6 +56,8 @@ export class LanguageChangeComponent implements OnInit {
     this.getSupportingDocs(LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT);
     this.getNameTitles();
     this.loadForm();
+    this.userType = this.sessionService.getUser().type;
+    this.userId = this.sessionService.getUser().id;
   }
 
   /**
