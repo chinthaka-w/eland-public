@@ -716,6 +716,7 @@
        },
        "MESSAGE":{
           "SUBMITTED_SUCCESS":"Successfully submitted!",
+          "UPDATE_SUCCESS": "Successfully updated!",
           "REMARK_ADDED":"Insert your remark here",
           "ACTIVATED_SUCCESS":"Successfully activated!",
           "DEACTIVATED_SUCCESS":"Successfully deactivated!",

@@ -717,6 +717,7 @@
        },
        "MESSAGE":{
           "SUBMITTED_SUCCESS":"සාර්ථකව සුරකින ලදි!",
+          "UPDATE_SUCCESS": "සාර්ථකව යාවත්කාලීන කරන ලදි!",
           "REMARK_ADDED":"ඔබේ ප්‍රකාශය මෙහි ඇතුළත් කරන්න",
           "ACTIVATED_SUCCESS":"සාර්ථකව සක්‍රිය කර ඇත!",
           "DEACTIVATED_SUCCESS":"සාර්ථකව අක්‍රිය කර ඇත!",
