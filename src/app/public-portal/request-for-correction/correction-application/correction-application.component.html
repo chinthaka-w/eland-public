@@ -125,7 +125,7 @@
       </div>
     </div>
   </div>
-  <div class="pg-inner-row" *ngIf="!isReadonly">
+  <div class="pg-inner-row" *ngIf="!isReadonly && newRequest">
     <div class="default-input-wrapper full-row">
       <div class="pg-inner-col">
         <button type="button" class="add-row" mat-flat-button (click)="onAddCorrection(editIndex)">
@@ -139,7 +139,7 @@
       <hr />
     </div>
   </div>
-  <div class="pg-inner-row mb-20" *ngIf="!isReadonly">
+  <div class="pg-inner-row mb-20" *ngIf="!isReadonly && newRequest">
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource">
         <!-- Folio No Column -->
@@ -212,7 +212,7 @@
     </div>
     <div class="pg-inner-col right" *ngIf="!isReadonly">
       <button [disabled]="isSave" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
-        {{'BUTTONS.SUBMIT_BUTTON'| translate}}
+        {{newRequest ? 'BUTTONS.SUBMIT_BUTTON' : 'BUTTONS.UPDATE_BUTTON'| translate}}
         <mat-spinner *ngIf="isClick && isSave" [diameter]="16" class="spinner-inline"></mat-spinner>
       </button>
     </div>

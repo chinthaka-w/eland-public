@@ -43,7 +43,7 @@ export class CorrectionRequestService {
 
  // save correction request
  saveCorrectionReq(correctionRequest: CorrectionRequest): Observable<any> {
-  return this.http.post(this.FOLIO_CORRECTION_URL + '/' , correctionRequest);
+  return this.http.put(this.FOLIO_CORRECTION_URL + '/' , correctionRequest);
 }
 
 // get correction requests

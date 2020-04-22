@@ -1,3 +1,4 @@
+import { transition } from '@angular/animations';
 import { SystemService } from './../../../shared/service/system.service';
 import { FileUploadPopupComponent } from './../../../shared/components/file-upload-popup/file-upload-popup.component';
 import { FileMeta } from './../../../shared/dto/file-meta.model';
@@ -25,6 +26,7 @@ import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 export class CorrectionApplicationComponent implements OnInit {
 
   @Input() isReadonly = false;
+  @Input() newRequest = false;
   public reqForCorrectionForm: FormGroup;
   public landRegistry: LandRegistryModel[];
   landRegs: any;
@@ -153,31 +155,63 @@ export class CorrectionApplicationComponent implements OnInit {
   onFormSubmit() {
     this.isClick = true;
     this.isSave = true;
-    if (this.correctionDetails.length > 0) {
+
+    // submit new correction request
+    if (this.newRequest) {
+      if (this.correctionDetails.length > 0) {
+        this.recaptcha.setValidators([Validators.required]);
+        this.recaptcha.updateValueAndValidity();
+        this.updateValidationsOnSubmit();
+        if (this.reqForCorrectionForm.invalid) {
+          this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+          this.isSave = false;
+        } else if (this.reqForCorrectionForm.valid) {
+          // submit correction request
+          const correctionRequest = new CorrectionRequest();
+          correctionRequest.correctionDetails = this.correctionDetails;
+          correctionRequest.userId = this.sessionService.getUser().id;
+          correctionRequest.userType = this.sessionService.getUser().type;
+          correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.APPLICANT_INITIATE;
+
+          this.correctionRequestService.saveCorrectionReq(correctionRequest).subscribe(
+            (response: RequestResponse) => {
+              if (response.status === CommonStatus.SUCCESS) {
+                this.isSave = false;
+                this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
+                this.router.navigate(['/requests', this.getBase64(Workflow.FOLIO_REQUEST_CORRECTION)]);
+              }
+            }
+          );
+        }
+      }
+
+      // submit request update
+    } else if (!this.newRequest) {
       this.recaptcha.setValidators([Validators.required]);
       this.recaptcha.updateValueAndValidity();
-      this.updateValidationsOnSubmit();
+      if (this.reqForCorrectionForm.valid) {
+        let updatedCorrectionDetail = new CorrectionDetail();
+        updatedCorrectionDetail = this.reqForCorrectionForm.value;
+        this.correctionDetails =  [];
+        this.correctionDetails.push(updatedCorrectionDetail);
 
-      if (this.reqForCorrectionForm.invalid) {
-        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
-        this.isSave = false;
-      } else if (this.reqForCorrectionForm.valid) {
-        // submit correction request
-        const correctionRequest = new CorrectionRequest();
-        correctionRequest.correctionDetails = this.correctionDetails;
-        correctionRequest.userId = this.sessionService.getUser().id;
-        correctionRequest.userType = this.sessionService.getUser().type;
-        correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.APPLICANT_INITIATE;
-        this.correctionRequestService.saveCorrectionReq(correctionRequest).subscribe(
+        const updatedCorrectionRequest = new CorrectionRequest();
+        updatedCorrectionRequest.correctionDetails = this.correctionDetails;
+        updatedCorrectionRequest.userId = this.sessionService.getUser().id;
+        updatedCorrectionRequest.userType = this.sessionService.getUser().type;
+        updatedCorrectionRequest.id = this.reqId;
+
+        this.correctionRequestService.saveCorrectionReq(updatedCorrectionRequest).subscribe(
           (response: RequestResponse) => {
             if (response.status === CommonStatus.SUCCESS) {
               this.isSave = false;
-              this.snackBarService.success('Successfully submitted');
-              this.router.navigate(['/requests', this.getBase64(Workflow.FOLIO_REQUEST_CORRECTION)]);
+              this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.UPDATE_SUCCESS'));
             }
           }
         );
-
+      } else {
+        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+        this.isSave = false;
       }
     } else {
       this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));

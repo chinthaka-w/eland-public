@@ -96,8 +96,8 @@
 
       <!--section 35/day book no-->
       <ng-container *ngIf="flag == Workflow.FOLIO_REQUEST_CORRECTION" matColumnDef="workflowDescription">
-        <th mat-header-cell *matHeaderCellDef> Day Book No</th>
-        <td mat-cell *matCellDef="let element"> {{element.dayBookNo}}</td>
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.workflowDescription}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
