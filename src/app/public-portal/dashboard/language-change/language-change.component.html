@@ -1,6 +1,6 @@
 <div class="page-header-default">
-    <h2>APPLICATION FOR A WARRANT IN AN ADDITIONAL LANGUAGE</h2>
-    <p>Please fill in the following information to<br />register in the system</p>
+    <h2>{{'LANGUAGE_CHANGE.TITLE1'|translate}}</h2>
+    <p>{{'LANGUAGE_CHANGE.TITLE2'|translate}}<br />{{'LANGUAGE_CHANGE.TITLE3'|translate}}</p>
     <a [routerLink]="['/requests',backUrl]" routerLinkActive="router-link-active"  class="phd-back-btn">
         <i class="material-icons">keyboard_backspace</i>
     </a>
@@ -12,7 +12,7 @@
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
                     <h5 class="mb-20"><i class="material-icons">description</i>
-                        APPLICATION TO OBTAIN A LICENSE IN AN ADDITIONAL LANGAUAGE
+                      {{'LANGUAGE_CHANGE.TITLE4'|translate}}
                     </h5>
                     <div class="separator">&nbsp;</div>
                 </div>
@@ -21,11 +21,11 @@
                 <div class="pg-inner-col">
                   <mat-form-field appearance="outline">
                     <select matNativeControl  formControlName="title"  class="form-control">
-                      <option value="0" [disabled]="true">Select</option>
+                      <option value="0" [disabled]="true">{{'LANGUAGE_CHANGE.SELECT'|translate}}</option>
                       <option *ngFor="let title of nameTitles"
                               [value]="title.nameTitleId"
                       >
-                        {{title.titleEng}}
+                        {{title.titleEng|listTranslate:title.titleSin:title.titleTam}}
                       </option>
 
                     </select>
@@ -33,16 +33,16 @@
                 </div>
                 <div class="pg-inner-col right">
                     <div class="default-input-wrapper m0 rac-col">
-                        <label>Language:<span class="redtxt">*</span></label>
+                        <label>{{'LANGUAGE_CHANGE.LANGUAGE'|translate}}<span class="redtxt">*</span></label>
                         <div class="default-input-feild">
                             <mat-checkbox formControlName="langSin" (change)="languageChange(langMode.SINHALA)">
-                                Sinhala
+                              {{'LANGUAGE_CHANGE.SINHALA'|translate}}
                             </mat-checkbox>
                             <mat-checkbox formControlName="langEng" (change)="languageChange(langMode.ENGLISH)">
-                                English
+                              {{'LANGUAGE_CHANGE.ENGLISH'|translate}}
                             </mat-checkbox>
                             <mat-checkbox formControlName="langTam" (change)="languageChange(langMode.TAMIL)">
-                                Tamil
+                              {{'LANGUAGE_CHANGE.TAMIL'|translate}}
                             </mat-checkbox>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="default-input-wrapper full-row">
-                <label>Full Name (English):</label>
+                <label>{{'LANGUAGE_CHANGE.FULLNAME_E'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="default-input-wrapper full-row">
-                <label>Full Name (Sinhala):</label>
+                <label>{{'LANGUAGE_CHANGE.FULLNAME_S'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="default-input-wrapper full-row">
-                <label>Full Name (Tamil):</label>
+                <label>{{'LANGUAGE_CHANGE.FULLNAME_T'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="default-input-wrapper full-row">
-                <label>Name with initials (English):</label>
+                <label>{{'LANGUAGE_CHANGE.NAME_INI_E'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -98,7 +98,7 @@
                 </div>
             </div>
             <div class="default-input-wrapper full-row">
-                <label>Name with initials (Sinhala):</label>
+                <label>{{'LANGUAGE_CHANGE.NAME_INI_S'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -110,7 +110,7 @@
                 </div>
             </div>
             <div class="default-input-wrapper full-row">
-                <label>Name with initials (Tamil):</label>
+                <label>{{'LANGUAGE_CHANGE.NAME_INI_T'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -125,7 +125,7 @@
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Permanent address (English):</label>
+                        <label>{{'LANGUAGE_CHANGE.PER_ADD_E'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -140,7 +140,7 @@
                 </div>
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Permanent address (Sinhala):</label>
+                        <label>{{'LANGUAGE_CHANGE.PER_ADD_S'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -154,7 +154,7 @@
                 </div>
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Permanent address (Tamil):</label>
+                        <label>{{'LANGUAGE_CHANGE.PER_ADD_T'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -172,7 +172,7 @@
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Current address (English):</label>
+                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_E'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -187,7 +187,7 @@
                 </div>
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Current address (Sinhala):</label>
+                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_S'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -202,7 +202,7 @@
                 </div>
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Current address (Tamil):</label>
+                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_T'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -254,7 +254,7 @@
                     </div>
                 </div>
             </div> -->
-<!-- 
+<!--
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
                     <div class="default-input-wrapper full-row">
@@ -309,7 +309,7 @@
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col">
                     <div class="default-input-wrapper full-row" *ngFor="let doc of supportingDocs">
-                        <label> {{doc.description}} </label>
+                        <label> {{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}} </label>
                         <file-upload-input (response)="setFiles($event,doc.docTypeId)"></file-upload-input>
                     </div>
                 </div>
@@ -339,7 +339,7 @@
             <div class="pg-inner-row mb-0">
                 <div class="pg-inner-col"></div>
                 <div class="pg-inner-col right">
-                    <button mat-raised-button class="lg-button" (click)="continue()"> Continue </button>
+                    <button mat-raised-button class="lg-button" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
                 </div>
             </div>
         </form>
@@ -348,15 +348,15 @@
     <div class="page-content-wrapper" *ngIf="showPayment">
         <div class="page-content-inner-wrapper">
             <div>
-                <app-payment 
-                (response)="getPaymentData($event)" 
-                (paymentMethodResponse) = paymentMethodResponse($event) 
+                <app-payment
+                (response)="getPaymentData($event)"
+                (paymentMethodResponse) = paymentMethodResponse($event)
                 [statusOnlinePayment] = "statusOnlinePayment"
                 [returnUrl]="returnURl"
                 (back)="onBack($event)"
-                [applicationFeeCode]="parameters.NOTARY_REG_LANGUAGE_CHANGE" 
+                [applicationFeeCode]="parameters.NOTARY_REG_LANGUAGE_CHANGE"
                 [hasFrontCounterPayment]="false"
-                [isDocumentCollect]="true" 
+                [isDocumentCollect]="true"
                 [workflowCode]="workflowStage.LANGUAGE_CHANGE_REQUEST_INIT"></app-payment>
             </div>
         </div>

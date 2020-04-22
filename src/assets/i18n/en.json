@@ -1284,7 +1284,31 @@
     "RESIGNATION_LETTER":"Resignation Letter",
     "IF_ANY":"(If any)"
 
+  },
+  "LANGUAGE_CHANGE":{
+    "TITLE1":"APPLICATION FOR A WARRANT IN AN ADDITIONAL LANGUAGE",
+    "TITLE2":"Please fill in the following information to",
+    "TITLE3":"register in the system",
+    "TITLE4":"APPLICATION TO OBTAIN A LICENSE IN AN ADDITIONAL LANGAUAGE",
+    "SELECT":"Select",
+    "LANGUAGE":"Language:",
+    "SINHALA":"Sinhala",
+    "ENGLISH":"English",
+    "TAMIL":"Tamil",
+    "FULLNAME_E":"Full Name (English):",
+    "FULLNAME_S":"Full Name (Sinhala):",
+    "FULLNAME_T":"Full Name (Tamil):",
+    "NAME_INI_E":"Name with initials (English):",
+    "NAME_INI_S":"Name with initials (Sinhala):",
+    "NAME_INI_T":"Name with initials (Tamil):",
+    "PER_ADD_E":"Permanent address (English):",
+    "PER_ADD_S":"Permanent address (Sinhala):",
+    "PER_ADD_T":"Permanent address (Tamil):",
+    "CUR_ADD_E":"Current address (English):",
+    "CUR_ADD_S":"Current address (Sinhala):",
+    "CUR_ADD_T":"Current address (Tamil):"
   }
+
 
 
 
