@@ -1,3 +1,4 @@
+import { FolioCorrectionWorkflowStages } from './../../../shared/enum/folio-correction-workflow-stages.enum';
 import { Workflow } from 'src/app/shared/enum/workflow.enum';
 import { MetaKey } from './../../../shared/enum/meta-key.enum';
 import { ActivatedRoute } from '@angular/router';
@@ -18,12 +19,20 @@ export class RequestForCorrectionViewComponent implements OnInit {
   docMetaKeys: DocMetaKey[] = [];
   metaKey = MetaKey;
   requestId: number;
+  workflowStageCode: string;
+  isEdit = false;
 
   constructor(private correctionRequestService: CorrectionRequestService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      this.workflowStageCode = this.decodeBase64(params.get('workflowStage'));
+
+      // form disable
+      if (this.workflowStageCode === FolioCorrectionWorkflowStages.RL_RETURN) {
+        this.isEdit = true;
+      }
       this.requestId = +this.decodeBase64(params.get('id'));
       this.getRequestHistory(this.requestId);
       this.setDocPreviewMeta();

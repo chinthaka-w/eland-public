@@ -36,19 +36,19 @@ export class CorrectionRequestService {
     return this.http.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
   }
 
-  //get all corrections to be made
+  // get all corrections to be made
   public getAllCorrectionToBeMade(): Observable<Object> {
     return this.http.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
   }
 
  // save correction request
  saveCorrectionReq(correctionRequest: CorrectionRequest): Observable<any> {
-  return this.http.post(this.FOLIO_CORRECTION_URL + '/' , correctionRequest);
+  return this.http.put(this.FOLIO_CORRECTION_URL + '/' , correctionRequest);
 }
 
 // get correction requests
-getFolioCorrectionRequests(id: number): Observable<RequestResponse> {
-  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + id);
+getFolioCorrectionRequests(id: number, userType: string): Observable<RequestResponse> {
+  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + userType + '/' + id);
 }
 
 // get correction request
