@@ -1,10 +1,12 @@
-<h3 mat-dialog-title>{{'BUTTONS.DOCUMENT_UPLOAD_BUTTON'| translate}}</h3>
-<div class="full-row mb-5" *ngFor="let document of workflowDocuments">
-  <label> {{document.description| listTranslate: document.descriptionSin: document.descriptionTam}}
-    <span class="redtxt" *ngIf="document.required == true">*</span>
-  </label>
-  <file-upload-input (response)="uploadResponse($event, document.docTypeId, document.required)"></file-upload-input>
-</div>
+<mat-dialog-content>
+  <h3 mat-dialog-title>{{'BUTTONS.DOCUMENT_UPLOAD_BUTTON'| translate}}</h3>
+  <div class="full-row mb-5" *ngFor="let document of workflowDocuments">
+    <label> {{document.description| listTranslate: document.descriptionSin: document.descriptionTam}}
+      <span class="redtxt" *ngIf="document.required == true">*</span>
+    </label>
+    <file-upload-input (response)="uploadResponse($event, document.docTypeId, document.required)"></file-upload-input>
+  </div>
+</mat-dialog-content>
 <div mat-dialog-actions>
   <button mat-flat-button color="primary" [disabled]="!isWorkflowDocsLoaded" (click)="onUploadDocuments()">
     {{'BUTTONS.DOCUMENT_UPLOAD_BUTTON'| translate}}
