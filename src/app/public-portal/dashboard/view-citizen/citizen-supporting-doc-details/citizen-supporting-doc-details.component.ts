@@ -48,6 +48,7 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
   workFlowStage: string;
   uploadedDocs: DocumentResponseDto[] = [];
   isButtonEnable: false;
+  showSpinner = false;
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -125,6 +126,7 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
       this.snackBar.warn('Plese upload mandatory documents');
       return;
     }
+    this.showSpinner = true;
     this.citizenNew.id = this.citizen.id;
     this.citizenNew.reqId = this.citizen.reqId;
     this.citizenService.updateSupportingDocs(this.fileList, this.citizenNew)
@@ -135,7 +137,10 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
         } else {
           this.snackBar.error('Update Failed');
         }
-      });
+      }, () => { },
+        () => {
+          this.showSpinner = false;
+        });
   }
 
   getUploadedDocuments(citizeId: number) {

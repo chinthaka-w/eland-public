@@ -1,3 +1,4 @@
+import { SystemService } from './../../../../shared/service/system.service';
 import { state } from '@angular/animations';
 import { Router } from '@angular/router';
 import { PatternValidation } from './../../../../shared/enum/pattern-validation.enum';
@@ -51,6 +52,7 @@ export class CitizenApplicationComponent implements OnInit {
   publicUserExist: boolean = false;
   isContinue: boolean = false;
   formData: FormData = new FormData();
+  showSpinner = false;
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -60,7 +62,8 @@ export class CitizenApplicationComponent implements OnInit {
               private bankService: BankService,
               private sessionService: SessionService,
               private snackBar: SnackBarService,
-              private router: Router) {}
+              private router: Router,
+              private systemService: SystemService) {}
 
   ngOnInit() {
     this.user = this.sessionService.getUser();
@@ -231,6 +234,8 @@ export class CitizenApplicationComponent implements OnInit {
 
   saveCitizen() {
 
+    this.showSpinner = true;
+
     this.citizenDTO.nameEng = this.publicUserForm.controls.nameEnglish.value;
     this.citizenDTO.nameSin = this.publicUserForm.controls.nameSinhala.value;
     this.citizenDTO.nameTam = this.publicUserForm.controls.nameTamil.value;
@@ -250,10 +255,14 @@ export class CitizenApplicationComponent implements OnInit {
       .subscribe((result) => {
         if (result) {
           this.snackBar.success('Successfully updated');
-        } else {
-          this.snackBar.error('Failed');
         }
-      });
+      },
+        () => {
+          this.snackBar.error(this.systemService.getTranslation('ALERT.WARNING.INTERNAL_SERVER_ERROR'));
+        },
+        () => {
+          this.showSpinner = false;
+        });
   }
 
   getApplicationDetails(citizenId: number) {
