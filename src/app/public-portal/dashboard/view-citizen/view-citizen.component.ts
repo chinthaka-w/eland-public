@@ -1,3 +1,4 @@
+import { SystemService } from './../../../shared/service/system.service';
 import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WorkflowStageCitizenReg } from './../../../shared/enum/workflow-stage-citizen-reg.enum';
@@ -24,7 +25,8 @@ export class ViewCitizenComponent implements OnInit {
               private sessionService: SessionService,
               private router: Router,
               private snackBarService: SnackBarService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private systemService: SystemService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -40,7 +42,7 @@ export class ViewCitizenComponent implements OnInit {
     console.log("On main component:   ",this.citizenDTO);
   }
 
-  onFormSubmit(): void  {
+  onFormSubmit(): void {
     this.showSpinner = true;
     const citizenModel = new CitizenDTO();
     citizenModel.id = this.sessionService.getUser().id;
@@ -50,10 +52,11 @@ export class ViewCitizenComponent implements OnInit {
         if (response.status === CommonStatus.SUCCESS) {
           this.snackBarService.success('Successfully submitted');
           this.router.navigate(['dashboard']);
-        } else {
-          this.snackBarService.error('Error in submission');
         }
-      }, () => { },
+      },
+      () => {
+        this.snackBarService.error(this.systemService.getTranslation('ALERT.WARNING.INTERNAL_SERVER_ERROR'));
+      },
       () => {
         this.showSpinner = false;
       }

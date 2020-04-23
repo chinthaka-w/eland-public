@@ -1,3 +1,4 @@
+import { SystemService } from './../../../../shared/service/system.service';
 import { state } from '@angular/animations';
 import { Router } from '@angular/router';
 import { PatternValidation } from './../../../../shared/enum/pattern-validation.enum';
@@ -61,7 +62,8 @@ export class CitizenApplicationComponent implements OnInit {
               private bankService: BankService,
               private sessionService: SessionService,
               private snackBar: SnackBarService,
-              private router: Router) {}
+              private router: Router,
+              private systemService: SystemService) {}
 
   ngOnInit() {
     this.user = this.sessionService.getUser();
@@ -253,11 +255,11 @@ export class CitizenApplicationComponent implements OnInit {
       .subscribe((result) => {
         if (result) {
           this.snackBar.success('Successfully updated');
-        } else {
-          this.snackBar.error('Failed');
         }
-      }, () => {
       },
+        () => {
+          this.snackBar.error(this.systemService.getTranslation('ALERT.WARNING.INTERNAL_SERVER_ERROR'));
+        },
         () => {
           this.showSpinner = false;
         });
