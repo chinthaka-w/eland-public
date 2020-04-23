@@ -1,3 +1,4 @@
+import { WorkflowStages } from './../../../enum/workflow-stages.enum';
 import { SysConfigService } from 'src/app/shared/service/sys-config.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentResponse } from './../../../dto/payment-response.model';
@@ -23,6 +24,7 @@ export class OnlineMethodComponent implements OnInit {
 showEncryptedPaymentRequest = false;
 showPaymentResult = false;
 loadIframe = false;
+enablePayment = false;
 paymentId: number;
 lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
 
@@ -82,7 +84,9 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
     let paymentDetails = new PaymentDto();
     paymentDetails = this.onlinePaymentForm.value;
     paymentDetails.returnUrl = this.returnUrl;
-    paymentDetails.workflowStageCode = this.getBase64(this.workflowStageCode).split('=')[0];
+    paymentDetails.workflowStageCode = this.workflowStageCode ?
+      this.getBase64(this.workflowStageCode).split('=')[0] :
+      this.getBase64(WorkflowStages.NON_REGISTRATION_WORKFLOW_STAGE).split('=')[0];
     paymentDetails.userType = this.getBase64(this.userType).split('=')[0];
     paymentDetails.userId = this.getBase64(this.userId.toString()).split('=')[0];
 
@@ -92,6 +96,10 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
           encryptedPaymentRequest: result.encriptedPaymentResponse,
           totalFee: result.totalFee
         });
+      },
+      () => {},
+      () => {
+        this.enablePayment = true;
       }
     );
   }

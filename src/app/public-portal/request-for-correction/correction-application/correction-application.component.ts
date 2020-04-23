@@ -1,3 +1,5 @@
+import { transition } from '@angular/animations';
+import { SystemService } from './../../../shared/service/system.service';
 import { FileUploadPopupComponent } from './../../../shared/components/file-upload-popup/file-upload-popup.component';
 import { FileMeta } from './../../../shared/dto/file-meta.model';
 import { SessionService } from 'src/app/shared/service/session.service';
@@ -24,6 +26,7 @@ import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 export class CorrectionApplicationComponent implements OnInit {
 
   @Input() isReadonly = false;
+  @Input() newRequest = false;
   public reqForCorrectionForm: FormGroup;
   public landRegistry: LandRegistryModel[];
   landRegs: any;
@@ -39,6 +42,7 @@ export class CorrectionApplicationComponent implements OnInit {
   isSave = false;
   isClick = false;
   reqId: number;
+  isLrLoaded = false;
 
   constructor(private correctionRequestService: CorrectionRequestService,
               private formBuilder: FormBuilder,
@@ -46,7 +50,8 @@ export class CorrectionApplicationComponent implements OnInit {
               public dialog: MatDialog,
               public sessionService: SessionService,
               public router: Router,
-              public route: ActivatedRoute) { }
+              public route: ActivatedRoute,
+              private systemService: SystemService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -96,6 +101,15 @@ export class CorrectionApplicationComponent implements OnInit {
   private getLandRegistries(): void {
     this.correctionRequestService.getLandRegistries().subscribe(res => {
       this.landRegs = res;
+    },
+    () => {
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.WARNING.INTERNAL_SERVER_ERROR'));
+    },
+    () => {
+      this.isLrLoaded = true;
+      if (this.reqId != null) {
+        this.getCorrectionRequest();
+      }
     });
   }
 
@@ -112,7 +126,8 @@ export class CorrectionApplicationComponent implements OnInit {
         Validators.pattern(PatternValidation.DAY_BOOK_NUMBER)
       ]],
       deedNo: ['', [
-        Validators.maxLength(255)
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]],
       notaryName: ['', [
         Validators.pattern(PatternValidation.nameValidation),
@@ -120,48 +135,86 @@ export class CorrectionApplicationComponent implements OnInit {
       ]],
       attestedDate: [new Date(), [
       ]],
-      correctionNature: [null, [Validators.required]],
-      requestedCorrection: [null, [Validators.required]],
+      correctionNature: [null, [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]
+      ],
+      requestedCorrection: [null, [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+      ]],
       recaptcha: [null],
     });
     this.initPaginator();
     this.getLandRegistries();
-    if (this.reqId != null) {
-      this.getCorrectionRequest();
-    }
   }
 
   onFormSubmit() {
     this.isClick = true;
     this.isSave = true;
-    if (this.correctionDetails.length > 0) {
+
+    // submit new correction request
+    if (this.newRequest) {
+      if (this.correctionDetails.length > 0) {
+        this.recaptcha.setValidators([Validators.required]);
+        this.recaptcha.updateValueAndValidity();
+        this.updateValidationsOnSubmit();
+        if (this.reqForCorrectionForm.invalid) {
+          this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+          this.isSave = false;
+        } else if (this.reqForCorrectionForm.valid) {
+          // submit correction request
+          const correctionRequest = new CorrectionRequest();
+          correctionRequest.correctionDetails = this.correctionDetails;
+          correctionRequest.userId = this.sessionService.getUser().id;
+          correctionRequest.userType = this.sessionService.getUser().type;
+          correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.APPLICANT_INITIATE;
+
+          this.correctionRequestService.saveCorrectionReq(correctionRequest).subscribe(
+            (response: RequestResponse) => {
+              if (response.status === CommonStatus.SUCCESS) {
+                this.isSave = false;
+                this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
+                this.router.navigate(['/requests', this.getBase64(Workflow.FOLIO_REQUEST_CORRECTION)]);
+              }
+            }
+          );
+        }
+      }
+
+      // submit request update
+    } else if (!this.newRequest) {
       this.recaptcha.setValidators([Validators.required]);
       this.recaptcha.updateValueAndValidity();
-      this.updateValidationsOnSubmit();
+      if (this.reqForCorrectionForm.valid) {
+        let updatedCorrectionDetail = new CorrectionDetail();
+        updatedCorrectionDetail = this.reqForCorrectionForm.value;
+        this.correctionDetails =  [];
+        this.correctionDetails.push(updatedCorrectionDetail);
 
-      if (this.reqForCorrectionForm.invalid) {
-        this.snackBarService.warn('Plase fill the form');
-        this.isSave = false;
-      } else if (this.reqForCorrectionForm.valid) {
-        // submit correction request
-        const correctionRequest = new CorrectionRequest();
-        correctionRequest.correctionDetails = this.correctionDetails;
-        correctionRequest.userId = this.sessionService.getUser().id;
-        correctionRequest.userType = this.sessionService.getUser().type;
-        correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.APPLICANT_INITIATE;
-        this.correctionRequestService.saveCorrectionReq(correctionRequest).subscribe(
+        const updatedCorrectionRequest = new CorrectionRequest();
+        updatedCorrectionRequest.correctionDetails = this.correctionDetails;
+        updatedCorrectionRequest.userId = this.sessionService.getUser().id;
+        updatedCorrectionRequest.userType = this.sessionService.getUser().type;
+        updatedCorrectionRequest.id = this.reqId;
+
+        this.correctionRequestService.saveCorrectionReq(updatedCorrectionRequest).subscribe(
           (response: RequestResponse) => {
             if (response.status === CommonStatus.SUCCESS) {
               this.isSave = false;
-              this.snackBarService.success('Successfully submitted');
-              this.router.navigate(['/requests', this.getBase64(Workflow.FOLIO_REQUEST_CORRECTION)]);
+              this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.UPDATE_SUCCESS'));
             }
           }
         );
-
+      } else {
+        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+        this.isSave = false;
       }
     } else {
-      this.snackBarService.warn('Plase fill the form');
+      this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
       this.isSave = false;
     }
   }
@@ -179,7 +232,7 @@ export class CorrectionApplicationComponent implements OnInit {
     this.recaptcha.clearValidators();
     // this.updateValidationsOnAddFolioCorrection();
     if (this.reqForCorrectionForm.invalid) {
-      this.snackBarService.error('Please fill the form');
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
       return;
     }
 
@@ -289,9 +342,9 @@ export class CorrectionApplicationComponent implements OnInit {
     this.correctionRequestService.getCorrectionRequest(this.reqId).subscribe(
       (response: RequestResponse) => {
         const correctionViewRequest: CorrectionRequest = response.data;
-        if  (correctionViewRequest.workflowStageCode !== FolioCorrectionWorkflowStages.RL_RETURN) {
+        this.reqForCorrectionForm.patchValue(correctionViewRequest.correctionDetails[0]);
+        if  (this.isReadonly) {
           this.reqForCorrectionForm.disable();
-          this.reqForCorrectionForm.patchValue(correctionViewRequest.correctionDetails[0]);
           this.isReadonly = true;
         }
       }

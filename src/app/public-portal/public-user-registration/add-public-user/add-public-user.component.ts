@@ -52,6 +52,7 @@ export class AddPublicUserComponent implements OnInit {
   publicUserDTO: PublicUserDTO = new PublicUserDTO();
   publicUserExist: boolean = false;
   isContinue: boolean = false;
+  isLrLoaded = false;
   formData: FormData = new FormData();
   isMadatoryDocsUploaded = false;
   docMetaList: DocumentResponseDto[] = [];
@@ -271,6 +272,10 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenService.getAllLandRegistries()
       .subscribe((res) => {
         this.landRegistriesDTOList = res;
+      },
+      () => {},
+      () => {
+        this.isLrLoaded = true;
       });
   }
 

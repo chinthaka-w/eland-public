@@ -3141,6 +3141,13 @@ a.mat-raised-button.mat-button-base .material-icons {
   top: 16px !important;
 }
 
+.spinner-input {
+  /* display: inline-block !important; */
+  /* position: absolute !important; */
+  margin: 0 0 0 500px !important;
+  bottom: 28px !important;
+}
+
 button.close {
   display: block;
   position: absolute;

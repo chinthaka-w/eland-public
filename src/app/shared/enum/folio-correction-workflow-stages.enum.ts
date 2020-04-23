@@ -1,4 +1,5 @@
 export enum FolioCorrectionWorkflowStages {
     APPLICANT_INITIATE = 'FOLC_USR_INI',
-    RL_RETURN = 'FOLC_RL_RTN'
+    APPLICANT_MODIFIED = 'FOLC_USR_MDF',
+    RL_RETURN = 'FOLIO_CORREC_SUB_ARL_RET'
 }

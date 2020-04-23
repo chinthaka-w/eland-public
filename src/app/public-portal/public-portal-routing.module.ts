@@ -147,7 +147,7 @@ const routes: Routes = [
     component: ChangeLandRegistryRequestViewComponent
   },
   {
-    path: 'request-for-correction/:workflow/:id',
+    path: 'request-for-correction/:workflowStage/:id',
     component: RequestForCorrectionComponent
   },
   {
