@@ -111,7 +111,7 @@ export class DocPreviewComponent implements OnInit {
           this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.UPDATE_SUCCESS'));
         },
         () => {
-          this.snackBarService.error(this.systemService.getTranslation('ALERT.VALIDATION_ERROR'));
+          this.snackBarService.error(this.systemService.getTranslation('ALERT.WARNING.INTERNAL_SERVER_ERROR'));
         },
         () => {
           this.isDocUpdating = false;
