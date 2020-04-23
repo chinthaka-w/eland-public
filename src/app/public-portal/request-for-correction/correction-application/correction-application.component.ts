@@ -339,7 +339,6 @@ export class CorrectionApplicationComponent implements OnInit {
 
   // get request details
   getCorrectionRequest(): void {
-    console.log('form enable', this.isReadonly);
     this.correctionRequestService.getCorrectionRequest(this.reqId).subscribe(
       (response: RequestResponse) => {
         const correctionViewRequest: CorrectionRequest = response.data;
