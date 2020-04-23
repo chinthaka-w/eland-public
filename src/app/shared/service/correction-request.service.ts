@@ -61,4 +61,8 @@ getRequestHistory(reqId: number): Observable<RequestResponse> {
   return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/remarkHistory/' + reqId);
 }
 
+  completeRequestUpdate(correctionRequest: CorrectionRequest): Observable<RequestResponse> {
+    return this.http.post<RequestResponse>(this.FOLIO_CORRECTION_URL + '/completeUserAction', correctionRequest);
+  }
+
 }
