@@ -69,21 +69,6 @@ export class ChangeJudicialRequestListComponent implements OnInit {
 
     this.previousUrl = this.router.url;
 
-    // translate.onLangChange.subscribe((event: LangChangeEvent) => {
-    //   this.currentLang = event.lang;
-    //   if (this.flag === Workflow.CHANGE_LAND_REGISTRY) {
-    //     //alert("methana");
-    //     this.loadData();
-    //     this.headerText = this.translate.instant('PUBLIC_COMMON.JUD_TITLE1');
-    //     this.titleText = this.translate.instant('PUBLIC_COMMON.JUD_TITLE2');
-    //   }
-    //   else if (this.flag === Workflow.SEARCH_REQUEST) {
-    //    // alert("athana" + this.translate.instant('PUBLIC_COMMON.SEARCH_TITLE2'));
-    //     this.headerText = this.translate.instant('PUBLIC_COMMON.SEARCH_TITLE1');
-    //     this.titleText = this.translate.instant('PUBLIC_COMMON.SEARCH_TITLE2');
-    //   }
-    //   //this._changeDetectorRef.detectChanges();
-    // });
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.currentLang = event.lang;
     switch (this.flag) {

@@ -1307,6 +1307,33 @@
     "CUR_ADD_E":"Current address (English):",
     "CUR_ADD_S":"Current address (Sinhala):",
     "CUR_ADD_T":"Current address (Tamil):"
+  },
+  "EDIT_PROFILE":{
+    "TITLE1":"Edit Profile",
+    "TITLE2":"Application For A Notarial Warrant",
+    "FULLNAME_E":"Full name (English):",
+    "FULLNAME_S":"Full name (Sinhala):",
+    "FULLNAME_T":"Full name (Tamil):",
+    "PER_ADD_E":"Permenent address (English):",
+    "PER_ADD_S":"Permenent address (Sinhala):",
+    "PER_ADD_T":"Permenent address (Tamil):",
+    "CUR_ADD_E":"Current address (English):",
+    "CUR_ADD_S":"Current address (Sinhala):",
+    "CUR_ADD_T":"Current address (Tamil):",
+    "CONTACT":"Contact No. (Residential):",
+    "CONTACT_REQ":"Contact number is required",
+    "VALID_CONTACT":"Please enter valid contact number",
+    "MOBILE":"Mobile:",
+    "MOBILE_REQ":"Mobile number is required",
+    "VALID_MOBILE":"Please enter valid telephone number",
+    "EMAIL":"Email:",
+    "EMAIL_REQ":"Email is required",
+    "VALID_EMAIL":"Please enter valid email address",
+    "JUD_DIV":"Judicial Division:",
+    "LAND_REG":"Land Registry:",
+    "TITLE3":"Notary Edit Profile",
+    "APPLICATION":"Application"
+
   }
 
 
