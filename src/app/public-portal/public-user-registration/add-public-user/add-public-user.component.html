@@ -15,6 +15,7 @@
             <mat-select placeholder="{{'CITIZEN.SELECT_LAND_REG'|translate}}" formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)">
               <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option>
             </mat-select>
+            <mat-spinner [diameter]="16" *ngIf="!isLrLoaded" class="spinner-input"></mat-spinner>
           <div *ngIf="FormControls.nearestLr.touched && FormControls.nearestLr.errors"
                      class="invalid-feedback">
           <mat-error *ngIf="FormControls.nearestLr.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>

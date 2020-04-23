@@ -1,15 +1,23 @@
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
     <mat-tab-group>
-      <mat-tab label="Application">
-        <app-correction-application></app-correction-application>
+      <mat-tab label="{{'CITIZEN.APPL'| translate}}">
+        <app-correction-application [newRequest]="false" [isReadonly]=!isEdit></app-correction-application>
       </mat-tab>
-      <mat-tab label="Remark">
+      <mat-tab label="{{'CITIZEN.SUP_DOCS'| translate}}">
+        <app-doc-preview [isEdit]="isEdit" [docMetaKeys]="docMetaKeys" [docUploadWorkflowStage]="docUploadWorkflowStage" ></app-doc-preview>
+      </mat-tab>
+      <mat-tab label="{{'CITIZEN.HISTORY'| translate}}">
         <app-remark-history [remarkHistory]="remarkHistory"></app-remark-history>
       </mat-tab>
-      <mat-tab label="Supporting Documents">
-        <app-doc-preview [docMetaKeys]=docMetaKeys></app-doc-preview>
-      </mat-tab>
     </mat-tab-group>
+    <div *ngIf="isEdit" class="pg-inner-row mb-0">
+      <div class="pg-inner-col">
+        <button [disabled]="isSubmit" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
+          {{'BUTTONS.SUBMIT_BUTTON' | translate}}
+          <mat-spinner *ngIf="isSubmit" [diameter]="16" class="spinner-inline"></mat-spinner>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

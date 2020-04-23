@@ -59,7 +59,9 @@
             </div>
             <div class="hc-component-bottom">
                 <span class="bt-line">&nbsp;</span>
-                <button mat-raised-button class="button green" (click)="ConfirmPayment()">{{showPaymentResult?('PAYMENT.CONTINUE'|translate):('PAYMENT.ONLINE_METHOD.PAY'|translate)}}</button>
+                <button [disabled]="!enablePayment && !showPaymentResult" mat-raised-button class="button green" (click)="ConfirmPayment()">{{showPaymentResult?('PAYMENT.CONTINUE'|translate):('PAYMENT.ONLINE_METHOD.PAY'|translate)}}
+                    <mat-spinner [diameter]="16" *ngIf="!enablePayment && !showPaymentResult" class="spinner-inline"></mat-spinner>
+                </button>
               </div>
         </div>
     </div>

@@ -1,3 +1,4 @@
+import { SysMethodsService } from './../../service/sys-methods.service';
 import { RequestResponse } from './../../dto/request-response.model';
 import { CorrectionRequestService } from './../../service/correction-request.service';
 import {LanguageRequest} from './../../dto/language-request.model';
@@ -62,7 +63,8 @@ export class ChangeJudicialRequestListComponent implements OnInit {
               private folioCorrectionService: CorrectionRequestService,
               private systemService: SystemService,
               private translate: TranslateService,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private changeDetectorRef: ChangeDetectorRef,
+              private systemMethodServie: SysMethodsService) {
     this.activatedRoute.params.subscribe(params => {
       this.flag = atob(params.flag); // (+) converts string 'id' to a number
     });
@@ -155,7 +157,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         break;
       // section 35 corrections
       case Workflow.FOLIO_REQUEST_CORRECTION:
-        this.getFolioCorrctionRequest();
+        this.getFolioCorrectionRequest();
         this.headerText = this.translate.instant('PUBLIC_COMMON.SECTION351');
         this.titleText = this.translate.instant('PUBLIC_COMMON.SECTION352');
         this.newButtonURL = '/request-for-correction';
@@ -268,9 +270,9 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   }
 
 
-  getFolioCorrctionRequest() {
+  getFolioCorrectionRequest() {
     // get requests
-    this.folioCorrectionService.getFolioCorrectionRequests(this.sessionService.getUser().id).subscribe(
+    this.folioCorrectionService.getFolioCorrectionRequests(this.sessionService.getUser().id, this.sessionService.getUser().type).subscribe(
       (response: RequestResponse) => {
         this.dataSource = new MatTableDataSource(response.data);
         this.dataSource.paginator = this.paginator;

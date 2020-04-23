@@ -402,6 +402,8 @@
              (response)="onPaymentResponse($event)"
              (paymentMethodResponse)="paymentMethodResponse($event)"
              (back)="onBack($event)"
+             [userType]="userType"
+             [userId]="userId"
              [statusOnlinePayment]="statusOnlinePayment"
              [hasFrontCounterPayment]="true"
              [returnUrl]="returnURl?returnURl:'login'"
