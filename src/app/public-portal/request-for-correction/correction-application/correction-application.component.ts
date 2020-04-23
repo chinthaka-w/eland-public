@@ -103,7 +103,7 @@ export class CorrectionApplicationComponent implements OnInit {
       this.landRegs = res;
     },
     () => {
-      this.snackBarService.error(this.systemService.getTranslation('ALERT.TITLE.VALIDATION_ERROR'));
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.WARNING.INTERNAL_SERVER_ERROR'));
     },
     () => {
       this.isLrLoaded = true;
@@ -339,7 +339,6 @@ export class CorrectionApplicationComponent implements OnInit {
 
   // get request details
   getCorrectionRequest(): void {
-    console.log('form enable', this.isReadonly);
     this.correctionRequestService.getCorrectionRequest(this.reqId).subscribe(
       (response: RequestResponse) => {
         const correctionViewRequest: CorrectionRequest = response.data;

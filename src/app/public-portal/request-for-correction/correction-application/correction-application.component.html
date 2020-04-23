@@ -211,8 +211,12 @@
       </div>
     </div>
     <div class="pg-inner-col right" *ngIf="!isReadonly">
-      <button [disabled]="isSave" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
-        {{newRequest ? 'BUTTONS.SUBMIT_BUTTON' : 'BUTTONS.UPDATE_BUTTON'| translate}}
+      <button *ngIf="newRequest" [disabled]="isSave" type="button" mat-raised-button class="lg-button" (click)="onFormSubmit()">
+        {{'BUTTONS.SUBMIT_BUTTON' | translate}}
+        <mat-spinner *ngIf="isClick && isSave" [diameter]="16" class="spinner-inline"></mat-spinner>
+      </button>
+      <button *ngIf="!newRequest" [disabled]="isSave" type="button" mat-raised-button class="button" (click)="onFormSubmit()">
+        {{'BUTTONS.UPDATE_BUTTON'| translate}}
         <mat-spinner *ngIf="isClick && isSave" [diameter]="16" class="spinner-inline"></mat-spinner>
       </button>
     </div>

@@ -1,7 +1,12 @@
+import { FileMeta } from './../../../shared/dto/file-meta.model';
+import { SystemService } from 'src/app/shared/service/system.service';
+import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
+import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
+import { CorrectionRequest } from 'src/app/shared/dto/correction-request.model';
 import { FolioCorrectionWorkflowStages } from './../../../shared/enum/folio-correction-workflow-stages.enum';
 import { Workflow } from 'src/app/shared/enum/workflow.enum';
 import { MetaKey } from './../../../shared/enum/meta-key.enum';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestResponse } from './../../../shared/dto/request-response.model';
 import { CorrectionRequestService } from './../../../shared/service/correction-request.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,10 +25,15 @@ export class RequestForCorrectionViewComponent implements OnInit {
   metaKey = MetaKey;
   requestId: number;
   workflowStageCode: string;
+  docUploadWorkflowStage: string;
   isEdit = false;
+  isSubmit = false;
 
   constructor(private correctionRequestService: CorrectionRequestService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private snackBarService: SnackBarService,
+              private systemService: SystemService,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -32,6 +42,7 @@ export class RequestForCorrectionViewComponent implements OnInit {
       // form disable
       if (this.workflowStageCode === FolioCorrectionWorkflowStages.RL_RETURN) {
         this.isEdit = true;
+        this.docUploadWorkflowStage = FolioCorrectionWorkflowStages.APPLICANT_INITIATE;
       }
       this.requestId = +this.decodeBase64(params.get('id'));
       this.getRequestHistory(this.requestId);
@@ -61,6 +72,29 @@ export class RequestForCorrectionViewComponent implements OnInit {
 
   decodeBase64(url: string) {
     return atob(url);
+  }
+
+  onFormSubmit(): void {
+    this.isSubmit = true;
+    const correctionRequest = new CorrectionRequest();
+
+    correctionRequest.workflowStageCode = FolioCorrectionWorkflowStages.APPLICANT_MODIFIED;
+    correctionRequest.id = this.requestId;
+
+    this.correctionRequestService.completeRequestUpdate(correctionRequest).subscribe(
+      (response: RequestResponse) => {
+        if (response.status === CommonStatus.SUCCESS) {
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.UPDATE_SUCCESS'));
+        }
+      },
+      () => {
+        this.snackBarService.error(this.systemService.getTranslation('ALERT.WARNING.INTERNAL_SERVER_ERROR'));
+      },
+      () => {
+        this.isSubmit = false;
+        this.router.navigate(['/requests', this.getBase64Url(Workflow.FOLIO_REQUEST_CORRECTION)]);
+      }
+    );
   }
 
 }
