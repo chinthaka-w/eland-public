@@ -71,6 +71,8 @@ export class ExtractComponent implements OnInit {
   statusOnlinePayment: boolean;
 
   folioStatus: Enum = null;
+  userType: string;
+  userId: number;
 
   constructor(
     private landRegistryService: LandRegistryService,
@@ -210,6 +212,9 @@ export class ExtractComponent implements OnInit {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
           this.snackBarService.success('Your Extract request saved successfully,, Proceed to online payment')
           this.statusOnlinePayment = true;
+          this.returnURl = 'requests/' + btoa(Workflow.EXTRACT_REQUEST);
+          this.userType = this.sessionService.getUser().type;
+          this.userId = this.sessionService.getUser().id;
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
@@ -357,7 +362,6 @@ export class ExtractComponent implements OnInit {
   }
 
   onClickSubmitExtractRequest() {
-
     let isValid = true;
     let errorMassage = '';
 
@@ -403,7 +407,6 @@ export class ExtractComponent implements OnInit {
 
     // save  online payment with reference no
     if (this.paymentDto.paymentMethod === PaymentMethod.ONLINE) {
-
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.searchRequest.payment = this.paymentDto;
