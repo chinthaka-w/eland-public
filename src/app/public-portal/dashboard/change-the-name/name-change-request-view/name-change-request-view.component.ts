@@ -1,3 +1,4 @@
+import { Workflow } from 'src/app/shared/enum/workflow.enum';
 import {Component, OnInit} from '@angular/core';
 import {WorkflowStages} from '../../../../shared/enum/workflow-stages.enum';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -39,6 +40,7 @@ export class NameChangeRequestViewComponent implements OnInit {
   public docId: number;
   workflowStageCode;
   editable: boolean = false;
+  requestDetailPayment: RequestSearchDetailDTO;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -63,6 +65,9 @@ export class NameChangeRequestViewComponent implements OnInit {
 
   ngOnInit() {
     this.getRequestDetails();
+    // set payment request details
+    this.requestDetailPayment = new RequestSearchDetailDTO(null, this.id, null, null, null, Workflow.NOTARY_NAME_CHANGE, null, null, null);
+    this.requestDetailPayment.workflowStage = this.workflowStageCode;
   }
 
   getRequestDetails(){

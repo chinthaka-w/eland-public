@@ -23,7 +23,7 @@
         <app-supporting-doc-detail [editable]="editable" [workflow]="workflow" [id]="id"  [requestDocuments]="requestID" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
       <mat-tab label="Payment Info" >
-        <app-notary-payment-info [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-payment-info>
+        <app-notary-payment-info [editable]="editable" [addPayment]="editable" [workflow]="workflow" [requestDetailPayment]="requestDetailPayment" [id]="id"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="Remark">
         <app-notary-remark [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-remark>
