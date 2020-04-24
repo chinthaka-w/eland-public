@@ -1,3 +1,4 @@
+import { Workflow } from './../../../shared/enum/workflow.enum';
 import {Component, Input, OnInit} from '@angular/core';
 import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
 import {SupportingDocService} from '../../../shared/service/supporting-doc.service';
@@ -92,6 +93,8 @@ export class ChangeTheNameComponent implements OnInit {
   returnURl: string;
   statusOnlinePayment: boolean;
   isPayment: boolean = false;
+  userType: string;
+  userId: number;
 
 
   constructor(private documetService: SupportingDocService,
@@ -112,7 +115,7 @@ export class ChangeTheNameComponent implements OnInit {
 
   ngOnInit() {
     this.notaryId = this.sessionService.getUser().id;
-
+    this.userType = this.sessionService.getUser().type;
     this.setData();
   }
 
@@ -339,7 +342,7 @@ export class ChangeTheNameComponent implements OnInit {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.paymentDataValue = this.paymentDto;
-      this.returnURl = 'login';
+      this.returnURl = 'notary-requests/' + btoa(Workflow.NOTARY_NAME_CHANGE);
       this.submitForm();
     }
   }
