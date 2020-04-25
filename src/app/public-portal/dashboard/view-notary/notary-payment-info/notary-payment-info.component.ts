@@ -124,13 +124,21 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
   addOnlinePayment(paymentData: PaymentResponse) {
     // Add workflow wise return urls
+    // judicial change
     if (paymentData.paymentMethod === PaymentMethod.ONLINE) {
       if (this.requestDetailPayment.workflow === Workflow.JUDICIAL_ZONE_CHANGE) {
         this.paymentReturnBaseUrl = '/change-judicial-request-view/';
+        this.returnUrl = this.paymentReturnBaseUrl +
+          this.getBase64Url(this.requestDetailPayment.workflowStage).split('=')[0] + '/' +
+          this.getBase64Url(this.requestDetailPayment.requestId.toString()).split('=')[0];
+
+        // notary name change
+      } else if (this.requestDetailPayment.workflow === Workflow.NOTARY_NAME_CHANGE) {
+        this.returnUrl = '/change-name-request-view/' +
+          this.getBase64Url(this.requestDetailPayment.workflow).split('=')[0] + '/' +
+          this.getBase64Url(this.requestDetailPayment.workflowStage).split('=')[0] + '/' +
+          this.getBase64Url(this.requestDetailPayment.requestId.toString()).split('=')[0];
       }
-      this.returnUrl =  this.paymentReturnBaseUrl +
-      btoa(this.requestDetailPayment.workflowStage).split('=')[0] + '/' +
-      btoa(this.requestDetailPayment.requestId.toString());
     }
     const model = new NewNotaryPaymentDto(this.requestDetailPayment.requestId, null);
     model.transactionRef = paymentData.transactionRef;
@@ -145,6 +153,10 @@ export class NotaryPaymentInfoComponent implements OnInit {
 
   onBack(data:any){
     this.isPayment = false;
+  }
+
+  getBase64Url(url: string): string {
+    return btoa(url);
   }
 
 }

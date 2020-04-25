@@ -82,6 +82,8 @@ export class ChangeLandRegistryComponent implements OnInit {
       this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
       this.isContinue = true;
       this.statusOnlinePayment = true;
+      this.returnURl = 'requests/' + btoa(Workflow.CHANGE_LAND_REGISTRY);
+
     } else {
       this.snackBar.error('Operation failed');
     }
