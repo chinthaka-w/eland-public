@@ -12,7 +12,7 @@
         <label>{{'CITIZEN.TITLE'|translate}}
           <span>*</span></label>
         <div class="default-input-feild gray">
-            <mat-select placeholder="{{'CITIZEN.SELECT_LAND_REG'|translate}}" formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)"> 
+            <mat-select placeholder="{{'CITIZEN.SELECT_LAND_REG'|translate}}" formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)">
               <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option>
             </mat-select>
             <mat-spinner [diameter]="16" *ngIf="!isLrLoaded" class="spinner-input"></mat-spinner>
@@ -22,7 +22,7 @@
         </div>
         </div>
       </div>
-      
+
       <div class="default-input-wrapper full-row half-cols">
         <label>{{'CITIZEN.USER_TYPE'|translate}}<span>*</span></label>
         <div class="default-input-feild gray">
@@ -135,11 +135,11 @@
       <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
         <div class="default-input-feild gray">
-          
+
             <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankName" required (selectionChange)="getCurrentBank($event)">
               <mat-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName|listTranslate:bank.bankNameSin:bank.bankNameTam}}</mat-option>
             </mat-select>
-          
+
           <div *ngIf="FormControls.bankName.touched && FormControls.bankName.errors"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
@@ -190,7 +190,7 @@
       <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200">{{'CITIZEN.IDENT_TYPE'|translate}} <span>*</span></label>
         <div class="default-input-feild gray">
-          
+
             <mat-select placeholder="{{'CITIZEN.SELECT_IDEN_TYP'|translate}}" formControlName="identificationType" matNativeControl required (selectionChange)="getCurrentIdentificationType($event)">
               <mat-option value="{{identificationType.NIC}}" >{{'CITIZEN.NIC'|translate}}</mat-option>
               <mat-option value="{{identificationType.PASSPORT}}" >{{'CITIZEN.PASSPORT'|translate}}</mat-option>
@@ -277,7 +277,7 @@
         <div class="pg-inner-col-3" *ngFor="let doc of workflowStageDocTypes">
           <div class="default-input-wrapper full-row">
             <label
-              >{{doc.description}}
+              >{{doc.description|listTranslate: doc.descriptionSin: doc.descriptionTam}}
               <span *ngIf="doc.required">*</span></label>
             <file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>
           </div>
@@ -295,7 +295,7 @@
           <a href="#">{{'CITIZEN.END2'|translate}}</a> , <a href="#">{{'CITIZEN.END3'|translate}}</a> ,
           and <a href="#">{{'CITIZEN.END4'|translate}}</a> .
         </div>
-        
+
           <div class="pg-inner-col float-right">
             <button [disabled]="!(publicUserForm.valid && isMadatoryDocsUploaded)" mat-raised-button class="lg-button float-right" (click)="continue()">
               {{'BUTTONS.CONTINUE_BUTTON'|translate}}

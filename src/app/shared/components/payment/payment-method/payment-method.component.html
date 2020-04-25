@@ -6,31 +6,31 @@
         <!-- Bank Transfer Infomations -->
         <div class="payment-info-wrapper">
           <div class="default-input-wrapper full-row">
-            <label>Bank: <span class="redtxt">*</span></label>
+            <label>{{'PAYMENT.OTHER_METHOD.BANK'|translate}}<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl formControlName="bank" class="form-control"
                         (change)="onChangeBank($event.target.value)">
-                  <option value="">--Select--</option>
-                  <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</option>
+                  <option value="">{{'PAYMENT.OTHER_METHOD.SELECT'|translate}}</option>
+                  <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName |listTranslate: bank.bankNameSin: bank.bankNameTam}}</option>
                 </select>
               </mat-form-field>
             </div>
           </div>
           <div class="default-input-wrapper full-row">
-            <label>Bank Branch: <span class="redtxt">*</span></label>
+            <label>{{'PAYMENT.OTHER_METHOD.BANK_BRANCH'|translate}} <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl formControlName="branch" class="form-control">
-                  <option value="">--Select--</option>
-                  <option *ngFor="let branch of branches" [value]="branch.bankBranchId">{{ branch.description }}
+                  <option value="">{{'PAYMENT.OTHER_METHOD.SELECT'|translate}}</option>
+                  <option *ngFor="let branch of branches" [value]="branch.bankBranchId">{{ branch.description |listTranslate: branch.descriptionSin: branch.descriptionTam }}
                   </option>
                 </select>
               </mat-form-field>
             </div>
           </div>
           <div class="default-input-wrapper full-row">
-            <label>Date: <span class="redtxt">*</span></label>
+            <label>{{'PAYMENT.OTHER_METHOD.DATE'|translate}} <span class="redtxt">*</span></label>
             <div class="default-input-feild date-feild">
               <mat-form-field appearance="outline">
                 <input matInput [matDatepicker]="picker" [max]="toDay" readonly
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="default-input-wrapper full-row">
-            <label>Reference No: <span class="redtxt">*</span></label>
+            <label>{{'PAYMENT.OTHER_METHOD.REF_NO'|translate}} <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput formControlName="referenceNo" class="form-control">
@@ -51,10 +51,10 @@
             </div>
           </div>
           <div class="default-input-wrapper full-row">
-            <label>Bank Receipt: <span class="redtxt">*</span></label>
+            <label>{{'PAYMENT.OTHER_METHOD.BANK_RECPT'|translate}}<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
-              <mat-error *ngIf="files.length==0 && isButtonClick">Please add bank receipt.</mat-error>
+              <mat-error *ngIf="files.length==0 && isButtonClick">{{'PAYMENT.OTHER_METHOD.PLZ_BANK_RECPT'|translate}}</mat-error>
             </div>
           </div>
         </div>
@@ -62,9 +62,9 @@
 
       <div class="hc-component-bottom">
         <span class="bt-line">&nbsp;</span>
-        <button mat-raised-button class="button" (click)="onBack()">Back</button>
+        <button mat-raised-button class="button" (click)="onBack()">{{'PAYMENT.BACK'|translate}}</button>
         <button [disabled]="showSpinner" mat-raised-button class="button green" (click)="savePayment()">
-          Submit
+          {{'PAYMENT.OTHER_METHOD.SUBMIT'|translate}}
           <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
         </button>
       </div>
