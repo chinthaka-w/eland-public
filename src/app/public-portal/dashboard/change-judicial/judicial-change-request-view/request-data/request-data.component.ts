@@ -1,3 +1,5 @@
+import { SessionService } from './../../../../../shared/service/session.service';
+import { TokenStorageService } from './../../../../../shared/auth/token-storage.service';
 import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 import { Workflow } from './../../../../../shared/enum/workflow.enum';
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
@@ -52,7 +54,7 @@ export class RequestDataComponent implements OnInit {
   public previousSelections: any[] = [];
   public locationDto: any = {};
   public judicialChangeDto = new JudicialChange;
-  public notaryId: number = 1;
+  public notaryId: number;
   public langArr: number[];
   public isSinhala: boolean;
   public isTamil: boolean;
@@ -91,7 +93,8 @@ export class RequestDataComponent implements OnInit {
               private snackBar: SnackBarService,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private documetService: SupportingDocService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
     this.requestForm = this.formBuilder.group({
@@ -114,6 +117,7 @@ export class RequestDataComponent implements OnInit {
       recaptcha: ['', [Validators.required]]
 
     });
+    this.notaryId = this.sessionService.getUser().id;
     this.locationList.push(this.locationDto);
     this.getJudicialZone();
     this.getDsDivision();
