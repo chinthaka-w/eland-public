@@ -16,6 +16,7 @@ import {Parameters} from '../../../shared/enum/parameters.enum';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {SessionService} from '../../../shared/service/session.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-change-land-registry',
@@ -49,7 +50,8 @@ export class ChangeLandRegistryComponent implements OnInit {
   constructor( private judicialService: JudicialService,
                private changelandRegistryService: ChangeLandRegistryService,
                private snackBar: SnackBarService,
-               private sessionService: SessionService) { }
+               private sessionService: SessionService,
+               private router: Router) { }
 
   ngOnInit() {
     this.landRegistryChangeForm = new FormGroup({
@@ -73,19 +75,30 @@ export class ChangeLandRegistryComponent implements OnInit {
   this.documentList.forEach(doc => {
       formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
     });
-  this.changelandRegistryService.save(formData).subscribe((result) => {
-    if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
-      this.snackBar.success('Judicial Change Request Success');
-    } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-      this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
-      this.isContinue = true;
-      this.statusOnlinePayment = true;
-      this.returnURl = 'requests/' + btoa(Workflow.CHANGE_LAND_REGISTRY);
+  // this.changelandRegistryService.save(formData).subscribe((result) => {
+  //   if (this.paymentMethod !== PaymentMethod.ONLINE) {
+  //     this.snackBar.success('Judicial Change Request Success');
+  //    // this.router.navigate(['/requests', this.getBase64Url(Workflow.JUDICIAL_ZONE_CHANGE)]);
+  //     this.router.navigate(['/requests', btoa(Workflow.CHANGE_LAND_REGISTRY)]);
+  //   } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+  //     this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
+  //     this.isContinue = true;
+  //     this.statusOnlinePayment = true;
+  //     this.returnURl = 'requests/' + btoa(Workflow.CHANGE_LAND_REGISTRY);
+  //
+  //   } else {
+  //     this.snackBar.error('Operation failed');
+  //   }
+  // });
 
-    } else {
-      this.snackBar.error('Operation failed');
-    }
-  });
+  this.changelandRegistryService.save(formData).subscribe(
+    (success: string ) => {
+      this.snackBar.success('Judicial Change Request Success');
+      this.router.navigate(['/requests', btoa(Workflow.CHANGE_LAND_REGISTRY)]);
+      },
+      error1 => {
+        this.snackBar.error('Failed');
+      } );
   }
 
 
@@ -150,7 +163,8 @@ export class ChangeLandRegistryComponent implements OnInit {
       errorMassage = 'Please, Enter the reason.';
     }
     if (isValid) {
-      this.isContinue = true;
+      // this.isContinue = true;
+      this.saveRequest();
     } else {
       this.snackBar.error(errorMassage);
     }
