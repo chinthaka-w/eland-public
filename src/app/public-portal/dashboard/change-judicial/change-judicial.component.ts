@@ -65,6 +65,9 @@ export class ChangeJudicialComponent implements OnInit {
   userType: string;
   userId: number;
   workflowStageCode: string;
+  isAddEngMandatory = false;
+  isAddSinMandatory = false;
+  isAddTamMandatory = false;
 
   public languages: any[] = [
     {
@@ -218,6 +221,7 @@ export class ChangeJudicialComponent implements OnInit {
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
             this.addressEng.updateValueAndValidity();
+            this.isAddEngMandatory = true;
           }
           if (langId === Languages.SINHALA) {
             this.isSinhala = true;
@@ -227,6 +231,7 @@ export class ChangeJudicialComponent implements OnInit {
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
             this.addressSin.updateValueAndValidity();
+            this.isAddSinMandatory = true;
           }
           if (langId === Languages.TAMIL) {
             this.isTamil = true;
@@ -236,6 +241,7 @@ export class ChangeJudicialComponent implements OnInit {
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
             this.addressTam.updateValueAndValidity();
+            this.isAddTamMandatory = true;
           }
         }
       }
@@ -273,9 +279,11 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
 
-  selectGnDivision(gsDivisionId) {
-    this.dsGnList.push(new DsGnDivisionDTO(+this.dsDivisionId, gsDivisionId));
-
+  selectGnDivision(gsDivisions) {
+    this.dsGnList = [];
+    gsDivisions.value.forEach((gsDivision, index) => {
+      this.dsGnList.push(new DsGnDivisionDTO(+this.dsDivisionId, +gsDivision));
+    });
   }
   setFiles(data: any, docTyprId: number, status: boolean) {
     this.files = data;

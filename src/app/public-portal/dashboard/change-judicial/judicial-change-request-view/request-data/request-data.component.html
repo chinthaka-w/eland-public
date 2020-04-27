@@ -4,12 +4,15 @@
 
         <div class="pg-inner-col right">
           <div class="default-input-wrapper m0 rac-col">
-            <label>Language:</label>
+            <label>{{'CHG_JUD_ZONE.LANGUAGE'| translate}}</label>
             <div class="default-input-feild">
               <section class="example-section">
-                <mat-checkbox class="example-margin" disabled="true" [checked]="isSinhala">Sinhala</mat-checkbox>
-                <mat-checkbox class="example-margin" disabled="true" [checked]="isEnglish">English</mat-checkbox>
-                <mat-checkbox class="example-margin" disabled="true" [checked]="isTamil">Tamil</mat-checkbox>
+                <mat-checkbox class="example-margin" disabled="true" [checked]="isSinhala">{{'CHG_JUD_ZONE.SINHALA'| translate}}
+                </mat-checkbox>
+                <mat-checkbox class="example-margin" disabled="true" [checked]="isEnglish">{{'CHG_JUD_ZONE.ENGLISH'| translate}}
+                </mat-checkbox>
+                <mat-checkbox class="example-margin" disabled="true" [checked]="isTamil">{{'CHG_JUD_ZONE.TAMIL'| translate}}
+                </mat-checkbox>
               </section>
             </div>
           </div>
@@ -21,65 +24,67 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Permenent address in new judicial zone (English):</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_ENG'| translate}} <span *ngIf="isAddEngMandatory" class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressEng" ></textarea>
               </mat-form-field>
               <div *ngIf="addressEng.invalid && (addressEng.touched || addressEng.dirty)">
-                <mat-error *ngIf="addressEng.errors.required" class="error ">Please fill the required fields</mat-error>
-                <mat-error *ngIf="addressEng.errors.maxlength" class="error ">Please enter valid permenent address (English)</mat-error>
-                <mat-error *ngIf="addressEng.errors.pattern" class="error">Please enter valid permenent address (English)</mat-error>
+                <mat-error *ngIf="addressEng.errors.required" class="error ">{{'CHG_JUD_ZONE.FILL_REQUIRED'| translate}}</mat-error>
+                <mat-error *ngIf="addressEng.errors.maxlength" class="error ">{{'CHG_JUD_ZONE.VALID_ADDRESS'| translate}}</mat-error>
+                <mat-error *ngIf="addressEng.errors.pattern" class="error">{{'CHG_JUD_ZONE.VALID_ADDRESS'| translate}}</mat-error>
               </div>
             </div>
           </div>
         </div>
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Permenent address in new judicial zone (Sinhala):</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_SIN'| translate}} <span *ngIf="isAddSinMandatory " class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressSin" ></textarea>
               </mat-form-field>
               <div *ngIf="addressSin.invalid && (addressSin.touched || addressSin.dirty)">
-                <mat-error *ngIf="addressSin.errors.required" class="error ">Please fill the required fields</mat-error>
-                <mat-error *ngIf="addressSin.errors.maxlength" class="error ">Please enter valid permenent address (Sinhala)</mat-error>
-                <mat-error *ngIf="addressSin.errors.pattern" class="error">Please enter valid permenent address (Sinhala)</mat-error>
+                <mat-error *ngIf="addressSin.errors.required" class="error ">{{'CHG_JUD_ZONE.FILL_REQUIRED'| translate}}</mat-error>
+                <mat-error *ngIf="addressSin.errors.maxlength" class="error ">{{'CHG_JUD_ZONE.VALID_ADDRESS'| translate}}</mat-error>
+                <mat-error *ngIf="addressSin.errors.pattern" class="error">{{'CHG_JUD_ZONE.VALID_ADDRESS'| translate}}</mat-error>
               </div>
             </div>
           </div>
         </div>
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>Permenent address in new judicial zone (Tamil): &nbsp; &nbsp;</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_TAM'| translate}} &nbsp; &nbsp;<span *ngIf="isAddTamMandatory "
+                class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressTam" ></textarea>
               </mat-form-field>
               <div *ngIf="addressTam.invalid && (addressTam.touched || addressTam.dirty)">
-                <mat-error *ngIf="addressTam.errors.required" class="error ">Please fill the required fields</mat-error>
-                <mat-error *ngIf="addressTam.errors.maxlength" class="error ">Please enter valid permenent address (Tamil)</mat-error>
-                <mat-error *ngIf="addressTam.errors.pattern" class="error">Please enter valid permenent address (Tamil)</mat-error>
+                <mat-error *ngIf="addressTam.errors.required" class="error ">{{'CHG_JUD_ZONE.FILL_REQUIRED'| translate}}</mat-error>
+                <mat-error *ngIf="addressTam.errors.maxlength" class="error ">{{'CHG_JUD_ZONE.VALID_ADDRESS'| translate}}</mat-error>
+                <mat-error *ngIf="addressTam.errors.pattern" class="error">{{'CHG_JUD_ZONE.VALID_ADDRESS'| translate}}</mat-error>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <label>Please give the following details regarding new judicial zone </label>
+      <label>{{'CHG_JUD_ZONE.DETAIL_JUD'| translate}} </label>
       <div>&nbsp;</div>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>Judicial Division:</label></div>
+          <label>{{'EDIT_PROFILE.JUD_DIV'| translate}} <span class="redtxt">*</span></label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
                 <mat-select formControlName="judicialZoneId" (selectionChange)="onChangeJudicialZone(judicialZoneId.value)" class="form-control">
-                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">{{ jud.nameEng }}
+                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">
+                    {{ jud.nameEng| listTranslate: jud.nameSin: jud.nameTam}}
                   </mat-option>
                 </mat-select>
                 <div *ngIf="judicialZoneId.invalid && (judicialZoneId.touched || judicialZoneId.dirty)">
-                  <mat-error *ngIf="judicialZoneId.errors.required" class="error">Please fill the required fields</mat-error>
+                  <mat-error *ngIf="judicialZoneId.errors.required" class="error">{{'VALIDATION.REQUIRED_FIELD_ERR'| translate}}</mat-error>
                 </div>
             </div>
           </div>
@@ -87,16 +92,17 @@
       </div>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>Land Registry:</label></div>
+          <label>{{'CHG_LANDREG.LANDREG'| translate}} <span class="redtxt">*</span></label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
                 <mat-select name="landRegistry" formControlName="landRegistry" class="form-control">
-                  <mat-option *ngFor="let reg of landRegistries" [value]="reg.code">{{ reg.description }}
+                  <mat-option *ngFor="let reg of landRegistries" [value]="reg.code">
+                    {{ reg.description| listTranslate: reg.descriptionSin: reg.descriptionTam}}
                   </mat-option>
                 </mat-select>
                 <div *ngIf="judicialZoneId.invalid && (judicialZoneId.touched || judicialZoneId.dirty)">
-                  <mat-error *ngIf="judicialZoneId.errors.required" class="error">Please fill the required fields</mat-error>
+                  <mat-error *ngIf="judicialZoneId.errors.required" class="error">{{'VALIDATION.REQUIRED_FIELD_ERR'| translate}}</mat-error>
                 </div>
             </div>
           </div>
@@ -106,12 +112,12 @@
       <div class="pg-inner-row mb-20" *ngIf="enbleFormEdit">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>DS Division:</label>
+            <label>{{'SEARCH_DOC.DS_DIV'| translate}}</label>
             <div class="default-input-feild">
               <mat-select class="form-control" formControlName="dsDivision"
                 (selectionChange)="selectGsDivision($event.value)">
                 <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.divisionId}}">
-                  {{ gsDivision.description }}
+                  {{ gsDivision.description| listTranslate: gsDivision.descriptionSin: gsDivision.descriptionTam}}
                 </mat-option>
               </mat-select>
             </div>
@@ -120,15 +126,15 @@
 
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>GN Division:</label>
+            <label>{{'SEARCH_DOC.GN_DIV'| translate}}</label>
             <div class="default-input-feild">
-              <mat-select multiple class="form-control" formControlName="gnDivision" (selectionChange)="selectGnDivision($event.value[$event.value.length -1])">                
+              <mat-select multiple class="form-control" formControlName="gnDivision" (selectionChange)="selectGnDivision($event)">                
                   <mat-option *ngFor="let gnDivision of gnDivisions" value="{{gnDivision.gnDivisionId}}">
-                    {{ gnDivision.description }}
+                    {{ gnDivision.description| listTranslate: gnDivision.descriptionSin: gnDivision.descriptionTam}}
                   </mat-option>                
               </mat-select>
               <div *ngIf="gnDivision.invalid && (gnDivision.touched || gnDivision.dirty)">
-                <mat-error *ngIf="gnDivision.errors.required" class="error">Please fill the required fields</mat-error>
+                <mat-error *ngIf="gnDivision.errors.required" class="error">{{'VALIDATION.REQUIRED_FIELD_ERR'| translate}}</mat-error>
               </div>
             </div>
           </div>
@@ -148,13 +154,13 @@
           <re-captcha formControlName="recaptcha"></re-captcha>
         </div>
         <div class="pg-inner-col middle">
-          By signing up, you agree to E-Land's
-          <a href="#">Terms of Service</a> , <a href="#">Code of Conduct</a> ,
-          and <a href="#">Privacy Policy</a> .
+          {{'CHG_JUD_ZONE.TITLE5'| translate}}
+          <a href="#">{{'CHG_JUD_ZONE.TITLE6'| translate}}</a>, <a href="#">{{'CHG_JUD_ZONE.TITLE7'| translate}}</a> {{'COMMON.AND'| translate}} <a
+            href="#">{{'CHG_JUD_ZONE.TITLE8'| translate}}</a>.
         </div>
         <div class="pg-inner-col right">
           <button [disabled]="!requestForm.valid || showSpinner" mat-raised-button class="button" type="button" (click)="submitForm()">
-            Update
+            {{'BUTTONS.UPDATE_BUTTON'| translate}}
           </button>
         </div>
 
