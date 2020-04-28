@@ -1,6 +1,6 @@
 <div class="page-header-default" *ngIf="!isContinueToPayment">
   <h2>{{'CHG_JUD_ZONE.TITLE1'|translate}} </h2>
-  <p>{{'CHG_JUD_ZONE.TITLE2'|translate}}<br />{{'CHG_JUD_ZONE.TITLE3'|translate}}</p>
+  <p>{{'CHG_JUD_ZONE.TITLE2'|translate}}</p>
   <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
   </a>
@@ -36,7 +36,7 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_ENG'|translate}}</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_ENG'|translate}} <span *ngIf="isAddEngMandatory" class="redtxt">*</span> </label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressEng"></textarea>
@@ -51,7 +51,7 @@
         </div>
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_SIN'|translate}}</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_SIN'|translate}} <span *ngIf="isAddSinMandatory" class="redtxt">*</span> </label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressSin"></textarea>
@@ -66,7 +66,7 @@
         </div>
         <div class="pg-inner-col-3">
           <div class="default-input-wrapper full-row">
-            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_TAM'|translate}}</label>
+            <label>{{'CHG_JUD_ZONE.PER_ADD_JUD_TAM'|translate}} <span *ngIf="isAddTamMandatory" class="redtxt">*</span> </label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline" >
                 <textarea matInput rows="5" formControlName="addressTam"></textarea>
@@ -181,7 +181,7 @@
       <div>&nbsp;</div>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}}</label></div>
+          <label>{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}} <span class="redtxt">*</span> </label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
 
@@ -200,7 +200,7 @@
       </div>
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>{{'CHG_JUD_ZONE.LAND_REG'|translate}}</label></div>
+          <label>{{'CHG_JUD_ZONE.LAND_REG'|translate}} <span class="redtxt">*</span> </label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
@@ -220,7 +220,7 @@
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>{{'CHG_JUD_ZONE.DS_DIV'|translate}}</label>
+            <label>{{'CHG_JUD_ZONE.DS_DIV'|translate}} <span class="redtxt">*</span> </label>
             <div class="default-input-feild">
               <mat-select class="form-control" formControlName="dsDivision" class="form-control"
                 placeholder="{{'CHG_JUD_ZONE.SLECT_DS'|translate}}" (selectionChange)="selectGsDivision($event.value, i)">
@@ -236,13 +236,13 @@
 
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
-            <label>{{'CHG_JUD_ZONE.GN_DIV'|translate}}</label>
+            <label>{{'CHG_JUD_ZONE.GN_DIV'|translate}} <span class="redtxt">*</span> </label>
             <div class="default-input-feild">
               <mat-select multiple class="form-control" formControlName="gnDivision" class="form-control"
-                    (selectionChange)="selectGnDivision($event.value[$event.value.length -1])" placeholder="{{'CHG_JUD_ZONE.SELECT_GN'|translate}}"
+                    (selectionChange)="selectGnDivision($event)" placeholder="{{'CHG_JUD_ZONE.SELECT_GN'|translate}}"
                     focused="isGnFocus">
                       <mat-option *ngFor="let gnDivision of gnDivisions" [value]="gnDivision.gnDivisionId">
-                        {{ gnDivision.description }}
+                        {{ gnDivision.description| listTranslate: gnDivision.descriptionSin: gnDivision.descriptionTamil}}
                       </mat-option>
                   </mat-select>
                   <div *ngIf="gnDivision.invalid && (gnDivision.touched || gnDivision.dirty)">
@@ -278,8 +278,8 @@
         </div>
         <div class="pg-inner-col middle">
           {{'CHG_JUD_ZONE.TITLE5'|translate}}
-          <a href="#">{{'CHG_JUD_ZONE.TITLE6'|translate}}</a> , <a href="#">{{'CHG_JUD_ZONE.TITLE7'|translate}}</a> ,
-          and <a href="#">{{'CHG_JUD_ZONE.TITLE8'|translate}}</a> .
+          <a href="#">{{'CHG_JUD_ZONE.TITLE6'|translate}}</a> , <a href="#">{{'CHG_JUD_ZONE.TITLE7'|translate}}</a>
+          {{'COMMON.AND'| translate}} <a href="#">{{'CHG_JUD_ZONE.TITLE8'|translate}}</a> .
         </div>
         <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
           <button [disabled]="!(judicialChangeForm.valid && isRequiredDocsUpload)" mat-raised-button class="lg-button" (click)="continue()">

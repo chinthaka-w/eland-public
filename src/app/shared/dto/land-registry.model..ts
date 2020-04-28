@@ -8,6 +8,8 @@ export class LandRegistryModel {
   public nameTam: string;
   public nameTamil: string;
   public description: string;
+  public descriptionSin: string;
+  public descriptionTam: string;
   public address: string;
   public addressSinhala: string;
   public addressTamil: string;
