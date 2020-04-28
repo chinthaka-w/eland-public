@@ -84,6 +84,7 @@ export class AddNotaryComponent implements OnInit {
   public notaryForm: FormGroup;
   public gnDivision: GnDivision[];
   public dsDivision: DsDivision[];
+  public dsDivisions: DsDivision[] = [];
   public landRegistry: LandRegistryModel[];
   public judicialZones: JudicialZoneModel[];
   public nameTitles: NameTitleDTO[];
@@ -477,10 +478,18 @@ export class AddNotaryComponent implements OnInit {
     );
   }
 
-  private getDsDivisions(): void {
-    this.dsDivisionService.getAllDsDivisions().subscribe(
+  // private getDsDivisions(): void {
+  //   this.dsDivisionService.getAllDsDivisions().subscribe(
+  //     (data: DsDivision[]) => {
+  //       this.dsDivision = data;
+  //     }
+  //   );
+  // }
+
+  getDsDivisions(): void {
+    this.dsDivisionService.findAll().subscribe(
       (data: DsDivision[]) => {
-        this.dsDivision = data;
+        this.dsDivisions = data;
       }
     );
   }

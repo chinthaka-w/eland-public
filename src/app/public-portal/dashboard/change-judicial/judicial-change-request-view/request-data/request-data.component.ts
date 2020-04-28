@@ -1,3 +1,6 @@
+import { SystemService } from './../../../../../shared/service/system.service';
+import { SessionService } from './../../../../../shared/service/session.service';
+import { TokenStorageService } from './../../../../../shared/auth/token-storage.service';
 import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 import { Workflow } from './../../../../../shared/enum/workflow.enum';
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
@@ -52,7 +55,7 @@ export class RequestDataComponent implements OnInit {
   public previousSelections: any[] = [];
   public locationDto: any = {};
   public judicialChangeDto = new JudicialChange;
-  public notaryId: number = 1;
+  public notaryId: number;
   public langArr: number[];
   public isSinhala: boolean;
   public isTamil: boolean;
@@ -71,6 +74,9 @@ export class RequestDataComponent implements OnInit {
   requestedGnDivisions = [];
   @Input() showSpinner = false;
   isButtonDissable = false;
+  isAddEngMandatory = false;
+  isAddSinMandatory = false;
+  isAddTamMandatory = false;
   public languages: any[] = [
     {
       id: Languages.ENGLISH,
@@ -91,7 +97,9 @@ export class RequestDataComponent implements OnInit {
               private snackBar: SnackBarService,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private documetService: SupportingDocService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private sessionService: SessionService,
+              private systemService: SystemService) { }
 
   ngOnInit() {
     this.requestForm = this.formBuilder.group({
@@ -114,6 +122,7 @@ export class RequestDataComponent implements OnInit {
       recaptcha: ['', [Validators.required]]
 
     });
+    this.notaryId = this.sessionService.getUser().id;
     this.locationList.push(this.locationDto);
     this.getJudicialZone();
     this.getDsDivision();
@@ -206,6 +215,7 @@ export class RequestDataComponent implements OnInit {
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
             this.addressEng.updateValueAndValidity();
+            this.isAddEngMandatory = true;
           }
           if (langId === Languages.SINHALA) {
             this.isSinhala = true;
@@ -215,6 +225,7 @@ export class RequestDataComponent implements OnInit {
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
             this.addressSin.updateValueAndValidity();
+            this.isAddSinMandatory = true;
           }
           if (langId === Languages.TAMIL) {
             this.isTamil = true;
@@ -224,6 +235,7 @@ export class RequestDataComponent implements OnInit {
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
             this.addressTam.updateValueAndValidity();
+            this.isAddTamMandatory = true;
           }
         }
       }
@@ -261,7 +273,7 @@ export class RequestDataComponent implements OnInit {
   submitForm() {
     this.isButtonDissable = true;
     if (this.requestForm.invalid) {
-      this.snackBar.warn('Please fill the requeired fields');
+      this.snackBar.warn(this.systemService.getTranslation('VALIDATION.REQUIRED_FIELD_ERR'));
       this.isButtonDissable = false;
       return;
     }
@@ -278,8 +290,12 @@ export class RequestDataComponent implements OnInit {
     this.gnDivision.setValue('');
   }
 
-  selectGnDivision(gnDivisionId) {
-    this.dsGnList.push(new DsGnDivisionDTO(this.dsDivision.value, gnDivisionId));
+  selectGnDivision(gnDivisions) {
+    // add GN Divisions
+    this.dsGnList = [];
+    gnDivisions.value.forEach((gnDivisionId, index) => {
+      this.dsGnList.push(new DsGnDivisionDTO(+this.dsDivision.value, +gnDivisionId));
+    });
   }
 
   getPaymentDetails() {

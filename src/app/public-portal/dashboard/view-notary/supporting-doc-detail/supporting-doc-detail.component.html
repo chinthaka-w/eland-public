@@ -2,7 +2,7 @@
 <div class="row">
   <mat-card class="mb-10 mt-10 ml-10 mr-10 mat-elevation-z5" *ngFor="let doc of supportingDocuments; let i = index">
     <mat-card-header>
-      <mat-card-title>{{doc.name}}</mat-card-title>
+      <mat-card-title>{{doc.name| listTranslate: doc.nameSin: doc.nameTam}} <span *ngIf="doc.statusCode" class="redtxt">*</span></mat-card-title>
     </mat-card-header>
     <div class="pg-inner-row mb-20">
       <div class="pg-inner-col">
@@ -26,13 +26,13 @@
 </div>
 <div *ngIf="enableDocUpload">
     <div class="default-input-wrapper full-row" *ngFor="let document of docList">
-      <label>{{document.description}}
+      <label>{{document.description| listTranslate: document.descriptionSin: document.descriptionTam}}
         <span *ngIf="document.required === true" style="color: red;">*</span>
       </label>
       <file-upload-input (response)="setFiles($event,document.docTypeId,document.docId, document.required)"></file-upload-input>
     </div>
 </div>
 <div *ngIf="docList.length!=0 && enableDocUpload" class="pg-inner-col float-right mt-10">
-  <button mat-raised-button [disabled]="!(docsList.length> 0 && enableDocUpload)" class="button float-right" type="button" (click)="onFormSubmit($event)">Apply Changes</button>
+  <button mat-raised-button [disabled]="!(docsList.length> 0 && enableDocUpload)" class="button float-right" type="button" (click)="onFormSubmit($event)">{{'BUTTONS.APPLY_CHANGES_BUTTON'| translate}}</button>
 </div>
 

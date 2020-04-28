@@ -4,62 +4,62 @@
         <div class="hc-component-content">
             <div class="pce-container">
                 <form [formGroup]="onlinePaymentForm">
-                    
+
                     <div class="default-input-wrapper full-row mb-30" *ngIf="showPaymentResult">
-                        <label> Transaction Status  </label>
+                        <label> {{'PAYMENT.ONLINE_METHOD.TRANS_STATUS'|translate}}  </label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <input matInput class="form-control" formControlName="paymentStatusMsg" />
                             </mat-form-field>
                         </div>
                     </div>
-    
+
                     <div class="default-input-wrapper full-row mb-30">
-                        <label>Service Code</label>
+                        <label>{{'PAYMENT.ONLINE_METHOD.SERVICE_CODE'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <input matInput class="form-control" formControlName="serviceCode" />
                             </mat-form-field>
                         </div>
                     </div>
-    
+
                     <div class="default-input-wrapper full-row mb-30">
-                        <label>Transaction Ref No</label>
+                        <label>{{'PAYMENT.ONLINE_METHOD.TRANS_REF_NO'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <input matInput class="form-control" formControlName="transactionRef" />
                             </mat-form-field>
                         </div>
                     </div>
-    
+
                     <div class="default-input-wrapper full-row mb-30">
-                        <label>Amount</label>
+                        <label>{{'PAYMENT.AMOUNT'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <input [value]="applicationAmount.value | currency: 'LKR': 'Rs.'" matInput class="form-control" formControlName="applicationAmount" />
                             </mat-form-field>
                         </div>
                     </div>
-    
+
                     <div class="default-input-wrapper full-row mb-30" *ngIf="showPaymentResult">
-                        <label>Total Amount</label>
+                        <label>{{'PAYMENT.ONLINE_METHOD.TOTAL_AMOUNT'|translate}}</label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <input [value]="totalFee.value | currency: 'LKR': 'Rs.'" matInput class="form-control" formControlName="totalFee" />
                             </mat-form-field>
                         </div>
                     </div>
-    
+
                     <input type="hidden" *ngIf="showEncryptedPaymentRequest"
                     name="clientPaymentRequest"
                     formControlName="encryptedPaymentRequest"
                     />
-                    
+
                 </form>
             </div>
             <div class="hc-component-bottom">
                 <span class="bt-line">&nbsp;</span>
-                <button [disabled]="!enablePayment && !showPaymentResult" mat-raised-button class="button green" (click)="ConfirmPayment()">{{showPaymentResult?'Continue':'Pay'}}
+                <button [disabled]="!enablePayment && !showPaymentResult" mat-raised-button class="button green" (click)="ConfirmPayment()">{{showPaymentResult?('PAYMENT.CONTINUE'|translate):('PAYMENT.ONLINE_METHOD.PAY'|translate)}}
                     <mat-spinner [diameter]="16" *ngIf="!enablePayment && !showPaymentResult" class="spinner-inline"></mat-spinner>
                 </button>
               </div>

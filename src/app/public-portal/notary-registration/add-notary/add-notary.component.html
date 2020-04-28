@@ -21,8 +21,7 @@
                           (selectionChange)="selectNotaryType($event.value)"
                           class="form-control text-left">
                 <mat-option [value]="NotaryRegisterType.NOTARY">{{'NOTARY.NOTARY'|translate}}</mat-option>
-                <mat-option [value]="NotaryRegisterType.ATTORNEY_AT_LAW">{{'NOTARY.ATTORNEY_AT_LAW'|translate}}
-                </mat-option>
+                <mat-option [value]="NotaryRegisterType.ATTORNEY_AT_LAW">{{'NOTARY.ATTORNEY_AT_LAW'|translate}}</mat-option>
               </mat-select>
             </div>
           </div>
@@ -35,9 +34,9 @@
         <div class="pg-inner-col">
           <label>{{'NOTARY.TITLE'|translate}}: <span class="redtxt">*</span></label>
           <mat-select formControlName="title" class="form-control">
-            <mat-option [value]="''" disabled>--Select--</mat-option>
+            <mat-option [value]="''" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
             <mat-option *ngFor="let item of nameTitles" [value]="item.nameTitleId">
-              {{item.titleEng}}
+              {{item.titleEng|listTranslate:item.titleSin:item.titleTam}}
             </mat-option>
           </mat-select>
           <div *ngIf="FormControls.title.touched && FormControls.title.errors"
@@ -436,12 +435,10 @@
           <div class="default-input-wrapper full-row">
             <label>{{'NOTARY.JUDICIAL_ZONE'|translate}}: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-select matNativeControl required
-                          (selectionChange)="selectJudicialZone($event.value)"
-                          formControlName="courtZone" class="form-control">
-                <mat-option value="" disabled>--Select--</mat-option>
-                <mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">{{
-                  judicialZone.nameEng }}
+              <mat-select matNativeControl required formControlName="courtZone" class="form-control">
+                <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
+                <mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">
+                  {{judicialZone.nameEng|listTranslate:judicialZone.nameSin:judicialZone.nameTam}}
                 </mat-option>
               </mat-select>
               <div *ngIf="FormControls.courtZone.touched && FormControls.courtZone.errors"
@@ -458,9 +455,9 @@
             <label>{{'NOTARY.LAND_REGISTRY'|translate}}: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-select matNativeControl required formControlName="landRegistry" class="form-control">
-                <mat-option value="" disabled>--Select--</mat-option>
+                <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
                 <mat-option *ngFor="let landRegistries of landRegistry" [value]="landRegistries.landRegistryId">
-                  {{landRegistries.nameEng}}
+                  {{landRegistries.nameEng|listTranslate:landRegistries.nameSin:landRegistries.nameTam}}
                 </mat-option>
               </mat-select>
               <div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"
@@ -487,12 +484,7 @@
                   formControlName="secretariatDivision"
                   (selectionChange)="selectDsDivision($event.value)">
                   <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
-                  <mat-option
-                    *ngFor="let dsDivisions of dsDivision"
-                    [value]="dsDivisions.dsDivisionId"
-                    [disabled]="dsDivisions.selected">
-                    {{ dsDivisions.description }}
-                  </mat-option>
+                  <mat-option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</mat-option>
                 </mat-select>
                 <div *ngIf="FormControls.secretariatDivision.touched && FormControls.secretariatDivision.errors"
                      class="invalid-feedback">
@@ -517,7 +509,7 @@
                   <ng-container *ngFor="let gnDivisions of gnDivision">
                     <mat-option
                       [value]="gnDivisions.gnDivisionId"
-                    >{{ gnDivisions.description }}
+                    >{{ gnDivisions.description|listTranslate:gnDivisions.descriptionSin:gnDivisions.descriptionTam }}
                     </mat-option
                     >
                   </ng-container>

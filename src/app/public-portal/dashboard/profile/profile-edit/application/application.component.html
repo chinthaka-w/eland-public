@@ -1,16 +1,16 @@
 <div class="pg-inner-row mb-40">
     <div class="pg-inner-col">
-        <h4 class="m0">Edit Profile</h4>
+        <h4 class="m0">{{'EDIT_PROFILE.TITLE1'|translate}}</h4>
     </div>
 </div>
 
-<h5 class="uw-title"><span>Application For A Notarial Warrant</span></h5>
+<h5 class="uw-title"><span>{{'EDIT_PROFILE.TITLE2'|translate}}</span></h5>
 
 <form [formGroup]="requestForm" class="form pb-5">
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col-3">
       <div class="default-input-wrapper full-row">
-        <label>Full name (English):</label>
+        <label>{{'EDIT_PROFILE.FULLNAME_E'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline" >
             <textarea matInput rows="5" matInput formControlName="fNameEng" readonly class="form-control"></textarea>
@@ -20,7 +20,7 @@
     </div>
     <div class="pg-inner-col-3">
       <div class="default-input-wrapper full-row">
-        <label>Full name (Sinhala):</label>
+        <label>{{'EDIT_PROFILE.FULLNAME_S'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <textarea matInput rows="5" formControlName="fNameSin" readonly class="form-control"></textarea>
@@ -30,7 +30,7 @@
     </div>
     <div class="pg-inner-col-3">
       <div class="default-input-wrapper full-row">
-        <label>Full name (Tamil):</label>
+        <label>{{'EDIT_PROFILE.FULLNAME_T'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <textarea matInput rows="5" formControlName="fNameTam" readonly class="form-control"></textarea>
@@ -44,7 +44,7 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>Permenent address (English):</label>
+            <label>{{'EDIT_PROFILE.PER_ADD_E'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <textarea matInput rows="5" formControlName="perAddEng" maxlength="255" class="form-control"></textarea>
@@ -54,7 +54,7 @@
     </div>
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>Permenent address (Sinhala):</label>
+            <label>{{'EDIT_PROFILE.PER_ADD_S'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <textarea matInput rows="5" formControlName="perAddSin" maxlength="255" class="form-control"></textarea>
@@ -64,7 +64,7 @@
     </div>
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>Permenent address (Tamil):</label>
+            <label>{{'EDIT_PROFILE.PER_ADD_T'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <textarea matInput rows="5" formControlName="perAddTam" maxlength="255" class="form-control"></textarea>
@@ -77,7 +77,7 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>Current address (English):</label>
+            <label>{{'EDIT_PROFILE.CUR_ADD_E'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <textarea matInput rows="5" formControlName="curAddressEng" maxlength="255" class="form-control"></textarea>
@@ -87,7 +87,7 @@
     </div>
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>Current address (Sinhala):</label>
+            <label>{{'EDIT_PROFILE.CUR_ADD_S'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline" >
                     <textarea matInput rows="5" formControlName="curAddressSin" maxlength="255" class="form-control"></textarea>
@@ -97,7 +97,7 @@
     </div>
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>Current address (Tamil):</label>
+            <label>{{'EDIT_PROFILE.CUR_ADD_T'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <textarea matInput rows="5" formControlName="curAddressTam" maxlength="255" class="form-control"></textarea>
@@ -110,32 +110,32 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-            <label>Contact No. (Residential):</label>
+            <label>{{'EDIT_PROFILE.CONTACT'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="contact" class="form-control">
                 </mat-form-field>
               <div *ngIf="f.contact.errors" >
                 <mat-error *ngIf="f.contact.errors.required" class="errors">
-                  Contact number is required
+                  {{'EDIT_PROFILE.CONTACT_REQ'|translate}}
                 </mat-error>
-                <mat-error *ngIf="f.contact.errors.pattern" class="errors">Please enter valid telephone number</mat-error>
+                <mat-error *ngIf="f.contact.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_CONTACT'|translate}}</mat-error>
               </div>
             </div>
         </div>
     </div>
     <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-            <label>Mobile:</label>
+            <label>{{'EDIT_PROFILE.MOBILE'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="mobile" class="form-control">
                 </mat-form-field>
               <div *ngIf="f.mobile.errors" >
                 <mat-error *ngIf="f.mobile.errors.required" class="errors">
-                  Mobile number is required
+                  {{'EDIT_PROFILE.MOBILE_REQ'|translate}}
                 </mat-error>
-                <mat-error *ngIf="f.mobile.errors.pattern" class="errors">Please enter valid telephone number</mat-error>
+                <mat-error *ngIf="f.mobile.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -145,16 +145,16 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-            <label>Email:</label>
+            <label>{{'EDIT_PROFILE.EMAIL'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="email" class="form-control">
                 </mat-form-field>
               <div *ngIf="f.email.errors" >
                 <mat-error *ngIf="f.email.errors.required" class="errors">
-                  Email is required
+                  {{'EDIT_PROFILE.EMAIL_REQ'|translate}}
                 </mat-error>
-                <mat-error *ngIf="f.email.errors.pattern" class="errors">Please enter valid email address</mat-error>
+                <mat-error *ngIf="f.email.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_EMAIL'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -167,7 +167,7 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>Judicial Division:</label>
+          <label>{{'EDIT_PROFILE.JUD_DIV'|translate}}</label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                   <input matInput formControlName="judicial" class="form-control" readonly>
@@ -177,7 +177,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Land Registry:</label>
+        <label>{{'EDIT_PROFILE.LAND_REG'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="lRegistry" class="form-control" readonly>
@@ -189,7 +189,7 @@
 
   <div class="pg-inner-col right" >
     <button mat-raised-button class="lg-button" (click)="submitForm()">
-      Submit
+      {{'BUTTONS.SUBMIT_BUTTON'|translate}}
     </button>
   </div>
 </form>

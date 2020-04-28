@@ -3,16 +3,18 @@
   <thead>
   <tr>
     <th></th>
-    <th style="width: 200px">DS Division</th>
-    <th  style="width: 200px">GN Division</th>
+    <th style="width: 200px">{{'NOTARY.DS_DIVISION'| translate}}</th>
+    <th  style="width: 200px">{{'NOTARY.GN_DIVISION'| translate}}</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let dsDiv of dsGnDivisions; let i=index">
     <td style="width: 100px;text-align: center">{{i+1}}</td>
-    <td  style="width: 400px;text-align: center">{{dsDiv.dsDivisionDescription}}</td>
-    <td  style="width: 500px;text-align: center">
-      <span class="gn-div" *ngFor="let gnDiv of dsDiv.gnDivisions">{{gnDiv.description}}</span>
+    <td style="width: 400px;text-align: center">
+      {{dsDiv.dsDivisionDescription | listTranslate: dsDiv.dsDivisionDescriptionSin: dsDiv.dsDivisionDescriptionTam}}</td>
+    <td style="width: 500px;text-align: center">
+      <span class="gn-div"
+        *ngFor="let gnDiv of dsDiv.gnDivisions">{{gnDiv.description| listTranslate: gnDiv.descriptionSinhala: gnDiv.descriptionTamil}}</span>
     </td>
   </tr>
   </tbody>

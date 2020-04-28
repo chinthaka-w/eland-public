@@ -62,10 +62,10 @@
       <div class="separator">&nbsp;</div>
 
       <div class="pg-inner-row mb-20 upload-col-3">
-        <ng-container *ngFor="let document of docList">
+        <ng-container *ngFor="let document of workflowStageDocTypes">
           <div class="pg-inner-col-3">
             <div class="default-input-wrapper full-row">
-              <label>{{document.description}}
+              <label>{{document.description|listTranslate: document.descriptionSin: document.descriptionTam}}
                 <span *ngIf="document.required == true">*</span>
               </label>
               <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
