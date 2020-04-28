@@ -16,6 +16,7 @@ import {Parameters} from '../../../shared/enum/parameters.enum';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {SessionService} from '../../../shared/service/session.service';
+import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-type-dto';
 
 @Component({
   selector: 'app-change-land-registry',
@@ -25,6 +26,7 @@ import {SessionService} from '../../../shared/service/session.service';
 export class ChangeLandRegistryComponent implements OnInit {
   @Input() workflow: string;
   public docList: WorkflowStageDocDto[];
+  workflowStageDocTypes: Array<WorkflowStageDocTypeDTO> = [];
   landRegistryChangeForm: FormGroup;
   public landRegistrySelect: LandRegistryModel[];
   isContinue = false;
@@ -60,6 +62,7 @@ export class ChangeLandRegistryComponent implements OnInit {
     this.getLandRegistries();
     this.getDocumentList();
     this.userType = this.sessionService.getUser().type;
+    this.userId = this.sessionService.getUser().id;
   }
 
   saveRequest() {
@@ -79,6 +82,8 @@ export class ChangeLandRegistryComponent implements OnInit {
       this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
       this.isContinue = true;
       this.statusOnlinePayment = true;
+      this.returnURl = 'requests/' + btoa(Workflow.CHANGE_LAND_REGISTRY);
+
     } else {
       this.snackBar.error('Operation failed');
     }
@@ -96,9 +101,9 @@ export class ChangeLandRegistryComponent implements OnInit {
 
   private getDocumentList(): void {
     this.judicialService.getDocuments(LandRegistryChangeWorkflowStagesEnum.LANDREGISTRY_CHANGE_REQUEST_INITIATED).subscribe(
-      (data: WorkflowStageDocDto[]) => {
+      (data: WorkflowStageDocTypeDTO[]) => {
         // alert(this.docList);
-        this.docList = data;
+        this.workflowStageDocTypes = data;
       }
     );
   }

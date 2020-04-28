@@ -41,8 +41,8 @@ export class NotaryRequestViewComponent implements OnInit {
 
   setTitle() {
     if (this.workflow === Workflow.NOTARY_NAME_CHANGE) {
-      this.headerText = 'Notary Name Change';
-      this.title = 'Notary Name Change Requests';
+      // this.headerText = 'Notary Name Change';
+      // this.title = 'Notary Name Change Requests';
       this.newButtonURL = '/change-the-name';
       this.actionButtonURL = `/change-name-request-view/` + this.getBase64(this.workflow) + '/';
     }

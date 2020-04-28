@@ -1,3 +1,4 @@
+import { SystemService } from './../../../../shared/service/system.service';
 import { Parameters } from './../../../../shared/enum/parameters.enum';
 import { CommonStatus } from './../../../../shared/enum/common-status.enum';
 import { RequestResponse } from './../../../../shared/dto/request-response.model';
@@ -60,7 +61,8 @@ export class JudicialChangeRequestViewComponent implements OnInit {
               private snackBar: SnackBarService,
               private judicialService: JudicialService,
               private router: Router,
-              private newNotaryDataVerificationService: NewNotaryDataVarificationService) {
+              private newNotaryDataVerificationService: NewNotaryDataVarificationService,
+              private systemService: SystemService) {
     this.route.params.subscribe(params => {
       this.workflow  = atob(params['workflow']);
       this.requestId  = atob(params['id']);
@@ -153,11 +155,11 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   updateDetails(){
     this.judicialService.update(this.judicial).subscribe(
       (success: string) => {
-        this.snackBar.success('Judicial Change Request Update Success');
+        this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.UPDATE_SUCCESS'));
         this.showSpinner = false;
       },
       error => {
-        this.snackBar.error('Failed');
+        this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.SERVER_ERROR'));
         this.showSpinner = false;
       }
     );
