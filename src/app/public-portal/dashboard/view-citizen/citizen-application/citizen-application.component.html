@@ -3,7 +3,7 @@
   <div class="default-input-wrapper full-row half-cols">
     <label>{{'CITIZEN.TITLE'|translate}}
       <span>*</span></label>
-    <div class="default-input-feild gray"> 
+    <div class="default-input-feild gray">
         <mat-select placeholder="{{'CITIZEN.SELECT_LAND_REG'|translate}}" formControlName="nearestLr" required (selectionChange)="getCurrentLandRegistry($event)">
           <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name| listTranslate: landRegistry.nameSin: landRegistry.nameTam}}</mat-option>
         </mat-select>
@@ -128,7 +128,7 @@
       <label class="mw-200">{{'CITIZEN.ADDRESS'|translate}}<span>*</span></label>
       <div class="default-input-feild">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="{{'CITIZEN.LINE_ONE'|translate}}" formControlName="address1" />
+          <input matInput placeholder="{{'PUBLIC_USER.ADDRESS.LINE_ONE'|translate}}{{'CITIZEN.APPLICANT_NAME_SIN'|translate}}" formControlName="address1" />
         </mat-form-field>
         <div *ngIf="address1.invalid && (address1.dirty || address1.touched)">
           <mat-error *ngIf="address1.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
@@ -140,7 +140,7 @@
       <label class="mw-200"></label>
       <div class="default-input-feild">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="{{'CITIZEN.LINE_TWO'|translate}}" formControlName="address2" />
+          <input matInput placeholder="{{'PUBLIC_USER.ADDRESS.LINE_TWO'|translate}}" formControlName="address2" />
         </mat-form-field>
         <div *ngIf="address2.invalid && (address2.dirty || address2.touched)">
           <mat-error *ngIf="address2.errors.pattern || address2.errors.maxlength" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
@@ -151,7 +151,7 @@
       <label class="mw-200"></label>
       <div class="default-input-feild">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="{{'CITIZEN.LINE_THREE'|translate}}" formControlName="address3" />
+          <input matInput placeholder="{{'PUBLIC_USER.ADDRESS.LINE_THREE'|translate}}" formControlName="address3" />
         </mat-form-field>
         <div *ngIf="address3.invalid && (address3.dirty || address3.touched)">
           <mat-error *ngIf="address3.errors.pattern || address3.errors.maxlength" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
@@ -159,7 +159,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="default-input-wrapper full-row half-cols">
     <label class="mw-200">{{'CITIZEN.IDENT_TYPE'|translate}} <span>*</span></label>
     <div class="default-input-feild gray">
@@ -206,7 +206,7 @@
       </div>
     </div>
   </div>
- 
+
   <div class="default-input-wrapper full-row half-cols">
     <label class="mw-200">{{'CITIZEN.REASON_FOR_APP'|translate}} <span>*</span></label>
     <div class="default-input-feild">
@@ -230,7 +230,7 @@
 
   <div class="pg-inner-col float-right" *ngIf="isEdit">
     <button [disabled]="!publicUserForm.valid || showSpinner" mat-raised-button class="button float-right" (click)="saveCitizen()">
-      {{'CITIZEN.UPDATE'|translate}} 
+      {{'CITIZEN.UPDATE'|translate}}
       <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
     </button>
   </div>
