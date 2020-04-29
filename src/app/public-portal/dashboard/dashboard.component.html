@@ -4,7 +4,7 @@
     <div class="db-right-col">
       <h2>{{'DASOBOARD.TITLE1'|translate}}</h2>
       <p>{{'DASOBOARD.TITLE2'|translate}}</p>
-      <div class="db-card-full" *ngIf="user.type == userType.NOTARY  && user.userStatus != (commonStatus.ACTIVE)">
+      <div class="db-card-full" *ngIf="user.type == userType.NOTARY  && user.userStatus != (commonStatus.ACTIVE) ">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
         </div>
         <div class="db-card-content">
@@ -19,7 +19,11 @@
           <dl class="db-card-info">
             <dt>{{'DASOBOARD.STATUS'|translate}}</dt>
             <dd>
-              <span class="status-pending">{{searchDetails?.statusDescription}}</span>
+              <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':
+                              searchDetails?.status === commonStatus.INACTIVE? 'status-pending':
+                              searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
+                {{getStatus()}}
+              </span>
             </dd>
           </dl>
           <dl class="db-card-info">
@@ -164,15 +168,6 @@
             <span class="title">{{'DASOBOARD.REQUEST_FOR_CORRECTION'|translate}}</span>
           </a>
         </div>
-        <!--<div class="db-link-tile c2">-->
-          <!--<a *ngIf="!folioPending" (click)="viewFolio()">-->
-            <!--<span class="icon">-->
-              <!--<i class="material-icons">label</i>-->
-            <!--</span>-->
-            <!--<span class="title">Folio View</span>-->
-          <!--</a>-->
-          <!--<mat-spinner *ngIf="folioPending"></mat-spinner>-->
-        <!--</div>-->
       </div>
     </div>
   </div>

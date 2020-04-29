@@ -26,9 +26,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.sessionService.getUser().id) {
-      this.router.navigate(['/login']);
-    }
+    // if (this.sessionService.getUser().id) {
+    //   this.router.navigate(['/login']);
+    // }
   }
 
 }
