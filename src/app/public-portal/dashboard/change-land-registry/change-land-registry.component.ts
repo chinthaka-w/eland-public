@@ -18,6 +18,7 @@ import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {SessionService} from '../../../shared/service/session.service';
 import {Router} from '@angular/router';
 import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-type-dto';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-change-land-registry',
@@ -53,7 +54,8 @@ export class ChangeLandRegistryComponent implements OnInit {
                private changelandRegistryService: ChangeLandRegistryService,
                private snackBar: SnackBarService,
                private sessionService: SessionService,
-               private router: Router) { }
+               private router: Router,
+               private location: Location) { }
 
   ngOnInit() {
     this.landRegistryChangeForm = new FormGroup({
@@ -178,6 +180,11 @@ export class ChangeLandRegistryComponent implements OnInit {
   }
   get landRegistry() {
     return this.landRegistryChangeForm.get('landRegistry');
+  }
+
+  goBack(): any {
+    this.location.back();
+    return false;
   }
 
 }
