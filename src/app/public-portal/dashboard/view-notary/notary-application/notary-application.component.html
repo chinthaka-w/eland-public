@@ -407,7 +407,8 @@
       <div class="default-input-wrapper full-row">
         <label>{{'NOTARY.JUDICIAL_ZONE'|translate}}: <span class="redtxt">*</span></label>
         <div class="default-input-feild">
-          <mat-select matNativeControl required formControlName="courtZone" class="form-control">
+          <mat-select matNativeControl required
+                      formControlName="courtZone" class="form-control">
             <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
             <mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">
               {{judicialZone.nameEng}}

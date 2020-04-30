@@ -222,9 +222,8 @@ export class NotaryApplicationComponent implements OnInit {
     this.getNameTitles();
     this.getJudicialZones();
     this.getDsDivisions();
-    this.getLandRegistries();
     this.getApplicationDetails();
-
+    this.selectJudicialZone();
   }
 
   get languages(): FormControl {
@@ -425,6 +424,15 @@ export class NotaryApplicationComponent implements OnInit {
 
   }
 
+  selectJudicialZone() {
+    this.notaryForm.get('courtZone').valueChanges.subscribe(
+      (judicialId: any) => {
+        if (judicialId) this.getLandRegistries(judicialId);
+
+      }
+    );
+  }
+
   addToTable() {
     this.secretariatDivision.setValidators(Validators.required);
     this.secretariatDivision.updateValueAndValidity();
@@ -563,8 +571,8 @@ export class NotaryApplicationComponent implements OnInit {
     );
   }
 
-  private getLandRegistries(): void {
-    this.landRegistryService.getAllLandRegistry().subscribe(
+  private getLandRegistries(id: any): void {
+    this.landRegistryService.getLandRegistriesByJudicialId(id).subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistry = data;
       }

@@ -11,4 +11,5 @@ export class PaymentResponse {
   public totalFee: string;
   public ipgName: string;
   public transactionRef: string;
+  public deliveryAmount: number;
 }
