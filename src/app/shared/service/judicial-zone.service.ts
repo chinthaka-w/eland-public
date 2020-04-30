@@ -13,6 +13,6 @@ export class JudicialZoneService {
 
   // tslint:disable-next-line:ban-types
   getAllJudicialZone(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL + '/getAll', {headers: this.headers} );
+    return this.httpClient.get(this.BASE_URL + '/', {headers: this.headers} );
   }
 }
