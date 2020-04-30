@@ -336,6 +336,7 @@ export class LanguageChangeComponent implements OnInit {
         }
         else{
         this.snackBarService.success('Request submitted successfully!');
+        this.router.navigate(['/requests', btoa(Workflow.LANGUAGE_CHANGE)]);
         }
       },
       error => {
