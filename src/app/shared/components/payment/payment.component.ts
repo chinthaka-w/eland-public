@@ -68,8 +68,8 @@ export class PaymentComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.paymentForm = new FormGroup({
-      licenseMethod: new FormControl(2),
-      paymentMethod: new FormControl(1)
+      licenseMethod: new FormControl(''),
+      paymentMethod: new FormControl('')
     });
     this.getApplicationAmount(this.applicationFeeCode);
     this.newReturnUrl = this.returnUrl ? btoa(this.returnUrl) : btoa('/dashboard');
@@ -186,6 +186,8 @@ export class PaymentComponent implements OnInit, OnChanges {
         const paymentResponse = new PaymentResponse();
         paymentResponse.paymentMethod = PaymentMethod.ONLINE;
         paymentResponse.applicationAmount = this.totalAmount.toString();
+        paymentResponse.deliveryType = this.paymentForm.get('licenseMethod').value;
+        paymentResponse.deliveryAmount = this.issueAmount;
         // genereate uuid
         paymentResponse.transactionRef = uuid();
         this.paymentReference = paymentResponse.transactionRef;

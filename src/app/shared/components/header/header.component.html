@@ -11,7 +11,7 @@
         </a>
       </div>
       <div class="header-right">
-        <div class="navigation" [ngClass]="status ? 'active' : 'in-active'">
+        <div *ngIf="!isHome" class="navigation" [ngClass]="status ? 'active' : 'in-active'">
           <button class="mobile-nav-btn" (click)="clickEvent()">
             <i class="material-icons nav">reorder</i>
             <i class="material-icons close">close</i>
@@ -31,7 +31,7 @@
             </li>
           </ul>
         </div>
-        <div class="hr-button-wrapper">
+        <div class="hr-button-wrapper" *ngIf="!isHome">
           <div class="user-profile" [ngClass]="langDropdown ? 'active' : 'in-active'">
             <span class="user-title" (click)="clickLangDropdown()">{{selectedLanguage.label}} <i
               class="material-icons">arrow_drop_down</i></span>
@@ -49,16 +49,16 @@
                 class="material-icons">arrow_drop_down</i></span>
             <ul class="up-dropdown">
               <li>
-                <a (click)="clickDropdown()" [routerLink]="['/edit-profile']">Edit Profile</a>
+                <a style="cursor: pointer;" (click)="clickDropdown()" [routerLink]="['/edit-profile']">Edit Profile</a>
               </li>
 
-              <!-- Public user Edit 
+              <!-- Public user Edit
                   <li>
                       <a href="" [routerLink]="['/edit-public-profile']">Edit Profile</a>
                   </li> -->
 
               <li>
-                <a (click)="logout(); clickDropdown();">Logout</a>
+                <a style="cursor: pointer;" (click)="logout(); clickDropdown();">Logout</a>
               </li>
             </ul>
           </div>

@@ -44,6 +44,7 @@ import {NameTitleService} from '../../../shared/service/name-title.service';
 import {NameTitleDTO} from '../../../shared/dto/name-title.dto';
 import {PublicUserType} from '../../../shared/enum/public-user-type.enum';
 import {NewNotaryRegistrationWorkflowStage} from '../../../shared/enum/new-notary-registration-workflow-stage.enum';
+import {UserType} from '../../../shared/enum/user-type.enum';
 
 @Component({
   selector: 'app-add-notary',
@@ -56,6 +57,7 @@ export class AddNotaryComponent implements OnInit {
   WorkflowCode = Workflow;
   Languages = Languages;
   NotaryRegisterType = NotaryRegisterType;
+  UserType = UserType;
   NameTitle = NameTitleEnum;
 
   public isContinueToPayment: boolean = false;
@@ -478,21 +480,21 @@ export class AddNotaryComponent implements OnInit {
     );
   }
 
-  // private getDsDivisions(): void {
-  //   this.dsDivisionService.getAllDsDivisions().subscribe(
-  //     (data: DsDivision[]) => {
-  //       this.dsDivision = data;
-  //     }
-  //   );
-  // }
-
-  getDsDivisions(): void {
-    this.dsDivisionService.findAll().subscribe(
+  private getDsDivisions(): void {
+    this.dsDivisionService.getAllDsDivisions().subscribe(
       (data: DsDivision[]) => {
-        this.dsDivisions = data;
+        this.dsDivision = data;
       }
     );
   }
+
+  // getDsDivisions(): void {
+  //   this.dsDivisionService.findAll().subscribe(
+  //     (data: DsDivision[]) => {
+  //       this.dsDivisions = data;
+  //     }
+  //   );
+  // }
 
   private getJudicialZones(): void {
     this.judicialZoneService.getAllJudicialZone().subscribe(
@@ -545,7 +547,7 @@ export class AddNotaryComponent implements OnInit {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.paymentDataValue = this.paymentDto;
-      this.returnURl = this.getBase64String('login');
+      this.returnURl = 'login';
       this.saveNotaryDetails();
     }
   }
