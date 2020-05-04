@@ -121,7 +121,8 @@
              "PRIMARY":"Primary",
              "SECONDARY":"Secondary"
           }
-       }
+       },
+       "AND": "and"
     },
     "FOLIO_TYPE":{
        "FOLIO_NUM":"Folio No",
@@ -487,15 +488,6 @@
     },
     "TOKEN":{
        "TOKEN_NO":"Token No"
-    },
-    "PAYMENT":{
-       "PAYMENT":"Payment",
-       "PAYMENT_DETAILS":"Payment Details",
-       "PAYMENT_MODE":"Payment Mode",
-       "PAYMENT_ID":"Payment ID",
-       "AMOUNT":"Amount",
-       "DATE":"Payment Date",
-       "ADD_PAYMENT":"Add Payment"
     },
     "NOTARY":{
        "SEARCH_NOTARY":"Search Notary",
@@ -1052,11 +1044,11 @@
    },
    "HOME_PAGE": {
       "NOTARY_SERVICES": "Notary Services",
-      "NEW_REG": "New Registration",
+      "NEW_REG": "New notary registration",
       "NAME_CHG": "Name Change",
       "RENEWAL": "Renewal",
-      "RCHG": "Region Change",
-      "LCHG": "Language Change",
+      "RCHG": "Judicial division change",
+      "LCHG": "License in a different language",
       "PUBLIC_SERVICES": "Public Services",
       "SEARCH_FOL": "Search for Folio",
       "SRCH_DEED": "Search for Deeds",
@@ -1119,40 +1111,44 @@
   },
 
   "PAYMENT":{
-    "LICENSE_ISSUE":"License Issue",
-    "LICENSE_WAY":"In which way you like to receive the license?",
-    "BY_HAND":"By Hand",
-    "BY_POST_NO":"By Post (Normal)",
-    "BY_POST_RE":"By Post(Registered)",
-    "PAYMENT":"Payment",
-    "PAYMENT_METHOD":"Payment method",
-    "ONLINE":"Online",
-    "BANK_TR_DE":"Bank Transfer or Deposit",
-    "FRONT_COUNTER":"Front Counter",
-    "AMOUNT":"Amount",
-    "ISSUE":"Issue (Post)",
-    "TOTAL":"Total",
-    "BACK":"Back",
-    "CONTINUE":"Continue",
-    "ONLINE_METHOD":{
-      "SERVICE_CODE":"Service Code",
-      "TRANS_STATUS":"Transaction Status",
-      "TRANS_REF_NO":"Transaction Ref No",
-      "TOTAL_AMOUNT":"Total Amount",
-      "PAY":"Pay"
-    },
-    "OTHER_METHOD":{
-      "BANK":"Bank:",
-      "SELECT":"--Select--",
-      "BANK_BRANCH":"Bank Branch:",
-      "DATE":"Date:",
-      "REF_NO":"Reference No: ",
-      "BANK_RECPT":"Bank Receipt:",
-      "PLZ_BANK_RECPT":"Please add bank receipt.",
-      "SUBMIT":"Submit"
-
-    }
-  },
+   "PAYMENT_DETAILS": "Payment Details",
+   "PAYMENT_MODE": "Payment Mode",
+   "PAYMENT_ID": "Payment ID",
+   "DATE": "Payment Date",
+   "ADD_PAYMENT": "Add Payment",
+   "LICENSE_ISSUE": "License Issue",
+   "LICENSE_WAY": "In which way you like to receive the license?",
+   "BY_HAND": "By Hand",
+   "BY_POST_NO": "By Post (Normal)",
+   "BY_POST_RE": "By Post(Registered)",
+   "PAYMENT": "Payment",
+   "PAYMENT_METHOD": "Payment method",
+   "ONLINE": "Online",
+   "BANK_TR_DE": "Bank Transfer or Deposit",
+   "FRONT_COUNTER": "Front Counter",
+   "AMOUNT": "Amount",
+   "ISSUE": "Issue (Post)",
+   "TOTAL": "Total",
+   "BACK": "Back",
+   "CONTINUE": "Continue",
+   "ONLINE_METHOD": {
+      "SERVICE_CODE": "Service Code",
+      "TRANS_STATUS": "Transaction Status",
+      "TRANS_REF_NO": "Transaction Ref No",
+      "TOTAL_AMOUNT": "Total Amount",
+      "PAY": "Pay"
+   },
+   "OTHER_METHOD": {
+      "BANK": "Bank:",
+      "SELECT": "--Select--",
+      "BANK_BRANCH": "Bank Branch:",
+      "DATE": "Date:",
+      "REF_NO": "Reference No: ",
+      "BANK_RECPT": "Bank Receipt:",
+      "PLZ_BANK_RECPT": "Please add bank receipt.",
+      "SUBMIT": "Submit"
+   }
+},
   "LOGIN":{
     "TITLE1":"Welcome to E-Land",
     "TITLE2":"Welcome back please login to your account",
@@ -1213,20 +1209,19 @@
   },
   "CHG_JUD_ZONE":{
     "TITLE1":"APPLICATION FOR CHANGING THE JUDICIAL ZONE",
-    "TITLE2":"Please fill in the following information to",
-    "TITLE3":"register in the system",
+    "TITLE2":"Please fill in the following details to change the judicial division",
     "TITLE4":"APPLICATION FOR CHANGING THE JUDICIAL ZONE",
     "LANGUAGE":"Language:",
     "SINHALA":"Sinhala",
     "ENGLISH":"English",
     "TAMIL":"Tamil",
-    "PER_ADD_JUD_ENG":"Permenent address in new judicial zone (English):",
+    "PER_ADD_JUD_ENG":"Permanent address in new judicial zone (English):",
     "FILL_REQUIRED":"Please fill the required fields",
-    "VALID_ADDRESS":"Please enter valid permenent address (English)",
-    "PER_ADD_JUD_SIN":"Permenent address in new judicial zone (Sinhala):",
-    "VALID_ADD_SIN":"Please enter valid permenent address (Sinhala)",
-    "PER_ADD_JUD_TAM":"Permenent address in new judicial zone (Tamil):",
-    "VALID_ADD_TAM":"Please enter valid permenent address (Tamil)",
+    "VALID_ADDRESS":"Please enter valid permanent address",
+    "PER_ADD_JUD_SIN":"Permanent address in new judicial zone (Sinhala):",
+    "VALID_ADD_SIN":"Please enter valid Permanent address (Sinhala)",
+    "PER_ADD_JUD_TAM":"Permanent address in new judicial zone (Tamil):",
+    "VALID_ADD_TAM":"Please enter valid Permanent address (Tamil)",
     "DETAIL_JUD":"Please give the following details regarding new judicial zone ",
     "JUDIZIAL_ZONE":"Judicial Zone:",
     "SELECT_JUD":"-- Select Judicial Zone --",
@@ -1244,7 +1239,7 @@
   },
   "PUBLIC_COMMON":{
     "JUD_TITLE1":"JUDICIAL ZONE CHANGING",
-    "JUD_TITLE2":"REQUEST FOR CHANGING THE JUDICIAL ZONE",
+    "JUD_TITLE2":"Judicial Zone Change Requests",
     "NOT_TITEL1":"Notary Name Change",
     "NOT_TITLE2":"Notary Name Change Requests",
     "SEARCH_TITLE1":"FOLIO / DEED SEARCH",
@@ -1338,9 +1333,9 @@
     "FULLNAME_E":"Full name (English):",
     "FULLNAME_S":"Full name (Sinhala):",
     "FULLNAME_T":"Full name (Tamil):",
-    "PER_ADD_E":"Permenent address (English):",
-    "PER_ADD_S":"Permenent address (Sinhala):",
-    "PER_ADD_T":"Permenent address (Tamil):",
+    "PER_ADD_E":"Permanent address (English):",
+    "PER_ADD_S":"Permanent address (Sinhala):",
+    "PER_ADD_T":"Permanent address (Tamil):",
     "CUR_ADD_E":"Current address (English):",
     "CUR_ADD_S":"Current address (Sinhala):",
     "CUR_ADD_T":"Current address (Tamil):",

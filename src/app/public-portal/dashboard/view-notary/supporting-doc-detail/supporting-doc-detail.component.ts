@@ -1,3 +1,4 @@
+import { SystemService } from 'src/app/shared/service/system.service';
 import { SnackBarService } from './../../../../shared/service/snack-bar.service';
 import { CommonStatus } from './../../../../shared/enum/common-status.enum';
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
@@ -52,7 +53,8 @@ export class SupportingDocDetailComponent implements OnInit {
               private notaryService: NewNotaryDataVarificationService,
               private newNotaryService: NotaryService,
               private documetService: SupportingDocService,
-              private snackBarService: SnackBarService) {
+              private snackBarService: SnackBarService,
+              private systemService: SystemService) {
     // this.item1.id =1;
     // this.item1.name = 'name1';
     // this.item1.statusCode = false;
@@ -149,11 +151,17 @@ export class SupportingDocDetailComponent implements OnInit {
 
         this.newNotaryService.updateSupportDocuments(formData).subscribe(
           (response) => {
+            this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.UPDATE_SUCCESS'));
+          },
+          () => {
+            this.snackBarService.success(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
+          },
+          () => {
             this.getDocumentDetails();
           }
         );
       } else {
-        this.snackBarService.warn('Plase upload mandatory documennts');
+        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.MANDATORY_DOC_ERR'));
       }
 
     }

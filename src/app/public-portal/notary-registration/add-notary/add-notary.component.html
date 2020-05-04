@@ -435,7 +435,9 @@
           <div class="default-input-wrapper full-row">
             <label>{{'NOTARY.JUDICIAL_ZONE'|translate}}: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
-              <mat-select matNativeControl required formControlName="courtZone" class="form-control">
+              <mat-select matNativeControl required
+                          (selectionChange)="selectJudicialZone($event.value)"
+                        formControlName="courtZone" class="form-control">
                 <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
                 <mat-option *ngFor="let judicialZone of judicialZones" [value]="judicialZone.judicialZoneId">
                   {{judicialZone.nameEng|listTranslate:judicialZone.nameSin:judicialZone.nameTam}}
@@ -484,7 +486,10 @@
                   formControlName="secretariatDivision"
                   (selectionChange)="selectDsDivision($event.value)">
                   <mat-option value="" disabled>{{'NOTARY.SELECT'|translate}}</mat-option>
-                  <mat-option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</mat-option>
+                  <mat-option *ngFor="let dsDivisions of dsDivision"
+                              [value]="dsDivisions.dsDivisionId"
+                              [disabled]="dsDivisions.selected">
+                    {{dsDivisions.description|listTranslate:dsDivisions.descriptionSin:dsDivisions.descriptionTam}}</mat-option>
                 </mat-select>
                 <div *ngIf="FormControls.secretariatDivision.touched && FormControls.secretariatDivision.errors"
                      class="invalid-feedback">
@@ -705,8 +710,7 @@
                  [statusOnlinePayment]="statusOnlinePayment"
                  [returnUrl]="returnURl"
                  [applicationFeeCode]="Parameters.NOTARY_REG_FEE"
-                 [workflowStageCode]=""
-                 [userType]="NotaryRegisterType.NOTARY"
+                 [userType]="UserType.NOTARY"
                  [userId]="userId"
                  [isDocumentCollect]="true"
                  (back)="onBack()"

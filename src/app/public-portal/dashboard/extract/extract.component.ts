@@ -409,6 +409,8 @@ export class ExtractComponent implements OnInit {
     if (this.paymentDto.paymentMethod === PaymentMethod.ONLINE) {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.paymentDto.deliveryType = data.deliveryType;
+      this.paymentDto.deliveryAmount = data.deliveryAmount;
       this.searchRequest.payment = this.paymentDto;
       this.searchRequest.workflowStageCode = ExtractRequestWorkflowStages.EXTRACT_REQ_INITIALIZED_FOR_ARL;
       this.saveRequest(this.searchRequest);

@@ -216,7 +216,6 @@ export class SearchDocumentComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         this.snackBarService.error(error.message);
       }, () => {
-
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
           this.snackBarService.success('Your Search request saved successfully,, Proceed to online payment')
           this.statusOnlinePayment = true;
@@ -302,20 +301,19 @@ export class SearchDocumentComponent implements OnInit {
   }
 
   onChangeLandRegistry(lrId: any) {
-    this.loadLRDivision(lrId);
-
+    if(lrId) this.loadLRDivision(lrId);
   }
 
   onChangeKorale(koraleId: any) {
-    this.loadPaththu(koraleId);
+    if(koraleId) this.loadPaththu(koraleId);
   }
 
   onChangeDsDivision(dsDivisionId: any) {
-    this.loadGNDivision(dsDivisionId);
+    if(dsDivisionId) this.loadGNDivision(dsDivisionId);
   }
 
   onChangeGnDivision(gnDivisionId: any) {
-    this.loadVillage(gnDivisionId);
+   if(gnDivisionId) this.loadVillage(gnDivisionId);
   }
 
   onChangeFolioFormController() {
@@ -415,6 +413,8 @@ export class SearchDocumentComponent implements OnInit {
 
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
+      this.paymentDto.deliveryType = data.deliveryType;
+      this.paymentDto.deliveryAmount = data.deliveryAmount;
       this.searchRequest.payment = this.paymentDto;
       this.searchRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_ARL;
       this.saveRequest(this.searchRequest);

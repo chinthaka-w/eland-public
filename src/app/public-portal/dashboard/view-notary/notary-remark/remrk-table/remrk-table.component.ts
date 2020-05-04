@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import {NewNotaryRequestsCategorySearchDto} from '../../../../../shared/dto/new-notary-requests-category-search.dto';
 import {NotaryRegistrationHistoryDto} from '../../../../../shared/dto/notary-registration-history.dto';
 import {ActivatedRoute} from '@angular/router';
@@ -7,6 +7,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {NewNotaryPaymentDetailDto} from '../../../../../shared/dto/new-notary-payment-detail.dto';
 import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
+import { MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-remrk-table',
@@ -30,6 +31,7 @@ export class RemrkTableComponent implements OnInit, OnChanges {
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
   dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.notaryRequestHistory);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
   constructor(private notaryService: NewNotaryDataVarificationService,
@@ -43,10 +45,12 @@ export class RemrkTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['notaryRequestHistory']) {
       this.dataSource.data = this.notaryRequestHistory;
+      this.dataSource.paginator = this.paginator;
     }
   }
 
   getHistoryDetails(){
     this.dataSource.data = this.notaryRequestHistory;
+    this.dataSource.paginator = this.paginator;
   }
 }
