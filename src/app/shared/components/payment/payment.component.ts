@@ -172,7 +172,7 @@ export class PaymentComponent implements OnInit, OnChanges {
 
     if (isValid) {
       this.showSpinner = true;
-      this.paymentDTO.deliveryType = this.paymentForm.get('licenseMethod').value;
+      this.paymentDTO.deliveryType = this.isDocumentCollect ? this.paymentForm.get('licenseMethod').value : 0;
       this.paymentDTO.deliveryAmount = this.issueAmount;
       this.paymentDTO.applicationAmount = this.applicationAmount;
       this.paymentDTO.totalAmount = this.totalAmount;
