@@ -48,7 +48,7 @@ export class RequestForCorrectionViewComponent implements OnInit {
 
       // set last remark
       if (this.workflowStageCode === FolioCorrectionWorkflowStages.RL_RETURN ||
-        this.workflowStageCode === FolioCorrectionWorkflowStages.REQ_REJECTED_TO_APPLICANT_BY_ARL) {
+        this.workflowStageCode === FolioCorrectionWorkflowStages.REQ_REJECTED_TO_APPLICANT_BY_RL) {
         this.showLastRemark = true;
       }
 
