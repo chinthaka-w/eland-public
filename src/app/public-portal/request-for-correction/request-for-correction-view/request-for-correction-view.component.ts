@@ -28,6 +28,7 @@ export class RequestForCorrectionViewComponent implements OnInit {
   docUploadWorkflowStage: string;
   isEdit = false;
   isSubmit = false;
+  showLastRemark = false;
 
   constructor(private correctionRequestService: CorrectionRequestService,
               private route: ActivatedRoute,
@@ -44,6 +45,13 @@ export class RequestForCorrectionViewComponent implements OnInit {
         this.isEdit = true;
         this.docUploadWorkflowStage = FolioCorrectionWorkflowStages.APPLICANT_INITIATE;
       }
+
+      // set last remark
+      if (this.workflowStageCode === FolioCorrectionWorkflowStages.RL_RETURN ||
+        this.workflowStageCode === FolioCorrectionWorkflowStages.REQ_REJECTED_TO_APPLICANT_BY_ARL) {
+        this.showLastRemark = true;
+      }
+
       this.requestId = +this.decodeBase64(params.get('id'));
       this.getRequestHistory(this.requestId);
       this.setDocPreviewMeta();
