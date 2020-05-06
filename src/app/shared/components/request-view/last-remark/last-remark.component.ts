@@ -1,3 +1,5 @@
+import { RequestResponse } from './../../../dto/request-response.model';
+import { CorrectionRequestService } from 'src/app/shared/service/correction-request.service';
 import { CitizenService } from './../../../service/citizen.service';
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Workflow} from '../../../enum/workflow.enum';
@@ -27,7 +29,8 @@ export class LastRemarkComponent implements OnInit, OnChanges {
               private notaryService: NotaryService,
               private extractRequestService: ExtractRequestService,
               private judicialService: JudicialService,
-              private citizenService: CitizenService) {
+              private citizenService: CitizenService,
+              private correctionRequestService: CorrectionRequestService) {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['requestId']) {
@@ -55,6 +58,9 @@ export class LastRemarkComponent implements OnInit, OnChanges {
         break;
         case Workflow.CITIZEN_REGISTRATION:
         this.loadCitizenRegistrationRequest();
+        break;
+      case Workflow.FOLIO_REQUEST_CORRECTION:
+        this.getLastFolioCorrectionRemark();
         break;
     }
   }
@@ -107,6 +113,16 @@ export class LastRemarkComponent implements OnInit, OnChanges {
             this.lastRemark = data;
           }
         }
+      );
+    }
+  }
+
+  getLastFolioCorrectionRemark() {
+    if (this.requestId) {
+      this.correctionRequestService.getLastRemark(this.requestId).subscribe(
+      (response: RequestResponse) => {
+        this.lastRemark = response.data;
+      }
       );
     }
   }

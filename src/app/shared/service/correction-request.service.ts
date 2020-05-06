@@ -41,28 +41,32 @@ export class CorrectionRequestService {
     return this.http.get(this.BASE_URL_WITH_LAND_REGISTRY + '/', { headers: this.headers });
   }
 
- // save correction request
- saveCorrectionReq(correctionRequest: CorrectionRequest): Observable<any> {
-  return this.http.put(this.FOLIO_CORRECTION_URL + '/' , correctionRequest);
-}
+  // save correction request
+  saveCorrectionReq(correctionRequest: CorrectionRequest): Observable<any> {
+    return this.http.put(this.FOLIO_CORRECTION_URL + '/', correctionRequest);
+  }
 
-// get correction requests
-getFolioCorrectionRequests(id: number, userType: string): Observable<RequestResponse> {
-  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + userType + '/' + id);
-}
+  // get correction requests
+  getFolioCorrectionRequests(id: number, userType: string): Observable<RequestResponse> {
+    return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getAll/' + userType + '/' + id);
+  }
 
-// get correction request
-getCorrectionRequest(reqId: number): Observable<RequestResponse> {
-  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getRequest/' + reqId);
-}
+  // get correction request
+  getCorrectionRequest(reqId: number): Observable<RequestResponse> {
+    return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/getRequest/' + reqId);
+  }
 
-// get request history
-getRequestHistory(reqId: number): Observable<RequestResponse> {
-  return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/remarkHistory/' + reqId);
-}
+  // get request history
+  getRequestHistory(reqId: number): Observable<RequestResponse> {
+    return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/remarkHistory/' + reqId);
+  }
 
   completeRequestUpdate(correctionRequest: CorrectionRequest): Observable<RequestResponse> {
     return this.http.post<RequestResponse>(this.FOLIO_CORRECTION_URL + '/completeUserAction', correctionRequest);
+  }
+
+  getLastRemark(reqId: number): Observable<RequestResponse> {
+    return this.http.get<RequestResponse>(this.FOLIO_CORRECTION_URL + '/lastRemark/' + reqId);
   }
 
 }

@@ -27,6 +27,7 @@ export class CorrectionApplicationComponent implements OnInit {
 
   @Input() isReadonly = false;
   @Input() newRequest = false;
+  @Input() showLastRemark = false;
   public reqForCorrectionForm: FormGroup;
   public landRegistry: LandRegistryModel[];
   landRegs: any;
