@@ -103,8 +103,7 @@
           <div class="pg-inner-row mb-20 upload-col-3">
             <div class="pg-inner-col-3" *ngFor="let doc of docList">
               <div class="default-input-wrapper full-row">
-                <label
-                >{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}
+                <label>{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}
                   <span *ngIf="doc.required">*</span></label>
                 <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
               </div>
@@ -123,7 +122,10 @@
               and <a href="#">{{'CHANGE_NAME.TITLE8'|translate}} </a> .
             </div>
             <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
-              <button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
+              <!--<button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">-->
+                <!--{{'BUTTONS.CONTINUE_BUTTON'|translate}}-->
+              <!--</button>-->
+              <button [disabled]="!(isRequiredDocsUpload)" mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
                 {{'BUTTONS.CONTINUE_BUTTON'|translate}}
               </button>
             </div>

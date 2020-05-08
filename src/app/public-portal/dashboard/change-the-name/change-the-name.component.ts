@@ -35,6 +35,7 @@ import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {Router} from '@angular/router';
 import {NameTitleDTO} from '../../../shared/dto/name-title.dto';
 import {LanguageChangeService} from '../../../shared/service/language-change.service';
+import {CommonStatus} from '../../../shared/enum/common-status.enum';
 
 @Component({
   selector: 'app-change-the-name',
@@ -95,6 +96,7 @@ export class ChangeTheNameComponent implements OnInit {
   isPayment: boolean = false;
   userType: string;
   userId: number;
+  isRequiredDocsUpload = false;
 
 
   constructor(private documetService: SupportingDocService,
@@ -240,8 +242,7 @@ export class ChangeTheNameComponent implements OnInit {
       (success: string) => {
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
           this.snackBar.success('Notary Name Change Request Success');
-          this.notaryForm.reset();
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigate(['/notary-requests', btoa(Workflow.NOTARY_NAME_CHANGE)]);
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
           this.snackBar.success('Notary Name Change Request Success, Proceed to online payment');
           this.isPayment = true;
@@ -304,9 +305,43 @@ export class ChangeTheNameComponent implements OnInit {
     );
   }
 
-  setFiles(data: any, docTyprId: number) {
+  // setFiles(data: any, docTyprId: number) {
+  //   this.files = data;
+  //   this.documentList.push(new DocumentDto(this.files[0], docTyprId));
+  // }
+
+  setFiles(data: any, docTyprId: number, status: boolean) {
     this.files = data;
-    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
+    const document = new DocumentDto(this.files[0], docTyprId);
+    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
+    if (document.files) {
+      this.documentList.push(document);
+    } else {
+      this.documentList.forEach((doc, index) => {
+        if (doc.fileType === document.fileType) {
+          this.documentList.splice(index, 1);
+        }
+      });
+    }
+
+    let workflowManatoryDocs = 0;
+    let uploadedMandatoryDocs = 0;
+
+    this.docList.forEach(doc => {
+      if  (doc.required) {
+        workflowManatoryDocs += 1;
+      }
+    });
+
+    this.documentList.forEach(doc => {
+      if (doc.status === CommonStatus.REQUIRED) {
+        uploadedMandatoryDocs += 1;
+      }
+    });
+
+    if (workflowManatoryDocs === uploadedMandatoryDocs) {
+      this.isRequiredDocsUpload = true;
+    } else {this.isRequiredDocsUpload = false; }
   }
 
 
