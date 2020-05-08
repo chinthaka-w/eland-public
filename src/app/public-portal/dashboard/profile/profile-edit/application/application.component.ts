@@ -44,9 +44,9 @@ export class ApplicationComponent implements OnInit {
       isWarLang: new FormControl(''),
       dob: new FormControl(''),
       nic: new FormControl(''),
-      contact: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-      mobile: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl('', [ Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+      contact: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+      mobile: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
+      email: new FormControl('', [Validators.pattern(PatternValidation.emailValidation)]),
       judicial: new FormControl(''),
       lRegistry: new FormControl(''),
       clerkName: new FormControl(''),
@@ -57,16 +57,41 @@ export class ApplicationComponent implements OnInit {
     this.getNotaryDetails();
      // alert(this.x1.perAddEng);
     this.requestForm.valueChanges.subscribe(x => {
+      this.checkValues();
       this.lastValue = x;
     });
 
-
-  //  this.comparevaluesOfform();
   }
+  checkValues() {
+    if (this.requestForm.value.email === '') {
+      this.requestForm.get('email').setValue(this.notaryDetails.email);
+    }
+    if (this.requestForm.value.perAddEng.value === '') {
+      this.requestForm.get('perAddEng').setValue(this.notaryDetails.permanentAddressEng);
+    }
+    if (this.requestForm.value.perAddSin.value === '') {
+      this.requestForm.get('perAddSin').setValue(this.notaryDetails.permanentAddressSin);
+    }
+    if (this.requestForm.value.perAddTam.value === '') {
+      this.requestForm.get('perAddTam').setValue(this.notaryDetails.permanentAddressTam);
+    }
+    if (this.requestForm.value.curAddressEng.value === '') {
+      this.requestForm.get('curAddressEng').setValue(this.notaryDetails.currantAddressEng);
+    }
+    if (this.requestForm.value.curAddressSin.value === '') {
+      this.requestForm.get('curAddressSin').setValue(this.notaryDetails.currantAddressSin);
+    }
+    if ((this.requestForm.value.curAddressTam === '')) {
+      this.requestForm.get('curAddressTam').setValue(this.notaryDetails.currantAddressTam);
+    }
+  }
+
    comparevaluesOfform(): boolean {
+    console.log(this.firstValue.email + 'and' + this.lastValue.email.value);
     if (this.firstValue.perAddEng === this.lastValue.perAddEng) {
       console.log(this.lastValue.perAddEng + 'and ' + this.lastValue.perAddEng);
     }
+
 
     if (this.firstValue.perAddEng === this.lastValue.perAddEng
         && this.firstValue.perAddSin === this.lastValue.perAddSin
@@ -117,6 +142,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   submitForm() {
+    this.checkValues();
     this.submitted = true;
     if (this.requestForm.invalid) {
       return;

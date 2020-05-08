@@ -116,9 +116,6 @@
                     <input matInput formControlName="contact" class="form-control">
                 </mat-form-field>
               <div *ngIf="f.contact.errors" >
-                <mat-error *ngIf="f.contact.errors.required" class="errors">
-                  {{'EDIT_PROFILE.CONTACT_REQ'|translate}}
-                </mat-error>
                 <mat-error *ngIf="f.contact.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_CONTACT'|translate}}</mat-error>
               </div>
             </div>
@@ -132,9 +129,6 @@
                     <input matInput formControlName="mobile" class="form-control">
                 </mat-form-field>
               <div *ngIf="f.mobile.errors" >
-                <mat-error *ngIf="f.mobile.errors.required" class="errors">
-                  {{'EDIT_PROFILE.MOBILE_REQ'|translate}}
-                </mat-error>
                 <mat-error *ngIf="f.mobile.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
               </div>
             </div>
@@ -151,9 +145,6 @@
                     <input matInput formControlName="email" class="form-control">
                 </mat-form-field>
               <div *ngIf="f.email.errors" >
-                <mat-error *ngIf="f.email.errors.required" class="errors">
-                  {{'EDIT_PROFILE.EMAIL_REQ'|translate}}
-                </mat-error>
                 <mat-error *ngIf="f.email.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_EMAIL'|translate}}</mat-error>
               </div>
             </div>
