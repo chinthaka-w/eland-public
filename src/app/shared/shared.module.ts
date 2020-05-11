@@ -61,6 +61,7 @@ import { TransactionViewComponent } from './components/transaction-view/transact
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { ListTranslatePipe } from './pipe/list-translate.pipe';
 import { ImagePriviewComponent } from './components/image-priview/image-priview.component';
+import { DocumentViewerComponent } from './components/document-viewer/document-viewer.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { ImagePriviewComponent } from './components/image-priview/image-priview.
     TransactionViewComponent,
     FileUploadPopupComponent,
     ListTranslatePipe,
-    ImagePriviewComponent
+    ImagePriviewComponent,
+    DocumentViewerComponent
   ],
   imports: [
     CommonModule,
@@ -161,14 +163,16 @@ import { ImagePriviewComponent } from './components/image-priview/image-priview.
     ListTranslatePipe,
     DocPreviewComponent,
     TranslatePipe,
-    ImagePriviewComponent
+    ImagePriviewComponent,
+    DocumentViewerComponent
   ],
   providers: [
     AuthGuard,
   ],
   entryComponents: [
     FolioViewComponent,
-    FileUploadPopupComponent
+    FileUploadPopupComponent,
+    DocumentViewerComponent
   ]
 })
 export class SharedModule {}
