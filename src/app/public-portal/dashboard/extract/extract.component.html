@@ -123,6 +123,8 @@
               <mat-form-field appearance="outline">
                 <input matInput readonly
                        [matDatepicker]="picker2"
+                       [min]="minDate"
+                       [max]="maxDate"
                        placeholder="Choose a date"
                        formControlName="probablePeriodTo">
                 <mat-datepicker #picker2></mat-datepicker>
@@ -280,8 +282,8 @@
               class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <input matInput
-                       class="form-control" formControlName="searchReasonId"/>
+                 <textarea matInput
+                           class="form-control" maxlength="255" formControlName="searchReasonId"></textarea>
               </mat-form-field>
             </div>
           </div>
@@ -330,7 +332,8 @@
               <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                   <input matInput type="number"
-                         min="1"
+                         inputMinValue="1"
+                         inputMaxLength="10"
                          class="form-control" formControlName="volume">
                 </mat-form-field>
               </div>
@@ -345,7 +348,8 @@
                 <mat-form-field appearance="outline">
                   <input matInput
                          type="number"
-                         min="1"
+                         inputMinValue="1"
+                         inputMaxLength="10"
                          class="form-control" formControlName="folioNo">
                 </mat-form-field>
               </div>
@@ -358,7 +362,8 @@
                 <mat-form-field appearance="outline">
                   <input matInput
                          type="number"
-                         min="1"
+                         inputMinValue="1"
+                         inputMaxLength="10"
                          class="form-control" formControlName="noOfYears">
                 </mat-form-field>
               </div>

@@ -10,6 +10,7 @@ export enum PatternValidation {
   EMAIL_PATTERN = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
   CONTACT_NUMBER_PATTERN = "^(\\+\\d{1,3}[- ]?)?\\d{10}$",
   NIC_PATTERN = "^([0-9]{9}[x|X|v|V]|[0-9]{12})$",
+  CHARACTES_PATTERN = "^[a-zA-Z ]*$",
   WITHOUT_SPECIAL_CHARACTES_PATTERN = "^[A-Za-z0-9]+$",
   WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN = "^[A-Za-z0-9 ]+$",
   SPECIAL_CHARACTES_PATTERN = "[!@#$%^&*(),.?\":{}|<>]",
