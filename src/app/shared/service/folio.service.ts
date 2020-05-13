@@ -723,4 +723,8 @@ export class FolioService {
   getKorales(): Observable<Object> {
     return this.httpClient.get(this.BASE_URL + 'location/korale');
   }
+
+  findFolioDocuments(folioNo: string): Observable<Object> {
+    return this.httpClient.get(`${this.BASE_URL}folio/`,{params:{folioNo:folioNo},headers: this.headersJson,});
+  }
 }

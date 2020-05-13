@@ -87,6 +87,7 @@ import { NotaryRequestViewComponent } from './dashboard/notary-request-view/nota
 import {SharedModule} from '../shared/shared.module';
 import {ImageViewerModule} from 'ngx-image-viewer';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {DocumentViewerComponent} from '../shared/components/document-viewer/document-viewer.component';
 
 
 @NgModule({
@@ -215,7 +216,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
   entryComponents:[
     RequestViewComponent,
     PublicProfileEditComponent,
-    SearchDocumentResultComponent
+    SearchDocumentResultComponent,
+    DocumentViewerComponent
   ],
   providers: [{
     provide: RECAPTCHA_SETTINGS,

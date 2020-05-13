@@ -16,13 +16,25 @@
         </td>
       </ng-container>
 
+      <!-- Remark Column -->
+      <ng-container matColumnDef="Remark">
+        <th mat-header-cell *matHeaderCellDef> Remark</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.remark}}
+        </td>
+      </ng-container>
+
       <!-- Action Column -->
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef> Action</th>
         <td mat-cell *matCellDef="let element; let i = index;">
-          <button
-            mat-icon-button (click)="onClickItem(element)">
-            <mat-icon>chrome_reader_mode</mat-icon>
+          <button (click)="onClickItem(element)" mat-icon-button color="accent"
+                  title="View Folio">
+            <mat-icon>library_books</mat-icon>
+          </button>
+          <button (click)="onClickViewImageButton(element)" mat-icon-button color="accent"
+                  title="View Images">
+            <mat-icon>collections</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -43,5 +55,5 @@
 <div *ngIf="resultType==SearchResultType.DEED">
   <p class="mb-10">Deed Images</p>
   <div class="separator">&nbsp;</div>
-  <app-image-priview *ngIf="documentDTO" [isDeedPreview]="true" [files]="[documentDTO]"></app-image-priview>
+  <app-image-priview [isDeedPreview]="true" [files]="selectedFiles"></app-image-priview>
 </div>
