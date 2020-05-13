@@ -16,6 +16,7 @@ import {SearchRequest} from '../../../../shared/dto/search-request.model';
 import {SessionService} from '../../../../shared/service/session.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {SearchRequestService} from '../../../../shared/service/search-request.service';
+import {ExtractRequestWorkflowStages} from '../../../../shared/enum/extract-request-workflow-stages.enum';
 
 @Component({
   selector: 'app-search-document-view',
@@ -88,6 +89,11 @@ export class SearchDocumentViewComponent implements OnInit {
     let isValid = true;
     let errorMassage = '';
 
+    if (this.searchDocumentApplicationComponent.canApply) {
+      isValid = false;
+      errorMassage = 'Please apply changes, before click save changes.';
+    }
+
     // if (!this.searchDocumentApplicationComponent.searchRequestForm.valid) {
     //   isValid = false;
     //   errorMassage = 'Please fill application form, before continue.';
@@ -111,7 +117,11 @@ export class SearchDocumentViewComponent implements OnInit {
     //   this.snackBarService.error(errorMassage);
     // }
 
-    this.actionUpdate(SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED);
+    if (isValid) {
+      this.actionUpdate(SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED);
+    } else {
+      this.snackBarService.error(errorMassage);
+    }
   }
 
   updateRequest(searchRequest: SearchRequest): void {

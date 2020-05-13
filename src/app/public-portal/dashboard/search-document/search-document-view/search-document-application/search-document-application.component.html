@@ -120,6 +120,8 @@
           <mat-form-field appearance="outline">
             <input matInput readonly
                    [matDatepicker]="picker2"
+                   [min]="minDate"
+                   [max]="maxDate"
                    placeholder="Choose a date"
                    formControlName="probablePeriodTo">
             <mat-datepicker #picker2></mat-datepicker>
@@ -175,6 +177,7 @@
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
+                   maxlength="255"
                    class="form-control" formControlName="extent">
           </mat-form-field>
         </div>
@@ -277,8 +280,8 @@
           class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput
-                   class="form-control" formControlName="searchReasonId"/>
+            <textarea matInput
+                      class="form-control" maxlength="255" formControlName="searchReasonId"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -327,7 +330,8 @@
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <input matInput type="number"
-                     min="1"
+                     inputMinValue="1"
+                     inputMaxLength="10"
                      class="form-control" formControlName="volume">
             </mat-form-field>
           </div>
@@ -342,7 +346,8 @@
             <mat-form-field appearance="outline">
               <input matInput
                      type="number"
-                     min="1"
+                     inputMinValue="1"
+                     inputMaxLength="10"
                      class="form-control" formControlName="folioNo">
             </mat-form-field>
           </div>
@@ -355,7 +360,8 @@
             <mat-form-field appearance="outline">
               <input matInput
                      type="number"
-                     min="1"
+                     inputMinValue="1"
+                     inputMaxLength="10"
                      class="form-control" formControlName="noOfYears">
             </mat-form-field>
           </div>
@@ -389,6 +395,7 @@
 <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-row mb-0">
   <div class="pg-inner-col float-right">
     <button mat-raised-button
+            [disabled]="!canApply"
             (click)="onClickSaveChanges()"
             class="button float-right">Apply Changes
     </button>

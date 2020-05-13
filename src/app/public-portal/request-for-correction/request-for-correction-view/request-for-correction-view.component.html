@@ -2,7 +2,8 @@
   <div class="page-content-inner-wrapper">
     <mat-tab-group>
       <mat-tab label="{{'CITIZEN.APPL'| translate}}">
-        <app-correction-application [newRequest]="false" [isReadonly]=!isEdit></app-correction-application>
+        <app-correction-application [newRequest]="false" [isReadonly]="!isEdit" [showLastRemark]="showLastRemark">
+        </app-correction-application>
       </mat-tab>
       <mat-tab label="{{'CITIZEN.SUP_DOCS'| translate}}">
         <app-doc-preview [isEdit]="isEdit" [docMetaKeys]="docMetaKeys" [docUploadWorkflowStage]="docUploadWorkflowStage" ></app-doc-preview>

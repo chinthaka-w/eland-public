@@ -135,8 +135,7 @@ export class AddPublicUserComponent implements OnInit {
       userName: new FormControl("", [Validators.required]),
       reason: new FormControl("", [
         Validators.required,
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+        Validators.maxLength(255)
       ]),
       recaptcha: new FormControl(null, Validators.required),
       officersDesignation: new FormControl("", [

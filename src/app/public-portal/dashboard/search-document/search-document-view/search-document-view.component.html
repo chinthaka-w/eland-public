@@ -1,5 +1,5 @@
 <div class="page-header-default">
-  <h2>Edit Search Request</h2>
+  <h2>View Search Request</h2>
   <p>.......</p>
   <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
@@ -47,12 +47,12 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div class="separator">&nbsp;</div>
     <div *ngIf="action!=ActionMode.VIEW" class="pg-inner-row mb-10">
+    <div class="separator">&nbsp;</div>
       <div class="pg-inner-col float-right">
         <button mat-raised-button
                 (click)="onClickSaveChanges()"
-                class="button green float-right">Submit
+                class="button green float-right">Save Changes
         </button>
       </div>
     </div>

@@ -1,3 +1,5 @@
+<app-last-remark *ngIf="showLastRemark" [workflow]="workflow.FOLIO_REQUEST_CORRECTION" [requestId]="reqId">
+</app-last-remark>
 <form class="form-horizontal" [formGroup]="reqForCorrectionForm">
 
   <div class="pg-inner-row mb-20">
@@ -21,7 +23,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'FOLIO_TYPE.FOLIO_NUM'| translate}}<span class="redtxt">*</span></label>
+        <label>{{'FOLIO_TYPE.FOLIO_NUM'| translate}}<span class="redtxt"> *</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput formControlName="folioNo" class="form-control">
@@ -96,7 +98,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'CITIZEN.CITIZEN_CORRECTION.NATURE_OF_CORRECTION'| translate}}</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.NATURE_OF_CORRECTION'| translate}}<span class="redtxt"> *</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <textarea matInput formControlName="correctionNature" class="form-control"></textarea>
@@ -112,7 +114,7 @@
   <div class="pg-inner-row">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'CITIZEN.CITIZEN_CORRECTION.CORRECTION'| translate}}</label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.CORRECTION'| translate}} <span class="redtxt"> *</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <textarea matInput formControlName="requestedCorrection" class="form-control"></textarea>

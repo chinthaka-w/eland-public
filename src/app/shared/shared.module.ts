@@ -61,6 +61,16 @@ import { TransactionViewComponent } from './components/transaction-view/transact
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { ListTranslatePipe } from './pipe/list-translate.pipe';
 import { ImagePriviewComponent } from './components/image-priview/image-priview.component';
+import { DocumentViewerComponent } from './components/document-viewer/document-viewer.component';
+import {InputAmountDirective} from './directives/input-amount.directive';
+import {InputNumberOnlyDirective} from './directives/input-number-only.directive';
+import {InputMinValueDirective} from './directives/input-min-value.directive';
+import {InputMaxValueDirective} from './directives/input-max-value.directive';
+import {InputMaxLengthDirective} from './directives/input-max-length.directive';
+import {InputUppercaseLetterOnlyDirective} from './directives/input-uppercase-letter-only.directive';
+import {InputLowercaseLetterOnlyDirective} from './directives/input-lowercase-letter-only.directive';
+import {InputUppercaseAndLowercaseLetterOnlyDirective} from './directives/input-uppercase-and-lowercase-letter-only.directive';
+import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
 
 @NgModule({
   declarations: [
@@ -101,7 +111,17 @@ import { ImagePriviewComponent } from './components/image-priview/image-priview.
     TransactionViewComponent,
     FileUploadPopupComponent,
     ListTranslatePipe,
-    ImagePriviewComponent
+    ImagePriviewComponent,
+    DocumentViewerComponent,
+    InputNumberOnlyDirective,
+    InputMaxLengthDirective,
+    InputMaxValueDirective,
+    InputMinValueDirective,
+    InputAmountDirective,
+    InputUppercaseLetterOnlyDirective,
+    InputLowercaseLetterOnlyDirective,
+    InputUppercaseAndLowercaseLetterOnlyDirective,
+    InputDotOnlyDirective,
   ],
   imports: [
     CommonModule,
@@ -161,14 +181,25 @@ import { ImagePriviewComponent } from './components/image-priview/image-priview.
     ListTranslatePipe,
     DocPreviewComponent,
     TranslatePipe,
-    ImagePriviewComponent
+    ImagePriviewComponent,
+    DocumentViewerComponent,
+    InputNumberOnlyDirective,
+    InputMaxLengthDirective,
+    InputMaxValueDirective,
+    InputMinValueDirective,
+    InputAmountDirective,
+    InputUppercaseLetterOnlyDirective,
+    InputLowercaseLetterOnlyDirective,
+    InputUppercaseAndLowercaseLetterOnlyDirective,
+    InputDotOnlyDirective,
   ],
   providers: [
     AuthGuard,
   ],
   entryComponents: [
     FolioViewComponent,
-    FileUploadPopupComponent
+    FileUploadPopupComponent,
+    DocumentViewerComponent
   ]
 })
 export class SharedModule {}
