@@ -1,9 +1,9 @@
 <div class="page-header-default" *ngIf="!isContinueToPayment">
     <h2>{{'CHANGE_NAME.TITLE1'|translate}}</h2>
     <p>{{'CHANGE_NAME.TITLE2'|translate}}<br />{{'CHANGE_NAME.TITLE3'|translate}}</p>
-    <a href="" class="phd-back-btn">
-        <i class="material-icons">keyboard_backspace</i>
-    </a>
+  <a href="#" (click)="goBack()" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
 </div>
 <form class="form-horizontal" *ngIf="!isContinueToPayment"  [formGroup]="notaryForm">
     <div class="page-content-wrapper">
