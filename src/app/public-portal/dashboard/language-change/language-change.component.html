@@ -1,6 +1,5 @@
 <div class="page-header-default">
     <h2>{{'LANGUAGE_CHANGE.TITLE1'|translate}}</h2>
-    <p>{{'LANGUAGE_CHANGE.TITLE2'|translate}}<br />{{'LANGUAGE_CHANGE.TITLE3'|translate}}</p>
     <a [routerLink]="['/requests',backUrl]" routerLinkActive="router-link-active"  class="phd-back-btn">
         <i class="material-icons">keyboard_backspace</i>
     </a>
@@ -336,10 +335,10 @@
 
             <div class="separator">&nbsp;</div>
 
-            <div class="pg-inner-row mb-0">
+            <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col"></div>
-                <div class="pg-inner-col right">
-                    <button mat-raised-button class="lg-button" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
+              <div class="pg-inner-col float-right ">
+                    <button mat-raised-button class="lg-button float-right" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
                 </div>
             </div>
         </form>

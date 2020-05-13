@@ -243,7 +243,6 @@ export class ChangeTheNameComponent implements OnInit {
           this.notaryForm.reset();
           this.router.navigateByUrl('/dashboard');
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-          this.snackBar.success('Notary Name Change Request Success, Proceed to online payment');
           this.isPayment = true;
           this.statusOnlinePayment = true;
         } else {

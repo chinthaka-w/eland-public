@@ -22,7 +22,7 @@
         <div class="default-input-wrapper m0 rac-col">
           <div class="default-input-feild">
             <a [routerLink]="newButtonURL" [state]="{previousUrl:previousUrl}">
-              <button mat-button class="button">
+              <button mat-button class="button" (click)="check()">
                 {{'PUBLIC_COMMON.NEW'|translate}}
               </button>
             </a>
