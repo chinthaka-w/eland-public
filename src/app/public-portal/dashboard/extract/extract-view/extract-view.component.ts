@@ -87,10 +87,10 @@ export class ExtractViewComponent implements OnInit {
     let isValid = true;
     let errorMassage = '';
 
-    // if (!this.extractApplicationComponent.searchRequestForm.valid) {
-    //   isValid = false;
-    //   errorMassage = 'Please fill application form, before continue.';
-    // }
+    if (this.extractApplicationComponent.canApply) {
+      isValid = false;
+      errorMassage = 'Please apply changes, before click save changes.';
+    }
     //
     // if (isValid && this.extractApplicationComponent.elements.length == 0) {
     //   isValid = false;
@@ -109,8 +109,11 @@ export class ExtractViewComponent implements OnInit {
     // } else {
     //   this.snackBarService.error(errorMassage);
     // }
-
-    this.actionUpdate(ExtractRequestWorkflowStages.EXTRACT_REQ_MODIFIED);
+    if (isValid) {
+      this.actionUpdate(ExtractRequestWorkflowStages.EXTRACT_REQ_MODIFIED);
+    } else {
+      this.snackBarService.error(errorMassage);
+    }
   }
 
   updateRequest(extractRequest: ExtractRequest): void {

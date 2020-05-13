@@ -34,6 +34,9 @@ import {ExtractRequestService} from '../../../../../shared/service/extract-reque
 import {FolioStatus} from '../../../../../shared/enum/folio-status.enum';
 import {LandRegistryDivisionService} from '../../../../../shared/service/land-registry-division.service';
 import {LandRegistryDivision} from '../../../../../shared/dto/land-registry-division.model';
+import * as moment from 'moment';
+import {PatternValidation} from '../../../../../shared/enum/pattern-validation.enum';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-extract-application',
@@ -55,6 +58,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
   FolioStatus = FolioStatus;
 
   public isContinueToPayment: boolean = false;
+  public canApply: boolean = false;
 
   public searchRequestForm: FormGroup;
   public folioForm: FormGroup;
@@ -70,12 +74,16 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
 
   public searchRequest = new SearchRequest();
 
+  previousData: any;
 
   folioStatus: Enum = null;
 
+  maxDate = moment(new Date()).format('YYYY-MM-DD');
+  minDate;
+
   //Mat Table Config
   public elements: Element[] = [];
-  public displayedColumns: string[] = ['Folio No',  'Status', 'Action'];
+  public displayedColumns: string[] = ['Folio No', 'Status', 'Action'];
   public dataSource = new MatTableDataSource<any>(this.elements);
 
   constructor(
@@ -100,25 +108,41 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
       'landRegistryId': new FormControl('', Validators.required),
       'requestType': new FormControl(SearchRequestType.FOLIO_DOCUMENT, Validators.required),
       'attestedByNotaryName': new FormControl(''),
-      'practicedLocation': new FormControl(''),
-      'numberOfTheDeed': new FormControl(''),
-      'natureOfTheDeed': new FormControl(''),
+      'practicedLocation': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
+      'numberOfTheDeed': new FormControl('', [Validators.maxLength(25)]),
+      'natureOfTheDeed': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
       'probablePeriodFrom': new FormControl(''),
       'probablePeriodTo': new FormControl(''),
-      'nameOfTheGranter': new FormControl(''),
-      'nameOfTheGrantee': new FormControl(''),
-      'nameOfTheLand': new FormControl(''),
-      'extent': new FormControl(''),
+      'nameOfTheGranter': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
+      'nameOfTheGrantee': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
+      'nameOfTheLand': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN)]),
+      'extent': new FormControl('', [
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
       'paththuId': new FormControl(''),
       'koraleId': new FormControl(''),
       'dsDivisionId': new FormControl(''),
       'gnDivisionId': new FormControl(''),
       'villageId': new FormControl(''),
-      'searchReasonId': new FormControl('', Validators.required),
+      'searchReasonId': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.required,
+        Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
-      'volume': new FormControl('', Validators.required),
-      'folioNo': new FormControl('', Validators.required),
-      'noOfYears': new FormControl('', Validators.required),
+      'volume': new FormControl('', [Validators.required,
+        Validators.maxLength(10)]),
+      'folioNo': new FormControl('', [Validators.required,
+        Validators.maxLength(10)]),
+      'noOfYears': new FormControl('', [Validators.required,
+        Validators.maxLength(10)]),
     });
 
     if (this.action === ActionMode.VIEW) {
@@ -151,6 +175,13 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     this.searchRequestForm.valueChanges.subscribe(
       (data) => {
         this.formData.emit(data);
+         if(this.previousData) this.canApply = !_.isEqual(JSON.stringify(this.previousData),JSON.stringify(data));
+      }
+    );
+
+    this.form.get('probablePeriodFrom').valueChanges.subscribe(
+      value => {
+        if (value) this.minDate = moment(value).format('YYYY-MM-DD');
       }
     );
   }
@@ -282,16 +313,27 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
-      this.searchRequestForm.get('volume').setValidators(Validators.required);
+      this.searchRequestForm.get('volume').setValidators([Validators.required, Validators.maxLength(10)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
-      this.searchRequestForm.get('folioNo').setValidators(Validators.required);
+      this.searchRequestForm.get('folioNo').setValidators([Validators.required, Validators.maxLength(10)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
-      this.searchRequestForm.get('noOfYears').setValidators(Validators.required);
+      this.searchRequestForm.get('noOfYears').setValidators([Validators.required, Validators.maxLength(10)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
+      this.searchRequestForm.get('searchReasonId').setValidators([
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.required,
+        Validators.maxLength(255)]);
+      this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
     } else if (this.requestType == SearchRequestType.DEED_DOCUMENT) {
-      this.searchRequestForm.get('attestedByNotaryName').setValidators(Validators.required);
+      this.searchRequestForm.get('attestedByNotaryName').setValidators([
+        Validators.required,
+        Validators.pattern(PatternValidation.PERSON_NAME_PATTERN),
+        Validators.maxLength(255)]);
       this.searchRequestForm.get('attestedByNotaryName').updateValueAndValidity();
-      this.searchRequestForm.get('numberOfTheDeed').setValidators(Validators.required);
+      this.searchRequestForm.get('numberOfTheDeed').setValidators([
+        Validators.required,
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_PATTERN),
+        Validators.maxLength(25)]);
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').clearValidators();
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
@@ -301,6 +343,8 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
       this.searchRequestForm.get('noOfYears').clearValidators();
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
+      this.searchRequestForm.get('searchReasonId').setValidators([Validators.required]);
+      this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
     }
   }
 
@@ -354,7 +398,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
   onClickDelete(index: any) {
     this.elements[index].deleted = true;
     this.folioItem.emit(this.elements[index]);
-    this.elements.splice(index,1);
+    this.elements.splice(index, 1);
     this.dataSource.data = this.elements;
   }
 
@@ -377,6 +421,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
         enumData.desc = data.folioNoStatusDes;
 
         this.folioStatus = enumData;
+        this.previousData = this.form.value;
       }
     );
   }
@@ -416,6 +461,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
       (data) => {
         if (data) {
           this.snackBarService.success('Your Extract request is updated.');
+          this.canApply = false;
         } else {
           this.snackBarService.warn('Please try again.')
         }
