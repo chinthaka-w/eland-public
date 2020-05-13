@@ -34,35 +34,35 @@ export class ChangeLandRegistryRequestViewComponent implements OnInit {
 
   ngOnInit() {
 
-    this.requestForm = new FormGroup({
-      notaryName: new FormControl(),
-      notaryId: new FormControl(),
-      address: new FormControl(),
-      newLandregistry: new FormControl(),
-      reason: new FormControl()
-
-    });
-    this.getRequestData();
+    // this.requestForm = new FormGroup({
+    //   notaryName: new FormControl(),
+    //   notaryId: new FormControl(),
+    //   address: new FormControl(),
+    //   newLandregistry: new FormControl(),
+    //   reason: new FormControl()
+    //
+    // });
+    // this.getRequestData();
   }
 
-  getRequestData(): void {
-    this.changelandRegistryService.getRequestData(this.id).subscribe(
-      (data: LandRegistryChangeRequestModel) => {
-        this.getData = data;
-        this.requestForm.patchValue(
-          {
-            notaryName: this.getData.notaryName,
-            notaryId: this.getData.notaryId,
-            address: this.getData.address,
-            reason: this.getData.reasonForChange,
-            newLandregistry: this.getData.landRegistryname,
-
-
-          });
-      }
-    );
-
-
-  }
+  // getRequestData(): void {
+  //   this.changelandRegistryService.getRequestData(this.id).subscribe(
+  //     (data: LandRegistryChangeRequestModel) => {
+  //       this.getData = data;
+  //       this.requestForm.patchValue(
+  //         {
+  //           notaryName: this.getData.notaryName,
+  //           notaryId: this.getData.notaryId,
+  //           address: this.getData.address,
+  //           reason: this.getData.reasonForChange,
+  //           newLandregistry: this.getData.landRegistryname,
+  //
+  //
+  //         });
+  //     }
+  //   );
+  //
+  //
+  // }
 
 }

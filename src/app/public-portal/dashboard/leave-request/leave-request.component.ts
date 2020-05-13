@@ -63,7 +63,7 @@ export class LeaveRequestComponent implements OnInit {
   getTimeDifferent(): boolean {
     const difftime = this.notaryLeaveRequestForm.value.toDate - this.notaryLeaveRequestForm.value.fromDate;
 
-    if (difftime > 0) {
+    if (difftime >= 0) {
           return true;
     } else {
       return false;

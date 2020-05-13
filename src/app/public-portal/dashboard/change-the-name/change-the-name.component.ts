@@ -97,6 +97,8 @@ export class ChangeTheNameComponent implements OnInit {
   userType: string;
   userId: number;
   isRequiredDocsUpload = false;
+  firstValue: any;
+  lastValue: any;
 
 
   constructor(private documetService: SupportingDocService,
@@ -126,11 +128,11 @@ export class ChangeTheNameComponent implements OnInit {
     this.notaryForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newFullNameInSinhala: new FormControl('', this.isSinhala? Validators.required : null),
-      newFullNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
+      newFullNameInSinhala: new FormControl('', (this.isSinhala ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)])),
+      newFullNameInTamil: new FormControl('', (this.isTamil ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)]) ),
       newInitialNameInEnglish: new FormControl('',  [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInSinhala: new FormControl('', this.isSinhala? Validators.required : null),
-      newInitialNameInTamil: new FormControl('',this.isTamil ? Validators.required : null ),
+      newInitialNameInSinhala: new FormControl('', (this.isSinhala ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)])),
+      newInitialNameInTamil: new FormControl('',(this.isTamil ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)]) ),
       dateOfBirth: new FormControl(new Date()),
       languages: new FormControl(),
       recaptcha: new FormControl(null),
@@ -143,6 +145,32 @@ export class ChangeTheNameComponent implements OnInit {
     this.getGnDivisions();
     this.isPaymentSuccess = false;
     this.isContinueToPayment = false;
+
+    this.notaryForm.valueChanges.subscribe(x => {
+      this.lastValue = x;
+    });
+  }
+
+
+  comparevaluesOfform(): boolean {
+    if (this.firstValue.perAddEng === this.lastValue.perAddEng) {
+      console.log(this.lastValue.perAddEng + 'and ' + this.lastValue.perAddEng);
+    }
+
+    if (this.firstValue.title === this.lastValue.title
+      && this.firstValue.newFullNameInEnglish === this.lastValue.newFullNameInEnglish
+      && this.firstValue.newFullNameInSinhala === this.lastValue.newFullNameInSinhala
+      && this.firstValue.newFullNameInTamil === this.lastValue.newFullNameInTamil
+      && this.firstValue.newInitialNameInEnglish === this.lastValue.newInitialNameInEnglish
+      && this.firstValue.newInitialNameInSinhala === this.lastValue.newInitialNameInSinhala
+      && this.firstValue.newInitialNameInTamil === this.lastValue.newInitialNameInTamil
+       ) {
+      return false;
+
+    } else {
+      return true;
+    }
+
   }
 
   private addLanguageList(id:number): void {
@@ -209,6 +237,8 @@ export class ChangeTheNameComponent implements OnInit {
             medium: this.result.language,
           }
         );
+        this.firstValue = this.notaryForm.value;
+
         this.judicialZoneId = this.result.judicialZoneId;
         this.notaryTitle = this.result.nametitle.english;
         this.newNotaryId = this.result.newNotaryId;
@@ -221,40 +251,44 @@ export class ChangeTheNameComponent implements OnInit {
   }
 
   submitForm() {
-    this.nameChangeModel.newFullNameEng = this.notaryForm.value.newFullNameInEnglish;
-    this.nameChangeModel.newFullNameSin = this.notaryForm.value.newFullNameInSinhala;
-    this.nameChangeModel.newFullNameTam = this.notaryForm.value.newFullNameInTamil;
-    this.nameChangeModel.newInitialNameEng = this.notaryForm.value.newInitialNameInEnglish;
-    this.nameChangeModel.newInitialNameSin = this.notaryForm.value.newInitialNameInSinhala;
-    this.nameChangeModel.newInitialNameTam = this.notaryForm.value.newInitialNameInTamil;
-    this.nameChangeModel.newNotaryId = this.notaryId;
-    this.nameChangeModel.paymentId = this.paymentDataValue.paymentId;
-    this.nameChangeModel.payment = this.paymentDataValue;
-    this.nameChangeModel.title = this.notaryForm.value.title;
 
-    const formData = new FormData();
-    formData.append('data', JSON.stringify(this.nameChangeModel));
-    this.documentList.forEach(doc => {
-      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
-    });
 
-    this.nameChangeService.save(formData).subscribe(
-      (success: string) => {
-        if (this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success('Notary Name Change Request Success');
-          this.router.navigate(['/notary-requests', btoa(Workflow.NOTARY_NAME_CHANGE)]);
-        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-          this.snackBar.success('Notary Name Change Request Success, Proceed to online payment');
-          this.isPayment = true;
-          this.statusOnlinePayment = true;
-        } else {
-          this.snackBar.error('Operation failed');
+      this.nameChangeModel.newFullNameEng = this.notaryForm.value.newFullNameInEnglish;
+      this.nameChangeModel.newFullNameSin = this.notaryForm.value.newFullNameInSinhala;
+      this.nameChangeModel.newFullNameTam = this.notaryForm.value.newFullNameInTamil;
+      this.nameChangeModel.newInitialNameEng = this.notaryForm.value.newInitialNameInEnglish;
+      this.nameChangeModel.newInitialNameSin = this.notaryForm.value.newInitialNameInSinhala;
+      this.nameChangeModel.newInitialNameTam = this.notaryForm.value.newInitialNameInTamil;
+      this.nameChangeModel.newNotaryId = this.notaryId;
+      this.nameChangeModel.paymentId = this.paymentDataValue.paymentId;
+      this.nameChangeModel.payment = this.paymentDataValue;
+      this.nameChangeModel.title = this.notaryForm.value.title;
+
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(this.nameChangeModel));
+      this.documentList.forEach(doc => {
+        formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+      });
+
+      this.nameChangeService.save(formData).subscribe(
+        (success: string) => {
+          if (this.paymentMethod !== PaymentMethod.ONLINE) {
+            this.snackBar.success('Notary Name Change Request Success');
+            this.router.navigate(['/notary-requests', btoa(Workflow.NOTARY_NAME_CHANGE)]);
+          } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+            this.snackBar.success('Notary Name Change Request Success, Proceed to online payment');
+            this.isPayment = true;
+            this.statusOnlinePayment = true;
+          } else {
+            this.snackBar.error('Operation failed');
+          }
+        },
+        error => {
+          this.snackBar.error('Failed');
         }
-      },
-      error => {
-        this.snackBar.error('Failed');
-      }
-    );
+      );
+
+
   }
 
   private getDocumentList(): void {
@@ -346,9 +380,12 @@ export class ChangeTheNameComponent implements OnInit {
 
 
   onClickSubmitSearchRequest() {
-    console.log(this.notaryForm.valid);
-    if(this.notaryForm.valid)
-      this.isContinueToPayment = !this.isContinueToPayment;
+    if (this.comparevaluesOfform()) {
+      if (this.notaryForm.valid)
+        this.isContinueToPayment = !this.isContinueToPayment;
+    } else {
+      this.snackBar.warn('No Changes Found!');
+    }
   }
 
   public onFormSubmit() {

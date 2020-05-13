@@ -105,7 +105,7 @@
               <div class="default-input-wrapper full-row">
                 <label>{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}
                   <span *ngIf="doc.required">*</span></label>
-                <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
+                <file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>
               </div>
             </div>
           </div>
