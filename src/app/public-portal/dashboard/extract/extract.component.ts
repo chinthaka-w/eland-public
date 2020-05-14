@@ -237,7 +237,7 @@ export class ExtractComponent implements OnInit {
         this.snackBarService.error(error.message);
       }, () => {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
-          this.snackBarService.success('Your Extract request saved successfully,, Proceed to online payment')
+          this.snackBarService.success('Your Extract request saved successfully.Proceed to online payment')
           this.statusOnlinePayment = true;
           this.returnURl = 'requests/' + btoa(Workflow.EXTRACT_REQUEST);
           this.userType = this.sessionService.getUser().type;
@@ -245,7 +245,7 @@ export class ExtractComponent implements OnInit {
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
-          this.snackBarService.success('Your Extract request saved successfully,.')
+          this.snackBarService.success('Your Extract request saved successfully.')
         }
       }
     );
