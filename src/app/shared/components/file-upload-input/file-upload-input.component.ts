@@ -1,25 +1,29 @@
-import {Component, OnInit, ElementRef, Output, EventEmitter, Input} from '@angular/core';
-import { DomSanitizer } from "@angular/platform-browser";
+import {Component, OnInit, ElementRef, Output, EventEmitter, Input, ViewChild} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 import {FormControlName, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: "file-upload-input",
-  templateUrl: "./file-upload-input.component.html",
-  styleUrls: ["./file-upload-input.component.css"]
+  selector: 'file-upload-input',
+  templateUrl: './file-upload-input.component.html',
+  styleUrls: ['./file-upload-input.component.css']
 })
 export class FileUploadInputComponent implements OnInit {
 
-  @Output()
-  response = new EventEmitter;
+  @Input() invalid: boolean = false;
+  @Output() response = new EventEmitter;
+
+  @ViewChild('fileUpload', {static: false}) myInputVariable: ElementRef;
+
   files: File[] = [];
   fileUpload: ElementRef;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   onFileSelected(event) {
-    // console.log('files: ',event.target.files);
     this.files = [];
     const files = event.dataTransfer
       ? event.dataTransfer.files
@@ -37,6 +41,7 @@ export class FileUploadInputComponent implements OnInit {
   removeFile(index) {
     this.files.splice(index, 1);
     this.response.emit(this.files);
+    this.myInputVariable.nativeElement.value = null;
   }
 
   onClick() {

@@ -5,6 +5,7 @@ export class ChangeLandRegistryDto {
   public requestId: number;
   public reasonForChange: string;
   public landRegistryId: number;
+  public newLandRegistryDes: string;
   public notaryRequestId: number;
   public status: string;
   public user: string;

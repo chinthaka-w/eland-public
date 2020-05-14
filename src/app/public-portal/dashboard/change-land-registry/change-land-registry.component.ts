@@ -18,6 +18,7 @@ import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {SessionService} from '../../../shared/service/session.service';
 import {Router} from '@angular/router';
 import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-type-dto';
+import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {Location} from '@angular/common';
 
 @Component({
@@ -47,6 +48,7 @@ export class ChangeLandRegistryComponent implements OnInit {
   user: string;
   userType: string;
   userId: number;
+  isRequiredDocsUpload = false;
 
 
 
@@ -59,7 +61,7 @@ export class ChangeLandRegistryComponent implements OnInit {
 
   ngOnInit() {
     this.landRegistryChangeForm = new FormGroup({
-      reason: new FormControl('', Validators.required ),
+      reason: new FormControl('', [Validators.required , Validators.maxLength(255)] ),
       landRegistry: new FormControl('', Validators.required )
     });
     this.notaryId = this.sessionService.getUser().id;
@@ -145,9 +147,44 @@ export class ChangeLandRegistryComponent implements OnInit {
 
   }
 
-  setFiles(data: any, docTyprId: number) {
+  // setFiles(data: any, docTyprId: number) {
+  //   this.files = data;
+  //   this.documentList.push(new DocumentDto(this.files[0], docTyprId));
+  // }
+
+  setFiles(data: any, docTyprId: number, status: boolean) {
     this.files = data;
-    this.documentList.push(new DocumentDto(this.files[0], docTyprId));
+    const document = new DocumentDto(this.files[0], docTyprId);
+    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
+    if (document.files) {
+      this.documentList.push(document);
+    } else {
+      this.documentList.forEach((doc, index) => {
+        if (doc.fileType === document.fileType) {
+          this.documentList.splice(index, 1);
+        }
+      });
+    }
+
+    let workflowManatoryDocs = 0;
+    let uploadedMandatoryDocs = 0;
+
+    this.workflowStageDocTypes.forEach(doc => {
+      if  (doc.required) {
+        workflowManatoryDocs += 1;
+      }
+    });
+
+    this.documentList.forEach(doc => {
+      if (doc.status === CommonStatus.REQUIRED) {
+        uploadedMandatoryDocs += 1;
+      }
+    });
+
+    if (workflowManatoryDocs === uploadedMandatoryDocs) {
+      this.isRequiredDocsUpload = true;
+    } else {
+      this.isRequiredDocsUpload = false; }
   }
 
   onBack(data: boolean) {
@@ -157,6 +194,10 @@ export class ChangeLandRegistryComponent implements OnInit {
   continue(): void {
     let isValid = true;
     let errorMassage = '';
+    if (this.isRequiredDocsUpload === false) {
+      isValid = false;
+      errorMassage = 'Please, Upload relevant documents.';
+    }
     if (this.landRegistryChangeForm.value.landRegistry === '') {
       isValid = false;
       errorMassage = 'Please, Select landregistry.';
@@ -166,6 +207,7 @@ export class ChangeLandRegistryComponent implements OnInit {
       isValid = false;
       errorMassage = 'Please, Enter the reason.';
     }
+
     if (isValid) {
       // this.isContinue = true;
       this.saveRequest();

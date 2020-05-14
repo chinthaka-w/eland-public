@@ -1,17 +1,17 @@
 <div class="default-input-feild">
-  <div class="drag-drop">
-    <div class="drag-drop-inner">
-      <button type="button" class="f-uploader" (click)="onClick($event)">
-        <i class="material-icons">cloud_upload</i> Upload (image / PDF)
+  <div [class]="invalid?'drag-drop-error drag-drop':'drag-drop'">
+    <div [class]="invalid?'drag-drop-inner':'drag-drop-inner'">
+      <button type="button" [class]="'f-uploader'" (click)="onClick($event)">
+        <i [class]="'material-icons'">cloud_upload</i> Upload (image / PDF)
         <input
           #fileUpload
           type="file"
-          class="input_fileupload--hidden"
+          [class]="'input_fileupload--hidden'"
           accept="image/*,application/pdf"
           (change)="onFileSelected($event)"
         />
       </button>
-      <div class="uploaded-file" *ngFor="let file of files; let i = index">
+      <div [class]="'uploaded-file'" *ngFor="let file of files; let i = index">
         <span>{{ file.name }}</span>
         <button type="button" color="warn" (click)="removeFile(i)">
           <mat-icon>close</mat-icon>

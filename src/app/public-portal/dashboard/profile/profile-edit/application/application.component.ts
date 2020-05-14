@@ -67,7 +67,6 @@ export class ApplicationComponent implements OnInit {
     if (this.firstValue.perAddEng === this.lastValue.perAddEng) {
       console.log(this.lastValue.perAddEng + 'and ' + this.lastValue.perAddEng);
     }
-
     if (this.firstValue.perAddEng === this.lastValue.perAddEng
         && this.firstValue.perAddSin === this.lastValue.perAddSin
         && this.firstValue.perAddTam === this.lastValue.perAddTam
@@ -82,6 +81,24 @@ export class ApplicationComponent implements OnInit {
       } else {
         return true;
       }
+
+   }
+
+   compareEmptyValues(): boolean {
+    if ((this.requestForm.value.perAddEng === null || this.requestForm.value.perAddEng === '') &&
+      (this.requestForm.value.perAddSin === null || this.requestForm.value.perAddSin === '') &&
+      (this.requestForm.value.perAddTam === null || this.requestForm.value.perAddTam === '' )) {
+      this.snackBar.warn('Please fill Permanent address ');
+      return false;
+    } else if ((this.requestForm.value.curAddressEng === null || this.requestForm.value.curAddressEng === '') &&
+      (this.requestForm.value.curAddressSin === null || this.requestForm.value.curAddressSin === '') &&
+      (this.requestForm.value.curAddressTam === null || this.requestForm.value.curAddressTam === '')) {
+      this.snackBar.warn('Please fill Current address ');
+      return false;
+    } else {
+      return true;
+    }
+
 
    }
   private getNotaryDetails(): void {
@@ -122,29 +139,29 @@ export class ApplicationComponent implements OnInit {
       return;
     }
     if (this.comparevaluesOfform()) {
+            if (this.compareEmptyValues()) {
+              this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
+                null, this.requestForm.value.mobile,  this.requestForm.value.contact,
+                this.requestForm.value.perAddEng,  this.requestForm.value.perAddSin,  this.requestForm.value.perAddTam,
+                this.requestForm.value.curAddressEng, this.requestForm.value.curAddressSin, this.requestForm.value.curAddressTam,
+                this.requestForm.value.fNameEng, this.requestForm.value.fNameSin, this.requestForm.value.fNameTam,
+                null,  null, null,
+                null, null, null,
+                null, null, null, null,
+                null, null, null, null, new Date(),
+                null, null, null, null, null, null, this.requestForm.value.clerkName, this.requestForm.value.clerkNic, null, null);
 
-      this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
-        null, this.requestForm.value.mobile,  this.requestForm.value.contact,
-        this.requestForm.value.perAddEng,  this.requestForm.value.perAddSin,  this.requestForm.value.perAddTam,
-        this.requestForm.value.curAddressEng, this.requestForm.value.curAddressSin, this.requestForm.value.curAddressTam,
-        this.requestForm.value.fNameEng, this.requestForm.value.fNameSin, this.requestForm.value.fNameTam,
-        null,  null, null,
-        null, null, null,
-        null, null, null, null,
-        null, null, null, null, new Date(),
-        null, null, null, null, null, null, this.requestForm.value.clerkName, this.requestForm.value.clerkNic, null, null);
 
-
-      this.notaryService.editProfile(this.notary).subscribe(
-        (success: string) => {
-          this.snackBar.success('Submitted the profile edit request successfully!');
-          // this.requestForm.reset();
-        },
-        error => {
-          this.snackBar.error('Failed');
-        }
-      );
-
+              this.notaryService.editProfile(this.notary).subscribe(
+                (success: string) => {
+                  this.snackBar.success('Submitted the profile edit request successfully!');
+                  // this.requestForm.reset();
+                },
+                error => {
+                  this.snackBar.error('Failed');
+                }
+              );
+            }
     } else {
 
       this.snackBar.warn('There are no fields to update!');

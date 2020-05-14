@@ -1,9 +1,9 @@
 <div class="page-header-default" *ngIf="!isContinueToPayment">
     <h2>{{'CHANGE_NAME.TITLE1'|translate}}</h2>
     <p>{{'CHANGE_NAME.TITLE2'|translate}}<br />{{'CHANGE_NAME.TITLE3'|translate}}</p>
-    <a href="" class="phd-back-btn">
-        <i class="material-icons">keyboard_backspace</i>
-    </a>
+  <a href="#" (click)="goBack()" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
 </div>
 <form class="form-horizontal" *ngIf="!isContinueToPayment"  [formGroup]="notaryForm">
     <div class="page-content-wrapper">
@@ -103,10 +103,9 @@
           <div class="pg-inner-row mb-20 upload-col-3">
             <div class="pg-inner-col-3" *ngFor="let doc of docList">
               <div class="default-input-wrapper full-row">
-                <label
-                >{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}
+                <label>{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}
                   <span *ngIf="doc.required">*</span></label>
-                <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
+                <file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>
               </div>
             </div>
           </div>
@@ -117,13 +116,11 @@
             <div class="pg-inner-col">
               <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
             </div>
-            <div class="pg-inner-col middle">
-              {{'CHANGE_NAME.TITLE5'|translate}}
-              <a href="#">{{'CHANGE_NAME.TITLE6'|translate}} </a> , <a href="#">{{'CHANGE_NAME.TITLE7'|translate}} </a> ,
-              and <a href="#">{{'CHANGE_NAME.TITLE8'|translate}} </a> .
-            </div>
             <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
-              <button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
+              <!--<button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">-->
+                <!--{{'BUTTONS.CONTINUE_BUTTON'|translate}}-->
+              <!--</button>-->
+              <button [disabled]="!(isRequiredDocsUpload)" mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
                 {{'BUTTONS.CONTINUE_BUTTON'|translate}}
               </button>
             </div>

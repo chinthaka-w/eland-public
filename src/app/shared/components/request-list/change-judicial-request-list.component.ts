@@ -22,6 +22,7 @@ import {ChangeLandRegistryService} from '../../service/change-land-registry.serv
 import {ChangeLandRegistryDto} from '../../dto/change-land-registry.dto';
 import {SystemService} from '../../service/system.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
+import {JudicialChangeWorkflowStagesEnum} from '../../enum/judicial-change-workflow-stages.enum';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -46,6 +47,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   public newButtonURL: string;
   public actionButtonURL: string;
   public currentLang: string;
+  public exist = false;
 
   previousUrl = '';
 
@@ -73,7 +75,7 @@ export class ChangeJudicialRequestListComponent implements OnInit {
 
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.currentLang = event.lang;
-    switch (this.flag) {
+      switch (this.flag) {
       case Workflow.JUDICIAL_ZONE_CHANGE:
         this.headerText = this.translate.instant('PUBLIC_COMMON.JUD_TITLE1');
         this.titleText = this.translate.instant('PUBLIC_COMMON.JUD_TITLE2');
@@ -187,11 +189,27 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.requests);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        for (let i = 0; i < this.requests.length; i++) {
+          if (this.requests[i].workflowCode === JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED) {
+              this.exist = true;
+          } else {
+            this.exist = false;
+          }
+        }
       },
       (error) => {
         this.snackBar.error('Failed');
       }
     );
+  }
+
+  check() {
+   if(this.flag === Workflow.JUDICIAL_ZONE_CHANGE) {
+     if (!this.exist) {
+       this.snackBar.error('Your previous Judicial Division change request is in progress');
+       this.newButtonURL = '/requests/'+ btoa(this.flag);
+     }
+   }
   }
 
   loadSearchRequests() {

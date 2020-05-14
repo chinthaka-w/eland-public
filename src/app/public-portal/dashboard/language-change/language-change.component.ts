@@ -16,6 +16,7 @@ import {TokenStorageService} from '../../../shared/auth/token-storage.service';
 import {SessionService} from '../../../shared/service/session.service';
 import {LanguageChange} from '../../../shared/dto/language-change.model';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
+import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 
 
 @Component({
@@ -65,28 +66,28 @@ export class LanguageChangeComponent implements OnInit {
    */
   private loadForm(): void {
     this.languageChangForm = this.formBulder.group({
-      title: [0, null],
-      langEng: [false, null],
-      langSin: [false, null],
-      langTam: [false, null],
-      fullNameEng: ['', null],
-      fullNameSin: ['', null],
-      fullNameTam: ['', null],
-      nameWithInitEng: ['', null],
-      nameWithInitSin: ['', null],
-      nameWithInitTam: ['', null],
-      addPermanentEng: ['', null],
-      addPermanentSin: ['', null],
-      addPermanentTam: ['', null],
-      addressEng: ['', null],
-      addressSin: ['', null],
-      addressTam: ['', null],
-      startingDate: ['', null],
-      highCourtCertificateYear: ['', null],
-      lrName: ['', null],
-      returnAttestedStatus: ['', null],
-      unavailableTimePeriod: ['', null],
-      date: ['', null]
+      title: new FormControl(0, null),
+      langEng: new FormControl('', null),
+      langSin: new FormControl('', null),
+      langTam: new FormControl('', null),
+      fullNameEng: new FormControl('', [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
+      fullNameSin: new FormControl('', null),
+      fullNameTam: new FormControl('', null),
+      nameWithInitEng: new FormControl('', [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
+      nameWithInitSin: new FormControl('', null),
+      nameWithInitTam: new FormControl('', null),
+      addPermanentEng: new FormControl('', null),
+      addPermanentSin: new FormControl('', null),
+      addPermanentTam: new FormControl('', null),
+      addressEng: new FormControl('', null),
+      addressSin: new FormControl('', null),
+      addressTam: new FormControl('', null),
+      startingDate: new FormControl('', null),
+      highCourtCertificateYear: new FormControl('', null),
+      lrName: new FormControl('', null),
+      returnAttestedStatus: new FormControl('', null),
+      unavailableTimePeriod: new FormControl('', null),
+      date: new FormControl('', null),
     });
     this.getRegistrationDetails(this.sessionService.getUser().id);
   }
@@ -154,6 +155,30 @@ export class LanguageChangeComponent implements OnInit {
       (result: LanguageChange) => {
         this.languageChangForm.patchValue(result);
 
+        if(result.fullNameEng != null) {
+          this.languageChangForm.get('fullNameEng').disable();
+        }
+
+        if(result.fullNameSin != null) {
+          this.languageChangForm.get('fullNameSin').disable();
+        }
+
+        if(result.fullNameTam != null) {
+          this.languageChangForm.get('fullNameTam').disable();
+        }
+
+        if(result.nameWithInitEng != null) {
+          this.languageChangForm.get('nameWithInitEng').disable();
+        }
+
+        if(result.nameWithInitSin != null) {
+          this.languageChangForm.get('nameWithInitSin').disable();
+        }
+
+        if(result.nameWithInitTam != null) {
+          this.languageChangForm.get('nameWithInitTam').disable();
+        }
+
         if (result.langEng) {
           this.languageChangForm.get('langEng').disable();
         }
@@ -217,10 +242,10 @@ export class LanguageChangeComponent implements OnInit {
       langEng: [this.langEngCheck, null],
       langSin: [this.langSinCheck, null],
       langTam: [this.langTamCheck, null],
-      fullNameEng: [this.languageChangForm.value.fullNameEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
+      fullNameEng: [this.languageChangForm.value.fullNameEng, code === this.langMode.ENGLISH ? [Validators.required,Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)] : null],
       fullNameSin: [this.languageChangForm.value.fullNameSin, code === this.langMode.SINHALA ? [Validators.required] : null],
       fullNameTam: [this.languageChangForm.value.fullNameTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      nameWithInitEng: [this.languageChangForm.value.nameWithInitEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
+      nameWithInitEng: [this.languageChangForm.value.nameWithInitEng, code === this.langMode.ENGLISH ? [Validators.required,Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)] : null],
       nameWithInitSin: [this.languageChangForm.value.nameWithInitSin, code === this.langMode.SINHALA ? [Validators.required] : null],
       nameWithInitTam: [this.languageChangForm.value.nameWithInitTam, code === this.langMode.TAMIL ? [Validators.required] : null],
       addPermanentEng: [this.languageChangForm.value.addPermanentEng, code === this.langMode.ENGLISH ? [Validators.required] : null],

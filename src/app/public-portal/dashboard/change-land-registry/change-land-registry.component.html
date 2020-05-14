@@ -23,29 +23,29 @@
 
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col label">
-          <label>{{'CHG_LANDREG.LANDREG'|translate}}</label></div>
+          <label>{{'CHG_LANDREG.LANDREG'|translate}}<span class="redtxt">*</span></label></div>
         <div class="pg-inner-col">
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <select name="landRegistry" formControlName="landRegistry" [value]="0" matNativeControl class="form-control">
-                  <option *ngFor="let reg of landRegistrySelect" [value]="reg.landRegistryId">{{ reg.name|listTranslate:reg.nameSinhala:reg.nameTamil}}
-                  </option>
-                </select>
-              </mat-form-field>
-              <!--<div *ngIf="FormControls.landRegistry.touched && FormControls.landRegistry.errors"-->
-                   <!--class="invalid-feedback">-->
-                <!--<mat-error *ngIf="FormControls.landRegistry.errors.required" class="errors">Field is required</mat-error>-->
-              <!--</div>-->
+              <mat-select name="landRegistry" formControlName="landRegistry" class="form-control"
+                          placeholder="{{'CHG_JUD_ZONE.SELECT_LAND'|translate}}">
+                <mat-option *ngFor="let reg of landRegistrySelect" [value]="reg.landRegistryId">{{ reg.name |listTranslate:reg.nameSinhala:reg.nameTamil}}
+                </mat-option>
+              </mat-select>
+
+              <div *ngIf="landRegistry.invalid && (landRegistry.touched || landRegistry.dirty)"
+                   class="invalid-feedback">
+                <mat-error *ngIf="landRegistry.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>{{'CHG_LANDREG.REASON'|translate}}</label>
+        <label>{{'CHG_LANDREG.REASON'|translate}}(255 Characters Only)<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline" >
-            <textarea matInput rows="5" formControlName="reason" required="true">
+            <textarea matInput rows="5" maxlength="255" formControlName="reason" required="true">
 
             </textarea>
             <div *ngIf="reason.touched && reason.invalid">
@@ -68,12 +68,21 @@
               <label>{{document.description|listTranslate: document.descriptionSin: document.descriptionTam}}
                 <span *ngIf="document.required == true">*</span>
               </label>
-              <file-upload-input (response)="setFiles($event,document.docTypeId)"></file-upload-input>
+              <file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>
             </div>
           </div>
         </ng-container>
-      </div>
 
+      </div>
+      <!--<div class="pg-inner-row mb-20 upload-col-3">-->
+        <!--<div class="pg-inner-col-3" *ngFor="let doc of docList">-->
+          <!--<div class="default-input-wrapper full-row">-->
+            <!--<label>{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}-->
+              <!--<span *ngIf="doc.required">*</span></label>-->
+            <!--<file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
       <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
         <button  mat-raised-button class="lg-button" (click)="continue()">
