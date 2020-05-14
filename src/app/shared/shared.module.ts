@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ContentComponent } from './components/content/content.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -195,6 +195,7 @@ import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
   ],
   providers: [
     AuthGuard,
+    DatePipe
   ],
   entryComponents: [
     FolioViewComponent,
