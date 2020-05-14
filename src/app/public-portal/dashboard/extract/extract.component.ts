@@ -399,7 +399,8 @@ export class ExtractComponent implements OnInit {
         }
       );
     } else {
-      this.snackBarService.error(errorMassage)
+      this.snackBarService.error(errorMassage);
+      this.validateAllFormFields(this.searchRequestForm);
     }
   }
 
@@ -425,8 +426,20 @@ export class ExtractComponent implements OnInit {
       this.isContinueToPayment = !this.isContinueToPayment;
     } else {
       this.snackBarService.error(errorMassage);
+      this.validateAllFormFields(this.searchRequestForm);
     }
 
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {         //{1}
+    Object.keys(formGroup.controls).forEach(field => {  //{2}
+      const control = formGroup.get(field);             //{3}
+      if (control instanceof FormControl) {             //{4}
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {        //{5}
+        this.validateAllFormFields(control);            //{6}
+      }
+    });
   }
 
   onPaymentResponse(data: PaymentResponse) {
