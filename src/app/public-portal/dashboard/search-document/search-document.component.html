@@ -17,7 +17,9 @@
                         class="form-control"
                         formControlName="landRegistryId">
                   <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
-                  <option *ngFor="let item of landRegistries" [value]="item.landRegistryId">{{item.nameEng|listTranslate:item.nameSin:item.nameTam}}</option>
+                  <option *ngFor="let item of landRegistries" [value]="item.landRegistryId">
+                    {{item.nameEng|listTranslate:item.nameSin:item.nameTam}}
+                  </option>
                 </select>
               </mat-form-field>
             </div>
@@ -123,6 +125,8 @@
               <mat-form-field appearance="outline">
                 <input matInput readonly
                        [matDatepicker]="picker2"
+                       [min]="minDate"
+                       [max]="maxDate"
                        placeholder="Choose a date"
                        formControlName="probablePeriodTo">
                 <mat-datepicker #picker2></mat-datepicker>
@@ -178,6 +182,7 @@
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput
+                       maxlength="255"
                        class="form-control" formControlName="extent">
               </mat-form-field>
             </div>
@@ -196,7 +201,9 @@
                         (change)="onChangeKorale($event.target.value)"
                         formControlName="koraleId">
                   <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
-                  <option *ngFor="let item of korales" [value]="item.koraleId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
+                  <option *ngFor="let item of korales" [value]="item.koraleId">
+                    {{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}
+                  </option>
                 </select>
               </mat-form-field>
             </div>
@@ -211,7 +218,9 @@
                         class="form-control"
                         formControlName="paththuId">
                   <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
-                  <option *ngFor="let item of paththuwas" [value]="item.paththuwaId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
+                  <option *ngFor="let item of paththuwas" [value]="item.paththuwaId">
+                    {{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}
+                  </option>
                 </select>
               </mat-form-field>
             </div>
@@ -229,7 +238,9 @@
                         (change)="onChangeDsDivision($event.target.value)"
                         formControlName="dsDivisionId">
                   <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
-                  <option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
+                  <option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">
+                    {{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}
+                  </option>
                 </select>
               </mat-form-field>
             </div>
@@ -245,7 +256,9 @@
                         (change)="onChangeGnDivision($event.target.value)"
                         formControlName="gnDivisionId">
                   <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
-                  <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
+                  <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">
+                    {{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}
+                  </option>
                 </select>
                 <mat-error *ngIf="gnDivisions?.length==0">{{'SEARCH_DOC.SELECT_DS'|translate}}</mat-error>
               </mat-form-field>
@@ -264,7 +277,9 @@
                         class="form-control"
                         formControlName="villageId">
                   <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
-                  <option *ngFor="let item of villages" [value]="item.villageId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
+                  <option *ngFor="let item of villages" [value]="item.villageId">
+                    {{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}
+                  </option>
                 </select>
                 <mat-error
                   *ngIf="form.get('villageId').untouched">
@@ -280,8 +295,8 @@
               class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <input matInput
-                       class="form-control" formControlName="searchReasonId"/>
+                <textarea matInput
+                          class="form-control" maxlength="255" formControlName="searchReasonId"></textarea>
               </mat-form-field>
             </div>
           </div>
@@ -292,7 +307,8 @@
                 <select matNativeControl
                         class="form-control" formControlName="searchReasonId">
                   <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
-                  <option *ngFor="let item of searchReasons" [value]="item.searchReasonId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}
+                  <option *ngFor="let item of searchReasons" [value]="item.searchReasonId">
+                    {{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}
                   </option>
                 </select>
               </mat-form-field>
@@ -317,7 +333,8 @@
                           formControlName="lrDivisionId">
                     <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
                     <option *ngFor="let item of lrDivisions" [value]="item.landRegistryDivisionId">
-                      {{item.divisionCode+' - '+(item.description|listTranslate:item.descriptionSin:item.descriptionTam)}}
+                      {{item.divisionCode+' -
+                      '+(item.description|listTranslate:item.descriptionSin:item.descriptionTam)}}
                     </option>
                   </select>
                 </mat-form-field>
@@ -330,7 +347,8 @@
               <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                   <input matInput type="number"
-                         min="1"
+                         inputMinValue="1"
+                         inputMaxLength="10"
                          class="form-control" formControlName="volume">
                 </mat-form-field>
               </div>
@@ -345,7 +363,8 @@
                 <mat-form-field appearance="outline">
                   <input matInput
                          type="number"
-                         min="1"
+                         inputMinValue="1"
+                         inputMaxLength="10"
                          class="form-control" formControlName="folioNo">
                 </mat-form-field>
               </div>
@@ -358,7 +377,8 @@
                 <mat-form-field appearance="outline">
                   <input matInput
                          type="number"
-                         min="1"
+                         inputMinValue="1"
+                         inputMaxLength="10"
                          class="form-control" formControlName="noOfYears">
                 </mat-form-field>
               </div>

@@ -1,0 +1,31 @@
+<button type="button" class="close" aria-label="Close" [mat-dialog-close]>
+  <span aria-hidden="true">&times;</span>
+</button>
+<mat-dialog-content>
+
+  <div class="row">
+    <div *ngFor="let file of files; let i = index;" class="col-md-4 p-5 h-5">
+      <mat-card class="example-card" style="min-height: 100%;">
+        <mat-card-header>
+          <h6>{{file.name}}</h6>
+        </mat-card-header>
+        <ngx-image-viewer [src]="file.pages" [config]="viewerConfig"></ngx-image-viewer>
+        <mat-card-actions>
+          <span *ngIf="file.pages.length > 1">Pages <strong>{{file.pages.length}}</strong></span>
+          <mat-checkbox *ngIf="canSelect" (change)="onSelectFile($event,file)"></mat-checkbox>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row" *ngIf="!files || files.length==0">
+    <p>No result found.</p>
+  </div>
+</mat-dialog-content>
+<div class="row align-bottom justify-content-end" *ngIf="canSelect">
+  <div class="col-md-2 float-right">
+    <button mat-raised-button
+            (click)="onApply()"
+            color="primary">Apply
+    </button>
+  </div>
+</div>

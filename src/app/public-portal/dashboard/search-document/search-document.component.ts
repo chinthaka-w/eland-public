@@ -39,6 +39,7 @@ import {SearchRequestWorkflowStages} from '../../../shared/enum/search-request-w
 import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {LandRegistryDivisionService} from '../../../shared/service/land-registry-division.service';
 import {LandRegistryDivision} from '../../../shared/dto/land-registry-division.model';
+import * as moment from 'moment';
 
 
 @Component({
@@ -76,6 +77,9 @@ export class SearchDocumentComponent implements OnInit {
 
   folioStatus: Enum = null;
 
+  maxDate = moment(new Date()).format('YYYY-MM-DD');
+  minDate;
+
   constructor(
     private landRegistryService: LandRegistryService,
     private lrDivisionService: LandRegistryDivisionService,
@@ -107,25 +111,41 @@ export class SearchDocumentComponent implements OnInit {
       'landRegistryId': new FormControl('', Validators.required),
       'requestType': new FormControl(SearchRequestType.FOLIO_DOCUMENT, Validators.required),
       'attestedByNotaryName': new FormControl(''),
-      'practicedLocation': new FormControl(''),
-      'numberOfTheDeed': new FormControl(''),
-      'natureOfTheDeed': new FormControl(''),
+      'practicedLocation': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
+      'numberOfTheDeed': new FormControl('', [Validators.maxLength(25)]),
+      'natureOfTheDeed': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
       'probablePeriodFrom': new FormControl(''),
       'probablePeriodTo': new FormControl(''),
-      'nameOfTheGranter': new FormControl(''),
-      'nameOfTheGrantee': new FormControl(''),
-      'nameOfTheLand': new FormControl(''),
-      'extent': new FormControl(''),
+      'nameOfTheGranter': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
+      'nameOfTheGrantee': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.maxLength(255)]),
+      'nameOfTheLand': new FormControl('', [
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN)]),
+      'extent': new FormControl('', [
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
       'paththuId': new FormControl(''),
       'koraleId': new FormControl(''),
       'dsDivisionId': new FormControl(''),
       'gnDivisionId': new FormControl(''),
       'villageId': new FormControl(''),
-      'searchReasonId': new FormControl('', Validators.required),
+      'searchReasonId': new FormControl('',[
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+          Validators.required,
+          Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
-      'volume': new FormControl('', Validators.required),
-      'folioNo': new FormControl('', Validators.required),
-      'noOfYears': new FormControl('', Validators.required),
+      'volume': new FormControl('', [Validators.required,
+        Validators.maxLength(10)]),
+      'folioNo': new FormControl('', [Validators.required,
+        Validators.maxLength(10)]),
+      'noOfYears': new FormControl('', [Validators.required,
+        Validators.maxLength(10)]),
     });
 
 
@@ -134,6 +154,12 @@ export class SearchDocumentComponent implements OnInit {
     this.loadDSDivision();
     this.loadReasonForSearch();
     this.onChangeFolioFormController();
+
+    this.form.get('probablePeriodFrom').valueChanges.subscribe(
+      value => {
+        if (value) this.minDate = moment(value).format('YYYY-MM-DD');
+      }
+    );
 
     // set online payment
     this.userType = this.sessionService.getUser().type;
@@ -278,16 +304,27 @@ export class SearchDocumentComponent implements OnInit {
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
-      this.searchRequestForm.get('volume').setValidators(Validators.required);
+      this.searchRequestForm.get('volume').setValidators([Validators.required, Validators.maxLength(10)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
-      this.searchRequestForm.get('folioNo').setValidators(Validators.required);
+      this.searchRequestForm.get('folioNo').setValidators([Validators.required, Validators.maxLength(10)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
-      this.searchRequestForm.get('noOfYears').setValidators(Validators.required);
+      this.searchRequestForm.get('noOfYears').setValidators([Validators.required, Validators.maxLength(10)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
+      this.searchRequestForm.get('searchReasonId').setValidators([
+        Validators.pattern(PatternValidation.CHARACTES_PATTERN),
+        Validators.required,
+        Validators.maxLength(255)]);
+      this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
     } else if (this.requestType == SearchRequestType.DEED_DOCUMENT) {
-      this.searchRequestForm.get('attestedByNotaryName').setValidators(Validators.required);
+      this.searchRequestForm.get('attestedByNotaryName').setValidators([
+        Validators.required,
+        Validators.pattern(PatternValidation.PERSON_NAME_PATTERN),
+        Validators.maxLength(255)]);
       this.searchRequestForm.get('attestedByNotaryName').updateValueAndValidity();
-      this.searchRequestForm.get('numberOfTheDeed').setValidators(Validators.required);
+      this.searchRequestForm.get('numberOfTheDeed').setValidators([
+        Validators.required,
+        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_PATTERN),
+        Validators.maxLength(25)]);
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').clearValidators();
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
@@ -297,23 +334,25 @@ export class SearchDocumentComponent implements OnInit {
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
       this.searchRequestForm.get('noOfYears').clearValidators();
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
+      this.searchRequestForm.get('searchReasonId').setValidators([Validators.required]);
+      this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
     }
   }
 
   onChangeLandRegistry(lrId: any) {
-    if(lrId) this.loadLRDivision(lrId);
+    if (lrId) this.loadLRDivision(lrId);
   }
 
   onChangeKorale(koraleId: any) {
-    if(koraleId) this.loadPaththu(koraleId);
+    if (koraleId) this.loadPaththu(koraleId);
   }
 
   onChangeDsDivision(dsDivisionId: any) {
-    if(dsDivisionId) this.loadGNDivision(dsDivisionId);
+    if (dsDivisionId) this.loadGNDivision(dsDivisionId);
   }
 
   onChangeGnDivision(gnDivisionId: any) {
-   if(gnDivisionId) this.loadVillage(gnDivisionId);
+    if (gnDivisionId) this.loadVillage(gnDivisionId);
   }
 
   onChangeFolioFormController() {

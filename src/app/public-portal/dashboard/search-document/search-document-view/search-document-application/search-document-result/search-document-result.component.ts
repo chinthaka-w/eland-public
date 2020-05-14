@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog} from '@angular/material';
+import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog, MatDialogConfig} from '@angular/material';
 import {FolioViewComponent} from '../../../../../../shared/components/folio-view/folio-view.component';
 import {SearchRequestService} from '../../../../../../shared/service/search-request.service';
 import {MatTableDataSource} from '@angular/material/table';
@@ -7,6 +7,8 @@ import {SnackBarService} from '../../../../../../shared/service/snack-bar.servic
 import {DocumentService} from '../../../../../../shared/service/document.service';
 import {DocumentDTO} from '../../../../../../shared/dto/document-dto';
 import {SearchResultType} from '../../../../../../shared/enum/search-result-type.enum';
+import {DocumentViewerComponent} from '../../../../../../shared/components/document-viewer/document-viewer.component';
+import {FolioService} from '../../../../../../shared/service/folio.service';
 
 @Component({
   selector: 'app-search-document-result',
@@ -22,10 +24,11 @@ export class SearchDocumentResultComponent implements OnInit, OnChanges {
 
   //Mat Table Config
   public elements: Element[] = [];
-  public displayedColumns: string[] = ['Folio No', 'Action'];
+  public displayedColumns: string[] = ['Folio No','Remark', 'Action'];
   public dataSource = new MatTableDataSource<any>(this.elements);
 
-  documentDTO: DocumentDTO;
+
+  selectedFiles: DocumentDTO[] = [];
 
   resultType: any = 0;
 
@@ -34,6 +37,7 @@ export class SearchDocumentResultComponent implements OnInit, OnChanges {
   constructor(private dialog: MatDialog,
               private searchRequestService: SearchRequestService,
               private snackBarService: SnackBarService,
+              private folioService: FolioService,
               private documentService: DocumentService,) {
 
   }
@@ -52,7 +56,6 @@ export class SearchDocumentResultComponent implements OnInit, OnChanges {
   getDocument(docId: any) {
     this.documentService.getDocumentById(docId).subscribe(
       (data: any) => {
-        this.documentDTO = data;
       }
     );
   }
@@ -74,14 +77,37 @@ export class SearchDocumentResultComponent implements OnInit, OnChanges {
 
   getData(item: Element) {
     if (this.resultType == this.SearchResultType.DEED) {
-      this.getDocument(item.docId);
+      this.setSelectedFiles(this.elements);
     } else if (this.resultType == this.SearchResultType.REMARK) {
       this.remark = item.remark;
-    } else  if (this.resultType == this.SearchResultType.FOLIO)  {
+    } else if (this.resultType == this.SearchResultType.FOLIO) {
       this.dataSource.data = this.elements;
     }
   }
 
+  setSelectedFiles(data: any) {
+    for (let index in data) {
+      this.selectedFiles.push(data[index].documentDTO);
+    }
+  }
+
+  onClickViewImageButton(item: any) {
+    this.folioService.findFolioDocuments(item.folioNoWithLR).subscribe(
+      (data: any) => {
+        if (data) {
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.data = {
+            files: data.documents
+          };
+          dialogConfig.width = '90vw';
+          dialogConfig.maxHeight = '98vh';
+          dialogConfig.minHeight = '50vh';
+          let dialogRef = this.dialog.open(DocumentViewerComponent, dialogConfig);
+
+        }
+      }
+    );
+  }
 
 }
 
@@ -92,4 +118,5 @@ export interface Element {
   type: number;
   docId: number;
   remark: string;
+  documentDTO: any;
 }
