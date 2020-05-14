@@ -13,6 +13,7 @@ export class FileUploadInputComponent implements OnInit {
   response = new EventEmitter;
   files: File[] = [];
   fileUpload: ElementRef;
+  imageSrc: string;
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -30,6 +31,13 @@ export class FileUploadInputComponent implements OnInit {
         window.URL.createObjectURL(files[i])
       );
       this.files.push(files[i]);
+
+      // preview image
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+      };
     }
     this.response.emit(this.files);
   }
@@ -37,6 +45,9 @@ export class FileUploadInputComponent implements OnInit {
   removeFile(index) {
     this.files.splice(index, 1);
     this.response.emit(this.files);
+
+    // remove image preview
+    this.imageSrc = '';
   }
 
   onClick() {

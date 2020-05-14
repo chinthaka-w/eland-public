@@ -2,7 +2,8 @@
   <div class="drag-drop">
     <div class="drag-drop-inner">
       <button type="button" class="f-uploader" (click)="onClick($event)">
-        <i class="material-icons">cloud_upload</i> Upload (image / PDF)
+        <div *ngIf="!imageSrc"><i class="material-icons">cloud_upload</i> Upload Single (image / PDF)</div>
+        <img [src]="imageSrc" *ngIf="imageSrc" style="height: 30px; width:50px">
         <input
           #fileUpload
           type="file"
@@ -11,6 +12,7 @@
           (change)="onFileSelected($event)"
         />
       </button>
+
       <div class="uploaded-file" *ngFor="let file of files; let i = index">
         <span>{{ file.name }}</span>
         <button type="button" color="warn" (click)="removeFile(i)">

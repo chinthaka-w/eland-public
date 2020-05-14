@@ -456,8 +456,7 @@ export class AddNotaryComponent implements OnInit {
       (notaryId: any) => {
         this.userId = notaryId;
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success('Notary Registration Success');
-          this.router.navigate(['/login']);
+          this.snackBar.success('Notary Registration Success, Credentials have been mailed to the registration email.');
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
           this.snackBar.success('Notary saved successfully, Proceed to online payment');
           this.isPayment = true;
@@ -468,6 +467,9 @@ export class AddNotaryComponent implements OnInit {
       },
       error => {
         this.snackBar.error('Failed');
+      },
+      () => {
+        this.router.navigate(['/login']);
       }
     );
   }
@@ -556,7 +558,6 @@ export class AddNotaryComponent implements OnInit {
     if (this.paymentMethod !== PaymentMethod.ONLINE) {
       this.paymentDto.paymentId = paymentData.paymentId;
       this.paymentDataValue = this.paymentDto;
-      this.snackBar.success('Payment Success');
       this.saveNotaryDetails();
     }
   }
