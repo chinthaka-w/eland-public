@@ -1050,11 +1050,12 @@
       "RCHG": "Judicial division change",
       "LCHG": "License in a different language",
       "PUBLIC_SERVICES": "Public Services",
-      "SEARCH_FOL": "Search for Folio",
+      "PUBLIC_REG": "Public user registration",
+      "SEARCH_FOL": "Search for Folio / Deeds",
       "SRCH_DEED": "Search for Deeds",
       "OBT_EXTR_FOL": "Obtain Extract of Folio",
       "OBT_EXTR_DEED": "Obtain Extract of Deeds",
-      "GETsTART": "Get Started"
+      "GETSTART": "Get Started"
    },
 
   "DASOBOARD":{
