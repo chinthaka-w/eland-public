@@ -18,6 +18,9 @@
       </mat-tab>
       <mat-tab label="{{'NOTARY.NOTARY_SUPPORTING_DOCS'|translate}}">
         <app-supporting-doc-detail *ngIf="requestId" [requestDocuments]="requestId"
+                                   [id]="requestId?.requestId"
+                                   [workflow]="NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED"
+                                   [enableDocUpload]="true"
                                    (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
       <mat-tab label="{{'NOTARY.NOTARY_PAYMENT_INFO'|translate}}">

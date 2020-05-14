@@ -834,7 +834,11 @@ button.theme-light.mat-raised-button:hover {
 
 .footer-bottom {
   display: block;
-  position: relative;
+  /*position: relative;*/
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   background: #006dd6;
   color: #fff;
   padding: 10px;
@@ -1554,7 +1558,7 @@ h5.uw-title:before {
 
 .payment .hc-component-bottom {
   padding: 30px 8%;
-  bottom: 0;
+  bottom: 20px;
   max-width: 1200px;
   text-align: right;
 }
@@ -1910,6 +1914,10 @@ ul.up-dropdown li a:hover {
   padding: 10px;
   text-align: center;
   border-radius: 6px;
+}
+
+.drag-drop-error {
+  border: 2px solid #ff3e3e;
 }
 
 .drag-drop-inner {

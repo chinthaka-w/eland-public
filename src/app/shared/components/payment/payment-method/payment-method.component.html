@@ -63,7 +63,7 @@
       <div class="hc-component-bottom">
         <span class="bt-line">&nbsp;</span>
         <button mat-raised-button class="button" (click)="onBack()">{{'PAYMENT.BACK'|translate}}</button>
-        <button [disabled]="showSpinner" mat-raised-button class="button green" (click)="savePayment()">
+        <button [disabled]="showSpinner" mat-raised-button class="button green ml-10" (click)="savePayment()">
           {{'PAYMENT.OTHER_METHOD.SUBMIT'|translate}}
           <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
         </button>

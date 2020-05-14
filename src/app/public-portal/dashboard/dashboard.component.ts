@@ -15,6 +15,7 @@ import {DocumentType} from 'src/app/shared/enum/document-type.enum';
 import {SystemService} from 'src/app/shared/service/system.service';
 import {NewNotaryRegistrationWorkflowStage} from '../../shared/enum/new-notary-registration-workflow-stage.enum';
 import {WorkflowStages} from '../../shared/enum/workflow-stages.enum';
+import {WorkflowStageNotaryResignation} from '../../shared/enum/workflow-stage-notary-resignation.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,14 +31,14 @@ export class DashboardComponent implements OnInit {
 
   CommonStatus = CommonStatus;
   public searchDetails: RequestSearchDetailDTO;
-  public dashboardView: boolean = false;
-  public requestView: boolean = false;
+  public dashboardView = false;
+  public requestView = false;
   public notaryId: number;
   public notaryNameChangeWorkFlow;
 
   commonStatus = CommonStatus;
 
-  folioPending: boolean = false;
+  folioPending = false;
   folioNo = '3/Y/1/1';
 
   constructor(
@@ -94,6 +95,9 @@ export class DashboardComponent implements OnInit {
         this.searchDetails.status = CommonStatus.INACTIVE;
       } else if (this.searchDetails.status == CommonStatus.ACTIVE) {
         status = 'Approved';
+      } else if (this.searchDetails.workflow == WorkflowStageNotaryResignation.NOTARY_RESIGNATION_APPROVED) {
+        status = 'Inactive';
+        this.searchDetails.status = CommonStatus.INACTIVE;
       }
     }
     return status;
@@ -138,7 +142,7 @@ export class DashboardComponent implements OnInit {
         this.folioPending = false;
         this.snackbar.error('Internal server error');
       }
-    )
+    );
   }
 
   getExpressTrustFolio(folioNo) {
@@ -151,7 +155,7 @@ export class DashboardComponent implements OnInit {
         this.folioPending = false;
         this.snackbar.error('Internal server error');
       }
-    )
+    );
   }
 
   getGeneralFolio(folioNo) {
@@ -164,7 +168,7 @@ export class DashboardComponent implements OnInit {
         this.folioPending = false;
         this.snackbar.error('Internal server error');
       }
-    )
+    );
   }
 
   getCondominiumFolio(folioNo) {
@@ -177,7 +181,7 @@ export class DashboardComponent implements OnInit {
         this.folioPending = false;
         this.snackbar.error('Internal server error');
       }
-    )
+    );
   }
 
   getMovableFolio(folioNo) {
@@ -190,7 +194,7 @@ export class DashboardComponent implements OnInit {
         this.folioPending = false;
         this.snackbar.error('Internal server error');
       }
-    )
+    );
   }
 
   getLdoFolio(folioNo) {
@@ -203,7 +207,7 @@ export class DashboardComponent implements OnInit {
         this.folioPending = false;
         this.snackbar.error('Internal server error');
       }
-    )
+    );
   }
 
   getSpecialFolio(folioNo) {
@@ -216,11 +220,11 @@ export class DashboardComponent implements OnInit {
         this.folioPending = false;
         this.snackbar.error('Internal server error');
       }
-    )
+    );
   }
 
   onBackNotaryView(val: boolean) {
-    if (this.user.type == this.userType.NOTARY) this.getUserDetails();
+    if (this.user.type == this.userType.NOTARY) { this.getUserDetails(); }
     this.dashboardView = true;
     this.requestView = false;
   }
