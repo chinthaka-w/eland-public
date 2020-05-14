@@ -39,7 +39,6 @@ export class LastRemarkComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.loadData();
   }
 
   private loadData(): void {

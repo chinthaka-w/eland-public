@@ -1912,6 +1912,10 @@ ul.up-dropdown li a:hover {
   border-radius: 6px;
 }
 
+.drag-drop-error {
+  border: 2px solid #ff3e3e;
+}
+
 .drag-drop-inner {
   display: block;
   position: relative;

@@ -107,12 +107,12 @@ export class ViewNotaryComponent implements OnInit {
     this.isApplicationValid = false;
     this.disabled = true;
     this.notary = data;
-    this.selectedIndex += 1;
+    // this.selectedIndex += 1;
   }
 
   onFormSubmit() {
     if(this.notary) this.updateNotaryDetails(this.notary);
-    if (this.docsList.length != 0) this.updateDocumentDetails(this.docsList);
+    // if (this.docsList.length != 0) this.updateDocumentDetails(this.docsList);
   }
 
   updateDocumentDetails(documents: DocumentResponseDto[]) {
