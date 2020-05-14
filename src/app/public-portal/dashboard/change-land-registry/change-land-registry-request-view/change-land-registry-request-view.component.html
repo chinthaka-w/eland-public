@@ -1,86 +1,19 @@
-<div class="page-content-wrapper" >
+<div class="page-header-default">
+  <h2> Change Land Registry Request</h2>
+  <p></p>
+  <a href="#" (click)="goBack()" class="phd-back-btn">
+    <i class="material-icons">keyboard_backspace</i>
+  </a>
+</div>
+<div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
-
-    <div class="pg-inner-row mb-20">
-      <h5 class="mb-20"><i class="material-icons">description</i>
-        APPLICATION FOR CHANGING THE JUDICIAL ZONE
-      </h5>
-      <div class="separator">&nbsp;</div>
-    </div>
-    <form [formGroup]="requestForm" class="form pb-5">
-
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Notary Name:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="notaryName"  [readonly]="true">
-              </mat-form-field>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="pg-inner-col-3">
-          <div class="default-input-wrapper full-row">
-            <label> Reason for the change :</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline" >
-                <textarea matInput rows="5" formControlName="reason" [readonly]="true" ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="separator">&nbsp;</div>
-
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Noatary Id:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="notaryId"  [readonly]="true">
-              </mat-form-field>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>New Land Registry:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="newLandregistry"  [readonly]="true">
-              </mat-form-field>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Permenent address:</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="address"  [readonly]="true">
-              </mat-form-field>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-
-    </form>
+    <mat-tab-group>
+      <mat-tab label="{{'EDIT_PROFILE.APPLICATION'|translate}}">
+        <app-application1 [requestID]="id"></app-application1>
+      </mat-tab>
+      <!--<mat-tab label="Account Details">-->
+      <!--<app-notary-clerk></app-notary-clerk>-->
+      <!--</mat-tab>-->
+    </mat-tab-group>
   </div>
 </div>
