@@ -432,7 +432,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
 
     if (!this.searchRequestForm.valid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before Apply Changes.';
+      errorMassage = 'Please fill application form, before apply Changes.';
     }
 
     // if (isValid && this.elements.length == 0) {
