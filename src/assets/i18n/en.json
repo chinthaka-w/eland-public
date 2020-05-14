@@ -1160,8 +1160,8 @@
     "PASSWORD":"Password",
     "RE_PASSWORD":"Password is Required",
     "FORGOT_PWD":"Forgot Password ?",
-    "TITLE3":"Don’t have an account",
-    "TITLE4":"Sign Up",
+    "TITLE3":"Don’t have an account?",
+    "TITLE4":"Sign Up here",
     "LOGIN":"Login"
   },
   "SEARCH_DOC":{
