@@ -715,7 +715,8 @@
           "ASSIGNED_SUCCESS":"Successfully assigned!",
           "FOLIO_NOT_FOUND":"Folio not found",
           "LR_NOT_FOUND":"Land Registries not found",
-          "FOLIO_EXIST":"Folio already exist"
+          "FOLIO_EXIST":"Folio already exist",
+          "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email."
        },
        "WARNING":{
           "FOLIO_NOT_FOUND":"Folio not found!",

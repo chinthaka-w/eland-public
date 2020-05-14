@@ -1,3 +1,4 @@
+import { SystemService } from './../../../shared/service/system.service';
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {Notary} from '../../../shared/dto/notary.model';
@@ -127,7 +128,8 @@ export class AddNotaryComponent implements OnInit {
               private paymentService: PaymentService,
               private nameTitleService: NameTitleService,
               private documetService: SupportingDocService,
-              private router: Router) {
+              private router: Router,
+              private systemService: SystemService) {
     this.today = new Date();
 
     let dob = new Date();
@@ -456,7 +458,7 @@ export class AddNotaryComponent implements OnInit {
       (notaryId: any) => {
         this.userId = notaryId;
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success('Notary Registration Success, Credentials have been mailed to the registration email.');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
           this.snackBar.success('Notary saved successfully, Proceed to online payment');
           this.isPayment = true;
