@@ -15,6 +15,7 @@ import {ChangeNameService} from '../../../../shared/service/change-name.service'
 import {NameChangeWorkflowStagesEnum} from '../../../../shared/enum/name-change-workflow-stages.enum';
 import {NotaryRequestView} from '../../../../shared/custom-model/notary-request-view.model';
 import {NotaryRequestService} from '../../../../shared/service/notary-request.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-name-change-request-view',
@@ -48,7 +49,8 @@ export class NameChangeRequestViewComponent implements OnInit {
               private sessionService: SessionService,
               private snackBar: SnackBarService,
               private changeNameService: ChangeNameService,
-              private notaryRequestService: NotaryRequestService) {
+              private notaryRequestService: NotaryRequestService,
+              private location: Location) {
     this.route.params.subscribe(params => {
       this.workflow  = atob(params['workflow']);
       this.requestId  = atob(params['id']);
@@ -170,6 +172,11 @@ export class NameChangeRequestViewComponent implements OnInit {
         this.snackBar.error('Failed');
       }
     );
+  }
+
+  goBack(): any {
+    this.location.back();
+    return false;
   }
 
 

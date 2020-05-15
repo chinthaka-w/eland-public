@@ -7,6 +7,7 @@ import {NotaryService} from '../../../../shared/service/notary-service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ChangeLandRegistryService} from '../../../../shared/service/change-land-registry.service';
 import {LandRegistryChangeRequestModel} from '../../../../shared/dto/land-registry-change-request.model';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-change-land-registry-request-view',
@@ -24,7 +25,8 @@ export class ChangeLandRegistryRequestViewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private newNotaryService: NotaryService, private snackBar: SnackBarService,
               private judicialService: JudicialService, private router: Router,
-              private changelandRegistryService: ChangeLandRegistryService) {
+              private changelandRegistryService: ChangeLandRegistryService,
+              private location: Location) {
     this.route.params.subscribe(params => {
       this.workflow  = atob(params['workflow']);
       this.requestId  = atob(params['id']);
@@ -64,5 +66,10 @@ export class ChangeLandRegistryRequestViewComponent implements OnInit {
   //
   //
   // }
+
+  goBack(): any {
+    this.location.back();
+    return false;
+  }
 
 }
