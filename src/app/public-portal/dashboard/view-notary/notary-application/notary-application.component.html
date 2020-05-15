@@ -617,15 +617,15 @@
       </div>
     </div>
   </div>
+  <div *ngIf="isEditable">
+    <div class="separator">&nbsp;</div>
 
-  <div class="separator">&nbsp;</div>
-
-  <div class="pg-inner-row mb-0">
-    <div class="pg-inner-col float-right">
-      <button mat-raised-button class="button float-right"
-              [hidden]="!isEditable"
-              [disabled]="!isDataChanged" (click)="onFormSubmit()">Apply Changes
-      </button>
+    <div class="pg-inner-row mb-0">
+      <div class="pg-inner-col float-right">
+        <button mat-raised-button class="button float-right"
+                [disabled]="!isDataChanged" (click)="onFormSubmit()">Apply Changes
+        </button>
+      </div>
     </div>
   </div>
 </form>
