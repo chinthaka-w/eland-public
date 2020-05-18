@@ -189,12 +189,10 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.requests);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        for (let i = 0; i < this.requests.length; i++) {
-          if (this.requests[i].workflowCode === JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED) {
-              this.exist = true;
-          } else {
-            this.exist = false;
-          }
+        // applying a new request
+        if (this.requests.length > 0 &&
+          (this.requests[0].workflowStageCode !== JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_ISSUED_SC)) {
+          this.exist = true;
         }
       },
       (error) => {
@@ -204,10 +202,10 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   }
 
   check() {
-   if(this.flag === Workflow.JUDICIAL_ZONE_CHANGE) {
-     if (!this.exist) {
-       this.snackBar.error('Your previous Judicial Division change request is in progress');
-       this.newButtonURL = '/requests/'+ btoa(this.flag);
+   if (this.flag === Workflow.JUDICIAL_ZONE_CHANGE) {
+     if (this.exist) {
+       this.snackBar.warn(this.systemService.getTranslation('ALERT.MESSAGE.REQUEST_PENDING'));
+       this.newButtonURL = '/requests/' + btoa(this.flag);
      }
    }
   }
