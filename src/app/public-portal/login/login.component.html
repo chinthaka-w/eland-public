@@ -34,7 +34,7 @@
                 {{ formError }}
               </mat-error>
             </div>
-            <a href="#">{{'LOGIN.FORGOT_PWD'|translate}}</a>
+            <a [routerLink]="['/forgot-password']">{{'LOGIN.FORGOT_PWD'|translate}}</a>
             <button mat-raised-button (click)="login()" [disabled]="!loginForm.valid">
               {{'LOGIN.LOGIN'|translate}}
             </button>

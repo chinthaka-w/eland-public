@@ -89,6 +89,7 @@ import {ImageViewerModule} from 'ngx-image-viewer';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import { Application1Component } from './dashboard/change-land-registry/change-land-registry-request-view/application1/application1.component';
 import {DocumentViewerComponent} from '../shared/components/document-viewer/document-viewer.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -153,6 +154,7 @@ import {DocumentViewerComponent} from '../shared/components/document-viewer/docu
     ChangeLandRegistryComponent,
     ChangeLandRegistryRequestViewComponent,
     Application1Component,
+    ForgotPasswordComponent,
 ],
   imports: [
     CommonModule,

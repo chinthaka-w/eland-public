@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {SysConfigService} from './sys-config.service';
+import {UserTypeModel} from '../dto/userType.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,4 +21,13 @@ export class AuthService {
       headers: this.headers
     });
   }
+
+  sendPasswordResetEmail(email): Observable<Array<any>> {
+    return this.httpClient.post<Array<any>>(this.BASE_URL + 'systemUsers/passwordResetEmail', email, {headers: this.headers} );
+  }
+
+  checkEmail(model: UserTypeModel): Observable<Object> {
+    return this.httpClient.post(`${this.BASE_URL}systemUsers/publicUserByEmail/`, model);
+  }
+
 }
