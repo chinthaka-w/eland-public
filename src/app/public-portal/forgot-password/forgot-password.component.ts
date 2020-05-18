@@ -33,7 +33,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.processing = true;
     this.message = '';
 
-    const model = new UserTypeModel(this.forgotPasswordForm.value.email,this.forgotPasswordForm.value.type);
+    const model = new UserTypeModel(this.forgotPasswordForm.value.email, this.forgotPasswordForm.value.type);
     this.authService.checkEmail(model).subscribe(
       (users: any[]) => {
         this.processing = false;

@@ -23,11 +23,15 @@ export class AuthService {
   }
 
   sendPasswordResetEmail(email): Observable<Array<any>> {
-    return this.httpClient.post<Array<any>>(this.BASE_URL + 'systemUsers/passwordResetEmail', email, {headers: this.headers} );
+    return this.httpClient.post<Array<any>>(this.BASE_URL + 'systemUsers/passwordReset', email, {headers: this.headers} );
   }
 
   checkEmail(model: UserTypeModel): Observable<Object> {
     return this.httpClient.post(`${this.BASE_URL}systemUsers/publicUserByEmail/`, model);
+  }
+
+  resetPassword(request): Observable<Array<any>> {
+    return this.httpClient.post<Array<any>>(this.BASE_URL + 'systemUsers/resetPassword', request);
   }
 
 }
