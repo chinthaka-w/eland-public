@@ -174,7 +174,7 @@ export class FolioViewComponent implements OnInit {
 
 
   getNormalTrustFolio(folioNo) {
-    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+    this.folioService.getNormalTrustFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.loading = false;
         // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
@@ -202,7 +202,7 @@ export class FolioViewComponent implements OnInit {
   }
 
   getGeneralFolio(folioNo) {
-    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+    this.folioService.getGeneralFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.loading = false;
         // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
@@ -216,7 +216,7 @@ export class FolioViewComponent implements OnInit {
   }
 
   getCondominiumFolio(folioNo) {
-    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+    this.folioService.getCondominiumFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.loading = false;
         // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
@@ -230,7 +230,7 @@ export class FolioViewComponent implements OnInit {
   }
 
   getMovableFolio(folioNo) {
-    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+    this.folioService.getMovableFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.loading = false;
         // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
@@ -244,7 +244,7 @@ export class FolioViewComponent implements OnInit {
   }
 
   getLdoFolio(folioNo) {
-    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+    this.folioService.getLdoFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.loading = false;
         // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });
@@ -258,7 +258,7 @@ export class FolioViewComponent implements OnInit {
   }
 
   getSpecialFolio(folioNo) {
-    this.folioService.getExpressTrustFolio(btoa(folioNo)).subscribe(
+    this.folioService.getSpecialFolio(btoa(folioNo)).subscribe(
       (folio: FolioDto) => {
         this.loading = false;
         // this.dialog.open(FolioViewComponent, { width: '90%', height: '90%', data: folio });

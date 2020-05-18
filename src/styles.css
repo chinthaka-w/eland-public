@@ -836,6 +836,7 @@ button.theme-light.mat-raised-button:hover {
   display: block;
   /*position: relative;*/
   position: fixed;
+  z-index: 1200;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -981,7 +982,7 @@ button.theme-light.mat-raised-button:hover {
   display: block;
   position: absolute;
   padding: 20px;
-  bottom: 20px;
+  bottom: 40px;
   left: 50%;
   width: 100%;
   max-width: 560px;

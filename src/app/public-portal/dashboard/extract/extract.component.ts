@@ -237,7 +237,7 @@ export class ExtractComponent implements OnInit {
         this.snackBarService.error(error.message);
       }, () => {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
-          this.snackBarService.success('Your Extract request saved successfully,, Proceed to online payment')
+          this.snackBarService.success('Your Extract request saved successfully.Proceed to online payment')
           this.statusOnlinePayment = true;
           this.returnURl = 'requests/' + btoa(Workflow.EXTRACT_REQUEST);
           this.userType = this.sessionService.getUser().type;
@@ -245,7 +245,7 @@ export class ExtractComponent implements OnInit {
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
-          this.snackBarService.success('Your Extract request saved successfully,.')
+          this.snackBarService.success('Your Extract request saved successfully.')
         }
       }
     );
@@ -399,7 +399,8 @@ export class ExtractComponent implements OnInit {
         }
       );
     } else {
-      this.snackBarService.error(errorMassage)
+      this.snackBarService.error(errorMassage);
+      this.validateAllFormFields(this.searchRequestForm);
     }
   }
 
@@ -425,8 +426,20 @@ export class ExtractComponent implements OnInit {
       this.isContinueToPayment = !this.isContinueToPayment;
     } else {
       this.snackBarService.error(errorMassage);
+      this.validateAllFormFields(this.searchRequestForm);
     }
 
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {         //{1}
+    Object.keys(formGroup.controls).forEach(field => {  //{2}
+      const control = formGroup.get(field);             //{3}
+      if (control instanceof FormControl) {             //{4}
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {        //{5}
+        this.validateAllFormFields(control);            //{6}
+      }
+    });
   }
 
   onPaymentResponse(data: PaymentResponse) {

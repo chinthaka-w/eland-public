@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ContentComponent } from './components/content/content.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -36,7 +36,6 @@ import { LastRemarkComponent } from './components/request-view/last-remark/last-
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
 import { FileUploadPopupComponent } from './components/file-upload-popup/file-upload-popup.component';
-import { AuthGuard } from './auth/auth-guard';
 import { DocPreviewComponent } from './components/doc-preview/doc-preview.component';
 import { FolioViewComponent } from './components/folio-view/folio-view.component';
 import { FolioHeaderComponent } from './components/sub-components/folio-header/folio-header.component';
@@ -194,7 +193,7 @@ import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
     InputDotOnlyDirective,
   ],
   providers: [
-    AuthGuard,
+    DatePipe
   ],
   entryComponents: [
     FolioViewComponent,

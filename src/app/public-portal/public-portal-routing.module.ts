@@ -26,17 +26,17 @@ import {JudicialChangeRequestViewComponent} from './dashboard/change-judicial/ju
 import {ExtractViewComponent} from './dashboard/extract/extract-view/extract-view.component';
 import {SearchDocumentViewComponent} from './dashboard/search-document/search-document-view/search-document-view.component';
 import {ViewCitizenComponent} from './dashboard/view-citizen/view-citizen.component';
-import { AuthGuard } from '../shared/auth/auth-guard';
 import {ChangeLandRegistryComponent} from './dashboard/change-land-registry/change-land-registry.component';
 import {ChangeLandRegistryRequestViewComponent} from './dashboard/change-land-registry/change-land-registry-request-view/change-land-registry-request-view.component';
 import {NotaryRequestViewComponent} from './dashboard/notary-request-view/notary-request-view.component';
 import {NameChangeRequestViewComponent} from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
+import {AuthGuard} from '../shared/auth/auth.guard';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
     path: 'notary-registration',
-    component: AddNotaryComponent
+    component: AddNotaryComponent,
   },
   {
     path: 'login',
@@ -53,111 +53,136 @@ const routes: Routes = [
   },
   {
     path: 'edit-profile',
-    component: ProfileEditComponent
+    component: ProfileEditComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'user-registration',
-    component: AddPublicUserComponent
+    component: AddPublicUserComponent,
   },
   {
     path: 'change-judicial',
-    component: ChangeJudicialComponent
+    component: ChangeJudicialComponent,
+    canActivate: [AuthGuard],
   },
 {
 
   path: 'edit-public-profile',
-  component: PublicProfileEditComponent
+  component: PublicProfileEditComponent,
+  canActivate: [AuthGuard],
 
 },
   {
     path: 'search-document',
-    component: SearchDocumentComponent
+    component: SearchDocumentComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'search-document-view/:workflow/:id',
-    component: SearchDocumentViewComponent
+    component: SearchDocumentViewComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'extract',
-    component: ExtractComponent
+    component: ExtractComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'extract-view/:workflow/:id',
-    component: ExtractViewComponent
+    component: ExtractViewComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'requests',
-    component: RequestsComponent
+    component: RequestsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'change-the-name',
-    component: ChangeTheNameComponent
+    component: ChangeTheNameComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'language-change',
-    component: LanguageChangeComponent
+    component: LanguageChangeComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'language-change-view/:workflowStage/:id',
-    component: LanguageChangeViewComponent
+    component: LanguageChangeViewComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'leave-request/:id',
-    component: LeaveRequestComponent
+    component: LeaveRequestComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'resignation/:id',
-    component: ResignationComponent
+    component: ResignationComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'applications',
-    component: ApplicationsComponent
+    component: ApplicationsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-notary',
-    component: ViewNotaryComponent
+    component: ViewNotaryComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-citizen/:status',
-    component: ViewCitizenComponent
+    component: ViewCitizenComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'notary-payment',
-    component: PaymentComponent
+    component: PaymentComponent,
+    canActivate: [AuthGuard],
   }
   ,
   {
     path: 'requests/:flag',
-    component: ChangeJudicialRequestListComponent
+    component: ChangeJudicialRequestListComponent,
+    canActivate: [AuthGuard],
   }
   ,
   {
     path: 'change-judicial-request-view/:workflow/:id',
-    component: JudicialChangeRequestViewComponent
+    component: JudicialChangeRequestViewComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'change-name-request-view/:workflow/:workflowStage/:id',
-    component: NameChangeRequestViewComponent
+    component: NameChangeRequestViewComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'request-for-correction',
-    component: RequestForCorrectionComponent
+    component: RequestForCorrectionComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'change-registry',
-    component: ChangeLandRegistryComponent
+    component: ChangeLandRegistryComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'change-land-registry-view/:workflow/:id',
-    component: ChangeLandRegistryRequestViewComponent
+    component: ChangeLandRegistryRequestViewComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'request-for-correction/:workflowStage/:id',
-    component: RequestForCorrectionComponent
+    component: RequestForCorrectionComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'notary-requests/:workflow',
-    component: NotaryRequestViewComponent
+    component: NotaryRequestViewComponent,
+    canActivate: [AuthGuard],
   }
 
 ];

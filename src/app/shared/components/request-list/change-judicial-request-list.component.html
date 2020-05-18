@@ -18,11 +18,11 @@
 
     <div class="pg-inner-row mb-20">
 
-      <div class="pg-inner-col right">
+      <div class="pg-inner-col float-right">
         <div class="default-input-wrapper m0 rac-col">
-          <div class="default-input-feild">
-            <a [routerLink]="newButtonURL" [state]="{previousUrl:previousUrl}">
-              <button mat-button class="button" (click)="check()">
+          <div class="default-input-feild float-right ">
+            <a [routerLink]="newButtonURL" class="float-right" [state]="{previousUrl:previousUrl}">
+              <button mat-raised-button color="primary" (click)="check()">
                 {{'PUBLIC_COMMON.NEW'|translate}}
               </button>
             </a>

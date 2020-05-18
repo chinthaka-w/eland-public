@@ -715,7 +715,9 @@
           "ASSIGNED_SUCCESS":"Successfully assigned!",
           "FOLIO_NOT_FOUND":"Folio not found",
           "LR_NOT_FOUND":"Land Registries not found",
-          "FOLIO_EXIST":"Folio already exist"
+          "FOLIO_EXIST":"Folio already exist",
+          "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email.",
+          "REQUEST_PENDING": "Submitted request under reviewing"
        },
        "WARNING":{
           "FOLIO_NOT_FOUND":"Folio not found!",
@@ -1051,11 +1053,12 @@
       "RCHG": "Judicial division change",
       "LCHG": "License in a different language",
       "PUBLIC_SERVICES": "Public Services",
-      "SEARCH_FOL": "Search for Folio",
+      "PUBLIC_REG": "Public user registration",
+      "SEARCH_FOL": "Search for Folio / Deeds",
       "SRCH_DEED": "Search for Deeds",
       "OBT_EXTR_FOL": "Obtain Extract of Folio",
       "OBT_EXTR_DEED": "Obtain Extract of Deeds",
-      "GETsTART": "Get Started"
+      "GETSTART": "Get Started"
    },
 
   "DASOBOARD":{
@@ -1158,8 +1161,8 @@
     "PASSWORD":"Password",
     "RE_PASSWORD":"Password is Required",
     "FORGOT_PWD":"Forgot Password ?",
-    "TITLE3":"Don’t have an account",
-    "TITLE4":"Sign Up",
+    "TITLE3":"Don’t have an account?",
+    "TITLE4":"Sign Up here",
     "LOGIN":"Login"
   },
   "FORGOT_PSWD":{

@@ -40,6 +40,7 @@ import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {LandRegistryDivisionService} from '../../../shared/service/land-registry-division.service';
 import {LandRegistryDivision} from '../../../shared/dto/land-registry-division.model';
 import * as moment from 'moment';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 
 @Component({
@@ -93,6 +94,7 @@ export class SearchDocumentComponent implements OnInit {
     private searchRequestService: SearchRequestService,
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
+    private sysMethodsService: SysMethodsService,
     public router: Router,
     private snackBarService: SnackBarService,
     private location: Location) {
@@ -315,7 +317,9 @@ export class SearchDocumentComponent implements OnInit {
         Validators.required,
         Validators.maxLength(255)]);
       this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
+
     } else if (this.requestType == SearchRequestType.DEED_DOCUMENT) {
+
       this.searchRequestForm.get('attestedByNotaryName').setValidators([
         Validators.required,
         Validators.pattern(PatternValidation.PERSON_NAME_PATTERN),
@@ -400,6 +404,7 @@ export class SearchDocumentComponent implements OnInit {
       );
     } else {
       this.snackBarService.error(errorMassage)
+      this.validateAllFormFields(this.searchRequestForm);
     }
   }
 
@@ -408,12 +413,12 @@ export class SearchDocumentComponent implements OnInit {
     let isValid = true;
     let errorMassage = '';
 
-    if (!this.searchRequestForm.valid) {
+    if (this.searchRequestForm.invalid) {
       isValid = false;
       errorMassage = 'Please fill application form, before continue.';
     }
 
-    if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.valid && !this.folioStatus) {
+    if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.invalid && !this.folioStatus) {
       isValid = false;
       errorMassage = 'Please search folio status, before continue.';
     }
@@ -426,7 +431,19 @@ export class SearchDocumentComponent implements OnInit {
       this.isContinueToPayment = !this.isContinueToPayment;
     } else {
       this.snackBarService.error(errorMassage);
+      this.validateAllFormFields(this.searchRequestForm);
     }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {         //{1}
+    Object.keys(formGroup.controls).forEach(field => {  //{2}
+      const control = formGroup.get(field);             //{3}
+      if (control instanceof FormControl) {             //{4}
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {        //{5}
+        this.validateAllFormFields(control);            //{6}
+      }
+    });
   }
 
   onPaymentResponse(data: PaymentResponse) {

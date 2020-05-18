@@ -6,6 +6,7 @@ import { VerificationComponent } from './components/verification/verification.co
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentMethodComponent } from './components/payment/payment-method/payment-method.component';
 import {ChangeJudicialComponent} from '../public-portal/dashboard/change-judicial/change-judicial.component';
+import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,15 +19,15 @@ const routes: Routes = [
   },
   {
     path: "payment",
-    component: PaymentComponent
+    component: PaymentComponent,
   },
   {
     path: "payment-method",
-    component: PaymentMethodComponent
+    component: PaymentMethodComponent,
   },
   {
     path: 'payment-result/:paymentId/:url/:workflowStageCode/:userType/:userId',
-    component: OnlineMethodComponent
+    component: OnlineMethodComponent,
   }
 ];
 

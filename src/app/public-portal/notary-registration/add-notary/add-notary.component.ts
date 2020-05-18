@@ -1,3 +1,4 @@
+import { SystemService } from './../../../shared/service/system.service';
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {
   AbstractControl,
@@ -139,8 +140,9 @@ export class AddNotaryComponent implements OnInit {
               private paymentService: PaymentService,
               private nameTitleService: NameTitleService,
               private documetService: SupportingDocService,
-              private sysMethodService: SysMethodsService,
-              private router: Router) {
+              private router: Router,
+              private systemService: SystemService,
+              private sysMethodService: SysMethodsService) {
     this.today = new Date();
 
     let dob = new Date();
@@ -603,8 +605,7 @@ export class AddNotaryComponent implements OnInit {
       (notaryId: any) => {
         this.userId = notaryId;
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success('Notary Registration Success');
-          this.router.navigate(['/login']);
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
           this.snackBar.success('Notary saved successfully, Proceed to online payment');
           this.isPayment = true;
@@ -615,6 +616,9 @@ export class AddNotaryComponent implements OnInit {
       },
       error => {
         this.snackBar.error('Failed');
+      },
+      () => {
+        this.router.navigate(['/login']);
       }
     );
   }
@@ -703,7 +707,6 @@ export class AddNotaryComponent implements OnInit {
     if (this.paymentMethod !== PaymentMethod.ONLINE) {
       this.paymentDto.paymentId = paymentData.paymentId;
       this.paymentDataValue = this.paymentDto;
-      this.snackBar.success('Payment Success');
       this.saveNotaryDetails();
     }
   }

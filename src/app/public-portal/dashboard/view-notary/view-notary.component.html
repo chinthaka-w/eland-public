@@ -20,7 +20,7 @@
         <app-supporting-doc-detail *ngIf="requestId" [requestDocuments]="requestId"
                                    [id]="requestId?.requestId"
                                    [workflow]="NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED"
-                                   [enableDocUpload]="true"
+                                   [enableDocUpload]="workFlowStage == NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED"
                                    (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
       <mat-tab label="{{'NOTARY.NOTARY_PAYMENT_INFO'|translate}}">
@@ -33,14 +33,17 @@
       </mat-tab>
 
     </mat-tab-group>
-    <hr/>
-    <button [disabled]="!disabled"
-            [hidden]="selectedIndex==2 || selectedIndex==3"
-            mat-raised-button class="button"
-            (click)="onFormSubmit()">
-      <mat-icon class="material-icons"
-                title="Save Changes">save</mat-icon>
-                {{'BUTTONS.SAVE_CHANGES_BUTTON'|translate}}
-    </button>
+    <div *ngIf="workFlowStage == NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED">
+      <hr/>
+      <button [disabled]="!disabled"
+              [hidden]="selectedIndex==2 || selectedIndex==3"
+              mat-raised-button class="button"
+              (click)="onFormSubmit()">
+        <mat-icon class="material-icons"
+                  title="Save Changes">save
+        </mat-icon>
+        {{'BUTTONS.SAVE_CHANGES_BUTTON'|translate}}
+      </button>
+    </div>
   </div>
 </div>
