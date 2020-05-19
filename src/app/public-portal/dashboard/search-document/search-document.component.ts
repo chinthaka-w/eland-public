@@ -41,6 +41,7 @@ import {LandRegistryDivisionService} from '../../../shared/service/land-registry
 import {LandRegistryDivision} from '../../../shared/dto/land-registry-division.model';
 import * as moment from 'moment';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {SystemService} from '../../../shared/service/system.service';
 
 
 @Component({
@@ -97,7 +98,8 @@ export class SearchDocumentComponent implements OnInit {
     private sysMethodsService: SysMethodsService,
     public router: Router,
     private snackBarService: SnackBarService,
-    private location: Location) {
+    private location: Location,
+    private systemService: SystemService) {
 
     let data = this.router.getCurrentNavigation().extras.state;
     if (data) {
@@ -245,12 +247,12 @@ export class SearchDocumentComponent implements OnInit {
         this.snackBarService.error(error.message);
       }, () => {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
-          this.snackBarService.success('Your Search request saved successfully,, Proceed to online payment')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.PROCEED_ONLINE_PAY'));
           this.statusOnlinePayment = true;
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
-          this.snackBarService.success('Your Search request saved successfully,.')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.PROCEED_ONLINE_PAY'));
         }
       }
     );
@@ -388,7 +390,7 @@ export class SearchDocumentComponent implements OnInit {
 
     if (this.searchRequestForm.invalid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before search folio status.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM1');
     }
 
     if (isValid) {
@@ -415,12 +417,12 @@ export class SearchDocumentComponent implements OnInit {
 
     if (this.searchRequestForm.invalid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM12');
     }
 
     if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.invalid && !this.folioStatus) {
       isValid = false;
-      errorMassage = 'Please search folio status, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.SEARCH_FOL');
     }
 
     if (isValid) {
@@ -457,7 +459,7 @@ export class SearchDocumentComponent implements OnInit {
           SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_CLARK;
       this.saveRequest(this.searchRequest);
     } else {
-      this.snackBarService.error('Oh no, Your payment failed.')
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.PAYMENT_FAILED'));
     }
   }
 

@@ -7,6 +7,7 @@ import {SnackBarService} from '../../../shared/service/snack-bar.service';
 import {NotaryLeaveReqWorkflowStage} from '../../../shared/enum/notary-leave-req-workflow-stage.enum';
 import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-type-dto';
 import {Location} from '@angular/common';
+import {SystemService} from '../../../shared/service/system.service';
 
 @Component({
   selector: 'app-leave-request',
@@ -28,7 +29,8 @@ export class LeaveRequestComponent implements OnInit {
               private notaryLeaveRequestService: NotaryLeaveRequestService,
               private snackBar: SnackBarService,
               private router: Router,
-              private location: Location) {
+              private location: Location,
+              private systemService: SystemService) {
 
     // const current =
     this.minDate = new Date();
@@ -78,14 +80,14 @@ export class LeaveRequestComponent implements OnInit {
       this.notaryLeaveRequestService.makeLeaveRequest(this.fileList, this.leaveRequest)
         .subscribe((result) => {
           if (result) {
-            this.snackBar.success('Request added successfully');
+            this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
             this.router.navigate(['/dashboard']);
           } else {
-            this.snackBar.error('Operation failed');
+            this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.OPERATION_FAILED'));
           }
         });
     } else {
-      this.snackBar.error('Invalid Date Range');
+      this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.INV_DATE'));
     }
   }
   setFiles(files, key) {

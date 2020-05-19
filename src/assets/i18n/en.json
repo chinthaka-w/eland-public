@@ -717,7 +717,28 @@
           "LR_NOT_FOUND":"Land Registries not found",
           "FOLIO_EXIST":"Folio already exist",
           "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email.",
-          "REQUEST_PENDING": "Submitted request under reviewing"
+          "REQUEST_PENDING": "Submitted request under reviewing",
+         "UPLOAD_DOCS":"Please, Upload relevant documents.",
+         "SELECT_LAND_REG":"Please, Select landregistry.",
+         "ENTER_REASON":"Please, Enter the reason.",
+         "SUCCESS_JUD_REQ":"Judicial Change Request Success",
+         "FAILED":"Failed",
+         "NAME_CHG_SUCCESS":"Notary Name Change Request Success",
+         "NAME_CHG_SUCCESS_ONLINE":"Notary Name Change Request Success, Proceed to online payment",
+         "OPERATION_FAILED":"Operation failed",
+         "SELECT_LANGUAGE":"Please select a language!",
+         "REQUIRED_FIELDS":"Please fill the required fields!",
+         "INV_DATE":"Invalid Date Range",
+         "FILL_APP_FORM1":"Please fill application form, before search folio status.",
+         "FILL_APP_FORM12":"Please fill application form, before continue.",
+         "SEARCH_FOL":"Please search folio status, before continue.",
+         "PAYMENT_FAILED":"Your payment failed.",
+         "PROCEED_ONLINE_PAY":"Your Search request saved successfully. Proceed to online payment",
+         "SEARCH_REQ_SUCCESS":"Your Search request saved successfully.",
+         "EXTRACT_PROCEED_ONLINE":"Your Extract request saved successfully.Proceed to online payment",
+         "EXTARCT_REQ_SUCCESS":"Your Extract request saved successfully."
+
+
        },
        "WARNING":{
           "FOLIO_NOT_FOUND":"Folio not found!",
@@ -1110,8 +1131,11 @@
     "LANDREG":"Land Registry:",
     "REASON":"Reason for change:",
     "REASONREQ":"Reason for change is Required",
-    "CONTINUE":"Continue"
-
+    "CONTINUE":"Continue",
+    "NOTARY_NAME":"Notary Name:",
+    "NOTARY_ID":"Notary Id:",
+    "NEW_LAN_REG":"New Land Registry:",
+    "PER_ADD":"Permenent address:"
   },
 
   "PAYMENT":{
@@ -1197,7 +1221,17 @@
     "VOLUME":"Volume:",
     "FOL_NO":"Folio No: ",
     "NO_OF_YRS":"No. of Years:",
-    "CONTINUE":"Continue"
+    "CONTINUE":"Continue",
+    "TITLE1":"View Extract Request",
+    "CHG_DETAILS":"Change Details",
+    "APPLICATION":"Application",
+    "CURRENT_DETAILS":"Current Details",
+    "SUPPORTING_DOC":"Supporting Documents",
+    "PAY_INFO":"Payment Info",
+    "REMARK":"Remark",
+    "HISTORY":"History",
+    "TITLE2":"View Search Request"
+
   },
   "LEAVE_REQUEST":{
     "TITILE":"Request for leave",
@@ -1293,7 +1327,13 @@
     "TITLE5":"By signing up, you agree to E-Land's",
     "TITLE6":"Terms of Service",
     "TITLE7":"Code of Conduct",
-    "TITLE8":"Privacy Policy"
+    "TITLE8":"Privacy Policy",
+    "CHG_DETAILS":"Change Details",
+    "APPLICATION":"Application",
+    "CURRENT_DETAILS":"Current Details",
+    "SUPPORTING_DOC":"Supporting Documents",
+    "PAY_INFO":"Payment Info",
+    "REMARK":"Remark"
   },
   "RESIGNATION":{
     "TITLE1":"Request for Resignation",
@@ -1329,7 +1369,13 @@
     "PER_ADD_T":"Permanent address (Tamil):",
     "CUR_ADD_E":"Current address (English):",
     "CUR_ADD_S":"Current address (Sinhala):",
-    "CUR_ADD_T":"Current address (Tamil):"
+    "CUR_ADD_T":"Current address (Tamil):",
+    "CHG_DETAILS":"Change Details",
+    "APPLICATION":"Application",
+    "CURRENT_DETAILS":"Current Details",
+    "SUPPORTING_DOC":"Supporting Documents",
+    "PAY_INFO":"Payment Info",
+    "REMARK":"Remark"
   },
   "EDIT_PROFILE":{
     "TITLE1":"Edit Profile",
