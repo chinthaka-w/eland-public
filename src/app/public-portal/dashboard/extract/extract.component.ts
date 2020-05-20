@@ -41,6 +41,7 @@ import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
  import {ExtractRequestWorkflowStages} from '../../../shared/enum/extract-request-workflow-stages.enum';
  import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
  import * as moment from 'moment';
+ import {SystemService} from '../../../shared/service/system.service';
 
 @Component({
   selector: 'app-extract',
@@ -94,7 +95,8 @@ export class ExtractComponent implements OnInit {
     private sessionService: SessionService,
     public router: Router,
     private snackBarService: SnackBarService,
-    private location: Location) {
+    private location: Location,
+    private systemService: SystemService) {
 
     let data = this.router.getCurrentNavigation().extras.state;
     if (data) {
@@ -237,7 +239,7 @@ export class ExtractComponent implements OnInit {
         this.snackBarService.error(error.message);
       }, () => {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
-          this.snackBarService.success('Your Extract request saved successfully.Proceed to online payment')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.EXTRACT_PROCEED_ONLINE'))
           this.statusOnlinePayment = true;
           this.returnURl = 'requests/' + btoa(Workflow.EXTRACT_REQUEST);
           this.userType = this.sessionService.getUser().type;
@@ -245,7 +247,7 @@ export class ExtractComponent implements OnInit {
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
-          this.snackBarService.success('Your Extract request saved successfully.')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.EXTARCT_REQ_SUCCESS'));
         }
       }
     );
@@ -384,7 +386,7 @@ export class ExtractComponent implements OnInit {
 
     if (this.searchRequestForm.invalid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before search folio status.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM1');
     }
 
     if (isValid) {
@@ -410,12 +412,12 @@ export class ExtractComponent implements OnInit {
 
     if (!this.searchRequestForm.valid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM12');
     }
 
     if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.valid && !this.folioStatus) {
       isValid = false;
-      errorMassage = 'Please search folio status, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.SEARCH_FOL');
     }
 
     if (isValid) {
@@ -453,7 +455,7 @@ export class ExtractComponent implements OnInit {
 
       this.saveRequest(this.searchRequest);
     } else {
-      this.snackBarService.error('Oh no, Your payment failed.')
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.PAYMENT_FAILED'));
     }
   }
 

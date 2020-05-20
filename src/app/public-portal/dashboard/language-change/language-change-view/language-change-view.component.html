@@ -8,14 +8,14 @@
 <div class="page-content-wrapper">
     <div class="page-content-inner-wrapper">
         <mat-tab-group>
-            <mat-tab label="Application">
+            <mat-tab label="{{'LANGUAGE_CHANGE.APPLICATION'|translate}}">
                 <!-- <app-last-remark
                 [workflow]="workflow"
                 [requestId]="requestId">
             </app-last-remark> -->
             <app-lang-change-application></app-lang-change-application>
             </mat-tab>
-            <mat-tab label="Payment Info">
+            <mat-tab label="{{'LANGUAGE_CHANGE.PAY_INFO'|translate}}">
                 <app-payment-history
                     [paymentHistory] = "paymentHistory"
                     [paymentAction] = "paymentAction"
@@ -23,18 +23,18 @@
                 </app-payment-history
                 >
             </mat-tab>
-            <mat-tab label="Supporting Documents">
-                <app-supporting-doc-detail 
+            <mat-tab label="{{'LANGUAGE_CHANGE.SUPPORTING_DOC'|translate}}">
+                <app-supporting-doc-detail
                 [requestDocuments]="requestDocuments"
                 (supportDocs)="updateFile($event)">
                 </app-supporting-doc-detail>
             </mat-tab>
-            <mat-tab label="Remark"> 
+            <mat-tab label="{{'LANGUAGE_CHANGE.REMARK'|translate}}">
                 <app-remark-history
                     [remarkHistory] = "remarkHistory"
-                >    
+                >
                 </app-remark-history>
             </mat-tab>
-          </mat-tab-group>          
+          </mat-tab-group>
     </div>
 </div>

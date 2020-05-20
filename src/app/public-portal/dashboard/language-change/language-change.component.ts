@@ -17,6 +17,7 @@ import {SessionService} from '../../../shared/service/session.service';
 import {LanguageChange} from '../../../shared/dto/language-change.model';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
+import {SystemService} from '../../../shared/service/system.service';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class LanguageChangeComponent implements OnInit {
               private languageChangeService: LanguageChangeService,
               private sessionService: SessionService,
               private snackBarService: SnackBarService,
-              private router: Router) {
+              private router: Router,
+              private systemService: SystemService) {
   }
 
   ngOnInit() {
@@ -200,9 +202,9 @@ export class LanguageChangeComponent implements OnInit {
 
   continue(): void {
     if (!(this.languageChangForm.value.langEng || this.languageChangForm.value.langSin || this.languageChangForm.value.langTam)) {
-          this.snackBarService.error('Plese select a language!');
+          this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.SELECT_LANGUAGE'));
     } else if (!this.languageChangForm.valid) {
-      this.snackBarService.error('Please fill the required fields!');
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.REQUIRED_FIELDS'));
     } else {
       this.showPayment = true;
     }
@@ -360,12 +362,12 @@ export class LanguageChangeComponent implements OnInit {
           this.statusOnlinePayment = true;
         }
         else{
-        this.snackBarService.success('Request submitted successfully!');
+        this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
         this.router.navigate(['/requests', btoa(Workflow.LANGUAGE_CHANGE)]);
         }
       },
       error => {
-        this.snackBarService.error('Error in Save!');
+        this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.FAILED'));
         console.log(error);
       }
     );

@@ -36,6 +36,7 @@ import {Router} from '@angular/router';
 import {NameTitleDTO} from '../../../shared/dto/name-title.dto';
 import {LanguageChangeService} from '../../../shared/service/language-change.service';
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
+import {SystemService} from '../../../shared/service/system.service';
 
 @Component({
   selector: 'app-change-the-name',
@@ -114,7 +115,8 @@ export class ChangeTheNameComponent implements OnInit {
               private notaryService: NotaryService,
               private languageChangeService: LanguageChangeService,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
-              private router: Router
+              private router: Router,
+              private systemService: SystemService
               ) { }
 
   ngOnInit() {
@@ -273,18 +275,18 @@ export class ChangeTheNameComponent implements OnInit {
       this.nameChangeService.save(formData).subscribe(
         (success: string) => {
           if (this.paymentMethod !== PaymentMethod.ONLINE) {
-            this.snackBar.success('Notary Name Change Request Success');
+            this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_SUCCESS'));
             this.router.navigate(['/notary-requests', btoa(Workflow.NOTARY_NAME_CHANGE)]);
           } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-            this.snackBar.success('Notary Name Change Request Success, Proceed to online payment');
+            this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_SUCCESS_ONLINE'));
             this.isPayment = true;
             this.statusOnlinePayment = true;
           } else {
-            this.snackBar.error('Operation failed');
+            this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.OPERATION_FAILED'));
           }
         },
         error => {
-          this.snackBar.error('Failed');
+          this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.FAILED'));
         }
       );
 
