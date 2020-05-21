@@ -13,22 +13,22 @@
 <div class="page-content-wrapper">
   <div class="page-content-inner-wrapper">
     <mat-tab-group  [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event,$event)">
-      <mat-tab label="Application">
+      <mat-tab label="{{'CHANGE_NAME.APPLICATION'|translate}}">
         <app-name-change-request-data  [editable]="editable" [workflow]="workflow" [id]="id"  [requestDetailId]="requestID" (nameChangeDetail)="getApplicationDetails($event)"></app-name-change-request-data>
       </mat-tab>
-      <mat-tab label="Current Details" >
+      <mat-tab label="{{'CHANGE_NAME.CURRENT_DETAILS'|translate}}" >
         <app-notary-application *ngIf="requestID" [requestDetailId]="requestID" (notaryDetail)="getNewApplicationDetails($event)"></app-notary-application>
       </mat-tab>
-      <mat-tab label="Supporting Documents">
+      <mat-tab label="{{'CHANGE_NAME.SUPPORTING_DOC'|translate}}">
         <app-supporting-doc-detail [editable]="editable" [workflow]="workflow" [id]="id"  [requestDocuments]="requestID" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
-      <mat-tab label="Payment Info" >
+      <mat-tab label="{{'CHANGE_NAME.PAY_INFO'|translate}}" >
         <app-notary-payment-info [editable]="editable" [addPayment]="editable" [workflow]="workflow" [requestDetailPayment]="requestDetailPayment" [id]="id"></app-notary-payment-info>
       </mat-tab>
-      <mat-tab label="Remark">
+      <mat-tab label="{{'CHANGE_NAME.REMARK'|translate}}">
         <app-notary-remark [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-remark>
       </mat-tab>
     </mat-tab-group>
   </div>
-  <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">Submit</button>
+  <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'BUTTONS.SUBMIT_BUTTON'|translate}}</button>
 </div>

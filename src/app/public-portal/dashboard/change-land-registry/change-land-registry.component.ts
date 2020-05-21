@@ -20,6 +20,7 @@ import {Router} from '@angular/router';
 import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-type-dto';
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {Location} from '@angular/common';
+import {SystemService} from '../../../shared/service/system.service';
 
 @Component({
   selector: 'app-change-land-registry',
@@ -57,7 +58,8 @@ export class ChangeLandRegistryComponent implements OnInit {
                private snackBar: SnackBarService,
                private sessionService: SessionService,
                private router: Router,
-               private location: Location) { }
+               private location: Location,
+               private systemService: SystemService) { }
 
   ngOnInit() {
     this.landRegistryChangeForm = new FormGroup({
@@ -99,11 +101,11 @@ export class ChangeLandRegistryComponent implements OnInit {
 
   this.changelandRegistryService.save(formData).subscribe(
     (success: string ) => {
-      this.snackBar.success('Judicial Change Request Success');
+      this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUCCESS_JUD_REQ'));
       this.router.navigate(['/requests', btoa(Workflow.CHANGE_LAND_REGISTRY)]);
       },
       error1 => {
-        this.snackBar.error('Failed');
+        this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.FAILED'));
       } );
   }
 
@@ -196,16 +198,16 @@ export class ChangeLandRegistryComponent implements OnInit {
     let errorMassage = '';
     if (this.isRequiredDocsUpload === false) {
       isValid = false;
-      errorMassage = 'Please, Upload relevant documents.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.UPLOAD_DOCS');
     }
     if (this.landRegistryChangeForm.value.landRegistry === '') {
       isValid = false;
-      errorMassage = 'Please, Select landregistry.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.SELECT_LAND_REG');
     }
 
     if (this.landRegistryChangeForm.value.reason === '') {
       isValid = false;
-      errorMassage = 'Please, Enter the reason.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.ENTER_REASON');
     }
 
     if (isValid) {
