@@ -337,19 +337,16 @@ export class AddPublicUserComponent implements OnInit {
     if(type == this.PublicUserType.CITIZEN) {
       this.publicUserForm.controls['bankName'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.BANK) {
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.LAWYER) {
       this.publicUserForm.controls['bankName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
@@ -357,7 +354,6 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['bankName'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
     }
     else if (type == this.PublicUserType.OTHER) {
       this.publicUserForm.controls['bankName'].disable();
