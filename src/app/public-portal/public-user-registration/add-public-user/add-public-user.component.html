@@ -93,18 +93,22 @@
         </div>
       </div>
 
-      <div *ngIf="publicUserType.value == PublicUserType.OTHER" class="default-input-wrapper full-row half-cols">
+      <div class="default-input-wrapper full-row half-cols">
         <label class="mw-200">{{'CITIZEN.OFFICERS_DESIGNATION'|translate}}<span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="{{'CITIZEN.OFFICERS_DESIGNATION'|translate}}" formControlName="officersDesignation" />
+            <input matInput placeholder="{{'CITIZEN.OFFICERS_DESIGNATION'|translate}}"
+              formControlName="officersDesignation" />
           </mat-form-field>
           <div *ngIf="officersDesignation.invalid && (officersDesignation.dirty || officersDesignation.touched)">
-            <mat-error *ngIf="officersDesignation.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
-            <mat-error *ngIf="officersDesignation.errors.maxlength || officersDesignation.errors.pattern" class="errors">Please enter valid designation</mat-error>
+            <mat-error *ngIf="officersDesignation.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
+            </mat-error>
+            <mat-error *ngIf="officersDesignation.errors.maxlength || officersDesignation.errors.pattern" class="errors">
+              Please enter valid designation</mat-error>
           </div>
         </div>
       </div>
+
       <div *ngIf="publicUserType.value == PublicUserType.STATE" class="default-input-wrapper full-row half-cols">
         <label class="mw-200">{{'CITIZEN.STATE_INS_NAME'|translate}} <span>*</span></label>
         <div class="default-input-feild">
