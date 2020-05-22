@@ -1189,6 +1189,19 @@
     "TITLE4":"Sign Up here",
     "LOGIN":"Login"
   },
+  "FORGOT_PSWD":{
+    "TYPE":"Welcome to E-Land",
+    "NOTARY":"Notary",
+    "CITIZEN":"Citizen",
+    "EMAIL":"Email",
+    "TITLE":"Recover Your Password",
+    "TITLE2":"Please Select Your Applicant Type",
+    "VALID_EMAIL":" Email is required",
+    "BUTTON1":"SEND RESET LINK",
+    "BUTTON2":"Go back to login",
+    "TITLE3":"Select Your Username",
+    "BACK":"Go back"
+  },
   "SEARCH_DOC":{
     "SEARCH":"Search",
     "LAND_REG":"Land Registry:",

@@ -70,6 +70,14 @@ export class HeaderComponent implements OnInit {
         this.isHome = false;
         this.isLogin = true;
       }
+      else if (event['url'] == '/forgot-password') {
+        this.isHome = false;
+        this.isLogin = true;
+      }
+      else if (event['url'] == '/reset-password/:token') {
+        this.isHome = false;
+        this.isLogin = true;
+      }
       else if (event['url']) {
         this.isHome = false;
         this.isLogin = false;
