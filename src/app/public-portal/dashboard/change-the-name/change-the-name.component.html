@@ -25,9 +25,9 @@
                         <label>{{'CHANGE_NAME.LANGUAGE'|translate}} <span class="redtxt">*</span></label>
                         <div class="default-input-feild">
                           <section class="example-section">
-                            <mat-checkbox class="pr-3" disabled="true" [checked]="true" (change)="addLanguageList(3)">{{'CHANGE_NAME.ENGLISH'|translate}}</mat-checkbox>
-                            <mat-checkbox class="pr-3" (change)="addLanguageList(1)">{{'CHANGE_NAME.SINHALA'|translate}}</mat-checkbox>
-                            <mat-checkbox class="pr-3" (change)="addLanguageList(2)">{{'CHANGE_NAME.TAMIL'|translate}}</mat-checkbox>
+                            <mat-checkbox class="pr-3" [disabled]="isEnglishCertificateApplied" [checked]="isEnglishCertificate" (change)="addLanguageList(3)">{{'CHANGE_NAME.ENGLISH'|translate}}</mat-checkbox>
+                            <mat-checkbox class="pr-3" [disabled]="isSinhalaCertificateApplied" [checked]="isSinhalaCertificate" (change)="addLanguageList(1)">{{'CHANGE_NAME.SINHALA'|translate}}</mat-checkbox>
+                            <mat-checkbox class="pr-3" [disabled]="isTamilCertificateApplied" [checked]="isTamilCertificate" (change)="addLanguageList(2)">{{'CHANGE_NAME.TAMIL'|translate}}</mat-checkbox>
                           </section>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <select matNativeControl required  formControlName="title"  class="form-control">
-                  <option value="" disabled selected>{{'CHANGE_NAME.SELECT_TITLE'|translate}}</option>
+                  <option [value]="null" disabled selected>{{'CHANGE_NAME.SELECT_TITLE'|translate}}</option>
                   <option *ngFor="let title of nameTitles"
                           [value]="title.nameTitleId"
                   >

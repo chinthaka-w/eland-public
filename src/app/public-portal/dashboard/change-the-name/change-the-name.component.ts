@@ -37,6 +37,7 @@ import {NameTitleDTO} from '../../../shared/dto/name-title.dto';
 import {LanguageChangeService} from '../../../shared/service/language-change.service';
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {SystemService} from '../../../shared/service/system.service';
+import { JudicialService } from 'src/app/shared/service/change-judicial-service';
 
 @Component({
   selector: 'app-change-the-name',
@@ -100,6 +101,13 @@ export class ChangeTheNameComponent implements OnInit {
   isRequiredDocsUpload = false;
   firstValue: any;
   lastValue: any;
+  isEnglishCertificateApplied = false;
+  isSinhalaCertificateApplied = false;
+  isTamilCertificateApplied = false;
+  appliedCertificates: number[] = [];
+  isEnglishCertificate = false;
+  isSinhalaCertificate = false;
+  isTamilCertificate = false;
 
 
   constructor(private documetService: SupportingDocService,
@@ -116,7 +124,8 @@ export class ChangeTheNameComponent implements OnInit {
               private languageChangeService: LanguageChangeService,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private router: Router,
-              private systemService: SystemService
+              private systemService: SystemService,
+              private judicialService: JudicialService
               ) { }
 
   ngOnInit() {
@@ -126,9 +135,10 @@ export class ChangeTheNameComponent implements OnInit {
   }
 
   setData(){
+    this.getAppliedCertificateDetails();
     this.getUserDetails();
     this.notaryForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required]),
+      title: new FormControl(null, [Validators.required]),
       newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
       newFullNameInSinhala: new FormControl('', (this.isSinhala ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)])),
       newFullNameInTamil: new FormControl('', (this.isTamil ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)]) ),
@@ -191,6 +201,26 @@ export class ChangeTheNameComponent implements OnInit {
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  getAppliedCertificateDetails(): void {
+    this.judicialService.getLanguages(this.notaryId).subscribe(
+      (result: []) => {
+        this.appliedCertificates = result;
+        this.appliedCertificates.forEach((certificate, index) => {
+          if (certificate === Languages.ENGLISH) {
+            this.isEnglishCertificate = true;
+            this.isEnglishCertificateApplied = true;
+          } else if (certificate === Languages.SINHALA) {
+            this.isSinhalaCertificate = true;
+            this.isSinhalaCertificateApplied = true;
+          } else if (certificate === Languages.TAMIL) {
+            this.isTamilCertificate = true;
+            this.isTamilCertificateApplied = true;
+          }
+        });
       }
     );
   }
