@@ -699,12 +699,14 @@
           "PLEASE_FILL":"Please fill the form..!",
           "PLEASE_AT_LEAST_ONE":"Please, select at least one item !",
           "WARNING":"Warning",
-          "MANDATORY_DOC_ERR": "Please upload mandatory documents!"
+          "MANDATORY_DOC_ERR": "Please upload mandatory documents!",
+          "VALIDATE_CAPTURE":"Please validate the captcha...!"
        },
        "CONFIRM_MESSAGE":{
           "SUBMIT_APPLICATION":"Are you sure, you want to submit this application?",
           "SUBMIT":"Are you sure?",
-          "CONFIRM_SUBMIT":"Are you want to submit?"
+          "CONFIRM_SUBMIT":"Are you want to submit?",
+         "CONFIRM_DELETE":"Are you sure you want to delete this?"
        },
        "MESSAGE":{
           "SUBMITTED_SUCCESS":"Successfully submitted!",
