@@ -58,6 +58,7 @@ import {UserType} from '../../../shared/enum/user-type.enum';
 import * as _ from 'lodash';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 import * as moment from 'moment';
+import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
 
 @Component({
   selector: 'app-add-notary',
@@ -128,20 +129,12 @@ export class AddNotaryComponent implements OnInit {
   userId: any;
 
   constructor(private formBuilder: FormBuilder,
-              private notaryService: NotaryService,
-              private publicUserService: PublicUserService,
-              private gnDivisionService: GnDivisionService,
-              private dsDivisionService: DsDivisionService,
-              private landRegistryService: LandRegistryService,
-              private judicialZoneService: JudicialZoneService,
               private sanitizer: DomSanitizer,
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
-              private paymentService: PaymentService,
-              private nameTitleService: NameTitleService,
-              private documetService: SupportingDocService,
               private router: Router,
               private systemService: SystemService,
+              private authorizeRequestService: AuthorizeRequestService,
               private sysMethodService: SysMethodsService) {
     this.today = new Date();
 
@@ -405,7 +398,7 @@ export class AddNotaryComponent implements OnInit {
 
   usernameValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.publicUserService.checkIfUsernameExists(control.value).pipe(
+      return this.authorizeRequestService.checkIfUsernameExists(control.value).pipe(
         map(res => {
           // if res is true, username exists, return true
           return res ? {usernameExists: true} : null;
@@ -417,7 +410,7 @@ export class AddNotaryComponent implements OnInit {
 
   nicValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.notaryService.findIfNotaryExist(control.value).pipe(
+      return this.authorizeRequestService.findIfNotaryExist(control.value).pipe(
         map(res => {
           // if res is true, username exists, return true
           return res != null ? {nicExists: true} : null;
@@ -439,7 +432,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   private getDocumentList(): void {
-    this.documetService.getDocuments(NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED).subscribe(
+    this.authorizeRequestService.getDocuments(NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }
@@ -601,7 +594,7 @@ export class AddNotaryComponent implements OnInit {
       formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
     });
 
-    this.notaryService.saveNotaryDetails(formData).subscribe(
+    this.authorizeRequestService.saveNotaryDetails(formData).subscribe(
       (notaryId: any) => {
         this.userId = notaryId;
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
@@ -624,7 +617,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   private getGnDivisions(dsDivisionId: any): void {
-    this.gnDivisionService.getAllGnDivisionsByDsDivisionId(dsDivisionId).subscribe(
+    this.authorizeRequestService.getAllGnDivisionsByDsDivisionId(dsDivisionId).subscribe(
       (data: GnDivision[]) => {
         this.gnDivision = data;
       }
@@ -632,7 +625,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   private getDsDivisions(): void {
-    this.dsDivisionService.getAllDsDivisions().subscribe(
+    this.authorizeRequestService.getAllDsDivisions().subscribe(
       (data: DsDivision[]) => {
         this.dsDivision = data;
       }
@@ -648,7 +641,7 @@ export class AddNotaryComponent implements OnInit {
   // }
 
   private getJudicialZones(): void {
-    this.judicialZoneService.getAllJudicialZone().subscribe(
+    this.authorizeRequestService.getAllJudicialZone().subscribe(
       (data: JudicialZoneModel[]) => {
         this.judicialZones = data;
       }
@@ -656,7 +649,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   public changes($event): void {
-    this.gnDivisionService.getAllGnDivisionsByDsDivisionId(this.notaryForm.value.secretariatDivision).subscribe(
+    this.authorizeRequestService.getAllGnDivisionsByDsDivisionId(this.notaryForm.value.secretariatDivision).subscribe(
       (data: GnDivision[]) => {
         this.gnDivision = data;
       }
@@ -666,7 +659,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   private getLandRegistries(id: any): void {
-    this.landRegistryService.getLandRegistriesByJudicialId(id).subscribe(
+    this.authorizeRequestService.getLandRegistriesByJudicialId(id).subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistry = data;
       }
@@ -674,7 +667,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   private getNameTitles(): void {
-    this.nameTitleService.findAll().subscribe(
+    this.authorizeRequestService.findAllNameTitle().subscribe(
       (data: NameTitleDTO[]) => {
         this.nameTitles = data;
       }
