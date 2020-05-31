@@ -142,8 +142,8 @@
     </div>
   </div>
   <div class="pg-inner-row mb-20" *ngIf="!isReadonly && newRequest">
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource">
+    <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!-- Folio No Column -->
         <ng-container matColumnDef="folioNo">
           <th mat-header-cell *matHeaderCellDef> {{'FOLIO_TYPE.FOLIO_NUM'| translate}} </th>
