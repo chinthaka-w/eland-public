@@ -6,5 +6,6 @@ export enum CommonStatus {
   FAIL = 'FAIL',
   REQUIRED = 'REQUIRED',
   OPTIONAL = 'OPTIONAL',
+  RESIGN = 'Resign',
   REJECT = 'REJ'
 }
