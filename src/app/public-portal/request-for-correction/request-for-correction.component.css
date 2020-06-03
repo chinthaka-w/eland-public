@@ -4,16 +4,15 @@ mat-select {
 }
 
 
-    ::ng-deep .mat-snack-bar-container{
-      color: #253028 !important;
-      background-color: #0c8cac !important;
-      border-color: #c3e6cb !important;
-    }
-    ::ng-deep .mat-simple-snackbar-action {
-      color: red;
-    }
+    /*::ng-deep .mat-snack-bar-container{*/
+      /*color: #253028 !important;*/
+      /*background-color: #0c8cac !important;*/
+      /*border-color: #c3e6cb !important;*/
+    /*}*/
+    /*::ng-deep .mat-simple-snackbar-action {*/
+      /*color: red;*/
+    /*}*/
 
     table {
       width: 100%;
     }
-  
