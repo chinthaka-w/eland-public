@@ -77,6 +77,8 @@ export class ExtractComponent implements OnInit {
   userType: string;
   userId: number;
 
+  errorSearch: any;
+
   maxDate = moment(new Date()).format('YYYY-MM-DD');
   minDate;
 
@@ -370,6 +372,10 @@ export class ExtractComponent implements OnInit {
     this.form.get('folioNo').valueChanges.subscribe(value => {
       this.folioStatus = null;
     });
+    this.form.valueChanges.subscribe(value => {
+      this.errorSearch = undefined;
+      }
+    );
   }
 
   getSelectedLRD(): LandRegistryDivision {
@@ -401,7 +407,8 @@ export class ExtractComponent implements OnInit {
         }
       );
     } else {
-      this.snackBarService.error(errorMassage);
+      this.errorSearch = errorMassage;
+      // this.snackBarService.error(errorMassage);
       this.validateAllFormFields(this.searchRequestForm);
     }
   }

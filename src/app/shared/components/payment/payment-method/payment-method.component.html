@@ -12,7 +12,9 @@
                 <select matNativeControl formControlName="bank" class="form-control"
                         (change)="onChangeBank($event.target.value)">
                   <option value="">{{'PAYMENT.OTHER_METHOD.SELECT'|translate}}</option>
-                  <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName |listTranslate: bank.bankNameSin: bank.bankNameTam}}</option>
+                  <option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName |listTranslate:
+                    bank.bankNameSin: bank.bankNameTam}}
+                  </option>
                 </select>
               </mat-form-field>
             </div>
@@ -23,7 +25,8 @@
               <mat-form-field appearance="outline">
                 <select matNativeControl formControlName="branch" class="form-control">
                   <option value="">{{'PAYMENT.OTHER_METHOD.SELECT'|translate}}</option>
-                  <option *ngFor="let branch of branches" [value]="branch.bankBranchId">{{ branch.description |listTranslate: branch.descriptionSin: branch.descriptionTam }}
+                  <option *ngFor="let branch of branches" [value]="branch.bankBranchId">{{ branch.description
+                    |listTranslate: branch.descriptionSin: branch.descriptionTam }}
                   </option>
                 </select>
               </mat-form-field>
@@ -48,13 +51,20 @@
               <mat-form-field appearance="outline">
                 <input matInput formControlName="referenceNo" class="form-control">
               </mat-form-field>
+              <div *ngIf="paymentMethodForm.get('referenceNo').touched &&
+              paymentMethodForm.get('referenceNo').invalid">
+                <mat-error *ngIf="paymentMethodForm.get('referenceNo').errors.maxlength">
+                  {{'VALIDATION.MAX_LENGTH_25_ERR'|translate}}
+                </mat-error>
+              </div>
             </div>
           </div>
           <div class="default-input-wrapper full-row">
             <label>{{'PAYMENT.OTHER_METHOD.BANK_RECPT'|translate}}<span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <file-upload-input (response)="onChangeFileInput($event)"></file-upload-input>
-              <mat-error *ngIf="files.length==0 && isButtonClick">{{'PAYMENT.OTHER_METHOD.PLZ_BANK_RECPT'|translate}}</mat-error>
+              <mat-error *ngIf="files.length==0 && isButtonClick">{{'PAYMENT.OTHER_METHOD.PLZ_BANK_RECPT'|translate}}
+              </mat-error>
             </div>
           </div>
         </div>

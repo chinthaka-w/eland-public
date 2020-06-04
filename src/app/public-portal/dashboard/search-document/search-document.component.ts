@@ -79,6 +79,8 @@ export class SearchDocumentComponent implements OnInit {
 
   folioStatus: Enum = null;
 
+  errorSearch: any;
+
   maxDate = moment(new Date()).format('YYYY-MM-DD');
   minDate;
 
@@ -374,6 +376,10 @@ export class SearchDocumentComponent implements OnInit {
     this.form.get('folioNo').valueChanges.subscribe(value => {
       this.folioStatus = null;
     });
+    this.form.valueChanges.subscribe(value => {
+        this.errorSearch = undefined;
+      }
+    );
   }
 
   getSelectedLRD(): LandRegistryDivision {
@@ -405,7 +411,8 @@ export class SearchDocumentComponent implements OnInit {
         }
       );
     } else {
-      this.snackBarService.error(errorMassage)
+      // this.snackBarService.error(errorMassage)
+      this.errorSearch = errorMassage;
       this.validateAllFormFields(this.searchRequestForm);
     }
   }
