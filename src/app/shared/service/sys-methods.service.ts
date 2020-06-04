@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,62 +40,65 @@ export class SysMethodsService {
       dayText = parseInt(NICNo.substr(4, 3));
     }
 
+    if(dayText > 500) dayText = dayText-500;
+
     // Day Digit Validation
     if (dayText < 1 && dayText > 366) {
       return null;
-    } else {
-
-      //Month
-      if (dayText > 335) {
-        day = dayText - 335;
-        month = 12;
-      }
-      else if (dayText > 305) {
-        day = dayText - 305;
-        month = 11;
-      }
-      else if (dayText > 274) {
-        day = dayText - 274;
-        month = 10;
-      }
-      else if (dayText > 244) {
-        day = dayText - 244;
-        month = 9;
-      }
-      else if (dayText > 213) {
-        day = dayText - 213;
-        month = 8;
-      }
-      else if (dayText > 182) {
-        day = dayText - 182;
-        month = 7;
-      }
-      else if (dayText > 152) {
-        day = dayText - 152;
-        month = 6;
-      }
-      else if (dayText > 121) {
-        day = dayText - 121;
-        month = 5;
-      }
-      else if (dayText > 91) {
-        day = dayText - 91;
-        month = 4;
-      }
-      else if (dayText > 60) {
-        day = dayText - 60;
-        month = 3;
-      }
-      else if (dayText < 32) {
-        month = 1;
-        day = dayText;
-      }
-      else if (dayText > 31) {
-        day = dayText - 31;
-        month = 2;
-      }
     }
-    return `${year}-${month}-${day}`;
+    // else {
+    //
+    //   //Month
+    //   if (dayText > 335) {
+    //     day = dayText - 335;
+    //     month = '12';
+    //   }
+    //   else if (dayText > 305) {
+    //     day = dayText - 305;
+    //     month = '11';
+    //   }
+    //   else if (dayText > 274) {
+    //     day = dayText - 274;
+    //     month = '10';
+    //   }
+    //   else if (dayText > 244) {
+    //     day = dayText - 244;
+    //     month = '09';
+    //   }
+    //   else if (dayText > 213) {
+    //     day = dayText - 213;
+    //     month = '08';
+    //   }
+    //   else if (dayText > 182) {
+    //     day = dayText - 182;
+    //     month = '07';
+    //   }
+    //   else if (dayText > 152) {
+    //     day = dayText - 152;
+    //     month = '06';
+    //   }
+    //   else if (dayText > 121) {
+    //     day = dayText - 121;
+    //     month = '05';
+    //   }
+    //   else if (dayText > 91) {
+    //     day = dayText - 91;
+    //     month = '04';
+    //   }
+    //   else if (dayText > 60) {
+    //     day = dayText - 60;
+    //     month = '03';
+    //   }
+    //   else if (dayText < 32) {
+    //     month = '01';
+    //     day = dayText;
+    //   }
+    //   else if (dayText > 31) {
+    //     day = dayText - 31;
+    //     month = '02';
+    //   }
+    // }
+    return `${year}-${moment().dayOfYear(dayText).format('MM-DD')}`;
   }
 
   validateAllFormFields(formGroup: FormGroup) {         //{1}

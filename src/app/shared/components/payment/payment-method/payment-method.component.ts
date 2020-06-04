@@ -60,7 +60,7 @@ export class PaymentMethodComponent implements OnInit {
       bank: new FormControl('', Validators.required),
       branch: new FormControl('', Validators.required),
       date: new FormControl('', Validators.required),
-      referenceNo: new FormControl('', Validators.required),
+      referenceNo: new FormControl('', [Validators.required,Validators.maxLength(25)]),
     });
     this.loadBanks();
   }

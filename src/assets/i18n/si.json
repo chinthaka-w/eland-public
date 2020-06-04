@@ -749,6 +749,7 @@
     },
     "VALIDATION":{
       "MAX_LENGTH_255_ERR":"උපරිම අක්ෂර 255.",
+      "MAX_LENGTH_25_ERR":"උපරිම අක්ෂර 25.",
        "STATUS_SELECT_ERR":"කරුණාකර තත්වය තෝරන්න",
        "DESCRIPTION_EMPTY_ERR":"කරුණාකර විස්තරය ඇතුළත් කරන්න",
        "CATEGORY_SELECT_ERR":"කරුණාකර ප්‍රවර්ගයක් තෝරන්න",
