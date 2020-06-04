@@ -606,6 +606,7 @@ export class AddNotaryComponent implements OnInit {
         this.userId = notaryId;
         if (this.paymentMethod !== PaymentMethod.ONLINE) {
           this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
+          this.router.navigate(['/login']);
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
           this.snackBar.success('Notary saved successfully, Proceed to online payment');
           this.isPayment = true;
@@ -616,9 +617,6 @@ export class AddNotaryComponent implements OnInit {
       },
       error => {
         this.snackBar.error('Failed');
-      },
-      () => {
-        this.router.navigate(['/login']);
       }
     );
   }
