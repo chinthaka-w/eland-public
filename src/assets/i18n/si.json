@@ -700,12 +700,14 @@
           "PLEASE_FILL":"කරුණාකර පෝරමය පුරවන්න!",
           "WARNING":"අවවාදයයි",
           "PLEASE_AT_LEAST_ONE":"කරුණාකර, අවම වශයෙන් එක් අයිතමයක්වත් තෝරන්න!",
-          "MANDATORY_DOC_ERR": "කරුණාකර අනිවාර්ය ලේඛන උඩුගත කරන්න!"
+          "MANDATORY_DOC_ERR": "කරුණාකර අනිවාර්ය ලේඛන උඩුගත කරන්න!",
+          "VALIDATE_CAPTURE":"කරුණාකර කැප්චා වලංගු කරන්න!"
        },
        "CONFIRM_MESSAGE":{
           "SUBMIT_APPLICATION":"ඔබට මෙය සුරැකීමට අවශ්‍ය බව විශ්වාසද?",
           "SUBMIT":"ඔබට විශ්වාසද?",
-          "CONFIRM_SUBMIT":"ඔබට සුරැකීමට අවශ්‍යද?"
+          "CONFIRM_SUBMIT":"ඔබට සුරැකීමට අවශ්‍යද?",
+         "CONFIRM_DELETE":"ඔබට මෙය මකා දැමීමට අවශ්‍ය බව විශ්වාසද?"
        },
        "MESSAGE":{
           "SUBMITTED_SUCCESS":"සාර්ථකව සුරකින ලදි!",
