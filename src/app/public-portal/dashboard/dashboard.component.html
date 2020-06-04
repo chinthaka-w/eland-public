@@ -54,7 +54,8 @@
                               searchDetails?.status === commonStatus.INACTIVE? 'status-pending':
                               searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
                   {{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval':
-                                    searchDetails?.status === commonStatus.INACTIVE? 'Further Details Submission':
+                                    searchDetails?.status === commonStatus.RESIGN? 'Resign':
+                                    searchDetails?.status === commonStatus.INACTIVE? 'Inactive':
                                     searchDetails?.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
                 </span>
             </dd>
