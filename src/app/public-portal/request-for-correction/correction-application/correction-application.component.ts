@@ -175,6 +175,13 @@ export class CorrectionApplicationComponent implements OnInit {
           }
 
         } else if (this.reqForCorrectionForm.valid) {
+          // check mandatory documents
+          if (!this.checkMandatoryDocsStatus(this.correctionDetails)) {
+            this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.MANDATORY_DOC_ERR'));
+            this.isClick = false;
+            this.isSave = false;
+            return;
+          }
           // submit correction request
           const correctionRequest = new CorrectionRequest();
           correctionRequest.correctionDetails = this.correctionDetails;
@@ -192,6 +199,10 @@ export class CorrectionApplicationComponent implements OnInit {
             }
           );
         }
+      } else {
+        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+        this.isClick = false;
+        this.isSave = false;
       }
 
       // submit request update
@@ -370,6 +381,15 @@ export class CorrectionApplicationComponent implements OnInit {
         const control = this.reqForCorrectionForm.get(field);
         control.markAsTouched({ onlySelf: true });
       });
+  }
+
+  checkMandatoryDocsStatus(correctionDetails: CorrectionDetail[]): boolean {
+    for (const detail of correctionDetails) {
+      if (!detail.filesMeta) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }
