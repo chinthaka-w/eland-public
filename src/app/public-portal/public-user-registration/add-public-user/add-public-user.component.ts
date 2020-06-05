@@ -339,6 +339,7 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
+      this.officersDesignation.disable();
     }
     else if (type == this.PublicUserType.BANK) {
       this.publicUserForm.controls['lawFirmName'].disable();
