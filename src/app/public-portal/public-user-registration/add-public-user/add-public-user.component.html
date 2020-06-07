@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      <div class="default-input-wrapper full-row half-cols">
+      <div class="default-input-wrapper full-row half-cols" *ngIf="type.value && type.value != PublicUserType.CITIZEN">
         <label class="mw-200">{{'CITIZEN.OFFICERS_DESIGNATION'|translate}}<span>*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
