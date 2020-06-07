@@ -20,8 +20,10 @@ export class ApplicationComponent implements OnInit {
   notaryDetails: Notary;
   public notary: Notary;
   submitted = false;
+  disableSubmit = false;
   firstValue: any;
   lastValue: any;
+
   constructor(private sessionService: SessionService,
               private notaryService: NotaryService,
               private snackBar: SnackBarService,
@@ -156,6 +158,7 @@ export class ApplicationComponent implements OnInit {
                 (success: string) => {
                   this.snackBar.success('Submitted the profile edit request successfully!');
                   // this.requestForm.reset();
+                  this.disableSubmit = true;
                 },
                 error => {
                   this.snackBar.error('Failed');
