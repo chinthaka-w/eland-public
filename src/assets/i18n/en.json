@@ -710,6 +710,7 @@
        },
        "MESSAGE":{
           "SUBMITTED_SUCCESS":"Successfully submitted!",
+          "SUBMITTED_SUCCESS_PROCEED_ONLINE_PAYMENT": "Successfully submitted, Proceed to online payment",
           "UPDATE_SUCCESS": "Successfully updated!",
           "REMARK_ADDED":"Insert your remark here",
           "ACTIVATED_SUCCESS":"Successfully activated!",
@@ -1094,7 +1095,7 @@
     "NAME":"Name:",
     "PAYMENT":"Payment:",
     "NEXT":"Next",
-    "CITIZENID":"Citizen ID:",
+    "CITIZENID":"Public User ID:",
     "CHG_JUD_ZONE":"Change Judicial Zone",
     "CHG_LAND_REG":"Change Land Registry",
     "CHG_NAME":"Change The Name",
