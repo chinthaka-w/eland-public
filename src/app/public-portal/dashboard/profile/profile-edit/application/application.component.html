@@ -188,7 +188,7 @@
 </div>
 
   <div class="pg-inner-col right" >
-    <button mat-raised-button class="lg-button" (click)="submitForm()">
+    <button mat-raised-button class="lg-button" (click)="submitForm()" [disabled]="disableSubmit=== true">
       {{'BUTTONS.SUBMIT_BUTTON'|translate}}
     </button>
   </div>
