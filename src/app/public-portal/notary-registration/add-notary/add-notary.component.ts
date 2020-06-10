@@ -128,6 +128,7 @@ export class AddNotaryComponent implements OnInit {
   defaultBirthDay: any;
 
   userId: any;
+  WorkflowStages = WorkflowStages;
 
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
