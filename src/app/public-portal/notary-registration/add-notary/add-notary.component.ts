@@ -122,6 +122,8 @@ export class AddNotaryComponent implements OnInit {
   returnURl: string;
   statusOnlinePayment: boolean;
 
+  errorMsg: any;
+
   today: any;
   defaultBirthDay: any;
 
@@ -559,6 +561,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   public onFormSubmit() {
+    this.errorMsg = undefined;
     if (this.dsGnList.length != 0) {
       this.secretariatDivision.clearValidators();
       this.secretariatDivision.updateValueAndValidity();
@@ -566,12 +569,13 @@ export class AddNotaryComponent implements OnInit {
       this.gramaNiladhariDivision.updateValueAndValidity();
     }
 
-    if (this.notaryForm.invalid && this.checkDocumentValidation()) {
+    if (this.notaryForm.invalid || this.checkDocumentValidation()) {
       Object.keys(this.notaryForm.controls).forEach(field => {
         const control = this.notaryForm.get(field);
         control.markAsTouched({onlySelf: true});
       });
-      this.snackBar.error('Please fill all mandatory fields!');
+      // this.snackBar.error('Please fill all mandatory fields!');
+      this.errorMsg = 'Please fill all mandatory fields!';
     } else {
       this.isPayment = true;
     }
