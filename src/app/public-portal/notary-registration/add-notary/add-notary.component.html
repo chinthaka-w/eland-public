@@ -736,6 +736,7 @@
           </div>
         </div>
         <div class="pg-inner-col right">
+          <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
           <button mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'BUTTONS.CONTINUE_BUTTON'|translate}}
           </button>
         </div>
