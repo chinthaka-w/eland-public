@@ -333,12 +333,25 @@
                 </div> -->
             </div>
 
+              <!--<div class="pg-inner-row mb-20 upload-col-3">-->
+                <!--<ng-container *ngFor="let document of supportingDocs">-->
+                  <!--<div class="pg-inner-col-3">-->
+                    <!--<div class="default-input-wrapper full-row">-->
+                      <!--<label>{{document.description|listTranslate:document.descriptionSin:document.descriptionTam}}-->
+                        <!--<span *ngIf="document.required == true">*</span>-->
+                      <!--</label>-->
+                      <!--<file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</ng-container>-->
+              <!--</div>-->
+
             <div class="separator">&nbsp;</div>
 
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col"></div>
               <div class="pg-inner-col float-right ">
-                    <button mat-raised-button class="lg-button float-right" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
+                    <button mat-raised-button class="lg-button float-right" [disabled]="!(isRequiredDocsUpload)" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
                 </div>
             </div>
         </form>
