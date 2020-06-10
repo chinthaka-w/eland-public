@@ -334,60 +334,55 @@ export class LanguageChangeComponent implements OnInit {
     }
   }
 
-  setFiles(data: any, docTypeId: number) {
-    this.fileList[docTypeId] = data;
-  }
 
-  // setFiles(data: any, docTyprId: number, status: boolean) {
-  //   this.files = data;
-  //   const document = new DocumentDto(this.files[0], docTyprId);
-  //   document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
-  //   if (document.files) {
-  //     this.documentList.push(document);
-  //   } else {
-  //     this.documentList.forEach((doc, index) => {
-  //       if (doc.fileType === document.fileType) {
-  //         this.documentList.splice(index, 1);
-  //       }
-  //     });
-  //   }
-  //
-  //   let workflowManatoryDocs = 0;
-  //   let uploadedMandatoryDocs = 0;
-  //
-  //   this.supportingDocs.forEach(doc => {
-  //     if  (doc.required) {
-  //       workflowManatoryDocs += 1;
-  //     }
-  //   });
-  //
-  //   this.documentList.forEach(doc => {
-  //     if (doc.status === CommonStatus.REQUIRED) {
-  //       uploadedMandatoryDocs += 1;
-  //     }
-  //   });
-  //
-  //   if (workflowManatoryDocs === uploadedMandatoryDocs) {
-  //     this.isRequiredDocsUpload = true;
-  //   } else {this.isRequiredDocsUpload = false; }
-  // }
+  setFiles(data: any, docTyprId: number, status: boolean) {
+    this.files = data;
+    const document = new DocumentDto(this.files[0], docTyprId);
+    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
+    if (document.files) {
+      this.documentList.push(document);
+    } else {
+      this.documentList.forEach((doc, index) => {
+        if (doc.fileType === document.fileType) {
+          this.documentList.splice(index, 1);
+        }
+      });
+    }
+
+    let workflowManatoryDocs = 0;
+    let uploadedMandatoryDocs = 0;
+
+    this.supportingDocs.forEach(doc => {
+      if  (doc.required) {
+        workflowManatoryDocs += 1;
+      }
+    });
+
+    this.documentList.forEach(doc => {
+      if (doc.status === CommonStatus.REQUIRED) {
+        uploadedMandatoryDocs += 1;
+      }
+    });
+
+    if (workflowManatoryDocs === uploadedMandatoryDocs) {
+      this.isRequiredDocsUpload = true;
+    } else {this.isRequiredDocsUpload = false; }
+  }
 
   // Save language change request after payment
   getPaymentData(paymentData: PaymentResponse): void {
 
     const langPayment: PaymentDto = new PaymentDto();
     langPayment.paymentId = paymentData.paymentId;
-    this.saveRegistrationData(this.fileList, this.languageChangForm.value, langPayment);
+    this.saveRegistrationData(this.files, this.languageChangForm.value, langPayment);
   }
 
-  saveRegistrationData(fileList: object, model: LanguageChange, paymentData: PaymentDto) {
-    // add files to FormData
-    const keys = Object.keys(fileList);
-    for (const index in keys) {
-      for (const file of fileList[keys[index]]) {
-        this.formData.append('file', file, (keys[index] + '/' + file.name));
-      }
-    }
+  saveRegistrationData(files: object, model: LanguageChange, paymentData: PaymentDto) {
+
+    this.documentList.forEach(doc => {
+      this.formData.append('file', doc.files, doc.fileType + '/' + doc.files.name);
+    });
+
 
     model.workflowStage = LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT;
     model.id = this.sessionService.getUser().id;
