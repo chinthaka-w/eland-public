@@ -305,40 +305,54 @@
 
             <!-- <div class="separator">&nbsp;</div> -->
 
-            <div class="pg-inner-row mb-20">
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row" *ngFor="let doc of supportingDocs">
-                        <label> {{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}} </label>
-                        <file-upload-input (response)="setFiles($event,doc.docTypeId)"></file-upload-input>
-                    </div>
-                </div>
-                <!-- <div class="pg-inner-col">
+            <!--<div class="pg-inner-row mb-20">-->
+                <!--<div class="pg-inner-col">-->
+                    <!--<div class="default-input-wrapper full-row" *ngFor="let doc of supportingDocs">-->
+                        <!--<label> {{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}} </label>-->
+                        <!--<file-upload-input (response)="setFiles($event,doc.docTypeId)"></file-upload-input>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; <div class="pg-inner-col">-->
+                    <!--<div class="default-input-wrapper full-row">-->
+                        <!--<label>Date:</label>-->
+                        <!--<div class="default-input-feild date-feild">-->
+                            <!--<mat-form-field appearance="outline">-->
+                                <!--<input-->
+                                  <!--matInput-->
+                                  <!--[matDatepicker]="date"-->
+                                  <!--formControlName="date"-->
+                                <!--/>-->
+                              <!--<mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>-->
+                              <!--<mat-datepicker #date></mat-datepicker>-->
+                            <!--</mat-form-field>-->
+                            <!--<button mat-raised-button (click)="date.open()">-->
+                                <!--<i class="material-icons">calendar_today</i>-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div> &ndash;&gt;-->
+            <!--</div>-->
+
+              <div class="pg-inner-row mb-20 upload-col-3">
+                <ng-container *ngFor="let document of supportingDocs">
+                  <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>Date:</label>
-                        <div class="default-input-feild date-feild">
-                            <mat-form-field appearance="outline">
-                                <input
-                                  matInput
-                                  [matDatepicker]="date"
-                                  formControlName="date"
-                                />
-                              <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
-                              <mat-datepicker #date></mat-datepicker>
-                            </mat-form-field>
-                            <button mat-raised-button (click)="date.open()">
-                                <i class="material-icons">calendar_today</i>
-                            </button>
-                        </div>
+                      <label>{{document.description|listTranslate:document.descriptionSin:document.descriptionTam}}
+                        <span *ngIf="document.required == true">*</span>
+                      </label>
+                      <file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>
                     </div>
-                </div> -->
-            </div>
+                  </div>
+                </ng-container>
+              </div>
 
             <div class="separator">&nbsp;</div>
 
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col"></div>
               <div class="pg-inner-col float-right ">
-                    <button mat-raised-button class="lg-button float-right" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
+
+                    <button mat-raised-button class="lg-button float-right"  [disabled]="!(isRequiredDocsUpload)" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
                 </div>
             </div>
         </form>
