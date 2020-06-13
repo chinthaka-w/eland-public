@@ -1,3 +1,4 @@
+import { SysConfigService } from './../../service/sys-config.service';
 import {Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {PaymentService} from '../../service/payment.service';
@@ -54,6 +55,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   Parameter = Parameters;
   DocumentIssueMethod = DocumentIssueMethod;
   Workflow = Workflow;
+  onlinePaymentServiceCode = SysConfigService.LGPS_SERVICE_CODE;
 
   public paymentResponse = new PaymentResponse;
 
@@ -188,8 +190,8 @@ export class PaymentComponent implements OnInit, OnChanges {
         paymentResponse.applicationAmount = this.totalAmount.toString();
         paymentResponse.deliveryType = this.paymentForm.get('licenseMethod').value;
         paymentResponse.deliveryAmount = this.issueAmount;
-        // genereate uuid
-        paymentResponse.transactionRef = uuid();
+        // genereate uuid with service code's department as a prefix
+        paymentResponse.transactionRef = this.onlinePaymentServiceCode.substring(0, 4) + uuid();
         this.paymentReference = paymentResponse.transactionRef;
         this.paymentMethodResponse.emit(paymentResponse);
       }

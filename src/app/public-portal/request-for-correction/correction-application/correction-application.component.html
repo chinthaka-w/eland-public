@@ -5,7 +5,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row m0">
-        <label>{{'CITIZEN.CITIZEN_CORRECTION.NEAR_LAND_APPL'| translate}}<span class="redtxt"></span></label>
+        <label>{{'CITIZEN.CITIZEN_CORRECTION.NEAR_LAND_APPL'| translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-select formControlName="landRegId" class="form-control"
             placeholder="{{'LAND_REGISTRY.SELECT'| translate}}">
@@ -131,7 +131,7 @@
     <div class="default-input-wrapper full-row">
       <div class="pg-inner-col">
         <button type="button" class="add-row" mat-flat-button (click)="onAddCorrection(editIndex)">
-          {{!isEdit? ('BUTTONS.ADD'| translate): ('BUTTONS.EDIT_BUTTON'| translate)}} <i class="material-icons"> {{!isEdit? 'add_circle_outline': 'edit'}} </i>
+          {{!isEdit? ('BUTTONS.ADD'| translate): ('BUTTONS.UPDATE_BUTTON'| translate)}} <i class="material-icons"> {{!isEdit? 'add_circle_outline': 'edit'}} </i>
         </button>
       </div>
     </div>

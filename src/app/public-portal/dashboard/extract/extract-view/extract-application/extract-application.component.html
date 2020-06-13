@@ -102,6 +102,7 @@
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
             <input matInput readonly
+                   [max]="maxDate"
                    [matDatepicker]="picker"
                    placeholder="Choose a date"
                    formControlName="probablePeriodFrom">

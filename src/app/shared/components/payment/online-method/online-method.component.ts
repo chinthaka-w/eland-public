@@ -62,7 +62,6 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
     this.onlinePaymentForm = this.formBuilder.group({
       applicationAmount: [this.paymentAmount, null],
       transactionRef: [this.transactionRef, null],
-      serviceCode: [this.serviceCode, null],
       encryptedPaymentRequest: [null, null],
       totalFee: [null, null],
       paymentStatusMsg: [null, null]
@@ -83,6 +82,7 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
   initTransaction(): void {
     let paymentDetails = new PaymentDto();
     paymentDetails = this.onlinePaymentForm.value;
+    paymentDetails.serviceCode = this.serviceCode;
     paymentDetails.returnUrl = this.returnUrl;
     paymentDetails.workflowStageCode = this.workflowStageCode ?
       this.getBase64(this.workflowStageCode).split('=')[0] :

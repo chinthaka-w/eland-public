@@ -1,5 +1,5 @@
+import { SystemService } from './../../../shared/service/system.service';
 import { UserType } from './../../../shared/enum/user-type.enum';
-import { SessionService } from 'src/app/shared/service/session.service';
 import { DocumentResponseDto } from './../../../shared/dto/document-response.dto';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PaymentMethod } from './../../../shared/enum/payment-method.enum';
@@ -20,7 +20,6 @@ import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {PaymentDto} from "../../../shared/dto/payment-dto";
 import {Router} from "@angular/router";
-import {BankUserType} from "../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../shared/enum/identification-type.enum";
 import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
 import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
@@ -82,7 +81,7 @@ export class AddPublicUserComponent implements OnInit {
               private bankService: BankService,
               private snackBar: SnackBarService,
               private router: Router,
-              private sessionService: SessionService) {}
+              private systemService: SystemService) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
@@ -339,6 +338,7 @@ export class AddPublicUserComponent implements OnInit {
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
+      this.officersDesignation.disable();
     }
     else if (type == this.PublicUserType.BANK) {
       this.publicUserForm.controls['lawFirmName'].disable();
@@ -387,10 +387,10 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
       .subscribe((result) => {
         if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success('Citizen saved successfully');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
           this.router.navigate(['/login']);
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-          this.snackBar.success('Citizen saved successfully, Proceed to online payment');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS_PROCEED_ONLINE_PAYMENT'));
           this.isContinue = true;
           this.statusOnlinePayment = true;
           this.userId = result.id;

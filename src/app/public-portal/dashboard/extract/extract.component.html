@@ -106,6 +106,7 @@
               <mat-form-field appearance="outline">
                 <input matInput readonly
                        [matDatepicker]="picker"
+                       [max]="maxDate"
                        placeholder="Choose a date"
                        formControlName="probablePeriodFrom">
                 <mat-datepicker #picker></mat-datepicker>
@@ -380,6 +381,7 @@
           </mat-chip-list>
         </div>
         <div class="pg-inner-row mb-10">
+          <mat-error *ngIf="errorSearch">{{errorSearch}}</mat-error>
           <div class="pg-inner-col float-right ">
             <button [disabled]="folioStatus" mat-raised-button
                     (click)="onClickSearch()"
