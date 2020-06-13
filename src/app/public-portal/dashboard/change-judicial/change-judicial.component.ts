@@ -193,7 +193,7 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
   private getJudicialZone(): void {
-    this.judicialService.getAllJudicialZone().subscribe(
+    this.judicialService.getAllJudicialZoneWithoutNotaryReg(this.notaryId).subscribe(
       (data: JudicialZoneModel[]) => {
         this.judicialZone = data;
       }

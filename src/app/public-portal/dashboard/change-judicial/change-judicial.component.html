@@ -187,7 +187,7 @@
 
             <div class="default-input-feild">
                 <mat-select formControlName="judicialZoneId" (selectionChange)="onSelectJudicial(judicialZoneId.value)" class="form-control" placeholder="{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}}">
-                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">{{ jud.nameEng|listTranslate:jud.nameSin:jud.nameTam}}
+                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.id">{{ jud.nameEng|listTranslate:jud.nameSin:jud.nameTam}}
                   </mat-option>
                 </mat-select>
               <div *ngIf="judicialZoneId.invalid && (judicialZoneId.touched || judicialZoneId.dirty)">
@@ -313,7 +313,6 @@
                  [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"
                  [userType]="userType"
                  [userId]="userId"
-                 [workflowStageCode]="workflowStageCode"
                  >
                 </app-payment>
   </div>

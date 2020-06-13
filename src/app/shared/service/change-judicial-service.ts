@@ -37,6 +37,10 @@ export class JudicialService {
     return this.httpClient.get(this.BASE_URL + 'judicial-zone/' );
   }
 
+  getAllJudicialZoneWithoutNotaryReg(notaryId: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'judicial-zone/getAllExceptNotaryReg/' + notaryId);
+  }
+
   getJudicialChangeRequest(notaryId: number): Observable<any> {
     return this.httpClient.post(this.BASE_URL + 'judicial-zone/changeRequest/' , notaryId, {headers: this.headers} );
   }
