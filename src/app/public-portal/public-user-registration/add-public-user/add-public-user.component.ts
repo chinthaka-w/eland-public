@@ -302,7 +302,8 @@ export class AddPublicUserComponent implements OnInit {
       ]);
     } else if (event.value == IdentificationType.PASSPORT) {
       this.identificationNo.setValidators([
-        Validators.required
+        Validators.required,
+        Validators.pattern(PatternValidation.PASSPORT_VALIDATION)
       ]);
     } else if (event.value == IdentificationType.DRIVING_LICENSE) {
       this.identificationNo.setValidators([

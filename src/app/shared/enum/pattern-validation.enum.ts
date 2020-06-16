@@ -16,4 +16,5 @@ export enum PatternValidation {
   SPECIAL_CHARACTES_PATTERN = "[!@#$%^&*(),.?\":{}|<>]",
   FOLIO_CODE_PATTERN = "^([a-zA-Z]{1,9})(\/)([0-9]+)(\/)([0-9]+)$",
   DESIGNATION_PATTERN = '^[-& &,A-Za-z0-9\u0D80-\u0DFF\u0B80-\u0BFF\u200D]+$',
+  PASSPORT_VALIDATION = '^(N|EC|OP|D)[0-9]{8}'
 }
