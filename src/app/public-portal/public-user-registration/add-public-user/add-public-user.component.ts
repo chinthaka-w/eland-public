@@ -293,6 +293,23 @@ export class AddPublicUserComponent implements OnInit {
   }
   getCurrentIdentificationType(event) {
     this.citizenDTO.identificationNoType = event.value;
+
+    // set ref no validations
+    if (event.value == IdentificationType.NIC) {
+      this.identificationNo.setValidators([
+        Validators.required,
+        Validators.pattern(PatternValidation.NIC_PATTERN)
+      ]);
+    } else if (event.value == IdentificationType.PASSPORT) {
+      this.identificationNo.setValidators([
+        Validators.required
+      ]);
+    } else if (event.value == IdentificationType.DRIVING_LICENSE) {
+      this.identificationNo.setValidators([
+        Validators.required,
+      ]);
+    }
+    this.publicUserForm.updateValueAndValidity();
   }
   getCurrentUserType(userType: number) {
 
