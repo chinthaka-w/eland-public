@@ -249,18 +249,89 @@ export class LanguageChangeComponent implements OnInit {
       langEng: [this.langEngCheck, null],
       langSin: [this.langSinCheck, null],
       langTam: [this.langTamCheck, null],
-      fullNameEng: [this.languageChangForm.value.fullNameEng, code === this.langMode.ENGLISH ? [Validators.required,Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)] : null],
-      fullNameSin: [this.languageChangForm.value.fullNameSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      fullNameTam: [this.languageChangForm.value.fullNameTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      nameWithInitEng: [this.languageChangForm.value.nameWithInitEng, code === this.langMode.ENGLISH ? [Validators.required,Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)] : null],
-      nameWithInitSin: [this.languageChangForm.value.nameWithInitSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      nameWithInitTam: [this.languageChangForm.value.nameWithInitTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      addPermanentEng: [this.languageChangForm.value.addPermanentEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-      addPermanentSin: [this.languageChangForm.value.addPermanentSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      addPermanentTam: [this.languageChangForm.value.addPermanentTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      addressEng: [this.languageChangForm.value.addressEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-      addressSin: [this.languageChangForm.value.addressSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      addressTam: [this.languageChangForm.value.addressTam, code === this.langMode.TAMIL ? [Validators.required] : null],
+      fullNameEng: [this.fullNameEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      fullNameSin: [this.fullNameSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      fullNameTam: [this.fullNameTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      nameWithInitEng: [this.nameWithInitialsEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required, Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      nameWithInitSin: [this.nameWithInitialsSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      nameWithInitTam: [this.nameWithInitialsTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      addPermanentEng: [this.permanentAddressEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addPermanentSin: [this.permanentAddressSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addPermanentTam: [this.permanentAddressTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addressEng: [this.currentAddressEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addressSin: [this.currentAddressSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addressTam: [this.currentAddressTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
       // startingDate: [this.languageChangForm.value.startingDate, [Validators.required]],
       // highCourtCertificateYear: [this.languageChangForm.value.highCourtCertificateYear, [Validators.required]],
       // lrName: [this.languageChangForm.value.lrName, [Validators.required]],
