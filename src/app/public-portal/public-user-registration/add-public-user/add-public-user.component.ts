@@ -295,6 +295,8 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.identificationNoType = event.value;
 
     // set ref no validations
+    // clear  identification with type change
+    this.identificationNo.setValue('');
     if (event.value == IdentificationType.NIC) {
       this.identificationNo.setValidators([
         Validators.required,
