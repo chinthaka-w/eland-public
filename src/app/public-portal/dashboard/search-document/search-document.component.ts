@@ -147,11 +147,14 @@ export class SearchDocumentComponent implements OnInit {
           Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
       'volume': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'folioNo': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'noOfYears': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
     });
 
 
@@ -310,11 +313,20 @@ export class SearchDocumentComponent implements OnInit {
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
-      this.searchRequestForm.get('volume').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('volume').setValidators([
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
-      this.searchRequestForm.get('folioNo').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('folioNo').setValidators([
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
-      this.searchRequestForm.get('noOfYears').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('noOfYears').setValidators([
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
