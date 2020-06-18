@@ -29,12 +29,20 @@ export class JudicialService {
     return this.httpClient.get(this.BASE_URL + 'dsDivision/findAll' );
   }
 
+  getDsDivisionsByLR(lrId: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'dsDivision/findByLR/' + lrId);
+  }
+
   getGnDivision(dsDivisionId: number): Observable<any> {
     return this.httpClient.get(this.BASE_URL + 'gnDivision/get/' + dsDivisionId , {headers: this.headers});
   }
 
   getAllJudicialZone(): Observable<any> {
     return this.httpClient.get(this.BASE_URL + 'judicial-zone/' );
+  }
+
+  getAllJudicialZoneWithoutNotaryReg(notaryId: number): Observable<any> {
+    return this.httpClient.get(this.BASE_URL + 'judicial-zone/getAllExceptNotaryReg/' + notaryId);
   }
 
   getJudicialChangeRequest(notaryId: number): Observable<any> {

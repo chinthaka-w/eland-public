@@ -119,7 +119,6 @@ export class ChangeJudicialComponent implements OnInit {
 
     this.notaryId = this.sessionService.getUser().id;
     this.getJudicialZone();
-    this.getDsDivision();
     this.getDocumentList();
     this.locationList.push(this.locationDto);
     this.getLanguages();
@@ -160,8 +159,9 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
 
-  private getDsDivision(): void {
-    this.judicialService.getDsDivision().subscribe(
+
+  getDsDivisions(landRegistryId: number): void {
+    this.judicialService.getDsDivisionsByLR(landRegistryId).subscribe(
       (data: DsDivision[]) => {
         this.gsDivisions = data;
       }
@@ -193,7 +193,7 @@ export class ChangeJudicialComponent implements OnInit {
   }
 
   private getJudicialZone(): void {
-    this.judicialService.getAllJudicialZone().subscribe(
+    this.judicialService.getAllJudicialZoneWithoutNotaryReg(this.notaryId).subscribe(
       (data: JudicialZoneModel[]) => {
         this.judicialZone = data;
       }
@@ -400,6 +400,12 @@ export class ChangeJudicialComponent implements OnInit {
 
   onSelectJudicial(judicialCode: number) {
     this.getLandRegistriesByJudicial(judicialCode);
+    this.gsDivisions = [];
+    this.gnDivisions = [];
+    this.landRegistry.setValue('');
+    this.dsDivision.setValue('');
+    this.gnDivision.setValue('');
+    this.judicialChangeForm.updateValueAndValidity();
   }
 
   getBase64Url(url: string): string {

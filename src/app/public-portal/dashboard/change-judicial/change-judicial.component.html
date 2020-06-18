@@ -187,7 +187,7 @@
 
             <div class="default-input-feild">
                 <mat-select formControlName="judicialZoneId" (selectionChange)="onSelectJudicial(judicialZoneId.value)" class="form-control" placeholder="{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}}">
-                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.judicialZoneId">{{ jud.nameEng|listTranslate:jud.nameSin:jud.nameTam}}
+                  <mat-option *ngFor="let jud of judicialZone" [value]="jud.id">{{ jud.nameEng|listTranslate:jud.nameSin:jud.nameTam}}
                   </mat-option>
                 </mat-select>
               <div *ngIf="judicialZoneId.invalid && (judicialZoneId.touched || judicialZoneId.dirty)">
@@ -205,7 +205,7 @@
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
                 <mat-select name="landRegistry" formControlName="landRegistry" class="form-control"
-                  placeholder="{{'CHG_JUD_ZONE.SELECT_LAND'|translate}}">
+                  placeholder="{{'CHG_JUD_ZONE.SELECT_LAND'|translate}}" (selectionChange)="getDsDivisions(landRegistry.value)">
                   <mat-option *ngFor="let reg of landRegistries" [value]="reg.code">{{ reg.description |listTranslate:reg.descriptionSin:reg.descriptionTam}}
                   </mat-option>
                 </mat-select>
@@ -313,7 +313,6 @@
                  [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"
                  [userType]="userType"
                  [userId]="userId"
-                 [workflowStageCode]="workflowStageCode"
                  >
                 </app-payment>
   </div>

@@ -151,6 +151,10 @@ export class RequestDataComponent implements OnInit {
     return this.requestForm.get('judicialZoneId');
   }
 
+  get landRegistry() {
+    return this.requestForm.get('landRegistry');
+  }
+
   get gnDivision() {
     return this.requestForm.get('gnDivision');
   }
@@ -195,7 +199,7 @@ export class RequestDataComponent implements OnInit {
   }
 
   private getJudicialZone(): void {
-    this.judicialService.getAllJudicialZone().subscribe(
+    this.judicialService.getAllJudicialZoneWithoutNotaryReg(this.notaryId).subscribe(
       (data: JudicialZoneModel[]) => {
         this.judicialZone = data;
       }
@@ -246,6 +250,7 @@ export class RequestDataComponent implements OnInit {
     this.judicialZoneService.getRequestData(id).subscribe(
       (data: JudicialChange) => {
         this.judicialChange = data;
+        console.log('judicial data: ', data);
         this.getGnDivision(this.judicialChange.newNotaryDsDivisionDTO[0].dsDivisionId);
         if (this.workflow === JudicialChangeWorkflowStagesEnum.DATA_VERIFICATION_CLERK_REJECTED) {
           this.setRequestedGnDivisions(this.judicialChange.newNotaryDsDivisionDTO);
@@ -347,6 +352,21 @@ export class RequestDataComponent implements OnInit {
     this.judicialService.getLandRegistriesByJudicialZone(judicialZoneCode).subscribe(
       (response) => {
         this.landRegistries = response;
+      }
+    );
+    this.gsDivisions = [];
+    this.gnDivisions = [];
+    this.landRegistry.setValue('');
+    this.dsDivision.setValue('');
+    this.gnDivision.setValue('');
+    this.requestForm.updateValueAndValidity();
+  }
+
+  getDsDivisions(lrId: number) {
+    console.log('on change lr');
+    this.judicialService.getDsDivisionsByLR(lrId).subscribe(
+      (data: DsDivision[]) => {
+        this.gsDivisions = data;
       }
     );
   }
