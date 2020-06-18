@@ -225,6 +225,10 @@
                   {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
                   {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
+                <mat-error *ngIf="FormControls.permenentAddressInEnglish.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
+                </mat-error>
                 <mat-error *ngIf="FormControls.permenentAddressInEnglish.errors.maxlength" class="errors">
                   {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
                 </mat-error>
@@ -249,6 +253,10 @@
                   {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
                   {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
+                <mat-error *ngIf="FormControls.permenentAddressInSinhala.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
+                </mat-error>
                 <mat-error *ngIf="FormControls.permenentAddressInSinhala.errors.maxlength" class="errors">
                   {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
                 </mat-error>
@@ -271,6 +279,10 @@
                 <mat-error *ngIf="FormControls.permenentAddressInTamil.errors.required" class="errors">
                   {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
                   {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.permenentAddressInTamil.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
                 </mat-error>
                 <mat-error *ngIf="FormControls.permenentAddressInTamil.errors.maxlength" class="errors">
                   {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
@@ -297,6 +309,10 @@
                   {{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
                   {{'NOTARY.REQUIRED'|translate}}
                 </mat-error>
+                <mat-error *ngIf="FormControls.currentAddressInEnglish.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
+                </mat-error>
                 <mat-error *ngIf="FormControls.currentAddressInEnglish.errors.maxlength" class="errors">
                   {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
                 </mat-error>
@@ -318,6 +334,10 @@
                 <mat-error *ngIf="FormControls.currentAddressInSinhala.errors.required" class="errors">
                   {{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
                   {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.currentAddressInSinhala.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
                 </mat-error>
                 <mat-error *ngIf="FormControls.currentAddressInSinhala.errors.maxlength" class="errors">
                   {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
@@ -341,6 +361,10 @@
                 <mat-error *ngIf="FormControls.currentAddressInTamil.errors.required" class="errors">
                   {{'CONTACT_DETAILS.CURRENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
                   {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.currentAddressInTamil.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
                 </mat-error>
                 <mat-error *ngIf="FormControls.currentAddressInTamil.errors.maxlength" class="errors">
                   {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
@@ -622,6 +646,7 @@
                        [matDatepicker]="picker2"
                        readonly
                        [max]="today"
+                       [min]="dateOfBirth.value"
                        formControlName="enrolledDate"
                        class="form-control">
                 <mat-datepicker #picker2></mat-datepicker>
@@ -649,6 +674,7 @@
                        [matDatepicker]="picker3"
                        readonly
                        [max]="today"
+                       [min]="dateOfBirth.value"
                        formControlName="passedDate"
                        class="form-control">
                 <mat-datepicker #picker3></mat-datepicker>
@@ -694,8 +720,8 @@
               <label>{{document.description}}
                 <span *ngIf="document.required" class="redtxt"> *</span>
               </label>
-              <file-upload-input [invalid]="document.invalid" (response)="setFiles($event,document.docTypeId)"></file-upload-input>
-              <mat-error *ngIf="document.invalid">Document required</mat-error>
+              <file-upload-input [invalid]="document.invalid && document.selected" (response)="setFiles($event,document)"></file-upload-input>
+              <mat-error *ngIf="document.invalid && document.selected">Document required</mat-error>
             </div>
           </div>
         </ng-container>
@@ -732,12 +758,14 @@
       <div class="pg-inner-row mb-0">
         <div class="pg-inner-col">
           <div class="f-captcha">
-            <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
+            <re-captcha formControlName="recaptcha" (resolved)="resolved($event)" class="form-control"></re-captcha>
           </div>
         </div>
         <div class="pg-inner-col right">
           <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-          <button mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'BUTTONS.CONTINUE_BUTTON'|translate}}
+          <button mat-raised-button class="lg-button"
+                  [disabled]="notaryForm.invalid || checkDocumentValidation()"
+                  (click)="onFormSubmit()">{{'BUTTONS.CONTINUE_BUTTON'|translate}}
           </button>
         </div>
       </div>

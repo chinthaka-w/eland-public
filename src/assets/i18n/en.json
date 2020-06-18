@@ -1117,7 +1117,7 @@
         "TITLE": "Request for Section 35 Correction",
         "NEW_REQUEST": {
            "TITLE": "Request for Corrections of Registrations",
-           "SUB_TITLE": "Please fill in the following information to register in the system"
+           "SUB_TITLE": "Please fill the following information to request for corrections"
         }
      },
      "JUDICIAL_CHANGE": {
@@ -1306,7 +1306,7 @@
     "REGISTRY1":"LAND REGISTRY CHANGE",
     "REGISTRY2":"REQUEST FOR LAND REGISTRY CHANGE",
     "SECTION351":"Section 35 Correction",
-    "SECTION352":"REQUEST FOR Section 35 Correction",
+    "SECTION352":"Request for Section 35 Correction",
     "NEW":"New",
     "REQUEST_ID":"Request ID",
     "NAME":"Full Name",
