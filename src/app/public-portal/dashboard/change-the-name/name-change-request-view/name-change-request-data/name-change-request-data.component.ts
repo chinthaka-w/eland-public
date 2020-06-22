@@ -143,7 +143,7 @@ export class NameChangeRequestDataComponent implements OnInit {
     );
   }
 
-  private addLanguageList(id:number): void {
+  public addLanguageList(id:number): void {
     if(id === Languages.SINHALA)
       this.isSinhala = (!this.isSinhala);
     if(id === Languages.TAMIL)

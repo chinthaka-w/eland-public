@@ -189,6 +189,22 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     );
   }
 
+  onChangeGnDivision(value){
+    
+  }
+
+  onChangeDsDivision(value){
+
+  }
+
+  onChangeKorale(value){
+
+  }
+
+  onChangeLandRegistry(value){
+
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['workflow'] || changes['requestId']) {
       this.loadSearchRequest();

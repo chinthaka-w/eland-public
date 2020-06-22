@@ -51,6 +51,10 @@ export class NotaryRequestViewComponent implements OnInit {
   ngOnInit() {
   }
 
+  applyFilter(value){
+    
+  }
+
   loadRequests() {
     this.notaryRequestService.findRequestByNotaryAndWorkFlow(this.notaryId, this.workflow).subscribe(
       (data: NotaryRequestView[]) => {

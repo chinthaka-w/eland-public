@@ -1,7 +1,7 @@
 <div class="default-input-feild">
   <div [class]="invalid?'drag-drop-error drag-drop':'drag-drop'">
     <div [class]="invalid?'drag-drop-inner':'drag-drop-inner'">
-      <button type="button" [class]="'f-uploader'" (click)="onClick($event)">
+      <button type="button" [class]="'f-uploader'" (click)="onClick()">
         <div *ngIf="!imageSrc"><i class="material-icons">cloud_upload</i> Upload Single (image / PDF)</div>
         <img [src]="imageSrc" *ngIf="imageSrc" style="height: 30px; width:50px">
         <input

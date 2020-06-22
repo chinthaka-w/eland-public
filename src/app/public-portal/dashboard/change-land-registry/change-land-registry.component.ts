@@ -50,7 +50,7 @@ export class ChangeLandRegistryComponent implements OnInit {
   userType: string;
   userId: number;
   isRequiredDocsUpload = false;
-
+  public isContinueToPayment: boolean;
 
 
   constructor( private judicialService: JudicialService,
