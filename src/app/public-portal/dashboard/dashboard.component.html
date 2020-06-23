@@ -39,7 +39,7 @@
           <button mat-raised-button class="green" (click)="viewDetails()">View</button>
         </div>
       </div>
-      <div class="db-card-full" *ngIf="user.type == userType.CITIZEN">
+      <div class="db-card-full" *ngIf="user.type == userType.CITIZEN && user.userStatus != (commonStatus.ACTIVE)">
         <div class="db-card-header" style="background-image: url('assets/images/temp_img_006.jpg')">
         </div>
         <div class="db-card-content">
@@ -157,14 +157,6 @@
               <i class="material-icons">feedback</i>
             </span>
             <span class="title">{{'DASOBOARD.REQUESTS'|translate}}</span>
-          </a>
-        </div>
-        <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
-          <a [routerLink]="['/request-for-correction']">
-            <span class="icon">
-              <i class="material-icons">label</i>
-            </span>
-            <span class="title">{{'DASOBOARD.REQUEST_FOR_CORRECTION'|translate}}</span>
           </a>
         </div>
       </div>
