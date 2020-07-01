@@ -1,0 +1,26 @@
+file-upload-input .default-input-feild {
+    min-height: 200px;
+}
+
+.drag-drop .f-uploader > .ng-star-inserted {
+    min-height: 80px;
+    display: block;
+}
+
+.drag-drop .f-uploader > .ng-star-inserted {
+    min-height: 30px;
+    display: block;
+    height: 50px !important;
+    position: relative;
+    top: 10px;
+}
+
+.uploaded-file {
+    position: absolute;
+    width: 80%;
+    bottom: 0;
+}
+
+.drag-drop .f-uploader {
+    padding: 30px 30px 70px 30px !important;
+}
