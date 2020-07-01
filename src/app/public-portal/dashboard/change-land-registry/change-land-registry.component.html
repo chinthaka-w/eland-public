@@ -85,7 +85,7 @@
       <!--</div>-->
 
       <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
-        <button  mat-raised-button class="lg-button" (click)="continue()">
+        <button  mat-raised-button class="lg-button" [disabled]="!(landRegistryChangeForm.valid && isRequiredDocsUpload)" (click)="continue()">
           {{'BUTTONS.SUBMIT_BUTTON'|translate}}
         </button>
       </div>
