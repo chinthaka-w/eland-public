@@ -16,6 +16,7 @@ import {SystemService} from 'src/app/shared/service/system.service';
 import {NewNotaryRegistrationWorkflowStage} from '../../shared/enum/new-notary-registration-workflow-stage.enum';
 import {WorkflowStages} from '../../shared/enum/workflow-stages.enum';
 import {WorkflowStageNotaryResignation} from '../../shared/enum/workflow-stage-notary-resignation.enum';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,6 +42,8 @@ export class DashboardComponent implements OnInit {
   folioPending = false;
   folioNo = '3/Y/1/1';
 
+  returnUrl: any;
+
   constructor(
     private sessionService: SessionService,
     private notaryService: NotaryService,
@@ -48,8 +51,13 @@ export class DashboardComponent implements OnInit {
     private folioService: FolioService,
     private snackbar: SnackBarService,
     private systemService: SystemService,
-    private citizenService: CitizenService
+    private citizenService: CitizenService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
+    this.activatedRoute.params.subscribe(params => {
+      this.returnUrl = atob(params['returnUrl']);
+    });
   }
 
   ngOnInit() {
@@ -59,6 +67,7 @@ export class DashboardComponent implements OnInit {
     this.notaryId = this.user.id;
     this.getUserDetails();
     this.notaryNameChangeWorkFlow = WorkflowStages.NOTARY_NAME_CHANGE;
+    if (this.returnUrl == NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED) this.viewDetails();
   }
 
   getBase64(value: string): string {
@@ -224,7 +233,10 @@ export class DashboardComponent implements OnInit {
   }
 
   onBackNotaryView(val: boolean) {
-    if (this.user.type == this.userType.NOTARY) { this.getUserDetails(); }
+    if (this.user.type == this.userType.NOTARY) {
+      this.getUserDetails();
+    }
+    this.router.navigate(['/dashboard']);
     this.dashboardView = true;
     this.requestView = false;
   }

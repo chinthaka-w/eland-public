@@ -3,6 +3,8 @@ export class WorkflowStageDocDto {
   public descriptionTam: string;
   public invalid: boolean;
   public selected: boolean;
+  public error: boolean;
+  public errorMsg: any;
 
   constructor(
     public docId: number,

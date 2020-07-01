@@ -60,6 +60,7 @@ export class NotaryApplicationComponent implements OnInit {
 
   @Input() files: File[] = [];
   @Output() notaryDetail = new EventEmitter<Notary>();
+  @Output() onLoadDetails = new EventEmitter<boolean>();
   @Input() requestDetailId: RequestSearchDetailDTO;
 
 
@@ -413,6 +414,7 @@ export class NotaryApplicationComponent implements OnInit {
     this.newNotaryDataVarificationService.getNotaryDetails(this.searchType).subscribe(
       (result: NewNotaryViewDto) => {
         this.result = result;
+
         this.notaryForm.patchValue(
           {
             notary: this.result.notaryType == 'Notary' ? NotaryRegisterType.NOTARY : NotaryRegisterType.ATTORNEY_AT_LAW,
@@ -466,6 +468,7 @@ export class NotaryApplicationComponent implements OnInit {
       error1 => {
       }, () => {
 
+        this.onLoadDetails.emit(true);
         for (let item of this.dsGnList) {
           let dsDivision = this.getLocalDSDivisionById(item.dsDivisionId);
 

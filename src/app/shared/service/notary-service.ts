@@ -57,6 +57,11 @@ export class NotaryService {
     return this.httpClient.get(this.BASE_URL + '/find/' + nic, {headers: this.headersJson});
   }
 
+  // tslint:disable-next-line:ban-types
+  findEmailIfNotaryExist(email: string): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + '/find/email/' + email, {headers: this.headersJson});
+  }
+
   findLastRemark(id: number): Observable<Object> {
     return this.httpClient.get(`${this.BASE_URL}/LastRemark/${id}`, {headers: this.headersJson});
   }

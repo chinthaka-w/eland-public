@@ -167,7 +167,8 @@
 <div *ngIf="requestView && !dashboardView">
   <app-view-notary
     [notaryId]="notaryId"
-    [notaryRequestId]="searchDetails.requestId"
-    [workflowStage]="searchDetails.workflow"
+    [notaryRequestId]="searchDetails?.requestId"
+    [workflowStage]="searchDetails?.workflow"
+    [paymentAdded]="returnUrl"
     (onBack)="onBackNotaryView($event)"></app-view-notary>
 </div>

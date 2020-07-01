@@ -27,7 +27,7 @@ import {FolioNoService} from '../../../shared/service/folio-no.service';
 import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
 import {KoraleService} from '../../../shared/service/korale.service';
 import {DsDivisionService} from '../../../shared/service/ds-division.service';
-import {Location} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {ExtractRequestService} from '../../../shared/service/extract-request.service';
 import {ExtractRequest} from '../../../shared/dto/extract-request.model';
@@ -98,6 +98,7 @@ export class ExtractComponent implements OnInit {
     public router: Router,
     private snackBarService: SnackBarService,
     private location: Location,
+    private datePipe: DatePipe,
     private systemService: SystemService) {
 
     let data = this.router.getCurrentNavigation().extras.state;
@@ -143,13 +144,13 @@ export class ExtractComponent implements OnInit {
         Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
       'volume': new FormControl('', [Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'folioNo': new FormControl('', [Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'noOfYears': new FormControl('', [Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
     });
 
@@ -310,17 +311,17 @@ export class ExtractComponent implements OnInit {
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
       this.searchRequestForm.get('volume').setValidators([
         Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
       this.searchRequestForm.get('folioNo').setValidators([
         Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
       this.searchRequestForm.get('noOfYears').setValidators([
         Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([
@@ -444,6 +445,10 @@ export class ExtractComponent implements OnInit {
       this.searchRequest.userId = this.sessionService.getUser().id;
       this.searchRequest.userType = this.sessionService.getUser().type;
       this.searchRequest.folioNoStatus = this.folioStatus ? this.folioStatus.code : null;
+      this.searchRequest.probablePeriodFrom = this.datePipe.transform(
+        this.form.get('probablePeriodFrom').value,'yyyy-MM-dd');
+      this.searchRequest.probablePeriodTo = this.datePipe.transform(
+        this.form.get('probablePeriodTo').value,'yyyy-MM-dd');
       this.isContinueToPayment = !this.isContinueToPayment;
     } else {
       this.snackBarService.error(errorMassage);

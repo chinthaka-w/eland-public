@@ -57,6 +57,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'dashboard/:returnUrl',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'edit-profile',
     component: ProfileEditComponent,
     canActivate: [AuthGuard],
