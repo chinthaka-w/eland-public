@@ -320,8 +320,7 @@
                       formControlName="lrDivisionId">
                 <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
                 <option *ngFor="let item of lrDivisions" [value]="item.landRegistryDivisionId">
-                  {{item.divisionCode+' -
-                  '+(item.description|listTranslate:item.descriptionSin:item.descriptionTam)}}
+                  {{item.divisionCode+' - '+(item.description|listTranslate:item.descriptionSin:item.descriptionTam)}}
                 </option>
               </select>
             </mat-form-field>
