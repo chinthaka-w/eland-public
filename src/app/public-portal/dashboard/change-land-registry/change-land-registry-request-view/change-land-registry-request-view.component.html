@@ -11,6 +11,9 @@
       <mat-tab label="{{'EDIT_PROFILE.APPLICATION'|translate}}">
         <app-application1 [requestID]="id"></app-application1>
       </mat-tab>
+      <mat-tab label="{{'CHANGE_NAME.REMARK'|translate}}">
+        <app-notary-remark [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-remark>
+      </mat-tab>
       <!--<mat-tab label="Account Details">-->
       <!--<app-notary-clerk></app-notary-clerk>-->
       <!--</mat-tab>-->

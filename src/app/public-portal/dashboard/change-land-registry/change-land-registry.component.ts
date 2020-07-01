@@ -194,28 +194,8 @@ export class ChangeLandRegistryComponent implements OnInit {
   }
 
   continue(): void {
-    let isValid = true;
-    let errorMassage = '';
-    if (this.isRequiredDocsUpload === false) {
-      isValid = false;
-      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.UPLOAD_DOCS');
-    }
-    if (this.landRegistryChangeForm.value.landRegistry === '') {
-      isValid = false;
-      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.SELECT_LAND_REG');
-    }
 
-    if (this.landRegistryChangeForm.value.reason === '') {
-      isValid = false;
-      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.ENTER_REASON');
-    }
-
-    if (isValid) {
-      // this.isContinue = true;
-      this.saveRequest();
-    } else {
-      this.snackBar.error(errorMassage);
-    }
+    this.saveRequest();
 
   }
 

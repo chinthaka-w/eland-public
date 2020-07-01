@@ -8,6 +8,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {ChangeLandRegistryService} from '../../../../shared/service/change-land-registry.service';
 import {LandRegistryChangeRequestModel} from '../../../../shared/dto/land-registry-change-request.model';
 import {Location} from '@angular/common';
+import {Workflow} from '../../../../shared/enum/workflow.enum';
 
 @Component({
   selector: 'app-change-land-registry-request-view',
@@ -28,7 +29,7 @@ export class ChangeLandRegistryRequestViewComponent implements OnInit {
               private changelandRegistryService: ChangeLandRegistryService,
               private location: Location) {
     this.route.params.subscribe(params => {
-      this.workflow  = atob(params['workflow']);
+      this.workflow  = Workflow.CHANGE_LAND_REGISTRY
       this.requestId  = atob(params['id']);
       this.id = +this.requestId;
     });
