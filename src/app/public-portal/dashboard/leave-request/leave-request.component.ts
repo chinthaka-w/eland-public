@@ -43,6 +43,7 @@ export class LeaveRequestComponent implements OnInit {
       fromDate: new FormControl('', [Validators.required]),
       toDate: new FormControl('', [Validators.required]),
       reason: new FormControl('', [Validators.required]),
+      recaptcha: new FormControl('', [Validators.required])
     });
     this.route.params.subscribe(param => {
       if (param && param.id) {
