@@ -8,7 +8,7 @@
           #fileUpload
           type="file"
           [class]="'input_fileupload--hidden'"
-          accept="image/*,application/pdf"
+          accept="image/jpg,image/png,image/jpeg,application/pdf"
           (change)="onFileSelected($event)"
         />
       </button>
@@ -19,5 +19,6 @@
         </button>
       </div>
     </div>
+    <mat-error *ngIf="!document && errorMsg">{{errorMsg}}</mat-error>
   </div>
 </div>

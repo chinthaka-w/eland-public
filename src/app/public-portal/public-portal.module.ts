@@ -50,6 +50,7 @@ import { PaymentTableComponent } from './dashboard/view-notary/notary-payment-in
 import { RemrkTableComponent } from './dashboard/view-notary/notary-remark/remrk-table/remrk-table.component';
 import { SupportingDocDetailComponent } from './dashboard/view-notary/supporting-doc-detail/supporting-doc-detail.component';
 import {
+  MAT_DATE_LOCALE,
   MatBadgeModule,
   MatBottomSheetModule,
   MatCardModule,

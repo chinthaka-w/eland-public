@@ -130,6 +130,70 @@ export class AddNotaryComponent implements OnInit {
   userId: any;
   WorkflowStages = WorkflowStages;
 
+  get languages(): FormControl {
+    return this.notaryForm.get('languages') as FormControl;
+  }
+
+  get dateOfBirth(): FormControl {
+    return this.notaryForm.get('dateOfBirth') as FormControl;
+  }
+
+  get nic(): FormControl {
+    return this.notaryForm.get('nic') as FormControl;
+  }
+
+  get sinhalaNameWithInitials(): FormControl {
+    return this.notaryForm.get('sinhalaNameWithInitials') as FormControl;
+  }
+
+  get tamilNameWithInitials(): FormControl {
+    return this.notaryForm.get('tamilNameWithInitials') as FormControl;
+  }
+
+  get fullNameInSinhala(): FormControl {
+    return this.notaryForm.get('fullNameInSinhala') as FormControl;
+  }
+
+  get fullNameInTamil(): FormControl {
+    return this.notaryForm.get('fullNameInTamil') as FormControl;
+  }
+
+  get permenentAddressInSinhala(): FormControl {
+    return this.notaryForm.get('permenentAddressInSinhala') as FormControl;
+  }
+
+  get permenentAddressInTamil(): FormControl {
+    return this.notaryForm.get('permenentAddressInTamil') as FormControl;
+  }
+
+  get currentAddressInSinhala(): FormControl {
+    return this.notaryForm.get('currentAddressInSinhala') as FormControl;
+  }
+
+  get currentAddressInTamil(): FormControl {
+    return this.notaryForm.get('currentAddressInTamil') as FormControl;
+  }
+
+  get secretariatDivision(): FormControl {
+    return this.notaryForm.get('secretariatDivision') as FormControl;
+  }
+
+  get gramaNiladhariDivision(): FormControl {
+    return this.notaryForm.get('gramaNiladhariDivision') as FormControl;
+  }
+
+  get reCaptcha(): FormControl {
+    return this.notaryForm.get('recaptcha') as FormControl;
+  }
+
+  get enrolledDate(): FormControl {
+    return this.notaryForm.get('enrolledDate') as FormControl;
+  }
+
+  get passedDate(): FormControl {
+    return this.notaryForm.get('passedDate') as FormControl;
+  }
+
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private publicUserService: PublicUserService,
@@ -187,7 +251,12 @@ export class AddNotaryComponent implements OnInit {
         asyncValidators: [this.nicValidator()],
         updateOn: 'blur'
       }),
-      email: new FormControl(null, [Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+      email: new FormControl(null,{
+        validators: [Validators.required, Validators.pattern(PatternValidation.emailValidation)],
+          asyncValidators: [this.emailValidator()],
+          updateOn: 'blur'
+      }
+        ),
       languages: new FormControl(this.Languages.ENGLISH),
       enrolledDate: new FormControl(null, [Validators.required]),
       passedDate: new FormControl(null, [Validators.required]),
@@ -353,7 +422,9 @@ export class AddNotaryComponent implements OnInit {
       }
     );
 
-    this.dateOfBirth.valueChanges.subscribe(value => this.nic.updateValueAndValidity());
+    this.dateOfBirth.valueChanges.subscribe(value => {
+      this.nic.updateValueAndValidity();
+    });
 
     this.notaryForm.valueChanges.subscribe(value => {
       if (this.dsGnList.length != 0) {
@@ -368,62 +439,6 @@ export class AddNotaryComponent implements OnInit {
     this.getDsDivisions();
     this.getJudicialZones();
     this.getDocumentList();
-  }
-
-  get languages(): FormControl {
-    return this.notaryForm.get('languages') as FormControl;
-  }
-
-  get dateOfBirth(): FormControl {
-    return this.notaryForm.get('dateOfBirth') as FormControl;
-  }
-
-  get nic(): FormControl {
-    return this.notaryForm.get('nic') as FormControl;
-  }
-
-  get sinhalaNameWithInitials(): FormControl {
-    return this.notaryForm.get('sinhalaNameWithInitials') as FormControl;
-  }
-
-  get tamilNameWithInitials(): FormControl {
-    return this.notaryForm.get('tamilNameWithInitials') as FormControl;
-  }
-
-  get fullNameInSinhala(): FormControl {
-    return this.notaryForm.get('fullNameInSinhala') as FormControl;
-  }
-
-  get fullNameInTamil(): FormControl {
-    return this.notaryForm.get('fullNameInTamil') as FormControl;
-  }
-
-  get permenentAddressInSinhala(): FormControl {
-    return this.notaryForm.get('permenentAddressInSinhala') as FormControl;
-  }
-
-  get permenentAddressInTamil(): FormControl {
-    return this.notaryForm.get('permenentAddressInTamil') as FormControl;
-  }
-
-  get currentAddressInSinhala(): FormControl {
-    return this.notaryForm.get('currentAddressInSinhala') as FormControl;
-  }
-
-  get currentAddressInTamil(): FormControl {
-    return this.notaryForm.get('currentAddressInTamil') as FormControl;
-  }
-
-  get secretariatDivision(): FormControl {
-    return this.notaryForm.get('secretariatDivision') as FormControl;
-  }
-
-  get gramaNiladhariDivision(): FormControl {
-    return this.notaryForm.get('gramaNiladhariDivision') as FormControl;
-  }
-
-  get reCaptcha(): FormControl {
-    return this.notaryForm.get('recaptcha') as FormControl;
   }
 
   usernameValidator(): AsyncValidatorFn {
@@ -450,6 +465,18 @@ export class AddNotaryComponent implements OnInit {
     };
   }
 
+  emailValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.notaryService.findEmailIfNotaryExist(control.value).pipe(
+        map(res => {
+          // if res is true, username exists, return true
+          return res != null ? {emailExists: true} : null;
+          // NB: Return null if there is no error
+        })
+      );
+    };
+  }
+
   dobByNICValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
 
@@ -468,7 +495,6 @@ export class AddNotaryComponent implements OnInit {
       }
     );
   }
-
 
   setFiles(data: any, doc: any) {
     doc.selected = true;
