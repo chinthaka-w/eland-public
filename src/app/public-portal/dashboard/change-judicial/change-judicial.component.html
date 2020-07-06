@@ -223,7 +223,7 @@
             <label>{{'CHG_JUD_ZONE.DS_DIV'|translate}} <span class="redtxt">*</span> </label>
             <div class="default-input-feild">
               <mat-select class="form-control" formControlName="dsDivision" class="form-control"
-                placeholder="{{'CHG_JUD_ZONE.SLECT_DS'|translate}}" (selectionChange)="selectGsDivision($event.value, i)">
+                placeholder="{{'CHG_JUD_ZONE.SLECT_DS'|translate}}" (selectionChange)="selectGsDivision($event.value)">
                 <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.divisionId}}"
                   [disabled]="gsDivision.isSelected">{{ gsDivision.description|listTranslate:gsDivision.descriptionSin: gsDivision.descriptionTam }}</mat-option>
               </mat-select>

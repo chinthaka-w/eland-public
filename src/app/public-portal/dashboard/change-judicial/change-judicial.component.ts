@@ -264,18 +264,18 @@ export class ChangeJudicialComponent implements OnInit {
     this.previousSelections.splice(index, 1);
   }
 
-  selectGsDivision(gsDivisionId, index) {
+  selectGsDivision(gsDivisionId) {
     this.dsDivisionId = gsDivisionId;
     this.getGnDivision(gsDivisionId);
-    this.gsDivisions.forEach(gsDivision => {
-      if (gsDivision.dsDivisionId === gsDivisionId) {
-        this.isSelected = true;
-      }
-      if (gsDivision.dsDivisionId === this.previousSelections[index]) {
-        this.isSelected = false;
-      }
-    });
-    this.previousSelections[index] = gsDivisionId;
+    // this.gsDivisions.forEach(gsDivision => {
+    //   if (gsDivision.dsDivisionId === gsDivisionId) {
+    //     this.isSelected = true;
+    //   }
+    //   if (gsDivision.dsDivisionId === this.previousSelections[index]) {
+    //     this.isSelected = false;
+    //   }
+    // });
+    // this.previousSelections[index] = gsDivisionId;
   }
 
 

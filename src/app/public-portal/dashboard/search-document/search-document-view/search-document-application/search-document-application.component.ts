@@ -452,5 +452,12 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     );
   }
 
+  // temporary implimented for production build
+  onClickSearch(){}
+  onChangeGnDivision(value){}
+  onChangeDsDivision(value){}
+  onChangeKorale(value){}
+  onChangeLandRegistry(value){}
+
 }
 

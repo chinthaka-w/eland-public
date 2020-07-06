@@ -10,7 +10,7 @@ export class InputMaxLengthDirective {
 
   @Input('inputMaxLength') maxLength: number;
 
-  @HostListener('keypress') onkeypress(e) {
+  @HostListener('keypress',['$event']) onkeypress(e) {
 
     let event = e || window.event;
     if (event) {

@@ -27,7 +27,7 @@ export class ResignationComponent implements OnInit {
               private notaryResignationService: NotaryResignationService,
               private snackBar: SnackBarService,
               private sessionService: SessionService,
-              private router: Router,
+              public router: Router,
               private systemService: SystemService) { }
 
   ngOnInit() {

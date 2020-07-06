@@ -30,7 +30,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @ViewChild(PaymentMethodComponent, {static: false}) paymentMethodComponent: PaymentMethodComponent;
   @Input() workflow: string = Workflow.NOTARY_REGISTRATION;
   @Input() id: number;
-  @Input() action: number;
+  @Input() action: any;
   @Input() isDocumentCollect: boolean;
   @Input() hasFrontCounterPayment: boolean;
   @Input() addPayment: boolean = true;

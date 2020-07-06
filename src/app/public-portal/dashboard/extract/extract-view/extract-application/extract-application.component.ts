@@ -513,6 +513,9 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     );
   }
 
+  // temporary implimented for production build
+  onClickSearch(){}
+
 }
 
 export interface Element {

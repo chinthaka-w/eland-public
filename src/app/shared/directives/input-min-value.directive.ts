@@ -11,7 +11,7 @@ export class InputMinValueDirective {
 
   @Input('inputMinValue') minValue: number;
 
-  @HostListener('keypress') onkeypress(e) {
+  @HostListener('keypress', ['$event']) onkeypress(e) {
     let event = e || window.event;
     if (event) {
       return this.isValidValue(event);

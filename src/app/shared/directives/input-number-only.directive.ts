@@ -9,7 +9,7 @@ export class InputNumberOnlyDirective {
   constructor(private el: ElementRef) {
   }
 
-  @HostListener('keypress') onkeypress(e) {
+  @HostListener('keypress',['$event']) onkeypress(e) {
     let event = e || window.event;
     if (event) {
       return this.isNumberKey(event);

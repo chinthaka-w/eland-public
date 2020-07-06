@@ -185,7 +185,7 @@ export class ChangeTheNameComponent implements OnInit {
 
   }
 
-  private addLanguageList(id: number): void {
+  addLanguageList(id: number): void {
     if (id === Languages.SINHALA) {
       this.isSinhala = (!this.isSinhala);
     }
@@ -196,7 +196,7 @@ export class ChangeTheNameComponent implements OnInit {
     this.setData();
   }
 
-  private getNameTitles() {
+  getNameTitles() {
     this.languageChangeService.getNameTitle().subscribe(
       (result: NameTitleDTO[]) => {
         this.nameTitles = result;
