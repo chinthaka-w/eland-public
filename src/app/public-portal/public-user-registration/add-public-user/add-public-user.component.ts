@@ -1,3 +1,4 @@
+import { StatusDTO } from './../../../shared/dto/status-dto';
 import { SystemService } from './../../../shared/service/system.service';
 import { UserType } from './../../../shared/enum/user-type.enum';
 import { DocumentResponseDto } from './../../../shared/dto/document-response.dto';
@@ -55,7 +56,7 @@ export class AddPublicUserComponent implements OnInit {
   formData: FormData = new FormData();
   isMadatoryDocsUploaded = false;
   docMetaList: DocumentResponseDto[] = [];
-  
+  bankBranches: StatusDTO[] = [];
 
   /**
    * **Online payment method**
@@ -88,6 +89,7 @@ export class AddPublicUserComponent implements OnInit {
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl("", [Validators.required]),
       bankName: new FormControl("", [Validators.required]),
+      bankBranch: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [
         Validators.required,
         Validators.maxLength(255),
@@ -228,6 +230,10 @@ export class AddPublicUserComponent implements OnInit {
     return this.publicUserForm.get('type');
   }
 
+  get bankBranch() {
+    return this.publicUserForm.get('bankBranch');
+  }
+
   setFiles(files, key, status: boolean){
     this.fileList[key] = files;
     console.log('file list: ', this.fileList);
@@ -290,7 +296,25 @@ export class AddPublicUserComponent implements OnInit {
   
   getCurrentBank(event) {
     this.citizenDTO.bankId = event.value;
+    // get bank branches
+    this.getBankBranches(this.citizenDTO.bankId);
   }
+
+  getBankBranches(bankId: number) {
+    this.bankService.findBankBranches(bankId).subscribe(
+      (response: any) => {
+        this.bankBranches = response;
+      },
+      () => {
+        this.snackBar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
+      }
+    );
+  }
+
+  selectBranch(bankBranchId: number) {
+    this.citizenDTO.bankBranchId = bankBranchId;
+  }
+
   getCurrentIdentificationType(event) {
     this.citizenDTO.identificationNoType = event.value;
 
@@ -355,6 +379,7 @@ export class AddPublicUserComponent implements OnInit {
   disableUselessFormControls(type: number) {
     if(type == this.PublicUserType.CITIZEN) {
       this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
@@ -367,16 +392,19 @@ export class AddPublicUserComponent implements OnInit {
     }
     else if (type == this.PublicUserType.LAWYER) {
       this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.STATE) {
       this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.OTHER) {
       this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['address1'].disable();
