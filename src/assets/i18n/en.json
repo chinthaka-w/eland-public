@@ -1145,7 +1145,8 @@
     "NOTARY_NAME":"Notary Name:",
     "NOTARY_ID":"Notary Id:",
     "NEW_LAN_REG":"New Land Registry:",
-    "PER_ADD":"Permenent address:"
+    "PER_ADD":"Permenent address:",
+    "SUCCESS_LR": "Land Registry Change Request Success"
   },
 
   "PAYMENT":{
