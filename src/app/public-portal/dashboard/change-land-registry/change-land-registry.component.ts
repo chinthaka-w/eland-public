@@ -101,7 +101,7 @@ export class ChangeLandRegistryComponent implements OnInit {
 
   this.changelandRegistryService.save(formData).subscribe(
     (success: string ) => {
-      this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUCCESS_JUD_REQ'));
+      this.snackBar.success(this.systemService.getTranslation('CHG_LANDREG.SUCCESS_LR'));
       this.router.navigate(['/requests', btoa(Workflow.CHANGE_LAND_REGISTRY)]);
       },
       error1 => {
