@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NewNotaryDsDivisionDTO} from "../../../../../shared/dto/new-notary-ds-division.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -18,7 +18,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     ])
   ]
 })
-export class DsGnDivisionTableComponent implements OnInit {
+export class DsGnDivisionTableComponent implements OnInit,OnChanges {
   @Input() dsGnDivisions: NewNotaryDsDivisionDTO[] = [];
   displayedColumns: string[] = ['DS Division', 'GN Division'];
   dataSource = new MatTableDataSource<NewNotaryDsDivisionDTO>(this.dsGnDivisions);
@@ -26,6 +26,10 @@ export class DsGnDivisionTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('ngOnChanges',this.dsGnDivisions);
   }
 
 }
