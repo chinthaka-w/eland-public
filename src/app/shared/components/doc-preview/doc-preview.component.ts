@@ -89,24 +89,8 @@ export class DocPreviewComponent implements OnInit {
   }
 
   onDocsUpdate() {
-    this.isDocUpdating = true;
-    // check mandatory documents upload
-    let workflowMandatoryDocs = 0;
-    let uploadedMandatoryDocs = 0;
-
-    this.workflowDocuments.forEach((doc, index) => {
-      if (doc.required) {
-        workflowMandatoryDocs += 1;
-      }
-    });
-    this.uploadedDocs.forEach((doc, index) => {
-      if (doc.file.isMandatory) {
-        uploadedMandatoryDocs += 1;
-      }
-    });
-
-    if (workflowMandatoryDocs === uploadedMandatoryDocs) {
-      this.fileUploadService.updateDocuments(this.uploadedDocs).subscribe(
+    if (this.uploadedDocs.length > 0) {
+      this.fileUploadService.updateAlreadyUploadedDocs(this.uploadedDocs).subscribe(
         (response: RequestResponse) => {
           this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.UPDATE_SUCCESS'));
         },
@@ -119,8 +103,7 @@ export class DocPreviewComponent implements OnInit {
         }
       );
     } else {
-      this.isDocUpdating = false;
-      this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.MANDATORY_DOC_ERR'));
+      this.snackBarService.warn(this.systemService.getTranslation('ALERT.MESSAGE.UPLOAD_DOCS'));
     }
   }
 
