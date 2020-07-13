@@ -734,6 +734,7 @@
          "SELECT_LANGUAGE":"Please select a language!",
          "REQUIRED_FIELDS":"Please fill the required fields!",
          "INV_DATE":"Invalid Date Range",
+         "DUP_TIME_RANGE": "Duplicate Time Range",
          "FILL_APP_FORM1":"Please fill application form, before search folio status.",
          "FILL_APP_FORM12":"Please fill application form, before continue.",
          "SEARCH_FOL":"Please search folio status, before continue.",
@@ -995,6 +996,7 @@
       "STATE_INS_NAME": "State Institution Name",
       "OTHER_INS_NAME": "Other Institution Name",
       "BANK_NAME": "Bank Name",
+      "BANK_BRANCH": "Bank Branch",
       "SELECT_BANK": "Select Bank Name",
       "ADDRESS": "Address (English)",
       "VALID_ADDRESS": "Please enter valid address",
@@ -1143,7 +1145,8 @@
     "NOTARY_NAME":"Notary Name:",
     "NOTARY_ID":"Notary Id:",
     "NEW_LAN_REG":"New Land Registry:",
-    "PER_ADD":"Permenent address:"
+    "PER_ADD":"Permenent address:",
+    "SUCCESS_LR": "Land Registry Change Request Success"
   },
 
   "PAYMENT":{

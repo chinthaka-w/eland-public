@@ -22,4 +22,8 @@ export class FileUploadPopupService {
   updateDocuments(filesMeta: FileMeta[]): Observable<RequestResponse> {
     return this.http.post<RequestResponse>(this.BASE_URL + 'document/update', filesMeta);
   }
+
+  updateAlreadyUploadedDocs(filesMeta: FileMeta[]): Observable<RequestResponse> {
+    return this.http.post<RequestResponse>(this.BASE_URL + 'document/updateWithExist', filesMeta);
+  }
 }

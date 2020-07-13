@@ -136,20 +136,41 @@
         </div>
       </div>
 
-      <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
-        <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
-        <div class="default-input-feild gray">
-
-            <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankName" required (selectionChange)="getCurrentBank($event)">
-              <mat-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName|listTranslate:bank.bankNameSin:bank.bankNameTam}}</mat-option>
+      <div *ngIf="publicUserType.value == PublicUserType.BANK">
+        <div class="default-input-wrapper full-row half-cols">
+          <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
+          <div class="default-input-feild gray">
+      
+            <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankName" required
+              (selectionChange)="getCurrentBank($event)">
+              <mat-option *ngFor="let bank of banks" [value]="bank.bankId">
+                {{bank.bankName|listTranslate:bank.bankNameSin:bank.bankNameTam}}</mat-option>
             </mat-select>
-
-          <div *ngIf="FormControls.bankName.touched && FormControls.bankName.errors"
-               class="invalid-feedback">
-            <mat-error *ngIf="FormControls.bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
+      
+            <div *ngIf="FormControls.bankName.touched && FormControls.bankName.errors" class="invalid-feedback">
+              <mat-error *ngIf="FormControls.bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
+              </mat-error>
+            </div>
           </div>
         </div>
-      </div>
+      
+        <div class="default-input-wrapper full-row half-cols">
+          <label class="mw-200">{{'CITIZEN.BANK_BRANCH'|translate}}<span>*</span></label>
+          <div class="default-input-feild gray">
+      
+            <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankBranch" required
+              (selectionChange)="selectBranch(bankBranch.value)">
+              <mat-option *ngFor="let bankBranch of bankBranches" [value]="bankBranch.id">
+                {{bankBranch.description|listTranslate:bankBranch.descriptionSin:bankBranch.descriptionTam}}</mat-option>
+            </mat-select>
+      
+            <div *ngIf="bankBranch.touched && bankBranch.errors" class="invalid-feedback">
+              <mat-error *ngIf="bankBranch.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
+              </mat-error>
+            </div>
+          </div>
+        </div>
+        </div>
 
       <div *ngIf="publicUserType.value != PublicUserType.OTHER">
         <div class="default-input-wrapper full-row half-cols">

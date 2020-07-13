@@ -23,4 +23,8 @@ export class BankService {
     return this.httpClient.get(this.BASE_URL + '/bankList', {headers: this.headersJson} );
   }
 
+  findBankBranches(bankId: number): Observable<Object> {
+    return this.httpClient.get(this.BASE_URL + '/' + bankId);
+  }
+
 }
