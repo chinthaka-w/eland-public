@@ -9,12 +9,12 @@
       <div *ngIf="editable" class="pg-inner-row mb-20">
         <div class="right">
           <div class="default-input-wrapper m0 rac-col">
-            <label>Language: <span class="redtxt">*</span></label>
+            <label>{{'CHANGE_NAME.LANGUAGE'|translate}} <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <section class="example-section">
-                <mat-checkbox class="pr-3" disabled="true" [checked]="true" (change)="addLanguageList(3)">English</mat-checkbox>
-                <mat-checkbox class="pr-3" (change)="addLanguageList(1)">Sinhala</mat-checkbox>
-                <mat-checkbox class="pr-3" (change)="addLanguageList(2)">Tamil</mat-checkbox>
+                <mat-checkbox class="pr-3" disabled="true" [checked]="true" (change)="addLanguageList(3)">{{'CHANGE_NAME.ENGLISH'|translate}}</mat-checkbox>
+                <mat-checkbox class="pr-3" (change)="addLanguageList(1)">{{'CHANGE_NAME.SINHALA'|translate}}</mat-checkbox>
+                <mat-checkbox class="pr-3" (change)="addLanguageList(2)">{{'CHANGE_NAME.TAMIL'|translate}}</mat-checkbox>
               </section>
             </div>
           </div>
@@ -22,22 +22,22 @@
       </div>
 
       <div class="default-input-wrapper full-row">
-        <label>Name Title: <span class="redtxt">*</span></label>
+        <label>{{'CHANGE_NAME.NAME_TITLE'|translate}} <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl required  formControlName="title"  class="form-control">
-              <option value="0" disabled>Select the title</option>
+              <option value="0" disabled>{{'CHANGE_NAME.SELECT_TITLE'|translate}}</option>
               <option *ngFor="let title of nameTitles"
                       [value]="title.nameTitleId"
               >
-                {{title.titleEng}}
+                {{title.titleEng|listTranslate:title.titleSin:title.titleTam}}
               </option>
             </select>
           </mat-form-field>
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New Name with Initial (English): <span class="redtxt">*</span></label>
+        <label>{{'CHANGE_NAME.NWI_E'|translate}} <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newInitialNameInEnglish">
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New Full Name (English): <span class="redtxt">*</span></label>
+        <label>{{'CHANGE_NAME.FULL_NAME_E'|translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newFullNameInEnglish">
@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New Name with Initial (Sinhala): <span *ngIf="isSinhala" class="redtxt">*</span></label>
+        <label>{{'CHANGE_NAME.NWI_S'|translate}} <span *ngIf="isSinhala" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newInitialNameInSinhala">
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New Full Name (Sinhala): <span *ngIf="isSinhala" class="redtxt">*</span></label>
+        <label>{{'CHANGE_NAME.FULL_NAME_S'|translate}}<span *ngIf="isSinhala" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newFullNameInSinhala">
@@ -69,7 +69,7 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New Name with Initial (Tamil): <span *ngIf="isTamil" class="redtxt">*</span></label>
+        <label>{{'CHANGE_NAME.NWI_T'|translate}} <span *ngIf="isTamil" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newInitialNameInTamil">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="default-input-wrapper full-row">
-        <label>New Full Name (Tamil): <span *ngIf="isTamil" class="redtxt">*</span></label>
+        <label>{{'CHANGE_NAME.FULL_NAME_T'|translate}} <span *ngIf="isTamil" class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput class="form-control" formControlName="newFullNameInTamil">
@@ -92,7 +92,7 @@
         <div class="pg-inner-col-3" *ngFor="let doc of docList">
           <div class="default-input-wrapper full-row">
             <label
-            >{{doc.description}}
+            >{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}
               <span *ngIf="doc.required">*</span></label>
             <file-upload-input (response)="setFiles($event, doc.docTypeId)"></file-upload-input>
           </div>
@@ -101,7 +101,7 @@
 
       </div>
 
-      <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">Change Details</button>
+      <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'CHANGE_NAME.CHG_DETAILS'|translate}}</button>
 
     </div>
   </div>

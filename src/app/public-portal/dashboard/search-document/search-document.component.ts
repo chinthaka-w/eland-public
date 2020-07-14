@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Location} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {MatTableDataSource} from '@angular/material/table';
 import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -41,6 +41,7 @@ import {LandRegistryDivisionService} from '../../../shared/service/land-registry
 import {LandRegistryDivision} from '../../../shared/dto/land-registry-division.model';
 import * as moment from 'moment';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {SystemService} from '../../../shared/service/system.service';
 
 
 @Component({
@@ -78,6 +79,8 @@ export class SearchDocumentComponent implements OnInit {
 
   folioStatus: Enum = null;
 
+  errorSearch: any;
+
   maxDate = moment(new Date()).format('YYYY-MM-DD');
   minDate;
 
@@ -97,7 +100,9 @@ export class SearchDocumentComponent implements OnInit {
     private sysMethodsService: SysMethodsService,
     public router: Router,
     private snackBarService: SnackBarService,
-    private location: Location) {
+    private location: Location,
+    private datePipe: DatePipe,
+    private systemService: SystemService) {
 
     let data = this.router.getCurrentNavigation().extras.state;
     if (data) {
@@ -143,11 +148,14 @@ export class SearchDocumentComponent implements OnInit {
           Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
       'volume': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'folioNo': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'noOfYears': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
     });
 
 
@@ -245,12 +253,12 @@ export class SearchDocumentComponent implements OnInit {
         this.snackBarService.error(error.message);
       }, () => {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
-          this.snackBarService.success('Your Search request saved successfully,, Proceed to online payment')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.PROCEED_ONLINE_PAY'));
           this.statusOnlinePayment = true;
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
-          this.snackBarService.success('Your Search request saved successfully,.')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.PROCEED_ONLINE_PAY'));
         }
       }
     );
@@ -306,11 +314,20 @@ export class SearchDocumentComponent implements OnInit {
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
-      this.searchRequestForm.get('volume').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('volume').setValidators([
+        Validators.required,
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
-      this.searchRequestForm.get('folioNo').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('folioNo').setValidators([
+        Validators.required,
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
-      this.searchRequestForm.get('noOfYears').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('noOfYears').setValidators([
+        Validators.required,
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
@@ -372,6 +389,10 @@ export class SearchDocumentComponent implements OnInit {
     this.form.get('folioNo').valueChanges.subscribe(value => {
       this.folioStatus = null;
     });
+    this.form.valueChanges.subscribe(value => {
+        this.errorSearch = undefined;
+      }
+    );
   }
 
   getSelectedLRD(): LandRegistryDivision {
@@ -388,7 +409,7 @@ export class SearchDocumentComponent implements OnInit {
 
     if (this.searchRequestForm.invalid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before search folio status.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM1');
     }
 
     if (isValid) {
@@ -403,7 +424,8 @@ export class SearchDocumentComponent implements OnInit {
         }
       );
     } else {
-      this.snackBarService.error(errorMassage)
+      // this.snackBarService.error(errorMassage)
+      this.errorSearch = errorMassage;
       this.validateAllFormFields(this.searchRequestForm);
     }
   }
@@ -415,12 +437,12 @@ export class SearchDocumentComponent implements OnInit {
 
     if (this.searchRequestForm.invalid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM12');
     }
 
     if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.invalid && !this.folioStatus) {
       isValid = false;
-      errorMassage = 'Please search folio status, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.SEARCH_FOL');
     }
 
     if (isValid) {
@@ -428,6 +450,10 @@ export class SearchDocumentComponent implements OnInit {
       this.searchRequest.userId = this.sessionService.getUser().id;
       this.searchRequest.userType = this.sessionService.getUser().type;
       this.searchRequest.folioNoStatus = this.folioStatus ? this.folioStatus.code : null;
+      this.searchRequest.probablePeriodFrom = this.datePipe.transform(
+        this.form.get('probablePeriodFrom').value,'yyyy-MM-dd');
+      this.searchRequest.probablePeriodTo = this.datePipe.transform(
+        this.form.get('probablePeriodTo').value,'yyyy-MM-dd');
       this.isContinueToPayment = !this.isContinueToPayment;
     } else {
       this.snackBarService.error(errorMassage);
@@ -457,7 +483,7 @@ export class SearchDocumentComponent implements OnInit {
           SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_CLARK;
       this.saveRequest(this.searchRequest);
     } else {
-      this.snackBarService.error('Oh no, Your payment failed.')
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.PAYMENT_FAILED'));
     }
   }
 

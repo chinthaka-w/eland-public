@@ -27,7 +27,7 @@ import {FolioNoService} from '../../../../../shared/service/folio-no.service';
 import {SearchRequestType} from '../../../../../shared/enum/search-request-type.enum';
 import {KoraleService} from '../../../../../shared/service/korale.service';
 import {DsDivisionService} from '../../../../../shared/service/ds-division.service';
-import {Location} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {Workflow} from '../../../../../shared/enum/workflow.enum';
 import {Action} from 'rxjs/internal/scheduler/Action';
 import {ActionMode} from '../../../../../shared/enum/action-mode.enum';
@@ -104,6 +104,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     private snackBarService: SnackBarService,
     private documentService: DocumentService,
     private _bottomSheet: MatBottomSheet,
+    private datePipe: DatePipe,
     private location: Location) {
   }
 
@@ -142,9 +143,15 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
         Validators.required,
         Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
-      'volume': new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      'folioNo': new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      'noOfYears': new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      'volume': new FormControl('', [Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
+      'folioNo': new FormControl('', [Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
+      'noOfYears': new FormControl('', [Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
     });
 
     if (this.action === ActionMode.VIEW) {
@@ -159,19 +166,23 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     this.setDisable();
 
     this.searchRequestForm.get('koraleId').valueChanges.subscribe(value => {
-      this.loadPaththu(value);
+      if(value) this.loadPaththu(value);
     });
 
     this.searchRequestForm.get('dsDivisionId').valueChanges.subscribe(value => {
-      this.loadGNDivision(value);
+      if(value) this.loadGNDivision(value);
     });
 
     this.searchRequestForm.get('gnDivisionId').valueChanges.subscribe(value => {
-      this.loadVillage(value);
+      if(value) this.loadVillage(value);
     });
 
     this.searchRequestForm.get('landRegistryId').valueChanges.subscribe(value => {
-      this.loadLRDivision(value);
+      if(value) this.loadLRDivision(value);
+    });
+
+    this.searchRequestForm.get('requestType').valueChanges.subscribe(value => {
+       if(value) this.onChangeRequestType();
     });
 
     this.searchRequestForm.valueChanges.subscribe(
@@ -315,18 +326,29 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
-      this.searchRequestForm.get('volume').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('volume').setValidators([
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
-      this.searchRequestForm.get('folioNo').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('folioNo').setValidators([
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
-      this.searchRequestForm.get('noOfYears').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('noOfYears').setValidators([
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
         Validators.required,
         Validators.maxLength(255)]);
       this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
+
     } else if (this.requestType == SearchRequestType.DEED_DOCUMENT) {
+
       this.searchRequestForm.get('attestedByNotaryName').setValidators([
         Validators.required,
         Validators.pattern(PatternValidation.PERSON_NAME_PATTERN),
@@ -345,6 +367,8 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
       this.searchRequestForm.get('noOfYears').clearValidators();
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
+      this.searchRequestForm.get('searchReasonId').clearValidators();
+      this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([Validators.required]);
       this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
     }
@@ -373,7 +397,6 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
       }, (error1) => {
       },
       () => {
-
       }
     );
   }
@@ -393,15 +416,19 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     // }
 
     if (isValid) {
-      this.searchRequestForm.enable();
+      // this.searchRequestForm.enable();
       this.searchRequest = this.searchRequestForm.value;
       this.searchRequest.requestId = this.requestId;
       // this.searchRequest.workflowStageCode = SearchRequestWorkflowStages.SEARCH_REQ_MODIFIED;
       // this.searchRequest.folioList = this.folioList;
       // this.searchRequest.paymentList = this.paymentList;
+      this.searchRequest.probablePeriodFrom = this.datePipe.transform(
+        this.form.get('probablePeriodFrom').value,'yyyy-MM-dd');
+      this.searchRequest.probablePeriodTo = this.datePipe.transform(
+        this.form.get('probablePeriodTo').value,'yyyy-MM-dd');
       this.searchRequest.userId = this.sessionService.getUser().id;
       this.searchRequest.userType = this.sessionService.getUser().type;
-      this.setDisable();
+      // this.setDisable();
       this.updateRequest(this.searchRequest);
     } else {
       this.snackBarService.error(errorMassage);

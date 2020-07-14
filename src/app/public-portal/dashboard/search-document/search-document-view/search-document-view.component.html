@@ -1,5 +1,5 @@
 <div class="page-header-default">
-  <h2>View Search Request</h2>
+  <h2>{{'SEARCH_DOC.TITLE2'|translate}}</h2>
   <p>.......</p>
   <a href="#" (click)="goBack()" class="phd-back-btn">
     <i class="material-icons">keyboard_backspace</i>
@@ -9,7 +9,7 @@
   <div class="page-content-inner-wrapper">
     <div class="pg-inner-row mb-0">
       <mat-tab-group (selectedIndexChange)="getSelectedIndex($event);">
-        <mat-tab label="Application">
+        <mat-tab label="{{'SEARCH_DOC.APPLICATION'|translate}}">
           <app-last-remark
             *ngIf="workflowStage==SearchWorkflowStages.SEARCH_REQ_RETURN_BY_ARL"
             [workflow]="workflow"
@@ -28,7 +28,7 @@
             [requestId]="requestId"
             [workflowStageCode]="workflowStage"></app-search-document-result>
         </mat-tab>
-        <mat-tab label="Payment Info">
+        <mat-tab label="{{'SEARCH_DOC.PAY_INFO'|translate}}">
           <app-notary-payment-info
             [workflow]="workflow"
             [id]="requestId"
@@ -39,7 +39,7 @@
             (paymentResponse)="onPaymentResponse($event)"
           ></app-notary-payment-info>
         </mat-tab>
-        <mat-tab label="History">
+        <mat-tab label="{{'SEARCH_DOC.HISTORY'|translate}}">
           <app-notary-remark
             [workflow]="workflow"
             [id]="requestId"
@@ -52,7 +52,7 @@
       <div class="pg-inner-col float-right">
         <button mat-raised-button
                 (click)="onClickSaveChanges()"
-                class="button green float-right">Save Changes
+                class="button green float-right">{{'BUTTONS.SAVE_CHANGES_BUTTON'|translate}}
         </button>
       </div>
     </div>

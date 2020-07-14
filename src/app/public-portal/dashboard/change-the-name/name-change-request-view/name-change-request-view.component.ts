@@ -1,3 +1,4 @@
+import { Parameters } from './../../../../shared/enum/parameters.enum';
 import { Workflow } from 'src/app/shared/enum/workflow.enum';
 import {Component, OnInit} from '@angular/core';
 import {WorkflowStages} from '../../../../shared/enum/workflow-stages.enum';
@@ -42,6 +43,7 @@ export class NameChangeRequestViewComponent implements OnInit {
   workflowStageCode;
   editable: boolean = false;
   requestDetailPayment: RequestSearchDetailDTO;
+  Parameters = Parameters;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

@@ -847,6 +847,35 @@ button.theme-light.mat-raised-button:hover {
   font-size: 12px;
 }
 
+/* Forgot Password */
+.fc-component-wrapper {
+  display: table;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.fc-component-content {
+  display: table-cell;
+  width: 50%;
+  height: 100vh;
+  min-height: 500px;
+  padding-bottom: 100px;
+  position: relative;
+}
+.fc-component-inner-col {
+  display: block;
+  position: absolute;
+  width: 100%;
+  max-width: 560px;
+  padding: 20px;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+}
+
+
 /* Login */
 .hc-component-wrapper {
   display: table;

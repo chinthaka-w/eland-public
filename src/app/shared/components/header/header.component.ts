@@ -1,3 +1,4 @@
+import { UserType } from './../../enum/user-type.enum';
 import {Component, OnInit, OnChanges, Input} from '@angular/core';
 import {SysConfigService} from '../../service/sys-config.service';
 import {AppConfig} from '../../dto/app-config.model';
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   appConfig: AppConfig;
   isHome: boolean;
   isLogin: boolean;
+  USER_TYPE = UserType;
 
   userDetails: PublicUserDetails;
 
@@ -69,6 +71,14 @@ export class HeaderComponent implements OnInit {
         this.isLogin = false;
       }
       else if (event['url'] == '/login') {
+        this.isHome = false;
+        this.isLogin = true;
+      }
+      else if (event['url'] == '/forgot-password') {
+        this.isHome = false;
+        this.isLogin = true;
+      }
+      else if (event['url'] == '/reset-password/:token') {
         this.isHome = false;
         this.isLogin = true;
       }

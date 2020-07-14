@@ -23,6 +23,7 @@ import {ChangeLandRegistryDto} from '../../dto/change-land-registry.dto';
 import {SystemService} from '../../service/system.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import {JudicialChangeWorkflowStagesEnum} from '../../enum/judicial-change-workflow-stages.enum';
+import { LandRegistryChangeWorkflowStagesEnum } from '../../enum/land-registry-change-workflow-stages.enum';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -208,6 +209,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
        this.newButtonURL = '/requests/' + btoa(this.flag);
      }
    }
+
+   if (this.flag === Workflow.CHANGE_LAND_REGISTRY) {
+      if (this.exist) {
+        this.snackBar.warn(this.systemService.getTranslation('ALERT.MESSAGE.REQUEST_PENDING'));
+        this.newButtonURL = '/requests/' + btoa(this.flag);
+      }
+    }
   }
 
   loadSearchRequests() {
@@ -281,6 +289,17 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(result);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        // applying a new request
+        const previousRequest = result[result.length - 1];
+        if (result.length > 0 &&
+          !((
+            previousRequest.workflowStageCode === LandRegistryChangeWorkflowStagesEnum.LANDREGISTRY_CHANGE_REQUEST_APPROVED_BY_ARG ||
+            previousRequest.workflowStageCode === LandRegistryChangeWorkflowStagesEnum.LANDREGISTRY_CHANGE_REQUEST_REJECTED_BY_ARG ||
+            previousRequest.workflowStageCode === LandRegistryChangeWorkflowStagesEnum.LANDREGISTRY_CHANGE_REQUEST_REJECTED_BY_RL
+            ))) {
+          this.exist = true;
+        }
       });
 
   }

@@ -27,7 +27,7 @@ import {FolioNoService} from '../../../shared/service/folio-no.service';
 import {SearchRequestType} from '../../../shared/enum/search-request-type.enum';
 import {KoraleService} from '../../../shared/service/korale.service';
 import {DsDivisionService} from '../../../shared/service/ds-division.service';
-import {Location} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {ExtractRequestService} from '../../../shared/service/extract-request.service';
 import {ExtractRequest} from '../../../shared/dto/extract-request.model';
@@ -41,6 +41,7 @@ import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
  import {ExtractRequestWorkflowStages} from '../../../shared/enum/extract-request-workflow-stages.enum';
  import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
  import * as moment from 'moment';
+ import {SystemService} from '../../../shared/service/system.service';
 
 @Component({
   selector: 'app-extract',
@@ -76,6 +77,8 @@ export class ExtractComponent implements OnInit {
   userType: string;
   userId: number;
 
+  errorSearch: any;
+
   maxDate = moment(new Date()).format('YYYY-MM-DD');
   minDate;
 
@@ -94,7 +97,9 @@ export class ExtractComponent implements OnInit {
     private sessionService: SessionService,
     public router: Router,
     private snackBarService: SnackBarService,
-    private location: Location) {
+    private location: Location,
+    private datePipe: DatePipe,
+    private systemService: SystemService) {
 
     let data = this.router.getCurrentNavigation().extras.state;
     if (data) {
@@ -139,11 +144,14 @@ export class ExtractComponent implements OnInit {
         Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
       'volume': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'folioNo': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
       'noOfYears': new FormControl('', [Validators.required,
-        Validators.maxLength(10)]),
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
     });
 
 
@@ -237,7 +245,7 @@ export class ExtractComponent implements OnInit {
         this.snackBarService.error(error.message);
       }, () => {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
-          this.snackBarService.success('Your Extract request saved successfully.Proceed to online payment')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.EXTRACT_PROCEED_ONLINE'))
           this.statusOnlinePayment = true;
           this.returnURl = 'requests/' + btoa(Workflow.EXTRACT_REQUEST);
           this.userType = this.sessionService.getUser().type;
@@ -245,7 +253,7 @@ export class ExtractComponent implements OnInit {
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
-          this.snackBarService.success('Your Extract request saved successfully.')
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.EXTARCT_REQ_SUCCESS'));
         }
       }
     );
@@ -301,11 +309,20 @@ export class ExtractComponent implements OnInit {
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
-      this.searchRequestForm.get('volume').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('volume').setValidators([
+        Validators.required,
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
-      this.searchRequestForm.get('folioNo').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('folioNo').setValidators([
+        Validators.required,
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
-      this.searchRequestForm.get('noOfYears').setValidators([Validators.required, Validators.maxLength(10)]);
+      this.searchRequestForm.get('noOfYears').setValidators([
+        Validators.required,
+        Validators.maxLength(8),
+        Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
@@ -368,6 +385,10 @@ export class ExtractComponent implements OnInit {
     this.form.get('folioNo').valueChanges.subscribe(value => {
       this.folioStatus = null;
     });
+    this.form.valueChanges.subscribe(value => {
+      this.errorSearch = undefined;
+      }
+    );
   }
 
   getSelectedLRD(): LandRegistryDivision {
@@ -384,7 +405,7 @@ export class ExtractComponent implements OnInit {
 
     if (this.searchRequestForm.invalid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before search folio status.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM1');
     }
 
     if (isValid) {
@@ -399,7 +420,8 @@ export class ExtractComponent implements OnInit {
         }
       );
     } else {
-      this.snackBarService.error(errorMassage);
+      this.errorSearch = errorMassage;
+      // this.snackBarService.error(errorMassage);
       this.validateAllFormFields(this.searchRequestForm);
     }
   }
@@ -410,12 +432,12 @@ export class ExtractComponent implements OnInit {
 
     if (!this.searchRequestForm.valid) {
       isValid = false;
-      errorMassage = 'Please fill application form, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM12');
     }
 
     if (this.requestType == SearchRequestType.FOLIO_DOCUMENT && this.searchRequestForm.valid && !this.folioStatus) {
       isValid = false;
-      errorMassage = 'Please search folio status, before continue.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.SEARCH_FOL');
     }
 
     if (isValid) {
@@ -423,6 +445,10 @@ export class ExtractComponent implements OnInit {
       this.searchRequest.userId = this.sessionService.getUser().id;
       this.searchRequest.userType = this.sessionService.getUser().type;
       this.searchRequest.folioNoStatus = this.folioStatus ? this.folioStatus.code : null;
+      this.searchRequest.probablePeriodFrom = this.datePipe.transform(
+        this.form.get('probablePeriodFrom').value,'yyyy-MM-dd');
+      this.searchRequest.probablePeriodTo = this.datePipe.transform(
+        this.form.get('probablePeriodTo').value,'yyyy-MM-dd');
       this.isContinueToPayment = !this.isContinueToPayment;
     } else {
       this.snackBarService.error(errorMassage);
@@ -453,7 +479,7 @@ export class ExtractComponent implements OnInit {
 
       this.saveRequest(this.searchRequest);
     } else {
-      this.snackBarService.error('Oh no, Your payment failed.')
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.PAYMENT_FAILED'));
     }
   }
 

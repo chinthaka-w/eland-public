@@ -1,5 +1,6 @@
+import { StatusDTO } from './../../../shared/dto/status-dto';
+import { SystemService } from './../../../shared/service/system.service';
 import { UserType } from './../../../shared/enum/user-type.enum';
-import { SessionService } from 'src/app/shared/service/session.service';
 import { DocumentResponseDto } from './../../../shared/dto/document-response.dto';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PaymentMethod } from './../../../shared/enum/payment-method.enum';
@@ -20,7 +21,6 @@ import {PaymentResponse} from "../../../shared/dto/payment-response.model";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {PaymentDto} from "../../../shared/dto/payment-dto";
 import {Router} from "@angular/router";
-import {BankUserType} from "../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../shared/enum/identification-type.enum";
 import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
 import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
@@ -56,7 +56,7 @@ export class AddPublicUserComponent implements OnInit {
   formData: FormData = new FormData();
   isMadatoryDocsUploaded = false;
   docMetaList: DocumentResponseDto[] = [];
-  
+  bankBranches: StatusDTO[] = [];
 
   /**
    * **Online payment method**
@@ -82,13 +82,14 @@ export class AddPublicUserComponent implements OnInit {
               private bankService: BankService,
               private snackBar: SnackBarService,
               private router: Router,
-              private sessionService: SessionService) {}
+              private systemService: SystemService) {}
 
   ngOnInit() {
     this.publicUserForm = new FormGroup({
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl("", [Validators.required]),
       bankName: new FormControl("", [Validators.required]),
+      bankBranch: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [
         Validators.required,
         Validators.maxLength(255),
@@ -229,6 +230,10 @@ export class AddPublicUserComponent implements OnInit {
     return this.publicUserForm.get('type');
   }
 
+  get bankBranch() {
+    return this.publicUserForm.get('bankBranch');
+  }
+
   setFiles(files, key, status: boolean){
     this.fileList[key] = files;
     console.log('file list: ', this.fileList);
@@ -291,9 +296,47 @@ export class AddPublicUserComponent implements OnInit {
   
   getCurrentBank(event) {
     this.citizenDTO.bankId = event.value;
+    // get bank branches
+    this.getBankBranches(this.citizenDTO.bankId);
   }
+
+  getBankBranches(bankId: number) {
+    this.bankService.findBankBranches(bankId).subscribe(
+      (response: any) => {
+        this.bankBranches = response;
+      },
+      () => {
+        this.snackBar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
+      }
+    );
+  }
+
+  selectBranch(bankBranchId: number) {
+    this.citizenDTO.bankBranchId = bankBranchId;
+  }
+
   getCurrentIdentificationType(event) {
     this.citizenDTO.identificationNoType = event.value;
+
+    // set ref no validations
+    // clear  identification with type change
+    this.identificationNo.setValue('');
+    if (event.value == IdentificationType.NIC) {
+      this.identificationNo.setValidators([
+        Validators.required,
+        Validators.pattern(PatternValidation.NIC_PATTERN)
+      ]);
+    } else if (event.value == IdentificationType.PASSPORT) {
+      this.identificationNo.setValidators([
+        Validators.required,
+        Validators.pattern(PatternValidation.PASSPORT_VALIDATION)
+      ]);
+    } else if (event.value == IdentificationType.DRIVING_LICENSE) {
+      this.identificationNo.setValidators([
+        Validators.required,
+      ]);
+    }
+    this.publicUserForm.updateValueAndValidity();
   }
   getCurrentUserType(userType: number) {
 
@@ -336,31 +379,32 @@ export class AddPublicUserComponent implements OnInit {
   disableUselessFormControls(type: number) {
     if(type == this.PublicUserType.CITIZEN) {
       this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
+      this.officersDesignation.disable();
     }
     else if (type == this.PublicUserType.BANK) {
       this.publicUserForm.controls['lawFirmName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.LAWYER) {
       this.publicUserForm.controls['bankName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
     }
     else if (type == this.PublicUserType.STATE) {
       this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['otherInstitutionName'].disable();
-      this.publicUserForm.controls['officersDesignation'].disable();
     }
     else if (type == this.PublicUserType.OTHER) {
       this.publicUserForm.controls['bankName'].disable();
+      this.publicUserForm.controls['bankBranch'].disable();
       this.publicUserForm.controls['lawFirmName'].disable();
       this.publicUserForm.controls['stateInstitutionName'].disable();
       this.publicUserForm.controls['address1'].disable();
@@ -391,10 +435,10 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
       .subscribe((result) => {
         if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success('Citizen saved successfully');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
           this.router.navigate(['/login']);
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-          this.snackBar.success('Citizen saved successfully, Proceed to online payment');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS_PROCEED_ONLINE_PAYMENT'));
           this.isContinue = true;
           this.statusOnlinePayment = true;
           this.userId = result.id;

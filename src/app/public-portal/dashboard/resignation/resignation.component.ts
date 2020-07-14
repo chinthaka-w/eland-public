@@ -7,6 +7,7 @@ import {WorkflowStageNotaryResignation} from "../../../shared/enum/workflow-stag
 import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {SessionService} from '../../../shared/service/session.service';
+import {SystemService} from '../../../shared/service/system.service';
 
 @Component({
   selector: 'app-resignation',
@@ -26,7 +27,8 @@ export class ResignationComponent implements OnInit {
               private notaryResignationService: NotaryResignationService,
               private snackBar: SnackBarService,
               private sessionService: SessionService,
-              private router: Router) { }
+              private router: Router,
+              private systemService: SystemService) { }
 
   ngOnInit() {
     this.resignationForm = new FormGroup({
@@ -60,10 +62,10 @@ export class ResignationComponent implements OnInit {
     this.notaryResignationService.makeDesignationRequest(this.fileList, this.notaryResignationDto)
       .subscribe((result) => {
         if (result) {
-          this.snackBar.success('Successfully submitted');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
           this.router.navigate(['/dashboard']);
         } else {
-          this.snackBar.error('Operation failed');
+          this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.OPERATION_FAILED'));
         }
       });
   }

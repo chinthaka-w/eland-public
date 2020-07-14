@@ -108,6 +108,7 @@
               <mat-form-field appearance="outline">
                 <input matInput readonly
                        [matDatepicker]="picker"
+                       [max]="maxDate"
                        placeholder="Choose a date"
                        formControlName="probablePeriodFrom">
                 <mat-datepicker #picker></mat-datepicker>
@@ -348,7 +349,7 @@
                 <mat-form-field appearance="outline">
                   <input matInput type="number"
                          inputMinValue="1"
-                         inputMaxLength="10"
+                         inputMaxLength="8"
                          class="form-control" formControlName="volume">
                 </mat-form-field>
               </div>
@@ -364,7 +365,7 @@
                   <input matInput
                          type="number"
                          inputMinValue="1"
-                         inputMaxLength="10"
+                         inputMaxLength="8"
                          class="form-control" formControlName="folioNo">
                 </mat-form-field>
               </div>
@@ -378,7 +379,7 @@
                   <input matInput
                          type="number"
                          inputMinValue="1"
-                         inputMaxLength="10"
+                         inputMaxLength="8"
                          class="form-control" formControlName="noOfYears">
                 </mat-form-field>
               </div>
@@ -395,6 +396,7 @@
           </mat-chip-list>
         </div>
         <div class="pg-inner-row mb-10">
+          <mat-error *ngIf="errorSearch">{{errorSearch}}</mat-error>
           <div class="pg-inner-col float-right ">
             <button [disabled]="folioStatus" mat-raised-button
                     (click)="onClickSearch()"

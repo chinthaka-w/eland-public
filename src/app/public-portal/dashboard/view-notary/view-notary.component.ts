@@ -14,6 +14,7 @@ import {SupportDocResponseModel} from '../../../shared/dto/support-doc-response.
 import {MatTabChangeEvent} from '@angular/material/tabs';
 import {NotaryViewTabs} from '../../../shared/enum/notary-view-tabs.enum';
 import {NewNotaryRegistrationWorkflowStage} from '../../../shared/enum/new-notary-registration-workflow-stage.enum';
+import {NewNotaryPaymentDto} from '../../../shared/dto/new-notary-payment.dto';
 
 @Component({
   selector: 'app-view-notary',
@@ -27,6 +28,7 @@ export class ViewNotaryComponent implements OnInit {
   @Input() notaryId: number;
   @Input() notaryRequestId: number;
   @Input() workflowStage: any;
+  @Input() paymentAdded: boolean;
   @Output() onBack = new EventEmitter<boolean>();
   @ViewChild(NotaryApplicationComponent, {static: false}) notaryApplicationComponent: NotaryApplicationComponent;
   @ViewChild(SupportingDocDetailComponent, {static: false}) supportingDocumentDetails: SupportingDocDetailComponent;
@@ -146,5 +148,22 @@ export class ViewNotaryComponent implements OnInit {
         this.snackBar.error('Failed');
       }
     );
+  }
+
+  onNotaryPayment(data: any) {
+    this.disabled = true;
+    if (!this.notary) {
+      this.notaryApplicationComponent.saveNotaryDetails();
+    }
+  }
+
+  onLoadedApplicationDetails($event: boolean) {
+    if (this.paymentAdded) {
+      this.selectedIndex = 2;
+      this.disabled = true;
+      if (!this.notary) {
+        this.notaryApplicationComponent.saveNotaryDetails();
+      }
+    }
   }
 }

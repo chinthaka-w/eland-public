@@ -10,7 +10,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CorrectionRequestService } from 'src/app/shared/service/correction-request.service';
 import { LandRegistryModel } from 'src/app/shared/dto/land-registry.model.';
-import { MatTableDataSource, MatDialog, MatPaginator } from '@angular/material';
+import {MatTableDataSource, MatDialog, MatPaginator, MatSnackBar} from '@angular/material';
 import { CorrectionDetail } from 'src/app/shared/dto/correction-detail.model';
 import { FolioCorrectionWorkflowStages } from 'src/app/shared/enum/folio-correction-workflow-stages.enum';
 import { CorrectionRequest } from 'src/app/shared/dto/correction-request.model';
@@ -52,7 +52,9 @@ export class CorrectionApplicationComponent implements OnInit {
               public sessionService: SessionService,
               public router: Router,
               public route: ActivatedRoute,
-              private systemService: SystemService) { }
+              private systemService: SystemService,
+              private systemMethodService: SystemService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -164,9 +166,22 @@ export class CorrectionApplicationComponent implements OnInit {
         this.recaptcha.updateValueAndValidity();
         this.updateValidationsOnSubmit();
         if (this.reqForCorrectionForm.invalid) {
-          this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
-          this.isSave = false;
+          if (this.reqForCorrectionForm.value.recaptcha == null) {
+            this.snackBarService.error(this.systemService.getTranslation('ALERT.TITLE.VALIDATE_CAPTURE'));
+            this.isSave = false;
+          } else {
+            this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+            this.isSave = false;
+          }
+
         } else if (this.reqForCorrectionForm.valid) {
+          // check mandatory documents
+          if (!this.checkMandatoryDocsStatus(this.correctionDetails)) {
+            this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.MANDATORY_DOC_ERR'));
+            this.isClick = false;
+            this.isSave = false;
+            return;
+          }
           // submit correction request
           const correctionRequest = new CorrectionRequest();
           correctionRequest.correctionDetails = this.correctionDetails;
@@ -184,6 +199,10 @@ export class CorrectionApplicationComponent implements OnInit {
             }
           );
         }
+      } else {
+        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+        this.isClick = false;
+        this.isSave = false;
       }
 
       // submit request update
@@ -193,7 +212,7 @@ export class CorrectionApplicationComponent implements OnInit {
       if (this.reqForCorrectionForm.valid) {
         let updatedCorrectionDetail = new CorrectionDetail();
         updatedCorrectionDetail = this.reqForCorrectionForm.value;
-        this.correctionDetails =  [];
+        this.correctionDetails = [];
         this.correctionDetails.push(updatedCorrectionDetail);
 
         const updatedCorrectionRequest = new CorrectionRequest();
@@ -211,8 +230,13 @@ export class CorrectionApplicationComponent implements OnInit {
           }
         );
       } else {
-        this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
-        this.isSave = false;
+        if (this.reqForCorrectionForm.value.recaptcha == null) {
+          this.snackBarService.error(this.systemService.getTranslation('ALERT.TITLE.VALIDATE_CAPTURE'));
+          this.isSave = false;
+        } else {
+          this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
+          this.isSave = false;
+        }
       }
     } else {
       this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.PLEASE_FILL'));
@@ -357,6 +381,15 @@ export class CorrectionApplicationComponent implements OnInit {
         const control = this.reqForCorrectionForm.get(field);
         control.markAsTouched({ onlySelf: true });
       });
+  }
+
+  checkMandatoryDocsStatus(correctionDetails: CorrectionDetail[]): boolean {
+    for (const detail of correctionDetails) {
+      if (!detail.filesMeta) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }

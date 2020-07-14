@@ -17,6 +17,9 @@ import {SessionService} from '../../../shared/service/session.service';
 import {LanguageChange} from '../../../shared/dto/language-change.model';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
+import {SystemService} from '../../../shared/service/system.service';
+import {DocumentDto} from '../../../shared/dto/document-list';
+import {CommonStatus} from '../../../shared/enum/common-status.enum';
 
 
 @Component({
@@ -34,6 +37,7 @@ export class LanguageChangeComponent implements OnInit {
   langTamCheck: boolean;
   showPayment: boolean;
   supportingDocs: WorkflowStageDocDto[] = [];
+  isRequiredDocsUpload = false;
   fileList: object = {};
   formData: FormData = new FormData();
   parameters = Parameters;
@@ -43,13 +47,16 @@ export class LanguageChangeComponent implements OnInit {
   paymentDto: PaymentDto = new PaymentDto();
   statusOnlinePayment: boolean = false;
   userType: string;
+  public files: File[] = [];
   userId: number;
+  public documentList: DocumentDto[] = [];
 
   constructor(private formBulder: FormBuilder,
               private languageChangeService: LanguageChangeService,
               private sessionService: SessionService,
               private snackBarService: SnackBarService,
-              private router: Router) {
+              private router: Router,
+              private systemService: SystemService) {
   }
 
   ngOnInit() {
@@ -200,9 +207,9 @@ export class LanguageChangeComponent implements OnInit {
 
   continue(): void {
     if (!(this.languageChangForm.value.langEng || this.languageChangForm.value.langSin || this.languageChangForm.value.langTam)) {
-          this.snackBarService.error('Plese select a language!');
+          this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.SELECT_LANGUAGE'));
     } else if (!this.languageChangForm.valid) {
-      this.snackBarService.error('Please fill the required fields!');
+      this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.REQUIRED_FIELDS'));
     } else {
       this.showPayment = true;
     }
@@ -242,18 +249,89 @@ export class LanguageChangeComponent implements OnInit {
       langEng: [this.langEngCheck, null],
       langSin: [this.langSinCheck, null],
       langTam: [this.langTamCheck, null],
-      fullNameEng: [this.languageChangForm.value.fullNameEng, code === this.langMode.ENGLISH ? [Validators.required,Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)] : null],
-      fullNameSin: [this.languageChangForm.value.fullNameSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      fullNameTam: [this.languageChangForm.value.fullNameTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      nameWithInitEng: [this.languageChangForm.value.nameWithInitEng, code === this.langMode.ENGLISH ? [Validators.required,Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)] : null],
-      nameWithInitSin: [this.languageChangForm.value.nameWithInitSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      nameWithInitTam: [this.languageChangForm.value.nameWithInitTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      addPermanentEng: [this.languageChangForm.value.addPermanentEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-      addPermanentSin: [this.languageChangForm.value.addPermanentSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      addPermanentTam: [this.languageChangForm.value.addPermanentTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-      addressEng: [this.languageChangForm.value.addressEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-      addressSin: [this.languageChangForm.value.addressSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-      addressTam: [this.languageChangForm.value.addressTam, code === this.langMode.TAMIL ? [Validators.required] : null],
+      fullNameEng: [this.fullNameEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      fullNameSin: [this.fullNameSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      fullNameTam: [this.fullNameTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      nameWithInitEng: [this.nameWithInitialsEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required, Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      nameWithInitSin: [this.nameWithInitialsSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      nameWithInitTam: [this.nameWithInitialsTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
+        ] : null
+      ],
+      addPermanentEng: [this.permanentAddressEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addPermanentSin: [this.permanentAddressSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addPermanentTam: [this.permanentAddressTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addressEng: [this.currentAddressEnglish.value,
+      (code === this.langMode.ENGLISH || this.langEngCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addressSin: [this.currentAddressSinhala.value,
+      (code === this.langMode.SINHALA || this.langSinCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
+      addressTam: [this.currentAddressTamil.value,
+      (code === this.langMode.TAMIL || this.langTamCheck) ?
+        [
+          Validators.required,
+          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        ] : null
+      ],
       // startingDate: [this.languageChangForm.value.startingDate, [Validators.required]],
       // highCourtCertificateYear: [this.languageChangForm.value.highCourtCertificateYear, [Validators.required]],
       // lrName: [this.languageChangForm.value.lrName, [Validators.required]],
@@ -327,8 +405,39 @@ export class LanguageChangeComponent implements OnInit {
     }
   }
 
-  setFiles(data: any, docTypeId: number) {
-    this.fileList[docTypeId] = data;
+
+  setFiles(data: any, docTyprId: number, status: boolean) {
+    this.files = data;
+    const document = new DocumentDto(this.files[0], docTyprId);
+    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
+    if (document.files) {
+      this.documentList.push(document);
+    } else {
+      this.documentList.forEach((doc, index) => {
+        if (doc.fileType === document.fileType) {
+          this.documentList.splice(index, 1);
+        }
+      });
+    }
+
+    let workflowManatoryDocs = 0;
+    let uploadedMandatoryDocs = 0;
+
+    this.supportingDocs.forEach(doc => {
+      if  (doc.required) {
+        workflowManatoryDocs += 1;
+      }
+    });
+
+    this.documentList.forEach(doc => {
+      if (doc.status === CommonStatus.REQUIRED) {
+        uploadedMandatoryDocs += 1;
+      }
+    });
+
+    if (workflowManatoryDocs === uploadedMandatoryDocs) {
+      this.isRequiredDocsUpload = true;
+    } else {this.isRequiredDocsUpload = false; }
   }
 
   // Save language change request after payment
@@ -336,17 +445,15 @@ export class LanguageChangeComponent implements OnInit {
 
     const langPayment: PaymentDto = new PaymentDto();
     langPayment.paymentId = paymentData.paymentId;
-    this.saveRegistrationData(this.fileList, this.languageChangForm.value, langPayment);
+    this.saveRegistrationData(this.files, this.languageChangForm.value, langPayment);
   }
 
-  saveRegistrationData(fileList: object, model: LanguageChange, paymentData: PaymentDto) {
-    // add files to FormData
-    const keys = Object.keys(fileList);
-    for (const index in keys) {
-      for (const file of fileList[keys[index]]) {
-        this.formData.append('file', file, (keys[index] + '/' + file.name));
-      }
-    }
+  saveRegistrationData(files: object, model: LanguageChange, paymentData: PaymentDto) {
+
+    this.documentList.forEach(doc => {
+      this.formData.append('file', doc.files, doc.fileType + '/' + doc.files.name);
+    });
+
 
     model.workflowStage = LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT;
     model.id = this.sessionService.getUser().id;
@@ -360,12 +467,12 @@ export class LanguageChangeComponent implements OnInit {
           this.statusOnlinePayment = true;
         }
         else{
-        this.snackBarService.success('Request submitted successfully!');
+        this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
         this.router.navigate(['/requests', btoa(Workflow.LANGUAGE_CHANGE)]);
         }
       },
       error => {
-        this.snackBarService.error('Error in Save!');
+        this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.FAILED'));
         console.log(error);
       }
     );

@@ -16,6 +16,7 @@ import {NewNotaryPaymentDto} from '../../../../shared/dto/new-notary-payment.dto
 import {SnackBarService} from '../../../../shared/service/snack-bar.service';
 import {RequestSearchDetailDTO} from "../../../../shared/dto/request-search.dto";
 import {ActionMode} from '../../../../shared/enum/action-mode.enum';
+import {NewNotaryRegistrationWorkflowStage} from '../../../../shared/enum/new-notary-registration-workflow-stage.enum';
 
 @Component({
   selector: 'app-notary-payment-info',
@@ -126,6 +127,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
     // Add workflow wise return urls
     // judicial change
     if (paymentData.paymentMethod === PaymentMethod.ONLINE) {
+        console.log(this.requestDetailPayment);
       if (this.requestDetailPayment.workflow === Workflow.JUDICIAL_ZONE_CHANGE) {
         this.paymentReturnBaseUrl = '/change-judicial-request-view/';
         this.returnUrl = this.paymentReturnBaseUrl +
@@ -138,6 +140,11 @@ export class NotaryPaymentInfoComponent implements OnInit {
           this.getBase64Url(this.requestDetailPayment.workflow).split('=')[0] + '/' +
           this.getBase64Url(this.requestDetailPayment.workflowStage).split('=')[0] + '/' +
           this.getBase64Url(this.requestDetailPayment.requestId.toString()).split('=')[0];
+      } else if(this.requestDetailPayment.workflow === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED){
+        console.log(this.requestDetailPayment);
+        this.returnUrl = '/dashboard/' +
+          this.getBase64Url(this.requestDetailPayment.workflow).split('=')[0];
+
       }
     }
     const model = new NewNotaryPaymentDto(this.requestDetailPayment.requestId, null);

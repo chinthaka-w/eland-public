@@ -31,6 +31,8 @@ import {ChangeLandRegistryRequestViewComponent} from './dashboard/change-land-re
 import {NotaryRequestViewComponent} from './dashboard/notary-request-view/notary-request-view.component';
 import {NameChangeRequestViewComponent} from './dashboard/change-the-name/name-change-request-view/name-change-request-view.component';
 import {AuthGuard} from '../shared/auth/auth.guard';
+import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -42,7 +44,20 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password/:token',
+    component: ResetPasswordComponent
+  },
+  {
     path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'dashboard/:returnUrl',
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },

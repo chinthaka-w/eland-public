@@ -14,6 +14,7 @@
           [requestId]="notaryRequestId"
           [workflow]="Workflow.NOTARY_REGISTRATION"></app-last-remark>
         <app-notary-application *ngIf="requestId" [requestDetailId]="requestId"
+                                (onLoadDetails)="onLoadedApplicationDetails($event)"
                                 (notaryDetail)="getApplicationDetails($event)"></app-notary-application>
       </mat-tab>
       <mat-tab label="{{'NOTARY.NOTARY_SUPPORTING_DOCS'|translate}}">
@@ -26,7 +27,8 @@
       <mat-tab label="{{'NOTARY.NOTARY_PAYMENT_INFO'|translate}}">
         <app-notary-payment-info *ngIf="requestId"
                                  [requestDetailPayment]="requestId"
-                                 [addPayment]="false"></app-notary-payment-info>
+                                 (notaryPayment)="onNotaryPayment($event)"
+                                 [addPayment]="workflowStage === NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_DVC_REJECTED"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="{{'NOTARY.NOTARY_REMARK'|translate}}">
         <app-notary-remark *ngIf="requestId" [requestRemarks]="requestId"></app-notary-remark>

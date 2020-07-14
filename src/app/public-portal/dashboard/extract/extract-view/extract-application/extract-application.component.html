@@ -5,7 +5,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Land Registry:<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.LAND_REG'|translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -13,8 +13,8 @@
                     (change)="onChangeLandRegistry($event.target.value)"
                     class="form-control"
                     formControlName="landRegistryId">
-              <option value="">--Select--</option>
-              <option *ngFor="let item of landRegistries" [value]="item.landRegistryId">{{item.nameEng}}</option>
+              <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
+              <option *ngFor="let item of landRegistries" [value]="item.landRegistryId">{{item.nameEng|listTranslate:item.nameSin:item.nameTam}}</option>
             </select>
           </mat-form-field>
         </div>
@@ -22,7 +22,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Doc type:<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.DOC_TYPE'|translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -30,8 +30,8 @@
                     class="form-control"
                     (change)="onChangeRequestType()"
                     formControlName="requestType">
-              <option [value]="SearchRequestType.FOLIO_DOCUMENT">Folio Document</option>
-              <option [value]="SearchRequestType.DEED_DOCUMENT">Deed Document</option>
+              <option [value]="SearchRequestType.FOLIO_DOCUMENT">{{'SEARCH_DOC.FOLIO_DOC'|translate}}</option>
+              <option [value]="SearchRequestType.DEED_DOCUMENT">{{'SEARCH_DOC.DEED_DOC'|translate}}</option>
             </select>
           </mat-form-field>
         </div>
@@ -42,7 +42,7 @@
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Name of the Notary who attested by the deed:<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.NAME_OF_ATTESTED'|translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -54,7 +54,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>District or station where he practiced at that time:</label>
+        <label>{{'SEARCH_DOC.DISTRICT_STATION'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -69,7 +69,7 @@
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Deed No:<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.DEED_NO'|translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -81,7 +81,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Nature of the deed:</label>
+        <label>{{'SEARCH_DOC.NATURE_DEED'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -93,15 +93,16 @@
     </div>
   </div>
 
-  <span *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="mb-10" style="display: block;">Date or probable period</span>
+  <span *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="mb-10" style="display: block;">{{'SEARCH_DOC.DATE_PROB'|translate}}</span>
 
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>From:</label>
+        <label>{{'SEARCH_DOC.FROM'|translate}}</label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
             <input matInput readonly
+                   [max]="maxDate"
                    [matDatepicker]="picker"
                    placeholder="Choose a date"
                    formControlName="probablePeriodFrom">
@@ -115,7 +116,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>To:</label>
+        <label>{{'SEARCH_DOC.TO'|translate}}</label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
             <input matInput readonly
@@ -137,7 +138,7 @@
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Name of the granter / Transferor:</label>
+        <label>{{'SEARCH_DOC.NAME_GRANTER'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -148,7 +149,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Name of the grantee / transferee:</label>
+        <label>{{'SEARCH_DOC.NAME_GRANT'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -162,7 +163,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col" *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">
       <div class="default-input-wrapper full-row">
-        <label>Name of the land:</label>
+        <label>{{'SEARCH_DOC.NAME_AND'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -173,7 +174,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Extent:</label>
+        <label>{{'SEARCH_DOC.EXTENT'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
@@ -187,7 +188,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Korale:</label>
+        <label>{{'SEARCH_DOC.KORALE'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -195,7 +196,7 @@
                     (change)="onChangeKorale($event.target.value)"
                     formControlName="koraleId">
               <option value="">--Select--</option>
-              <option *ngFor="let item of korales" [value]="item.koraleId">{{item.descriptionEng}}</option>
+              <option *ngFor="let item of korales" [value]="item.koraleId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
           </mat-form-field>
         </div>
@@ -203,14 +204,14 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Pattu:</label>
+        <label>{{'SEARCH_DOC.PATTU'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
                     class="form-control"
                     formControlName="paththuId">
-              <option value="">--Select--</option>
-              <option *ngFor="let item of paththuwas" [value]="item.paththuwaId">{{item.descriptionEng}}</option>
+              <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
+              <option *ngFor="let item of paththuwas" [value]="item.paththuwaId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
           </mat-form-field>
         </div>
@@ -220,15 +221,15 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>DS Division:</label>
+        <label>{{'SEARCH_DOC.DS_DIV'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
                     class="form-control"
                     (change)="onChangeDsDivision($event.target.value)"
                     formControlName="dsDivisionId">
-              <option value="">--Select--</option>
-              <option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description}}</option>
+              <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
+              <option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
           </mat-form-field>
         </div>
@@ -236,7 +237,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>GN Division:</label>
+        <label>{{'SEARCH_DOC.GN_DIV'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -244,9 +245,9 @@
                     (change)="onChangeGnDivision($event.target.value)"
                     formControlName="gnDivisionId">
               <option value="">--Select--</option>
-              <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description}}</option>
+              <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
-            <mat-error *ngIf="gnDivisions?.length==0">Please select Ds Division</mat-error>
+            <mat-error *ngIf="gnDivisions?.length==0">{{'SEARCH_DOC.SELECT_DS'|translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -256,18 +257,18 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>Village:</label>
+        <label>{{'SEARCH_DOC.VILLAGE'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
                     class="form-control"
                     formControlName="villageId">
-              <option value="">--Select--</option>
-              <option *ngFor="let item of villages" [value]="item.villageId">{{item.description}}</option>
+              <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
+              <option *ngFor="let item of villages" [value]="item.villageId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
             <mat-error
               *ngIf="form.get('villageId').untouched">
-              Please select Gn Division
+              {{'SEARCH_DOC.SELECT_GN'|translate}}
             </mat-error>
           </mat-form-field>
         </div>
@@ -275,7 +276,7 @@
     </div>
     <div class="pg-inner-col">
       <div *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT" class="default-input-wrapper full-row">
-        <label>Reason for Search:<span
+        <label>{{'SEARCH_DOC.REASON_SEARCH'|translate}}<span
           class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
@@ -285,13 +286,13 @@
         </div>
       </div>
       <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="default-input-wrapper full-row">
-        <label>Reason for search of deed as: <span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.REASON_SEARCH_DEED'|translate}} <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
                     class="form-control" formControlName="searchReasonId">
-              <option value="">--Select--</option>
-              <option *ngFor="let item of searchReasons" [value]="item.searchReasonId">{{item.descriptionEng}}
+              <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
+              <option *ngFor="let item of searchReasons" [value]="item.searchReasonId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}
               </option>
             </select>
           </mat-form-field>
@@ -302,21 +303,21 @@
 
 
   <div *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">
-    <span class="mb-10" style="display: block;">Registers required for search</span>
+    <span class="mb-10" style="display: block;">{{'SEARCH_DOC.REGISTERED_REQ_SEARCH'|translate}}</span>
     <div class="separator">&nbsp;</div>
 
     <div class="pg-inner-row mb-20">
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>LR Division: <span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.LR_DIV'|translate}} <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <select matNativeControl
                       class="form-control"
                       formControlName="lrDivisionId">
-                <option value="">--Select--</option>
+                <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
                 <option *ngFor="let item of lrDivisions" [value]="item.landRegistryDivisionId">
-                  {{item.divisionCode+' - '+item.description}}
+                  {{item.divisionCode+' - '+(item.description|listTranslate:item.descriptionSin:item.descriptionTam)}}
                 </option>
               </select>
             </mat-form-field>
@@ -325,7 +326,7 @@
       </div>
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>Volume: <span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.VOLUME'|translate}} <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <input matInput type="number"
@@ -340,7 +341,7 @@
     <div class="pg-inner-row mb-20">
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>Folio No: <span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.FOL_NO'|translate}} <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <input matInput
@@ -354,7 +355,7 @@
       </div>
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>No. of Years: <span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.NO_OF_YRS'|translate}} <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <input matInput
@@ -383,7 +384,7 @@
         <div class="pg-inner-col float-right ">
           <button [disabled]="folioStatus" mat-raised-button
                   (click)="onClickSearch()"
-                  class="button float-right">Search
+                  class="button float-right">{{'BUTTONS.SEARCH_BUTTON'|translate}}
           </button>
         </div>
       </div>
@@ -396,7 +397,7 @@
     <button mat-raised-button
             [disabled]="!canApply"
             (click)="onClickSaveChanges()"
-            class="button float-right">Apply Changes
+            class="button float-right">{{'BUTTONS.APPLY_CHANGES_BUTTON'|translate}}
     </button>
   </div>
 </div>

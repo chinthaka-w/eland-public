@@ -447,8 +447,10 @@
        "ADDRESS":"Address",
        "PERMANENT_ADDRESS":"Permanent Address",
        "CURRENT_ADDRESS":"Current Address",
+       "CURRENT_OFFICE_ADDRESS":"Current Office Address",
        "ADDRESSES":"Addresses",
        "CONTACT_NO":"Contact No",
+       "RESIDENTIAL":"Residential",
        "EMAIL":"E-mail",
        "FAX":"Fax",
        "CONTACT_NAME":"Contact Name",
@@ -699,15 +701,18 @@
           "PLEASE_FILL":"Please fill the form..!",
           "PLEASE_AT_LEAST_ONE":"Please, select at least one item !",
           "WARNING":"Warning",
-          "MANDATORY_DOC_ERR": "Please upload mandatory documents!"
+          "MANDATORY_DOC_ERR": "Please upload mandatory documents!",
+          "VALIDATE_CAPTURE":"Please validate the captcha...!"
        },
        "CONFIRM_MESSAGE":{
           "SUBMIT_APPLICATION":"Are you sure, you want to submit this application?",
           "SUBMIT":"Are you sure?",
-          "CONFIRM_SUBMIT":"Are you want to submit?"
+          "CONFIRM_SUBMIT":"Are you want to submit?",
+         "CONFIRM_DELETE":"Are you sure you want to delete this?"
        },
        "MESSAGE":{
           "SUBMITTED_SUCCESS":"Successfully submitted!",
+          "SUBMITTED_SUCCESS_PROCEED_ONLINE_PAYMENT": "Successfully submitted, Proceed to online payment",
           "UPDATE_SUCCESS": "Successfully updated!",
           "REMARK_ADDED":"Insert your remark here",
           "ACTIVATED_SUCCESS":"Successfully activated!",
@@ -717,7 +722,29 @@
           "LR_NOT_FOUND":"Land Registries not found",
           "FOLIO_EXIST":"Folio already exist",
           "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email.",
-          "REQUEST_PENDING": "Submitted request under reviewing"
+          "REQUEST_PENDING": "Submitted request under reviewing",
+         "UPLOAD_DOCS":"Please, Upload relevant documents.",
+         "SELECT_LAND_REG":"Please, Select landregistry.",
+         "ENTER_REASON":"Please, Enter the reason.",
+         "SUCCESS_JUD_REQ":"Judicial Change Request Success",
+         "FAILED":"Failed",
+         "NAME_CHG_SUCCESS":"Notary Name Change Request Success",
+         "NAME_CHG_SUCCESS_ONLINE":"Notary Name Change Request Success, Proceed to online payment",
+         "OPERATION_FAILED":"Operation failed",
+         "SELECT_LANGUAGE":"Please select a language!",
+         "REQUIRED_FIELDS":"Please fill the required fields!",
+         "INV_DATE":"Invalid Date Range",
+         "DUP_TIME_RANGE": "Duplicate Time Range",
+         "FILL_APP_FORM1":"Please fill application form, before search folio status.",
+         "FILL_APP_FORM12":"Please fill application form, before continue.",
+         "SEARCH_FOL":"Please search folio status, before continue.",
+         "PAYMENT_FAILED":"Your payment failed.",
+         "PROCEED_ONLINE_PAY":"Your Search request saved successfully. Proceed to online payment",
+         "SEARCH_REQ_SUCCESS":"Your Search request saved successfully.",
+         "EXTRACT_PROCEED_ONLINE":"Your Extract request saved successfully.Proceed to online payment",
+         "EXTARCT_REQ_SUCCESS":"Your Extract request saved successfully."
+
+
        },
        "WARNING":{
           "FOLIO_NOT_FOUND":"Folio not found!",
@@ -729,6 +756,9 @@
     },
     "VALIDATION":{
        "MAX_LENGTH_255_ERR":"Maximum of 255 characters.",
+       "MAX_LENGTH_25_ERR":"Maximum of 25 characters.",
+       "MAX_FILE_SIZE_ERR": "Maximum file size has been exceeded.",
+       "INVALID_FILE_ERR": "Invalid file type.",
        "STATUS_SELECT_ERR":"Please Select Status!",
        "DESCRIPTION_EMPTY_ERR":"Please Enter Description",
        "CATEGORY_SELECT_ERR":"Please select a Category",
@@ -956,9 +986,9 @@
       "FILL_REQ_FIELDS": "Please fill the required fields",
       "NOTARYID": "Notary ID",
       "LAW_FIRM_NAME": "Law Firm Name",
-      "APPLICANT_NAME": "Applicant Name",
-      "APPLICANT_NAME_SIN": "Applicant Name(Sinhala)",
-      "APPLICANT_NAME_TAM": "Applicant Name(Tamil)",
+      "APPLICANT_NAME": "Applicant Name (English)",
+      "APPLICANT_NAME_SIN": "Applicant Name (Sinhala)",
+      "APPLICANT_NAME_TAM": "Applicant Name (Tamil)",
       "VALID_NAME": "Please enter valid name",
       "DOB": "Date of birth",
       "CALENDERtOD": "calendar_today",
@@ -966,8 +996,9 @@
       "STATE_INS_NAME": "State Institution Name",
       "OTHER_INS_NAME": "Other Institution Name",
       "BANK_NAME": "Bank Name",
+      "BANK_BRANCH": "Bank Branch",
       "SELECT_BANK": "Select Bank Name",
-      "ADDRESS": "Address",
+      "ADDRESS": "Address (English)",
       "VALID_ADDRESS": "Please enter valid address",
       "IDENT_TYPE": "Identification Type",
       "SELECT_IDEN_TYP": "Select Identification Type",
@@ -992,9 +1023,9 @@
       "REGISTRATION": "Registration",
       "REGISTRATION1": "Please fill in the following information to",
       "REGISTRATION2": "register in the system",
-      "ADDRESS_ENG": "Address in English",
-      "ADDRESS_SIN": "Address in Sinhala",
-      "ADDRESS_TAM": "Address in Tamil",
+      "ADDRESS_ENG": "Address (English)",
+      "ADDRESS_SIN": "Address (Sinhala)",
+      "ADDRESS_TAM": "Address (Tamil)",
       "APPL": "Application",
       "PAYMENT_INFO": "Payment Info",
       "REMARK": "Remark",
@@ -1006,7 +1037,7 @@
       "WRK_STG": "Workflow Stage",
       "REMRK": "Remark",
       "HISTORY": "History",
-      "CRTIME": "Created Time",
+      "CRTIME": "Created Date & Time",
       "CRUSER": "Created User",
       "PAYMNT_INFO": "Payment Informations",
       "PAY_ID": "Payment ID",
@@ -1070,7 +1101,7 @@
     "NAME":"Name:",
     "PAYMENT":"Payment:",
     "NEXT":"Next",
-    "CITIZENID":"Citizen ID:",
+    "CITIZENID":"Public User ID:",
     "CHG_JUD_ZONE":"Change Judicial Zone",
     "CHG_LAND_REG":"Change Land Registry",
     "CHG_NAME":"Change The Name",
@@ -1092,7 +1123,7 @@
         "TITLE": "Request for Section 35 Correction",
         "NEW_REQUEST": {
            "TITLE": "Request for Corrections of Registrations",
-           "SUB_TITLE": "Please fill in the following information to register in the system"
+           "SUB_TITLE": "Please fill the following information to request for corrections"
         }
      },
      "JUDICIAL_CHANGE": {
@@ -1110,8 +1141,12 @@
     "LANDREG":"Land Registry:",
     "REASON":"Reason for change:",
     "REASONREQ":"Reason for change is Required",
-    "CONTINUE":"Continue"
-
+    "CONTINUE":"Continue",
+    "NOTARY_NAME":"Notary Name:",
+    "NOTARY_ID":"Notary Id:",
+    "NEW_LAN_REG":"New Land Registry:",
+    "PER_ADD":"Permenent address:",
+    "SUCCESS_LR": "Land Registry Change Request Success"
   },
 
   "PAYMENT":{
@@ -1165,6 +1200,19 @@
     "TITLE4":"Sign Up here",
     "LOGIN":"Login"
   },
+  "FORGOT_PSWD":{
+    "TYPE":"Welcome to E-Land",
+    "NOTARY":"Notary",
+    "CITIZEN":"Citizen",
+    "EMAIL":"Email",
+    "TITLE":"Recover Your Password",
+    "TITLE2":"Please Select Your Applicant Type",
+    "VALID_EMAIL":" Email is required",
+    "BUTTON1":"SEND RESET LINK",
+    "BUTTON2":"Go back to login",
+    "TITLE3":"Select Your Username",
+    "BACK":"Go back"
+  },
   "SEARCH_DOC":{
     "SEARCH":"Search",
     "LAND_REG":"Land Registry:",
@@ -1197,7 +1245,17 @@
     "VOLUME":"Volume:",
     "FOL_NO":"Folio No: ",
     "NO_OF_YRS":"No. of Years:",
-    "CONTINUE":"Continue"
+    "CONTINUE":"Continue",
+    "TITLE1":"View Extract Request",
+    "CHG_DETAILS":"Change Details",
+    "APPLICATION":"Application",
+    "CURRENT_DETAILS":"Current Details",
+    "SUPPORTING_DOC":"Supporting Documents",
+    "PAY_INFO":"Payment Info",
+    "REMARK":"Remark",
+    "HISTORY":"History",
+    "TITLE2":"View Search Request"
+
   },
   "LEAVE_REQUEST":{
     "TITILE":"Request for leave",
@@ -1255,7 +1313,7 @@
     "REGISTRY1":"LAND REGISTRY CHANGE",
     "REGISTRY2":"REQUEST FOR LAND REGISTRY CHANGE",
     "SECTION351":"Section 35 Correction",
-    "SECTION352":"REQUEST FOR Section 35 Correction",
+    "SECTION352":"Request for Section 35 Correction",
     "NEW":"New",
     "REQUEST_ID":"Request ID",
     "NAME":"Full Name",
@@ -1293,7 +1351,13 @@
     "TITLE5":"By signing up, you agree to E-Land's",
     "TITLE6":"Terms of Service",
     "TITLE7":"Code of Conduct",
-    "TITLE8":"Privacy Policy"
+    "TITLE8":"Privacy Policy",
+    "CHG_DETAILS":"Change Details",
+    "APPLICATION":"Application",
+    "CURRENT_DETAILS":"Current Details",
+    "SUPPORTING_DOC":"Supporting Documents",
+    "PAY_INFO":"Payment Info",
+    "REMARK":"Remark"
   },
   "RESIGNATION":{
     "TITLE1":"Request for Resignation",
@@ -1329,7 +1393,13 @@
     "PER_ADD_T":"Permanent address (Tamil):",
     "CUR_ADD_E":"Current address (English):",
     "CUR_ADD_S":"Current address (Sinhala):",
-    "CUR_ADD_T":"Current address (Tamil):"
+    "CUR_ADD_T":"Current address (Tamil):",
+    "CHG_DETAILS":"Change Details",
+    "APPLICATION":"Application",
+    "CURRENT_DETAILS":"Current Details",
+    "SUPPORTING_DOC":"Supporting Documents",
+    "PAY_INFO":"Payment Info",
+    "REMARK":"Remark"
   },
   "EDIT_PROFILE":{
     "TITLE1":"Edit Profile",

@@ -20,8 +20,10 @@ export class ApplicationComponent implements OnInit {
   notaryDetails: Notary;
   public notary: Notary;
   submitted = false;
+  disableSubmit = false;
   firstValue: any;
   lastValue: any;
+
   constructor(private sessionService: SessionService,
               private notaryService: NotaryService,
               private snackBar: SnackBarService,
@@ -35,17 +37,17 @@ export class ApplicationComponent implements OnInit {
       nameIniEng: new FormControl(''),
       nameIniSin: new FormControl(''),
       nameIniTam: new FormControl(''),
-      perAddEng: new FormControl(''),
-      perAddSin: new FormControl(''),
-      perAddTam: new FormControl(''),
-      curAddressEng: new FormControl(''),
-      curAddressSin: new FormControl(''),
-      curAddressTam: new FormControl(''),
+      perAddEng: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      perAddSin: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      perAddTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      curAddressEng: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      curAddressSin: new FormControl('', [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      curAddressTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       isWarLang: new FormControl(''),
       dob: new FormControl(''),
       nic: new FormControl(''),
       contact: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
-      mobile: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      mobile: new FormControl('', [ Validators.pattern(PatternValidation.contactNumberValidation)]),
       email: new FormControl('', [ Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
       judicial: new FormControl(''),
       lRegistry: new FormControl(''),
@@ -156,6 +158,7 @@ export class ApplicationComponent implements OnInit {
                 (success: string) => {
                   this.snackBar.success('Submitted the profile edit request successfully!');
                   // this.requestForm.reset();
+                  this.disableSubmit = true;
                 },
                 error => {
                   this.snackBar.error('Failed');
