@@ -201,6 +201,7 @@ export class AddNotaryComponent implements OnInit {
               private snackBar: SnackBarService,
               private router: Router,
               private systemService: SystemService,
+              private notaryService:NotaryService,
               private authorizeRequestService: AuthorizeRequestService,
               private cdr: ChangeDetectorRef,
               private sysMethodService: SysMethodsService) {
