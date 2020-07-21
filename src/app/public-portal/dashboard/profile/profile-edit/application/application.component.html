@@ -1,19 +1,42 @@
-<div class="pg-inner-row mb-40">
+<!-- <div class="pg-inner-row mb-40">
     <div class="pg-inner-col">
         <h4 class="m0">{{'EDIT_PROFILE.TITLE1'|translate}}</h4>
     </div>
-</div>
-
-<h5 class="uw-title"><span>{{'EDIT_PROFILE.TITLE2'|translate}}</span></h5>
+</div> -->
 
 <form [formGroup]="requestForm" class="form pb-5">
-  <div class="pg-inner-row mb-20">
+  <div class="default-input-wrapper full-row half-cols">
+    <label class="mw-200">{{'EDIT_PROFILE.FULLNAME_E'|translate}}</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="fNameEng" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="default-input-wrapper full-row half-cols">
+    <label class="mw-200">{{'EDIT_PROFILE.FULLNAME_S'|translate}}</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="fNameSin" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="default-input-wrapper full-row half-cols">
+    <label class="mw-200">{{'EDIT_PROFILE.FULLNAME_T'|translate}}</label>
+    <div class="default-input-feild">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="fNameTam" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- <div class="pg-inner-row mb-20">
     <div class="pg-inner-col-3">
       <div class="default-input-wrapper full-row">
         <label>{{'EDIT_PROFILE.FULLNAME_E'|translate}}</label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline" >
-            <textarea matInput rows="5" matInput formControlName="fNameEng" readonly class="form-control"></textarea>
+            <input matInput matInput formControlName="fNameEng" readonly class="form-control">
           </mat-form-field>
         </div>
       </div>
@@ -38,7 +61,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 <div class="pg-inner-row mb-20">
@@ -205,9 +228,10 @@
     </div>
 </div>
 
-  <div class="pg-inner-col right" >
-    <button mat-raised-button class="lg-button" (click)="submitForm()" [disabled]="disableSubmit=== true">
+  <div class="pg-inner-col float-right">
+    <button mat-raised-button class="lg-button float-right" (click)="submitForm()" [disabled]="disableSubmit=== true || showSpinner">
       {{'BUTTONS.SUBMIT_BUTTON'|translate}}
+      <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
     </button>
   </div>
 </form>

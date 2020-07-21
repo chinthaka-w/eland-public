@@ -84,11 +84,18 @@
         <!--</div>-->
       <!--</div>-->
 
-      <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
-        <button  mat-raised-button class="lg-button" [disabled]="!(landRegistryChangeForm.valid && isRequiredDocsUpload)" (click)="continue()">
-          {{'BUTTONS.SUBMIT_BUTTON'|translate}}
-        </button>
+      <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
+        <div class="pg-inner-col">          
+        </div>
+        <div class="pg-inner-col middle">
+        </div>
+        <div class="pg-inner-col float-right" *ngIf="!isPaymentSuccess">
+          <button  mat-raised-button class="lg-button float-right" [disabled]="!(landRegistryChangeForm.valid && isRequiredDocsUpload)" (click)="continue()">
+            {{'BUTTONS.SUBMIT_BUTTON'|translate}}
+          </button>
+        </div>
       </div>
+      
 
 
     </form>
