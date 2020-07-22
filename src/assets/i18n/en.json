@@ -724,7 +724,7 @@
           "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email.",
           "REQUEST_PENDING": "Submitted request under reviewing",
          "UPLOAD_DOCS":"Please, Upload relevant documents.",
-         "SELECT_LAND_REG":"Please, Select landregistry.",
+         "SELECT_LAND_REG":"Please, Select land registry.",
          "ENTER_REASON":"Please, Enter the reason.",
          "SUCCESS_JUD_REQ":"Judicial Change Request Success",
          "FAILED":"Failed",
@@ -1007,7 +1007,7 @@
       "DRIVING_LIC": "Driving License",
       "IDENT_TYP_REQ": "Identification Type required",
       "IDENTITY_NUMBER": "NIC/Passport/ Driving license Number",
-      "VALID_REF_NUM": "Please enter valid reference number",
+      "VALID_REF_NUM": "Please enter valid identification number",
       "TEL_NO": "Telephone Number ",
       "VALID_TEL": "Please enter valid telephone number",
       "REASON_FOR_APP": "Reason for application",
@@ -1425,7 +1425,10 @@
     "JUD_DIV":"Judicial Division:",
     "LAND_REG":"Land Registry:",
     "TITLE3":"Notary Edit Profile",
-    "APPLICATION":"Application"
+    "APPLICATION":"Application",
+    "VALIDATION": {
+       "NO_FIELD_TO_UPDATE": "There are no fields to update"
+    }
 
   }
 
