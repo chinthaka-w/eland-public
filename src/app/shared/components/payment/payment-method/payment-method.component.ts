@@ -17,6 +17,7 @@ import {JsonFormatter} from 'tslint/lib/formatters';
 import {CommonStatus} from '../../../enum/common-status.enum';
 import {PaymentStatus} from '../../../enum/payment-status.enum';
 import {DomSanitizer} from "@angular/platform-browser";
+import {AuthorizeRequestService} from '../../../service/authorize-request.service';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class PaymentMethodComponent implements OnInit {
               private notaryService: NotaryService,
               private dataRoute: ActivatedRoute,
               private snackBar: SnackBarService,
-              private bankService: BankService,
+              // private bankService: BankService,
+              private authorizeRequestService: AuthorizeRequestService,
               private branchService: BankBranchService,
               private paymentService: PaymentService,
               private sanitizer: DomSanitizer,
@@ -86,7 +88,7 @@ export class PaymentMethodComponent implements OnInit {
     let formData = new FormData();
     formData.append('model',JSON.stringify(this.paymentDTO));
     formData.append('file',this.files[0]);
-    this.paymentService.savePayment(formData).subscribe(
+    this.authorizeRequestService.savePayment(formData).subscribe(
       (res: PaymentDto) => {
         this.paymentResponse.paymentId = res.paymentId;
         this.paymentResponse.paymentMethod = PaymentMethod.BANK_TRANSFER_OR_DIPOSIT;
@@ -106,7 +108,7 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   private loadBanks(): void {
-    this.bankService.findAll().subscribe(
+    this.authorizeRequestService.findAllBanks().subscribe(
       (data: Bank[]) => {
         this.banks = data;
       }
@@ -114,7 +116,7 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   private getAllBranchByBankId(bankId: number) {
-    this.branchService.findAllByBankId(bankId).subscribe(
+    this.authorizeRequestService.findAllByBankId(bankId).subscribe(
       (data: BankBranch []) => {
         this.branches = data;
       }

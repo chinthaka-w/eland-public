@@ -461,7 +461,7 @@ export class AddNotaryComponent implements OnInit {
 
   emailValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.notaryService.findEmailIfNotaryExist(control.value).pipe(
+      return this.authorizeRequestService.findEmailIfNotaryExist(control.value).pipe(
         map(res => {
           // if res is true, username exists, return true
           return res != null ? {emailExists: true} : null;

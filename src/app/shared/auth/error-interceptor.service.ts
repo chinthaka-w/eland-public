@@ -54,6 +54,10 @@ export class ErrorInterceptorService implements HttpInterceptor{
             return next.handle(this.addAuthenticationToken(request))
           }));
       } else {
+        if(!this.tokenStorageService.getRefreshToken()){
+          return throwError(error);
+        }
+
         this.refreshTokenInProgress = true;
 
         // Set the refreshTokenSubject to null so that subsequent API calls will wait until the new token has been retrieved
