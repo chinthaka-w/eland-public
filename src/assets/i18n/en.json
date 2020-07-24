@@ -1413,7 +1413,7 @@
     "CUR_ADD_E":"Current address (English):",
     "CUR_ADD_S":"Current address (Sinhala):",
     "CUR_ADD_T":"Current address (Tamil):",
-    "CONTACT":"Contact No. (Residential):",
+    "CONTACT":"Contact No. (Residential)",
     "CONTACT_REQ":"Contact number is required",
     "VALID_CONTACT":"Please enter valid contact number",
     "MOBILE":"Mobile:",

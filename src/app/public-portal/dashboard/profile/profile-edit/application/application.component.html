@@ -67,13 +67,14 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>{{'EDIT_PROFILE.PER_ADD_E'|translate}}</label>
+            <label>{{'EDIT_PROFILE.PER_ADD_E'|translate}} <span style="color: red;">*</span></label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <textarea matInput rows="5" formControlName="perAddEng" maxlength="255" class="form-control"></textarea>
                 </mat-form-field>
-              <div *ngIf="f.perAddEng.errors" >
-                <mat-error *ngIf="f.perAddEng.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
+              <div *ngIf="f.perAddEng.invalid && (f.perAddEng.touched || f.perAddEng.dirty)" >
+                <mat-error *ngIf="f.perAddEng.errors.pattern" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
+                <mat-error *ngIf="f.perAddEng.errors.required" class="errors">{{'VALIDATION.REQUIRED_FIELD_ERR'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -86,7 +87,7 @@
                     <textarea matInput rows="5" formControlName="perAddSin" maxlength="255" class="form-control"></textarea>
                 </mat-form-field>
               <div *ngIf="f.perAddSin.errors" >
-                <mat-error *ngIf="f.perAddSin.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
+                <mat-error *ngIf="f.perAddSin.errors.pattern" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -99,7 +100,7 @@
                     <textarea matInput rows="5" formControlName="perAddTam" maxlength="255" class="form-control"></textarea>
                 </mat-form-field>
               <div *ngIf="f.perAddTam.errors" >
-                <mat-error *ngIf="f.perAddTam.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
+                <mat-error *ngIf="f.perAddTam.errors.pattern" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -109,13 +110,14 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col-3">
         <div class="default-input-wrapper full-row">
-            <label>{{'EDIT_PROFILE.CUR_ADD_E'|translate}}</label>
+            <label>{{'EDIT_PROFILE.CUR_ADD_E'|translate}} <span style="color: red;">*</span></label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <textarea matInput rows="5" formControlName="curAddressEng" maxlength="255" class="form-control"></textarea>
                 </mat-form-field>
-              <div *ngIf="f.curAddressEng.errors" >
-                <mat-error *ngIf="f.curAddressEng.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
+              <div *ngIf="f.curAddressEng.invalid && (f.curAddressEng.touched || f.curAddressEng.dirty)" >
+                <mat-error *ngIf="f.curAddressEng.errors.pattern" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
+                <mat-error *ngIf="f.curAddressEng.errors.required" class="errors">{{'VALIDATION.REQUIRED_FIELD_ERR'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -128,7 +130,7 @@
                     <textarea matInput rows="5" formControlName="curAddressSin" maxlength="255" class="form-control"></textarea>
                 </mat-form-field>
               <div *ngIf="f.curAddressSin.errors" >
-                <mat-error *ngIf="f.curAddressSin.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
+                <mat-error *ngIf="f.curAddressSin.errors.pattern" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -141,7 +143,7 @@
                     <textarea matInput rows="5" formControlName="curAddressTam" maxlength="255" class="form-control"></textarea>
                 </mat-form-field>
               <div *ngIf="f.curAddressTam.errors" >
-                <mat-error *ngIf="f.curAddressTam.errors.pattern" class="errors">{{'EDIT_PROFILE.VALID_MOBILE'|translate}}</mat-error>
+                <mat-error *ngIf="f.curAddressTam.errors.pattern" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
               </div>
             </div>
         </div>
@@ -151,7 +153,7 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-            <label>{{'EDIT_PROFILE.CONTACT'|translate}}</label>
+            <label>{{'EDIT_PROFILE.CONTACT'|translate}}: <span style="color: red;">*</span> </label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="contact" class="form-control">
@@ -186,7 +188,7 @@
 <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-            <label>{{'EDIT_PROFILE.EMAIL'|translate}}</label>
+            <label>{{'EDIT_PROFILE.EMAIL'|translate}} <span style="color: red;">*</span></label>
             <div class="default-input-feild">
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="email" class="form-control">
