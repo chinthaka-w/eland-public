@@ -24,6 +24,7 @@ import {Router} from "@angular/router";
 import {IdentificationType} from "../../../shared/enum/identification-type.enum";
 import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
 import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
+import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
 
 @Component({
   selector: "app-add-public-user",
@@ -81,6 +82,7 @@ export class AddPublicUserComponent implements OnInit {
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
               private snackBar: SnackBarService,
+              private authorizeRequestService: AuthorizeRequestService,
               private router: Router,
               private systemService: SystemService) {}
 
@@ -272,8 +274,9 @@ export class AddPublicUserComponent implements OnInit {
 
 
   }
+
   getAllLandRegistries() {
-    this.citizenService.getAllLandRegistries()
+    this.authorizeRequestService.getAllLandRegistries()
       .subscribe((res) => {
         this.landRegistriesDTOList = res;
       },
@@ -284,7 +287,7 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   getAllBanks() {
-    this.bankService.getAllBanks()
+    this.authorizeRequestService.getAllBanks()
       .subscribe((result) => {
         this.banks = result;
       });
@@ -293,7 +296,7 @@ export class AddPublicUserComponent implements OnInit {
   getCurrentLandRegistry(lrCode: number) {
     this.citizenDTO.landRegistry = lrCode;
   }
-  
+
   getCurrentBank(event) {
     this.citizenDTO.bankId = event.value;
     // get bank branches
@@ -301,7 +304,7 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   getBankBranches(bankId: number) {
-    this.bankService.findBankBranches(bankId).subscribe(
+    this.authorizeRequestService.findBankBranches(bankId).subscribe(
       (response: any) => {
         this.bankBranches = response;
       },
@@ -338,6 +341,7 @@ export class AddPublicUserComponent implements OnInit {
     }
     this.publicUserForm.updateValueAndValidity();
   }
+
   getCurrentUserType(userType: number) {
 
     this.docMetaList = [];
@@ -370,7 +374,7 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   getRelatedDocTypes(workflowStage: string) {
-    this.citizenService.getRelatedDocTypes(workflowStage)
+    this.authorizeRequestService.getRelatedDocTypes(workflowStage)
       .subscribe((result) => {
         this.workflowStageDocTypes = result;
       });
@@ -432,7 +436,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
 
-    this.citizenService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
+    this.authorizeRequestService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
       .subscribe((result) => {
         if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
           this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
@@ -450,7 +454,7 @@ export class AddPublicUserComponent implements OnInit {
 
   onSearchChange(searchValue: string): void {
     this.publicUserDTO.username = searchValue;
-    this.citizenService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
+    this.authorizeRequestService.checkForValidUsername(this.publicUserDTO).subscribe((result) => {
         if (result == true) {
           this.publicUserExist = true;
           this.email.setErrors({incorrect: true});

@@ -7,6 +7,7 @@ import {SessionService} from '../../service/session.service';
 import {PublicUserDetails} from '../../dto/public-user-detail.model';
 import {TranslateService} from '@ngx-translate/core';
 import {Languages} from '../../enum/languages.enum';
+import {TokenStorageService} from '../../auth/token-storage.service';
 
 
 @Component({
@@ -60,6 +61,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private sessionService: SessionService,
+    private tokenStorageService: TokenStorageService,
     public translate: TranslateService
   ) {
     router.events.subscribe(event => {
@@ -95,8 +97,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-
-    this.sessionService.removeUser();
+    this.tokenStorageService.signOut();
     this.router.navigate([`/login`], {relativeTo: this.route});
   }
 

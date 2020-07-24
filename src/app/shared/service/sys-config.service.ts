@@ -7,20 +7,31 @@ import { AppConfig } from "../dto/app-config.model";
 })
 export class SysConfigService {
   public static APP_ENDPOINT = "api/";
+  public static APP_ENDPOINT2 = "authorize/";
   public static APP_IP = `${window.location.href.split('/')[2].split(':')[0]}:`;
   public static APP_PROTOCOL = "http://";
   public static APP_PORT = "9292/";
   // online payment configs
-  // public static LGPS_PAYMENT_URL = 'https://testlgps.lankagate.gov.lk:9443/lgps/accesslgps?clientPaymentRequest=';
-  public static LGPS_PAYMENT_URL = 'https://lgps.lankagate.gov.lk/lgps/accesslgps?clientPaymentRequest=';
-  // public static LGPS_SERVICE_CODE = 'TEST10001';
-  public static LGPS_SERVICE_CODE = 'RGDDMS0001';
+  public static LGPS_PAYMENT_URL = 'https://testlgps.lankagate.gov.lk:9443/lgps/accesslgps?clientPaymentRequest=';
+  // public static LGPS_PAYMENT_URL = 'https://lgps.lankagate.gov.lk/lgps/accesslgps?clientPaymentRequest=';
+  public static LGPS_SERVICE_CODE = 'TEST10001';
+  // public static LGPS_SERVICE_CODE = 'RGDDMS0001';
 
   public static readonly BASE_URL =
     SysConfigService.APP_PROTOCOL +
     SysConfigService.APP_IP +
     SysConfigService.APP_PORT +
     SysConfigService.APP_ENDPOINT;
+
+  public static readonly BASE_URL2 = SysConfigService.APP_PROTOCOL +
+    SysConfigService.APP_IP +
+    SysConfigService.APP_PORT;
+
+  public static readonly BASE_URL3 =
+    SysConfigService.APP_PROTOCOL +
+    SysConfigService.APP_IP +
+    SysConfigService.APP_PORT +
+    SysConfigService.APP_ENDPOINT2;
 
   appConfig = new EventEmitter<AppConfig>();
 
