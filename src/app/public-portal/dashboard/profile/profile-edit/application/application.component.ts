@@ -40,10 +40,16 @@ export class ApplicationComponent implements OnInit {
       nameIniEng: new FormControl(''),
       nameIniSin: new FormControl(''),
       nameIniTam: new FormControl(''),
-      perAddEng: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      perAddEng: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]),
       perAddSin: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       perAddTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      curAddressEng: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      curAddressEng: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]),
       curAddressSin: new FormControl('', [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       curAddressTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       isWarLang: new FormControl(''),
