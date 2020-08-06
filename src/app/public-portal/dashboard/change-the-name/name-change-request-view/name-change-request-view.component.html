@@ -29,6 +29,9 @@
         <app-notary-remark [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-remark>
       </mat-tab>
     </mat-tab-group>
+    <div class="pg-inner-col float-right">
+      <button *ngIf="editable" mat-raised-button class="lg-button float-right"
+        (click)="onFormSubmit()">{{'BUTTONS.SUBMIT_BUTTON'|translate}}</button>
+    </div>
   </div>
-  <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'BUTTONS.SUBMIT_BUTTON'|translate}}</button>
 </div>
