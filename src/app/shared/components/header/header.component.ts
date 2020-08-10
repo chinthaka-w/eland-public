@@ -1,3 +1,4 @@
+import { CommonStatus } from './../../enum/common-status.enum';
 import { UserType } from './../../enum/user-type.enum';
 import {Component, OnInit, OnChanges, Input} from '@angular/core';
 import {SysConfigService} from '../../service/sys-config.service';
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
   isHome: boolean;
   isLogin: boolean;
   USER_TYPE = UserType;
+  COMMON_STATUS = CommonStatus;
 
   userDetails: PublicUserDetails;
 
