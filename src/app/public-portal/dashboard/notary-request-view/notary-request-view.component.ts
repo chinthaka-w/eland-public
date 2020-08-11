@@ -85,21 +85,19 @@ export class NotaryRequestViewComponent implements OnInit {
     const rejectWorkflowStages: string[] = [];
     switch (this.workflow) {
       case Workflow.NOTARY_NAME_CHANGE: {
-        rejectWorkflowStages.push(NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_ISSUED_SC);
-
-        this.checkOnPendingRequests(rejectWorkflowStages);
+        this.checkOnPendingRequests();
+        break;
       }
     }
   }
 
-  checkOnPendingRequests(workflowStages: string[]) {
-    for (const workflowStage of workflowStages) {
-      if (this.requests.length > 0 && this.requests[0].workFlowStageCode === workflowStage) {
-        this.isRequestUnderReview = false;
-        break;
+  checkOnPendingRequests() {
+    if (this.requests.length > 0 && this.requests[0].workFlowStageCode !==
+      NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_ISSUED_SC ) {
+        this.isRequestUnderReview = true;
       }
-    }
-    if (!this.isRequestUnderReview) {
+
+    if (this.isRequestUnderReview) {
       this.snackBarService.warn(this.systemService.getTranslation('ALERT.MESSAGE.REQUEST_PENDING'));
     } else {
       this.router.navigate([this.newButtonURL]);
