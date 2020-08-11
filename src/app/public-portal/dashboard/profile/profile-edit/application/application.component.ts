@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { SystemService } from './../../../../../shared/service/system.service';
 import {Component, OnInit} from '@angular/core';
 import {SessionService} from '../../../../../shared/service/session.service';
@@ -30,7 +31,8 @@ export class ApplicationComponent implements OnInit {
               private notaryService: NotaryService,
               private snackBar: SnackBarService,
               private formBuilder: FormBuilder,
-              private systemService: SystemService) { }
+              private systemService: SystemService,
+              private router: Router) { }
 
   ngOnInit() {
     this.requestForm = this.formBuilder.group({
@@ -174,6 +176,9 @@ export class ApplicationComponent implements OnInit {
                 error => {
                   this.snackBar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
                   this.showSpinner = false;
+                },
+                () => {
+                  this.router.navigate(['/dashboard']);
                 }
               );
             }
