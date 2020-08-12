@@ -17,6 +17,7 @@ import {CommonStatus} from '../../enum/common-status.enum';
 import {v1 as uuid} from 'uuid';
 import {SysMethodsService} from '../../service/sys-methods.service';
 import {log} from 'util';
+import {AuthorizeRequestService} from '../../service/authorize-request.service';
 
 @Component({
   selector: 'app-payment',
@@ -64,6 +65,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   constructor(private formBuilder: FormBuilder,
               private paymentService: PaymentService,
               private snackBar: SnackBarService,
+              private authorizeRequestService: AuthorizeRequestService,
               public sysMethodsService: SysMethodsService,
               private parameterService: ParameterService) {
   }
@@ -92,7 +94,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   }
 
   getApplicationAmount(parameterCode: any): void {
-    this.parameterService.getParameterizedAmountByCode(parameterCode).subscribe(
+    this.authorizeRequestService.getParameterizedAmountByCode(parameterCode).subscribe(
       (value: number) => {
         if (value != null) {
           this.applicationAmount = value;
@@ -107,7 +109,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   }
 
   getIssueOptionAmount(parameterCode: any): void {
-    this.parameterService.getParameterizedAmountByCode(parameterCode).subscribe(
+    this.authorizeRequestService.getParameterizedAmountByCode(parameterCode).subscribe(
       (value: number) => {
         this.issueAmount = value;
       }, (error: HttpErrorResponse) => {
@@ -208,7 +210,7 @@ export class PaymentComponent implements OnInit, OnChanges {
 
   savePayment() {
 
-    this.paymentService.savePayment2(this.paymentDTO).subscribe(
+    this.authorizeRequestService.savePayment2(this.paymentDTO).subscribe(
       (res: PaymentDto) => {
         this.paymentResponse.paymentId = res.paymentId;
         this.paymentResponse.paymentMethod = this.PaymentMethod.FRONT_COUNTER;

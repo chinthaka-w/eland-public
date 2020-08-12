@@ -724,7 +724,7 @@
           "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email.",
           "REQUEST_PENDING": "Submitted request under reviewing",
          "UPLOAD_DOCS":"Please, Upload relevant documents.",
-         "SELECT_LAND_REG":"Please, Select landregistry.",
+         "SELECT_LAND_REG":"Please, Select land registry.",
          "ENTER_REASON":"Please, Enter the reason.",
          "SUCCESS_JUD_REQ":"Judicial Change Request Success",
          "FAILED":"Failed",
@@ -734,6 +734,7 @@
          "SELECT_LANGUAGE":"Please select a language!",
          "REQUIRED_FIELDS":"Please fill the required fields!",
          "INV_DATE":"Invalid Date Range",
+         "DUP_TIME_RANGE": "Duplicate Time Range",
          "FILL_APP_FORM1":"Please fill application form, before search folio status.",
          "FILL_APP_FORM12":"Please fill application form, before continue.",
          "SEARCH_FOL":"Please search folio status, before continue.",
@@ -995,6 +996,7 @@
       "STATE_INS_NAME": "State Institution Name",
       "OTHER_INS_NAME": "Other Institution Name",
       "BANK_NAME": "Bank Name",
+      "BANK_BRANCH": "Bank Branch",
       "SELECT_BANK": "Select Bank Name",
       "ADDRESS": "Address (English)",
       "VALID_ADDRESS": "Please enter valid address",
@@ -1005,7 +1007,7 @@
       "DRIVING_LIC": "Driving License",
       "IDENT_TYP_REQ": "Identification Type required",
       "IDENTITY_NUMBER": "NIC/Passport/ Driving license Number",
-      "VALID_REF_NUM": "Please enter valid reference number",
+      "VALID_REF_NUM": "Please enter valid identification number",
       "TEL_NO": "Telephone Number ",
       "VALID_TEL": "Please enter valid telephone number",
       "REASON_FOR_APP": "Reason for application",
@@ -1143,7 +1145,8 @@
     "NOTARY_NAME":"Notary Name:",
     "NOTARY_ID":"Notary Id:",
     "NEW_LAN_REG":"New Land Registry:",
-    "PER_ADD":"Permenent address:"
+    "PER_ADD":"Permenent address:",
+    "SUCCESS_LR": "Land Registry Change Request Success"
   },
 
   "PAYMENT":{
@@ -1410,7 +1413,7 @@
     "CUR_ADD_E":"Current address (English):",
     "CUR_ADD_S":"Current address (Sinhala):",
     "CUR_ADD_T":"Current address (Tamil):",
-    "CONTACT":"Contact No. (Residential):",
+    "CONTACT":"Contact No. (Residential)",
     "CONTACT_REQ":"Contact number is required",
     "VALID_CONTACT":"Please enter valid contact number",
     "MOBILE":"Mobile:",
@@ -1422,7 +1425,10 @@
     "JUD_DIV":"Judicial Division:",
     "LAND_REG":"Land Registry:",
     "TITLE3":"Notary Edit Profile",
-    "APPLICATION":"Application"
+    "APPLICATION":"Application",
+    "VALIDATION": {
+       "NO_FIELD_TO_UPDATE": "There are no fields to update"
+    }
 
   }
 

@@ -1,11 +1,5 @@
 
 <form class="form-horizontal"  [formGroup]="notaryForm" >
-  <div class="page-content-wrapper">
-    <div class="page-content-inner-wrapper">
-
-       <div class="separator">&nbsp;</div>
-     <br>
-
       <div *ngIf="editable" class="pg-inner-row mb-20">
         <div class="right">
           <div class="default-input-wrapper m0 rac-col">
@@ -100,9 +94,7 @@
       </div>
 
       </div>
-
-      <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'CHANGE_NAME.CHG_DETAILS'|translate}}</button>
-
-    </div>
-  </div>
+      <div class="pg-inner-col float-right">
+        <button *ngIf="editable" mat-raised-button class="lg-button float-right" (click)="onFormSubmit()">{{'CHANGE_NAME.CHG_DETAILS'|translate}}</button>
+      </div>
 </form>

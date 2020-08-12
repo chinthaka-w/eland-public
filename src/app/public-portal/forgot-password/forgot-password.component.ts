@@ -4,6 +4,7 @@ import {AuthService} from '../../shared/service/auth.service';
 import {SnackBarService} from '../../shared/service/snack-bar.service';
 import {UserTypeModel} from '../../shared/dto/userType.model';
 import {UserType} from '../../shared/enum/user-type.enum';
+import {AuthorizeRequestService} from '../../shared/service/authorize-request.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,6 +20,7 @@ export class ForgotPasswordComponent implements OnInit {
   public users: any[] = [];
   constructor(private _formBuilder: FormBuilder,
               private authService: AuthService,
+              private authorizeRequestService: AuthorizeRequestService,
               private snackBar: SnackBarService,) { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.message = '';
 
     const model = new UserTypeModel(this.forgotPasswordForm.value.email, this.forgotPasswordForm.value.type);
-    this.authService.checkEmail(model).subscribe(
+    this.authorizeRequestService.checkEmailSystemUser(model).subscribe(
       (users: any[]) => {
         this.processing = false;
         this.users = users;
@@ -60,7 +62,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   sendEmail(email) {
     this.processing = true;
-    this.authService.sendPasswordResetEmail(email).subscribe(
+    this.authorizeRequestService.sendPasswordResetEmail(email).subscribe(
       (response) => {
         this.processing = false;
         this.snackBar.success('Email sent Successfully! Check your inbox');

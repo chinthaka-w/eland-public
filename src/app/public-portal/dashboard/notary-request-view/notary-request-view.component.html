@@ -21,11 +21,9 @@
       <div class="left">
         <div class="default-input-wrapper m0 rac-col">
           <div class="default-input-feild">
-            <a [routerLink]="newButtonURL">
-              <button mat-raised-button class="sm-button" >
+              <button [disabled]="!completeRequestSearch" mat-raised-button class="sm-button" (click)="addNew()">
                 {{'PUBLIC_COMMON.NEW'|translate}}
               </button>
-            </a>
           </div>
         </div>
       </div>

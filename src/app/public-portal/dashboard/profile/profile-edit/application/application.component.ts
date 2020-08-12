@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { SystemService } from './../../../../../shared/service/system.service';
 import {Component, OnInit} from '@angular/core';
 import {SessionService} from '../../../../../shared/service/session.service';
 import {NotaryService} from '../../../../../shared/service/notary-service';
@@ -23,24 +25,33 @@ export class ApplicationComponent implements OnInit {
   disableSubmit = false;
   firstValue: any;
   lastValue: any;
+  showSpinner = false;
 
   constructor(private sessionService: SessionService,
               private notaryService: NotaryService,
               private snackBar: SnackBarService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private systemService: SystemService,
+              private router: Router) { }
 
   ngOnInit() {
     this.requestForm = this.formBuilder.group({
-      fNameEng: new FormControl(''),
-      fNameSin: new FormControl(''),
-      fNameTam: new FormControl(''),
+      fNameEng: new FormControl({value: '', disabled: true }),
+      fNameSin: new FormControl({value: '', disabled: true}),
+      fNameTam: new FormControl({value: '', disabled: true}),
       nameIniEng: new FormControl(''),
       nameIniSin: new FormControl(''),
       nameIniTam: new FormControl(''),
-      perAddEng: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      perAddEng: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]),
       perAddSin: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       perAddTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      curAddressEng: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      curAddressEng: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]),
       curAddressSin: new FormControl('', [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       curAddressTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       isWarLang: new FormControl(''),
@@ -142,6 +153,7 @@ export class ApplicationComponent implements OnInit {
     }
     if (this.comparevaluesOfform()) {
             if (this.compareEmptyValues()) {
+              this.showSpinner = true;
               this.notary = new Notary(this.notaryId, null, 0, null, this.requestForm.value.clerkNic, this.requestForm.value.email,
                 null, this.requestForm.value.mobile,  this.requestForm.value.contact,
                 this.requestForm.value.perAddEng,  this.requestForm.value.perAddSin,  this.requestForm.value.perAddTam,
@@ -156,18 +168,23 @@ export class ApplicationComponent implements OnInit {
 
               this.notaryService.editProfile(this.notary).subscribe(
                 (success: string) => {
-                  this.snackBar.success('Submitted the profile edit request successfully!');
+                  this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
                   // this.requestForm.reset();
                   this.disableSubmit = true;
+                  this.showSpinner = false;
                 },
                 error => {
-                  this.snackBar.error('Failed');
+                  this.snackBar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
+                  this.showSpinner = false;
+                },
+                () => {
+                  this.router.navigate(['/dashboard']);
                 }
               );
             }
     } else {
 
-      this.snackBar.warn('There are no fields to update!');
+      this.snackBar.warn(this.systemService.getTranslation('EDIT_PROFILE.VALIDATION.NO_FIELD_TO_UPDATE'));
     }
 
   }

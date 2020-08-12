@@ -1,10 +1,13 @@
+import { SystemService } from 'src/app/shared/service/system.service';
+import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {Workflow} from '../../../shared/enum/workflow.enum';
 import {NotaryRequestService} from '../../../shared/service/notary-request.service';
 import {SessionService} from '../../../shared/service/session.service';
 import {NotaryRequestView} from '../../../shared/custom-model/notary-request-view.model';
+import { NameChangeWorkflowStagesEnum } from 'src/app/shared/enum/name-change-workflow-stages.enum';
 
 @Component({
   selector: 'app-notary-request-view',
@@ -25,12 +28,17 @@ export class NotaryRequestViewComponent implements OnInit {
   workflow;
   notaryId;
   dataSource: MatTableDataSource<any>;
+  public isRequestUnderReview = false;
+  public completeRequestSearch = false;
 
   public displayedColumns: string[] = ['requestId', 'workFlowStageDescription', 'createdDate', 'lastUpdatedDate' , 'action'];
 
   constructor(private route: ActivatedRoute,
               private sessionService: SessionService,
-              private notaryRequestService: NotaryRequestService) {
+              private notaryRequestService: NotaryRequestService,
+              private snackBarService: SnackBarService,
+              private router: Router,
+              private systemService: SystemService) {
     this.route.params.subscribe(params => {
       this.workflow = atob(params['workflow']);
     });
@@ -61,11 +69,38 @@ export class NotaryRequestViewComponent implements OnInit {
       },
       error1 => {
 
+      },
+      () => {
+        this.completeRequestSearch = true;
       }
     );
   }
 
   getBase64(value: string): string {
     return btoa(value);
+  }
+
+  addNew(): void {
+    // check parallel request submission
+    const rejectWorkflowStages: string[] = [];
+    switch (this.workflow) {
+      case Workflow.NOTARY_NAME_CHANGE: {
+        this.checkOnPendingRequests();
+        break;
+      }
+    }
+  }
+
+  checkOnPendingRequests() {
+    if (this.requests.length > 0 && this.requests[0].workFlowStageCode !==
+      NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_ISSUED_SC ) {
+        this.isRequestUnderReview = true;
+      }
+
+    if (this.isRequestUnderReview) {
+      this.snackBarService.warn(this.systemService.getTranslation('ALERT.MESSAGE.REQUEST_PENDING'));
+    } else {
+      this.router.navigate([this.newButtonURL]);
+    }
   }
 }

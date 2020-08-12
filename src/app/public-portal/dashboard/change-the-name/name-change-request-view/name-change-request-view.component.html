@@ -23,12 +23,15 @@
         <app-supporting-doc-detail [editable]="editable" [workflow]="workflow" [id]="id"  [requestDocuments]="requestID" (supportDocs)="getSupportingDocs($event)"></app-supporting-doc-detail>
       </mat-tab>
       <mat-tab label="{{'CHANGE_NAME.PAY_INFO'|translate}}" >
-        <app-notary-payment-info [editable]="editable" [addPayment]="editable" [workflow]="workflow" [requestDetailPayment]="requestDetailPayment" [id]="id"></app-notary-payment-info>
+        <app-notary-payment-info [editable]="editable" [addPayment]="editable" [workflow]="workflow" [requestDetailPayment]="requestDetailPayment" [id]="id" [applicationFeeCode]="Parameters.NOTARY_NAME_CHANGE_FEE"></app-notary-payment-info>
       </mat-tab>
       <mat-tab label="{{'CHANGE_NAME.REMARK'|translate}}">
         <app-notary-remark [editable]="editable" [workflow]="workflow" [id]="id"></app-notary-remark>
       </mat-tab>
     </mat-tab-group>
+    <div class="pg-inner-col float-right">
+      <button *ngIf="editable" mat-raised-button class="lg-button float-right"
+        (click)="onFormSubmit()">{{'BUTTONS.SUBMIT_BUTTON'|translate}}</button>
+    </div>
   </div>
-  <button *ngIf="editable" mat-raised-button class="lg-button" (click)="onFormSubmit()">{{'BUTTONS.SUBMIT_BUTTON'|translate}}</button>
 </div>

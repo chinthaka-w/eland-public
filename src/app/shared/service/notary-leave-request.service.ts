@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {NotaryLeaveRequestDTO} from "../dto/notary-leave-request-dto";
 import {WorkflowStageDocTypeDTO} from "../dto/workflow-stage-doc-type-dto";
+import { RequestResponse } from '../dto/request-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class NotaryLeaveRequestService {
 
   getRelatedDocTypes(code: string): Observable<Array<WorkflowStageDocTypeDTO>> {
     return this.httpClient.get<Array<WorkflowStageDocTypeDTO>>(this.BASE_URL + 'supportingDocument/' + code, {headers: this.headers} );
+  }
+
+  validateLeaveRange(leaveRequest: NotaryLeaveRequestDTO): Observable<RequestResponse> {
+    return this.httpClient.post<RequestResponse>(this.BASE_URL + 'notaryLeave/validateDateRange', leaveRequest);
   }
 }

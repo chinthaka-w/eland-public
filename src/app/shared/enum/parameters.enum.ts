@@ -25,6 +25,8 @@ export enum Parameters {
   OTHER_INSTITUTE_REGISTRATION_FEE = 'OTH_INS_REG',
 
   // Notary judicial change
-  JUDICIAL_CHANGE_FEE = 'JUD_CHAG'
+  JUDICIAL_CHANGE_FEE = 'JUD_CHAG',
+
+  NOTARY_NAME_CHANGE_FEE = 'NOTARY_NCH'
 
 }

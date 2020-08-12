@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {UserDetails} from '../dto/user-details.model';
+import {SessionService} from '../service/session.service';
 
-const TOKEN_KEY = 'AuthToken';
-const REFRESH_TOKEN = 'AuthToken';
-const AUTH_TOKEN = 'AuthToken';
+const ACCESS_TOKEN_KEY = 'AccessToken';
+const REFRESH_TOKEN_KEY = 'RefreshToken';
 const USER_KEY = 'UserToken';
 const LANGUAGE_KEY = 'DefaultLanguage';
 
@@ -12,25 +12,35 @@ export class TokenStorageService {
 
   private loggedUser: string;
 
-  constructor() {
+  constructor(private sessionService:SessionService) {
   }
 
   signOut() {
-    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.removeItem(ACCESS_TOKEN_KEY);
+    window.sessionStorage.removeItem(REFRESH_TOKEN_KEY);
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.clear();
   }
 
-  public saveToken(token: string) {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+  public saveAccessToken(token: string) {
+    window.sessionStorage.removeItem(ACCESS_TOKEN_KEY);
+    window.sessionStorage.setItem(ACCESS_TOKEN_KEY, token);
   }
 
-  public getToken(): string {
-    return sessionStorage.getItem(TOKEN_KEY);
+  public saveRefreshToken(token: string) {
+    window.sessionStorage.removeItem(REFRESH_TOKEN_KEY);
+    window.sessionStorage.setItem(REFRESH_TOKEN_KEY, token);
   }
 
-  public saveUserObjectToken(token: UserDetails): void {
+  public getAccessToken(): string {
+    return window.sessionStorage.getItem(ACCESS_TOKEN_KEY);
+  }
+
+  public getRefreshToken(): string {
+    return window.sessionStorage.getItem(REFRESH_TOKEN_KEY);
+  }
+
+  public saveUserObjectToken(token: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(token));
   }

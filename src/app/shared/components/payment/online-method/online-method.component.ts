@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RequestResponse } from './../../../dto/request-response.model';
 import { CurrencyPipe } from '@angular/common';
+import {AuthorizeRequestService} from '../../../service/authorize-request.service';
 
 @Component({
   selector: 'app-online-method',
@@ -31,7 +32,8 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
   onlinePaymentForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private paymentService: PaymentService,
+              // private paymentService: PaymentService,
+              private authorizeRequestService: AuthorizeRequestService,
               private route: ActivatedRoute,
              private router: Router) {
   }
@@ -90,7 +92,7 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
     paymentDetails.userType = this.getBase64(this.userType).split('=')[0];
     paymentDetails.userId = this.getBase64(this.userId.toString()).split('=')[0];
 
-    this.paymentService.confirmOnlinePayment(paymentDetails).subscribe(
+    this.authorizeRequestService.confirmOnlinePayment(paymentDetails).subscribe(
       (result: PaymentResponse) => {
         this.onlinePaymentForm.patchValue({
           encryptedPaymentRequest: result.encriptedPaymentResponse,
@@ -116,7 +118,7 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
       mailData.userId = this.userId.toString();
       mailData.paymentId = this.paymentId;
 
-      this.paymentService.generateMail(mailData).subscribe(
+      this.authorizeRequestService.generateMail(mailData).subscribe(
         (response: RequestResponse) => {
         }
       );
@@ -124,7 +126,7 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
   }
 
   getPaymentResult(id: number): void {
-    this.paymentService.getOnlinePaymentResult(id).subscribe(
+    this.authorizeRequestService.getOnlinePaymentResult(id).subscribe(
       (result: PaymentResponse) => {
         this.onlinePaymentForm.patchValue(result);
       }

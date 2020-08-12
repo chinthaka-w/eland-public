@@ -22,12 +22,12 @@
             <div class="pg-inner-row mb-20">
                 <div class="right">
                     <div class="default-input-wrapper m0 rac-col">
-                        <label>{{'CHANGE_NAME.LANGUAGE'|translate}} <span class="redtxt">*</span></label>
+                        <label>{{'CHANGE_NAME.LANGUAGE'|translate}}</label>
                         <div class="default-input-feild">
                           <section class="example-section">
-                            <mat-checkbox class="pr-3" [disabled]="isEnglishCertificateApplied" [checked]="isEnglishCertificate" (change)="addLanguageList(3)">{{'CHANGE_NAME.ENGLISH'|translate}}</mat-checkbox>
-                            <mat-checkbox class="pr-3" [disabled]="isSinhalaCertificateApplied" [checked]="isSinhalaCertificate" (change)="addLanguageList(1)">{{'CHANGE_NAME.SINHALA'|translate}}</mat-checkbox>
-                            <mat-checkbox class="pr-3" [disabled]="isTamilCertificateApplied" [checked]="isTamilCertificate" (change)="addLanguageList(2)">{{'CHANGE_NAME.TAMIL'|translate}}</mat-checkbox>
+                            <mat-checkbox class="pr-3" [disabled]="true" [checked]="isEnglishCertificate" (change)="addLanguageList(3)">{{'CHANGE_NAME.ENGLISH'|translate}}</mat-checkbox>
+                            <mat-checkbox class="pr-3" [disabled]="true" [checked]="isSinhalaCertificate" (change)="addLanguageList(1)">{{'CHANGE_NAME.SINHALA'|translate}}</mat-checkbox>
+                            <mat-checkbox class="pr-3" [disabled]="true" [checked]="isTamilCertificate" (change)="addLanguageList(2)">{{'CHANGE_NAME.TAMIL'|translate}}</mat-checkbox>
                           </section>
                         </div>
                     </div>
@@ -55,6 +55,20 @@
               <mat-form-field appearance="outline">
                 <input matInput class="form-control" formControlName="newInitialNameInEnglish" maxlength="255">
               </mat-form-field>
+              <div *ngIf="FormControls.newInitialNameInEnglish.touched && FormControls.newInitialNameInEnglish.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.newInitialNameInEnglish.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.newInitialNameInEnglish.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.newInitialNameInEnglish.errors.maxlength" class="errors">
+                  {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                </mat-error>
+              </div>
             </div>
           </div>
             <div class="default-input-wrapper full-row">
@@ -63,38 +77,108 @@
                     <mat-form-field appearance="outline">
                         <input matInput class="form-control" formControlName="newFullNameInEnglish" maxlength="255">
                     </mat-form-field>
+                  <div *ngIf="FormControls.newFullNameInEnglish.touched && FormControls.newFullNameInEnglish.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="FormControls.newFullNameInEnglish.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="FormControls.newFullNameInEnglish.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="FormControls.newFullNameInEnglish.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
           <div class="default-input-wrapper full-row">
-            <label>{{'CHANGE_NAME.NWI_S'|translate}} <span *ngIf="isSinhala" class="redtxt">*</span></label>
+            <label>{{'CHANGE_NAME.NWI_S'|translate}} <span *ngIf="isSinhalaCertificate" class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput class="form-control" formControlName="newInitialNameInSinhala" maxlength="255">
               </mat-form-field>
+              <div *ngIf="FormControls.newInitialNameInSinhala.touched && FormControls.newInitialNameInSinhala.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.newInitialNameInSinhala.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.newInitialNameInSinhala.errors.pattern" class="errors">
+                  {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.newInitialNameInSinhala.errors.maxlength" class="errors">
+                  {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                </mat-error>
+              </div>
             </div>
           </div>
             <div class="default-input-wrapper full-row">
-                <label>{{'CHANGE_NAME.FULL_NAME_S'|translate}} <span *ngIf="isSinhala" class="redtxt">*</span></label>
+                <label>{{'CHANGE_NAME.FULL_NAME_S'|translate}} <span *ngIf="isSinhalaCertificate" class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input matInput class="form-control" formControlName="newFullNameInSinhala" maxlength="255">
                     </mat-form-field>
+                  <div *ngIf="FormControls.newFullNameInSinhala.touched && FormControls.newFullNameInSinhala.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="FormControls.newFullNameInSinhala.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="FormControls.newFullNameInSinhala.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="FormControls.newFullNameInSinhala.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
           <div class="default-input-wrapper full-row">
-            <label>{{'CHANGE_NAME.NWI_T'|translate}} <span *ngIf="isTamil" class="redtxt">*</span></label>
+            <label>{{'CHANGE_NAME.NWI_T'|translate}} <span *ngIf="isTamilCertificate" class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
                 <input matInput class="form-control" formControlName="newInitialNameInTamil" maxlength="255">
               </mat-form-field>
+              <div *ngIf="FormControls.newInitialNameInTamil.touched && FormControls.newInitialNameInTamil.errors"
+                   class="invalid-feedback">
+                <mat-error *ngIf="FormControls.newInitialNameInTamil.errors.required" class="errors">
+                  {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                  {{'NOTARY.REQUIRED'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.newInitialNameInTamil.errors.pattern" class="pattern">
+                  {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                  {{'NOTARY.INVALID'|translate}}
+                </mat-error>
+                <mat-error *ngIf="FormControls.newInitialNameInTamil.errors.maxlength" class="errors">
+                  {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                </mat-error>
+              </div>
             </div>
           </div>
             <div class="default-input-wrapper full-row">
-                <label>{{'CHANGE_NAME.FULL_NAME_T'|translate}} <span *ngIf="isTamil" class="redtxt">*</span></label>
+                <label>{{'CHANGE_NAME.FULL_NAME_T'|translate}} <span *ngIf="isTamilCertificate" class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input matInput class="form-control" formControlName="newFullNameInTamil" maxlength="255">
                     </mat-form-field>
+                  <div *ngIf="FormControls.newFullNameInTamil.touched && FormControls.newFullNameInTamil.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="FormControls.newFullNameInTamil.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="FormControls.newFullNameInTamil.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="FormControls.newFullNameInTamil.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
 
@@ -112,15 +196,15 @@
 
           <div class="separator">&nbsp;</div>
 
-          <div class="pg-inner-row mb-0 pg-form-bottom-3-col">
+          <div class="pg-inner-row mb-0">
             <div class="pg-inner-col">
               <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
             </div>
-            <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
+            <div class="pg-inner-col float-right" *ngIf="!isPaymentSuccess">
               <!--<button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">-->
                 <!--{{'BUTTONS.CONTINUE_BUTTON'|translate}}-->
               <!--</button>-->
-              <button [disabled]="!isRequiredDocsUpload || !notaryForm.valid" mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">
+              <button [disabled]="!isRequiredDocsUpload || !notaryForm.valid" mat-raised-button class="lg-button float-right" (click)="onClickSubmitSearchRequest()">
                 {{'BUTTONS.CONTINUE_BUTTON'|translate}}
               </button>
             </div>
@@ -138,7 +222,7 @@
              [statusOnlinePayment] = "statusOnlinePayment"
              [returnUrl]="returnURl"
              (back)="onBack($event)"
-             [applicationFeeCode]="Parameters.SEARCH_REQUEST_FEE"
+             [applicationFeeCode]="Parameters.NOTARY_NAME_CHANGE_FEE"
              [hasFrontCounterPayment]="false"
              [isDocumentCollect]="true"
              [workflowCode]="WorkflowCode.NAME_CHANGE_REQUEST_INITIALIZED"

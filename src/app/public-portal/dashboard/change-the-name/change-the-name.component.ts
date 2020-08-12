@@ -101,14 +101,14 @@ export class ChangeTheNameComponent implements OnInit {
   isRequiredDocsUpload = false;
   firstValue: any;
   lastValue: any;
-  isEnglishCertificateApplied = false;
-  isSinhalaCertificateApplied = false;
-  isTamilCertificateApplied = false;
   appliedCertificates: number[] = [];
   isEnglishCertificate = false;
   isSinhalaCertificate = false;
   isTamilCertificate = false;
 
+  get FormControls() {
+    return this.notaryForm.controls;
+  }
 
   constructor(private documetService: SupportingDocService,
               private judicialZoneService: JudicialZoneService,
@@ -139,12 +139,12 @@ export class ChangeTheNameComponent implements OnInit {
     this.getUserDetails();
     this.notaryForm = this.formBuilder.group({
       title: new FormControl(null, [Validators.required]),
-      newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newFullNameInSinhala: new FormControl('', (this.isSinhala ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)])),
-      newFullNameInTamil: new FormControl('', (this.isTamil ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)]) ),
-      newInitialNameInEnglish: new FormControl('',  [Validators.required , Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInSinhala: new FormControl('', (this.isSinhala ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)])),
-      newInitialNameInTamil: new FormControl('', (this.isTamil ? [Validators.required , Validators.pattern(PatternValidation.nameValidation)] : [Validators.pattern(PatternValidation.nameValidation)]) ),
+      newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
+      newFullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
+      newFullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
+      newInitialNameInEnglish: new FormControl('',  [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
+      newInitialNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
+      newInitialNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
       dateOfBirth: new FormControl(new Date()),
       languages: new FormControl(),
       recaptcha: new FormControl(null, [Validators.required]),
@@ -209,24 +209,29 @@ export class ChangeTheNameComponent implements OnInit {
 
   getAppliedCertificateDetails(): void {
     this.judicialService.getLanguages(this.notaryId).subscribe(
-      (result: []) => {
+      (result: any[]) => {
         this.appliedCertificates = result;
         this.appliedCertificates.forEach((certificate, index) => {
           if (certificate === Languages.ENGLISH) {
             this.isEnglishCertificate = true;
-            this.isEnglishCertificateApplied = true;
-            this.isSinhalaCertificateApplied = true;
-            this.isTamilCertificateApplied = true;
-          } else if (certificate === Languages.SINHALA) {
+          }
+          if (certificate === Languages.SINHALA) {
             this.isSinhalaCertificate = true;
-            this.isEnglishCertificateApplied = true;
-            this.isSinhalaCertificateApplied = true;
-            this.isTamilCertificateApplied = true;
-          } else if (certificate === Languages.TAMIL) {
+            this.notaryForm.get('newFullNameInSinhala').setValidators(
+              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+            this.notaryForm.get('newFullNameInSinhala').updateValueAndValidity();
+            this.notaryForm.get('newInitialNameInSinhala').setValidators(
+              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+            this.notaryForm.get('newInitialNameInSinhala').updateValueAndValidity();
+          }
+          if (certificate === Languages.TAMIL) {
             this.isTamilCertificate = true;
-            this.isEnglishCertificateApplied = true;
-            this.isSinhalaCertificateApplied = true;
-            this.isTamilCertificateApplied = true;
+            this.notaryForm.get('newFullNameInTamil').setValidators(
+              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+            this.notaryForm.get('newFullNameInTamil').updateValueAndValidity();
+            this.notaryForm.get('newInitialNameInTamil').setValidators(
+              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+            this.notaryForm.get('newInitialNameInTamil').updateValueAndValidity();
           }
         });
       }
@@ -291,7 +296,6 @@ export class ChangeTheNameComponent implements OnInit {
   }
 
   submitForm() {
-
 
       this.nameChangeModel.newFullNameEng = this.notaryForm.value.newFullNameInEnglish;
       this.nameChangeModel.newFullNameSin = this.notaryForm.value.newFullNameInSinhala;
@@ -448,6 +452,7 @@ export class ChangeTheNameComponent implements OnInit {
       this.submitForm();
     }
   }
+
   paymentMethodResponse(data: PaymentResponse) {
     this.paymentMethod = data.paymentMethod;
 
