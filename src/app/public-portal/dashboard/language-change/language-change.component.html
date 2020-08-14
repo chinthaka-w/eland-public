@@ -338,7 +338,7 @@
                   <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
                       <label>{{document.description|listTranslate:document.descriptionSin:document.descriptionTam}}
-                        <span *ngIf="document.required == true">*</span>
+                        <span style="color: red">*</span>
                       </label>
                       <file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>
                     </div>
