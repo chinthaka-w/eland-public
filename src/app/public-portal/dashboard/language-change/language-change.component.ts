@@ -1,18 +1,16 @@
-import { Workflow } from './../../../shared/enum/workflow.enum';
-import { Router } from '@angular/router';
-import { PaymentResponse } from './../../../shared/dto/payment-response.model';
-import { PaymentDto } from './../../../shared/dto/payment-dto';
-import { LanguageChangeService } from './../../../shared/service/language-change.service';
-import { SnackBarService } from './../../../shared/service/snack-bar.service';
-import { Enum } from './../../../shared/dto/enum.model';
-import { LanguageChangeWorkflowStages } from './../../../shared/enum/language-change-workflow-stages.enum';
-import { Parameters } from './../../../shared/enum/parameters.enum';
-import { WorkflowStageDocDto } from './../../../shared/dto/workflow-stage-doc-dto';
-import { Languages } from './../../../shared/enum/languages.enum';
+import {Workflow} from './../../../shared/enum/workflow.enum';
+import {Router} from '@angular/router';
+import {PaymentResponse} from './../../../shared/dto/payment-response.model';
+import {PaymentDto} from './../../../shared/dto/payment-dto';
+import {LanguageChangeService} from './../../../shared/service/language-change.service';
+import {SnackBarService} from './../../../shared/service/snack-bar.service';
+import {LanguageChangeWorkflowStages} from './../../../shared/enum/language-change-workflow-stages.enum';
+import {Parameters} from './../../../shared/enum/parameters.enum';
+import {WorkflowStageDocDto} from './../../../shared/dto/workflow-stage-doc-dto';
+import {Languages} from './../../../shared/enum/languages.enum';
 import {NameTitleDTO} from './../../../shared/dto/name-title.dto';
-import {FormGroup, FormControl, Validators, AbstractControl, FormBuilder} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
-import {TokenStorageService} from '../../../shared/auth/token-storage.service';
 import {SessionService} from '../../../shared/service/session.service';
 import {LanguageChange} from '../../../shared/dto/language-change.model';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
@@ -32,10 +30,13 @@ export class LanguageChangeComponent implements OnInit {
   nameTitles: NameTitleDTO[] = [];
   languageChangForm: FormGroup;
   langMode = Languages;
-  langSinCheck: boolean;
+  langSinCheck: boolean = false;
+  langSinRegistered: boolean = false;
   langEngCheck: boolean;
-  langTamCheck: boolean;
-  showPayment: boolean;
+  langEngRegistered: boolean = false;
+  langTamCheck: boolean = false;
+  langTamRegistered: boolean = false;
+  showPayment: boolean = false;
   supportingDocs: WorkflowStageDocDto[] = [];
   isRequiredDocsUpload = false;
   fileList: object = {};
@@ -195,6 +196,10 @@ export class LanguageChangeComponent implements OnInit {
         if (result.langTam) {
           this.languageChangForm.get('langTam').disable();
         }
+        this.langEngRegistered = result.langEng;
+        this.langSinRegistered = result.langSin;
+        this.langTamRegistered = result.langTam;
+
         this.langEngCheck = result.langEng;
         this.langSinCheck = result.langSin;
         this.langTamCheck = result.langTam;
@@ -243,164 +248,18 @@ export class LanguageChangeComponent implements OnInit {
  * Only one value can be select
  */
   languageChange(code: number): void {
-
-    this.languageChangForm = this.formBulder.group({
-      title: [this.languageChangForm.value.title, [Validators.required]],
-      langEng: [this.langEngCheck, null],
-      langSin: [this.langSinCheck, null],
-      langTam: [this.langTamCheck, null],
-      fullNameEng: [this.fullNameEnglish.value,
-      (code === this.langMode.ENGLISH || this.langEngCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
-        ] : null
-      ],
-      fullNameSin: [this.fullNameSinhala.value,
-      (code === this.langMode.SINHALA || this.langSinCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
-        ] : null
-      ],
-      fullNameTam: [this.fullNameTamil.value,
-      (code === this.langMode.TAMIL || this.langTamCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
-        ] : null
-      ],
-      nameWithInitEng: [this.nameWithInitialsEnglish.value,
-      (code === this.langMode.ENGLISH || this.langEngCheck) ?
-        [
-          Validators.required, Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
-        ] : null
-      ],
-      nameWithInitSin: [this.nameWithInitialsSinhala.value,
-      (code === this.langMode.SINHALA || this.langSinCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
-        ] : null
-      ],
-      nameWithInitTam: [this.nameWithInitialsTamil.value,
-      (code === this.langMode.TAMIL || this.langTamCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
-        ] : null
-      ],
-      addPermanentEng: [this.permanentAddressEnglish.value,
-      (code === this.langMode.ENGLISH || this.langEngCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-        ] : null
-      ],
-      addPermanentSin: [this.permanentAddressSinhala.value,
-      (code === this.langMode.SINHALA || this.langSinCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-        ] : null
-      ],
-      addPermanentTam: [this.permanentAddressTamil.value,
-      (code === this.langMode.TAMIL || this.langTamCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-        ] : null
-      ],
-      addressEng: [this.currentAddressEnglish.value,
-      (code === this.langMode.ENGLISH || this.langEngCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-        ] : null
-      ],
-      addressSin: [this.currentAddressSinhala.value,
-      (code === this.langMode.SINHALA || this.langSinCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-        ] : null
-      ],
-      addressTam: [this.currentAddressTamil.value,
-      (code === this.langMode.TAMIL || this.langTamCheck) ?
-        [
-          Validators.required,
-          Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-        ] : null
-      ],
-      // startingDate: [this.languageChangForm.value.startingDate, [Validators.required]],
-      // highCourtCertificateYear: [this.languageChangForm.value.highCourtCertificateYear, [Validators.required]],
-      // lrName: [this.languageChangForm.value.lrName, [Validators.required]],
-      // returnAttestedStatus: [this.languageChangForm.value.returnAttestedStatus, null],
-      // unavailableTimePeriod: [this.languageChangForm.value.unavailableTimePeriod, null],
-      // date: [this.languageChangForm.value.date, [Validators.required]]
-    });
-    // Disable already applied languages
-
-    if (this.languageChangForm.value.langEng) {
-      this.languageChangForm.get('langEng').disable();
+    if (code === Languages.TAMIL) {
+      this.langTamCheck = this.languageChangForm.value.langTam;
+      if (!this.langSinRegistered) {
+        this.langSinCheck = false;
+        this.languageChangForm.value.langSin = false;
+      }
     }
-    if (this.languageChangForm.value.langSin) {
-      this.languageChangForm.get('langSin').disable();
-    }
-    if (this.languageChangForm.value.langTam) {
-      this.languageChangForm.get('langTam').disable();
-    }
-
-    // Enable checkbox input
-    if (code === this.langMode.SINHALA) {
-        if (!this.languageChangForm.get('langSin').disabled) {
-        this.languageChangForm.patchValue({
-          langSin: true
-        });
-      }
-        if (!this.languageChangForm.get('langEng').disabled) {
-        this.languageChangForm.patchValue({
-          langEng: false
-        });
-      }
-        if (!this.languageChangForm.get('langTam').disabled) {
-        this.languageChangForm.patchValue({
-          langTam: false
-        });
-      }
-
-    } else if (code === this.langMode.ENGLISH) {
-      if (!this.languageChangForm.get('langSin').disabled) {
-        this.languageChangForm.patchValue({
-          langSin: false
-        });
-      }
-      if (!this.languageChangForm.get('langEng').disabled) {
-        this.languageChangForm.patchValue({
-          langEng: true
-        });
-      }
-      if (!this.languageChangForm.get('langTam').disabled) {
-        this.languageChangForm.patchValue({
-          langTam: false
-        });
-      }
-
-    } else if (code === this.langMode.TAMIL) {
-      if (!this.languageChangForm.get('langSin').disabled) {
-        this.languageChangForm.patchValue({
-          langSin: false
-        });
-      }
-      if (!this.languageChangForm.get('langEng').disabled) {
-        this.languageChangForm.patchValue({
-          langEng: false
-        });
-      }
-      if (!this.languageChangForm.get('langTam').disabled) {
-        this.languageChangForm.patchValue({
-          langTam: true
-        });
+    if (code === Languages.SINHALA) {
+      this.langSinCheck = this.languageChangForm.value.langSin;
+      if (!this.langTamRegistered) {
+        this.langTamCheck = false;
+        this.languageChangForm.value.langTam = false;
       }
     }
   }

@@ -17,35 +17,39 @@
                 </div>
             </div>
             <div class="pg-inner-row mb-20">
-                <div class="pg-inner-col">
-                  <mat-form-field appearance="outline">
-                    <select matNativeControl  formControlName="title"  class="form-control">
-                      <option value="0" [disabled]="true">{{'LANGUAGE_CHANGE.SELECT'|translate}}</option>
-                      <option *ngFor="let title of nameTitles"
-                              [value]="title.nameTitleId"
-                      >
-                        {{title.titleEng|listTranslate:title.titleSin:title.titleTam}}
-                      </option>
+              <div class="pg-inner-col right">
+                <div class="default-input-wrapper m0 rac-col">
+                  <label>{{'LANGUAGE_CHANGE.LANGUAGE'|translate}}<span class="redtxt">*</span></label>
+                  <div class="default-input-feild">
+                    <mat-checkbox formControlName="langSin" [(ngModel)]="langSinCheck" (change)="languageChange(langMode.SINHALA)">
+                      {{'LANGUAGE_CHANGE.SINHALA'|translate}}
+                    </mat-checkbox>
+                    <mat-checkbox formControlName="langEng" (change)="languageChange(langMode.ENGLISH)">
+                      {{'LANGUAGE_CHANGE.ENGLISH'|translate}}
+                    </mat-checkbox>
+                    <mat-checkbox formControlName="langTam"  [(ngModel)]="langTamCheck" (change)="languageChange(langMode.TAMIL)">
+                      {{'LANGUAGE_CHANGE.TAMIL'|translate}}
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pg-inner-row mb-20">
 
-                    </select>
-                  </mat-form-field>
-                </div>
-                <div class="pg-inner-col right">
-                    <div class="default-input-wrapper m0 rac-col">
-                        <label>{{'LANGUAGE_CHANGE.LANGUAGE'|translate}}<span class="redtxt">*</span></label>
-                        <div class="default-input-feild">
-                            <mat-checkbox formControlName="langSin" (change)="languageChange(langMode.SINHALA)">
-                              {{'LANGUAGE_CHANGE.SINHALA'|translate}}
-                            </mat-checkbox>
-                            <mat-checkbox formControlName="langEng" (change)="languageChange(langMode.ENGLISH)">
-                              {{'LANGUAGE_CHANGE.ENGLISH'|translate}}
-                            </mat-checkbox>
-                            <mat-checkbox formControlName="langTam" (change)="languageChange(langMode.TAMIL)">
-                              {{'LANGUAGE_CHANGE.TAMIL'|translate}}
-                            </mat-checkbox>
-                        </div>
-                    </div>
-                </div>
+
+              <div class="pg-inner-col">
+                <mat-form-field appearance="outline">
+                  <select matNativeControl  formControlName="title"  class="form-control">
+                    <option value="0" [disabled]="true">{{'LANGUAGE_CHANGE.SELECT'|translate}}</option>
+                    <option *ngFor="let title of nameTitles"
+                            [value]="title.nameTitleId"
+                    >
+                      {{title.titleEng|listTranslate:title.titleSin:title.titleTam}}
+                    </option>
+
+                  </select>
+                </mat-form-field>
+              </div>
             </div>
 
             <div class="default-input-wrapper full-row">
@@ -60,7 +64,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="default-input-wrapper full-row">
+            <div *ngIf="langSinCheck" class="default-input-wrapper full-row">
                 <label>{{'LANGUAGE_CHANGE.FULLNAME_S'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
@@ -72,7 +76,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="default-input-wrapper full-row">
+            <div *ngIf="langTamCheck" class="default-input-wrapper full-row">
                 <label>{{'LANGUAGE_CHANGE.FULLNAME_T'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
@@ -96,7 +100,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="default-input-wrapper full-row">
+            <div *ngIf="langSinCheck" class="default-input-wrapper full-row">
                 <label>{{'LANGUAGE_CHANGE.NAME_INI_S'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
@@ -108,7 +112,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="default-input-wrapper full-row">
+            <div *ngIf="langTamCheck" class="default-input-wrapper full-row">
                 <label>{{'LANGUAGE_CHANGE.NAME_INI_T'|translate}}</label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
@@ -137,7 +141,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pg-inner-col-3">
+                <div *ngIf="langSinCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
                         <label>{{'LANGUAGE_CHANGE.PER_ADD_S'|translate}}</label>
                         <div class="default-input-feild">
@@ -151,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pg-inner-col-3">
+                <div *ngIf="langTamCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
                         <label>{{'LANGUAGE_CHANGE.PER_ADD_T'|translate}}</label>
                         <div class="default-input-feild">
@@ -184,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pg-inner-col-3">
+                <div *ngIf="langSinCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
                         <label>{{'LANGUAGE_CHANGE.CUR_ADD_S'|translate}}</label>
                         <div class="default-input-feild">
@@ -199,7 +203,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pg-inner-col-3">
+                <div *ngIf="langTamCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
                         <label>{{'LANGUAGE_CHANGE.CUR_ADD_T'|translate}}</label>
                         <div class="default-input-feild">
