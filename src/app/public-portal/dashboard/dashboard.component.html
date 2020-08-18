@@ -154,22 +154,6 @@
             <span class="title">{{'DASOBOARD.EXTRACT'|translate}}</span>
           </a>
         </div>
-        <div class="db-link-tile c3" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
-          <a [routerLink]="['/requests']">
-            <span class="icon">
-              <i class="material-icons">feedback</i>
-            </span>
-            <span class="title">{{'DASOBOARD.REQUESTS'|translate}}</span>
-          </a>
-        </div>
-        <div class="db-link-tile c2" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
-          <a [routerLink]="['/request-for-correction']">
-            <span class="icon">
-              <i class="material-icons">label</i>
-            </span>
-            <span class="title">{{'DASOBOARD.REQUEST_FOR_CORRECTION'|translate}}</span>
-          </a>
-        </div>
       </div>
     </div>
   </div>
