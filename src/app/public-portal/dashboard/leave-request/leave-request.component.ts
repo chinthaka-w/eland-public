@@ -80,6 +80,7 @@ export class LeaveRequestComponent implements OnInit {
       const leaveRequest = new NotaryLeaveRequestDTO();
       leaveRequest.fromDate = this.convertDateToString(this.notaryLeaveRequestForm.value.fromDate);
       leaveRequest.toDate = this.convertDateToString(this.notaryLeaveRequestForm.value.toDate);
+      leaveRequest.notaryId = this.notaryId;
       this.notaryLeaveRequestService.validateLeaveRange(leaveRequest).subscribe(
         (response: RequestResponse) => {
           if (response.status === CommonStatus.SUCCESS &&
