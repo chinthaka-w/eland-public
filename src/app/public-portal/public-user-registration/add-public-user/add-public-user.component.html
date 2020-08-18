@@ -301,10 +301,9 @@
       <div class="pg-inner-row mb-20 upload-col-3">
         <div class="pg-inner-col-3" *ngFor="let doc of workflowStageDocTypes">
           <div class="default-input-wrapper full-row">
-            <label
-              >{{doc.description|listTranslate: doc.descriptionSin: doc.descriptionTam}}
-              <span *ngIf="doc.required">*</span></label>
             <file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>
+            <label>{{doc.description|listTranslate: doc.descriptionSin: doc.descriptionTam}}
+              <span *ngIf="doc.required">*</span></label>
           </div>
         </div>
       </div>

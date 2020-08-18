@@ -177,7 +177,7 @@ export class CorrectionApplicationComponent implements OnInit {
         } else if (this.reqForCorrectionForm.valid) {
           // check mandatory documents
           if (!this.checkMandatoryDocsStatus(this.correctionDetails)) {
-            this.snackBarService.warn(this.systemService.getTranslation('ALERT.TITLE.MANDATORY_DOC_ERR'));
+            this.snackBarService.error(this.systemService.getTranslation('ALERT.TITLE.MANDATORY_DOC_ERR'));
             this.isClick = false;
             this.isSave = false;
             return;
