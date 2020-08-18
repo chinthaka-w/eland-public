@@ -1357,7 +1357,8 @@
     "CURRENT_DETAILS":"Current Details",
     "SUPPORTING_DOC":"Supporting Documents",
     "PAY_INFO":"Payment Info",
-    "REMARK":"Remark"
+    "REMARK":"Remark",
+    "HISTORY":"History"
   },
   "RESIGNATION":{
     "TITLE1":"Request for Resignation",

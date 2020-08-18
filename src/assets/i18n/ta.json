@@ -1356,7 +1356,8 @@
     "CURRENT_DETAILS":"தற்போதைய விவரங்கள்",
     "SUPPORTING_DOC":"துணை ஆவணங்கள்",
     "PAY_INFO":"கட்டண தகவல்",
-    "REMARK":"கருத்து"
+    "REMARK":"கருத்து",
+    "HISTORY":"வரலாறு"
   },
   "RESIGNATION":{
     "TITLE1":"ராஜினாமா செய்வதற்கான கோரிக்கை",
