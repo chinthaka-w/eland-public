@@ -18,11 +18,14 @@
           <dl class="db-card-info">
             <dt>{{'DASOBOARD.STATUS'|translate}}</dt>
             <dd>
-              <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':
+                <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':
                               searchDetails?.status === commonStatus.INACTIVE? 'status-pending':
                               searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
-                {{getStatus()}}
-              </span>
+                  {{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval':
+                                    searchDetails?.status === commonStatus.RESIGN? 'Resign':
+                                    searchDetails?.status === commonStatus.INACTIVE? 'Inactive':
+                                    searchDetails?.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
+                </span>
             </dd>
           </dl>
           <dl class="db-card-info">
@@ -149,14 +152,6 @@
               <i class="material-icons">dns</i>
             </span>
             <span class="title">{{'DASOBOARD.EXTRACT'|translate}}</span>
-          </a>
-        </div>
-        <div class="db-link-tile c3" *ngIf="user.type == userType.CITIZEN && user.userStatus == commonStatus.ACTIVE">
-          <a [routerLink]="['/requests']">
-            <span class="icon">
-              <i class="material-icons">feedback</i>
-            </span>
-            <span class="title">{{'DASOBOARD.REQUESTS'|translate}}</span>
           </a>
         </div>
       </div>
