@@ -1365,7 +1365,8 @@
     "CURRENT_DETAILS":"වත්මන් විස්තර",
     "SUPPORTING_DOC":"උපකාරක ලියකියවිලි",
     "PAY_INFO":"ගෙවීම් තොරතුරු",
-    "REMARK":"සටහන් කරන්න"
+    "REMARK":"සටහන් කරන්න",
+    "HISTORY":"ඉතිහාසය"
   },
   "RESIGNATION":{
     "TITLE1":"ඉල්ලා අස්වීමේ ඉල්ලීම",
