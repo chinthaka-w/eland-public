@@ -900,7 +900,12 @@
        "REQUESTS_PENDING":"கோரிக்கைகள் நிலுவையில் உள்ளன",
        "INCOMPLETE_REQUESTS":"முழுமையற்ற கோரிக்கைகள்",
        "COMPLETED_REQUESTS":"பூர்த்தி செய்யப்பட்ட கோரிக்கைகள்",
-       "PENDING_REQUESTS":"நிலுவையிலுள்ள கோரிக்கைகள்"
+       "PENDING_REQUESTS":"நிலுவையிலுள்ள கோரிக்கைகள்",
+       "PENDING_APPROVAL": "நிலுவையிலுள்ள ஒப்புதல்",
+       "REQUEST_REJECT": "கோரிக்கை நிராகரிக்கப்பட்டது",
+       "REQUEST_APPROVED": "அங்கீகரிக்கப்பட்டது",
+       "RESIGN": "ராஜினாமா செய்தார்",
+       "INACTIVE": "செயலற்றது"
     },
     "CAVEAT":{
        "NAME":"கேவியட் பெயர்",

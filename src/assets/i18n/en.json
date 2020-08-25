@@ -904,7 +904,13 @@
        "REQUESTS_PENDING":"Requests pending",
        "INCOMPLETE_REQUESTS":"Incomplete Requests",
        "COMPLETED_REQUESTS":"Completed Requests",
-       "PENDING_REQUESTS":"Pending Requests"
+       "PENDING_REQUESTS":"Pending Requests",
+       "PENDING_APPROVAL": "Pending Approval",
+       "REQUEST_REJECT": "Request Rejected",
+       "REQUEST_APPROVED": "Approved",
+       "RESIGN": "Resign",
+       "INACTIVE": "Inactive"
+
     },
     "CAVEAT":{
        "NAME":"Caveator Name",

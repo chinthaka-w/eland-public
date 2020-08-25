@@ -1,9 +1,9 @@
 export class DocumentDTO {
   documentId: number;
   name: string;
-  type: string;
-  reqId: number;
-  description: string;
+  nameSinhala: string;
+  nameTamil: string;
+  descripton: string;
   descriptionSin: string;
   descriptionTam: string;
   pages: string[];

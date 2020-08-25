@@ -903,7 +903,12 @@
        "REQUESTS_PENDING":"ඉල්ලීම් විභාග වෙමින් පවතී",
        "INCOMPLETE_REQUESTS":"අසම්පූර්ණ ඉල්ලීම්",
        "COMPLETED_REQUESTS":"සම්පූර්ණ කරන ලද ඉල්ලීම්",
-       "PENDING_REQUESTS":"අපේක්ෂිත ඉල්ලීම්"
+       "PENDING_REQUESTS":"අපේක්ෂිත ඉල්ලීම්",
+       "PENDING_APPROVAL": "අනුමත කිරීම අපේක්ෂිතය",
+       "REQUEST_REJECT": "ඉල්ලීම ප්‍රතික්ෂේප කරන ලදි",
+       "REQUEST_APPROVED": "අනුමත කර ඇත",
+       "RESIGN": "ඉල්ලා අස්විය",
+       "INACTIVE": "අක්‍රීයයි"
     },
     "CAVEAT":{
        "NAME":"කේවියට් ගේ නම",

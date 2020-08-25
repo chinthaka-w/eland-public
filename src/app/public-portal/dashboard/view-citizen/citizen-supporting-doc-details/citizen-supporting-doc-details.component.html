@@ -3,7 +3,7 @@
   <mat-card class="mb-10 mt-10 ml-10 mr-10 mat-elevation-z5" *ngFor="let doc of supportingDocuments; let i = index">
     <mat-card-header>
       <mat-card-title>
-        {{doc.name}}
+        {{doc.name| listTranslate: doc.nameSinhala: doc.nameTamil}}
       </mat-card-title>
     </mat-card-header>
     
