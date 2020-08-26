@@ -1157,6 +1157,8 @@
    "ADD_PAYMENT": "Add Payment",
    "LICENSE_ISSUE": "License Issue",
    "LICENSE_WAY": "In which way you like to receive the license?",
+   "EXTRACT_ISSUE": "Extract Issue",
+   "EXTRACT_WAY": "In which way you like to receive the extract?",
    "BY_HAND": "By Hand",
    "BY_POST_NO": "By Post (Normal)",
    "BY_POST_RE": "By Post(Registered)",
