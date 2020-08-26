@@ -722,7 +722,7 @@
           "FOLIO_NOT_FOUND":"Folio not found",
           "LR_NOT_FOUND":"Land Registries not found",
           "FOLIO_EXIST":"Folio already exist",
-          "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email.",
+          "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email",
           "REQUEST_PENDING": "Submitted request under reviewing",
          "UPLOAD_DOCS":"Please, Upload relevant documents.",
          "SELECT_LAND_REG":"Please, Select land registry.",
