@@ -122,7 +122,8 @@
              "SECONDARY":"දෙවන"
           }
        },
-       "AND": "සහ"
+       "AND": "සහ",
+       "DOC_UPLOAD": "උඩුගත කරන්න (රූපය / PDF)"
     },
     "FOLIO_TYPE":{
        "FOLIO_NUM":"පත් ඉරු අංක",
@@ -784,6 +785,7 @@
        "CONTACT_NAME_EMPTY_ERR":"කරුණාකර පුද්ගලයාගේ නම ඇතුළත් කරන්න!",
        "CONTACT_MOBILE_EMPTY_ERR":"කරුණාකර පුද්ගලයාගේ දුරකථන අංකය ඇතුළත් කරන්න!",
        "REQUIRED_FIELD_ERR": "කරුණාකර අවශ්‍ය ක්ෂේත්‍ර පුරවන්න",
+       "REQUIRED_PAYMENT_METHOD_ERR": "කරුණාකර ගෙවීම් විකල්පය තෝරන්න",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"කරුණාකර ස්ථානය ඇතුළත් කරන්න"
        },
@@ -1030,8 +1032,6 @@
     "ADDRESS_ENG":"ලිපිනය ඉංග්‍රීසියෙන්",
     "ADDRESS_SIN":"සිංහල භාෂාවෙන් ලිපිනය",
     "ADDRESS_TAM":"දෙමළ භාෂාවෙන් ලිපිනය",
-    "VALID_ADDRESS":"කරුණාකර වලංගු ලිපිනය ඇතුළත් කරන්න",
-    "VALID_ADDRESS":"Please enter valid address",
     "APPL":"අයදුම්පත",
     "PAYMENT_INFO":"ගෙවීම් තොරතුරු",
     "REMARK":"සටහන් කරන්න",

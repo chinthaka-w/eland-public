@@ -121,7 +121,8 @@
              "SECONDARY":"இரண்டாவது"
           }
        },
-       "AND": "மற்றும்"
+       "AND": "மற்றும்",
+       "DOC_UPLOAD": "ஒற்றை பதிவேற்ற (படம் / PDF)"
     },
     "FOLIO_TYPE":{
        "FOLIO_NUM":"ஃபோலியோ எண்",
@@ -780,6 +781,7 @@
        "FAX_EMPTY_ERR":"தொலைநகல் எண் உள்ளிடவும்!",
        "CONTACT_NAME_EMPTY_ERR":"தொடர்பு நபரின் பெயரை உள்ளிடவும்!",
        "CONTACT_MOBILE_EMPTY_ERR":"தொடர்பு நபரின் தொலைபேசி எண்ணை உள்ளிடவும்!",
+       "REQUIRED_PAYMENT_METHOD_ERR": "கட்டண விருப்பத்தைத் தேர்ந்தெடுக்கவும்",
        "REQUIRED_FIELD_ERR": "தேவையான புலங்களை நிரப்பவும்",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"இருப்பிடத்தை உள்ளிடவும்"
