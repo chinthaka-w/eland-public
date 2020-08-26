@@ -11,7 +11,7 @@
       <table fxFlex="1 1 auto" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="Workflow Stage">
           <th mat-header-cell *matHeaderCellDef>{{'CITIZEN.WRK_STG'|translate}}</th>
-          <td mat-cell *matCellDef="let row"> {{row.workflowStage}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.workflowStage| listTranslate: row.workflowStageSin: row.workflowStageTam}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Remark">

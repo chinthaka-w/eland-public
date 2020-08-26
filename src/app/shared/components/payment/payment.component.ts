@@ -1,3 +1,4 @@
+import { SystemService } from 'src/app/shared/service/system.service';
 import { SysConfigService } from './../../service/sys-config.service';
 import {Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
@@ -67,7 +68,8 @@ export class PaymentComponent implements OnInit, OnChanges {
               private snackBar: SnackBarService,
               private authorizeRequestService: AuthorizeRequestService,
               public sysMethodsService: SysMethodsService,
-              private parameterService: ParameterService) {
+              private parameterService: ParameterService,
+              private systemService: SystemService) {
   }
 
   ngOnInit() {
@@ -171,7 +173,7 @@ export class PaymentComponent implements OnInit, OnChanges {
 
     if (isValid && this.paymentMethod == 0) {
       isValid = false;
-      errorMassage = 'Please, Select payment option.';
+      errorMassage = this.systemService.getTranslation('VALIDATION.REQUIRED_PAYMENT_METHOD_ERR');
     }
 
     if (isValid) {

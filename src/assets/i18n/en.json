@@ -122,7 +122,8 @@
              "SECONDARY":"Secondary"
           }
        },
-       "AND": "and"
+       "AND": "and",
+       "DOC_UPLOAD": "Upload Single (image / PDF)"
     },
     "FOLIO_TYPE":{
        "FOLIO_NUM":"Folio No",
@@ -785,6 +786,7 @@
        "CONTACT_NAME_EMPTY_ERR":"Please Enter Contact Person Name!",
        "CONTACT_MOBILE_EMPTY_ERR":"Please Enter Contact Person Phone No!",
        "REQUIRED_FIELD_ERR": "Please fill the required fields",
+       "REQUIRED_PAYMENT_METHOD_ERR": "Please Select payment option",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"Please Enter Location"
        },
@@ -904,7 +906,13 @@
        "REQUESTS_PENDING":"Requests pending",
        "INCOMPLETE_REQUESTS":"Incomplete Requests",
        "COMPLETED_REQUESTS":"Completed Requests",
-       "PENDING_REQUESTS":"Pending Requests"
+       "PENDING_REQUESTS":"Pending Requests",
+       "PENDING_APPROVAL": "Pending Approval",
+       "REQUEST_REJECT": "Request Rejected",
+       "REQUEST_APPROVED": "Approved",
+       "RESIGN": "Resign",
+       "INACTIVE": "Inactive"
+
     },
     "CAVEAT":{
        "NAME":"Caveator Name",
