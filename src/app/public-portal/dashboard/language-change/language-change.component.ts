@@ -163,9 +163,10 @@ export class LanguageChangeComponent implements OnInit {
       (result: LanguageChange) => {
         this.languageChangForm.patchValue(result);
 
-        if(result.fullNameEng != null) {
-          this.languageChangForm.get('fullNameEng').disable();
-        }
+        this.languageChangForm.get('nameWithInitEng').disable();
+        this.languageChangForm.get('fullNameEng').disable();
+        this.languageChangForm.get('addPermanentEng').disable();
+        this.languageChangForm.get('addressEng').disable();
 
         if(result.fullNameSin != null) {
           this.languageChangForm.get('fullNameSin').disable();
@@ -175,9 +176,6 @@ export class LanguageChangeComponent implements OnInit {
           this.languageChangForm.get('fullNameTam').disable();
         }
 
-        if(result.nameWithInitEng != null) {
-          this.languageChangForm.get('nameWithInitEng').disable();
-        }
 
         if(result.nameWithInitSin != null) {
           this.languageChangForm.get('nameWithInitSin').disable();

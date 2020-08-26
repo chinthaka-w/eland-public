@@ -742,7 +742,8 @@
          "PROCEED_ONLINE_PAY":"Your Search request saved successfully. Proceed to online payment",
          "SEARCH_REQ_SUCCESS":"Your Search request saved successfully.",
          "EXTRACT_PROCEED_ONLINE":"Your Extract request saved successfully.Proceed to online payment",
-         "EXTARCT_REQ_SUCCESS":"Your Extract request saved successfully."
+         "EXTARCT_REQ_SUCCESS":"Your Extract request saved successfully.",
+         "NAME_CHG_UPD_SUCCESS":"Notary Name Change Request updated Successfully"
 
 
        },
@@ -1198,7 +1199,8 @@
     "FORGOT_PWD":"Forgot Password ?",
     "TITLE3":"Don’t have an account?",
     "TITLE4":"Sign Up here",
-    "LOGIN":"Login"
+    "LOGIN":"Login",
+    "PASSWORD_INCORRECT":"Invalid Username or Password"
   },
   "FORGOT_PSWD":{
     "TYPE":"Welcome to E-Land",
