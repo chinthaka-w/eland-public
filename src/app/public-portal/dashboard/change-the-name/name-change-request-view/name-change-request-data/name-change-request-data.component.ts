@@ -30,6 +30,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NameTitleEnum} from '../../../../../shared/enum/name-title.enum';
 import {NameTitleDTO} from '../../../../../shared/dto/name-title.dto';
 import {LanguageChangeService} from '../../../../../shared/service/language-change.service';
+import {SystemService} from '../../../../../shared/service/system.service';
 
 @Component({
   selector: 'app-name-change-request-data',
@@ -93,6 +94,7 @@ export class NameChangeRequestDataComponent implements OnInit {
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private sessionService: SessionService,
               private languageChangeService: LanguageChangeService,
+              private systemService: SystemService,
               private route: ActivatedRoute) {
 
   }
@@ -293,7 +295,7 @@ export class NameChangeRequestDataComponent implements OnInit {
     this.changeNameService.updateDetails(formData).subscribe(
       (success: boolean) => {
         if (success) {
-          this.snackBar.success('Notary Name Change Request updated Successfully');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_UPD_SUCCESS'));
           this.setData();
         } else {
           this.snackBar.error('Operation failed');
