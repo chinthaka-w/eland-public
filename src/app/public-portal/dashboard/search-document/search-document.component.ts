@@ -258,7 +258,7 @@ export class SearchDocumentComponent implements OnInit {
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
-          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.PROCEED_ONLINE_PAY'));
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.SEARCH_REQ_SUCCESS'));
         }
       }
     );
