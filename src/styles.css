@@ -3199,6 +3199,7 @@ button.close {
   font-size: 20px;
   border-radius: 14px;
   cursor: pointer;
+  outline: 0;
 }
 
 .mat-dialog-container {
@@ -3208,3 +3209,103 @@ button.close {
 .active {
   color: #1682eb;
 }
+
+
+/**/
+.default-input-wrapper.bo-mat .form-control,
+.default-input-wrapper.bo-mat .form-control:focus,
+.default-input-wrapper.bo-mat .form-control:hover {
+  height: 45px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ababab;
+  color: #818181;
+  background: #fafafa;
+  padding: 0 5px;
+  outline: 0;
+}
+
+.default-input-wrapper.bo-mat label {
+  display: block;
+  font-size: 15px;
+  line-height: 16px;
+  margin-bottom: 2px;
+}
+
+.default-input-wrapper.bo-mat label sup.danger {
+  display: inline-block;
+  position: relative;
+  font-size: 12px;
+  line-height: 8px;
+  height: 14px;
+  color: red;
+}
+
+.default-input-wrapper.bo-mat textarea.form-control {
+  min-height: 70px;
+}
+
+.default-input-wrapper.bo-mat textarea.form-control + button {
+  min-height: 70px;
+}
+
+.reference-person-list {
+  position: relative;
+  height: 250px;
+  overflow: auto;
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  padding: 10px;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.bo-row {
+  display: table;
+  width: 100%;
+}
+
+.bo-col-8 {
+  display: table-cell;
+  width: 66%;
+  vertical-align: top;
+}
+
+.bo-col-12 {
+  display: table-cell;
+  width: 100%;
+  vertical-align: top;
+}
+
+.bo-col-4 {
+  display: table-cell;
+  width: 34%;
+  vertical-align: top;
+  padding-left: 30px;
+}
+
+.bo-col-4 h5 {
+  margin: 0 0 5px 0;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+@media (max-width: 992px) { 
+  .bo-row {
+    display: block;
+    width: 100%;
+  }
+  
+  .bo-col-8,
+  .bo-col-12 {
+    display: block;
+    width: 100%;
+  }
+  
+  .bo-col-4 {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+  }
+}
+
