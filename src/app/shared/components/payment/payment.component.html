@@ -5,7 +5,8 @@
     <div class="hc-component-content">
       <div class="pce-container">
         <div *ngIf="isDocumentCollect" class="default-input-wrapper full-row mb-30">
-          <label><strong>{{'PAYMENT.LICENSE_ISSUE'|translate}}</strong>{{'PAYMENT.LICENSE_WAY'|translate}}</label>
+          <label *ngIf="workflowCode!=Workflow.EXTRACT_REQUEST"><strong>{{'PAYMENT.LICENSE_ISSUE'|translate}}</strong>{{'PAYMENT.LICENSE_WAY'|translate}}</label>
+          <label *ngIf="workflowCode==Workflow.EXTRACT_REQUEST"><strong>{{'PAYMENT.EXTRACT_ISSUE'|translate}}</strong>{{'PAYMENT.EXTRACT_WAY'|translate}}</label>
           <div class="default-input-feild">
             <mat-radio-group formControlName="licenseMethod" class="form-control"
               (change)="onChangeIssueMethod($event)">

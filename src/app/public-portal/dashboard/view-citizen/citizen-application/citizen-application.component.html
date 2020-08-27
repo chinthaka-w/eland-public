@@ -226,7 +226,7 @@
     <label class="mw-200">{{'CITIZEN.TEL_NO'|translate}} </label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Telephone Number(Secondary)" formControlName="secondaryContact" />
+        <input matInput placeholder="{{'CITIZEN.TEL2'| translate}}" formControlName="secondaryContact" />
       </mat-form-field>
       <div *ngIf="secondaryContact.invalid && (secondaryContact.dirty || secondaryContact.touched)">
         <mat-error *ngIf="secondaryContact.errors.pattern" class="errors">{{'CITIZEN.VALID_TEL'|translate}}</mat-error>
