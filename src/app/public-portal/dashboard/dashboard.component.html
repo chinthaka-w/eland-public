@@ -56,9 +56,9 @@
                 <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':
                               searchDetails?.status === commonStatus.INACTIVE? 'status-pending':
                               searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
-                  {{searchDetails?.status === commonStatus.PENDING ? ('DASHBOARD.PENDING_REQUESTS' | translate):
+                  {{searchDetails?.status === commonStatus.PENDING ? ('DASHBOARD.PENDING_APPROVAL' | translate):
                                     searchDetails?.status === commonStatus.RESIGN? ('DASHBOARD.RESIGN'| translate):
-                                    searchDetails?.status === commonStatus.INACTIVE? ('DASHBOARD.INACTIVE'| translate):
+                                    searchDetails?.status === commonStatus.INACTIVE? ('DASHBOARD.FURTHER_DOC_SUBMISSION'| translate):
                                     searchDetails?.status === commonStatus.REJECT? ('DASHBOARD.REQUEST_REJECT'| translate): ('DASHBOARD.REQUEST_APPROVED'|translate) }}
                 </span>
             </dd>
