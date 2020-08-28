@@ -140,14 +140,16 @@ export class CorrectionApplicationComponent implements OnInit {
       ]],
       correctionNature: [null, [
         Validators.required,
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+        // removed with rgd comment
+        // Validators.maxLength(255),
+        // Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]
       ],
       requestedCorrection: [null, [
         Validators.required,
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+        // removed with rgd comment
+        // Validators.maxLength(255),
+        // Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]],
       recaptcha: [null],
     });
