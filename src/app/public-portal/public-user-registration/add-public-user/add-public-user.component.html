@@ -62,11 +62,11 @@
           <mat-form-field appearance="outline">
             <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME'|translate}}" formControlName="nameEnglish" />
           </mat-form-field>
-          <div *ngIf="FormControls.nameEnglish.touched && FormControls.nameEnglish.errors"
+          <div *ngIf="(FormControls.nameEnglish.touched || FormControls.nameEnglish.dirty)  && FormControls.nameEnglish.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.nameEnglish.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
             <mat-error *ngIf="FormControls.nameEnglish.errors.pattern" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
-            <mat-error *ngIf="nameEnglish.errors.maxlength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
+            <mat-error *ngIf="nameEnglish.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -77,7 +77,8 @@
             <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME_SIN'|translate}}" formControlName="nameSinhala" />
           </mat-form-field>
           <div *ngIf="nameSinhala.invalid && (nameSinhala.dirty || nameSinhala.touched)">
-            <mat-error *ngIf="nameSinhala.errors.pattern || nameSinhala.errors.maxLength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
+            <mat-error *ngIf="nameSinhala.errors.pattern" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
+            <mat-error *ngIf="nameSinhala.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -88,7 +89,8 @@
             <input matInput placeholder="{{'CITIZEN.APPLICANT_NAME_TAM'|translate}}" formControlName="nameTamil" />
           </mat-form-field>
           <div *ngIf="nameTamil.invalid && (nameTamil.dirty || nameTamil.touched)">
-            <mat-error *ngIf="nameTamil.errors.pattern || nameTamil.errors.maxLength" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
+            <mat-error *ngIf="nameTamil.errors.pattern" class="errors">{{'CITIZEN.VALID_NAME'|translate}}</mat-error>
+            <mat-error *ngIf="nameTamil.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
           </div>
         </div>
       </div>

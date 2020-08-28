@@ -756,7 +756,7 @@
        }
     },
     "VALIDATION":{
-       "MAX_LENGTH_255_ERR":"Maximum of 255 characters.",
+       "MAX_LENGTH_255_ERR":"Maximum of 255 characters exceeded",
        "MAX_LENGTH_25_ERR":"Maximum of 25 characters.",
        "MAX_FILE_SIZE_ERR": "Maximum file size has been exceeded.",
        "INVALID_FILE_ERR": "Invalid file type.",

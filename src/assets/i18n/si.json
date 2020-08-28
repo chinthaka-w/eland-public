@@ -755,7 +755,7 @@
        }
     },
     "VALIDATION":{
-      "MAX_LENGTH_255_ERR":"උපරිම අක්ෂර 255.",
+      "MAX_LENGTH_255_ERR":"උපරිම අක්ෂර 255 ඉක්මවා ඇත",
       "MAX_LENGTH_25_ERR":"උපරිම අක්ෂර 25.",
       "MAX_FILE_SIZE_ERR": "උපරිම ගොනු ප්‍රමාණය ඉක්මවා ඇත.",
       "INVALID_FILE_ERR": "අවලංගු ගොනු වර්ගය.",
