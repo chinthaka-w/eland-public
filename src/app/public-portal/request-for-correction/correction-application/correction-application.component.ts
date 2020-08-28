@@ -17,6 +17,7 @@ import { CorrectionRequest } from 'src/app/shared/dto/correction-request.model';
 import { Workflow } from 'src/app/shared/enum/workflow.enum';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-correction-application',
@@ -52,6 +53,7 @@ export class CorrectionApplicationComponent implements OnInit {
               public sessionService: SessionService,
               public router: Router,
               public route: ActivatedRoute,
+              private sysMethodsService: SysMethodsService,
               private systemService: SystemService,
               private systemMethodService: SystemService,
               private snackBar: MatSnackBar) { }
@@ -120,7 +122,7 @@ export class CorrectionApplicationComponent implements OnInit {
     this.reqForCorrectionForm = this.formBuilder.group({
       landRegId: ['', [Validators.required]],
       folioNo: ['', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.FOLIO_NUMBER)
       ]],
@@ -139,13 +141,13 @@ export class CorrectionApplicationComponent implements OnInit {
       attestedDate: [new Date(), [
       ]],
       correctionNature: [null, [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]
       ],
       requestedCorrection: [null, [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]],
@@ -349,16 +351,16 @@ export class CorrectionApplicationComponent implements OnInit {
     this.landRegId.updateValueAndValidity();
 
     this.folioNo.setValidators(
-      [Validators.required,
+      [Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.FOLIO_NUMBER)
       ]);
     this.folioNo.updateValueAndValidity();
 
-    this.correctionNature.setValidators([Validators.required
+    this.correctionNature.setValidators([Validators.required,this.sysMethodsService.noWhitespaceValidator
     ]);
     this.correctionNature.updateValueAndValidity();
 
-    this.requestedCorrection.setValidators([Validators.required]);
+    this.requestedCorrection.setValidators([Validators.required,this.sysMethodsService.noWhitespaceValidator]);
     this.requestedCorrection.updateValueAndValidity();
   }
 

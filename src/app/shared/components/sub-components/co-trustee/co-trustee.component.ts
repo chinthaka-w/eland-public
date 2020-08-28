@@ -6,6 +6,7 @@ import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 import { DocumentNatures } from 'src/app/shared/enum/document-nature.enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FolioDto } from 'src/app/shared/dto/folio-dto.model';
+import {SysMethodsService} from '../../../service/sys-methods.service';
 
 @Component({
   selector: 'app-co-trustee',
@@ -59,14 +60,15 @@ export class CoTrusteeComponent implements OnInit {
   }
 
   constructor(public formBuilder: FormBuilder,
+    private sysMethodsService: SysMethodsService,
     private systemService: SystemService){}
 
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      name: [{value:this.coTrusteeDto.name, disabled: false}, [Validators.required,  Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)]],
-      nic: [{value:this.coTrusteeDto.nic, disabled: false}, [Validators.required, Validators.pattern(new RegExp(PatternValidation.NIC_PATTERN))]],
-      addressPermanent: [{value:this.coTrusteeDto.addressPermanent, disabled: false}, [Validators.required, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
+      name: [{value:this.coTrusteeDto.name, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator,  Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)]],
+      nic: [{value:this.coTrusteeDto.nic, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(new RegExp(PatternValidation.NIC_PATTERN))]],
+      addressPermanent: [{value:this.coTrusteeDto.addressPermanent, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       addressResidential: [{value:this.coTrusteeDto.addressResidential, disabled: false}, [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       telephone: [{value:this.coTrusteeDto.telephone, disabled: false}, [Validators.pattern(new RegExp(PatternValidation.CONTACT_NUMBER_PATTERN))]],
       email: [{value:this.coTrusteeDto.email, disabled: false}, [Validators.pattern(new RegExp(PatternValidation.EMAIL_PATTERN))]],
@@ -82,7 +84,7 @@ export class CoTrusteeComponent implements OnInit {
   }
 
   addCoTrustee(){
-    
+
     if(this.form.invalid){
       Object.keys(this.form.controls).forEach(field => {
         const control = this.form.get(field);

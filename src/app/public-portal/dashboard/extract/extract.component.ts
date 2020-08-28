@@ -42,6 +42,7 @@ import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
  import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
  import * as moment from 'moment';
  import {SystemService} from '../../../shared/service/system.service';
+ import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-extract',
@@ -96,6 +97,7 @@ export class ExtractComponent implements OnInit {
     private extractRequestService: ExtractRequestService,
     private sessionService: SessionService,
     public router: Router,
+    private sysMethodsService: SysMethodsService,
     private snackBarService: SnackBarService,
     private location: Location,
     private datePipe: DatePipe,
@@ -140,16 +142,16 @@ export class ExtractComponent implements OnInit {
       'villageId': new FormControl(''),
       'searchReasonId': new FormControl('',[
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
-      'volume': new FormControl('', [Validators.required,
+      'volume': new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
-      'folioNo': new FormControl('', [Validators.required,
+      'folioNo': new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
-      'noOfYears': new FormControl('', [Validators.required,
+      'noOfYears': new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
     });
@@ -310,35 +312,35 @@ export class ExtractComponent implements OnInit {
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
       this.searchRequestForm.get('volume').setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
       this.searchRequestForm.get('folioNo').setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
       this.searchRequestForm.get('noOfYears').setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255)]);
       this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
 
     } else if (this.requestType == SearchRequestType.DEED_DOCUMENT) {
 
       this.searchRequestForm.get('attestedByNotaryName').setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.PERSON_NAME_PATTERN),
         Validators.maxLength(255)]);
       this.searchRequestForm.get('attestedByNotaryName').updateValueAndValidity();
       this.searchRequestForm.get('numberOfTheDeed').setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_PATTERN),
         Validators.maxLength(25)]);
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();

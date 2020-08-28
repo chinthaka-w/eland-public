@@ -10,6 +10,7 @@ import {NotaryLeaveReqWorkflowStage} from '../../../shared/enum/notary-leave-req
 import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-type-dto';
 import {Location, DatePipe} from '@angular/common';
 import {SystemService} from '../../../shared/service/system.service';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-leave-request',
@@ -35,6 +36,7 @@ export class LeaveRequestComponent implements OnInit {
               private router: Router,
               private location: Location,
               private systemService: SystemService,
+              private sysMethodsService: SysMethodsService,
               private datePipe: DatePipe) {
 
     // const current =
@@ -47,7 +49,7 @@ export class LeaveRequestComponent implements OnInit {
     this.notaryLeaveRequestForm = new FormGroup({
       fromDate: new FormControl('', [Validators.required]),
       toDate: new FormControl('', [Validators.required]),
-      reason: new FormControl('', [Validators.required]),
+      reason: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
       recaptcha: new FormControl('', [Validators.required])
     });
     this.route.params.subscribe(param => {
@@ -69,7 +71,7 @@ export class LeaveRequestComponent implements OnInit {
   }
 
 //   getTimeDifferent(): boolean {
-    
+
 // }
 
   makeLeaveRequest() {
@@ -115,7 +117,7 @@ export class LeaveRequestComponent implements OnInit {
 
 
     // if (this.getTimeDifferent()) {
-      
+
     // } else {
     //   console.log('time: ', this.isInvalidTimePeriod, 'duplicate: ', this.isDuplicateLeavePeriod);
     //   if (this.isInvalidTimePeriod) {

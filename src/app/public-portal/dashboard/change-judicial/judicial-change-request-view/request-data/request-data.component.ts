@@ -25,6 +25,7 @@ import {NewNotaryDataVarificationService} from '../../../../../shared/service/ne
 import {WorkflowStageDocDto} from '../../../../../shared/dto/workflow-stage-doc.dto';
 import {SupportingDocService} from '../../../../../shared/service/supporting-doc.service';
 import {Notary} from '../../../../../shared/dto/notary.model';
+import {SysMethodsService} from '../../../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-request-data',
@@ -98,6 +99,7 @@ export class RequestDataComponent implements OnInit {
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private documetService: SupportingDocService,
               private formBuilder: FormBuilder,
+              private sysMethodsService: SysMethodsService,
               private sessionService: SessionService,
               private systemService: SystemService) { }
 
@@ -214,7 +216,7 @@ export class RequestDataComponent implements OnInit {
           if (langId === Languages.ENGLISH) {
             this.isEnglish = true;
             this.addressEng.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.maxLength(255),
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
@@ -224,7 +226,7 @@ export class RequestDataComponent implements OnInit {
           if (langId === Languages.SINHALA) {
             this.isSinhala = true;
             this.addressSin.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.maxLength(255),
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
@@ -234,7 +236,7 @@ export class RequestDataComponent implements OnInit {
           if (langId === Languages.TAMIL) {
             this.isTamil = true;
             this.addressTam.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.maxLength(255),
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);

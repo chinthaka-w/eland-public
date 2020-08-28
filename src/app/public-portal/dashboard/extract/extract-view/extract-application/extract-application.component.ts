@@ -37,6 +37,7 @@ import {LandRegistryDivision} from '../../../../../shared/dto/land-registry-divi
 import * as moment from 'moment';
 import {PatternValidation} from '../../../../../shared/enum/pattern-validation.enum';
 import * as _ from 'lodash';
+import {SysMethodsService} from '../../../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-extract-application',
@@ -99,6 +100,7 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
     private extractRequestService: ExtractRequestService,
     private sessionService: SessionService,
     private snackBarService: SnackBarService,
+    private sysMethodsService: SysMethodsService,
     private datePipe: DatePipe,
     private location: Location) {
   }
@@ -135,17 +137,17 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
       'villageId': new FormControl(''),
       'searchReasonId': new FormControl('', [
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255)]),
       'lrDivisionId': new FormControl('', Validators.required),
-      'volume': new FormControl('', [Validators.required,
-        Validators.maxLength(10),
+      'volume': new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
-      'folioNo': new FormControl('', [Validators.required,
-        Validators.maxLength(10),
+      'folioNo': new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
-      'noOfYears': new FormControl('', [Validators.required,
-        Validators.maxLength(10),
+      'noOfYears': new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]),
     });
 
@@ -322,33 +324,33 @@ export class ExtractApplicationComponent implements OnInit, OnChanges {
       this.searchRequestForm.get('lrDivisionId').setValidators(Validators.required);
       this.searchRequestForm.get('lrDivisionId').updateValueAndValidity();
       this.searchRequestForm.get('volume').setValidators([
-        Validators.required,
-        Validators.maxLength(10),
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('volume').updateValueAndValidity();
       this.searchRequestForm.get('folioNo').setValidators([
-        Validators.required,
-        Validators.maxLength(10),
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('folioNo').updateValueAndValidity();
       this.searchRequestForm.get('noOfYears').setValidators([
-        Validators.required,
-        Validators.maxLength(10),
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(8),
         Validators.pattern(PatternValidation.ONLY_NUMBERS)]);
       this.searchRequestForm.get('noOfYears').updateValueAndValidity();
       this.searchRequestForm.get('searchReasonId').setValidators([
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255)]);
       this.searchRequestForm.get('searchReasonId').updateValueAndValidity();
     } else if (this.requestType == SearchRequestType.DEED_DOCUMENT) {
       this.searchRequestForm.get('attestedByNotaryName').setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.PERSON_NAME_PATTERN),
         Validators.maxLength(255)]);
       this.searchRequestForm.get('attestedByNotaryName').updateValueAndValidity();
       this.searchRequestForm.get('numberOfTheDeed').setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_PATTERN),
         Validators.maxLength(25)]);
       this.searchRequestForm.get('numberOfTheDeed').updateValueAndValidity();

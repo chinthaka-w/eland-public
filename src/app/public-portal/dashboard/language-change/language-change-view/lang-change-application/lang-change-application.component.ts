@@ -11,6 +11,7 @@ import { LanguageChangeService } from './../../../../../shared/service/language-
 import { NameTitleDTO } from './../../../../../shared/dto/name-title.dto';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import {SysMethodsService} from '../../../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-lang-change-application',
@@ -33,6 +34,7 @@ export class LangChangeApplicationComponent implements OnInit {
               private langChangeService: LanguageChangeService,
               private route: ActivatedRoute,
               private snackBarService: SnackBarService,
+              private sysMethodsService: SysMethodsService,
               private router: Router,
               private sessionService: SessionService) { }
 
@@ -130,18 +132,18 @@ languageChange(code: number): void {
     langEng: [this.langEngCheck, null],
     langSin: [this.langSinCheck, null],
     langTam: [this.langTamCheck, null],
-    fullNameEng: [this.langChangeViewForm.value.fullNameEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-    fullNameSin: [this.langChangeViewForm.value.fullNameSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-    fullNameTam: [this.langChangeViewForm.value.fullNameTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-    nameWithInitEng: [this.langChangeViewForm.value.nameWithInitEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-    nameWithInitSin: [this.langChangeViewForm.value.nameWithInitSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-    nameWithInitTam: [this.langChangeViewForm.value.nameWithInitTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-    addPermanentEng: [this.langChangeViewForm.value.addPermanentEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-    addPermanentSin: [this.langChangeViewForm.value.addPermanentSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-    addPermanentTam: [this.langChangeViewForm.value.addPermanentTam, code === this.langMode.TAMIL ? [Validators.required] : null],
-    addressEng: [this.langChangeViewForm.value.addressEng, code === this.langMode.ENGLISH ? [Validators.required] : null],
-    addressSin: [this.langChangeViewForm.value.addressSin, code === this.langMode.SINHALA ? [Validators.required] : null],
-    addressTam: [this.langChangeViewForm.value.addressTam, code === this.langMode.TAMIL ? [Validators.required] : null],
+    fullNameEng: [this.langChangeViewForm.value.fullNameEng, code === this.langMode.ENGLISH ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    fullNameSin: [this.langChangeViewForm.value.fullNameSin, code === this.langMode.SINHALA ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    fullNameTam: [this.langChangeViewForm.value.fullNameTam, code === this.langMode.TAMIL ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    nameWithInitEng: [this.langChangeViewForm.value.nameWithInitEng, code === this.langMode.ENGLISH ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    nameWithInitSin: [this.langChangeViewForm.value.nameWithInitSin, code === this.langMode.SINHALA ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    nameWithInitTam: [this.langChangeViewForm.value.nameWithInitTam, code === this.langMode.TAMIL ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    addPermanentEng: [this.langChangeViewForm.value.addPermanentEng, code === this.langMode.ENGLISH ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    addPermanentSin: [this.langChangeViewForm.value.addPermanentSin, code === this.langMode.SINHALA ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    addPermanentTam: [this.langChangeViewForm.value.addPermanentTam, code === this.langMode.TAMIL ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    addressEng: [this.langChangeViewForm.value.addressEng, code === this.langMode.ENGLISH ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    addressSin: [this.langChangeViewForm.value.addressSin, code === this.langMode.SINHALA ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
+    addressTam: [this.langChangeViewForm.value.addressTam, code === this.langMode.TAMIL ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null],
     // startingDate: [this.langChangeViewForm.value.startingDate, [Validators.required]],
     // highCourtCertificateYear: [this.langChangeViewForm.value.highCourtCertificateYear, [Validators.required]],
     // lrName: [this.langChangeViewForm.value.lrName, [Validators.required]],

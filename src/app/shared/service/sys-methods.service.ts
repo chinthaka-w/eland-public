@@ -112,4 +112,12 @@ export class SysMethodsService {
     });
   }
 
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isEmpty = (control.value || '').length === 0;
+    if(isEmpty) return null;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'pattern': true };
+  }
+
 }

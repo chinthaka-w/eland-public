@@ -18,6 +18,7 @@ import {CommonStatus} from '../../../enum/common-status.enum';
 import {PaymentStatus} from '../../../enum/payment-status.enum';
 import {DomSanitizer} from "@angular/platform-browser";
 import {AuthorizeRequestService} from '../../../service/authorize-request.service';
+import {SysMethodsService} from '../../../service/sys-methods.service';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class PaymentMethodComponent implements OnInit {
               private dataRoute: ActivatedRoute,
               private snackBar: SnackBarService,
               // private bankService: BankService,
+              private sysMethodsService: SysMethodsService,
               private authorizeRequestService: AuthorizeRequestService,
               private branchService: BankBranchService,
               private paymentService: PaymentService,
@@ -62,7 +64,7 @@ export class PaymentMethodComponent implements OnInit {
       bank: new FormControl('', Validators.required),
       branch: new FormControl('', Validators.required),
       date: new FormControl('', Validators.required),
-      referenceNo: new FormControl('', [Validators.required,Validators.maxLength(25)]),
+      referenceNo: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,Validators.maxLength(25)]),
     });
     this.loadBanks();
   }
