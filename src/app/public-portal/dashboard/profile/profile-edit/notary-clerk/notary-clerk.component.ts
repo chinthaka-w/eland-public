@@ -4,6 +4,7 @@ import {SessionService} from '../../../../../shared/service/session.service';
 import {SnackBarService} from '../../../../../shared/service/snack-bar.service';
 import {NotaryService} from '../../../../../shared/service/notary-service';
 import {AccountDetailsDto} from '../../../../../shared/dto/accountDetails.dto';
+import {SysMethodsService} from '../../../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-notary-clerk',
@@ -21,14 +22,15 @@ export class NotaryClerkComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private sessionService: SessionService,
               private snackBar: SnackBarService,
+              private sysMethodsService: SysMethodsService,
               private notaryService: NotaryService) { }
 
   ngOnInit() {
     this.accountUpdateForm = this.formBuilder.group({
-      username: new FormControl('', Validators.required),
-      currentpassword: new FormControl('', Validators.required),
-      newpassword: new FormControl('', Validators.required),
-      confirmpassword: new FormControl('', Validators.required),
+      username: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
+      currentpassword: new FormControl('', [Validators.required]),
+      newpassword: new FormControl('', [Validators.required]),
+      confirmpassword: new FormControl('', [Validators.required]),
     });
     this.notaryId = this.sessionService.getUser().id;
 

@@ -20,6 +20,7 @@ import {CommonStatus} from "../../../../shared/enum/common-status.enum";
 import {SnackBarService} from "../../../../shared/service/snack-bar.service";
 import {BankUserType} from "../../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../../shared/enum/identification-type.enum";
+import {SysMethodsService} from '../../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-citizen-application',
@@ -62,6 +63,7 @@ export class CitizenApplicationComponent implements OnInit {
               private bankService: BankService,
               private sessionService: SessionService,
               private snackBar: SnackBarService,
+              private sysMethodsService: SysMethodsService,
               private router: Router,
               private systemService: SystemService) {}
 
@@ -74,7 +76,7 @@ export class CitizenApplicationComponent implements OnInit {
       type: new FormControl({value: '', disabled: true}, [Validators.required]),
       lawFirmName: new FormControl('', []),
       nameEnglish: new FormControl('',
-        [Validators.required,
+        [Validators.required,this.sysMethodsService.noWhitespaceValidator,
           Validators.pattern(PatternValidation.nameValidation),
           Validators.maxLength(255)]),
       nameSinhala: new FormControl('', [
@@ -99,20 +101,20 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.maxLength(255)
       ]),
       identificationNo: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(15),
         Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]),
       identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.contactNumberValidation)
       ]),
       secondaryContact: new FormControl('', [
         Validators.pattern(PatternValidation.contactNumberValidation)
       ]),
       reason: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]),
@@ -300,7 +302,7 @@ export class CitizenApplicationComponent implements OnInit {
   updateValidators(userType: number) {
     if (userType !== PublicUserType.OTHER) {
       this.address1.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)
       ]);
@@ -323,7 +325,7 @@ export class CitizenApplicationComponent implements OnInit {
     }
     if (userType === PublicUserType.LAWYER) {
       this.lawFirmName.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]);
@@ -334,7 +336,7 @@ export class CitizenApplicationComponent implements OnInit {
     }
     if (userType === PublicUserType.STATE) {
       this.stateInstitutionName.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]);
@@ -345,12 +347,12 @@ export class CitizenApplicationComponent implements OnInit {
     }
     if (userType === PublicUserType.OTHER) {
       this.otherInstitutionName.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]);
       this.officersDesignation.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]);

@@ -22,6 +22,7 @@ import {GnDivisionDTO} from "../../../shared/dto/gn-division.dto";
 import {SessionService} from '../../../shared/service/session.service';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {PaymentDto} from '../../../shared/dto/payment-dto';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-change-judicial',
@@ -90,6 +91,7 @@ export class ChangeJudicialComponent implements OnInit {
     private location: Location,
     private snackBar: SnackBarService,
     private sessionService: SessionService,
+    private sysMethodsService: SysMethodsService,
     private formBuilder: FormBuilder,
     private router: Router) {
   }
@@ -217,6 +219,7 @@ export class ChangeJudicialComponent implements OnInit {
             this.isEnglish = true;
             this.addressEng.setValidators([
               Validators.required,
+              this.sysMethodsService.noWhitespaceValidator,
               Validators.maxLength(255),
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
@@ -227,6 +230,7 @@ export class ChangeJudicialComponent implements OnInit {
             this.isSinhala = true;
             this.addressSin.setValidators([
               Validators.required,
+              this.sysMethodsService.noWhitespaceValidator,
               Validators.maxLength(255),
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);
@@ -237,6 +241,7 @@ export class ChangeJudicialComponent implements OnInit {
             this.isTamil = true;
             this.addressTam.setValidators([
               Validators.required,
+              this.sysMethodsService.noWhitespaceValidator,
               Validators.maxLength(255),
               Validators.pattern(PatternValidation.ADDRESS_PATTERN)
             ]);

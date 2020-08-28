@@ -8,6 +8,7 @@ import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-ty
 import {SnackBarService} from "../../../shared/service/snack-bar.service";
 import {SessionService} from '../../../shared/service/session.service';
 import {SystemService} from '../../../shared/service/system.service';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-resignation',
@@ -27,12 +28,13 @@ export class ResignationComponent implements OnInit {
               private notaryResignationService: NotaryResignationService,
               private snackBar: SnackBarService,
               private sessionService: SessionService,
+              private sysMethodsService: SysMethodsService,
               private router: Router,
               private systemService: SystemService) { }
 
   ngOnInit() {
     this.resignationForm = new FormGroup({
-      reason: new FormControl("", [Validators.required]),
+      reason: new FormControl("", [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
     });
     this.route.params.subscribe(param => {
       if (param && param.id) {

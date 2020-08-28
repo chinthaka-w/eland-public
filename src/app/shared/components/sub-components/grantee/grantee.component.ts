@@ -6,6 +6,7 @@ import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DocumentNatures } from 'src/app/shared/enum/document-nature.enum';
 import { FolioDto } from 'src/app/shared/dto/folio-dto.model';
+import {SysMethodsService} from '../../../service/sys-methods.service';
 
 @Component({
   selector: 'app-grantee',
@@ -63,14 +64,15 @@ export class GranteeComponent implements OnInit {
   }
 
   constructor(public formBuilder: FormBuilder,
+              private sysMethodsService: SysMethodsService,
     private systemService: SystemService){}
 
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      name: [{value:this.granteeDto.name, disabled: false}, [Validators.required,  Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)]],
+      name: [{value:this.granteeDto.name, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator,  Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)]],
       nic: [{value:this.granteeDto.nic, disabled: false}, [Validators.pattern(new RegExp(PatternValidation.NIC_PATTERN))]],
-      addressPermanent: [{value:this.granteeDto.addressPermanent, disabled: false}, [Validators.required, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
+      addressPermanent: [{value:this.granteeDto.addressPermanent, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       addressResidential: [{value:this.granteeDto.addressResidential, disabled: false}, [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       telephone: [{value:this.granteeDto.telephone, disabled: false}, [Validators.pattern(new RegExp(PatternValidation.CONTACT_NUMBER_PATTERN))]],
       email: [{value:this.granteeDto.email, disabled: false}, [Validators.pattern(new RegExp(PatternValidation.EMAIL_PATTERN))]],

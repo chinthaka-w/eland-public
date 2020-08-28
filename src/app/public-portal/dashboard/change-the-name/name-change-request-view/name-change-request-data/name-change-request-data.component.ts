@@ -30,6 +30,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NameTitleEnum} from '../../../../../shared/enum/name-title.enum';
 import {NameTitleDTO} from '../../../../../shared/dto/name-title.dto';
 import {LanguageChangeService} from '../../../../../shared/service/language-change.service';
+import {SysMethodsService} from '../../../../../shared/service/sys-methods.service';
 import {SystemService} from '../../../../../shared/service/system.service';
 
 @Component({
@@ -90,6 +91,7 @@ export class NameChangeRequestDataComponent implements OnInit {
               private dsDivisionService: DsDivisionService,
               private formBuilder: FormBuilder,
               private snackBar: SnackBarService,
+              private sysMethodsService: SysMethodsService,
               private location: Location,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private sessionService: SessionService,
@@ -116,12 +118,12 @@ export class NameChangeRequestDataComponent implements OnInit {
   setData() {
     this.notaryForm = this.formBuilder.group({
       title: new FormControl(0, [Validators.required]),
-      newFullNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
-      newFullNameInSinhala: new FormControl('', this.isSinhala ? Validators.required : null),
-      newFullNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
-      newInitialNameInEnglish: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.nameValidation)]),
-      newInitialNameInSinhala: new FormControl('', this.isSinhala ? Validators.required : null),
-      newInitialNameInTamil: new FormControl('', this.isTamil ? Validators.required : null),
+      newFullNameInEnglish: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.nameValidation)]),
+      newFullNameInSinhala: new FormControl('', this.isSinhala ? [Validators.required,this.sysMethodsService.noWhitespaceValidator]: null),
+      newFullNameInTamil: new FormControl('', this.isTamil ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null),
+      newInitialNameInEnglish: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.nameValidation)]),
+      newInitialNameInSinhala: new FormControl('', this.isSinhala ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null),
+      newInitialNameInTamil: new FormControl('', this.isTamil ? [Validators.required,this.sysMethodsService.noWhitespaceValidator] : null),
       languages: new FormControl(),
     });
     this.getNameTitles();

@@ -204,7 +204,7 @@ export class AddNotaryComponent implements OnInit {
               private notaryService:NotaryService,
               private authorizeRequestService: AuthorizeRequestService,
               private cdr: ChangeDetectorRef,
-              private sysMethodService: SysMethodsService) {
+              private sysMethodsService: SysMethodsService) {
     this.today = new Date();
 
     let dob = new Date();
@@ -217,9 +217,9 @@ export class AddNotaryComponent implements OnInit {
       notary: new FormControl(NotaryRegisterType.NOTARY, [
         Validators.required]),
       title: new FormControl('', [
-        Validators.required]),
+        Validators.required,this.sysMethodsService.noWhitespaceValidator]),
       fullNameInEnglish: new FormControl(null, [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)]),
       fullNameInSinhala: new FormControl(null, [
@@ -229,7 +229,7 @@ export class AddNotaryComponent implements OnInit {
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)]),
       englishNameWithInitials: new FormControl(null, [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)]),
       sinhalaNameWithInitials: new FormControl(null, [
@@ -240,24 +240,27 @@ export class AddNotaryComponent implements OnInit {
         Validators.maxLength(255)]),
       nic: new FormControl(null, {
         validators: [Validators.required,
+          this.sysMethodsService.noWhitespaceValidator,
           Validators.pattern(PatternValidation.nicValidation),
           this.dobByNICValidator()],
         asyncValidators: [this.nicValidator()],
         updateOn: 'blur'
       }),
       email: new FormControl(null,{
-        validators: [Validators.required, Validators.pattern(PatternValidation.emailValidation)],
+        validators: [Validators.required,
+          this.sysMethodsService.noWhitespaceValidator,
+          Validators.pattern(PatternValidation.emailValidation)],
           asyncValidators: [this.emailValidator()],
           updateOn: 'blur'
       }
         ),
       languages: new FormControl(this.Languages.ENGLISH),
-      enrolledDate: new FormControl(null, [Validators.required]),
+      enrolledDate: new FormControl(null, [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
       passedDate: new FormControl(null, [Validators.required]),
       dateOfBirth: new FormControl(null, [Validators.required]),
       courtZone: new FormControl('', [Validators.required]),
       permenentAddressInEnglish: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       permenentAddressInSinhala: new FormControl('',[
@@ -267,7 +270,7 @@ export class AddNotaryComponent implements OnInit {
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       currentAddressInEnglish: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       currentAddressInSinhala: new FormControl('',[
@@ -277,14 +280,14 @@ export class AddNotaryComponent implements OnInit {
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      contactNo: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      contactNo: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.contactNumberValidation)]),
       landRegistry: new FormControl('', [Validators.required]),
       secretariatDivision: new FormControl('', [Validators.required]),
       gramaNiladhariDivision: new FormControl('', [Validators.required]),
       medium: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
       userName: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(6)],
+        validators: [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.minLength(6)],
         asyncValidators: [this.usernameValidator()],
         updateOn: 'blur'
       }),
@@ -295,7 +298,7 @@ export class AddNotaryComponent implements OnInit {
         switch (value) {
           case this.Languages.SINHALA:
             this.fullNameInSinhala.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)])
             this.fullNameInSinhala.updateValueAndValidity();
@@ -305,7 +308,7 @@ export class AddNotaryComponent implements OnInit {
             this.fullNameInTamil.updateValueAndValidity();
 
             this.sinhalaNameWithInitials.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)]);
             this.sinhalaNameWithInitials.updateValueAndValidity();
@@ -315,7 +318,7 @@ export class AddNotaryComponent implements OnInit {
             this.tamilNameWithInitials.updateValueAndValidity();
 
             this.permenentAddressInSinhala.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.permenentAddressInSinhala.updateValueAndValidity();
@@ -325,7 +328,7 @@ export class AddNotaryComponent implements OnInit {
             this.permenentAddressInTamil.updateValueAndValidity();
 
             this.currentAddressInSinhala.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.currentAddressInSinhala.updateValueAndValidity();
@@ -340,7 +343,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.fullNameInSinhala.updateValueAndValidity();
             this.fullNameInTamil.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)]);
             this.fullNameInTamil.updateValueAndValidity();
@@ -350,7 +353,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.sinhalaNameWithInitials.updateValueAndValidity();
             this.tamilNameWithInitials.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)]);
             this.tamilNameWithInitials.updateValueAndValidity();
@@ -360,7 +363,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.permenentAddressInSinhala.updateValueAndValidity();
             this.permenentAddressInTamil.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.permenentAddressInTamil.updateValueAndValidity();
@@ -370,7 +373,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.currentAddressInSinhala.updateValueAndValidity();
             this.currentAddressInTamil.setValidators([
-              Validators.required,
+              Validators.required,this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.currentAddressInTamil.updateValueAndValidity();
@@ -475,7 +478,7 @@ export class AddNotaryComponent implements OnInit {
     return (control: AbstractControl): { [key: string]: any } | null => {
 
       if (!this.notaryForm) return null;
-      const dateOfBirthByNIC = this.sysMethodService.getDateOfBirthByNic(control.value);
+      const dateOfBirthByNIC = this.sysMethodsService.getDateOfBirthByNic(control.value);
       const dateOfBirth = moment(this.dateOfBirth.value).format('YYYY-MM-DD');
       return (dateOfBirth == dateOfBirthByNIC) ? null : {nicInvalid: true};
 

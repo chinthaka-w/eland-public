@@ -38,6 +38,7 @@ import {LanguageChangeService} from '../../../shared/service/language-change.ser
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {SystemService} from '../../../shared/service/system.service';
 import { JudicialService } from 'src/app/shared/service/change-judicial-service';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-change-the-name',
@@ -124,6 +125,7 @@ export class ChangeTheNameComponent implements OnInit {
               private languageChangeService: LanguageChangeService,
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private router: Router,
+              private sysMethodsService: SysMethodsService,
               private systemService: SystemService,
               private judicialService: JudicialService
               ) { }
@@ -139,10 +141,10 @@ export class ChangeTheNameComponent implements OnInit {
     this.getUserDetails();
     this.notaryForm = this.formBuilder.group({
       title: new FormControl(null, [Validators.required]),
-      newFullNameInEnglish: new FormControl('', [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
+      newFullNameInEnglish: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
       newFullNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
       newFullNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
-      newInitialNameInEnglish: new FormControl('',  [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
+      newInitialNameInEnglish: new FormControl('',  [Validators.required,this.sysMethodsService.noWhitespaceValidator , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
       newInitialNameInSinhala: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
       newInitialNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
       dateOfBirth: new FormControl(new Date()),
@@ -218,19 +220,19 @@ export class ChangeTheNameComponent implements OnInit {
           if (certificate === Languages.SINHALA) {
             this.isSinhalaCertificate = true;
             this.notaryForm.get('newFullNameInSinhala').setValidators(
-              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+              [Validators.required,this.sysMethodsService.noWhitespaceValidator , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
             this.notaryForm.get('newFullNameInSinhala').updateValueAndValidity();
             this.notaryForm.get('newInitialNameInSinhala').setValidators(
-              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+              [Validators.required,this.sysMethodsService.noWhitespaceValidator , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
             this.notaryForm.get('newInitialNameInSinhala').updateValueAndValidity();
           }
           if (certificate === Languages.TAMIL) {
             this.isTamilCertificate = true;
             this.notaryForm.get('newFullNameInTamil').setValidators(
-              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+              [Validators.required,this.sysMethodsService.noWhitespaceValidator , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
             this.notaryForm.get('newFullNameInTamil').updateValueAndValidity();
             this.notaryForm.get('newInitialNameInTamil').setValidators(
-              [Validators.required , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
+              [Validators.required,this.sysMethodsService.noWhitespaceValidator , Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]);
             this.notaryForm.get('newInitialNameInTamil').updateValueAndValidity();
           }
         });

@@ -7,6 +7,7 @@ import {AppConfig} from '../../shared/dto/app-config.model';
 import {SysConfigService} from '../../shared/service/sys-config.service';
 import {SessionService} from '../../shared/service/session.service';
 import {TokenStorageService} from '../../shared/auth/token-storage.service';
+import {SysMethodsService} from '../../shared/service/sys-methods.service';
 import {SystemService} from '../../shared/service/system.service';
 
 
@@ -40,13 +41,14 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private sysConfigService: SysConfigService,
     private sessionService: SessionService,
+    private sysMethodsService: SysMethodsService,
     private systemService: SystemService,
     private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
       password: new FormControl('', [Validators.required])
     });
 

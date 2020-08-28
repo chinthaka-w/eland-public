@@ -21,6 +21,7 @@ import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-ty
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {Location} from '@angular/common';
 import {SystemService} from '../../../shared/service/system.service';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-change-land-registry',
@@ -59,11 +60,14 @@ export class ChangeLandRegistryComponent implements OnInit {
                private sessionService: SessionService,
                private router: Router,
                private location: Location,
+               private sysMethodsService: SysMethodsService,
                private systemService: SystemService) { }
 
   ngOnInit() {
     this.landRegistryChangeForm = new FormGroup({
-      reason: new FormControl('', [Validators.required , Validators.maxLength(255)] ),
+      reason: new FormControl('', [Validators.required,
+        this.sysMethodsService.noWhitespaceValidator ,
+        Validators.maxLength(255)] ),
       landRegistry: new FormControl('', Validators.required )
     });
     this.notaryId = this.sessionService.getUser().id;

@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 import { Particular } from 'src/app/shared/enum/particular.enum';
+import {SysMethodsService} from '../../../service/sys-methods.service';
 
 @Component({
   selector: 'app-particular',
@@ -68,23 +69,24 @@ export class ParticularComponent implements OnInit {
     return this.form.get('toDate');
   }
 
-  today = this.datePipe.transform(new Date(), 'yyyy-MM-dd'); ;
+  today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
   constructor(
     private datePipe: DatePipe,
-    public formBuilder: FormBuilder){ 
+    private sysMethodsService: SysMethodsService,
+    public formBuilder: FormBuilder){
   }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: [{ value: '', disabled: false }, [Validators.required]],
-      address: [{ value: '', disabled: false }, [Validators.required, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
+      name: [{ value: '', disabled: false }, [Validators.required,this.sysMethodsService.noWhitespaceValidator]],
+      address: [{ value: '', disabled: false }, [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       phone: [{ value: '', disabled: false }, [Validators.pattern(new RegExp(PatternValidation.CONTACT_NUMBER_PATTERN))]],
       email: [{ value: '', disabled: false }, [Validators.pattern(new RegExp(PatternValidation.EMAIL_PATTERN))]],
       fromDate: [{ value: this.today, disabled: false }],
       toDate: [{ value: this.today, disabled: false }],
-      noticePersonName: [{ value: '', disabled: false }, [Validators.required]],
-      noticePersonAddress: [{ value: '', disabled: false }, [Validators.required, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
+      noticePersonName: [{ value: '', disabled: false }, [Validators.required,this.sysMethodsService.noWhitespaceValidator]],
+      noticePersonAddress: [{ value: '', disabled: false }, [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       noticePersonPhone: [{ value: '', disabled: false }, [Validators.pattern(new RegExp(PatternValidation.CONTACT_NUMBER_PATTERN))]],
       noticePersonEmail:  [{ value: '', disabled: false }, [Validators.pattern(new RegExp(PatternValidation.EMAIL_PATTERN))]],
     });

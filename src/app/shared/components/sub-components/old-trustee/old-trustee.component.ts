@@ -5,6 +5,7 @@ import { SystemService } from 'src/app/shared/service/system.service';
 import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 import { DocumentNatures } from 'src/app/shared/enum/document-nature.enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {SysMethodsService} from '../../../service/sys-methods.service';
 
 @Component({
   selector: 'app-old-trustee',
@@ -54,14 +55,15 @@ export class OldTrusteeComponent implements OnInit {
   }
 
   constructor(public formBuilder: FormBuilder,
+              private sysMethodsService: SysMethodsService,
     private systemService: SystemService){}
 
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      name: [{value:this.oldTrusteeDto.name, disabled: false}, [Validators.required,  Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)]],
-      nic: [{value:this.oldTrusteeDto.nic, disabled: false}, [Validators.required, Validators.pattern(new RegExp(PatternValidation.NIC_PATTERN))]],
-      addressPermanent: [{value:this.oldTrusteeDto.addressPermanent, disabled: false}, [Validators.required, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
+      name: [{value:this.oldTrusteeDto.name, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator,  Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)]],
+      nic: [{value:this.oldTrusteeDto.nic, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(new RegExp(PatternValidation.NIC_PATTERN))]],
+      addressPermanent: [{value:this.oldTrusteeDto.addressPermanent, disabled: false}, [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       addressResidential: [{value:this.oldTrusteeDto.addressResidential, disabled: false}, [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]],
       telephone: [{value:this.oldTrusteeDto.telephone, disabled: false}, [Validators.pattern(new RegExp(PatternValidation.CONTACT_NUMBER_PATTERN))]],
       email: [{value:this.oldTrusteeDto.email, disabled: false}, [Validators.pattern(new RegExp(PatternValidation.EMAIL_PATTERN))]],
@@ -77,7 +79,7 @@ export class OldTrusteeComponent implements OnInit {
   }
 
   addOldTrustee(){
-    
+
     if(this.form.invalid){
       Object.keys(this.form.controls).forEach(field => {
         const control = this.form.get(field);

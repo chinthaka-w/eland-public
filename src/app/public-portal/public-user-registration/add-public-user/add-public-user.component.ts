@@ -25,6 +25,7 @@ import {IdentificationType} from "../../../shared/enum/identification-type.enum"
 import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
 import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
 import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 @Component({
   selector: "app-add-public-user",
@@ -82,6 +83,7 @@ export class AddPublicUserComponent implements OnInit {
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
               private snackBar: SnackBarService,
+              private sysMethodsService: SysMethodsService,
               private authorizeRequestService: AuthorizeRequestService,
               private router: Router,
               private systemService: SystemService) {}
@@ -93,12 +95,12 @@ export class AddPublicUserComponent implements OnInit {
       bankName: new FormControl("", [Validators.required]),
       bankBranch: new FormControl("", [Validators.required]),
       lawFirmName: new FormControl("", [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.PERSON_NAME_PATTERN)
       ]),
       nameEnglish: new FormControl("",
-        [Validators.required,
+        [Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)]),
       nameSinhala: new FormControl('', [
@@ -109,7 +111,7 @@ export class AddPublicUserComponent implements OnInit {
         Validators.maxLength(255)
       ]),
       address1: new FormControl("",
-        [Validators.required,
+        [Validators.required,this.sysMethodsService.noWhitespaceValidator,
           Validators.maxLength(255),
           Validators.pattern(PatternValidation.ADDRESS_PATTERN)
         ]),
@@ -122,37 +124,37 @@ export class AddPublicUserComponent implements OnInit {
         Validators.maxLength(255)
       ]),
       identificationNo: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(15),
         Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]),
       identificationType: new FormControl("", [Validators.required]),
       primaryContact: new FormControl("",
-        [Validators.required,
+        [Validators.required,this.sysMethodsService.noWhitespaceValidator,
           Validators.pattern(PatternValidation.contactNumberValidation),
         ]),
       secondaryContact: new FormControl("", [Validators.pattern(PatternValidation.contactNumberValidation)]),
       email: new FormControl("",
-        [Validators.required,
+        [Validators.required,this.sysMethodsService.noWhitespaceValidator,
           Validators.pattern(PatternValidation.emailValidation)]),
-      userName: new FormControl("", [Validators.required]),
+      userName: new FormControl("", [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
       reason: new FormControl("", [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255)
       ]),
       recaptcha: new FormControl(null, Validators.required),
       officersDesignation: new FormControl("", [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]),
       stateInstitutionName: new FormControl("", [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]),
       otherInstitutionName: new FormControl("", [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]),
@@ -326,17 +328,17 @@ export class AddPublicUserComponent implements OnInit {
     this.identificationNo.setValue('');
     if (event.value == IdentificationType.NIC) {
       this.identificationNo.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.NIC_PATTERN)
       ]);
     } else if (event.value == IdentificationType.PASSPORT) {
       this.identificationNo.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.PASSPORT_VALIDATION)
       ]);
     } else if (event.value == IdentificationType.DRIVING_LICENSE) {
       this.identificationNo.setValidators([
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
       ]);
     }
     this.publicUserForm.updateValueAndValidity();

@@ -5,6 +5,7 @@ import {SnackBarService} from '../../shared/service/snack-bar.service';
 import {UserTypeModel} from '../../shared/dto/userType.model';
 import {UserType} from '../../shared/enum/user-type.enum';
 import {AuthorizeRequestService} from '../../shared/service/authorize-request.service';
+import {SysMethodsService} from '../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -20,6 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
   public users: any[] = [];
   constructor(private _formBuilder: FormBuilder,
               private authService: AuthService,
+              private sysMethodsService: SysMethodsService,
               private authorizeRequestService: AuthorizeRequestService,
               private snackBar: SnackBarService,) { }
 

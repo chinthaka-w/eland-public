@@ -10,6 +10,7 @@ import {JudicialChange} from '../../../../../shared/dto/judicial-change-model';
 import {WorkflowStages} from '../../../../../shared/enum/workflow-stages.enum';
 import {PatternValidation} from '../../../../../shared/enum/pattern-validation.enum';
 import {unescapeIdentifier} from '@angular/compiler';
+import {SysMethodsService} from '../../../../../shared/service/sys-methods.service';
 
 @Component({
   selector: 'app-application',
@@ -32,6 +33,7 @@ export class ApplicationComponent implements OnInit {
               private snackBar: SnackBarService,
               private formBuilder: FormBuilder,
               private systemService: SystemService,
+              private sysMethodsService: SysMethodsService,
               private router: Router) { }
 
   ngOnInit() {
@@ -43,13 +45,13 @@ export class ApplicationComponent implements OnInit {
       nameIniSin: new FormControl(''),
       nameIniTam: new FormControl(''),
       perAddEng: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)
       ]),
       perAddSin: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       perAddTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       curAddressEng: new FormControl('', [
-        Validators.required,
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)
       ]),
       curAddressSin: new FormControl('', [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
@@ -57,9 +59,9 @@ export class ApplicationComponent implements OnInit {
       isWarLang: new FormControl(''),
       dob: new FormControl(''),
       nic: new FormControl(''),
-      contact: new FormControl('', [Validators.required, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      contact: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.contactNumberValidation)]),
       mobile: new FormControl('', [ Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl('', [ Validators.required, Validators.pattern(PatternValidation.emailValidation)]),
+      email: new FormControl('', [ Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.emailValidation)]),
       judicial: new FormControl(''),
       lRegistry: new FormControl(''),
       clerkName: new FormControl(''),
