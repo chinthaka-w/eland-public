@@ -757,7 +757,7 @@
        }
     },
     "VALIDATION":{
-       "MAX_LENGTH_255_ERR":"Maximum of 255 characters.",
+       "MAX_LENGTH_255_ERR":"Maximum of 255 characters exceeded",
        "MAX_LENGTH_25_ERR":"Maximum of 25 characters.",
        "MAX_FILE_SIZE_ERR": "Maximum file size has been exceeded.",
        "INVALID_FILE_ERR": "Invalid file type.",
@@ -788,12 +788,15 @@
        "CONTACT_MOBILE_EMPTY_ERR":"Please Enter Contact Person Phone No!",
        "REQUIRED_FIELD_ERR": "Please fill the required fields",
        "REQUIRED_PAYMENT_METHOD_ERR": "Please Select payment option",
+       "INVALID_REFERENCE_NO": "Please Enter valid Reference No",
+       "INVALID_REASON_ERR": "Please enter a valid reason",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"Please Enter Location"
        },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"Please Enter Designation Code",
-          "DESIGNATION_EMPTY_ERR":"Please Enter Designation"
+          "DESIGNATION_EMPTY_ERR":"Please Enter Designation",
+          "DESIGNATION_ERR": "Please Enter Valid Designation"
        },
        "KORALE":{
           "KORALE_EMPTY_ERR":"Please Enter Korale Details"
@@ -912,7 +915,8 @@
        "REQUEST_REJECT": "Request Rejected",
        "REQUEST_APPROVED": "Approved",
        "RESIGN": "Resign",
-       "INACTIVE": "Inactive"
+       "INACTIVE": "Inactive",
+       "FURTHER_DOC_SUBMISSION": "Further Details Submission"
 
     },
     "CAVEAT":{
@@ -1064,7 +1068,7 @@
          "TITLE2": "Please fill in the following information to",
          "TITLE3": "register in the system",
          "APPLICATION": "Application",
-         "NEAR_LAND_APPL": "Nearest Land Registry to the Applicant",
+         "NEAR_LAND_APPL": "Land Registry to the Applicant",
          "SLECT_LAND": "-- Select Land Registry --",
          "PLS_FILL_FORM": "Please fill the form data…! ",
          "FOLIO_NO": "Folio No",
