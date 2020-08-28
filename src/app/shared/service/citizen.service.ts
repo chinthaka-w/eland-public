@@ -64,7 +64,7 @@ export class CitizenService {
     const keys = Object.keys(fileList);
     for (const key in keys) {
       for (const file of fileList[keys[key]]) {
-        formData.append('file', file, keys[key] + '/' + file.name);
+        formData.append('file', file, keys[key] + '/' + keys[key] + file.name);
       }
     }
     formData.append('model', JSON.stringify(citizen));

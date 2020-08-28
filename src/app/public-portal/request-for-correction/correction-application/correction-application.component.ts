@@ -141,15 +141,17 @@ export class CorrectionApplicationComponent implements OnInit {
       attestedDate: [new Date(), [
       ]],
       correctionNature: [null, [
-        Validators.required,this.sysMethodsService.noWhitespaceValidator,
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+        Validators.required,this.sysMethodsService.noWhitespaceValidator
+        // removed with rgd comment
+        // Validators.maxLength(255),
+        // Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]
       ],
       requestedCorrection: [null, [
-        Validators.required,this.sysMethodsService.noWhitespaceValidator,
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
+        Validators.required,this.sysMethodsService.noWhitespaceValidator
+        // removed with rgd comment
+        // Validators.maxLength(255),
+        // Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)
       ]],
       recaptcha: [null],
     });

@@ -1,13 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SnackBarService } from 'src/app/shared/service/snack-bar.service';
-import { AuthService } from 'src/app/shared/auth/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {SnackBarService} from 'src/app/shared/service/snack-bar.service';
+import {AuthService} from 'src/app/shared/auth/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppConfig} from '../../shared/dto/app-config.model';
-import {SysConfigService} from "../../shared/service/sys-config.service";
-import {SessionService} from "../../shared/service/session.service";
+import {SysConfigService} from '../../shared/service/sys-config.service';
+import {SessionService} from '../../shared/service/session.service';
 import {TokenStorageService} from '../../shared/auth/token-storage.service';
 import {SysMethodsService} from '../../shared/service/sys-methods.service';
+import {SystemService} from '../../shared/service/system.service';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
     private sysConfigService: SysConfigService,
     private sessionService: SessionService,
     private sysMethodsService: SysMethodsService,
+    private systemService: SystemService,
     private tokenStorageService: TokenStorageService
   ) {}
 
@@ -80,7 +82,7 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         console.log('Error', error);
-        this.formError = error.error.error_description;
+          this.formError = this.systemService.getTranslation('LOGIN.PASSWORD_INCORRECT');
           this.loginForm.setErrors({ serverError: true });
       }
     );

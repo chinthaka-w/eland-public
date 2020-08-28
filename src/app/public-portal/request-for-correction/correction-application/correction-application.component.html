@@ -4,6 +4,25 @@
 
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
+      <div class="default-input-wrapper full-row">
+        <label>{{'FOLIO_TYPE.FOLIO_NUM'| translate}}<span class="redtxt"> *</span></label>
+        <label style="font-size: 12px; color: darkgray;">Ex. (Land Registry Division / volume/ index)</label>
+        <div class="default-input-feild">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="folioNo" class="form-control">
+          </mat-form-field>
+          <div *ngIf="folioNo.invalid && (folioNo.dirty || folioNo.touched)">
+            <mat-error *ngIf="folioNo.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="folioNo.errors.maxlength" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
+            <mat-error *ngIf="folioNo.errors.pattern" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-inner-row mb-20">
+    <div class="pg-inner-col">
       <div class="default-input-wrapper full-row m0">
         <label>{{'CITIZEN.CITIZEN_CORRECTION.NEAR_LAND_APPL'| translate}}<span class="redtxt">*</span></label>
         <div class="default-input-feild">
@@ -14,24 +33,6 @@
           <mat-spinner *ngIf="!isLrLoaded && !isReadonly" [diameter]="16" class="spinner-input"></mat-spinner>
           <div *ngIf="landRegId.invalid && (landRegId.dirty || landRegId.touched)">
             <mat-error *ngIf="landRegId.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="pg-inner-row mb-20">
-    <div class="pg-inner-col">
-      <div class="default-input-wrapper full-row">
-        <label>{{'FOLIO_TYPE.FOLIO_NUM'| translate}}<span class="redtxt"> *</span></label>
-        <div class="default-input-feild">
-          <mat-form-field appearance="outline">
-            <input matInput formControlName="folioNo" class="form-control">
-          </mat-form-field>
-          <div *ngIf="folioNo.invalid && (folioNo.dirty || folioNo.touched)">
-            <mat-error *ngIf="folioNo.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
-            <mat-error *ngIf="folioNo.errors.maxlength" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
-            <mat-error *ngIf="folioNo.errors.pattern" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -105,7 +106,7 @@
           </mat-form-field>
           <div *ngIf="correctionNature.invalid && (correctionNature.dirty || correctionNature.touched)">
             <mat-error *ngIf="correctionNature.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
-            <mat-error *ngIf="correctionNature.errors.maxlength || correctionNature.errors.pattern" class="errors">{{'VALIDATION.SECTION35.NATURE_INVALID_ERR'| translate}}</mat-error>
+            <mat-error *ngIf="correctionNature.errors.maxlength" class="errors">{{'VALIDATION.SECTION35.NATURE_INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -121,7 +122,8 @@
           </mat-form-field>
           <div *ngIf="requestedCorrection.invalid && (requestedCorrection.dirty || requestedCorrection.touched)">
             <mat-error *ngIf="requestedCorrection.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
-            <mat-error *ngIf="requestedCorrection.errors.maxlength || requestedCorrection.errors.pattern" class="errors">{{'VALIDATION.SECTION35.CORRECTION_INVALID_ERR'| translate}}</mat-error>
+            <!-- removed with rgd comment -->
+            <!-- <mat-error *ngIf="requestedCorrection.errors.maxlength || requestedCorrection.errors.pattern" class="errors">{{'VALIDATION.SECTION35.CORRECTION_INVALID_ERR'| translate}}</mat-error> -->
           </div>
         </div>
       </div>
