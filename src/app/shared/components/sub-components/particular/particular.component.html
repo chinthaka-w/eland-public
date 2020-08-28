@@ -1,33 +1,20 @@
-<div *ngIf="!uiController.isCaveator || uiController.isReadOnly" class="row m-0 p-0 mt-5">
-    <div class="col-md-12">
-      <div class="form-group">
-        <textarea class="form-control" placeholder="{{'PARTICULAR.NAME'|translate}}" [(ngModel)]="particularDto.remark"
-          [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly"></textarea>
-      </div>
-    </div>
+<div class="default-input-wrapper  bo-mat full-row"  *ngIf="!uiController.isCaveator || uiController.isReadOnly">
+  <div class="default-input-feild">
+    <textarea class="form-control" placeholder="{{'PARTICULAR.NAME'|translate}}" [(ngModel)]="particularDto.remark"
+        [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly"
+        style="min-height: 150px;"></textarea>
   </div>
-  
-  
-  <div *ngIf="uiController.isCaveator && !uiController.isReadOnly" class="row m-0 p-0 mt-5">
-    <form
-      [formGroup]="form"
-      class="row"
-    >
+</div>
+
+<div *ngIf="uiController.isCaveator && !uiController.isReadOnly" class="row m-0 p-0 mt-5">
+  <form [formGroup]="form" class="row">
     <div class="col-md-6">
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="caveator_name">{{'CAVEAT.NAME' | translate}}</label
-            ><sup class="danger"> *</sup>
-            <input
-              formControlName="name"
-              id="caveator_name"
-              class="form-control"
-            />
-            <div
-              *ngIf="name.touched && name.invalid"
-              class="text-danger font-small-2"
-            >
+            <label for="caveator_name">{{'CAVEAT.NAME' | translate}}</label><sup class="danger"> *</sup>
+            <input formControlName="name" id="caveator_name" class="form-control" />
+            <div *ngIf="name.touched && name.invalid" class="text-danger font-small-2">
               <div *ngIf="name.errors.required">
                 {{ "VALIDATION.NAME_IS_REQUIRED" | translate }}
               </div>
@@ -38,18 +25,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="caveator_address_per">{{'CAVEAT.ADDRESS' | translate}}</label
-            ><sup class="danger"> *</sup>
-            <textarea
-              formControlName="address"
-              id="caveator_address_per"
-              class="form-control"
-            >
+            <label for="caveator_address_per">{{'CAVEAT.ADDRESS' | translate}}</label><sup class="danger"> *</sup>
+            <textarea formControlName="address" id="caveator_address_per" class="form-control">
             </textarea>
-            <div
-              *ngIf="address.touched && address.invalid"
-              class="text-danger font-small-2"
-            >
+            <div *ngIf="address.touched && address.invalid" class="text-danger font-small-2">
               <div *ngIf="address.errors.required">
                 {{ "VALIDATION.PERM_ADDRESS_REQUIRED" | translate }}
               </div>
@@ -62,15 +41,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="caveator_tp">{{'CAVEAT.TELEPHONE' | translate}}</label>
-            <input
-              formControlName="phone"
-              id="caveator_tp"
-              class="form-control"
-            />
-            <div
-              *ngIf="phone.touched && phone.invalid"
-              class="text-danger font-small-2"
-            >
+            <input formControlName="phone" id="caveator_tp" class="form-control" />
+            <div *ngIf="phone.touched && phone.invalid" class="text-danger font-small-2">
               <div *ngIf="phone.errors.pattern">
                 {{ "VALIDATION.INVALID_TELE_REQUIRED" | translate }}
               </div>
@@ -80,15 +52,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="caveator_mail">{{'CAVEAT.EMAIL' | translate}}</label>
-            <input
-              formControlName="email"
-              id="caveator_mail"
-              class="form-control"
-            />
-            <div
-              *ngIf="email.touched && email.invalid"
-              class="text-danger font-small-2"
-            >
+            <input formControlName="email" id="caveator_mail" class="form-control" />
+            <div *ngIf="email.touched && email.invalid" class="text-danger font-small-2">
               <div *ngIf="email.errors.pattern">
                 {{ "VALIDATION.INVALID_EMAIL" | translate }}
               </div>
@@ -101,17 +66,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="notice_person_name">{{'CAVEAT.NP_NAME' | translate}}</label
-            ><sup class="danger"> *</sup>
-            <input
-              formControlName="noticePersonName"
-              id="notice_person_name"
-              class="form-control"
-            />
-            <div
-              *ngIf="noticePersonName.touched && noticePersonName.invalid"
-              class="text-danger font-small-2"
-            >
+            <label for="notice_person_name">{{'CAVEAT.NP_NAME' | translate}}</label><sup class="danger"> *</sup>
+            <input formControlName="noticePersonName" id="notice_person_name" class="form-control" />
+            <div *ngIf="noticePersonName.touched && noticePersonName.invalid" class="text-danger font-small-2">
               <div *ngIf="noticePersonName.errors.required">
                 {{ "VALIDATION.NAME_IS_REQUIRED" | translate }}
               </div>
@@ -122,18 +79,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="notice_person_address">{{'CAVEAT.NP_ADDRESS' | translate}}</label
-            ><sup class="danger"> *</sup>
-            <textarea
-              formControlName="noticePersonAddress"
-              id="notice_person_address"
-              class="form-control"
-            >
+            <label for="notice_person_address">{{'CAVEAT.NP_ADDRESS' | translate}}</label><sup class="danger"> *</sup>
+            <textarea formControlName="noticePersonAddress" id="notice_person_address" class="form-control">
             </textarea>
-            <div
-              *ngIf="noticePersonAddress.touched && noticePersonAddress.invalid"
-              class="text-danger font-small-2"
-            >
+            <div *ngIf="noticePersonAddress.touched && noticePersonAddress.invalid" class="text-danger font-small-2">
               <div *ngIf="noticePersonAddress.errors.required">
                 {{ "VALIDATION.PERM_ADDRESS_REQUIRED" | translate }}
               </div>
@@ -146,15 +95,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="notice_person_tp">{{'CAVEAT.NP_TELEPHONE' | translate}}</label>
-            <input
-              formControlName="noticePersonPhone"
-              id="notice_person_tp"
-              class="form-control"
-            />
-            <div
-              *ngIf="noticePersonPhone.touched && noticePersonPhone.invalid"
-              class="text-danger font-small-2"
-            >
+            <input formControlName="noticePersonPhone" id="notice_person_tp" class="form-control" />
+            <div *ngIf="noticePersonPhone.touched && noticePersonPhone.invalid" class="text-danger font-small-2">
               <div *ngIf="noticePersonPhone.errors.pattern">
                 {{ "VALIDATION.INVALID_TELE_REQUIRED" | translate }}
               </div>
@@ -164,15 +106,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="notice_person_mail">{{'CAVEAT.NP_EMAIL' | translate}}</label>
-            <input
-              formControlName="noticePersonEmail"
-              id="notice_person_mail"
-              class="form-control"
-            />
-            <div
-              *ngIf="noticePersonEmail.touched && noticePersonEmail.invalid"
-              class="text-danger font-small-2"
-            >
+            <input formControlName="noticePersonEmail" id="notice_person_mail" class="form-control" />
+            <div *ngIf="noticePersonEmail.touched && noticePersonEmail.invalid" class="text-danger font-small-2">
               <div *ngIf="noticePersonEmail.errors.pattern">
                 {{ "VALIDATION.INVALID_EMAIL" | translate }}
               </div>
@@ -182,52 +117,28 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div
-      class="row"
-    >
-    <div *ngIf="!uiController.isReadOnly" class="col-md-12">
-      <button
-        *ngIf="!isEdit"
-        type="submit"
-        class="btn btn-block btn-outline-primary"
-        (click)="addCaveator()"
-      >
-        + {{'CAVEAT.BUTTON' | translate}}
-      </button>
-      <button
-        *ngIf="isEdit"
-        type="submit"
-        class="btn btn-block btn-outline-primary"
-        (click)="addCaveator()"
-      >
-        {{ "BUTTONS.UPDATE_BUTTON" | translate }}
-      </button>
-    </div>
-    </div>
-    <hr>
-        <div
-        class="row"
-        
-      >
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="toDate">{{'CAVEAT.VALID' | translate}}</label>
-          <input
-            formControlName="toDate"
-            id="toDate"
-            class="form-control"
-            type="date"
-          />
+      <div class="row">
+        <div *ngIf="!uiController.isReadOnly" class="col-md-12">
+          <button *ngIf="!isEdit" type="submit" class="btn btn-block btn-outline-primary" (click)="addCaveator()">
+            + {{'CAVEAT.BUTTON' | translate}}
+          </button>
+          <button *ngIf="isEdit" type="submit" class="btn btn-block btn-outline-primary" (click)="addCaveator()">
+            {{ "BUTTONS.UPDATE_BUTTON" | translate }}
+          </button>
         </div>
       </div>
-  
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="toDate">{{'CAVEAT.VALID' | translate}}</label>
+            <input formControlName="toDate" id="toDate" class="form-control" type="date" />
+          </div>
+        </div>
+
         <div *ngIf="!uiController.isReadOnly" class="col-md-6 pt-5">
-          <button
-            type="button"
-            class="btn btn-block btn-outline-primary"
-            (click)="generateParticular()"
-          >
-          {{'CAVEAT.GENERATE' | translate}}
+          <button type="button" class="btn btn-block btn-outline-primary" (click)="generateParticular()">
+            {{'CAVEAT.GENERATE' | translate}}
           </button>
         </div>
       </div>
@@ -242,26 +153,12 @@
                   {{ caveator.name }}
                 </td>
                 <td>
-                  <button
-                    type="button"
-                    class="btn btn-sm info"
-                    (click)="updateCaveator(i)"
-                  >
-                    <mat-icon 
-                  class="material-icons"
-                  title="View"
-                  color="accent">remove_red_eye</mat-icon>
+                  <button type="button" class="btn btn-sm info" (click)="updateCaveator(i)">
+                    <mat-icon class="material-icons" title="View" color="accent">remove_red_eye</mat-icon>
                   </button>
-                  <button
-                    *ngIf="!uiController.isReadOnly"
-                    type="button"
-                    class="btn btn-sm danger"
-                    (click)="removeCaveator(i)"
-                  >
-                    <mat-icon 
-                  class="material-icons"
-                  title="Delete"
-                  color="warn">delete</mat-icon>
+                  <button *ngIf="!uiController.isReadOnly" type="button" class="btn btn-sm danger"
+                    (click)="removeCaveator(i)">
+                    <mat-icon class="material-icons" title="Delete" color="warn">delete</mat-icon>
                   </button>
                 </td>
               </tr>
@@ -270,18 +167,17 @@
         </div>
       </div>
     </div>
-  
-  
-        <div class="col-md-6 pt-5">
-          <hr>
-          <div class="form-group">
-            <label for="caveator_name">{{'PARTICULAR.NAME'|translate}}</label>
-            <textarea style="min-height: 350px !important" class="form-control" [(ngModel)]="particularDto.remark"
-              [ngModelOptions]="{standalone: true}" placeholder="{{'PARTICULAR.NAME'|translate}}" [disabled]="uiController.isReadOnly"></textarea>
-          </div>
-        </div>
-    </form>
-  
-  </div>
-  
-  
+
+
+    <div class="col-md-6 pt-5">
+      <hr>
+      <div class="form-group">
+        <label for="caveator_name">{{'PARTICULAR.NAME'|translate}}</label>
+        <textarea style="min-height: 350px !important" class="form-control" [(ngModel)]="particularDto.remark"
+          [ngModelOptions]="{standalone: true}" placeholder="{{'PARTICULAR.NAME'|translate}}"
+          [disabled]="uiController.isReadOnly"></textarea>
+      </div>
+    </div>
+  </form>
+
+</div>

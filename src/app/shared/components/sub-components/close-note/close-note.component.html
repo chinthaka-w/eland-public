@@ -1,9 +1,6 @@
-<br/>
-<div *ngIf="closeNote" class="row m-0 p-0">
-  <div class="col-md-12">
-    <div class="form-group">
-      <textarea class="form-control" [(ngModel)]="closeNote.note"
-      [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly"></textarea>
-    </div>
+<div class="default-input-wrapper  bo-mat full-row" *ngIf="closeNote">
+  <div class="default-input-feild">
+    <textarea class="form-control" [(ngModel)]="closeNote.note" [ngModelOptions]="{standalone: true}"
+      [disabled]="uiController.isReadOnly" style="min-height: 150px;"></textarea>
   </div>
 </div>

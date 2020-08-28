@@ -3,31 +3,22 @@
   <i class="ft-user"></i>
   {{'GRANTOR_DETAILS.SUB_TITLE'|translate}}
 </h4> -->
-<div class="row m-0 p-0 mt-5">
-    <form
-      [formGroup]="form"
-      (ngSubmit)="addGrantor()"
-      [ngClass]="{
-        'col-md-8': uiController.isMultipleGrantor,
-        'col-md-12': !uiController.isMultipleGrantor
-      }"
-    >
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="grantor_name">{{
-              "CONTACT_DETAILS.FULL_NAME" | translate
-            }}</label
-            ><sup class="danger"> *</sup>
-            <input
-              formControlName="name"
-              id="grantor_name"
-              class="form-control"
-            />
-            <div
-              *ngIf="name.touched && name.invalid"
-              class="text-danger font-small-2"
-            >
+<div class="bo-row m-0 p-0 mt-5">
+  <form [formGroup]="form" (ngSubmit)="addGrantor()" [ngClass]="{
+        'bo-col-8': uiController.isMultipleGrantor,
+        'bo-col-12': !uiController.isMultipleGrantor
+      }">
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper bo-mat full-row">
+          <label for="grantor_name">
+            {{"CONTACT_DETAILS.FULL_NAME" | translate}}
+            <sup class="danger"> *</sup>
+          </label>
+          <div class="default-input-feild">
+            <input formControlName="name" id="grantor_name" class="form-control" />
+            <div *ngIf="name.touched && name.invalid" class="text-danger font-small-2">
               <div *ngIf="name.errors.required">
                 {{ "VALIDATION.NAME_IS_REQUIRED" | translate }}
               </div>
@@ -37,17 +28,13 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="grantor_nic">{{
-              "CONTACT_DETAILS.NIC" | translate
-            }}</label
-            >
+      </div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper bo-mat full-row">
+          <label for="grantor_nic">{{"CONTACT_DETAILS.NIC" | translate}}</label>
+          <div class="default-input-feild">
             <input formControlName="nic" id="grantor_nic" class="form-control" />
-            <div
-              *ngIf="nic.touched && nic.invalid"
-              class="text-danger font-small-2"
-            >
+            <div *ngIf="nic.touched && nic.invalid" class="text-danger font-small-2">
               <div *ngIf="nic.errors.pattern">
                 {{ "VALIDATION.INVALID_NIC" | translate }}
               </div>
@@ -55,52 +42,35 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-5">
-          <div class="form-group">
-            <label for="grantor_address_per">{{
-              "GRANTOR_DETAILS.ADDRESS_PERM" | translate
-            }}</label
-            ><sup class="danger"> *</sup>
-            <textarea
-              formControlName="addressPermanent"
-              id="grantor_address_per"
-              class="form-control"
-            >
+    </div>
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper bo-mat full-row">
+          <label for="grantor_address_per">
+            {{"GRANTOR_DETAILS.ADDRESS_PERM" | translate}}
+            <sup class="danger"> *</sup>
+          </label>
+          <div class="default-input-feild  date-feild">
+            <textarea formControlName="addressPermanent" id="grantor_address_per" class="form-control">
             </textarea>
-            <div
-              *ngIf="addressPermanent.touched && addressPermanent.invalid"
-              class="text-danger font-small-2"
-            >
+            <div *ngIf="addressPermanent.touched && addressPermanent.invalid" class="text-danger font-small-2">
               <div *ngIf="addressPermanent.errors.required">
                 {{ "VALIDATION.PERM_ADDRESS_REQUIRED" | translate }}
               </div>
               <div *ngIf="addressPermanent.errors.pattern">{{'VALIDATION.INVALID_ADDRESS'|translate}}</div>
             </div>
+            <button mat-raised-button (click)="copyAddress()" [disabled]="uiController.isReadOnly">
+              <i class="material-icons">arrow_forward</i>
+            </button>
           </div>
         </div>
-        <div class="col-md-2 text-center pt-5">
-          <button
-            type="button"
-            class="btn btn-sm"
-            (click)="copyAddress()"
-            [disabled]="uiController.isReadOnly"
-          >
-            <i class="material-icons">
-              arrow_forward
-            </i>
-          </button>
-        </div>
-        <div class="col-md-5">
-          <div class="form-group">
-            <label for="grantor_address_res">{{
-              "GRANTOR_DETAILS.ADDRESS_RES" | translate
-            }}</label>
-            <textarea
-              formControlName="addressResidential"
-              id="grantor_address_res"
-              class="form-control"
-            >
+      </div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper bo-mat full-row">
+          <label for="grantor_address_res">{{"GRANTOR_DETAILS.ADDRESS_RES" | translate}}</label>
+          <div class="default-input-feild">
+            <textarea formControlName="addressResidential" id="grantor_address_res" class="form-control">
             </textarea>
             <div *ngIf="addressResidential.touched && addressResidential.invalid" class="text-danger font-small-2">
               <div *ngIf="addressResidential.errors.pattern">{{'VALIDATION.INVALID_ADDRESS'|translate}}</div>
@@ -108,121 +78,84 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="grantor_tp">{{
-              "GRANTOR_DETAILS.TELEPHONE" | translate
-            }}</label>
-            <input
-              formControlName="telephone"
-              id="grantor_tp"
-              class="form-control"
-            />
-            <div
-              *ngIf="telephone.touched && telephone.invalid"
-              class="text-danger font-small-2"
-            >
-              <div *ngIf="telephone.errors.pattern">
-                {{ "VALIDATION.INVALID_TELE_REQUIRED" | translate }}
-              </div>
+    </div>
+
+
+    <div class="pg-inner-row mb-20">
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper bo-mat full-row">
+          <label for="grantor_tp">{{"GRANTOR_DETAILS.TELEPHONE" | translate}}</label>
+          <input formControlName="telephone" id="grantor_tp" class="form-control" />
+          <div *ngIf="telephone.touched && telephone.invalid" class="text-danger font-small-2">
+            <div *ngIf="telephone.errors.pattern">
+              {{ "VALIDATION.INVALID_TELE_REQUIRED" | translate }}
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="grantor_mail">{{
-              "GRANTOR_DETAILS.EMAIL" | translate
-            }}</label>
-            <input
-              formControlName="email"
-              id="grantor_mail"
-              class="form-control"
-            />
-            <div
-              *ngIf="email.touched && email.invalid"
-              class="text-danger font-small-2"
-            >
-              <div *ngIf="email.errors.pattern">
-                {{ "VALIDATION.INVALID_EMAIL" | translate }}
-              </div>
+      </div>
+      <div class="pg-inner-col">
+        <div class="default-input-wrapper bo-mat full-row">
+          <label for="grantor_mail">{{"GRANTOR_DETAILS.EMAIL" | translate}}</label>
+          <input formControlName="email" id="grantor_mail" class="form-control" />
+          <div *ngIf="email.touched && email.invalid" class="text-danger font-small-2">
+            <div *ngIf="email.errors.pattern">
+              {{ "VALIDATION.INVALID_EMAIL" | translate }}
             </div>
           </div>
         </div>
-        </div>
-        <div *ngIf="expressTrustRequestCustomModel?.documentNatureId == documentNature.COURT_ORDER" class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="party-info">{{"OTHER.PARTY_INFO" | translate}}</label>
-            <input
-              formControlName="partyInfo"
-              id="party-info"
-              class="form-control"
-            />
-          </div>
-        </div>
       </div>
-      <div
-        class="row"
-        *ngIf="uiController.isMultipleGrantor && !uiController.isReadOnly"
-      >
-        <div class="col-md-12">
-          <button
-            *ngIf="!isEdit"
-            type="submit"
-            class="btn btn-block btn-outline-primary"
-          >
-            + {{expressTrustRequestCustomModel?.documentNatureId == documentNature.COURT_ORDER ? ("OTHER.PLAINTIFFS"| translate) :  "GRANTOR_DETAILS.TAB_TITLE" | translate }}
-          </button>
-          <button
-            *ngIf="isEdit"
-            type="submit"
-            class="btn btn-block btn-outline-primary"
-          >
-            {{ "BUTTONS.UPDATE_BUTTON" | translate }}
-          </button>
-        </div>
+    </div>
+
+    <div class="default-input-wrapper full-row"
+      *ngIf="expressTrustRequestCustomModel?.documentNatureId == documentNature.COURT_ORDER">
+      <label for="party-info">{{"OTHER.PARTY_INFO" | translate}}</label>
+      <div class="default-input-feild">
+        <input formControlName="partyInfo" id="party-info" class="form-control" />
       </div>
-    </form>
-    <div class="col-md-4 p-2" *ngIf="uiController.isMultipleGrantor">
-      <h5>{{expressTrustRequestCustomModel?.documentNatureId == documentNature.COURT_ORDER ? ("OTHER.PLAINTIFF_LIST"| translate) : "GRANTOR_DETAILS.LIST" | translate }}</h5>
-      <div class="text-center reference-person-list">
-        <span class="text-secondary" *ngIf="grantorList?.length < 1">{{
+    </div>
+
+
+    <div class="row" *ngIf="uiController.isMultipleGrantor && !uiController.isReadOnly">
+      <div class="col-md-12">
+        <button *ngIf="!isEdit" type="submit" class="btn btn-block btn-outline-primary">
+          +
+          {{expressTrustRequestCustomModel?.documentNatureId == documentNature.COURT_ORDER ? ("OTHER.PLAINTIFFS"| translate) :  "GRANTOR_DETAILS.TAB_TITLE" | translate }}
+        </button>
+        <button *ngIf="isEdit" type="submit" class="btn btn-block btn-outline-primary">
+          {{ "BUTTONS.UPDATE_BUTTON" | translate }}
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="bo-col-4 p-2" *ngIf="uiController.isMultipleGrantor">
+    <h5>
+      {{expressTrustRequestCustomModel?.documentNatureId == documentNature.COURT_ORDER ? ("OTHER.PLAINTIFF_LIST"| translate) : "GRANTOR_DETAILS.LIST" | translate }}
+    </h5>
+    <div class="text-center reference-person-list">
+      <span class="text-secondary" *ngIf="grantorList?.length < 1">{{
           expressTrustRequestCustomModel?.documentNatureId == documentNature.COURT_ORDER ? ("OTHER.NO_PLAINTIFF"| translate) :
           "GRANTOR_DETAILS.NO_GRANTOR" | translate
         }}</span>
-        <table class="table" *ngIf="grantorList?.length > 0">
-          <tbody>
-            <tr *ngFor="let grantor of grantorList; index as i">
-              <td>
-                {{ grantor.name }}
-              </td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-sm info"
-                  (click)="updateGrantor(i)"
-                >
-                  <mat-icon
-                class="material-icons"
-                title="View"
-                color="accent">remove_red_eye</mat-icon>
-                </button>
-                <button
-                  *ngIf="!uiController.isReadOnly"
-                  type="button"
-                  class="btn btn-sm danger"
-                  (click)="removeGrantor(i)"
-                >
-                  <mat-icon
-                class="material-icons"
-                title="Delete"
-                color="warn">delete</mat-icon>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="table" *ngIf="grantorList?.length > 0">
+        <tbody>
+          <tr *ngFor="let grantor of grantorList; index as i">
+            <td>
+              {{ grantor.name }}
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm info" (click)="updateGrantor(i)">
+                <mat-icon class="material-icons" title="View" color="accent">remove_red_eye</mat-icon>
+              </button>
+              <button *ngIf="!uiController.isReadOnly" type="button" class="btn btn-sm danger"
+                (click)="removeGrantor(i)">
+                <mat-icon class="material-icons" title="Delete" color="warn">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
