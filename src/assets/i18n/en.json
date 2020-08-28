@@ -122,7 +122,8 @@
              "SECONDARY":"Secondary"
           }
        },
-       "AND": "and"
+       "AND": "and",
+       "DOC_UPLOAD": "Upload Single (image / PDF)"
     },
     "FOLIO_TYPE":{
        "FOLIO_NUM":"Folio No",
@@ -721,7 +722,7 @@
           "FOLIO_NOT_FOUND":"Folio not found",
           "LR_NOT_FOUND":"Land Registries not found",
           "FOLIO_EXIST":"Folio already exist",
-          "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email.",
+          "REGISTRATION_SUCCESS": "Successfully submitted, Credentials have been mailed to the registration email",
           "REQUEST_PENDING": "Submitted request under reviewing",
          "UPLOAD_DOCS":"Please, Upload relevant documents.",
          "SELECT_LAND_REG":"Please, Select land registry.",
@@ -742,7 +743,8 @@
          "PROCEED_ONLINE_PAY":"Your Search request saved successfully. Proceed to online payment",
          "SEARCH_REQ_SUCCESS":"Your Search request saved successfully.",
          "EXTRACT_PROCEED_ONLINE":"Your Extract request saved successfully.Proceed to online payment",
-         "EXTARCT_REQ_SUCCESS":"Your Extract request saved successfully."
+         "EXTARCT_REQ_SUCCESS":"Your Extract request saved successfully.",
+         "NAME_CHG_UPD_SUCCESS":"Notary Name Change Request updated Successfully"
 
 
        },
@@ -785,6 +787,7 @@
        "CONTACT_NAME_EMPTY_ERR":"Please Enter Contact Person Name!",
        "CONTACT_MOBILE_EMPTY_ERR":"Please Enter Contact Person Phone No!",
        "REQUIRED_FIELD_ERR": "Please fill the required fields",
+       "REQUIRED_PAYMENT_METHOD_ERR": "Please Select payment option",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"Please Enter Location"
        },
@@ -904,7 +907,13 @@
        "REQUESTS_PENDING":"Requests pending",
        "INCOMPLETE_REQUESTS":"Incomplete Requests",
        "COMPLETED_REQUESTS":"Completed Requests",
-       "PENDING_REQUESTS":"Pending Requests"
+       "PENDING_REQUESTS":"Pending Requests",
+       "PENDING_APPROVAL": "Pending Approval",
+       "REQUEST_REJECT": "Request Rejected",
+       "REQUEST_APPROVED": "Approved",
+       "RESIGN": "Resign",
+       "INACTIVE": "Inactive"
+
     },
     "CAVEAT":{
        "NAME":"Caveator Name",
@@ -1157,6 +1166,8 @@
    "ADD_PAYMENT": "Add Payment",
    "LICENSE_ISSUE": "License Issue",
    "LICENSE_WAY": "In which way you like to receive the license?",
+   "EXTRACT_ISSUE": "Extract Issue",
+   "EXTRACT_WAY": "In which way you like to receive the extract?",
    "BY_HAND": "By Hand",
    "BY_POST_NO": "By Post (Normal)",
    "BY_POST_RE": "By Post(Registered)",
@@ -1198,7 +1209,8 @@
     "FORGOT_PWD":"Forgot Password ?",
     "TITLE3":"Don’t have an account?",
     "TITLE4":"Sign Up here",
-    "LOGIN":"Login"
+    "LOGIN":"Login",
+    "PASSWORD_INCORRECT":"Invalid Username or Password"
   },
   "FORGOT_PSWD":{
     "TYPE":"Welcome to E-Land",

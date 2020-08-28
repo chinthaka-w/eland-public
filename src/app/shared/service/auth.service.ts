@@ -8,7 +8,7 @@ import {UserTypeModel} from '../dto/userType.model';
   providedIn: 'root'
 })
 export class AuthService {
-  public BASE_URL = SysConfigService.BASE_URL;
+  public BASE_URL = SysConfigService.BASE_URL3;
   private headers = new HttpHeaders({
     'Content-Type': 'application/json; charset=utf-8'
   });

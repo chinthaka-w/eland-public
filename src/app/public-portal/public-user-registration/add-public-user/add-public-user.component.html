@@ -140,30 +140,30 @@
         <div class="default-input-wrapper full-row half-cols">
           <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
           <div class="default-input-feild gray">
-      
+
             <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankName" required
               (selectionChange)="getCurrentBank($event)">
               <mat-option *ngFor="let bank of banks" [value]="bank.bankId">
                 {{bank.bankName|listTranslate:bank.bankNameSin:bank.bankNameTam}}</mat-option>
             </mat-select>
-      
+
             <div *ngIf="FormControls.bankName.touched && FormControls.bankName.errors" class="invalid-feedback">
               <mat-error *ngIf="FormControls.bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
               </mat-error>
             </div>
           </div>
         </div>
-      
+
         <div class="default-input-wrapper full-row half-cols">
           <label class="mw-200">{{'CITIZEN.BANK_BRANCH'|translate}}<span>*</span></label>
           <div class="default-input-feild gray">
-      
+
             <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankBranch" required
               (selectionChange)="selectBranch(bankBranch.value)">
               <mat-option *ngFor="let bankBranch of bankBranches" [value]="bankBranch.id">
                 {{bankBranch.description|listTranslate:bankBranch.descriptionSin:bankBranch.descriptionTam}}</mat-option>
             </mat-select>
-      
+
             <div *ngIf="bankBranch.touched && bankBranch.errors" class="invalid-feedback">
               <mat-error *ngIf="bankBranch.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
               </mat-error>
@@ -315,9 +315,9 @@
           <re-captcha formControlName="recaptcha"></re-captcha>
         </div>
         <div class="pg-inner-col middle">
-          {{'CITIZEN.END1'|translate}}
-          <a href="#">{{'CITIZEN.END2'|translate}}</a> , <a href="#">{{'CITIZEN.END3'|translate}}</a> ,
-          and <a href="#">{{'CITIZEN.END4'|translate}}</a> .
+          <!--{{'CITIZEN.END1'|translate}}-->
+          <!--<a href="#">{{'CITIZEN.END2'|translate}}</a> , <a href="#">{{'CITIZEN.END3'|translate}}</a> ,-->
+          <!--and <a href="#">{{'CITIZEN.END4'|translate}}</a> .-->
         </div>
 
           <div class="pg-inner-col float-right">

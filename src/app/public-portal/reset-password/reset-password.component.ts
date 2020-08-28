@@ -33,8 +33,8 @@ export class ResetPasswordComponent implements OnInit {
 
     this.forgotPasswordForm = this._formBuilder.group({
         password: ['', [Validators.required]],
-        confirmPassword: ['']
-      }, { validator: this.MatchPassword }
+        confirmPassword: [{value: '', disabled: true}]
+      }, {validator: this.MatchPassword}
     );
 
     var decoded = jwt_decode(this.token);
@@ -44,6 +44,20 @@ export class ResetPasswordComponent implements OnInit {
       this.tokenExpired = true;
     }
 
+    this.password.valueChanges.subscribe(
+      value => {
+        this.confirmPassword.setValue("");
+      }
+    );
+
+  }
+
+  get confirmPassword() {
+    return this.forgotPasswordForm.get('confirmPassword');
+  }
+
+  get password() {
+    return this.forgotPasswordForm.get('password');
   }
 
   MatchPassword(control: AbstractControl) {
@@ -73,6 +87,14 @@ export class ResetPasswordComponent implements OnInit {
         this.router.navigateByUrl('/forgot-password');
       }
     );
+  }
+
+  onStrengthChange(event: number) {
+    if (event == 3 || event == 4) {
+      this.confirmPassword.enable();
+    } else {
+      this.confirmPassword.disable();
+    }
   }
 
 }

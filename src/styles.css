@@ -904,6 +904,19 @@ button.theme-light.mat-raised-button:hover {
   background-size: cover;
 }
 
+.hc-component-img-login {
+  display: table-cell;
+  width: 50%;
+  height: 85vh;
+  position: relative;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.height-85{
+  height: 85vh !important;
+}
 .hc-component-inner-col {
   display: block;
   position: absolute;

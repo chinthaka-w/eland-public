@@ -439,7 +439,7 @@ export class AddPublicUserComponent implements OnInit {
     this.authorizeRequestService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
       .subscribe((result) => {
         if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
           this.router.navigate(['/login']);
         } else if (this.paymentMethod === PaymentMethod.ONLINE) {
           this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS_PROCEED_ONLINE_PAYMENT'));

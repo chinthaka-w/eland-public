@@ -17,6 +17,7 @@ import {NameChangeWorkflowStagesEnum} from '../../../../shared/enum/name-change-
 import {NotaryRequestView} from '../../../../shared/custom-model/notary-request-view.model';
 import {NotaryRequestService} from '../../../../shared/service/notary-request.service';
 import {Location} from '@angular/common';
+import {SystemService} from '../../../../shared/service/system.service';
 
 @Component({
   selector: 'app-name-change-request-view',
@@ -51,6 +52,7 @@ export class NameChangeRequestViewComponent implements OnInit {
               private sessionService: SessionService,
               private snackBar: SnackBarService,
               private changeNameService: ChangeNameService,
+              private systemService: SystemService,
               private notaryRequestService: NotaryRequestService,
               private location: Location) {
     this.route.params.subscribe(params => {
@@ -131,7 +133,7 @@ export class NameChangeRequestViewComponent implements OnInit {
     this.notaryRequestService.update(notaryRequestView).subscribe(
       (success: boolean) => {
         if (success) {
-          this.snackBar.success('Notary Name Change Request Success');
+          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_SUCCESS'));
           this.router.navigateByUrl('/dashboard');
         } else {
           this.snackBar.error('Failed');
@@ -168,7 +170,7 @@ export class NameChangeRequestViewComponent implements OnInit {
   updateDetails(){
     this.changeNameService.update(this.nameChangeDetails).subscribe(
       (success: string) => {
-        this.snackBar.success('Notary Name Change Request Update Success');
+        this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_UPD_SUCCESS'));
       },
       error => {
         this.snackBar.error('Failed');

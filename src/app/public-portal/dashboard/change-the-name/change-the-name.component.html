@@ -25,7 +25,7 @@
                         <label>{{'CHANGE_NAME.LANGUAGE'|translate}}</label>
                         <div class="default-input-feild">
                           <section class="example-section">
-                            <mat-checkbox class="pr-3" [disabled]="true" [checked]="isEnglishCertificate" (change)="addLanguageList(3)">{{'CHANGE_NAME.ENGLISH'|translate}}</mat-checkbox>
+                            <mat-checkbox class="pr-3"  disabled="true" [checked]="true" (change)="addLanguageList(3)">{{'CHANGE_NAME.ENGLISH'|translate}}</mat-checkbox>
                             <mat-checkbox class="pr-3" [disabled]="true" [checked]="isSinhalaCertificate" (change)="addLanguageList(1)">{{'CHANGE_NAME.SINHALA'|translate}}</mat-checkbox>
                             <mat-checkbox class="pr-3" [disabled]="true" [checked]="isTamilCertificate" (change)="addLanguageList(2)">{{'CHANGE_NAME.TAMIL'|translate}}</mat-checkbox>
                           </section>
