@@ -782,13 +782,16 @@
        "CONTACT_NAME_EMPTY_ERR":"தொடர்பு நபரின் பெயரை உள்ளிடவும்!",
        "CONTACT_MOBILE_EMPTY_ERR":"தொடர்பு நபரின் தொலைபேசி எண்ணை உள்ளிடவும்!",
        "REQUIRED_PAYMENT_METHOD_ERR": "கட்டண விருப்பத்தைத் தேர்ந்தெடுக்கவும்",
+       "INVALID_REFERENCE_NO": "செல்லுபடியாகும் குறிப்பு எண் உள்ளிடவும்",
+       "INVALID_REASON_ERR": "சரியான காரணத்தை உள்ளிடவும்",
        "REQUIRED_FIELD_ERR": "தேவையான புலங்களை நிரப்பவும்",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"இருப்பிடத்தை உள்ளிடவும்"
        },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"பதவி குறியீட்டை உள்ளிடவும்",
-          "DESIGNATION_EMPTY_ERR":"தயவுசெய்து பதவியை உள்ளிடவும்"
+          "DESIGNATION_EMPTY_ERR":"தயவுசெய்து பதவியை உள்ளிடவும்",
+          "DESIGNATION_ERR": "செல்லுபடியாகும் பதவியை உள்ளிடவும்"
        },
        "KORALE":{
           "KORALE_EMPTY_ERR":"கோரல் விவரங்களை உள்ளிடவும்"
@@ -907,7 +910,8 @@
        "REQUEST_REJECT": "கோரிக்கை நிராகரிக்கப்பட்டது",
        "REQUEST_APPROVED": "அங்கீகரிக்கப்பட்டது",
        "RESIGN": "ராஜினாமா செய்தார்",
-       "INACTIVE": "செயலற்றது"
+       "INACTIVE": "செயலற்றது",
+       "FURTHER_DOC_SUBMISSION": "மேலும் விவரங்கள் சமர்ப்பிப்பு"
     },
     "CAVEAT":{
        "NAME":"கேவியட் பெயர்",

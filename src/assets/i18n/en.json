@@ -787,12 +787,15 @@
        "CONTACT_MOBILE_EMPTY_ERR":"Please Enter Contact Person Phone No!",
        "REQUIRED_FIELD_ERR": "Please fill the required fields",
        "REQUIRED_PAYMENT_METHOD_ERR": "Please Select payment option",
+       "INVALID_REFERENCE_NO": "Please Enter valid Reference No",
+       "INVALID_REASON_ERR": "Please enter a valid reason",
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"Please Enter Location"
        },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"Please Enter Designation Code",
-          "DESIGNATION_EMPTY_ERR":"Please Enter Designation"
+          "DESIGNATION_EMPTY_ERR":"Please Enter Designation",
+          "DESIGNATION_ERR": "Please Enter Valid Designation"
        },
        "KORALE":{
           "KORALE_EMPTY_ERR":"Please Enter Korale Details"
@@ -911,7 +914,8 @@
        "REQUEST_REJECT": "Request Rejected",
        "REQUEST_APPROVED": "Approved",
        "RESIGN": "Resign",
-       "INACTIVE": "Inactive"
+       "INACTIVE": "Inactive",
+       "FURTHER_DOC_SUBMISSION": "Further Details Submission"
 
     },
     "CAVEAT":{
