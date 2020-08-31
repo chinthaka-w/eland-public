@@ -217,7 +217,7 @@ export class AddNotaryComponent implements OnInit {
       notary: new FormControl(NotaryRegisterType.NOTARY, [
         Validators.required]),
       title: new FormControl('', [
-        Validators.required,this.sysMethodsService.noWhitespaceValidator]),
+        Validators.required]),
       fullNameInEnglish: new FormControl(null, [
         Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.nameValidation),
