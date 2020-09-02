@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
   NotrayWorkflowStage = NewNotaryRegistrationWorkflowStage;
 
   CommonStatus = CommonStatus;
-  public searchDetails: RequestSearchDetailDTO;
+  public searchDetails = new RequestSearchDetailDTO(null, null, null, null, null, null, null, null, null);
   public dashboardView = false;
   public requestView = false;
   public notaryId: number;
