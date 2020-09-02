@@ -40,7 +40,7 @@ export class SysMethodsService {
       dayText = parseInt(NICNo.substr(4, 3));
     }
 
-    if(dayText > 500) dayText = dayText-500;
+    if (dayText > 500) dayText = dayText - 500;
 
     // Day Digit Validation
     if (dayText < 1 && dayText > 366) {
@@ -113,11 +113,12 @@ export class SysMethodsService {
   }
 
   public noWhitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
+    if (typeof control.value !== 'string') return null;
     const isEmpty = (control.value || '').length === 0;
-    if(isEmpty) return null;
+    if (isEmpty) return null;
+    const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
-    return isValid ? null : { 'pattern': true };
+    return isValid ? null : {'pattern': true};
   }
 
 }
