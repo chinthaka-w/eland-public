@@ -339,6 +339,7 @@ export class AddPublicUserComponent implements OnInit {
     } else if (event.value == IdentificationType.DRIVING_LICENSE) {
       this.identificationNo.setValidators([
         Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.pattern(PatternValidation.DRIVING_LICENSE_VALIDATION)
       ]);
     }
     this.publicUserForm.updateValueAndValidity();

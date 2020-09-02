@@ -143,7 +143,6 @@ export class SearchDocumentComponent implements OnInit {
       'gnDivisionId': new FormControl(''),
       'villageId': new FormControl(''),
       'searchReasonId': new FormControl('',[
-        // Validators.pattern(PatternValidation.NO_WHITESPACE),
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
           this.sysMethodsService.noWhitespaceValidator,
           Validators.required,

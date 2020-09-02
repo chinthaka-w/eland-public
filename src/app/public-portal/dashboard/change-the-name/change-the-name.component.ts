@@ -107,6 +107,8 @@ export class ChangeTheNameComponent implements OnInit {
   isSinhalaCertificate = false;
   isTamilCertificate = false;
 
+  public isDataChanged: boolean = false;
+
   get FormControls() {
     return this.notaryForm.controls;
   }
@@ -167,9 +169,6 @@ export class ChangeTheNameComponent implements OnInit {
 
 
   comparevaluesOfform(): boolean {
-    if (this.firstValue.perAddEng === this.lastValue.perAddEng) {
-      console.log(this.lastValue.perAddEng + 'and ' + this.lastValue.perAddEng);
-    }
 
     if (this.firstValue.title === this.lastValue.title
       && this.firstValue.newFullNameInEnglish === this.lastValue.newFullNameInEnglish
@@ -293,6 +292,15 @@ export class ChangeTheNameComponent implements OnInit {
         this.notaryType = this.result.notaryType;
       },
       error1 => {
+      },()=>{
+        let formVal = this.notaryForm.value;
+        this.notaryForm.valueChanges.subscribe(
+          (value) => {
+
+            this.isDataChanged = (JSON.stringify(value) !== JSON.stringify(formVal));
+
+          }
+        );
       }
     );
   }
@@ -428,13 +436,13 @@ export class ChangeTheNameComponent implements OnInit {
 
 
   onClickSubmitSearchRequest() {
-    if (this.comparevaluesOfform()) {
+    // if (this.isDataChanged) {
       if (this.notaryForm.valid) {
         this.isContinueToPayment = !this.isContinueToPayment;
       }
-    } else {
-      this.snackBar.warn('No Changes Found!');
-    }
+    // } else {
+    //   this.snackBar.warn('No Changes Found!');
+    // }
   }
 
   public onFormSubmit() {
