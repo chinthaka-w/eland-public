@@ -269,14 +269,8 @@
 
   <div class="separator mt-30">&nbsp;</div>
 
-  <div class="pg-inner-row mb-0 pg-form-bottom-3-col" *ngIf="isEdit">
-    <div class="pg-inner-col">
-      <re-captcha formControlName="recaptcha"></re-captcha>
-    </div>
-  </div>
-
   <div class="pg-inner-col float-right" *ngIf="isEdit">
-    <button [disabled]="!publicUserForm.valid || showSpinner" mat-raised-button class="button float-right"
+    <button [disabled]="!(publicUserForm.valid && isEnableUpdate) || showSpinner" mat-raised-button class="button float-right"
       (click)="saveCitizen()">
       {{'CITIZEN.UPDATE'|translate}}
       <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>

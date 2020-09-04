@@ -21,6 +21,7 @@ export class CitizenService {
   public constructor(private httpClient: HttpClient) {}
 
   paymentDetails = new EventEmitter<PaymentDto[]>();
+  enableChanges = new EventEmitter<boolean>();
   citizenDto = new EventEmitter<CitizenDTO>();
   getAllLandRegistries(): Observable<Array<LandRegistriesDTO>> {
     return this.httpClient.get<Array<LandRegistriesDTO>>(this.BASE_URL + 'landRegistries/find', {headers: this.headers} );
@@ -86,6 +87,10 @@ export class CitizenService {
 
   getPublicUserDetails(citizenId: number): Observable<RequestSearchDetailDTO> {
     return this.httpClient.get<RequestSearchDetailDTO>(this.BASE_URL + 'citizen/getUserDetails/' + citizenId);
+  }
+
+  setChangesEnable(result: boolean): void {
+    this.enableChanges.emit(result);
   }
 
 }
