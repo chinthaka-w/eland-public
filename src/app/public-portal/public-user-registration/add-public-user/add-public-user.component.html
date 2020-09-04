@@ -16,7 +16,7 @@
               <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option>
             </mat-select>
             <mat-spinner [diameter]="16" *ngIf="!isLrLoaded" class="spinner-input"></mat-spinner>
-          <div *ngIf="FormControls.nearestLr.touched && FormControls.nearestLr.errors"
+          <div *ngIf="(FormControls.nearestLr.touched || FormControls.nearestLr.dirty) && FormControls.nearestLr.invalid"
                      class="invalid-feedback">
           <mat-error *ngIf="FormControls.nearestLr.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
         </div>
@@ -33,7 +33,7 @@
               <mat-option value="{{PublicUserType.STATE}}">{{'CITIZEN.STATE'|translate}}</mat-option>
               <mat-option value="{{PublicUserType.OTHER}}">{{'CITIZEN.OTHER1'|translate}}</mat-option>
             </mat-select>
-          <div *ngIf="FormControls.type.touched && FormControls.type.errors"
+          <div *ngIf="(FormControls.type.touched || FormControls.type.dirty) && FormControls.type.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.type.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
           </div>
@@ -133,7 +133,7 @@
           <mat-form-field appearance="outline">
             <input matInput placeholder="{{'CITIZEN.OTHER_INS_NAME'|translate}}" formControlName="otherInstitutionName" />
           </mat-form-field>
-          <div *ngIf="FormControls.otherInstitutionName.touched && FormControls.otherInstitutionName.errors"
+          <div *ngIf="(FormControls.otherInstitutionName.touched || FormControls.otherInstitutionName.dirty) && FormControls.otherInstitutionName.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.otherInstitutionName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
             <mat-error *ngIf="FormControls.otherInstitutionName.errors.pattern" class="errors">{{'CITIZEN.VALID_NAME'| translate}}</mat-error>
@@ -153,7 +153,7 @@
                 {{bank.bankName|listTranslate:bank.bankNameSin:bank.bankNameTam}}</mat-option>
             </mat-select>
 
-            <div *ngIf="FormControls.bankName.touched && FormControls.bankName.errors" class="invalid-feedback">
+            <div *ngIf="(FormControls.bankName.touched || FormControls.bankName.dirty) && FormControls.bankName.invalid" class="invalid-feedback">
               <mat-error *ngIf="FormControls.bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
               </mat-error>
             </div>
@@ -170,7 +170,7 @@
                 {{bankBranch.description|listTranslate:bankBranch.descriptionSin:bankBranch.descriptionTam}}</mat-option>
             </mat-select>
 
-            <div *ngIf="bankBranch.touched && bankBranch.errors" class="invalid-feedback">
+            <div *ngIf="(bankBranch.touched || bankBranch.dirty) && bankBranch.invalid" class="invalid-feedback">
               <mat-error *ngIf="bankBranch.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
               </mat-error>
             </div>
@@ -185,7 +185,7 @@
             <mat-form-field appearance="outline">
               <input matInput placeholder="{{'CITIZEN.ADDRESS_ENG'|translate}}" formControlName="address1" />
             </mat-form-field>
-            <div *ngIf="FormControls.address1.touched && FormControls.address1.errors"
+            <div *ngIf="(FormControls.address1.touched || FormControls.address1.dirty) && FormControls.address1.invalid"
                  class="invalid-feedback">
               <mat-error *ngIf="address1.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
               <mat-error *ngIf="address1.errors.pattern" class="errors">{{'CITIZEN.VALID_ADDRESS'|translate}}</mat-error>
@@ -231,7 +231,7 @@
               <mat-option value="{{identificationType.DRIVING_LICENSE}}" >{{'CITIZEN.DRIVING_LIC'|translate}}</mat-option>
             </mat-select>
 
-          <div *ngIf="FormControls.identificationType.touched && FormControls.identificationType.errors"
+          <div *ngIf="(FormControls.identificationType.touched || FormControls.identificationType.dirty) && FormControls.identificationType.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.identificationType.errors.required" class="errors">{{'CITIZEN.IDENT_TYP_REQ'|translate}}</mat-error>
           </div>
@@ -243,7 +243,7 @@
           <mat-form-field appearance="outline">
             <input matInput placeholder="{{'CITIZEN.IDNO'|translate}}" formControlName="identificationNo" />
           </mat-form-field>
-          <div *ngIf="FormControls.identificationNo.touched && FormControls.identificationNo.errors"
+          <div *ngIf="(FormControls.identificationNo.touched || FormControls.identificationNo.dirty) && FormControls.identificationNo.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.identificationNo.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
             <mat-error *ngIf="identificationNo.errors.maxlength || identificationNo.errors.pattern" class="errors">{{'CITIZEN.VALID_REF_NUM'|translate}}</mat-error>
@@ -257,7 +257,7 @@
           <mat-form-field appearance="outline">
             <input matInput placeholder="{{'CITIZEN.TEL1'|translate}}" formControlName="primaryContact" />
           </mat-form-field>
-          <div *ngIf="FormControls.primaryContact.touched && FormControls.primaryContact.errors"
+          <div *ngIf="(FormControls.primaryContact.touched || FormControls.primaryContact.dirty) && FormControls.primaryContact.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.primaryContact.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
             <mat-error *ngIf="FormControls.primaryContact.errors.pattern" class="errors">{{'CITIZEN.VALID_TEL'|translate}}</mat-error>
@@ -270,7 +270,7 @@
           <mat-form-field appearance="outline">
             <input matInput placeholder="{{'CITIZEN.TEL2'|translate}}" formControlName="secondaryContact" />
           </mat-form-field>
-          <div *ngIf="FormControls.secondaryContact.touched && FormControls.secondaryContact.errors"
+          <div *ngIf="(FormControls.secondaryContact.touched || FormControls.secondaryContact.dirty) && FormControls.secondaryContact.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.secondaryContact.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
             <mat-error *ngIf="FormControls.secondaryContact.errors.pattern" class="errors">{{'CITIZEN.VALID_TEL'|translate}}</mat-error>
@@ -283,7 +283,7 @@
           <mat-form-field appearance="outline">
             <input matInput placeholder="{{'CITIZEN.EMAIL'|translate}}" formControlName="email" (focusout)="setUserName($event.target.value)" />
           </mat-form-field>
-          <div *ngIf="FormControls.email.touched && FormControls.email.errors"
+          <div *ngIf="(FormControls.email.touched || FormControls.email.dirty) && FormControls.email.invalid"
                class="invalid-feedback">
             <mat-error *ngIf="FormControls.email.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
             <mat-error *ngIf="FormControls.email.errors.pattern" class="errors">{{'CITIZEN.VALID_EMAIL'|translate}}</mat-error>
@@ -331,7 +331,7 @@
         </div>
 
           <div class="pg-inner-col float-right">
-            <button [disabled]="!(publicUserForm.valid && isMadatoryDocsUploaded)" mat-raised-button class="lg-button float-right" (click)="continue()">
+            <button mat-raised-button class="lg-button float-right" (click)="continue()">
               {{'BUTTONS.CONTINUE_BUTTON'|translate}}
             </button>
           </div>

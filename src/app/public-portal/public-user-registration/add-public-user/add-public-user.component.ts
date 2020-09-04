@@ -420,7 +420,6 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   saveCitizen() {
-
     this.citizenDTO.nameEng = this.publicUserForm.controls.nameEnglish.value;
     this.citizenDTO.nameSin = this.publicUserForm.controls.nameSinhala.value;
     this.citizenDTO.nameTam = this.publicUserForm.controls.nameTamil.value;
@@ -505,11 +504,18 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   continue(): void {
-    if (this.publicUserForm.valid) {
-      this.isContinue = true;
-    } else {
-      this.publicUserForm.setErrors(Validators.required);
+    if (this.publicUserForm.invalid) {
+      this.checkFormValidity(this.publicUserForm);
     }
+    else {
+      this.isContinue = true;
+    }
+  }
+
+  checkFormValidity(form: FormGroup): void {
+    Object.keys(form.controls).forEach(key => {
+      form.controls[key].markAsDirty();
+    });
   }
 
   getBase64(url: string): string {

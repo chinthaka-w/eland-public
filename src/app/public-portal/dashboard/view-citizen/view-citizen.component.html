@@ -22,7 +22,7 @@
         <app-citizen-remark></app-citizen-remark>
       </mat-tab>
     </mat-tab-group>
-    <button [disabled]="showSpinner" *ngIf="isEdit" mat-raised-button class="lg-button"  (click)="onFormSubmit()">
+    <button [disabled]="showSpinner || !isApplyChanges" *ngIf="isEdit" mat-raised-button class="lg-button"  (click)="onFormSubmit()">
       {{'BUTTONS.APPLY_CHANGES_BUTTON'| translate}}
       <mat-spinner [diameter]="16" *ngIf="showSpinner" class="spinner-inline"></mat-spinner>
     </button>

@@ -95,6 +95,10 @@ export class CitizenPaymentInfoComponent implements OnInit {
         (result) => {
           this.statusOnlinePayment = true;
           this.returnURl = ('view-citizen/' + this.getBase64(CommonStatus.INACTIVE));
+        },
+        () => {},
+        () => {
+          this.citizenService.setChangesEnable(true);
         }
       );
     }
