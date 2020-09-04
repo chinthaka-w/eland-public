@@ -30,6 +30,7 @@ export class FileUploadInputComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.document && this.document.file) this.imagePreview(this.document.file);
   }
 
   onFileSelected(event) {
@@ -70,14 +71,14 @@ export class FileUploadInputComponent implements OnInit {
         return
       }
 
+      if (this.document) {
+        this.document.file = file;
+      }
+
       this.files.push(files[i]);
 
       // preview image
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-      };
+    this.imagePreview(file);
     }
     this.response.emit(this.files);
   }
@@ -95,5 +96,13 @@ export class FileUploadInputComponent implements OnInit {
     if (this.fileUpload) {
       this.fileUpload.nativeElement.click();
     }
+  }
+
+  imagePreview(file: any){
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.imageSrc = reader.result as string;
+    };
   }
 }

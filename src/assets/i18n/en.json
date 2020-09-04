@@ -709,6 +709,7 @@
           "SUBMIT_APPLICATION":"Are you sure, you want to submit this application?",
           "SUBMIT":"Are you sure?",
           "CONFIRM_SUBMIT":"Are you want to submit?",
+          "CONFIRM_LEAVE":"Do you want to leave this page?",
          "CONFIRM_DELETE":"Are you sure you want to delete this?"
        },
        "MESSAGE":{
@@ -744,8 +745,8 @@
          "SEARCH_REQ_SUCCESS":"Your Search request saved successfully.",
          "EXTRACT_PROCEED_ONLINE":"Your Extract request saved successfully.Proceed to online payment",
          "EXTARCT_REQ_SUCCESS":"Your Extract request saved successfully.",
-         "NAME_CHG_UPD_SUCCESS":"Notary Name Change Request updated Successfully"
-
+         "NAME_CHG_UPD_SUCCESS":"Notary Name Change Request updated Successfully",
+          "CHANGES_NOT_SAVED":"Changes you made may not be saved."
 
        },
        "WARNING":{
