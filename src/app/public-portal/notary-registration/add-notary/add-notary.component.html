@@ -720,8 +720,11 @@
         <ng-container *ngFor="let document of docList">
           <div class="pg-inner-col-3">
             <div class="default-input-wrapper full-row">
-              <file-upload-input [document]="document" [invalid]="document.invalid && document.selected" (response)="setFiles($event,document)"></file-upload-input>
-              <label>{{document.description}}
+              <file-upload-input [document]="document"
+                                 [invalid]="document.invalid && document.selected"
+                                 (response)="setFiles($event,document)">
+              </file-upload-input>
+              <label>{{document.description|listTranslate: document.descriptionSin: document.descriptionTam}}
                 <span *ngIf="document.required" class="redtxt"> *</span>
               </label>
               <mat-error *ngIf="!document.error && document.invalid && document.selected">Document required</mat-error>

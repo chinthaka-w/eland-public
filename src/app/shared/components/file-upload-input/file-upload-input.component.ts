@@ -30,7 +30,10 @@ export class FileUploadInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.document && this.document.file) this.imagePreview(this.document.file);
+    if(this.document && this.document.file){
+    this.files[0] = this.document.file;
+    this.imagePreview(this.document.file);
+    }
   }
 
   onFileSelected(event) {
