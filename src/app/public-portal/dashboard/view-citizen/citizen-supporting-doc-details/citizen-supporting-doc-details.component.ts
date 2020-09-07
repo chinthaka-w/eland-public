@@ -140,6 +140,7 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
       }, () => { },
         () => {
           this.showSpinner = false;
+          this.citizenService.setChangesEnable(true);
         });
   }
 

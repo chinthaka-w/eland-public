@@ -20,6 +20,7 @@ export class ViewCitizenComponent implements OnInit {
   commonStatus = CommonStatus;
   isEdit = false;
   showSpinner = false;
+  isApplyChanges = false;
 
   constructor(private citizenService: CitizenService,
               private sessionService: SessionService,
@@ -35,11 +36,20 @@ export class ViewCitizenComponent implements OnInit {
         this.isEdit = true;
       }
     });
+    this.setApplyChanges();
   }
 
   onApplicationResponse(data: CitizenDTO) {
     this.citizenDTO = data;
     console.log("On main component:   ",this.citizenDTO);
+  }
+
+  setApplyChanges(): void {
+    this.citizenService.enableChanges.subscribe(
+      (result: boolean) => {
+        this.isApplyChanges = result;
+      }
+    );
   }
 
   onFormSubmit(): void {

@@ -54,6 +54,8 @@ export class CitizenApplicationComponent implements OnInit {
   isContinue: boolean = false;
   formData: FormData = new FormData();
   showSpinner = false;
+  isEnableUpdate = false;
+  publicApplication: FormGroup;
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -118,7 +120,6 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.nameValidation)
       ]),
-      recaptcha: new FormControl(null, Validators.required),
       officersDesignation: new FormControl('', []),
       stateInstitutionName: new FormControl('', []),
       otherInstitutionName: new FormControl('', []),
@@ -264,6 +265,10 @@ export class CitizenApplicationComponent implements OnInit {
         },
         () => {
           this.showSpinner = false;
+          // check application value change validity
+          this.checkApplicationUpdateStatus();
+          this.isEnableUpdate = false;
+          this.citizenService.setChangesEnable(true);
         });
   }
 
@@ -296,7 +301,20 @@ export class CitizenApplicationComponent implements OnInit {
         }
 
         this.updateValidators(result.userType);
-      });
+      },
+        () => { },
+        () => {
+          this.checkApplicationUpdateStatus();
+        });
+  }
+
+  checkApplicationUpdateStatus(): void {
+    this.publicApplication = this.publicUserForm.value;
+    this.publicUserForm.valueChanges.subscribe(
+      (result) => {
+        this.isEnableUpdate = JSON.stringify(this.publicApplication) !== JSON.stringify(result);
+      }
+    );
   }
 
   updateValidators(userType: number) {
