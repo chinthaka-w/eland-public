@@ -122,14 +122,6 @@
             <span class="title">{{'DASOBOARD.REQ_LEAVE'|translate}}</span>
           </a>
         </div>
-        <div class="db-link-tile" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/applications']">
-            <span class="icon">
-              <i class="material-icons">insert_drive_file</i>
-            </span>
-            <span class="title">{{'DASOBOARD.APPLICATIONS'|translate}}</span>
-          </a>
-        </div>
         <div class="db-link-tile c1" *ngIf="(searchDetails.user == userType.CITIZEN || user.type== userType.NOTARY )">
           <a [routerLink]="['/requests', getBase64(Workflow.FOLIO_REQUEST_CORRECTION)]">
             <span class="icon">

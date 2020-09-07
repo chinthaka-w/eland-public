@@ -185,11 +185,16 @@
           <div class="separator mt-30">&nbsp;</div>
 
           <div class="pg-inner-row mb-20 upload-col-3">
-            <div class="pg-inner-col-3" *ngFor="let doc of docList">
+            <div class="pg-inner-col-3" *ngFor="let document of docList">
               <div class="default-input-wrapper full-row">
-                <label>{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}}
-                  <span *ngIf="doc.required">*</span></label>
-                <file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>
+                <label>{{document.description|listTranslate:document.descriptionSin:document.descriptionTam}}
+                  <span *ngIf="document.required">*</span></label>
+                <file-upload-input [document]="document"
+                                   [invalid]="document.invalid && document.selected"
+                                   (response)="setFiles($event,document)">
+                </file-upload-input>
+                <mat-error *ngIf="!document.error && document.invalid && document.selected">Document required</mat-error>
+                <mat-error *ngIf="document.error">{{document.errorMsg}}</mat-error>
               </div>
             </div>
           </div>
@@ -197,14 +202,14 @@
           <div class="separator">&nbsp;</div>
 
           <div class="pg-inner-row mb-0">
-            <div class="pg-inner-col">
-              <re-captcha formControlName="recaptcha" class="form-control"></re-captcha>
-            </div>
+            <!--<div class="pg-inner-col">-->
+              <!--<re-captcha formControlName="recaptcha" class="form-control"></re-captcha>-->
+            <!--</div>-->
             <div class="pg-inner-col float-right" *ngIf="!isPaymentSuccess">
               <!--<button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">-->
                 <!--{{'BUTTONS.CONTINUE_BUTTON'|translate}}-->
               <!--</button>-->
-              <button [disabled]="!isRequiredDocsUpload || !notaryForm.valid" mat-raised-button class="lg-button float-right" (click)="onClickSubmitSearchRequest()">
+              <button [disabled]="!isDataChanged || notaryForm.invalid || checkDocumentValidation()" mat-raised-button class="lg-button float-right" (click)="onClickSubmitSearchRequest()">
                 {{'BUTTONS.CONTINUE_BUTTON'|translate}}
               </button>
             </div>
