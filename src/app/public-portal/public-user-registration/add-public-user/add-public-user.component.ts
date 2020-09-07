@@ -142,7 +142,7 @@ export class AddPublicUserComponent implements OnInit {
         Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255)
       ]),
-      recaptcha: new FormControl(null, Validators.required),
+      recaptcha: new FormControl('', Validators.required),
       officersDesignation: new FormControl("", [
         Validators.required,this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
@@ -476,7 +476,9 @@ export class AddPublicUserComponent implements OnInit {
 
   onBack(data: boolean) {
     this.isContinue = !data;
+    this.recaptcha.setValue('');
   }
+
   onPaymentResponse(data: PaymentResponse) {
     if (this.paymentMethod !== PaymentMethod.ONLINE) {
       this.paymentDto.paymentId = data.paymentId;
