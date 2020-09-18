@@ -2,7 +2,7 @@
     <span aria-hidden="true">&times;</span>
 </button>
 <ng-container *ngIf="!showTransaction">
-    <mat-tab-group>
+    <mat-tab-group [selectedIndex]="0">
         <mat-tab *ngIf="uiController.isFolioHeader" label="{{ 'COMMON.FOLIO_NEW' | translate }}">
             <app-folio-header *ngIf="!loading && folioDto" [folioDto]="folioDto" [uiController]="uiController"
                 [folioController]="folioController" [divisionalSecretaries]="divisionalSecretaries"
@@ -11,7 +11,7 @@
                 [landRegistries]="landRegistries">
             </app-folio-header>
         </mat-tab>
-        <mat-tab
+        <mat-tab *ngIf="!loading"
             label="{{ uiController.isCarriedOver ? ('COMMON.BROUGHT_FORWARD' | translate) : ('COMMON.CROSS_REFERENCE' | translate) }}">
             <app-cross-note [referenceFolioList]="folioDto?.broughtForwardFolios" [uiController]="uiController"
                 [landRegistries]="landRegistries" [newFolioDto]="folioDto" [selectedLrDivision]="selectedLrDivision">

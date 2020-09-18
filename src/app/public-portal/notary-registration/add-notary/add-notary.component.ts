@@ -600,6 +600,17 @@ export class AddNotaryComponent implements OnInit {
     return invalid;
   }
 
+  documentMarkAsTouched(){
+    this.docList.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.selected = true;
+        item.error = false;
+        item.invalid = true;
+      }
+    });
+
+  }
+
   isDocumentAvailable(docTypeId: any): any {
     return this.documentList.find((data: DocumentDto) => {
         return data.fileType == docTypeId;
@@ -626,7 +637,7 @@ export class AddNotaryComponent implements OnInit {
         const control = this.notaryForm.get(field);
         control.markAsTouched({onlySelf: true});
       });
-      // this.snackBar.error('Please fill all mandatory fields!');
+      this.documentMarkAsTouched();
       this.errorMsg = 'Please fill all mandatory fields!';
     } else {
       this.isPayment = true;

@@ -734,7 +734,7 @@
         </ng-container>
       </div>
 
-      <div class="separator">&nbsp;</div>
+      <!--<div class="separator">&nbsp;</div>-->
 
       <div class="pg-inner-row mb-20">
         <div class="pg-inner-col">
@@ -771,7 +771,7 @@
         <div class="pg-inner-col right">
           <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
           <button mat-raised-button class="lg-button"
-                  [disabled]="notaryForm.invalid || checkDocumentValidation()"
+                  [disabled]="reCaptcha.invalid"
                   (click)="onFormSubmit()">{{'BUTTONS.CONTINUE_BUTTON'|translate}}
           </button>
         </div>

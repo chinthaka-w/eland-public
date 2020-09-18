@@ -337,7 +337,8 @@
         </div>
 
           <div class="pg-inner-col float-right">
-            <button mat-raised-button class="lg-button float-right" [disabled]="publicUserForm.invalid || checkDocumentValidation()" (click)="continue()">
+            <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+            <button mat-raised-button class="lg-button float-right" [disabled]="recaptcha.invalid" (click)="continue()">
               {{'BUTTONS.CONTINUE_BUTTON'|translate}}
             </button>
           </div>

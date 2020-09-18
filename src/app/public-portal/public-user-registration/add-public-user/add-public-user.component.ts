@@ -67,6 +67,8 @@ export class AddPublicUserComponent implements OnInit {
   docMetaList: DocumentResponseDto[] = [];
   bankBranches: StatusDTO[] = [];
 
+  errorMsg: any;
+
   public docList: WorkflowStageDocDto[];
   public documentList: DocumentDto[] = [];
 
@@ -327,6 +329,17 @@ export class AddPublicUserComponent implements OnInit {
     );
   }
 
+  documentMarkAsTouched(){
+    this.docList.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.selected = true;
+        item.error = false;
+        item.invalid = true;
+      }
+    });
+
+  }
+
   getAllLandRegistries() {
     this.authorizeRequestService.getAllLandRegistries()
       .subscribe((res) => {
@@ -558,8 +571,14 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   continue(): void {
-    if (this.publicUserForm.invalid) {
-      this.checkFormValidity(this.publicUserForm);
+    this.errorMsg = undefined;
+    if (this.publicUserForm.invalid || this.checkDocumentValidation()) {
+      Object.keys(this.publicUserForm.controls).forEach(field => {
+        const control = this.publicUserForm.get(field);
+        control.markAsTouched({onlySelf: true});
+      });
+      this.documentMarkAsTouched();
+      this.errorMsg = 'Please fill all mandatory fields!';
     }
     else {
       this.isContinue = true;

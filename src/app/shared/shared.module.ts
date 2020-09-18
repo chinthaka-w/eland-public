@@ -191,6 +191,7 @@ import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
     InputLowercaseLetterOnlyDirective,
     InputUppercaseAndLowercaseLetterOnlyDirective,
     InputDotOnlyDirective,
+    MatProgressSpinnerModule,
   ],
   providers: [
     DatePipe

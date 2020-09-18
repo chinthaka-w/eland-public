@@ -28,6 +28,7 @@ loadIframe = false;
 enablePayment = false;
 paymentId: number;
 lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
+result :PaymentResponse;
 
   onlinePaymentForm: FormGroup;
 
@@ -129,6 +130,7 @@ lgpsUrl = SysConfigService.LGPS_PAYMENT_URL;
     this.authorizeRequestService.getOnlinePaymentResult(id).subscribe(
       (result: PaymentResponse) => {
         this.onlinePaymentForm.patchValue(result);
+        this.result = result;
       }
     );
   }

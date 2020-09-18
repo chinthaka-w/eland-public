@@ -220,7 +220,8 @@ import {PasswordStrengthMeterComponent, PasswordStrengthMeterModule} from 'angul
     MatBottomSheetModule,
     MatTableModule,
     MatBadgeModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressSpinnerModule,
   ],
   entryComponents: [
     RequestViewComponent,

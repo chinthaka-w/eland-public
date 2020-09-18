@@ -383,6 +383,10 @@ export class NotaryApplicationComponent implements OnInit {
     return this.notaryForm.get('gramaNiladhariDivision') as FormControl;
   }
 
+  get passedDate(): FormControl {
+    return this.notaryForm.get('passedDate') as FormControl;
+  }
+
   nicValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.notaryService.findIfNotaryExist(control.value).pipe(
