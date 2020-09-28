@@ -8,6 +8,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
 import { MatPaginator } from '@angular/material';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-table',
@@ -27,15 +28,17 @@ import { MatPaginator } from '@angular/material';
 export class PaymentTableComponent implements OnInit, OnChanges {
   @Input() paymentDetails: NewNotaryPaymentDetailDto[] = [];
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
-  dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
+  dataSource = new MatTableDataSource<any>(this.paymentDetails);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private notaryService: NewNotaryDataVarificationService,
+              public translateService: TranslateService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-     this.getPaymentDetails();}
+     this.getPaymentDetails();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paymentDetails']) {

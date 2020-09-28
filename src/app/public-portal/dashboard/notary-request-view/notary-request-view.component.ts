@@ -47,6 +47,14 @@ export class NotaryRequestViewComponent implements OnInit {
     this.loadRequests();
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   setTitle() {
     if (this.workflow === Workflow.NOTARY_NAME_CHANGE) {
       // this.headerText = 'Notary Name Change';
@@ -92,8 +100,8 @@ export class NotaryRequestViewComponent implements OnInit {
   }
 
   checkOnPendingRequests() {
-    if (this.requests.length > 0 && this.requests[0].workFlowStageCode !==
-      NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_ISSUED_SC ) {
+    if (this.requests.length > 0 && this.requests[this.requests.length-1].workFlowStageCode !==
+      NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_REQUEST_ISSUED ) {
         this.isRequestUnderReview = true;
       }
 

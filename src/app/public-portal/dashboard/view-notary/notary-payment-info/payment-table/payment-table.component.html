@@ -8,22 +8,22 @@
 
   <ng-container matColumnDef="Payment Method">
     <th mat-header-cell *matHeaderCellDef>{{'PAYMENT.PAYMENT_MODE'|translate}}</th>
-    <td mat-cell *matCellDef="let row"> {{row.paymentType}}</td>
+    <td mat-cell *matCellDef="let row"> {{row.paymentType|listTranslate:row.paymentTypeSin:row.paymentTypeTam}}</td>
   </ng-container>
 
   <ng-container matColumnDef="Amount">
     <th mat-header-cell *matHeaderCellDef>{{'PAYMENT.AMOUNT'|translate}}</th>
-    <td mat-cell *matCellDef="let row"> {{row.amount| currency: 'LKR': 'Rs'}}</td>
+    <td mat-cell *matCellDef="let row"> {{row.amount| currency: 'LKR': ('Rs '|listTranslate:'රු ':'ரூ ')}}</td>
   </ng-container>
 
   <ng-container matColumnDef="Payment Date">
     <th mat-header-cell *matHeaderCellDef>{{'PAYMENT.DATE'|translate}}</th>
-    <td mat-cell *matCellDef="let row"> {{row.paymentDate}}</td>
+    <td mat-cell *matCellDef="let row"> {{row.paymentDate1|date:'longDate'}}</td>
   </ng-container>
 
   <ng-container matColumnDef="Status">
     <th mat-header-cell *matHeaderCellDef>{{'COMMON.STATUS'|translate}}</th>
-    <td mat-cell *matCellDef="let row"> {{row.status}}</td>
+    <td mat-cell *matCellDef="let row"> {{row.status|listTranslate:row.statusSin:row.statusTam}}</td>
   </ng-container>
 
   <tr mat-header-row  *matHeaderRowDef="displayedColumns"></tr>

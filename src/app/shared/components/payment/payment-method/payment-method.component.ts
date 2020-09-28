@@ -85,7 +85,7 @@ export class PaymentMethodComponent implements OnInit {
 
     if (!(this.paymentMethodForm.valid && this.files.length > 0)) {
       isValid = false;
-      errorMassage = 'Please fill application form, before submit.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM3');
       this.showSpinner = false;
       return;
     }

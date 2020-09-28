@@ -30,7 +30,7 @@
     </div>
 
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'COMMON.FILTER'|translate}}">
     </mat-form-field>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
@@ -46,7 +46,7 @@
       <ng-container matColumnDef="workFlowStageDescription">
         <th mat-header-cell mat-form-field *matHeaderCellDef>{{'PUBLIC_COMMON.STATUS'|translate}}</th>
         <td mat-cell *matCellDef="let element">
-          {{element.workFlowStageDescription}}
+          {{element.workFlowStageDescription|listTranslate:element.workFlowStageDescriptionSin:element.workFlowStageDescriptionTam}}
         </td>
       </ng-container>
 

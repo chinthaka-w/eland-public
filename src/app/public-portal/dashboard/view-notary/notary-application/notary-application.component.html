@@ -36,7 +36,7 @@
     <div class="pg-inner-col right">
       <div class="default-input-wrapper mt-20 rac-col">
         <label>{{'COMMON.LANGUAGE'|translate}}: <span class="redtxt">*</span></label>
-        <div class="default-input-feild">
+        <div class="default-input-feild" style="text-align: left;">
           <mat-radio-group class="form-control" formControlName="languages">
             <mat-radio-button [value]="Languages.ENGLISH">{{'NOTIFICATION.ENG'|translate}}</mat-radio-button>
             <mat-radio-button [value]="Languages.SINHALA">{{'NOTIFICATION.SIN'|translate}}</mat-radio-button>
@@ -687,9 +687,6 @@
 
     <div class="pg-inner-row mb-0">
       <div class="pg-inner-col float-right">
-        {{!isDataChanged}}
-        {{notaryForm.invalid}}
-        {{notaryForm.value|json}}
         <button mat-raised-button class="button float-right"
                 [disabled]="!isDataChanged || notaryForm.invalid" (click)="onFormSubmit()">Apply Changes
         </button>

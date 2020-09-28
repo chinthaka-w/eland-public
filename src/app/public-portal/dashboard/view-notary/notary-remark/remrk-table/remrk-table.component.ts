@@ -30,7 +30,7 @@ export class RemrkTableComponent implements OnInit, OnChanges {
   public requestId: RequestSearchDetailDTO;
 
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
-  dataSource = new MatTableDataSource<NotaryRegistrationHistoryDto>(this.notaryRequestHistory);
+  dataSource = new MatTableDataSource<any>(this.notaryRequestHistory);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 

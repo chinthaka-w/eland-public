@@ -95,6 +95,7 @@ export class NotaryApplicationComponent implements OnInit {
   public workFlowStageCode: string;
   public isEditable: boolean = false;
   public isDataChanged: boolean = false;
+  public isApplyBtnClicked: boolean = false;
 
   public Workflow: Workflow;
   Languages = Languages;
@@ -191,8 +192,8 @@ export class NotaryApplicationComponent implements OnInit {
       mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
       contactNo: new FormControl('', [Validators.required,this.sysMethodService.noWhitespaceValidator, Validators.pattern(PatternValidation.contactNumberValidation)]),
       landRegistry: new FormControl('', [Validators.required]),
-      secretariatDivision: new FormControl('', [Validators.required]),
-      gramaNiladhariDivision: new FormControl('', [Validators.required]),
+      secretariatDivision: new FormControl('', []),
+      gramaNiladhariDivision: new FormControl('', []),
       medium: new FormControl('', [Validators.required])
     });
 
@@ -617,6 +618,7 @@ export class NotaryApplicationComponent implements OnInit {
   }
 
   public onFormSubmit() {
+    this.isApplyBtnClicked = true;
     this.saveNotaryDetails();
   }
 
@@ -662,6 +664,10 @@ export class NotaryApplicationComponent implements OnInit {
         this.notaryForm.value.title);
       this.notaryDetail.emit(this.notaryDetails);
       this.isDataChanged = false;
+      if(this.isApplyBtnClicked){
+        this.isApplyBtnClicked = false;
+        this.snackBar.success('Changes apply successfully');
+      }
     }
   }
 
@@ -713,6 +719,12 @@ export class NotaryApplicationComponent implements OnInit {
     this.dsDivision[this.dsDivision.indexOf(this.getLocalDSDivisionById(item.dsDivisionId))].selected = false;
     this.dsGnList.splice(index, 1);
     this.isDataChanged = true;
+    if (this.dsGnList.length===0) {
+      this.secretariatDivision.setValidators([Validators.required]);
+      this.secretariatDivision.updateValueAndValidity();
+      this.gramaNiladhariDivision.setValidators([Validators.required]);
+      this.gramaNiladhariDivision.updateValueAndValidity();
+    }
   }
 
   getLatestRemark() {
