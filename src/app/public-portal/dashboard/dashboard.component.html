@@ -24,7 +24,8 @@
                   {{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval':
                                     searchDetails?.status === commonStatus.RESIGN? 'Resign':
                                     searchDetails?.status === commonStatus.INACTIVE? 'Inactive':
-                                    searchDetails?.status === commonStatus.REJECT? 'Request Rejected': 'Approved' }}
+                                    searchDetails?.status === commonStatus.REJECT? 'Request Rejected':
+                                    searchDetails?.status === commonStatus.PACTIVE? 'Partially Active': 'Approved' }}
                 </span>
             </dd>
           </dl>
