@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTableDataSource} from "@angular/material/table";
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
 import {ActivatedRoute} from "@angular/router";
 import {CitizenService} from "../../../../shared/service/citizen.service";
 import {HistoryDTO} from "../../../../shared/dto/history-dto";
+import {MatPaginator} from '@angular/material';
 
 @Component({
   selector: 'app-citizen-remark',
@@ -28,6 +29,7 @@ export class CitizenRemarkComponent implements OnInit {
   displayedColumns: string[] = ['Workflow Stage', 'Remark', 'Created Time', 'Created User'];
   dataSource = new MatTableDataSource<HistoryDTO>(new Array<HistoryDTO>());
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private notaryService: NewNotaryDataVarificationService,
               private route: ActivatedRoute,
@@ -37,6 +39,7 @@ export class CitizenRemarkComponent implements OnInit {
     // this.getHistoryDetails();
     this.citizenService.citizenDto.subscribe((result) => {
       this.dataSource = result.requestHistory;
+      this.dataSource.paginator = this.paginator;
     });
   }
 

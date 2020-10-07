@@ -95,7 +95,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.sessionService.userDetailsChange.subscribe((value: any) => {
+        if(value) this.userDetails = value
+      }
+    );
   }
 
   logout() {

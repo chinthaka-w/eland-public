@@ -164,7 +164,7 @@
           <label class="mw-200">{{'CITIZEN.BANK_BRANCH'|translate}}<span>*</span></label>
           <div class="default-input-feild gray">
 
-            <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankBranch" required
+            <mat-select placeholder="{{'CITIZEN.SELECT_BANK_BRANCH'|translate}}" formControlName="bankBranch" required
               (selectionChange)="selectBranch(bankBranch.value)">
               <mat-option *ngFor="let bankBranch of bankBranches" [value]="bankBranch.id">
                 {{bankBranch.description|listTranslate:bankBranch.descriptionSin:bankBranch.descriptionTam}}</mat-option>
