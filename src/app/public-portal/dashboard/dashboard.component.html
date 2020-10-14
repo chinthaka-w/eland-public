@@ -24,6 +24,14 @@
                                     searchDetails?.status === commonStatus.RETURN? ('DASHBOARD.FURTHER_DOC_SUBMISSION'| translate):
                                     searchDetails?.status === commonStatus.REJECT? ('DASHBOARD.REQUEST_REJECT'| translate): ('DASHBOARD.REQUEST_APPROVED'|translate) }}
 
+                <!--<span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':-->
+                              <!--searchDetails?.status === commonStatus.INACTIVE? 'status-pending':-->
+                              <!--searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">-->
+                  <!--{{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval':-->
+                                    <!--searchDetails?.status === commonStatus.RESIGN? 'Resign':-->
+                                    <!--searchDetails?.status === commonStatus.INACTIVE? 'Inactive':-->
+                                    <!--searchDetails?.status === commonStatus.REJECT? 'Request Rejected':-->
+                                    <!--searchDetails?.status === commonStatus.PACTIVE? 'Partially Active': 'Approved' }}-->
                 </span>
             </dd>
           </dl>
