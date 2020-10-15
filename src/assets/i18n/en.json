@@ -711,7 +711,8 @@
           "SUBMIT":"Are you sure?",
           "CONFIRM_SUBMIT":"Are you want to submit?",
           "CONFIRM_LEAVE":"Do you want to leave this page?",
-         "CONFIRM_DELETE":"Are you sure you want to delete this?"
+         "CONFIRM_DELETE":"Are you sure you want to delete this?",
+         "CONFIRM_CLEAR_ALL":"Are you sure you want to clear all?"
        },
        "MESSAGE":{
           "SUBMITTED_SUCCESS":"Successfully submitted!",

@@ -21,6 +21,8 @@ import {AuthorizeRequestService} from '../../../service/authorize-request.servic
 import {SysMethodsService} from '../../../service/sys-methods.service';
 import swal from 'sweetalert2';
 import {SystemService} from '../../../service/system.service';
+import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material';
 
 
 @Component({
@@ -58,6 +60,7 @@ export class PaymentMethodComponent implements OnInit {
               private dataRoute: ActivatedRoute,
               private snackBar: SnackBarService,
               // private bankService: BankService,
+              public dialog: MatDialog,
               private sysMethodsService: SysMethodsService,
               private systemService: SystemService,
               private authorizeRequestService: AuthorizeRequestService,
@@ -145,17 +148,22 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   onBack() {
-    swal.fire({
-      title: this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.CONFIRM_LEAVE'),
-      text:this.systemService.getTranslation('ALERT.MESSAGE.CHANGES_NOT_SAVED'),
-      width:450,
-      showCancelButton:true,
-      cancelButtonText:this.systemService.getTranslation('BUTTONS.CANCEL_BUTTON'),
-      confirmButtonText: this.systemService.getTranslation('BUTTONS.YES_BUTTON'),
-    }).then((result) => {
-      if (result.value) {
-    this.back.emit(true);
-    }
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        title: this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.CONFIRM_LEAVE'),
+        message: this.systemService.getTranslation('ALERT.MESSAGE.CHANGES_NOT_SAVED'),
+        buttonText: {
+          ok: this.systemService.getTranslation('BUTTONS.YES_BUTTON'),
+          cancel: this.systemService.getTranslation('BUTTONS.CANCEL_BUTTON')
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.back.emit(true);
+      }
     });
   }
 

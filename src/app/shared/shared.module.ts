@@ -70,6 +70,7 @@ import {InputUppercaseLetterOnlyDirective} from './directives/input-uppercase-le
 import {InputLowercaseLetterOnlyDirective} from './directives/input-lowercase-letter-only.directive';
 import {InputUppercaseAndLowercaseLetterOnlyDirective} from './directives/input-uppercase-and-lowercase-letter-only.directive';
 import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
     InputLowercaseLetterOnlyDirective,
     InputUppercaseAndLowercaseLetterOnlyDirective,
     InputDotOnlyDirective,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -199,7 +201,8 @@ import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
   entryComponents: [
     FolioViewComponent,
     FileUploadPopupComponent,
-    DocumentViewerComponent
+    DocumentViewerComponent,
+    ConfirmationDialogComponent,
   ]
 })
 export class SharedModule {}
