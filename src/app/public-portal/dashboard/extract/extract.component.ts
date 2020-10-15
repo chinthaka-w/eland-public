@@ -276,6 +276,10 @@ export class ExtractComponent implements OnInit {
     return this.searchRequestForm as FormGroup;
   }
 
+  get FormControls() {
+    return this.searchRequestForm.controls;
+  }
+
   get folioNumber(): string {
     return `${this.form.get('landRegistryId').value}/${this.getSelectedLRD().divisionCode}/${this.form.get('volume').value}/${this.form.get('folioNo').value}`;
   }
@@ -463,7 +467,7 @@ export class ExtractComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {  //{2}
       const control = formGroup.get(field);             //{3}
       if (control instanceof FormControl) {             //{4}
-        control.markAsTouched({onlySelf: true});
+        control.markAsDirty({onlySelf: true});
       } else if (control instanceof FormGroup) {        //{5}
         this.validateAllFormFields(control);            //{6}
       }

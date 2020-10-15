@@ -123,7 +123,7 @@ export class CitizenSupportingDocDetailsComponent implements OnInit {
     });
 
     if (workflowMandatoryDocs !== uploadedMandatoryDocs) {
-      this.snackBar.warn('Plese upload mandatory documents');
+      this.snackBar.warn('Please upload mandatory documents');
       return;
     }
     this.showSpinner = true;

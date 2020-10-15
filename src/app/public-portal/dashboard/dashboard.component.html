@@ -18,14 +18,20 @@
           <dl class="db-card-info">
             <dt>{{'DASOBOARD.STATUS'|translate}}</dt>
             <dd>
-                <span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':
-                              searchDetails?.status === commonStatus.INACTIVE? 'status-pending':
-                              searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">
-                  {{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval':
-                                    searchDetails?.status === commonStatus.RESIGN? 'Resign':
-                                    searchDetails?.status === commonStatus.INACTIVE? 'Inactive':
-                                    searchDetails?.status === commonStatus.REJECT? 'Request Rejected':
-                                    searchDetails?.status === commonStatus.PACTIVE? 'Partially Active': 'Approved' }}
+                <span class="{{searchDetails?.status === commonStatus.ACTIVE? 'status-success':'status-pending'}}">
+                  {{searchDetails?.status === commonStatus.PENDING ? ('DASHBOARD.PENDING_APPROVAL' | translate):
+                                    searchDetails?.status === commonStatus.RESIGN? ('DASHBOARD.RESIGN'| translate):
+                                    searchDetails?.status === commonStatus.RETURN? ('DASHBOARD.FURTHER_DOC_SUBMISSION'| translate):
+                                    searchDetails?.status === commonStatus.REJECT? ('DASHBOARD.REQUEST_REJECT'| translate): ('DASHBOARD.REQUEST_APPROVED'|translate) }}
+
+                <!--<span class="{{searchDetails?.status === commonStatus.PENDING ? 'status-pending':-->
+                              <!--searchDetails?.status === commonStatus.INACTIVE? 'status-pending':-->
+                              <!--searchDetails?.status === commonStatus.REJECT? 'status-pending': 'status-success'}}">-->
+                  <!--{{searchDetails?.status === commonStatus.PENDING ? 'Pending Approval':-->
+                                    <!--searchDetails?.status === commonStatus.RESIGN? 'Resign':-->
+                                    <!--searchDetails?.status === commonStatus.INACTIVE? 'Inactive':-->
+                                    <!--searchDetails?.status === commonStatus.REJECT? 'Request Rejected':-->
+                                    <!--searchDetails?.status === commonStatus.PACTIVE? 'Partially Active': 'Approved' }}-->
                 </span>
             </dd>
           </dl>
@@ -71,7 +77,9 @@
           <div class="clear">&nbsp;</div>
         </div>
         <div class="db-card-bottom">
-          <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails?.status)]">{{'BUTTONS.VIEW_BUTTON'| translate}}</button>
+          <button mat-raised-button class="green" [routerLink]="['/view-citizen', getBase64(searchDetails?.status)]">
+            {{'BUTTONS.VIEW_BUTTON'| translate}}
+          </button>
         </div>
       </div>
       <div class="db-main-wp" *ngIf="searchDetails.status == (commonStatus.ACTIVE)">
@@ -121,14 +129,6 @@
               <i class="material-icons">date_range</i>
             </span>
             <span class="title">{{'DASOBOARD.REQ_LEAVE'|translate}}</span>
-          </a>
-        </div>
-        <div class="db-link-tile" *ngIf="user.type == userType.NOTARY">
-          <a [routerLink]="['/applications']">
-            <span class="icon">
-              <i class="material-icons">insert_drive_file</i>
-            </span>
-            <span class="title">{{'DASOBOARD.APPLICATIONS'|translate}}</span>
           </a>
         </div>
         <div class="db-link-tile c1" *ngIf="(searchDetails.user == userType.CITIZEN || user.type== userType.NOTARY )">

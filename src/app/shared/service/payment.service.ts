@@ -22,6 +22,10 @@ export class PaymentService {
   public constructor(private httpClient: HttpClient) {
   }
 
+  getPaymentDocuments(paymentId: number): Observable<RequestResponse> {
+    return this.httpClient.get<RequestResponse>(this.BASE_URL + '/viewPaymentDoc/' + paymentId);
+  }
+
   setPaymentMethod(paymentMethod: number) {
     this.paymentMethod = paymentMethod;
   }

@@ -89,7 +89,7 @@
     </div>
   </div>
 
-  <div *ngIf="publicUserType.value == PublicUserType.OTHER" class="default-input-wrapper full-row half-cols">
+  <div *ngIf="publicUserType.value && publicUserType.value != PublicUserType.CITIZEN" class="default-input-wrapper full-row half-cols">
     <label class="mw-200">{{'CITIZEN.OFFICERS_DESIGNATION'|translate}}<span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
@@ -139,16 +139,35 @@
     </div>
   </div>
 
-  <div *ngIf="publicUserType.value == PublicUserType.BANK" class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
-    <div class="default-input-feild gray">
-      <mat-select formControlName="bankName" required (selectionChange)="getCurrentBank($event)"
-        placeholder="{{'CITIZEN.SELECT_BANK'|translate}}">
-        <mat-option *ngFor="let bank of banks" [value]="bank.bankId">
-          {{bank.bankName| listTranslate: bank.bankNameSin: bank.bankNameTam}}</mat-option>
-      </mat-select>
-      <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)">
-        <mat-error *ngIf="bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
+  <div *ngIf="publicUserType.value == PublicUserType.BANK">
+    <div class="default-input-wrapper full-row half-cols">
+      <label class="mw-200">{{'CITIZEN.BANK_NAME'|translate}}<span>*</span></label>
+      <div class="default-input-feild gray">
+        <mat-select formControlName="bankName" required (selectionChange)="getCurrentBank($event)"
+                    placeholder="{{'CITIZEN.SELECT_BANK'|translate}}">
+          <mat-option *ngFor="let bank of banks" [value]="bank.bankId">
+            {{bank.bankName| listTranslate: bank.bankNameSin: bank.bankNameTam}}
+          </mat-option>
+        </mat-select>
+        <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)">
+          <mat-error *ngIf="bankName.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}</mat-error>
+        </div>
+      </div>
+    </div>
+    <div class="default-input-wrapper full-row half-cols">
+      <label class="mw-200">{{'CITIZEN.BANK_BRANCH'|translate}}<span>*</span></label>
+      <div class="default-input-feild gray">
+
+        <mat-select placeholder="{{'CITIZEN.SELECT_BANK_BRANCH'|translate}}" formControlName="bankBranch" required
+                    (selectionChange)="selectBranch(bankBranch.value)">
+          <mat-option *ngFor="let bankBranch of bankBranches" [value]="bankBranch.bankBranchId">
+            {{bankBranch.description|listTranslate:bankBranch.descriptionSin:bankBranch.descriptionTam}}</mat-option>
+        </mat-select>
+
+        <div *ngIf="(bankBranch.touched || bankBranch.dirty) && bankBranch.invalid" class="invalid-feedback">
+          <mat-error *ngIf="bankBranch.errors.required" class="errors">{{'CITIZEN.FILL_REQ_FIELDS'|translate}}
+          </mat-error>
+        </div>
       </div>
     </div>
   </div>
@@ -159,7 +178,7 @@
       <div class="default-input-feild">
         <mat-form-field appearance="outline">
           <input matInput
-            placeholder="{{'CITIZEN.ADDRESS_ENG'|translate}}{{'CITIZEN.APPLICANT_NAME_SIN'|translate}}"
+            placeholder="{{'CITIZEN.ADDRESS_ENG'|translate}}"
             formControlName="address1" />
         </mat-form-field>
         <div *ngIf="address1.invalid && (address1.dirty || address1.touched)">
@@ -227,7 +246,7 @@
   </div>
 
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">{{'CITIZEN.TEL_NO'|translate}} <span>*</span></label>
+    <label class="mw-200">{{'CITIZEN.TEL_NO'|translate}}({{'COMMON.TELEPHONE.CATEGORY.PRIMARY'|translate}}) <span>*</span></label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Telephone Number(Primary)" formControlName="primaryContact" />
@@ -240,7 +259,7 @@
     </div>
   </div>
   <div class="default-input-wrapper full-row half-cols">
-    <label class="mw-200">{{'CITIZEN.TEL_NO'|translate}} </label>
+    <label class="mw-200">{{'CITIZEN.TEL_NO'|translate}}({{'COMMON.TELEPHONE.CATEGORY.SECONDARY'|translate}}) </label>
     <div class="default-input-feild">
       <mat-form-field appearance="outline">
         <input matInput placeholder="{{'CITIZEN.TEL2'| translate}}" formControlName="secondaryContact" />

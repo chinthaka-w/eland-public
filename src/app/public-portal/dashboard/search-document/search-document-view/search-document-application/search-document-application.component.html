@@ -5,7 +5,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.LAND_REG'|translate}}<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.LAND_REG'|translate}}: <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -17,12 +17,18 @@
               <option *ngFor="let item of landRegistries" [value]="item.landRegistryId">{{item.nameEng|listTranslate:item.nameSin:item.nameTam}}</option>
             </select>
           </mat-form-field>
+          <div *ngIf="(FormControls.landRegistryId.touched || FormControls.landRegistryId.dirty) && FormControls.landRegistryId.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.landRegistryId.errors.required" class="errors">
+              {{'SEARCH_DOC.LAND_REG'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.DOC_TYPE'|translate}}<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.DOC_TYPE'|translate}}: <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -42,25 +48,49 @@
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.NAME_OF_ATTESTED'|translate}}<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.NAME_OF_ATTESTED'|translate}}: <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    class="form-control"
                    formControlName="attestedByNotaryName">
           </mat-form-field>
+          <div *ngIf="(FormControls.attestedByNotaryName.touched || FormControls.attestedByNotaryName.dirty) && FormControls.attestedByNotaryName.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.attestedByNotaryName.errors.required" class="errors">
+              {{'SEARCH_DOC.NAME_OF_ATTESTED'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.attestedByNotaryName.errors.pattern" class="errors">
+              {{'SEARCH_DOC.NAME_OF_ATTESTED'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.attestedByNotaryName.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.DISTRICT_STATION'|translate}}</label>
+        <label>{{'SEARCH_DOC.DISTRICT_STATION'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    class="form-control"
                    formControlName="practicedLocation">
           </mat-form-field>
+          <div *ngIf="(FormControls.practicedLocation.touched || FormControls.practicedLocation.dirty) && FormControls.practicedLocation.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.practicedLocation.errors.required" class="errors">
+              {{'SEARCH_DOC.DISTRICT_STATION'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.practicedLocation.errors.pattern" class="errors">
+              {{'SEARCH_DOC.DISTRICT_STATION'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.practicedLocation.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -69,25 +99,49 @@
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.DEED_NO'|translate}}<span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.DEED_NO'|translate}}: <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    class="form-control"
                    formControlName="numberOfTheDeed">
           </mat-form-field>
+          <div *ngIf="(FormControls.numberOfTheDeed.touched || FormControls.numberOfTheDeed.dirty) && FormControls.numberOfTheDeed.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.numberOfTheDeed.errors.required" class="errors">
+              {{'SEARCH_DOC.DEED_NO'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.numberOfTheDeed.errors.pattern" class="errors">
+              {{'SEARCH_DOC.DEED_NO'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.numberOfTheDeed.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_25_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.NATURE_DEED'|translate}}</label>
+        <label>{{'SEARCH_DOC.NATURE_DEED'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    class="form-control"
                    formControlName="natureOfTheDeed">
           </mat-form-field>
+          <div *ngIf="(FormControls.natureOfTheDeed.touched || FormControls.natureOfTheDeed.dirty) && FormControls.natureOfTheDeed.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.natureOfTheDeed.errors.required" class="errors">
+              {{'SEARCH_DOC.NATURE_DEED'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.natureOfTheDeed.errors.pattern" class="errors">
+              {{'SEARCH_DOC.NATURE_DEED'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.natureOfTheDeed.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -98,7 +152,7 @@
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.FROM'|translate}}</label>
+        <label>{{'SEARCH_DOC.FROM'|translate}}: </label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
             <input matInput readonly
@@ -115,7 +169,7 @@
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.TO'|translate}}</label>
+        <label>{{'SEARCH_DOC.TO'|translate}}: </label>
         <div class="default-input-feild date-feild">
           <mat-form-field appearance="outline">
             <input matInput readonly
@@ -137,23 +191,47 @@
   <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.NAME_GRANTER'|translate}}</label>
+        <label>{{'SEARCH_DOC.NAME_GRANTER'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    class="form-control" formControlName="nameOfTheGranter">
           </mat-form-field>
+          <div *ngIf="(FormControls.nameOfTheGranter.touched || FormControls.nameOfTheGranter.dirty) && FormControls.nameOfTheGranter.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.nameOfTheGranter.errors.required" class="errors">
+              {{'SEARCH_DOC.NAME_GRANTER'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.nameOfTheGranter.errors.pattern" class="errors">
+              {{'SEARCH_DOC.NAME_GRANTER'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.nameOfTheGranter.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.NAME_GRANT'|translate}}</label>
+        <label>{{'SEARCH_DOC.NAME_GRANT'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    class="form-control" formControlName="nameOfTheGrantee">
           </mat-form-field>
+          <div *ngIf="(FormControls.nameOfTheGrantee.touched || FormControls.nameOfTheGrantee.dirty) && FormControls.nameOfTheGrantee.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.nameOfTheGrantee.errors.required" class="errors">
+              {{'SEARCH_DOC.NAME_GRANT'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.nameOfTheGrantee.errors.pattern" class="errors">
+              {{'SEARCH_DOC.NAME_GRANT'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.nameOfTheGrantee.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -162,24 +240,48 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col" *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.NAME_AND'|translate}}</label>
+        <label>{{'SEARCH_DOC.NAME_AND'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    class="form-control" formControlName="nameOfTheLand">
           </mat-form-field>
+          <div *ngIf="(FormControls.nameOfTheLand.touched || FormControls.nameOfTheLand.dirty) && FormControls.nameOfTheLand.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.nameOfTheLand.errors.required" class="errors">
+              {{'SEARCH_DOC.NAME_AND'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.nameOfTheLand.errors.pattern" class="errors">
+              {{'SEARCH_DOC.NAME_AND'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.nameOfTheLand.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.EXTENT'|translate}}</label>
+        <label>{{'SEARCH_DOC.EXTENT'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <input matInput
                    maxlength="255"
                    class="form-control" formControlName="extent">
           </mat-form-field>
+          <div *ngIf="(FormControls.extent.touched || FormControls.extent.dirty) && FormControls.extent.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.extent.errors.required" class="errors">
+              {{'SEARCH_DOC.EXTENT'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.extent.errors.pattern" class="errors">
+              {{'SEARCH_DOC.EXTENT'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.extent.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -188,7 +290,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.KORALE'|translate}}</label>
+        <label>{{'SEARCH_DOC.KORALE'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -199,12 +301,15 @@
               <option *ngFor="let item of korales" [value]="item.koraleId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
           </mat-form-field>
+          <div *ngIf="FormControls.koraleId.touched && FormControls.koraleId.errors"
+               class="invalid-feedback">
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.PATTU'|translate}}</label>
+        <label>{{'SEARCH_DOC.PATTU'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -215,6 +320,10 @@
                 {{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
           </mat-form-field>
+          <div *ngIf="FormControls.paththuId.touched && !paththuwas?.length"
+               class="invalid-feedback">
+            <mat-error>{{'SEARCH_DOC.SELECT_KORALE'|translate}}</mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -222,7 +331,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.DS_DIV'|translate}}</label>
+        <label>{{'SEARCH_DOC.DS_DIV'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -234,12 +343,15 @@
                 {{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
           </mat-form-field>
+          <div *ngIf="FormControls.dsDivisionId.touched && FormControls.dsDivisionId.errors"
+               class="invalid-feedback">
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.GN_DIV'|translate}}</label>
+        <label>{{'SEARCH_DOC.GN_DIV'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -249,8 +361,11 @@
               <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
               <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description}}</option>
             </select>
-            <mat-error *ngIf="gnDivisions?.length==0">{{'SEARCH_DOC.SELECT_DS'|translate}}</mat-error>
           </mat-form-field>
+          <div *ngIf="FormControls.gnDivisionId.touched && !gnDivisions?.length"
+               class="invalid-feedback">
+            <mat-error>{{'SEARCH_DOC.SELECT_DS'|translate}}</mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -259,7 +374,7 @@
   <div class="pg-inner-row mb-20">
     <div class="pg-inner-col">
       <div class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.VILLAGE'|translate}}</label>
+        <label>{{'SEARCH_DOC.VILLAGE'|translate}}: </label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -269,27 +384,39 @@
               <option *ngFor="let item of villages" [value]="item.villageId">
                 {{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
             </select>
-            <mat-error
-              *ngIf="form.get('villageId').untouched">
-              {{'SEARCH_DOC.SELECT_GN'|translate}}
-            </mat-error>
           </mat-form-field>
+          <div *ngIf="FormControls.villageId.touched && !villages?.length"
+               class="invalid-feedback">
+            <mat-error>{{'SEARCH_DOC.SELECT_GN'|translate}}</mat-error>
+          </div>
         </div>
       </div>
     </div>
     <div class="pg-inner-col">
       <div *ngIf="requestType==SearchRequestType.FOLIO_DOCUMENT" class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.REASON_SEARCH'|translate}}<span
+        <label>{{'SEARCH_DOC.REASON_SEARCH'|translate}}: <span
           class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <textarea matInput
                       class="form-control" maxlength="255" formControlName="searchReasonId"></textarea>
           </mat-form-field>
+          <div *ngIf="(FormControls.searchReasonId.touched || FormControls.searchReasonId.dirty) && FormControls.searchReasonId.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.searchReasonId.errors.required" class="errors">
+              {{'SEARCH_DOC.REASON_SEARCH'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.searchReasonId.errors.pattern" class="errors">
+              {{'SEARCH_DOC.REASON_SEARCH'|translate}} {{'NOTARY.INVALID'|translate}}
+            </mat-error>
+            <mat-error *ngIf="FormControls.searchReasonId.errors.maxlength" class="errors">
+              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
       <div *ngIf="requestType==SearchRequestType.DEED_DOCUMENT" class="default-input-wrapper full-row">
-        <label>{{'SEARCH_DOC.REASON_SEARCH_DEED'|translate}} <span class="redtxt">*</span></label>
+        <label>{{'SEARCH_DOC.REASON_SEARCH_DEED'|translate}}: <span class="redtxt">*</span></label>
         <div class="default-input-feild">
           <mat-form-field appearance="outline">
             <select matNativeControl
@@ -299,6 +426,12 @@
               </option>
             </select>
           </mat-form-field>
+          <div *ngIf="(FormControls.searchReasonId.touched || FormControls.searchReasonId.dirty) && FormControls.searchReasonId.errors"
+               class="invalid-feedback">
+            <mat-error *ngIf="FormControls.searchReasonId.errors.required" class="errors">
+              {{'SEARCH_DOC.REASON_SEARCH'|translate}} {{'NOTARY.REQUIRED'|translate}}
+            </mat-error>
+          </div>
         </div>
       </div>
     </div>
@@ -312,7 +445,7 @@
     <div class="pg-inner-row mb-20">
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>{{'SEARCH_DOC.LR_DIV'|translate}} <span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.LR_DIV'|translate}}: <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <select matNativeControl
@@ -324,12 +457,18 @@
                 </option>
               </select>
             </mat-form-field>
+            <div *ngIf="(FormControls.lrDivisionId.touched || FormControls.lrDivisionId.dirty) && FormControls.lrDivisionId.errors"
+                 class="invalid-feedback">
+              <mat-error *ngIf="FormControls.lrDivisionId.errors.required" class="errors">
+                {{'SEARCH_DOC.LR_DIV'|translate}} {{'NOTARY.REQUIRED'|translate}}
+              </mat-error>
+            </div>
           </div>
         </div>
       </div>
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>{{'SEARCH_DOC.VOLUME'|translate}} <span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.VOLUME'|translate}}: <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <input matInput type="text"
@@ -337,6 +476,18 @@
                      inputMaxLength="10"
                      class="form-control" formControlName="volume">
             </mat-form-field>
+            <div *ngIf="(FormControls.volume.touched || FormControls.volume.dirty) && FormControls.volume.errors"
+                 class="invalid-feedback">
+              <mat-error *ngIf="FormControls.volume.errors.required" class="errors">
+                {{'SEARCH_DOC.VOLUME'|translate}} {{'NOTARY.REQUIRED'|translate}}
+              </mat-error>
+              <mat-error *ngIf="FormControls.volume.errors.pattern" class="errors">
+                {{'SEARCH_DOC.VOLUME'|translate}} {{'NOTARY.INVALID'|translate}}
+              </mat-error>
+              <mat-error *ngIf="FormControls.volume.errors.maxlength" class="errors">
+                {{'VALIDATION.MAX_LENGTH_8_NUM_ERR'|translate}}
+              </mat-error>
+            </div>
           </div>
         </div>
       </div>
@@ -344,7 +495,7 @@
     <div class="pg-inner-row mb-20">
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>{{'SEARCH_DOC.FOL_NO'|translate}}<span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.FOL_NO'|translate}}: <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <input matInput
@@ -353,12 +504,24 @@
                      inputMaxLength="10"
                      class="form-control" formControlName="folioNo">
             </mat-form-field>
+            <div *ngIf="(FormControls.folioNo.touched || FormControls.folioNo.dirty) && FormControls.folioNo.errors"
+                 class="invalid-feedback">
+              <mat-error *ngIf="FormControls.folioNo.errors.required" class="errors">
+                {{'SEARCH_DOC.FOL_NO'|translate}} {{'NOTARY.REQUIRED'|translate}}
+              </mat-error>
+              <mat-error *ngIf="FormControls.folioNo.errors.pattern" class="errors">
+                {{'SEARCH_DOC.FOL_NO'|translate}} {{'NOTARY.INVALID'|translate}}
+              </mat-error>
+              <mat-error *ngIf="FormControls.folioNo.errors.maxlength" class="errors">
+                {{'VALIDATION.MAX_LENGTH_8_NUM_ERR'|translate}}
+              </mat-error>
+            </div>
           </div>
         </div>
       </div>
       <div class="pg-inner-col">
         <div class="default-input-wrapper full-row">
-          <label>{{'SEARCH_DOC.NO_OF_YRS'|translate}}<span class="redtxt">*</span></label>
+          <label>{{'SEARCH_DOC.NO_OF_YRS'|translate}}: <span class="redtxt">*</span></label>
           <div class="default-input-feild">
             <mat-form-field appearance="outline">
               <input matInput
@@ -367,6 +530,18 @@
                      inputMaxLength="10"
                      class="form-control" formControlName="noOfYears">
             </mat-form-field>
+            <div *ngIf="(FormControls.noOfYears.touched || FormControls.noOfYears.dirty) && FormControls.noOfYears.errors"
+                 class="invalid-feedback">
+              <mat-error *ngIf="FormControls.noOfYears.errors.required" class="errors">
+                {{'SEARCH_DOC.NO_OF_YRS'|translate}} {{'NOTARY.REQUIRED'|translate}}
+              </mat-error>
+              <mat-error *ngIf="FormControls.noOfYears.errors.pattern" class="errors">
+                {{'SEARCH_DOC.NO_OF_YRS'|translate}} {{'NOTARY.INVALID'|translate}}
+              </mat-error>
+              <mat-error *ngIf="FormControls.noOfYears.errors.maxlength" class="errors">
+                {{'VALIDATION.MAX_LENGTH_8_NUM_ERR'|translate}}
+              </mat-error>
+            </div>
           </div>
         </div>
       </div>

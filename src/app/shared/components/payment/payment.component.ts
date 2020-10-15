@@ -168,7 +168,7 @@ export class PaymentComponent implements OnInit, OnChanges {
 
     if (this.isDocumentCollect && this.issueMethod == 0) {
       isValid = false;
-      errorMassage = 'Please, Select issue option.';
+      errorMassage = this.systemService.getTranslation('VALIDATION.REQUIRED_ISSUE_METHOD_ERR');
     }
 
     if (isValid && this.paymentMethod == 0) {

@@ -3,7 +3,7 @@ import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
 import { UserType } from 'src/app/shared/enum/user-type.enum';
 import { PaymentMethod } from './../../../../shared/enum/payment-method.enum';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTableDataSource} from "@angular/material/table";
 import {NewNotaryDataVarificationService} from "../../../../shared/service/new-notary-data-varification.service";
@@ -14,6 +14,7 @@ import {CitizenService} from "../../../../shared/service/citizen.service";
 import {PaymentDto} from "../../../../shared/dto/payment-dto";
 import {Workflow} from "../../../../shared/enum/workflow.enum";
 import {Parameters} from "../../../../shared/enum/parameters.enum";
+import {MatPaginator} from '@angular/material';
 
 @Component({
   selector: 'app-citizen-payment-info',
@@ -46,6 +47,8 @@ export class CitizenPaymentInfoComponent implements OnInit {
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Amount', 'Payment Date', 'Status'];
   dataSource = new MatTableDataSource<PaymentDto>();
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   constructor(private notaryService: NewNotaryDataVarificationService,
               private route: ActivatedRoute, private citizenService: CitizenService,
               private sessionService: SessionService) {
@@ -57,6 +60,7 @@ export class CitizenPaymentInfoComponent implements OnInit {
     this.citizenService.citizenDto.subscribe(history => {
       this.citizenDTO = history;
       this.dataSource = history.paymentHistory;
+      this.dataSource.paginator = this.paginator;
       this.setWorkflowPayment(this.citizenDTO.userType);
     });
   }

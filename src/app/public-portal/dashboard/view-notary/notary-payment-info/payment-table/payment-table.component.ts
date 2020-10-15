@@ -7,7 +7,13 @@ import {ApplicationRequestDataType} from '../../../../../shared/enum/application
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {RequestSearchDetailDTO} from "../../../../../shared/dto/request-search.dto";
-import { MatPaginator } from '@angular/material';
+import {MatDialog, MatDialogConfig, MatPaginator} from '@angular/material';
+import {TranslateService} from '@ngx-translate/core';
+import {PaymentMethod} from '../../../../../shared/enum/payment-method.enum';
+import {PaymentStatus} from '../../../../../shared/enum/payment-status.enum';
+import {PaymentMode} from '../../../../../shared/enum/payment-mode.enum';
+import {PaymentService} from '../../../../../shared/service/payment.service';
+import {DocumentViewerComponent} from '../../../../../shared/components/document-viewer/document-viewer.component';
 
 @Component({
   selector: 'app-payment-table',
@@ -26,16 +32,23 @@ import { MatPaginator } from '@angular/material';
 })
 export class PaymentTableComponent implements OnInit, OnChanges {
   @Input() paymentDetails: NewNotaryPaymentDetailDto[] = [];
-  displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
-  dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentDetails);
+  displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status','Document'];
+  dataSource = new MatTableDataSource<any>(this.paymentDetails);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  PaymentMode = PaymentMode;
+
+  isLoading:boolean = false;
 
   constructor(private notaryService: NewNotaryDataVarificationService,
+              public translateService: TranslateService,
+              public paymentService: PaymentService,
+              private dialog: MatDialog,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-     this.getPaymentDetails();}
+     this.getPaymentDetails();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paymentDetails']) {
@@ -46,5 +59,22 @@ export class PaymentTableComponent implements OnInit, OnChanges {
   getPaymentDetails() {
    this.dataSource.data = this.paymentDetails;
    this.dataSource.paginator = this.paginator;
+  }
+
+  viewDocument(row:any) {
+    this.isLoading = true
+    this.paymentService.getPaymentDocuments(+row.paymentId).subscribe(
+      (value:any) => {
+        this.isLoading = false
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+          files: value.data
+        };
+        dialogConfig.width = '90vw';
+        dialogConfig.height = '98vh';
+        // dialogConfig.minHeight = '50vh';
+        let dialogRef = this.dialog.open(DocumentViewerComponent, dialogConfig);
+      }
+    )
   }
 }

@@ -18,6 +18,7 @@ import { Workflow } from 'src/app/shared/enum/workflow.enum';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PatternValidation } from 'src/app/shared/enum/pattern-validation.enum';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {ConfirmationDialogComponent} from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-correction-application',
@@ -282,18 +283,48 @@ export class CorrectionApplicationComponent implements OnInit {
   }
 
   onClearAll(): void {
-    if (this.correctionDetails.length > 0) {
-      this.correctionDetails = [];
-    }
-    this.updateDatasource(this.correctionDetails);
-    this.initPaginator();
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.CONFIRM_CLEAR_ALL'),
+        buttonText: {
+          ok: this.systemService.getTranslation('BUTTONS.YES_BUTTON'),
+          cancel: this.systemService.getTranslation('BUTTONS.NO_BUTTON')
+        }
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        if (this.correctionDetails.length > 0) {
+          this.correctionDetails = [];
+        }
+        this.updateDatasource(this.correctionDetails);
+        this.initPaginator();
+      }
+    });
+
   }
 
   onClearItem(index: number) {
     if (index != null) {
-      this.correctionDetails.splice(index, 1);
-      this.updateDatasource(this.correctionDetails);
-      this.initPaginator();
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+          data:{
+            message: this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.CONFIRM_DELETE'),
+            buttonText: {
+              ok: this.systemService.getTranslation('BUTTONS.YES_BUTTON'),
+              cancel: this.systemService.getTranslation('BUTTONS.NO_BUTTON')
+            }
+          }
+        });
+
+        dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+          if (confirmed) {
+            this.correctionDetails.splice(index, 1);
+            this.updateDatasource(this.correctionDetails);
+            this.initPaginator();
+          }
+        });
     }
   }
 

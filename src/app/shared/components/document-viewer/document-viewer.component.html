@@ -1,7 +1,7 @@
 <button type="button" class="close" aria-label="Close" [mat-dialog-close]>
   <span aria-hidden="true">&times;</span>
 </button>
-<mat-dialog-content>
+<!--<mat-dialog-content>-->
 
   <div class="row">
     <div *ngFor="let file of files; let i = index;" class="col-md-4 p-5 h-5">
@@ -20,7 +20,7 @@
   <div class="row" *ngIf="!files || files.length==0">
     <p>No result found.</p>
   </div>
-</mat-dialog-content>
+<!--</mat-dialog-content>-->
 <div class="row align-bottom justify-content-end" *ngIf="canSelect">
   <div class="col-md-2 float-right">
     <button mat-raised-button

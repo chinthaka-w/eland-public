@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {PublicUserDetails} from '../dto/public-user-detail.model';
 
 const USER_KEY = 'UserToken';
@@ -8,11 +8,14 @@ const USER_KEY = 'UserToken';
 })
 export class SessionService {
 
+  userDetailsChange = new EventEmitter<PublicUserDetails>();
+
   constructor() {
   }
 
   setUser(user) {
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    this.userDetailsChange.emit(this.getUser());
   }
 
   getUser(): PublicUserDetails {

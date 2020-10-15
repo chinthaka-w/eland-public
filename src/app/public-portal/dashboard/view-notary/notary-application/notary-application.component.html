@@ -36,7 +36,7 @@
     <div class="pg-inner-col right">
       <div class="default-input-wrapper mt-20 rac-col">
         <label>{{'COMMON.LANGUAGE'|translate}}: <span class="redtxt">*</span></label>
-        <div class="default-input-feild">
+        <div class="default-input-feild" style="text-align: left;">
           <mat-radio-group class="form-control" formControlName="languages">
             <mat-radio-button [value]="Languages.ENGLISH">{{'NOTIFICATION.ENG'|translate}}</mat-radio-button>
             <mat-radio-button [value]="Languages.SINHALA">{{'NOTIFICATION.SIN'|translate}}</mat-radio-button>
@@ -391,6 +391,9 @@
             <mat-error *ngIf="FormControls.nic.errors.nicExists" class="errors">{{'CONTACT_DETAILS.NIC'|translate}}
               {{'NOTARY.ALREADY_EXISIS'|translate}}!
             </mat-error>
+            <mat-error *ngIf="!FormControls.nic.errors.required && FormControls.nic.errors.nicInvalid" class="errors">{{'CONTACT_DETAILS.NIC'|translate}}
+              & Date of Birth not match!
+            </mat-error>
           </div>
         </div>
       </div>
@@ -643,7 +646,7 @@
                    [matDatepicker]="picker2"
                    readonly
                    [max]="today"
-                   [min]="dateOfBirth.value"
+                   [min]="passedDate.value ? passedDate.value : dateOfBirth.value"
                    formControlName="enrolledDate"
                    class="form-control">
             <mat-datepicker #picker2></mat-datepicker>
@@ -685,7 +688,7 @@
     <div class="pg-inner-row mb-0">
       <div class="pg-inner-col float-right">
         <button mat-raised-button class="button float-right"
-                [disabled]="!isDataChanged" (click)="onFormSubmit()">Apply Changes
+                [disabled]="!isDataChanged || notaryForm.invalid" (click)="onFormSubmit()">Apply Changes
         </button>
       </div>
     </div>

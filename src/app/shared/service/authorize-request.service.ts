@@ -93,8 +93,8 @@ export class AuthorizeRequestService {
     return this.httpClient.get(this.BASE_URL + 'supportingDocument/' +  workflowCode );
   }
 
-  getRelatedDocTypes(code: string): Observable<Array<WorkflowStageDocTypeDTO>> {
-    return this.httpClient.get<Array<WorkflowStageDocTypeDTO>>(this.BASE_URL + 'supportingDocument/' + code, {headers: this.headersJson} );
+  getRelatedDocTypes(code: string): Observable<any> {
+    return this.httpClient.get<any>(this.BASE_URL + 'supportingDocument/' + code, {headers: this.headersJson} );
   }
 
   /** Parameter Controller **/
@@ -158,15 +158,18 @@ export class AuthorizeRequestService {
 
   /** Citizen Controller **/
 
-  saveCitizenAndFormData(fileList: Object, citizen: CitizenDTO): Observable<CitizenDTO> {
+  saveCitizenAndFormData(fileList: any, citizen: CitizenDTO): Observable<CitizenDTO> {
 
     const formData: FormData = new FormData();
-    const keys = Object.keys(fileList);
-    for (const key in keys) {
-      for (const file of fileList[keys[key]]) {
-        formData.append('file', file, keys[key] + '/' + keys[key] + file.name);
-      }
-    }
+    // const keys = Object.keys(fileList);
+    // for (const key in keys) {
+    //   for (const file of fileList[keys[key]]) {
+    //     formData.append('file', file, keys[key] + '/' + keys[key] + file.name);
+    //   }
+    // }
+    fileList.forEach(doc => {
+      formData.append('file', doc.files, doc.fileType + '/' + doc.fileType + doc.files.name);
+    });
     formData.append('model', JSON.stringify(citizen));
     return this.httpClient.post<CitizenDTO>(this.BASE_URL + 'citizen/', formData,{headers: this.headers});
 

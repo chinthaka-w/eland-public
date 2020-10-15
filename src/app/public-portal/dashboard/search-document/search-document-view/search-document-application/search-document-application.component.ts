@@ -293,6 +293,10 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     return this.searchRequestForm.get('requestType').value;
   }
 
+  get FormControls() {
+    return this.searchRequestForm.controls;
+  }
+
   get form(): FormGroup {
     return this.searchRequestForm as FormGroup;
   }
@@ -442,7 +446,7 @@ export class SearchDocumentApplicationComponent implements OnInit, OnChanges {
     Object.keys(formGroup.controls).forEach(field => {  //{2}
       const control = formGroup.get(field);             //{3}
       if (control instanceof FormControl) {             //{4}
-        control.markAsTouched({onlySelf: true});
+        control.markAsDirty({onlySelf: true});
       } else if (control instanceof FormGroup) {        //{5}
         this.validateAllFormFields(control);            //{6}
       }

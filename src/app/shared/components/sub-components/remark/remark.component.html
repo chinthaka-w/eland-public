@@ -1,6 +1,6 @@
 <div class="default-input-wrapper  bo-mat full-row" *ngIf="remarkDto">
   <div class="default-input-feild">
-    <textarea class="form-control" placeholder="{{'COMMON.INSERT_MESSAGE'|translate}}" [(ngModel)]="remarkDto.remark"
+    <textarea class="form-control" placeholder="{{uiController.isReadOnly?'':'COMMON.INSERT_MESSAGE'|translate}}" [(ngModel)]="remarkDto.remark"
     [ngModelOptions]="{standalone: true}" [disabled]="uiController.isReadOnly"
     style="min-height: 150px;"></textarea>
   </div>

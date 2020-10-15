@@ -151,7 +151,7 @@ export class ChangeTheNameComponent implements OnInit {
       newInitialNameInTamil: new FormControl('', [Validators.pattern(PatternValidation.nameValidation),Validators.maxLength(255)]),
       dateOfBirth: new FormControl(new Date()),
       languages: new FormControl(),
-      recaptcha: new FormControl(null, [Validators.required]),
+      // recaptcha: new FormControl(null, [Validators.required]),
     });
     this.getNameTitles();
     this.getDocumentList();
@@ -398,42 +398,80 @@ export class ChangeTheNameComponent implements OnInit {
   //   this.documentList.push(new DocumentDto(this.files[0], docTyprId));
   // }
 
-  setFiles(data: any, docTyprId: number, status: boolean) {
+  // setFiles(data: any, docTyprId: number, status: boolean) {
+  //   this.files = data;
+  //   const document = new DocumentDto(this.files[0], docTyprId);
+  //   document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
+  //   if (document.files) {
+  //     this.documentList.push(document);
+  //   } else {
+  //     this.documentList.forEach((doc, index) => {
+  //       if (doc.fileType === document.fileType) {
+  //         this.documentList.splice(index, 1);
+  //       }
+  //     });
+  //   }
+  //
+  //   let workflowManatoryDocs = 0;
+  //   let uploadedMandatoryDocs = 0;
+  //
+  //   this.docList.forEach(doc => {
+  //     if  (doc.required) {
+  //       workflowManatoryDocs += 1;
+  //     }
+  //   });
+  //
+  //   this.documentList.forEach(doc => {
+  //     if (doc.status === CommonStatus.REQUIRED) {
+  //       uploadedMandatoryDocs += 1;
+  //     }
+  //   });
+  //
+  //   if ((workflowManatoryDocs === uploadedMandatoryDocs)) {
+  //       this.isRequiredDocsUpload = true;
+  //   } else {
+  //     this.isRequiredDocsUpload = false;
+  //   }
+  // }
+
+  setFiles(data: any, doc: any) {
+    doc.selected = true;
     this.files = data;
-    const document = new DocumentDto(this.files[0], docTyprId);
-    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
-    if (document.files) {
-      this.documentList.push(document);
-    } else {
-      this.documentList.forEach((doc, index) => {
-        if (doc.fileType === document.fileType) {
-          this.documentList.splice(index, 1);
-        }
+    let document = this.isDocumentAvailable(doc.docTypeId);
+    if (document) {
+      let index = this.documentList.findIndex((data: DocumentDto) => {
+        return data == document
       });
-    }
-
-    let workflowManatoryDocs = 0;
-    let uploadedMandatoryDocs = 0;
-
-    this.docList.forEach(doc => {
-      if  (doc.required) {
-        workflowManatoryDocs += 1;
+      if (data.length != 0) {
+        this.documentList[index].files = this.files[0];
+      } else {
+        this.documentList.splice(index, 1);
       }
-    });
-
-    this.documentList.forEach(doc => {
-      if (doc.status === CommonStatus.REQUIRED) {
-        uploadedMandatoryDocs += 1;
-      }
-    });
-
-    if ((workflowManatoryDocs === uploadedMandatoryDocs)) {
-        this.isRequiredDocsUpload = true;
     } else {
-      this.isRequiredDocsUpload = false;
+      this.documentList.push(new DocumentDto(this.files[0], doc.docTypeId));
     }
+    this.checkDocumentValidation();
   }
 
+  checkDocumentValidation() {
+    let invalid = false;
+    this.docList.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.invalid = true;
+        invalid = true;
+      } else {
+        item.invalid = false;
+      }
+    });
+    return invalid;
+  }
+
+  isDocumentAvailable(docTypeId: any): any {
+    return this.documentList.find((data: DocumentDto) => {
+        return data.fileType == docTypeId;
+      }
+    );
+  }
 
   onClickSubmitSearchRequest() {
     // if (this.isDataChanged) {

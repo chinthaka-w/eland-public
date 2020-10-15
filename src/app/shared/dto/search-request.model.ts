@@ -5,6 +5,8 @@ export class SearchRequest {
   public landRegistryId: number;
   public requestType: number;
   public requestTypeDes: string;
+  public requestTypeDesSin: string;
+  public requestTypeDesTam: string;
   public attestedByNotaryName: string;
   public practicedLocation: string;
   public numberOfTheDeed: string;
@@ -30,6 +32,8 @@ export class SearchRequest {
   public workflowStageCode: string;
   public date: string;
   public workflowDescription: string;
+  public workflowDescriptionSin: string;
+  public workflowDescriptionTam: string;
   public userId: number;
   public userType: string;
   public remark: string;

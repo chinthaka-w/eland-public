@@ -21,6 +21,7 @@ export class FileUploadInputComponent implements OnInit {
   fileUpload: ElementRef;
   imageSrc: string;
   errorMsg;
+  isPDF: boolean = false;
 
   // 20MB in bytes
   maximumFileSize: number = 20971520;
@@ -30,6 +31,10 @@ export class FileUploadInputComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.document && this.document.file) {
+      this.files[0] = this.document.file;
+      this.imagePreview(this.document.file);
+    }
   }
 
   onFileSelected(event) {
@@ -38,10 +43,13 @@ export class FileUploadInputComponent implements OnInit {
       this.document.error = false;
       this.document.errorMsg = '';
     }
-    this.files = [];
     const files = event.dataTransfer
       ? event.dataTransfer.files
       : event.target.files;
+    if (files.length == 0) {
+      return
+    }
+    this.files = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       file.objectURL = this.sanitizer.bypassSecurityTrustUrl(
@@ -70,14 +78,14 @@ export class FileUploadInputComponent implements OnInit {
         return
       }
 
+      if (this.document) {
+        this.document.file = file;
+      }
+
       this.files.push(files[i]);
 
       // preview image
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-      };
+      this.imagePreview(file);
     }
     this.response.emit(this.files);
   }
@@ -88,6 +96,7 @@ export class FileUploadInputComponent implements OnInit {
 
     // remove image preview
     this.imageSrc = '';
+    this.isPDF = false;
     this.myInputVariable.nativeElement.value = null;
   }
 
@@ -95,5 +104,15 @@ export class FileUploadInputComponent implements OnInit {
     if (this.fileUpload) {
       this.fileUpload.nativeElement.click();
     }
+  }
+
+  imagePreview(file: any) {
+    console.log('imagePreview', file);
+    this.isPDF = file.type == FileTypes.PDF;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.imageSrc = reader.result as string;
+    };
   }
 }

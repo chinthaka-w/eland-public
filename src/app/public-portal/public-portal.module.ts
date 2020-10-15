@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PublicPortalRoutingModule} from './public-portal-routing.module';
 import {AddNotaryComponent} from './notary-registration/add-notary/add-notary.component';
@@ -93,6 +93,8 @@ import {DocumentViewerComponent} from '../shared/components/document-viewer/docu
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {PasswordStrengthMeterComponent, PasswordStrengthMeterModule} from 'angular-password-strength-meter';
+import {TranslateService} from '@ngx-translate/core';
+import {transition} from '@angular/animations';
 
 
 @NgModule({
@@ -220,7 +222,8 @@ import {PasswordStrengthMeterComponent, PasswordStrengthMeterModule} from 'angul
     MatBottomSheetModule,
     MatTableModule,
     MatBadgeModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressSpinnerModule,
   ],
   entryComponents: [
     RequestViewComponent,
@@ -233,7 +236,7 @@ import {PasswordStrengthMeterComponent, PasswordStrengthMeterModule} from 'angul
     useValue: {
       siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
     } as RecaptchaSettings,
-  }]
+  },]
 })
 export class PublicPortalModule {
 }

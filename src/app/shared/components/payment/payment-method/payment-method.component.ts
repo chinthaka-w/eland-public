@@ -16,9 +16,13 @@ import {PaymentMethod} from '../../../enum/payment-method.enum';
 import {JsonFormatter} from 'tslint/lib/formatters';
 import {CommonStatus} from '../../../enum/common-status.enum';
 import {PaymentStatus} from '../../../enum/payment-status.enum';
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer} from '@angular/platform-browser';
 import {AuthorizeRequestService} from '../../../service/authorize-request.service';
 import {SysMethodsService} from '../../../service/sys-methods.service';
+import swal from 'sweetalert2';
+import {SystemService} from '../../../service/system.service';
+import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material';
 
 
 @Component({
@@ -47,24 +51,31 @@ export class PaymentMethodComponent implements OnInit {
   public paymentResponse = new PaymentResponse;
 
   fileUploads: ElementRef;
+
+  popoverTitle: string = this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.CONFIRM_LEAVE');
+  popoverMessage: string = 'asasdfgh';
+
   constructor(private formBuilder: FormBuilder,
               private notaryService: NotaryService,
               private dataRoute: ActivatedRoute,
               private snackBar: SnackBarService,
               // private bankService: BankService,
+              public dialog: MatDialog,
               private sysMethodsService: SysMethodsService,
+              private systemService: SystemService,
               private authorizeRequestService: AuthorizeRequestService,
               private branchService: BankBranchService,
               private paymentService: PaymentService,
               private sanitizer: DomSanitizer,
-              ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.paymentMethodForm = new FormGroup({
       bank: new FormControl('', Validators.required),
       branch: new FormControl('', Validators.required),
       date: new FormControl('', Validators.required),
-      referenceNo: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,Validators.maxLength(25)]),
+      referenceNo: new FormControl('', [Validators.required, this.sysMethodsService.noWhitespaceValidator, Validators.maxLength(25)]),
     });
     this.loadBanks();
   }
@@ -77,34 +88,36 @@ export class PaymentMethodComponent implements OnInit {
 
     if (!(this.paymentMethodForm.valid && this.files.length > 0)) {
       isValid = false;
-      errorMassage = 'Please fill application form, before submit.';
+      errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM3');
       this.showSpinner = false;
       return;
     }
 
-    if (isValid) {this.paymentDTO.bankId = this.paymentMethodForm.get('bank').value;
-    this.paymentDTO.paymentDate = this.paymentMethodForm.get('date').value;
-    this.paymentDTO.referenceNo = this.paymentMethodForm.get('referenceNo').value;
-    this.paymentDTO.status = CommonStatus.ACTIVE;
+    if (isValid) {
+      this.paymentDTO.bankId = this.paymentMethodForm.get('bank').value;
+      this.paymentDTO.paymentDate = this.paymentMethodForm.get('date').value;
+      this.paymentDTO.referenceNo = this.paymentMethodForm.get('referenceNo').value;
+      this.paymentDTO.status = CommonStatus.ACTIVE;
 
-    let formData = new FormData();
-    formData.append('model',JSON.stringify(this.paymentDTO));
-    formData.append('file',this.files[0]);
-    this.authorizeRequestService.savePayment(formData).subscribe(
-      (res: PaymentDto) => {
-        this.paymentResponse.paymentId = res.paymentId;
-        this.paymentResponse.paymentMethod = PaymentMethod.BANK_TRANSFER_OR_DIPOSIT;
-        this.isSubmitted = true;
-        this.paymentId = res.paymentId;this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_SUCCESS;
-      }, (error: HttpErrorResponse) => {
-        console.log(error);
-        this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_FAILED;
-        this.response.emit(this.paymentResponse);
-      }, () => {
-        this.response.emit(this.paymentResponse);
-      }
-    );
-} else {
+      let formData = new FormData();
+      formData.append('model', JSON.stringify(this.paymentDTO));
+      formData.append('file', this.files[0]);
+      this.authorizeRequestService.savePayment(formData).subscribe(
+        (res: PaymentDto) => {
+          this.paymentResponse.paymentId = res.paymentId;
+          this.paymentResponse.paymentMethod = PaymentMethod.BANK_TRANSFER_OR_DIPOSIT;
+          this.isSubmitted = true;
+          this.paymentId = res.paymentId;
+          this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_SUCCESS;
+        }, (error: HttpErrorResponse) => {
+          console.log(error);
+          this.paymentResponse.paymentStatusCode = PaymentStatus.PAYMENT_FAILED;
+          this.response.emit(this.paymentResponse);
+        }, () => {
+          this.response.emit(this.paymentResponse);
+        }
+      );
+    } else {
       this.snackBar.error(errorMassage);
     }
   }
@@ -135,7 +148,23 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   onBack() {
-    this.back.emit(true);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        title: this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.CONFIRM_LEAVE'),
+        message: this.systemService.getTranslation('ALERT.MESSAGE.CHANGES_NOT_SAVED'),
+        buttonText: {
+          ok: this.systemService.getTranslation('BUTTONS.YES_BUTTON'),
+          cancel: this.systemService.getTranslation('BUTTONS.CANCEL_BUTTON')
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.back.emit(true);
+      }
+    });
   }
 
 }

@@ -164,7 +164,7 @@
           <label class="mw-200">{{'CITIZEN.BANK_BRANCH'|translate}}<span>*</span></label>
           <div class="default-input-feild gray">
 
-            <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankBranch" required
+            <mat-select placeholder="{{'CITIZEN.SELECT_BANK_BRANCH'|translate}}" formControlName="bankBranch" required
               (selectionChange)="selectBranch(bankBranch.value)">
               <mat-option *ngFor="let bankBranch of bankBranches" [value]="bankBranch.id">
                 {{bankBranch.description|listTranslate:bankBranch.descriptionSin:bankBranch.descriptionTam}}</mat-option>
@@ -309,11 +309,17 @@
       <div class="separator mt-30">&nbsp;</div>
 
       <div class="pg-inner-row mb-20 upload-col-3">
-        <div class="pg-inner-col-3" *ngFor="let doc of workflowStageDocTypes">
+        <div class="pg-inner-col-3" *ngFor="let document of docList">
           <div class="default-input-wrapper full-row">
-            <file-upload-input (response)="setFiles($event, doc.docTypeId, doc.required)"></file-upload-input>
-            <label>{{doc.description|listTranslate: doc.descriptionSin: doc.descriptionTam}}
-              <span *ngIf="doc.required">*</span></label>
+            <file-upload-input [document]="document"
+                               [invalid]="document.invalid && document.selected"
+                               (response)="setFiles($event,document)">
+            </file-upload-input>
+            <label>{{document.description|listTranslate: document.descriptionSin: document.descriptionTam}}
+              <span *ngIf="document.required" class="redtxt"> *</span>
+            </label>
+            <mat-error *ngIf="!document.error && document.invalid && document.selected">Document required</mat-error>
+            <mat-error *ngIf="document.error">{{document.errorMsg}}</mat-error>
           </div>
         </div>
       </div>
@@ -331,7 +337,8 @@
         </div>
 
           <div class="pg-inner-col float-right">
-            <button mat-raised-button class="lg-button float-right" (click)="continue()">
+            <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+            <button mat-raised-button class="lg-button float-right" [disabled]="recaptcha.invalid" (click)="continue()">
               {{'BUTTONS.CONTINUE_BUTTON'|translate}}
             </button>
           </div>

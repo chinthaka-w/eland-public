@@ -21,6 +21,8 @@ import {SnackBarService} from "../../../../shared/service/snack-bar.service";
 import {BankUserType} from "../../../../shared/enum/bank-user-type.enum";
 import {IdentificationType} from "../../../../shared/enum/identification-type.enum";
 import {SysMethodsService} from '../../../../shared/service/sys-methods.service';
+import {StatusDTO} from '../../../../shared/dto/status-dto';
+import {BankBranchService} from '../../../../shared/service/bank-branch.service';
 
 @Component({
   selector: 'app-citizen-application',
@@ -56,6 +58,7 @@ export class CitizenApplicationComponent implements OnInit {
   showSpinner = false;
   isEnableUpdate = false;
   publicApplication: FormGroup;
+  bankBranches: any[] = [];
 
   get publicUserType() {
     return this.publicUserForm.get('type');
@@ -63,6 +66,7 @@ export class CitizenApplicationComponent implements OnInit {
 
   constructor(private citizenService: CitizenService,
               private bankService: BankService,
+              private bankBranchService: BankBranchService,
               private sessionService: SessionService,
               private snackBar: SnackBarService,
               private sysMethodsService: SysMethodsService,
@@ -77,8 +81,7 @@ export class CitizenApplicationComponent implements OnInit {
       nearestLr: new FormControl("", [Validators.required]),
       type: new FormControl({value: '', disabled: true}, [Validators.required]),
       lawFirmName: new FormControl('', []),
-      nameEnglish: new FormControl('',
-        [Validators.required,this.sysMethodsService.noWhitespaceValidator,
+      nameEnglish: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator,
           Validators.pattern(PatternValidation.nameValidation),
           Validators.maxLength(255)]),
       nameSinhala: new FormControl('', [
@@ -90,6 +93,7 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.maxLength(255)
       ]),
       bankName: new FormControl('', []),
+      bankBranch: new FormControl('', []),
       address1: new FormControl('', [
         Validators.pattern(PatternValidation.ADDRESS_PATTERN),
         Validators.maxLength(255)
@@ -127,8 +131,8 @@ export class CitizenApplicationComponent implements OnInit {
     if (!this.isEdit) {
       this.publicUserForm.disable();
     }
+    this.onBankChange();
     this.getApplicationDetails(this.user.id);
-
   }
 
   get nameEnglish() {
@@ -169,6 +173,10 @@ export class CitizenApplicationComponent implements OnInit {
 
   get bankName() {
     return this.publicUserForm.get('bankName');
+  }
+
+  get bankBranch() {
+    return this.publicUserForm.get('bankBranch');
   }
 
   get address1() {
@@ -223,14 +231,59 @@ export class CitizenApplicationComponent implements OnInit {
     this.bankUserTypeId = event.target.value;
     this.citizenDTO.bankUserType = this.bankUserTypeId;
   }
+
   getCurrentBank(event) {
     this.citizenDTO.bankId = event.value;
   }
+
+  onBankChange(){
+    this.bankName.valueChanges.subscribe(
+      value => {
+        if(value) this.getBankBranches(value);
+      }
+    );
+  }
+
+  getBankBranches(bankId: number) {
+    this.bankBranchService.findAllByBankId(bankId).subscribe(
+      (response: any) => {
+        this.bankBranches = response;
+      },
+      () => {
+        this.snackBar.error(this.systemService.getTranslation('ALERT.TITLE.SERVER_ERROR'));
+      }
+    );
+  }
+
+  selectBranch(bankBranchId: number) {
+    this.citizenDTO.bankBranchId = bankBranchId;
+  }
+
   getCurrentIdentificationType(event) {
     this.citizenDTO.identificationNoType = event.value;
+    this.identificationNo.setValue("");
+    this.identificationNo.markAsTouched({onlySelf:true});
+
+    if (event.value == IdentificationType.NIC) {
+      this.identificationNo.setValidators([
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.pattern(PatternValidation.NIC_PATTERN)
+      ]);
+    } else if (event.value == IdentificationType.PASSPORT) {
+      this.identificationNo.setValidators([
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.pattern(PatternValidation.PASSPORT_VALIDATION)
+      ]);
+    } else if (event.value == IdentificationType.DRIVING_LICENSE) {
+      this.identificationNo.setValidators([
+        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.pattern(PatternValidation.DRIVING_LICENSE_VALIDATION)
+      ]);
+    }
+
   }
+
   getCurrentUserType(event) {
-    console.log('value', event.value);
     this.citizenDTO.userType = event.value;
     this.updateValidators(event.value);
   }
@@ -296,6 +349,7 @@ export class CitizenApplicationComponent implements OnInit {
             nearestLr: this.citizenDTO.landRegistry,
             type: this.citizenDTO.userType,
             bankName: this.citizenDTO.bankId,
+            bankBranch: +this.citizenDTO.bankBranchId,
             identificationType: this.citizenDTO.identificationNoType,
           });
         }
@@ -327,6 +381,7 @@ export class CitizenApplicationComponent implements OnInit {
     }
     if (userType === PublicUserType.CITIZEN) {
       this.bankName.clearValidators();
+      this.bankBranch.clearValidators();
       this.lawFirmName.clearValidators();
       this.stateInstitutionName.clearValidators();
       this.otherInstitutionName.clearValidators();
@@ -334,6 +389,9 @@ export class CitizenApplicationComponent implements OnInit {
     }
     if (userType === PublicUserType.BANK) {
       this.bankName.setValidators([
+        Validators.required
+      ]);
+      this.bankBranch.setValidators([
         Validators.required
       ]);
       this.lawFirmName.clearValidators();
@@ -348,6 +406,7 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.pattern(PatternValidation.nameValidation)
       ]);
       this.bankName.clearValidators();
+      this.bankBranch.clearValidators();
       this.stateInstitutionName.clearValidators();
       this.otherInstitutionName.clearValidators();
       this.officersDesignation.clearValidators();
@@ -359,6 +418,7 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.pattern(PatternValidation.nameValidation)
       ]);
       this.bankName.clearValidators();
+      this.bankBranch.clearValidators();
       this.lawFirmName.clearValidators();
       this.otherInstitutionName.clearValidators();
       this.officersDesignation.clearValidators();
@@ -375,6 +435,7 @@ export class CitizenApplicationComponent implements OnInit {
         Validators.pattern(PatternValidation.nameValidation)
       ]);
       this.bankName.clearValidators();
+      this.bankBranch.clearValidators();
       this.lawFirmName.clearValidators();
       this.stateInstitutionName.clearValidators();
       this.address1.clearAsyncValidators();

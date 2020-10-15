@@ -5,6 +5,7 @@ export class WorkflowStageDocDto {
   public selected: boolean;
   public error: boolean;
   public errorMsg: any;
+  public file: any;
 
   constructor(
     public docId: number,

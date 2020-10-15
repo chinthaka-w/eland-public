@@ -4,7 +4,7 @@ import { UserType } from './../../../shared/enum/user-type.enum';
 import { DocumentResponseDto } from './../../../shared/dto/document-response.dto';
 import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
 import { PaymentMethod } from './../../../shared/enum/payment-method.enum';
-import { Component, OnInit } from "@angular/core";
+import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { PublicUserType } from 'src/app/shared/enum/public-user-type.enum';
 import {CitizenService} from "../../../shared/service/citizen.service";
@@ -26,6 +26,9 @@ import {PatternValidation} from "../../../shared/enum/pattern-validation.enum";
 import {WorkflowStageDocTypeDTO} from "../../../shared/dto/workflow-stage-doc-type-dto";
 import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {RecaptchaLoaderService, ReCaptchaV3Service} from 'ng-recaptcha';
+import {DocumentDto} from '../../../shared/dto/document-list';
+import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc.dto';
 
 @Component({
   selector: "app-add-public-user",
@@ -33,6 +36,10 @@ import {SysMethodsService} from '../../../shared/service/sys-methods.service';
   styleUrls: ["./add-public-user.component.css"]
 })
 export class AddPublicUserComponent implements OnInit {
+
+  @Input()
+  files: File[] = [];
+
   public SearchRequestType = SearchRequestType;
   public workflowPayment: string;
   public WorkflowCode = Workflow;
@@ -59,6 +66,11 @@ export class AddPublicUserComponent implements OnInit {
   isMadatoryDocsUploaded = false;
   docMetaList: DocumentResponseDto[] = [];
   bankBranches: StatusDTO[] = [];
+
+  errorMsg: any;
+
+  public docList: WorkflowStageDocDto[];
+  public documentList: DocumentDto[] = [];
 
   /**
    * **Online payment method**
@@ -238,42 +250,93 @@ export class AddPublicUserComponent implements OnInit {
     return this.publicUserForm.get('bankBranch');
   }
 
-  setFiles(files, key, status: boolean){
-    this.fileList[key] = files;
-    console.log('file list: ', this.fileList);
+  // setFiles(files, key, status: boolean){
+  //   this.fileList[key] = files;
+  //   console.log('file list: ', this.fileList);
+  //
+  //   // validate mandatory doc upload
+  //   if (files.length > 0 ) {
+  //     const docMetaData = new DocumentResponseDto(null, key, files[0], status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL);
+  //     this.docMetaList.push(docMetaData);
+  //   } else {
+  //     this.docMetaList.forEach((doc, index) => {
+  //       if (doc.docTypeId === key) {
+  //         this.docMetaList.splice(index, 1);
+  //       }
+  //     });
+  //   }
+  //
+  //   let workflowMandatoryDocs = 0;
+  //   let uploadMadatoryDocs = 0;
+  //   this.workflowStageDocTypes.forEach((doc) => {
+  //     if (doc.required) {
+  //       workflowMandatoryDocs += 1;
+  //     }
+  //   });
+  //
+  //   this.docMetaList.forEach((doc) => {
+  //     if (doc.status === CommonStatus.REQUIRED) {
+  //       uploadMadatoryDocs += 1;
+  //     }
+  //   });
+  //
+  //   if (workflowMandatoryDocs === uploadMadatoryDocs) {
+  //     this.isMadatoryDocsUploaded = true;
+  //   } else {
+  //     this.isMadatoryDocsUploaded = false;
+  //   }
+  //
+  //
+  // }
 
-    // validate mandatory doc upload
-    if (files.length > 0 ) {
-      const docMetaData = new DocumentResponseDto(null, key, files[0], status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL);
-      this.docMetaList.push(docMetaData);
-    } else {
-      this.docMetaList.forEach((doc, index) => {
-        if (doc.docTypeId === key) {
-          this.docMetaList.splice(index, 1);
-        }
+
+  setFiles(data: any, doc: any) {
+    doc.selected = true;
+    this.files = data;
+    let document = this.isDocumentAvailable(doc.docTypeId);
+    if (document) {
+      let index = this.documentList.findIndex((data: DocumentDto) => {
+        return data == document
       });
-    }
-
-    let workflowMandatoryDocs = 0;
-    let uploadMadatoryDocs = 0;
-    this.workflowStageDocTypes.forEach((doc) => {
-      if (doc.required) {
-        workflowMandatoryDocs += 1;
+      if (data.length != 0) {
+        this.documentList[index].files = this.files[0];
+      } else {
+        this.documentList.splice(index, 1);
       }
-    });
-
-    this.docMetaList.forEach((doc) => {
-      if (doc.status === CommonStatus.REQUIRED) {
-        uploadMadatoryDocs += 1;
-      }
-    });
-
-    if (workflowMandatoryDocs === uploadMadatoryDocs) {
-      this.isMadatoryDocsUploaded = true;
     } else {
-      this.isMadatoryDocsUploaded = false;
+      this.documentList.push(new DocumentDto(this.files[0], doc.docTypeId));
     }
+    this.checkDocumentValidation();
+  }
 
+  checkDocumentValidation() {
+    let invalid = false;
+    this.docList.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.invalid = true;
+        invalid = true;
+      } else {
+        item.invalid = false;
+      }
+    });
+    return invalid;
+  }
+
+  isDocumentAvailable(docTypeId: any): any {
+    return this.documentList.find((data: DocumentDto) => {
+        return data.fileType == docTypeId;
+      }
+    );
+  }
+
+  documentMarkAsTouched(){
+    this.docList.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.selected = true;
+        item.error = false;
+        item.invalid = true;
+      }
+    });
 
   }
 
@@ -378,8 +441,9 @@ export class AddPublicUserComponent implements OnInit {
 
   getRelatedDocTypes(workflowStage: string) {
     this.authorizeRequestService.getRelatedDocTypes(workflowStage)
-      .subscribe((result) => {
+      .subscribe((result:any) => {
         this.workflowStageDocTypes = result;
+        this.docList = result;
       });
   }
 
@@ -438,7 +502,7 @@ export class AddPublicUserComponent implements OnInit {
     this.citizenDTO.officerDesignation = this.publicUserForm.controls.officersDesignation.value;
     this.citizenDTO.otherInstituteName = this.publicUserForm.controls.otherInstitutionName.value;
 
-    this.authorizeRequestService.saveCitizenAndFormData(this.fileList, this.citizenDTO)
+    this.authorizeRequestService.saveCitizenAndFormData(this.documentList, this.citizenDTO)
       .subscribe((result) => {
         if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
           this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
@@ -507,8 +571,14 @@ export class AddPublicUserComponent implements OnInit {
   }
 
   continue(): void {
-    if (this.publicUserForm.invalid) {
-      this.checkFormValidity(this.publicUserForm);
+    this.errorMsg = undefined;
+    if (this.publicUserForm.invalid || this.checkDocumentValidation()) {
+      Object.keys(this.publicUserForm.controls).forEach(field => {
+        const control = this.publicUserForm.get(field);
+        control.markAsTouched({onlySelf: true});
+      });
+      this.documentMarkAsTouched();
+      this.errorMsg = 'Please fill all mandatory fields!';
     }
     else {
       this.isContinue = true;

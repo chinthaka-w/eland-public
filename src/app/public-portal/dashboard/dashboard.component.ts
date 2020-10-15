@@ -17,6 +17,7 @@ import {NewNotaryRegistrationWorkflowStage} from '../../shared/enum/new-notary-r
 import {WorkflowStages} from '../../shared/enum/workflow-stages.enum';
 import {WorkflowStageNotaryResignation} from '../../shared/enum/workflow-stage-notary-resignation.enum';
 import {ActivatedRoute, Router} from '@angular/router';
+import {PublicUserDetails} from '../../shared/dto/public-user-detail.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  user;
+  user:PublicUserDetails|any;
   userType = UserType;
   Workflow = Workflow;
 
@@ -79,13 +80,29 @@ export class DashboardComponent implements OnInit {
       this.notaryService.getNotaryRequestDetails(this.user.id).subscribe(
         (data: RequestSearchDetailDTO) => {
           this.searchDetails = data;
+        },
+        (error)=>{},
+        ()=>{
+          if (this.searchDetails && this.searchDetails.name) {
+            this.user.nameEng = this.searchDetails.name;
+            this.sessionService.setUser(this.user);
+          }
         }
       );
     } else if (this.user.type === UserType.CITIZEN) {
       this.citizenService.getPublicUserDetails(this.user.id).subscribe(
         (response: RequestSearchDetailDTO) => {
           this.searchDetails = response;
+        },
+        (error)=>{},
+        ()=>{
+          if (this.searchDetails && this.searchDetails.name) {
+            this.user.nameEng = this.searchDetails.name;
+
+            this.sessionService.setUser(this.user);
+          }
         }
+
       );
     }
   }
