@@ -922,6 +922,7 @@
        "REQUEST_APPROVED": "අනුමත කර ඇත",
        "RESIGN": "ඉල්ලා අස්විය",
        "INACTIVE": "අක්‍රීයයි",
+       "PARTIALLY_ACTIVE": "අර්ධ වශයෙන් සක්‍රීයයි",
        "FURTHER_DOC_SUBMISSION": "වැඩි විස්තර ඉදිරිපත් කිරීම"
     },
     "CAVEAT":{
@@ -1229,7 +1230,8 @@
     "TITLE3":"ගිණුමක් නැද්ද?",
     "TITLE4":"මෙහි ලියාපදිංචි වන්න",
     "LOGIN":"ඇතුල් වන්න",
-    "PASSWORD_INCORRECT":"පරිශීලක නාමය හෝ මුරපදය වැරදිය"
+    "PASSWORD_INCORRECT":"පරිශීලක නාමය හෝ මුරපදය වැරදිය",
+    "ACCOUNT_LOCKED":"ගිණුම තහනම් කර ඇත."
   },
   "FORGOT_PSWD":{
     "TYPE":"වර්ගය",

@@ -18,6 +18,7 @@ import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 import {SystemService} from '../../../shared/service/system.service';
 import {DocumentDto} from '../../../shared/dto/document-list';
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
+import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 
 
 @Component({
@@ -52,10 +53,13 @@ export class LanguageChangeComponent implements OnInit {
   userId: number;
   public documentList: DocumentDto[] = [];
 
+  errorMsg: any;
+
   constructor(private formBulder: FormBuilder,
               private languageChangeService: LanguageChangeService,
               private sessionService: SessionService,
               private snackBarService: SnackBarService,
+              private sysMethodsService: SysMethodsService,
               private router: Router,
               private systemService: SystemService) {
   }
@@ -78,16 +82,18 @@ export class LanguageChangeComponent implements OnInit {
       langEng: new FormControl('', null),
       langSin: new FormControl('', null),
       langTam: new FormControl('', null),
-      fullNameEng: new FormControl('', [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
+      fullNameEng: new FormControl({value:'',disabled:true},
+        [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
       fullNameSin: new FormControl('', null),
       fullNameTam: new FormControl('', null),
-      nameWithInitEng: new FormControl('', [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
+      nameWithInitEng: new FormControl({value:'',disabled:true},
+        [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
       nameWithInitSin: new FormControl('', null),
       nameWithInitTam: new FormControl('', null),
-      addPermanentEng: new FormControl('', null),
+      addPermanentEng: new FormControl({value:'',disabled:true}, null),
       addPermanentSin: new FormControl('', null),
       addPermanentTam: new FormControl('', null),
-      addressEng: new FormControl('', null),
+      addressEng: new FormControl({value:'',disabled:true}, null),
       addressSin: new FormControl('', null),
       addressTam: new FormControl('', null),
       startingDate: new FormControl('', null),
@@ -163,10 +169,10 @@ export class LanguageChangeComponent implements OnInit {
       (result: LanguageChange) => {
         this.languageChangForm.patchValue(result);
 
-        this.languageChangForm.get('nameWithInitEng').disable();
-        this.languageChangForm.get('fullNameEng').disable();
-        this.languageChangForm.get('addPermanentEng').disable();
-        this.languageChangForm.get('addressEng').disable();
+        // this.languageChangForm.get('nameWithInitEng').disable();
+        // this.languageChangForm.get('fullNameEng').disable();
+        // this.languageChangForm.get('addPermanentEng').disable();
+        // this.languageChangForm.get('addressEng').disable();
 
         if(result.fullNameSin != null) {
           this.languageChangForm.get('fullNameSin').disable();
@@ -184,6 +190,14 @@ export class LanguageChangeComponent implements OnInit {
         if(result.nameWithInitTam != null) {
           this.languageChangForm.get('nameWithInitTam').disable();
         }
+
+        if(result.addressSin != null) this.currentAddressSinhala.disable();
+
+        if(result.addressTam!= null) this.currentAddressTamil.disable();
+
+        if(result.addPermanentSin!= null) this.permanentAddressSinhala.disable();
+
+        if(result.addPermanentTam!= null) this.permanentAddressTamil.disable();
 
         if (result.langEng) {
           this.languageChangForm.get('langEng').disable();
@@ -209,10 +223,20 @@ export class LanguageChangeComponent implements OnInit {
   }
 
   continue(): void {
+    this.errorMsg = undefined;
+
     if (!(this.languageChangForm.value.langEng || this.languageChangForm.value.langSin || this.languageChangForm.value.langTam)) {
-          this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.SELECT_LANGUAGE'));
-    } else if (!this.languageChangForm.valid) {
-      this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.REQUIRED_FIELDS'));
+      this.errorMsg = this.systemService.getTranslation('ALERT.MESSAGE.SELECT_LANGUAGE');
+      return
+    }
+
+    if (this.languageChangForm.invalid || this.checkDocumentValidation()) {
+      Object.keys(this.languageChangForm.controls).forEach(field => {
+        const control = this.languageChangForm.get(field);
+        control.markAsTouched({onlySelf: true});
+      });
+      this.documentMarkAsTouched();
+      this.errorMsg = 'Please fill all mandatory fields!';
     } else {
       this.showPayment = true;
     }
@@ -245,56 +269,204 @@ export class LanguageChangeComponent implements OnInit {
  * Applicant language change request only applicable for one at a time
  * Only one value can be select
  */
-  languageChange(code: number): void {
-    if (code === Languages.TAMIL) {
-      this.langTamCheck = this.languageChangForm.value.langTam;
-      if (!this.langSinRegistered) {
-        this.langSinCheck = false;
-        this.languageChangForm.value.langSin = false;
-      }
+ languageChange(code: number): void {
+
+  if (code === Languages.TAMIL) {
+    this.langTamCheck = this.languageChangForm.value.langTam;
+    if (!this.langSinRegistered) {
+      this.langSinCheck = false;
+      this.languageChangForm.value.langSin = false;
     }
-    if (code === Languages.SINHALA) {
-      this.langSinCheck = this.languageChangForm.value.langSin;
-      if (!this.langTamRegistered) {
-        this.langTamCheck = false;
-        this.languageChangForm.value.langTam = false;
-      }
+    if (this.langTamCheck) {
+      this.fullNameTamil.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)]);
+      this.fullNameTamil.updateValueAndValidity();
+      this.nameWithInitialsTamil.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)]);
+      this.nameWithInitialsTamil.updateValueAndValidity();
+      this.currentAddressTamil.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)]);
+      this.currentAddressTamil.updateValueAndValidity();
+      this.permanentAddressTamil.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)]);
+      this.permanentAddressTamil.updateValueAndValidity();
+
+    } else {
+
+      this.fullNameTamil.clearValidators();
+      this.fullNameTamil.updateValueAndValidity();
+      this.nameWithInitialsTamil.clearValidators();
+      this.nameWithInitialsTamil.updateValueAndValidity();
+      this.permanentAddressTamil.clearValidators();
+      this.permanentAddressTamil.updateValueAndValidity();
+      this.currentAddressTamil.clearValidators();
+      this.currentAddressTamil.updateValueAndValidity();
+
     }
+
+    this.fullNameSinhala.clearValidators();
+    this.fullNameSinhala.updateValueAndValidity();
+    this.nameWithInitialsSinhala.clearValidators();
+    this.nameWithInitialsSinhala.updateValueAndValidity();
+    this.permanentAddressSinhala.clearValidators();
+    this.permanentAddressSinhala.updateValueAndValidity();
+    this.currentAddressSinhala.clearValidators();
+    this.currentAddressSinhala.updateValueAndValidity();
   }
 
-
-  setFiles(data: any, docTyprId: number, status: boolean) {
-    this.files = data;
-    const document = new DocumentDto(this.files[0], docTyprId);
-    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
-    if (document.files) {
-      this.documentList.push(document);
-    } else {
-      this.documentList.forEach((doc, index) => {
-        if (doc.fileType === document.fileType) {
-          this.documentList.splice(index, 1);
-        }
-      });
+  if (code === Languages.SINHALA) {
+    this.langSinCheck = this.languageChangForm.value.langSin;
+    if (!this.langTamRegistered) {
+      this.langTamCheck = false;
+      this.languageChangForm.value.langTam = false;
     }
 
-    let workflowManatoryDocs = 0;
-    let uploadedMandatoryDocs = 0;
+    if (this.langSinCheck) {
+      this.fullNameSinhala.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)]);
+      this.fullNameSinhala.updateValueAndValidity();
+      this.nameWithInitialsSinhala.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.nameValidation)]);
+      this.nameWithInitialsSinhala.updateValueAndValidity();
+      this.currentAddressSinhala.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)]);
+      this.currentAddressSinhala.updateValueAndValidity();
+      this.permanentAddressSinhala.setValidators([
+        Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)]);
+      this.permanentAddressSinhala.updateValueAndValidity();
 
-    this.supportingDocs.forEach(doc => {
-      if  (doc.required) {
-        workflowManatoryDocs += 1;
+    } else {
+
+      this.fullNameSinhala.clearValidators();
+      this.fullNameSinhala.updateValueAndValidity();
+      this.nameWithInitialsSinhala.clearValidators();
+      this.nameWithInitialsSinhala.updateValueAndValidity();
+      this.permanentAddressSinhala.clearValidators();
+      this.permanentAddressSinhala.updateValueAndValidity();
+      this.currentAddressSinhala.clearValidators();
+      this.currentAddressSinhala.updateValueAndValidity();
+
+    }
+
+    this.fullNameTamil.clearValidators();
+    this.fullNameTamil.updateValueAndValidity();
+    this.nameWithInitialsTamil.clearValidators();
+    this.nameWithInitialsTamil.updateValueAndValidity();
+    this.permanentAddressTamil.clearValidators();
+    this.permanentAddressTamil.updateValueAndValidity();
+    this.currentAddressTamil.clearValidators();
+    this.currentAddressTamil.updateValueAndValidity();
+  }
+
+ }
+
+
+  // setFiles(data: any, docTyprId: number, status: boolean) {
+  //   this.files = data;
+  //   const document = new DocumentDto(this.files[0], docTyprId);
+  //   document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
+  //   if (document.files) {
+  //     this.documentList.push(document);
+  //   } else {
+  //     this.documentList.forEach((doc, index) => {
+  //       if (doc.fileType === document.fileType) {
+  //         this.documentList.splice(index, 1);
+  //       }
+  //     });
+  //   }
+  //
+  //   let workflowManatoryDocs = 0;
+  //   let uploadedMandatoryDocs = 0;
+  //
+  //   this.supportingDocs.forEach(doc => {
+  //     if  (doc.required) {
+  //       workflowManatoryDocs += 1;
+  //     }
+  //   });
+  //
+  //   this.documentList.forEach(doc => {
+  //     if (doc.status === CommonStatus.REQUIRED) {
+  //       uploadedMandatoryDocs += 1;
+  //     }
+  //   });
+  //
+  //   if (workflowManatoryDocs === uploadedMandatoryDocs) {
+  //     this.isRequiredDocsUpload = true;
+  //   } else {this.isRequiredDocsUpload = false; }
+  // }
+
+  setFiles(data: any, doc: any) {
+    doc.selected = true;
+    this.files = data;
+    let document = this.isDocumentAvailable(doc.docTypeId);
+    if (document) {
+      let index = this.documentList.findIndex((data: DocumentDto) => {
+        return data == document
+      });
+      if (data.length != 0) {
+        this.documentList[index].files = this.files[0];
+      } else {
+        this.documentList.splice(index, 1);
+      }
+    } else {
+      this.documentList.push(new DocumentDto(this.files[0], doc.docTypeId));
+    }
+    this.checkDocumentValidation();
+  }
+
+  checkDocumentValidation() {
+    let invalid = false;
+    this.supportingDocs.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.invalid = true;
+        invalid = true;
+      } else {
+        item.invalid = false;
+      }
+    });
+    return invalid;
+  }
+
+  documentMarkAsTouched(){
+    this.supportingDocs.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.selected = true;
+        item.error = false;
+        item.invalid = true;
       }
     });
 
-    this.documentList.forEach(doc => {
-      if (doc.status === CommonStatus.REQUIRED) {
-        uploadedMandatoryDocs += 1;
-      }
-    });
+  }
 
-    if (workflowManatoryDocs === uploadedMandatoryDocs) {
-      this.isRequiredDocsUpload = true;
-    } else {this.isRequiredDocsUpload = false; }
+  isDocumentAvailable(docTypeId: any): any {
+    return this.documentList.find((data: DocumentDto) => {
+        return data.fileType == docTypeId;
+      }
+    );
   }
 
   // Save language change request after payment

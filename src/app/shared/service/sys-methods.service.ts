@@ -10,11 +10,11 @@ export class SysMethodsService {
   constructor() {
   }
 
-  getBTOA(value: string): string {
+ public getBTOA(value: string): string {
     return btoa(value);
   }
 
-  getATOB(value: string): string {
+ public getATOB(value: string): string {
     return atob(value);
   }
 
@@ -119,6 +119,20 @@ export class SysMethodsService {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : {'pattern': true};
+  }
+
+  public getBase64(file): string {
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      return reader.result;
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+    return '';
   }
 
 }
