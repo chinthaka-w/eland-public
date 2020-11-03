@@ -11,6 +11,7 @@ import {LandRegistriesDTO} from '../dto/land-registries-dto';
 import {WorkflowStageDocTypeDTO} from '../dto/workflow-stage-doc-type-dto';
 import {CitizenDTO} from '../dto/citizen-dto';
 import {PublicUserDTO} from '../dto/public-user-dto';
+import {Notary} from '../dto/notary.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,15 @@ export class AuthorizeRequestService {
   }
 
   // tslint:disable-next-line:ban-types
-  saveNotaryDetails(formData: FormData): Observable<any> {
+  saveNotaryDetails(fileList: any, notaryDTO: Notary): Observable<any> {
+
+    const formData: FormData = new FormData();
+
+    fileList.forEach(doc => {
+      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+    });
+    formData.append('model', JSON.stringify(notaryDTO));
+
     return this.httpClient.post(this.BASE_URL + 'new-notary/', formData);
   }
 

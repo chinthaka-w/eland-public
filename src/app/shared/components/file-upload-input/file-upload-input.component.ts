@@ -32,6 +32,7 @@ export class FileUploadInputComponent implements OnInit {
 
   ngOnInit() {
     if (this.document && this.document.file) {
+
       this.files[0] = this.document.file;
       this.imagePreview(this.document.file);
     }
@@ -108,11 +109,15 @@ export class FileUploadInputComponent implements OnInit {
 
   imagePreview(file: any) {
     console.log('imagePreview', file);
+    if(file instanceof File){
     this.isPDF = file.type == FileTypes.PDF;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.imageSrc = reader.result as string;
     };
+    } else {
+      this.isPDF = file.type == FileTypes.PDF;
+    }
   }
 }

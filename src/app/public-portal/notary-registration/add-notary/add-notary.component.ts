@@ -59,6 +59,7 @@ import * as _ from 'lodash';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 import * as moment from 'moment';
 import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
+import {RequestData} from '../../../shared/dto/request-data.model';
 
 @Component({
   selector: 'app-add-notary',
@@ -195,13 +196,17 @@ export class AddNotaryComponent implements OnInit {
     return this.notaryForm.get('passedDate') as FormControl;
   }
 
+  get courtZone1(): FormControl {
+    return this.notaryForm.get('courtZone') as FormControl;
+  }
+
   constructor(private formBuilder: FormBuilder,
               private sanitizer: DomSanitizer,
               private tokenStorageService: TokenStorageService,
               private snackBar: SnackBarService,
               private router: Router,
               private systemService: SystemService,
-              private notaryService:NotaryService,
+              private notaryService: NotaryService,
               private authorizeRequestService: AuthorizeRequestService,
               private cdr: ChangeDetectorRef,
               private sysMethodsService: SysMethodsService) {
@@ -219,7 +224,7 @@ export class AddNotaryComponent implements OnInit {
       title: new FormControl('', [
         Validators.required]),
       fullNameInEnglish: new FormControl(null, [
-        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.required, this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)]),
       fullNameInSinhala: new FormControl(null, [
@@ -229,7 +234,7 @@ export class AddNotaryComponent implements OnInit {
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)]),
       englishNameWithInitials: new FormControl(null, [
-        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.required, this.sysMethodsService.noWhitespaceValidator,
         Validators.pattern(PatternValidation.nameValidation),
         Validators.maxLength(255)]),
       sinhalaNameWithInitials: new FormControl(null, [
@@ -246,48 +251,48 @@ export class AddNotaryComponent implements OnInit {
         asyncValidators: [this.nicValidator()],
         updateOn: 'blur'
       }),
-      email: new FormControl(null,{
-        validators: [Validators.required,
-          this.sysMethodsService.noWhitespaceValidator,
-          Validators.pattern(PatternValidation.emailValidation)],
+      email: new FormControl(null, {
+          validators: [Validators.required,
+            this.sysMethodsService.noWhitespaceValidator,
+            Validators.pattern(PatternValidation.emailValidation)],
           asyncValidators: [this.emailValidator()],
           updateOn: 'blur'
-      }
-        ),
+        }
+      ),
       languages: new FormControl(this.Languages.ENGLISH),
-      enrolledDate: new FormControl(null, [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
+      enrolledDate: new FormControl(null, [Validators.required, this.sysMethodsService.noWhitespaceValidator]),
       passedDate: new FormControl(null, [Validators.required]),
       dateOfBirth: new FormControl(null, [Validators.required]),
       courtZone: new FormControl('', [Validators.required]),
       permenentAddressInEnglish: new FormControl('', [
-        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.required, this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      permenentAddressInSinhala: new FormControl('',[
+      permenentAddressInSinhala: new FormControl('', [
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      permenentAddressInTamil: new FormControl('',[
+      permenentAddressInTamil: new FormControl('', [
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       currentAddressInEnglish: new FormControl('', [
-        Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.required, this.sysMethodsService.noWhitespaceValidator,
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      currentAddressInSinhala: new FormControl('',[
+      currentAddressInSinhala: new FormControl('', [
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      currentAddressInTamil: new FormControl('',[
+      currentAddressInTamil: new FormControl('', [
         Validators.maxLength(255),
         Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
       mobileNo: new FormControl('', [Validators.pattern(PatternValidation.contactNumberValidation)]),
-      contactNo: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.contactNumberValidation)]),
+      contactNo: new FormControl('', [Validators.required, this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.contactNumberValidation)]),
       landRegistry: new FormControl('', [Validators.required]),
       secretariatDivision: new FormControl('', [Validators.required]),
       gramaNiladhariDivision: new FormControl('', [Validators.required]),
       medium: new FormControl('', [Validators.required]),
       recaptcha: new FormControl(null, Validators.required),
       userName: new FormControl('', {
-        validators: [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.minLength(6)],
+        validators: [Validators.required, this.sysMethodsService.noWhitespaceValidator, Validators.minLength(6)],
         asyncValidators: [this.usernameValidator()],
         updateOn: 'blur'
       }),
@@ -298,7 +303,7 @@ export class AddNotaryComponent implements OnInit {
         switch (value) {
           case this.Languages.SINHALA:
             this.fullNameInSinhala.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)])
             this.fullNameInSinhala.updateValueAndValidity();
@@ -308,7 +313,7 @@ export class AddNotaryComponent implements OnInit {
             this.fullNameInTamil.updateValueAndValidity();
 
             this.sinhalaNameWithInitials.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)]);
             this.sinhalaNameWithInitials.updateValueAndValidity();
@@ -318,7 +323,7 @@ export class AddNotaryComponent implements OnInit {
             this.tamilNameWithInitials.updateValueAndValidity();
 
             this.permenentAddressInSinhala.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.permenentAddressInSinhala.updateValueAndValidity();
@@ -328,7 +333,7 @@ export class AddNotaryComponent implements OnInit {
             this.permenentAddressInTamil.updateValueAndValidity();
 
             this.currentAddressInSinhala.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.currentAddressInSinhala.updateValueAndValidity();
@@ -343,7 +348,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.fullNameInSinhala.updateValueAndValidity();
             this.fullNameInTamil.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)]);
             this.fullNameInTamil.updateValueAndValidity();
@@ -353,7 +358,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.sinhalaNameWithInitials.updateValueAndValidity();
             this.tamilNameWithInitials.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.nameValidation),
               Validators.maxLength(255)]);
             this.tamilNameWithInitials.updateValueAndValidity();
@@ -363,7 +368,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.permenentAddressInSinhala.updateValueAndValidity();
             this.permenentAddressInTamil.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.permenentAddressInTamil.updateValueAndValidity();
@@ -373,7 +378,7 @@ export class AddNotaryComponent implements OnInit {
               Validators.maxLength(255)]);
             this.currentAddressInSinhala.updateValueAndValidity();
             this.currentAddressInTamil.setValidators([
-              Validators.required,this.sysMethodsService.noWhitespaceValidator,
+              Validators.required, this.sysMethodsService.noWhitespaceValidator,
               Validators.pattern(PatternValidation.ADDRESS_PATTERN),
               Validators.maxLength(255)]);
             this.currentAddressInTamil.updateValueAndValidity();
@@ -423,6 +428,12 @@ export class AddNotaryComponent implements OnInit {
       this.nic.updateValueAndValidity();
     });
 
+    this.courtZone1.valueChanges.subscribe(
+      value => {
+        if (value) this.getLandRegistries(value);
+      }
+    );
+
     this.notaryForm.valueChanges.subscribe(value => {
       if (this.dsGnList.length != 0) {
         this.secretariatDivision.clearValidators();
@@ -435,18 +446,24 @@ export class AddNotaryComponent implements OnInit {
     this.getNameTitles();
     this.getDsDivisions();
     this.getJudicialZones();
-    // this.getLocalData();
+    this.getLocalData();
     this.getDocumentList();
   }
 
-  getLocalData(){
+  getLocalData() {
 
-    this.notaryForm.patchValue(JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data')));
-    this.documentList = JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File'));
-    console.log('notaryForm Data',JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data')));
-    console.log('notaryForm',this.notaryForm.value);
-    console.log('documentList File',JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File')));
-    console.log('documentList',this.documentList);
+    let requestData: RequestData = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
+    if (requestData) {
+      this.notaryForm.patchValue(JSON.parse(requestData.formData));
+      this.reCaptcha.setValue('');
+      if (requestData.documentData)
+        this.documentList = JSON.parse(requestData.documentData);
+      if (requestData.otherData1) {
+        let notary: any = JSON.parse(requestData.otherData1);
+        if (notary && notary.newNotaryDsDivisionDTO)
+          this.dsGnList = notary.newNotaryDsDivisionDTO;
+      }
+    }
   }
 
   usernameValidator(): AsyncValidatorFn {
@@ -501,19 +518,20 @@ export class AddNotaryComponent implements OnInit {
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       },
-      (error) => {},
-      ()=>{
-        // if(this.documentList.length>0){
-        //   for (let document of this.documentList) {
-        //     for (let doc of this.docList) {
-        //       if(document.fileType == doc.docTypeId) {
-        //         doc.file = document.files;
-        //         break;
-        //       }
-        //     }
-        //   }
-        //   this.checkDocumentValidation();
-        // }
+      (error) => {
+      },
+      () => {
+        if (this.documentList.length > 0) {
+          for (let document of this.documentList) {
+            for (let doc of this.docList) {
+              if (document.fileType == doc.docTypeId) {
+                doc.file = this.sysMethodsService.getFileFromDocumentDTO(document);
+                break;
+              }
+            }
+          }
+          this.checkDocumentValidation();
+        }
       }
     );
   }
@@ -528,11 +546,26 @@ export class AddNotaryComponent implements OnInit {
       });
       if (data.length != 0) {
         this.documentList[index].files = this.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+          this.documentList[index].fileBase64 = reader.result;
+        };
       } else {
         this.documentList.splice(index, 1);
       }
     } else {
-      this.documentList.push(new DocumentDto(this.files[0], doc.docTypeId));
+      let newDoc = new DocumentDto(this.files[0], doc.docTypeId);
+      newDoc.fileName = this.files[0].name;
+      newDoc.fileFormats = this.files[0].type;
+
+      let reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.onload = function () {
+        newDoc.fileBase64 = reader.result;
+      };
+
+      this.documentList.push(newDoc);
     }
     this.checkDocumentValidation();
   }
@@ -625,7 +658,7 @@ export class AddNotaryComponent implements OnInit {
     return invalid;
   }
 
-  documentMarkAsTouched(){
+  documentMarkAsTouched() {
     this.docList.forEach((item: WorkflowStageDocDto) => {
       if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
         item.selected = true;
@@ -679,47 +712,61 @@ export class AddNotaryComponent implements OnInit {
       this.notaryForm.value.currentAddressInEnglish,
       this.notaryForm.value.currentAddressInSinhala,
       this.notaryForm.value.currentAddressInTamil,
-      this.notaryForm.value.fullNameInEnglish, this.notaryForm.value.fullNameInSinhala, this.notaryForm.value.fullNameInTamil,
-      this.notaryForm.value.englishNameWithInitials, this.notaryForm.value.sinhalaNameWithInitials,
+      this.notaryForm.value.fullNameInEnglish,
+      this.notaryForm.value.fullNameInSinhala,
+      this.notaryForm.value.fullNameInTamil,
+      this.notaryForm.value.englishNameWithInitials,
+      this.notaryForm.value.sinhalaNameWithInitials,
       this.notaryForm.value.tamilNameWithInitials,
       this.notaryForm.value.title, null, null,
-      this.notaryForm.value.courtZone, this.notaryForm.value.landRegistry, this.dsGnList, this.notaryForm.value.languages,
-      this.notaryForm.value.enrolledDate, this.notaryForm.value.passedDate, this.notaryForm.value.medium, CommonStatus.PENDING, new Date(),
+      this.notaryForm.value.courtZone,
+      this.notaryForm.value.landRegistry,
+      this.dsGnList,
+      this.notaryForm.value.languages,
+      this.notaryForm.value.enrolledDate,
+      this.notaryForm.value.passedDate, this.notaryForm.value.medium, CommonStatus.PENDING, new Date(),
       this.notaryForm.value.userName, WorkflowStages.REGISTRATION_REQ_INITIALIZED,
       this.notaryForm.value.userName, this.paymentDataValue.paymentId,
-      null, null, null, null, this.paymentDataValue, this.notaryForm.value.title);
+      null, null, null, null,
+      this.paymentDataValue, this.notaryForm.value.title);
 
-    const formData = new FormData();
-    formData.append('data', JSON.stringify(this.notaryDetails));
-    this.documentList.forEach(doc => {
-      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
-    });
-
-    // this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data',JSON.stringify(this.notaryForm.value));
-    // this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File',JSON.stringify(this.documentList));
-    // this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Payment',JSON.stringify(this.paymentDataValue));
-
-    this.authorizeRequestService.saveNotaryDetails(formData).subscribe(
-      (notaryId: any) => {
-        this.userId = notaryId;
-        if (this.paymentMethod !== PaymentMethod.ONLINE) {
-          this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
-          this.router.navigate(['/login']);
-        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-          this.snackBar.success('Notary saved successfully, Proceed to online payment');
-          this.isPayment = true;
-          this.statusOnlinePayment = true;
-        } else {
-          this.snackBar.error('Operation failed');
+    // const formData = new FormData();
+    // formData.append('data', JSON.stringify(this.notaryDetails));
+    // this.documentList.forEach(doc => {
+    //   formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+    // });
+    if (this.paymentMethod !== PaymentMethod.ONLINE) {
+      this.authorizeRequestService.saveNotaryDetails(this.documentList, this.notaryDetails).subscribe(
+        (notaryId: any) => {
+          this.userId = notaryId;
+          if (this.paymentMethod !== PaymentMethod.ONLINE) {
+            this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
+            this.router.navigate(['/login']);
+          } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+            this.snackBar.success('Notary saved successfully, Proceed to online payment');
+            this.isPayment = true;
+            this.statusOnlinePayment = true;
+          } else {
+            this.snackBar.error('Operation failed');
+          }
+        },
+        error => {
+          this.snackBar.error('Failed');
         }
-      },
-      error => {
-        this.snackBar.error('Failed');
-      }
-    );
-    // console.log('Notary Form Data',this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data'));
-    // console.log('Notary Form File',this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File'));
-    // console.log('Notary Form Payment',this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Payment'));
+      );
+    } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+      let requestData = new RequestData();
+      requestData.formData = JSON.stringify(this.notaryForm.value);
+      requestData.documentData = JSON.stringify(this.documentList);
+      requestData.paymentData = JSON.stringify(this.paymentDataValue);
+      requestData.otherData1 = JSON.stringify(this.notaryDetails);
+
+      this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY, requestData);
+
+      // this.isPayment = true;
+      // this.statusOnlinePayment = true;
+    }
+    console.log('Notary Form Data', this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY));
   }
 
   private getGnDivisions(dsDivisionId: any): void {

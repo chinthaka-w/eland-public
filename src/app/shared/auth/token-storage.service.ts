@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserDetails} from '../dto/user-details.model';
 import {SessionService} from '../service/session.service';
+import {RequestData} from '../dto/request-data.model';
 
 const ACCESS_TOKEN_KEY = 'AccessToken';
 const REFRESH_TOKEN_KEY = 'RefreshToken';
@@ -60,12 +61,12 @@ export class TokenStorageService {
     return window.sessionStorage.getItem(LANGUAGE_KEY);
   }
 
-  public saveFormData(key: string, data: string) {
-    window.sessionStorage.setItem(key, data);
+  public saveFormData(key: string, data: RequestData) {
+    window.sessionStorage.setItem(key, JSON.stringify(data));
   }
 
-  public getFormData(key: string) {
-    return window.sessionStorage.getItem(key);
+  public getFormData(key: string) : RequestData{
+    return JSON.parse(window.sessionStorage.getItem(key));
   }
 
 }

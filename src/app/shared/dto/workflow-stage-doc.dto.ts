@@ -6,6 +6,9 @@ export class WorkflowStageDocDto {
   public error: boolean;
   public errorMsg: any;
   public file: any;
+  public fileBase64:any;
+  public fileFormats:string;
+  public fileName:string;
 
   constructor(
     public docId: number,

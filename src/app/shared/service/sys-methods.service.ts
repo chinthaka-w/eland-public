@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import * as moment from 'moment';
+import {DocumentDto} from '../dto/document-list';
 
 @Injectable({
   providedIn: 'root'
@@ -133,6 +134,23 @@ export class SysMethodsService {
       console.log('Error: ', error);
     };
     return '';
+  }
+
+  public getFileFromDocumentDTO(document:DocumentDto|any) :File{
+    let base64;
+    if (document.fileBase64.split(',').length == 2)
+      base64 = document.fileBase64.split(',')[1];
+    else
+     base64 = document.fileBase64.split(',')[0];
+
+    const byteString = window.atob(base64);
+      const arrayBuffer = new ArrayBuffer(byteString.length);
+      const int8Array = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < byteString.length; i++) {
+        int8Array[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([int8Array], { type: document.fileFormats });
+    return new File([blob], document.fileName, { type: document.fileFormats });
   }
 
 }
