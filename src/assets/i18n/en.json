@@ -922,6 +922,7 @@
        "REQUEST_APPROVED": "Approved",
        "RESIGN": "Resign",
        "INACTIVE": "Inactive",
+       "PARTIALLY_ACTIVE": "Partially Active",
        "FURTHER_DOC_SUBMISSION": "Further Details Submission"
 
     },
@@ -1221,7 +1222,8 @@
     "TITLE3":"Don’t have an account?",
     "TITLE4":"Sign Up here",
     "LOGIN":"Login",
-    "PASSWORD_INCORRECT":"Invalid Username or Password"
+    "PASSWORD_INCORRECT":"Invalid Username or Password",
+    "ACCOUNT_LOCKED":"This account has been suspended."
   },
   "FORGOT_PSWD":{
     "TYPE":"Welcome to E-Land",

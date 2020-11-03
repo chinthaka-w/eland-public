@@ -5,6 +5,13 @@
       <p>{{'LOGIN.TITLE2'|translate}}</p>
       <div class="form-wp">
         <form [formGroup]="loginForm">
+          <mat-card style="background-color:#f5bccf !important;" class="mb-10" *ngIf="loginForm.errors && formError">
+            <mat-card-content>
+              <mat-error>
+                {{ formError }}
+              </mat-error>
+            </mat-card-content>
+          </mat-card>
           <div class="hc-mat-input-wp">
             <mat-form-field appearance="outline fill">
               <mat-label>{{'LOGIN.USERNAME'|translate}}</mat-label>
@@ -29,11 +36,11 @@
           </div>
 
           <div class="hcf-inner-row">
-            <div *ngIf="loginForm.errors">
-              <mat-error>
-                {{ formError }}
-              </mat-error>
-            </div>
+            <!--<div *ngIf="loginForm.errors && formError">-->
+              <!--<mat-error>-->
+                <!--{{ formError }}-->
+              <!--</mat-error>-->
+            <!--</div>-->
             <a [routerLink]="['/forgot-password']">{{'LOGIN.FORGOT_PWD'|translate}}</a>
             <button mat-raised-button (click)="login()" [disabled]="!loginForm.valid">
               {{'LOGIN.LOGIN'|translate}}

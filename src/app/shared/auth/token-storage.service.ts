@@ -12,7 +12,9 @@ export class TokenStorageService {
 
   private loggedUser: string;
 
-  constructor(private sessionService:SessionService) {
+  public NEW_NOTARY_REGISTRATION_KEY = 'NewNotaryRegistration';
+
+  constructor(private sessionService: SessionService) {
   }
 
   signOut() {
@@ -54,8 +56,16 @@ export class TokenStorageService {
     window.sessionStorage.setItem(LANGUAGE_KEY, language);
   }
 
-  public getDefualtLanguage(): string{
+  public getDefualtLanguage(): string {
     return window.sessionStorage.getItem(LANGUAGE_KEY);
+  }
+
+  public saveFormData(key: string, data: string) {
+    window.sessionStorage.setItem(key, data);
+  }
+
+  public getFormData(key: string) {
+    return window.sessionStorage.getItem(key);
   }
 
 }

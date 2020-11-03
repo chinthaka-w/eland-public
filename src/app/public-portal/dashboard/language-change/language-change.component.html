@@ -19,7 +19,7 @@
             <div class="pg-inner-row mb-20">
               <div class="pg-inner-col right">
                 <div class="default-input-wrapper m0 rac-col">
-                  <label>{{'LANGUAGE_CHANGE.LANGUAGE'|translate}}<span class="redtxt">*</span></label>
+                  <label>{{'LANGUAGE_CHANGE.LANGUAGE'|translate}} <span class="redtxt">*</span></label>
                   <div class="default-input-feild">
                     <mat-checkbox formControlName="langSin" [(ngModel)]="langSinCheck" (change)="languageChange(langMode.SINHALA)">
                       {{'LANGUAGE_CHANGE.SINHALA'|translate}}
@@ -34,9 +34,7 @@
                 </div>
               </div>
             </div>
-            <div class="pg-inner-row mb-20">
-
-
+            <div style="display: none" class="pg-inner-row mb-20">
               <div class="pg-inner-col">
                 <mat-form-field appearance="outline">
                   <select matNativeControl  formControlName="title"  class="form-control">
@@ -62,10 +60,24 @@
                           formControlName="fullNameEng"
                         />
                     </mat-form-field>
+                  <div *ngIf="fullNameEnglish.touched && fullNameEnglish.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="fullNameEnglish.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="fullNameEnglish.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="fullNameEnglish.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
             <div *ngIf="langSinCheck" class="default-input-wrapper full-row">
-                <label>{{'LANGUAGE_CHANGE.FULLNAME_S'|translate}}</label>
+                <label>{{'LANGUAGE_CHANGE.FULLNAME_S'|translate}} <span class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -74,10 +86,24 @@
                           formControlName="fullNameSin"
                         />
                     </mat-form-field>
+                  <div *ngIf="fullNameSinhala.touched && fullNameSinhala.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="fullNameSinhala.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="fullNameSinhala.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="fullNameSinhala.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
             <div *ngIf="langTamCheck" class="default-input-wrapper full-row">
-                <label>{{'LANGUAGE_CHANGE.FULLNAME_T'|translate}}</label>
+                <label>{{'LANGUAGE_CHANGE.FULLNAME_T'|translate}} <span class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -86,6 +112,20 @@
                           formControlName="fullNameTam"
                         />
                     </mat-form-field>
+                  <div *ngIf="fullNameTamil.touched && fullNameTamil.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="fullNameTamil.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="fullNameTamil.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.FULL_NAME'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="fullNameTamil.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
             <div class="default-input-wrapper full-row">
@@ -98,10 +138,24 @@
                           formControlName="nameWithInitEng"
                         />
                     </mat-form-field>
+                  <div *ngIf="nameWithInitialsEnglish.touched && nameWithInitialsEnglish.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="nameWithInitialsEnglish.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="nameWithInitialsEnglish.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="nameWithInitialsEnglish.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
             <div *ngIf="langSinCheck" class="default-input-wrapper full-row">
-                <label>{{'LANGUAGE_CHANGE.NAME_INI_S'|translate}}</label>
+                <label>{{'LANGUAGE_CHANGE.NAME_INI_S'|translate}} <span class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -110,10 +164,24 @@
                           formControlName="nameWithInitSin"
                         />
                     </mat-form-field>
+                  <div *ngIf="nameWithInitialsSinhala.touched && nameWithInitialsSinhala.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="nameWithInitialsSinhala.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="nameWithInitialsSinhala.errors.pattern" class="errors">
+                      {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="nameWithInitialsSinhala.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
             <div *ngIf="langTamCheck" class="default-input-wrapper full-row">
-                <label>{{'LANGUAGE_CHANGE.NAME_INI_T'|translate}}</label>
+                <label>{{'LANGUAGE_CHANGE.NAME_INI_T'|translate}} <span class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
                         <input
@@ -122,6 +190,20 @@
                           formControlName="nameWithInitTam"
                         />
                     </mat-form-field>
+                  <div *ngIf="nameWithInitialsTamil.touched && nameWithInitialsTamil.errors"
+                       class="invalid-feedback">
+                    <mat-error *ngIf="nameWithInitialsTamil.errors.required" class="errors">
+                      {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                      {{'NOTARY.REQUIRED'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="nameWithInitialsTamil.errors.pattern" class="pattern">
+                      {{'CONTACT_DETAILS.NAME_WITH_INIT'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                      {{'NOTARY.INVALID'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="nameWithInitialsTamil.errors.maxlength" class="errors">
+                      {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                    </mat-error>
+                  </div>
                 </div>
             </div>
 
@@ -138,12 +220,27 @@
                                 >
                                 </textarea>
                             </mat-form-field>
+                          <div
+                            *ngIf="permanentAddressEnglish.touched && permanentAddressEnglish.errors"
+                            class="invalid-feedback">
+                            <mat-error *ngIf="permanentAddressEnglish.errors.required" class="errors">
+                              {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                              {{'NOTARY.REQUIRED'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="permanentAddressEnglish.errors.pattern" class="errors">
+                              {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                              {{'NOTARY.INVALID'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="permanentAddressEnglish.errors.maxlength" class="errors">
+                              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                            </mat-error>
+                          </div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf="langSinCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>{{'LANGUAGE_CHANGE.PER_ADD_S'|translate}}</label>
+                        <label>{{'LANGUAGE_CHANGE.PER_ADD_S'|translate}} <span class="redtxt">*</span></label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -152,12 +249,27 @@
                                 >
                                 </textarea>
                             </mat-form-field>
+                          <div
+                            *ngIf="permanentAddressSinhala.touched && permanentAddressSinhala.errors"
+                            class="invalid-feedback">
+                            <mat-error *ngIf="permanentAddressSinhala.errors.required" class="errors">
+                              {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                              {{'NOTARY.REQUIRED'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="permanentAddressSinhala.errors.pattern" class="errors">
+                              {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                              {{'NOTARY.INVALID'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="permanentAddressSinhala.errors.maxlength" class="errors">
+                              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                            </mat-error>
+                          </div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf="langTamCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>{{'LANGUAGE_CHANGE.PER_ADD_T'|translate}}</label>
+                        <label>{{'LANGUAGE_CHANGE.PER_ADD_T'|translate}} <span class="redtxt">*</span></label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -167,6 +279,20 @@
                                 >
                                 </textarea>
                             </mat-form-field>
+                          <div *ngIf="permanentAddressTamil.touched && permanentAddressTamil.errors"
+                               class="invalid-feedback">
+                            <mat-error *ngIf="permanentAddressTamil.errors.required" class="errors">
+                              {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                              {{'NOTARY.REQUIRED'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="permanentAddressTamil.errors.pattern" class="errors">
+                              {{'CONTACT_DETAILS.PERMANENT_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                              {{'NOTARY.INVALID'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="permanentAddressTamil.errors.maxlength" class="errors">
+                              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                            </mat-error>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -175,7 +301,7 @@
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_E'|translate}}</label>
+                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_E'|translate}} </label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea disabled
@@ -185,12 +311,26 @@
                                 >
                                 </textarea>
                             </mat-form-field>
+                          <div *ngIf="currentAddressEnglish.touched && currentAddressEnglish.errors"
+                               class="invalid-feedback">
+                            <mat-error *ngIf="currentAddressEnglish.errors.required" class="errors">
+                              {{'CONTACT_DETAILS.CURRENT_OFFICE_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                              {{'NOTARY.REQUIRED'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="currentAddressEnglish.errors.pattern" class="errors">
+                              {{'CONTACT_DETAILS.CURRENT_OFFICE_ADDRESS'|translate}} ({{'NOTIFICATION.ENG'|translate}})
+                              {{'NOTARY.INVALID'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="currentAddressEnglish.errors.maxlength" class="errors">
+                              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                            </mat-error>
+                          </div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf="langSinCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_S'|translate}}</label>
+                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_S'|translate}} <span class="redtxt">*</span></label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -200,12 +340,26 @@
                                 >
                                 </textarea>
                             </mat-form-field>
+                          <div *ngIf="currentAddressSinhala.touched && currentAddressSinhala.errors"
+                               class="invalid-feedback">
+                            <mat-error *ngIf="currentAddressSinhala.errors.required" class="errors">
+                              {{'CONTACT_DETAILS.CURRENT_OFFICE_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                              {{'NOTARY.REQUIRED'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="currentAddressSinhala.errors.pattern" class="errors">
+                              {{'CONTACT_DETAILS.CURRENT_OFFICE_ADDRESS'|translate}} ({{'NOTIFICATION.SIN'|translate}})
+                              {{'NOTARY.INVALID'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="currentAddressSinhala.errors.maxlength" class="errors">
+                              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                            </mat-error>
+                          </div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf="langTamCheck" class="pg-inner-col-3">
                     <div class="default-input-wrapper full-row">
-                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_T'|translate}}</label>
+                        <label>{{'LANGUAGE_CHANGE.CUR_ADD_T'|translate}} <span class="redtxt">*</span></label>
                         <div class="default-input-feild">
                             <mat-form-field appearance="outline">
                                 <textarea
@@ -215,6 +369,20 @@
                                 >
                                 </textarea>
                             </mat-form-field>
+                          <div *ngIf="currentAddressTamil.touched && currentAddressTamil.errors"
+                               class="invalid-feedback">
+                            <mat-error *ngIf="currentAddressTamil.errors.required" class="errors">
+                              {{'CONTACT_DETAILS.CURRENT_OFFICE_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                              {{'NOTARY.REQUIRED'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="currentAddressTamil.errors.pattern" class="errors">
+                              {{'CONTACT_DETAILS.CURRENT_OFFICE_ADDRESS'|translate}} ({{'NOTIFICATION.TAM'|translate}})
+                              {{'NOTARY.INVALID'|translate}}
+                            </mat-error>
+                            <mat-error *ngIf="currentAddressTamil.errors.maxlength" class="errors">
+                              {{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}
+                            </mat-error>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -344,7 +512,11 @@
                       <label>{{document.description|listTranslate:document.descriptionSin:document.descriptionTam}}
                         <span style="color: red">*</span>
                       </label>
-                      <file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>
+                      <file-upload-input [document]="document"
+                                         [invalid]="document.invalid && document.selected"
+                                         (response)="setFiles($event,document)"></file-upload-input>
+                      <mat-error *ngIf="!document.error && document.invalid && document.selected">Document required</mat-error>
+                      <mat-error *ngIf="document.error">{{document.errorMsg}}</mat-error>
                     </div>
                   </div>
                 </ng-container>
@@ -355,8 +527,8 @@
             <div class="pg-inner-row mb-20">
                 <div class="pg-inner-col"></div>
               <div class="pg-inner-col float-right ">
-
-                    <button mat-raised-button class="lg-button float-right"  [disabled]="!(isRequiredDocsUpload)" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
+                <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+                    <button mat-raised-button class="lg-button float-right" (click)="continue()"> {{'BUTTONS.CONTINUE_BUTTON'|translate}} </button>
                 </div>
             </div>
         </form>

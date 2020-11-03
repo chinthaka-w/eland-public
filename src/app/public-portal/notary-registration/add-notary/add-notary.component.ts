@@ -435,7 +435,18 @@ export class AddNotaryComponent implements OnInit {
     this.getNameTitles();
     this.getDsDivisions();
     this.getJudicialZones();
+    // this.getLocalData();
     this.getDocumentList();
+  }
+
+  getLocalData(){
+
+    this.notaryForm.patchValue(JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data')));
+    this.documentList = JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File'));
+    console.log('notaryForm Data',JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data')));
+    console.log('notaryForm',this.notaryForm.value);
+    console.log('documentList File',JSON.parse(this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File')));
+    console.log('documentList',this.documentList);
   }
 
   usernameValidator(): AsyncValidatorFn {
@@ -489,6 +500,20 @@ export class AddNotaryComponent implements OnInit {
     this.authorizeRequestService.getDocuments(NewNotaryRegistrationWorkflowStage.NOTARY_REGISTRATION_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
+      },
+      (error) => {},
+      ()=>{
+        // if(this.documentList.length>0){
+        //   for (let document of this.documentList) {
+        //     for (let doc of this.docList) {
+        //       if(document.fileType == doc.docTypeId) {
+        //         doc.file = document.files;
+        //         break;
+        //       }
+        //     }
+        //   }
+        //   this.checkDocumentValidation();
+        // }
       }
     );
   }
@@ -670,6 +695,10 @@ export class AddNotaryComponent implements OnInit {
       formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
     });
 
+    // this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data',JSON.stringify(this.notaryForm.value));
+    // this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File',JSON.stringify(this.documentList));
+    // this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Payment',JSON.stringify(this.paymentDataValue));
+
     this.authorizeRequestService.saveNotaryDetails(formData).subscribe(
       (notaryId: any) => {
         this.userId = notaryId;
@@ -688,6 +717,9 @@ export class AddNotaryComponent implements OnInit {
         this.snackBar.error('Failed');
       }
     );
+    // console.log('Notary Form Data',this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Data'));
+    // console.log('Notary Form File',this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'File'));
+    // console.log('Notary Form Payment',this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY+'Payment'));
   }
 
   private getGnDivisions(dsDivisionId: any): void {

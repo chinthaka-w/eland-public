@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
   folioPending = false;
   folioNo = '3/Y/1/1';
+  loading:boolean = false;
 
   returnUrl: any;
 
@@ -76,13 +77,17 @@ export class DashboardComponent implements OnInit {
   }
 
   getUserDetails() {
+    this.loading = true;
     if (this.user.type === UserType.NOTARY) {
       this.notaryService.getNotaryRequestDetails(this.user.id).subscribe(
         (data: RequestSearchDetailDTO) => {
           this.searchDetails = data;
         },
-        (error)=>{},
+        (error)=>{
+          this.loading = false;
+        },
         ()=>{
+          this.loading = false;
           if (this.searchDetails && this.searchDetails.name) {
             this.user.nameEng = this.searchDetails.name;
             this.sessionService.setUser(this.user);
@@ -94,8 +99,9 @@ export class DashboardComponent implements OnInit {
         (response: RequestSearchDetailDTO) => {
           this.searchDetails = response;
         },
-        (error)=>{},
+        (error)=>{this.loading = false;},
         ()=>{
+          this.loading = false;
           if (this.searchDetails && this.searchDetails.name) {
             this.user.nameEng = this.searchDetails.name;
 
