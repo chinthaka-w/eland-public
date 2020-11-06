@@ -1,8 +1,9 @@
 export class PaymentResponse {
   public paymentId: number;
   public deliveryType: number;
+  public deliveryFee: any;
   public paymentMethod: number;
-  public paymentStatusCode: number;
+  public paymentStatusCode: any;
   public paymentStatusMsg: string;
   public encriptedPaymentResponse: string;
   public clientPaymentRequest: string;

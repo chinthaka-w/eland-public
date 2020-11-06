@@ -14,6 +14,7 @@ export class TokenStorageService {
   private loggedUser: string;
 
   public NEW_NOTARY_REGISTRATION_KEY = 'NewNotaryRegistration';
+  public CITIZEN_REGISTRATION_KEY = 'CitizenRegistration';
 
   constructor(private sessionService: SessionService) {
   }
@@ -61,12 +62,15 @@ export class TokenStorageService {
     return window.sessionStorage.getItem(LANGUAGE_KEY);
   }
 
-  public saveFormData(key: string, data: RequestData) {
+  public saveFormData(key: string, data: any) {
     window.sessionStorage.setItem(key, JSON.stringify(data));
   }
 
-  public getFormData(key: string) : RequestData{
+  public getFormData(key: string) : any{
     return JSON.parse(window.sessionStorage.getItem(key));
   }
 
+  public removeFormData(key: string) {
+    window.sessionStorage.removeItem(key);
+  }
 }

@@ -12,7 +12,9 @@
         <label>{{'CITIZEN.TITLE'|translate}}
           <span>*</span></label>
         <div class="default-input-feild gray">
-            <mat-select placeholder="{{'CITIZEN.SELECT_LAND_REG'|translate}}" formControlName="nearestLr" (selectionChange)="getCurrentLandRegistry(nearestLr.value)">
+            <mat-select placeholder="{{'CITIZEN.SELECT_LAND_REG'|translate}}" formControlName="nearestLr"
+            >
+                        <!--(selectionChange)="getCurrentLandRegistry(nearestLr.value)"-->
               <mat-option *ngFor="let landRegistry of landRegistriesDTOList" [value]="landRegistry.landRegistryId">{{landRegistry.name|listTranslate:landRegistry.nameSin:landRegistry.nameTam}}</mat-option>
             </mat-select>
             <mat-spinner [diameter]="16" *ngIf="!isLrLoaded" class="spinner-input"></mat-spinner>
@@ -26,7 +28,8 @@
       <div class="default-input-wrapper full-row half-cols">
         <label>{{'CITIZEN.USER_TYPE'|translate}}<span>*</span></label>
         <div class="default-input-feild gray">
-            <mat-select placeholder="{{'CITIZEN.SELECT'|translate}}" formControlName="type" required (selectionChange)="getCurrentUserType(type.value)">
+            <mat-select placeholder="{{'CITIZEN.SELECT'|translate}}" formControlName="type" required>
+                        <!--(selectionChange)="getCurrentUserType(type.value)"-->
               <mat-option value="{{PublicUserType.CITIZEN}}">{{'CITIZEN.CITIZEN'|translate}}</mat-option>
               <mat-option value="{{PublicUserType.BANK}}">{{'CITIZEN.BANK'|translate}}</mat-option>
               <mat-option value="{{PublicUserType.LAWYER}}">{{'CITIZEN.LAWYER'|translate}}</mat-option>
@@ -148,7 +151,8 @@
           <div class="default-input-feild gray">
 
             <mat-select placeholder="{{'CITIZEN.SELECT_BANK'|translate}}" formControlName="bankName" required
-              (selectionChange)="getCurrentBank($event)">
+            >
+              <!--(selectionChange)="getCurrentBank($event)"-->
               <mat-option *ngFor="let bank of banks" [value]="bank.bankId">
                 {{bank.bankName|listTranslate:bank.bankNameSin:bank.bankNameTam}}</mat-option>
             </mat-select>
@@ -165,7 +169,8 @@
           <div class="default-input-feild gray">
 
             <mat-select placeholder="{{'CITIZEN.SELECT_BANK_BRANCH'|translate}}" formControlName="bankBranch" required
-              (selectionChange)="selectBranch(bankBranch.value)">
+            >
+              <!--(selectionChange)="selectBranch(bankBranch.value)"-->
               <mat-option *ngFor="let bankBranch of bankBranches" [value]="bankBranch.id">
                 {{bankBranch.description|listTranslate:bankBranch.descriptionSin:bankBranch.descriptionTam}}</mat-option>
             </mat-select>
@@ -225,7 +230,9 @@
         <label class="mw-200">{{'CITIZEN.IDENT_TYPE'|translate}} <span>*</span></label>
         <div class="default-input-feild gray">
 
-            <mat-select placeholder="{{'CITIZEN.SELECT_IDEN_TYP'|translate}}" formControlName="identificationType" matNativeControl required (selectionChange)="getCurrentIdentificationType($event)">
+            <mat-select placeholder="{{'CITIZEN.SELECT_IDEN_TYP'|translate}}" formControlName="identificationType" matNativeControl required
+            >
+                        <!--(selectionChange)="getCurrentIdentificationType($event.value)"-->
               <mat-option value="{{identificationType.NIC}}" >{{'CITIZEN.NIC'|translate}}</mat-option>
               <mat-option value="{{identificationType.PASSPORT}}" >{{'CITIZEN.PASSPORT'|translate}}</mat-option>
               <mat-option value="{{identificationType.DRIVING_LICENSE}}" >{{'CITIZEN.DRIVING_LIC'|translate}}</mat-option>

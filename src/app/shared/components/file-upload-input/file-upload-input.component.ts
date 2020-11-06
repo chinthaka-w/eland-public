@@ -56,7 +56,6 @@ export class FileUploadInputComponent implements OnInit {
       file.objectURL = this.sanitizer.bypassSecurityTrustUrl(
         window.URL.createObjectURL(files[i])
       );
-
       if (files[i].type !== FileTypes.JPEG && files[i].type !== FileTypes.PDF && files[i].type !== FileTypes.PNG) {
         this.errorMsg = this.systemService.getTranslation('VALIDATION.INVALID_FILE_ERR');
         if (this.document) {
@@ -108,16 +107,11 @@ export class FileUploadInputComponent implements OnInit {
   }
 
   imagePreview(file: any) {
-    console.log('imagePreview', file);
-    if(file instanceof File){
     this.isPDF = file.type == FileTypes.PDF;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.imageSrc = reader.result as string;
     };
-    } else {
-      this.isPDF = file.type == FileTypes.PDF;
-    }
   }
 }

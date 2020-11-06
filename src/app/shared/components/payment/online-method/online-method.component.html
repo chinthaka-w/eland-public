@@ -1,76 +1,59 @@
 <mat-card>
   <div class="hc-component-wrapper payment">
-    <div class="hc-component-img" style="background-image: url('assets/images/temp_img_004.jpg')"></div>
+    <div *ngIf="!showPaymentResult" class="hc-component-img" style="background-image: url('assets/images/temp_img_004.jpg')"></div>
     <div class="hc-component-content">
-      <div class="pce-container">
-        <form [formGroup]="onlinePaymentForm">
+      <div [hidden]="showPaymentResult">
+        <div class="pce-container">
+          <form [formGroup]="onlinePaymentForm">
 
-          <div class="full-row mb-50" *ngIf="showPaymentResult">
-            <label class="pg-inner-col-3"> {{'PAYMENT.ONLINE_METHOD.TRANS_STATUS'|translate}} :</label>
-            <label><strong [ngStyle]="result?.paymentStatusCode == 'FAIL'?{color:'red'}:{color:'green'}">{{result?.paymentStatusMsg}}</strong></label>
-            <!--<div class="default-input-feild">-->
-            <!--<mat-form-field appearance="outline">-->
-            <!--<input matInput class="form-control" formControlName="paymentStatusMsg" />-->
-            <!--</mat-form-field>-->
-            <!--</div>-->
-          </div>
+            <div class="full-row mb-50" *ngIf="showPaymentResult">
+              <label class="pg-inner-col-3"> {{'PAYMENT.ONLINE_METHOD.TRANS_STATUS'|translate}} :</label>
+              <label>
+                <strong [ngStyle]="result?.paymentStatusCode === CommonStatus.FAIL?{color:'red'}:{color:'green'}">
+                  {{result?.paymentStatusCode=== CommonStatus.FAIL?'Transaction Failed!':'Payment Successful!'}}</strong>
+              </label>
+            </div>
 
-          <!-- <div class="default-input-wrapper full-row mb-30">
-              <label>{{'PAYMENT.ONLINE_METHOD.SERVICE_CODE'|translate}}</label>
-              <div class="default-input-feild">
-                  <mat-form-field appearance="outline">
-                      <input matInput class="form-control" formControlName="serviceCode" />
-                  </mat-form-field>
-              </div>
-          </div> -->
 
-          <!--<div class="full-row mb-50">-->
-            <!--<label class="pg-inner-col-3">{{'PAYMENT.ONLINE_METHOD.TRANS_REF_NO'|translate}} :</label>-->
-            <!--<label><strong>{{result?.transactionRef}}</strong></label>-->
-            <!--<div class="default-input-feild">-->
-            <!--<mat-form-field appearance="outline">-->
-            <!--<input matInput class="form-control" formControlName="transactionRef" />-->
-            <!--</mat-form-field>-->
-            <!--</div>-->
-          <!--</div>-->
+            <div class="full-row mb-50">
+              <label class="pg-inner-col-3">{{'PAYMENT.AMOUNT'|translate}} :</label>
+              <label><strong>{{applicationAmount.value| currency: 'LKR': 'Rs.'}}</strong></label>
+            </div>
 
-          <div class="full-row mb-50">
-            <label class="pg-inner-col-3">{{'PAYMENT.AMOUNT'|translate}} :</label>
-            <label><strong>{{applicationAmount.value| currency: 'LKR': 'Rs.'}}</strong></label>
-            <!--<div class="default-input-feild">-->
-              <!--<mat-form-field appearance="outline">-->
-                <!--<input [value]="applicationAmount.value | currency: 'LKR': 'Rs.'" matInput class="form-control"-->
-                       <!--formControlName="applicationAmount"/>-->
-              <!--</mat-form-field>-->
-            <!--</div>-->
-          </div>
+            <div class="full-row mb-50" *ngIf="showPaymentResult">
+              <label class="pg-inner-col-3">{{'PAYMENT.ONLINE_METHOD.TOTAL_AMOUNT'|translate}} :</label>
+              <label><strong>{{result?.totalFee| currency: 'LKR': 'Rs.'}}</strong></label>
+            </div>
 
-          <div class="full-row mb-50" *ngIf="showPaymentResult">
-            <label class="pg-inner-col-3">{{'PAYMENT.ONLINE_METHOD.TOTAL_AMOUNT'|translate}} :</label>
-            <label><strong>{{result?.totalFee| currency: 'LKR': 'Rs.'}}</strong></label>
-            <!--<div class="default-input-feild">-->
-              <!--<mat-form-field appearance="outline">-->
-                <!--<input [value]="totalFee.value | currency: 'LKR': 'Rs.'" matInput class="form-control"-->
-                       <!--formControlName="totalFee"/>-->
-              <!--</mat-form-field>-->
-            <!--</div>-->
-          </div>
+            <input type="hidden" *ngIf="showEncryptedPaymentRequest"
+                   name="clientPaymentRequest"
+                   formControlName="encryptedPaymentRequest"/>
 
-          <input type="hidden" *ngIf="showEncryptedPaymentRequest"
-                 name="clientPaymentRequest"
-                 formControlName="encryptedPaymentRequest"
-          />
-
-        </form>
+          </form>
+        </div>
+        <div class="hc-component-bottom">
+          <span class="bt-line">&nbsp;</span>
+          <button [disabled]="!enablePayment && !showPaymentResult" mat-raised-button class="button green"
+                  (click)="ConfirmPayment()">
+            {{showPaymentResult?('PAYMENT.CONTINUE'|translate):('PAYMENT.ONLINE_METHOD.PAY'|translate)}}
+            <mat-spinner [diameter]="16" *ngIf="!enablePayment && !showPaymentResult"
+                         class="spinner-inline"></mat-spinner>
+          </button>
+        </div>
       </div>
-      <div class="hc-component-bottom">
-        <span class="bt-line">&nbsp;</span>
-        <button [disabled]="!enablePayment && !showPaymentResult" mat-raised-button class="button green"
-                (click)="ConfirmPayment()">
-          {{showPaymentResult?('PAYMENT.CONTINUE'|translate):('PAYMENT.ONLINE_METHOD.PAY'|translate)}}
-          <mat-spinner [diameter]="16" *ngIf="!enablePayment && !showPaymentResult"
-                       class="spinner-inline"></mat-spinner>
-        </button>
+      <div *ngIf="showPaymentResult">
+        <div class="pce-container">
+            <div *ngIf="!isLoading" class="text-center">
+              <span class="material-icons" [style.color]="isPaymentFailed?'#da1b1b':'#27ae60'" style="font-size:60px;" >{{isPaymentFailed?'error':'check_circle'}}</span>
+              <h4>{{isPaymentFailed?'Transaction unsuccessful':'Payment successful!'}}</h4>
+              <p>{{isPaymentFailed?'Please try again':'Your payment information has been sent to your email'}}</p>
+              <button mat-raised-button *ngIf="isPaymentFailed" class="mr-20" (click)="onCancel()">Cancel</button>
+              <button mat-raised-button (click)="resultConfirm()">{{isPaymentFailed?'Try again':'Ok'}}</button>
+            </div>
+          <div *ngIf="isLoading" style="justify-content: center !important; display: flex;">
+              <mat-spinner [diameter]="60"></mat-spinner>
+          </div>
+        </div>
       </div>
     </div>
   </div>

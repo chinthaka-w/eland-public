@@ -9,11 +9,15 @@
           <label *ngIf="workflowCode==Workflow.EXTRACT_REQUEST"><strong>{{'PAYMENT.EXTRACT_ISSUE'|translate}}</strong>{{'PAYMENT.EXTRACT_WAY'|translate}}</label>
           <div class="default-input-feild">
             <mat-radio-group formControlName="licenseMethod" class="form-control"
-              (change)="onChangeIssueMethod($event)">
-              <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_HAND">{{'PAYMENT.BY_HAND'|translate}}</mat-radio-button>
-              <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_POST_NORMAL">{{'PAYMENT.BY_POST_NO'|translate}}
+                             (change)="onChangeIssueMethod($event)">
+              <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_HAND">
+                {{'PAYMENT.BY_HAND'|translate}}
               </mat-radio-button>
-              <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_POST_REGISTERED">{{'PAYMENT.BY_POST_RE'|translate}}
+              <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_POST_NORMAL">
+                {{'PAYMENT.BY_POST_NO'|translate}}
+              </mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="DocumentIssueMethod.BY_POST_REGISTERED">
+                {{'PAYMENT.BY_POST_RE'|translate}}
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -22,13 +26,16 @@
           <label><strong>{{'PAYMENT.PAYMENT'|translate}}</strong>{{'PAYMENT.PAYMENT_METHOD'|translate}}</label>
           <div class="default-input-feild">
             <mat-radio-group formControlName="paymentMethod" class="form-control"
-              (change)="onChangePaymentMethod($event);">
+                             (change)="onChangePaymentMethod($event);">
               <!--(change)="setPaymentMethod(this.paymentForm.value.paymentMethod)"-->
-              <mat-radio-button class="example-margin" [value]="PaymentMethod.ONLINE">{{'PAYMENT.ONLINE'|translate}}</mat-radio-button>
-              <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">{{'PAYMENT.BANK_TR_DE'|translate}}
+              <mat-radio-button class="example-margin" [value]="PaymentMethod.ONLINE">{{'PAYMENT.ONLINE'|translate}}
+              </mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">
+                {{'PAYMENT.BANK_TR_DE'|translate}}
               </mat-radio-button>
               <!--<mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_SLIP">Bank Slip</mat-radio-button>-->
-              <mat-radio-button *ngIf="hasFrontCounterPayment" class="example-margin" [value]="PaymentMethod.FRONT_COUNTER">{{'PAYMENT.FRONT_COUNTER'|translate}}
+              <mat-radio-button *ngIf="hasFrontCounterPayment" class="example-margin"
+                                [value]="PaymentMethod.FRONT_COUNTER">{{'PAYMENT.FRONT_COUNTER'|translate}}
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -67,15 +74,17 @@
 </form>
 
 <app-online-method
- *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
- [paymentAmount]="totalAmount"
- [transactionRef] = "paymentReference"
- [returnUrl] = "newReturnUrl"
- [workflowStageCode]= "workflowStageCode"
- [userType]="userType"
- [userId]="userId"
- >
- </app-online-method>
+  *ngIf="statusOnlinePayment && paymentMethod === PaymentMethod.ONLINE"
+  [paymentAmount]="totalAmount"
+  [deliveryType]="isDocumentCollect?issueMethod:0"
+  [deliveryAmount]="issueAmount"
+  [transactionRef]="paymentReference"
+  [returnUrl]="newReturnUrl"
+  [workflowStageCode]="workflowStageCode"
+  [userType]="userType"
+  [userId]="userId"
+>
+</app-online-method>
 <app-payment-method
   *ngIf="isContinueToPayment && paymentMethod==PaymentMethod.BANK_TRANSFER_OR_DIPOSIT"
   (response)="onPaymentResponseFromBankSlip($event)"

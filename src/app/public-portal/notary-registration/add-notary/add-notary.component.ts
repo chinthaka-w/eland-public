@@ -60,6 +60,7 @@ import {SysMethodsService} from '../../../shared/service/sys-methods.service';
 import * as moment from 'moment';
 import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
 import {RequestData} from '../../../shared/dto/request-data.model';
+import {TempData} from '../../../shared/dto/temp-data.model';
 
 @Component({
   selector: 'app-add-notary',
@@ -446,23 +447,30 @@ export class AddNotaryComponent implements OnInit {
     this.getNameTitles();
     this.getDsDivisions();
     this.getJudicialZones();
-    this.getLocalData();
+    this.getTempData();
     this.getDocumentList();
   }
 
-  getLocalData() {
+  getTempData() {
 
-    let requestData: RequestData = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
-    if (requestData) {
-      this.notaryForm.patchValue(JSON.parse(requestData.formData));
-      this.reCaptcha.setValue('');
-      if (requestData.documentData)
-        this.documentList = JSON.parse(requestData.documentData);
-      if (requestData.otherData1) {
-        let notary: any = JSON.parse(requestData.otherData1);
-        if (notary && notary.newNotaryDsDivisionDTO)
-          this.dsGnList = notary.newNotaryDsDivisionDTO;
-      }
+    let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
+    if (tempDataId) {
+      this.authorizeRequestService.getTempDataById(tempDataId).subscribe(
+        (tempData:TempData) => {
+          if(tempData){
+            let requestData:RequestData = JSON.parse(tempData.tempData);
+
+            this.notaryForm.patchValue(JSON.parse(requestData.formData));
+            this.reCaptcha.setValue('');
+            if (requestData.documentData)
+              this.documentList = JSON.parse(requestData.documentData);
+            if (requestData.otherData1) {
+              let notary: any = JSON.parse(requestData.otherData1);
+              if (notary && notary.newNotaryDsDivisionDTO)
+                this.dsGnList = notary.newNotaryDsDivisionDTO;
+            }
+          }
+        });
     }
   }
 
@@ -526,6 +534,7 @@ export class AddNotaryComponent implements OnInit {
             for (let doc of this.docList) {
               if (document.fileType == doc.docTypeId) {
                 doc.file = this.sysMethodsService.getFileFromDocumentDTO(document);
+                document.files = doc.file;
                 break;
               }
             }
@@ -548,8 +557,11 @@ export class AddNotaryComponent implements OnInit {
         this.documentList[index].files = this.files[0];
         let reader = new FileReader();
         reader.readAsDataURL(this.files[0]);
+        let this2 = this;
+        this2.documentList[index].fileName = this.files[0].name;
+        this2.documentList[index].fileFormats = this.files[0].type;
         reader.onload = function () {
-          this.documentList[index].fileBase64 = reader.result;
+          this2.documentList[index].fileBase64 = reader.result;
         };
       } else {
         this.documentList.splice(index, 1);
@@ -730,11 +742,6 @@ export class AddNotaryComponent implements OnInit {
       null, null, null, null,
       this.paymentDataValue, this.notaryForm.value.title);
 
-    // const formData = new FormData();
-    // formData.append('data', JSON.stringify(this.notaryDetails));
-    // this.documentList.forEach(doc => {
-    //   formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
-    // });
     if (this.paymentMethod !== PaymentMethod.ONLINE) {
       this.authorizeRequestService.saveNotaryDetails(this.documentList, this.notaryDetails).subscribe(
         (notaryId: any) => {
@@ -742,10 +749,7 @@ export class AddNotaryComponent implements OnInit {
           if (this.paymentMethod !== PaymentMethod.ONLINE) {
             this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
             this.router.navigate(['/login']);
-          } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-            this.snackBar.success('Notary saved successfully, Proceed to online payment');
-            this.isPayment = true;
-            this.statusOnlinePayment = true;
+            this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
           } else {
             this.snackBar.error('Operation failed');
           }
@@ -761,12 +765,19 @@ export class AddNotaryComponent implements OnInit {
       requestData.paymentData = JSON.stringify(this.paymentDataValue);
       requestData.otherData1 = JSON.stringify(this.notaryDetails);
 
-      this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY, requestData);
+      let tempData = new TempData();
+      tempData.tempData = JSON.stringify(requestData);
+      tempData.status = CommonStatus.ACTIVE;
 
-      // this.isPayment = true;
-      // this.statusOnlinePayment = true;
+      this.authorizeRequestService.saveTempData(tempData).subscribe(
+        (tempData: TempData) => {
+          this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY, tempData.tempDataId);
+          this.isPayment = true;
+          this.statusOnlinePayment = true;
+        }
+      );
     }
-    console.log('Notary Form Data', this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY));
+
   }
 
   private getGnDivisions(dsDivisionId: any): void {
@@ -850,6 +861,7 @@ export class AddNotaryComponent implements OnInit {
   }
 
   getPaymentData(paymentData: PaymentResponse) {
+    this.paymentMethod = paymentData.paymentMethod;
     if (this.paymentMethod !== PaymentMethod.ONLINE) {
       this.paymentDto.paymentId = paymentData.paymentId;
       this.paymentDataValue = this.paymentDto;
