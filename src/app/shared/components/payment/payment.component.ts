@@ -140,7 +140,7 @@ export class PaymentComponent implements OnInit, OnChanges {
         } else if (this.workflowCode == this.Workflow.EXTRACT_REQUEST) {
           this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_NORMAL_AMOUNT);
         } else if (this.workflowCode == this.Workflow.NOTARY_NAME_CHANGE) {
-          this.getIssueOptionAmount(this.Parameter.NOTARY_NAME_CHG);
+          this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_NORMAL_AMOUNT);
         }
         break;
       }
@@ -149,6 +149,8 @@ export class PaymentComponent implements OnInit, OnChanges {
           this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_REGISTERED_AMOUNT);
         } else if (this.workflowCode == this.Workflow.EXTRACT_REQUEST) {
           this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_REGISTERED_AMOUNT);
+        } else if (this.workflowCode == this.Workflow.NOTARY_NAME_CHANGE) {
+          this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_REGISTERED_AMOUNT);
         }
         break;
       }

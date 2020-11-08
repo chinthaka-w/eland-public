@@ -185,12 +185,16 @@ export class AuthorizeRequestService {
     return this.httpClient.get(`${this.BASE_URL}tempData/${id}`, {headers: this.headersJson});
   }
 
-  saveTempData(tempData: TempData){
+  saveTempData(tempData: TempData): Observable<Object>{
     return this.httpClient.post(`${this.BASE_URL}tempData/`,tempData, {headers: this.headersJson});
   }
 
-  updateTempData(tempData: TempData){
+  updateTempData(tempData: TempData): Observable<Object>{
     return this.httpClient.put(`${this.BASE_URL}tempData/`,tempData, {headers: this.headersJson});
+  }
+
+  deleteTempData(id: any): Observable<Object>{
+    return this.httpClient.delete(`${this.BASE_URL}tempData/${id}`, {headers: this.headersJson})
   }
 
 }

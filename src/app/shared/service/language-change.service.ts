@@ -44,7 +44,12 @@ export class LanguageChangeService {
     return this.http.get<WorkflowStageDocDto[]>(this.BASE_URL + 'supportingDocument/' + workflowStage);
   }
 
-  saveLanguageChange(formData: FormData): Observable<object> {
+  saveLanguageChange(fileList: any, model: any): Observable<object> {
+    const formData: FormData = new FormData();
+    fileList.forEach(doc => {
+      formData.append('file', doc.files, doc.fileType + '/' + doc.files.name);
+    });
+    formData.append('model', JSON.stringify(model));
     return this.http.post(this.BASE_URL + 'additionLanguageRequest/', formData);
   }
 

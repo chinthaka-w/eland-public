@@ -19,6 +19,10 @@ import {SystemService} from '../../../shared/service/system.service';
 import {DocumentDto} from '../../../shared/dto/document-list';
 import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {TempData} from '../../../shared/dto/temp-data.model';
+import {RequestData} from '../../../shared/dto/request-data.model';
+import {TokenStorageService} from '../../../shared/auth/token-storage.service';
+import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
 
 
 @Component({
@@ -43,7 +47,8 @@ export class LanguageChangeComponent implements OnInit {
   fileList: object = {};
   formData: FormData = new FormData();
   parameters = Parameters;
-  workflowStage = LanguageChangeWorkflowStages;
+  LanguageChangeWorkflowStages = LanguageChangeWorkflowStages;
+  Workflow = Workflow;
   returnURl: string;
   paymentMethod: number;
   paymentDto: PaymentDto = new PaymentDto();
@@ -61,16 +66,52 @@ export class LanguageChangeComponent implements OnInit {
               private snackBarService: SnackBarService,
               private sysMethodsService: SysMethodsService,
               private router: Router,
+              private authorizeRequestService: AuthorizeRequestService,
+              private tokenStorageService: TokenStorageService,
               private systemService: SystemService) {
   }
 
   ngOnInit() {
     this.backUrl = btoa(Workflow.LANGUAGE_CHANGE);
-    this.getSupportingDocs(LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT);
     this.getNameTitles();
     this.loadForm();
+
+    this.langEngCheckbox.valueChanges.subscribe(value => {
+        this.languageChange(Languages.ENGLISH,value);
+    });
+
+    this.langSinhalaCheckbox.valueChanges.subscribe(value => {
+        this.languageChange(Languages.SINHALA,value);
+    });
+
+    this.langTamilCheckbox.valueChanges.subscribe(value => {
+        this.languageChange(Languages.TAMIL,value);
+    });
+
     this.userType = this.sessionService.getUser().type;
     this.userId = this.sessionService.getUser().id;
+  }
+
+  getTempData() {
+
+    let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_LANGUAGE_CHANGE_KEY);
+    if (tempDataId) {
+      this.authorizeRequestService.getTempDataById(tempDataId).subscribe(
+        (tempData:TempData) => {
+          if(tempData){
+            let requestData:RequestData = JSON.parse(tempData.tempData);
+
+            this.languageChangForm.patchValue(JSON.parse(requestData.formData));
+            if (requestData.documentData)
+              this.documentList = JSON.parse(requestData.documentData);
+          }
+        },(error)=>{},
+        ()=>{
+          this.getSupportingDocs(LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT);
+        });
+    }else{
+      this.getSupportingDocs(LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT);
+    }
   }
 
   /**
@@ -218,6 +259,8 @@ export class LanguageChangeComponent implements OnInit {
       },
       error => {
         console.log(error);
+      },()=>{
+        this.getTempData();
       }
     );
   }
@@ -261,6 +304,19 @@ export class LanguageChangeComponent implements OnInit {
       },
       error => {
         console.log(error);
+      },()=>{
+        if (this.documentList.length > 0) {
+          for (let document of this.documentList) {
+            for (let doc of this.supportingDocs) {
+              if (document.fileType == doc.docTypeId) {
+                doc.file = this.sysMethodsService.getFileFromDocumentDTO(document);
+                document.files = doc.file;
+                break;
+              }
+            }
+          }
+          this.checkDocumentValidation();
+        }
       }
     );
   }
@@ -269,11 +325,11 @@ export class LanguageChangeComponent implements OnInit {
  * Applicant language change request only applicable for one at a time
  * Only one value can be select
  */
- languageChange(code: number): void {
+ languageChange(code: number,value: boolean): void {
 
-  if (code === Languages.TAMIL) {
-    this.langTamCheck = this.languageChangForm.value.langTam;
-    if (!this.langSinRegistered) {
+  if (code === Languages.TAMIL && this.langTamilCheckbox.enabled) {
+    this.langTamCheck = value;
+    if (this.langSinhalaCheckbox.enabled) {
       this.langSinCheck = false;
       this.languageChangForm.value.langSin = false;
     }
@@ -326,9 +382,9 @@ export class LanguageChangeComponent implements OnInit {
     this.currentAddressSinhala.updateValueAndValidity();
   }
 
-  if (code === Languages.SINHALA) {
-    this.langSinCheck = this.languageChangForm.value.langSin;
-    if (!this.langTamRegistered) {
+  if (code === Languages.SINHALA && this.langSinhalaCheckbox.enabled) {
+    this.langSinCheck = value;
+    if (this.langTamilCheckbox.enabled) {
       this.langTamCheck = false;
       this.languageChangForm.value.langTam = false;
     }
@@ -384,41 +440,6 @@ export class LanguageChangeComponent implements OnInit {
 
  }
 
-
-  // setFiles(data: any, docTyprId: number, status: boolean) {
-  //   this.files = data;
-  //   const document = new DocumentDto(this.files[0], docTyprId);
-  //   document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
-  //   if (document.files) {
-  //     this.documentList.push(document);
-  //   } else {
-  //     this.documentList.forEach((doc, index) => {
-  //       if (doc.fileType === document.fileType) {
-  //         this.documentList.splice(index, 1);
-  //       }
-  //     });
-  //   }
-  //
-  //   let workflowManatoryDocs = 0;
-  //   let uploadedMandatoryDocs = 0;
-  //
-  //   this.supportingDocs.forEach(doc => {
-  //     if  (doc.required) {
-  //       workflowManatoryDocs += 1;
-  //     }
-  //   });
-  //
-  //   this.documentList.forEach(doc => {
-  //     if (doc.status === CommonStatus.REQUIRED) {
-  //       uploadedMandatoryDocs += 1;
-  //     }
-  //   });
-  //
-  //   if (workflowManatoryDocs === uploadedMandatoryDocs) {
-  //     this.isRequiredDocsUpload = true;
-  //   } else {this.isRequiredDocsUpload = false; }
-  // }
-
   setFiles(data: any, doc: any) {
     doc.selected = true;
     this.files = data;
@@ -429,11 +450,29 @@ export class LanguageChangeComponent implements OnInit {
       });
       if (data.length != 0) {
         this.documentList[index].files = this.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        let this2 = this;
+        this2.documentList[index].fileName = this.files[0].name;
+        this2.documentList[index].fileFormats = this.files[0].type;
+        reader.onload = function () {
+          this2.documentList[index].fileBase64 = reader.result;
+        };
       } else {
         this.documentList.splice(index, 1);
       }
     } else {
-      this.documentList.push(new DocumentDto(this.files[0], doc.docTypeId));
+      let newDoc = new DocumentDto(this.files[0], doc.docTypeId);
+      newDoc.fileName = this.files[0].name;
+      newDoc.fileFormats = this.files[0].type;
+
+      let reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.onload = function () {
+        newDoc.fileBase64 = reader.result;
+      };
+
+      this.documentList.push(newDoc);
     }
     this.checkDocumentValidation();
   }
@@ -474,37 +513,54 @@ export class LanguageChangeComponent implements OnInit {
 
     const langPayment: PaymentDto = new PaymentDto();
     langPayment.paymentId = paymentData.paymentId;
-    this.saveRegistrationData(this.files, this.languageChangForm.value, langPayment);
+    this.saveRegistrationData(this.languageChangForm.value, langPayment);
   }
 
-  saveRegistrationData(files: object, model: LanguageChange, paymentData: PaymentDto) {
-
-    this.documentList.forEach(doc => {
-      this.formData.append('file', doc.files, doc.fileType + '/' + doc.files.name);
-    });
-
+  saveRegistrationData( model: LanguageChange, paymentData: PaymentDto) {
 
     model.workflowStage = LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT;
     model.id = this.sessionService.getUser().id;
     model.payment = paymentData;
-    this.formData.append('model', JSON.stringify(model));
-    // save form data
-    this.languageChangeService.saveLanguageChange(this.formData).subscribe(
-      (result) => {
-        if(paymentData.paymentMethod == PaymentMethod.ONLINE){
+
+    if(paymentData.paymentMethod == PaymentMethod.ONLINE){
+      let requestData = new RequestData();
+      requestData.formData = JSON.stringify(this.languageChangForm.value);
+      requestData.documentData = JSON.stringify(this.documentList);
+      requestData.paymentData = JSON.stringify(paymentData);
+      requestData.otherData1 = JSON.stringify(model);
+
+      let tempData = new TempData();
+      tempData.tempData = JSON.stringify(requestData);
+      tempData.status = CommonStatus.ACTIVE;
+
+      this.authorizeRequestService.saveTempData(tempData).subscribe(
+        (tempData: TempData) => {
+          this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_LANGUAGE_CHANGE_KEY, tempData.tempDataId);
           this.returnURl = `requests/${btoa(Workflow.LANGUAGE_CHANGE)}`;
           this.statusOnlinePayment = true;
         }
-        else{
-        this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
-        this.router.navigate(['/requests', btoa(Workflow.LANGUAGE_CHANGE)]);
+      );
+
+
+    } else {
+      // save form data
+      this.languageChangeService.saveLanguageChange(this.documentList, model).subscribe(
+        (result) => {
+          let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_LANGUAGE_CHANGE_KEY);
+          if (tempDataId) {
+            this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+            this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_LANGUAGE_CHANGE_KEY);
+          }
+          this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
+          this.router.navigate(['/requests', btoa(Workflow.LANGUAGE_CHANGE)]);
+
+        },
+        error => {
+          this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.FAILED'));
+          console.log(error);
         }
-      },
-      error => {
-        this.snackBarService.error(this.systemService.getTranslation('ALERT.MESSAGE.FAILED'));
-        console.log(error);
-      }
-    );
+      );
+    }
   }
 
   paymentMethodResponse(data: PaymentResponse) {
@@ -515,7 +571,7 @@ export class LanguageChangeComponent implements OnInit {
       this.paymentDto.referenceNo = data.transactionRef;
       this.paymentDto.applicationAmount = +data.applicationAmount;
       this.paymentDto.paymentMethod = PaymentMethod.ONLINE;
-      this.saveRegistrationData(this.fileList, this.languageChangForm.value, this.paymentDto);
+      this.saveRegistrationData(this.languageChangForm.value, this.paymentDto);
     }
 
   }

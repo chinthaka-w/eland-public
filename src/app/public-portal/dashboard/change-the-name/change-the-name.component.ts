@@ -39,6 +39,10 @@ import {CommonStatus} from '../../../shared/enum/common-status.enum';
 import {SystemService} from '../../../shared/service/system.service';
 import { JudicialService } from 'src/app/shared/service/change-judicial-service';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {TempData} from '../../../shared/dto/temp-data.model';
+import {RequestData} from '../../../shared/dto/request-data.model';
+import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
+import {TokenStorageService} from '../../../shared/auth/token-storage.service';
 
 @Component({
   selector: 'app-change-the-name',
@@ -49,7 +53,7 @@ export class ChangeTheNameComponent implements OnInit {
   @Input()
   files: File[] = [];
 
-  public docList: WorkflowStageDocDto[];
+  public docList: WorkflowStageDocDto[]=[];
   public langList: number[] = [];
   nameTitle = NameTitleEnum;
   public judicialZones: JudicialZoneModel[];
@@ -61,7 +65,8 @@ export class ChangeTheNameComponent implements OnInit {
   public notaryForm: FormGroup;
   public documentList: DocumentDto[] = [];
   Parameters = Parameters;
-  WorkflowCode = NameChangeWorkflowStagesEnum;
+  NameChangeWorkflowStagesEnum = NameChangeWorkflowStagesEnum;
+  Workflow = Workflow;
   public nameChangeModel = new NotaryNameChangeModel();
   public searchDetails: RequestSearchDetailDTO;
   result: NewNotaryViewDto;
@@ -128,6 +133,8 @@ export class ChangeTheNameComponent implements OnInit {
               private newNotaryDataVarificationService: NewNotaryDataVarificationService,
               private router: Router,
               private sysMethodsService: SysMethodsService,
+              private authorizeRequestService: AuthorizeRequestService,
+              private tokenStorageService: TokenStorageService,
               private systemService: SystemService,
               private judicialService: JudicialService
               ) { }
@@ -154,11 +161,11 @@ export class ChangeTheNameComponent implements OnInit {
       // recaptcha: new FormControl(null, [Validators.required]),
     });
     this.getNameTitles();
-    this.getDocumentList();
-    this.getJudicialZones();
-    this.getLandRegistries();
-    this.getDsDivisions();
-    this.getGnDivisions();
+    // this.getJudicialZones();
+    // this.getLandRegistries();
+    // this.getDsDivisions();
+    // this.getGnDivisions();
+    // this.getTempData();
     this.isPaymentSuccess = false;
     this.isContinueToPayment = false;
 
@@ -167,6 +174,27 @@ export class ChangeTheNameComponent implements OnInit {
     });
   }
 
+  getTempData() {
+
+    let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_NAME_CHANGE_KEY);
+    if (tempDataId) {
+      this.authorizeRequestService.getTempDataById(tempDataId).subscribe(
+        (tempData:TempData) => {
+          if(tempData){
+            let requestData:RequestData = JSON.parse(tempData.tempData);
+
+            this.notaryForm.patchValue(JSON.parse(requestData.formData));
+            if (requestData.documentData)
+              this.documentList = JSON.parse(requestData.documentData);
+          }
+        },(error)=>{},
+        ()=>{
+          this.getDocumentList();
+        });
+    }else{
+      this.getDocumentList();
+    }
+  }
 
   comparevaluesOfform(): boolean {
 
@@ -301,6 +329,7 @@ export class ChangeTheNameComponent implements OnInit {
 
           }
         );
+        this.getTempData();
       }
     );
   }
@@ -318,22 +347,20 @@ export class ChangeTheNameComponent implements OnInit {
       this.nameChangeModel.payment = this.paymentDataValue;
       this.nameChangeModel.title = this.notaryForm.value.title;
 
-      const formData = new FormData();
-      formData.append('data', JSON.stringify(this.nameChangeModel));
-      this.documentList.forEach(doc => {
-        formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
-      });
+    if (this.paymentMethod !== PaymentMethod.ONLINE) {
 
-      this.nameChangeService.save(formData).subscribe(
+      this.nameChangeService.save(this.documentList,this.nameChangeModel).subscribe(
         (success: string) => {
           if (this.paymentMethod !== PaymentMethod.ONLINE) {
             this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_SUCCESS'));
+            let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_NAME_CHANGE_KEY);
+            if (tempDataId) {
+              this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+              this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_NAME_CHANGE_KEY);
+            }
             this.router.navigate(['/notary-requests', btoa(Workflow.NOTARY_NAME_CHANGE)]);
-          } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-            this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_SUCCESS_ONLINE'));
-            this.isPayment = true;
-            this.statusOnlinePayment = true;
-          } else {
+          }
+          else {
             this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.OPERATION_FAILED'));
           }
         },
@@ -341,16 +368,49 @@ export class ChangeTheNameComponent implements OnInit {
           this.snackBar.error(this.systemService.getTranslation('ALERT.MESSAGE.FAILED'));
         }
       );
+    } else if (this.paymentMethod === PaymentMethod.ONLINE) {
 
+      let requestData = new RequestData();
+      requestData.formData = JSON.stringify(this.notaryForm.value);
+      requestData.documentData = JSON.stringify(this.documentList);
+      requestData.paymentData = JSON.stringify(this.paymentDataValue);
+      requestData.otherData1 = JSON.stringify(this.nameChangeModel);
 
+      let tempData = new TempData();
+      tempData.tempData = JSON.stringify(requestData);
+      tempData.status = CommonStatus.ACTIVE;
+
+      this.authorizeRequestService.saveTempData(tempData).subscribe(
+        (tempData: TempData) => {
+          this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_NAME_CHANGE_KEY, tempData.tempDataId);
+          this.isPayment = true;
+          this.statusOnlinePayment = true;
+        }
+      );
+    }
   }
 
   private getDocumentList(): void {
     this.documetService.getDocuments(NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
-      }
-    );
+      },
+      (error) => {
+      },
+      () => {
+        if (this.documentList.length > 0) {
+          for (let document of this.documentList) {
+            for (let doc of this.docList) {
+              if (document.fileType == doc.docTypeId) {
+                doc.file = this.sysMethodsService.getFileFromDocumentDTO(document);
+                document.files = doc.file;
+                break;
+              }
+            }
+          }
+          this.checkDocumentValidation();
+        }
+      });
   }
 
   private getJudicialZones(): void {
@@ -393,47 +453,6 @@ export class ChangeTheNameComponent implements OnInit {
     );
   }
 
-  // setFiles(data: any, docTyprId: number) {
-  //   this.files = data;
-  //   this.documentList.push(new DocumentDto(this.files[0], docTyprId));
-  // }
-
-  // setFiles(data: any, docTyprId: number, status: boolean) {
-  //   this.files = data;
-  //   const document = new DocumentDto(this.files[0], docTyprId);
-  //   document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
-  //   if (document.files) {
-  //     this.documentList.push(document);
-  //   } else {
-  //     this.documentList.forEach((doc, index) => {
-  //       if (doc.fileType === document.fileType) {
-  //         this.documentList.splice(index, 1);
-  //       }
-  //     });
-  //   }
-  //
-  //   let workflowManatoryDocs = 0;
-  //   let uploadedMandatoryDocs = 0;
-  //
-  //   this.docList.forEach(doc => {
-  //     if  (doc.required) {
-  //       workflowManatoryDocs += 1;
-  //     }
-  //   });
-  //
-  //   this.documentList.forEach(doc => {
-  //     if (doc.status === CommonStatus.REQUIRED) {
-  //       uploadedMandatoryDocs += 1;
-  //     }
-  //   });
-  //
-  //   if ((workflowManatoryDocs === uploadedMandatoryDocs)) {
-  //       this.isRequiredDocsUpload = true;
-  //   } else {
-  //     this.isRequiredDocsUpload = false;
-  //   }
-  // }
-
   setFiles(data: any, doc: any) {
     doc.selected = true;
     this.files = data;
@@ -444,11 +463,30 @@ export class ChangeTheNameComponent implements OnInit {
       });
       if (data.length != 0) {
         this.documentList[index].files = this.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        let this2 = this;
+        this2.documentList[index].fileName = this.files[0].name;
+        this2.documentList[index].fileFormats = this.files[0].type;
+        reader.onload = function () {
+          this2.documentList[index].fileBase64 = reader.result;
+        };
       } else {
         this.documentList.splice(index, 1);
       }
     } else {
-      this.documentList.push(new DocumentDto(this.files[0], doc.docTypeId));
+
+      let newDoc = new DocumentDto(this.files[0], doc.docTypeId);
+      newDoc.fileName = this.files[0].name;
+      newDoc.fileFormats = this.files[0].type;
+
+      let reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.onload = function () {
+        newDoc.fileBase64 = reader.result;
+      };
+
+      this.documentList.push(newDoc);
     }
     this.checkDocumentValidation();
   }

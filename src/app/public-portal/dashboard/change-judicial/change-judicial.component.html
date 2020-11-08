@@ -81,100 +81,6 @@
         </div>
       </div>
 
-      <!-- <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Starting Date of Notarial Work:</label>
-            <div class="default-input-feild date-feild">
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker1" formControlName="notarialWorkStartDate">
-                <mat-datepicker #picker1></mat-datepicker>
-              </mat-form-field>
-              <div *ngIf="FormControls.notarialWorkStartDate.touched && FormControls.notarialWorkStartDate.errors"
-                   class="invalid-feedback">
-                <mat-error *ngIf="FormControls.notarialWorkStartDate.errors.required" class="errors">Field is required</mat-error>
-              </div>
-              <button mat-raised-button type="button" (click)="picker1.open()">
-                <i class="material-icons">calendar_today</i>
-              </button>
-             </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>In which year, you get the certificate of High Court lastly? </label>
-            <div class="default-input-feild date-feild">
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker3" formControlName="certificateYear">
-                <mat-datepicker #picker3 ></mat-datepicker>
-              </mat-form-field>
-              <div *ngIf="FormControls.certificateYear.touched && FormControls.certificateYear.errors"
-                   class="invalid-feedback">
-                <mat-error *ngIf="FormControls.certificateYear.errors.required" class="errors">Field is required</mat-error>
-              </div>
-              <button mat-raised-button type="button"  (click)="picker3.open()">
-                <i class="material-icons">calendar_today</i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div> -->
-
-      <!-- <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Name of the LR handed over duplicates currently?</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="nameOfLr">
-              </mat-form-field>
-              <div *ngIf="FormControls.nameOfLr.touched && FormControls.nameOfLr.errors"
-                   class="invalid-feedback">
-                <mat-error *ngIf="FormControls.nameOfLr.errors.required" class="errors">Field is required</mat-error>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>Have you handed over all duplicate returns attested by you?</label>
-            <div class="default-input-feild">
-              <mat-form-field appearance="outline">
-                <input matInput formControlName="isDuplicateHandedOver">
-              </mat-form-field>
-              <div *ngIf="FormControls.isDuplicateHandedOver.touched && FormControls.isDuplicateHandedOver.errors"
-                   class="invalid-feedback">
-                <mat-error *ngIf="FormControls.isDuplicateHandedOver.errors.required" class="errors">Field is required</mat-error>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="pg-inner-row mb-20">
-        <div class="pg-inner-col">
-          <div class="default-input-wrapper full-row">
-            <label>If you have stopped stop Notarial work temporarily, Please specify the period: </label>
-            <div class="default-input-feild date-feild">
-              <mat-form-field appearance="outline">
-                <input matInput [satDatepicker]="picker2" formControlName="datePeriod" [ngModel]="datePeriod" (dateChange)="saveDate($event)">
-                <sat-datepicker #picker2 [rangeMode]="true">
-                </sat-datepicker>
-              </mat-form-field>
-              <div *ngIf="FormControls.datePeriod.touched && FormControls.datePeriod.errors"
-                   class="invalid-feedback">
-                <mat-error *ngIf="FormControls.datePeriod.errors.required" class="errors">Field is required</mat-error>
-              </div>
-              <button mat-raised-button type="button"  (click)="picker2.open()">
-                <i class="material-icons">calendar_today</i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="pg-inner-col"></div>
-      </div> -->
-
       <div class="separator">&nbsp;</div>
 
       <label>{{'CHG_JUD_ZONE.DETAIL_JUD'|translate}}</label>
@@ -186,7 +92,7 @@
           <div class="default-input-wrapper full-row">
 
             <div class="default-input-feild">
-                <mat-select formControlName="judicialZoneId" (selectionChange)="onSelectJudicial(judicialZoneId.value)" class="form-control" placeholder="{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}}">
+                <mat-select formControlName="judicialZoneId" class="form-control" placeholder="{{'CHG_JUD_ZONE.JUDIZIAL_ZONE'|translate}}">
                   <mat-option *ngFor="let jud of judicialZone" [value]="jud.id">{{ jud.nameEng|listTranslate:jud.nameSin:jud.nameTam}}
                   </mat-option>
                 </mat-select>
@@ -205,7 +111,7 @@
           <div class="default-input-wrapper full-row">
             <div class="default-input-feild">
                 <mat-select name="landRegistry" formControlName="landRegistry" class="form-control"
-                  placeholder="{{'CHG_JUD_ZONE.SELECT_LAND'|translate}}" (selectionChange)="getDsDivisions(landRegistry.value)">
+                  placeholder="{{'CHG_JUD_ZONE.SELECT_LAND'|translate}}">
                   <mat-option *ngFor="let reg of landRegistries" [value]="reg.code">{{ reg.description |listTranslate:reg.descriptionSin:reg.descriptionTam}}
                   </mat-option>
                 </mat-select>
@@ -223,7 +129,7 @@
             <label>{{'CHG_JUD_ZONE.DS_DIV'|translate}} <span class="redtxt">*</span> </label>
             <div class="default-input-feild">
               <mat-select class="form-control" formControlName="dsDivision" class="form-control"
-                placeholder="{{'CHG_JUD_ZONE.SLECT_DS'|translate}}" (selectionChange)="selectGsDivision($event.value, i)">
+                placeholder="{{'CHG_JUD_ZONE.SLECT_DS'|translate}}">
                 <mat-option *ngFor="let gsDivision of gsDivisions" value="{{gsDivision.divisionId}}"
                   [disabled]="gsDivision.isSelected">{{ gsDivision.description|listTranslate:gsDivision.descriptionSin: gsDivision.descriptionTam }}</mat-option>
               </mat-select>
@@ -261,9 +167,13 @@
           <div class="pg-inner-col-3">
             <div class="default-input-wrapper full-row">
               <label>{{document.description|listTranslate:document.descriptionSin:document.descriptionTam}}
-                <span *ngIf="document.required == true">*</span>
-              </label>
-              <file-upload-input (response)="setFiles($event,document.docTypeId, document.required)"></file-upload-input>
+                <span *ngIf="document.required">*</span></label>
+              <file-upload-input [document]="document"
+                                 [invalid]="document.invalid && document.selected"
+                                 (response)="setFiles($event,document)">
+              </file-upload-input>
+              <mat-error *ngIf="!document.error && document.invalid && document.selected">Document required</mat-error>
+              <mat-error *ngIf="document.error">{{document.errorMsg}}</mat-error>
             </div>
           </div>
         </ng-container>
@@ -282,7 +192,7 @@
           {{'COMMON.AND'| translate}} <a href="#">{{'CHG_JUD_ZONE.TITLE8'|translate}}</a> .
         </div>
         <div class="pg-inner-col right" *ngIf="!isPaymentSuccess">
-          <button [disabled]="!(judicialChangeForm.valid && isRequiredDocsUpload)" mat-raised-button class="lg-button" (click)="continue()">
+          <button [disabled]="judicialChangeForm.invalid || checkDocumentValidation()" mat-raised-button class="lg-button" (click)="continue()">
             {{'CHG_JUD_ZONE.CONTINUE'|translate}}
           </button>
         </div>
@@ -310,7 +220,8 @@
                  (back)="onBack($event)"
                  [applicationFeeCode]="Parameters.JUDICIAL_CHANGE_FEE"
                  [isDocumentCollect]="true"
-                 [workflowCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"
+                 [workflowStageCode]="WorkflowCode.JUDICIAL_CHANGE_REQUEST_INITIATED"
+                 [workflowCode]="Workflow.JUDICIAL_ZONE_CHANGE"
                  [userType]="userType"
                  [userId]="userId"
                  >

@@ -24,6 +24,16 @@ import {Workflow} from '../../../enum/workflow.enum';
 import {CitizenDTO} from '../../../dto/citizen-dto';
 import {TempData} from '../../../dto/temp-data.model';
 import {WorkflowStageCitizenReg} from '../../../enum/workflow-stage-citizen-reg.enum';
+import {SearchRequestService} from '../../../service/search-request.service';
+import {SearchRequestWorkflowStages} from '../../../enum/search-request-workflow-stages.enum';
+import {ExtractRequestWorkflowStages} from '../../../enum/extract-request-workflow-stages.enum';
+import {ExtractRequestService} from '../../../service/extract-request.service';
+import {NameChangeWorkflowStagesEnum} from '../../../enum/name-change-workflow-stages.enum';
+import {ChangeNameService} from '../../../service/change-name.service';
+import {LanguageChangeService} from '../../../service/language-change.service';
+import {LanguageChangeWorkflowStages} from '../../../enum/language-change-workflow-stages.enum';
+import {JudicialChangeWorkflowStagesEnum} from '../../../enum/judicial-change-workflow-stages.enum';
+import {JudicialService} from '../../../service/change-judicial-service';
 
 const FOR_SAVE = 1;
 const FOR_UPDATE = 2;
@@ -61,6 +71,11 @@ export class OnlineMethodComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               // private paymentService: PaymentService,
               private authorizeRequestService: AuthorizeRequestService,
+              private searchRequestService: SearchRequestService,
+              private extractRequestService: ExtractRequestService,
+              private nameChangeService: ChangeNameService,
+              private languageChangeService: LanguageChangeService,
+              private judicialService: JudicialService,
               private route: ActivatedRoute,
               private tokenStorageService: TokenStorageService,
               private sysMethodsService: SysMethodsService,
@@ -206,12 +221,22 @@ export class OnlineMethodComponent implements OnInit {
       this.workflowStageCode == WorkflowStageCitizenReg.STATE_INSTITUTE_INIT ||
       this.workflowStageCode == WorkflowStageCitizenReg.OTHER_INSTITUTE_INIT)) {
       tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.CITIZEN_REGISTRATION_KEY);
+    } else if (this.workflowStageCode == SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_ARL) {
+      tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.SEARCH_REQUEST_KEY);
+    } else if (this.workflowStageCode == ExtractRequestWorkflowStages.EXTRACT_REQ_INITIALIZED_FOR_ARL) {
+      tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.EXTRACT_REQUEST_KEY);
+    } else if (this.workflowStageCode == NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED) {
+      tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_NAME_CHANGE_KEY);
+    } else if (this.workflowStageCode == LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT) {
+      tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_LANGUAGE_CHANGE_KEY);
+    } else if (this.workflowStageCode == JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIATED) {
+      tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_JUDICIAL_CHANGE_KEY);
     }
     if (tempDataId) {
       this.authorizeRequestService.getTempDataById(tempDataId).subscribe(
         (tempData: TempData) => {
           if (tempData) {
-            if (type == FOR_SAVE) this.saveApplicationDetails(JSON.parse(tempData.tempData));
+            if (type == FOR_SAVE) this.saveApplicationDetails(JSON.parse(tempData.tempData),tempDataId);
             if (type == FOR_UPDATE) this.updateTransactionRef(tempData);
           }
         });
@@ -219,7 +244,7 @@ export class OnlineMethodComponent implements OnInit {
 
   }
 
-  saveApplicationDetails(requestData: RequestData) {
+  saveApplicationDetails(requestData: RequestData,tempDataId) {
     let documentList: any | DocumentDto[];
     let other1: any;
 
@@ -238,6 +263,7 @@ export class OnlineMethodComponent implements OnInit {
               this.userId = value;
               this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
               this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
+              this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
             }
           }, (error) => {
           },
@@ -265,6 +291,7 @@ export class OnlineMethodComponent implements OnInit {
               this.userId = value.id;
               this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
               this.tokenStorageService.removeFormData(this.tokenStorageService.CITIZEN_REGISTRATION_KEY);
+              this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
             }
           }, (error) => {
           },
@@ -273,8 +300,87 @@ export class OnlineMethodComponent implements OnInit {
               this.sendMail();
           }
         );
+    } else if (this.workflowStageCode == SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_ARL) {
+      if (requestData.otherData1) {
+        other1 = JSON.parse(requestData.otherData1);
+      }
+      if (other1)
+        this.searchRequestService.saveSearchRequest(other1).subscribe(
+          value => {
+            if (value)
+              this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SEARCH_REQ_SUCCESS'));
+            this.tokenStorageService.removeFormData(this.tokenStorageService.SEARCH_REQUEST_KEY);
+            this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+          }
+        );
+    } else if (this.workflowStageCode == ExtractRequestWorkflowStages.EXTRACT_REQ_INITIALIZED_FOR_ARL) {
+      if (requestData.otherData1) {
+        other1 = JSON.parse(requestData.otherData1);
+      }
+      if (other1)
+        this.extractRequestService.saveExtractRequest(other1).subscribe(
+          value => {
+            if (value)
+              this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.EXTARCT_REQ_SUCCESS'));
+            this.tokenStorageService.removeFormData(this.tokenStorageService.EXTRACT_REQUEST_KEY);
+            this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+          }
+        );
+    } else if (this.workflowStageCode == NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED) {
+      if (requestData.documentData) {
+        documentList = this.sysMethodsService.getDocumentListWithFileFromDocumentListFileBase64(JSON.parse(requestData.documentData));
+      }
+      if (requestData.otherData1) {
+        other1 = JSON.parse(requestData.otherData1);
+      }
+      if (documentList && other1) {
+        this.nameChangeService.save(documentList, other1).subscribe(
+          value => {
+            if (value) {
+              this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.NAME_CHG_SUCCESS'));
+              this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_NAME_CHANGE_KEY);
+              this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+            }
+          }
+        );
+      }
+    } else if (this.workflowStageCode == LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT) {
+      if (requestData.documentData) {
+        documentList = this.sysMethodsService.getDocumentListWithFileFromDocumentListFileBase64(JSON.parse(requestData.documentData));
+      }
+      if (requestData.otherData1) {
+        other1 = JSON.parse(requestData.otherData1);
+      }
+      if (documentList && other1) {
+        this.languageChangeService.saveLanguageChange(documentList,other1).subscribe(
+          value => {
+            if(value){
+              this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.SUBMITTED_SUCCESS'));
+              this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_LANGUAGE_CHANGE_KEY);
+              this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+            }
+          }
+        );
+      }
+    } else if (this.workflowStageCode == JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIATED) {
+      if (requestData.documentData) {
+        documentList = this.sysMethodsService.getDocumentListWithFileFromDocumentListFileBase64(JSON.parse(requestData.documentData));
+      }
+      if (requestData.otherData1) {
+        other1 = JSON.parse(requestData.otherData1);
+      }
+      if (documentList && other1) {
+        this.judicialService.save(documentList,other1).subscribe(
+          value => {
+            if(value){
+              this.snackBar.success('Judicial Change Request Save Success');
+              this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_JUDICIAL_CHANGE_KEY);
+              this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+            }
+          }
+        );
+      }
     }
-
   }
 
   resultConfirm() {
@@ -308,7 +414,10 @@ export class OnlineMethodComponent implements OnInit {
     let payment: any | PaymentDto;
     let requestData: RequestData = JSON.parse(tempData.tempData);
 
-    if (this.workflowStageCode && this.workflowStageCode == WorkflowStages.REGISTRATION_REQ_INITIALIZED) {
+    if (this.workflowStageCode && (this.workflowStageCode == WorkflowStages.REGISTRATION_REQ_INITIALIZED ||
+      this.workflowStageCode == NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED ||
+      this.workflowStageCode == LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT ||
+      this.workflowStageCode == JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIATED)) {
 
       if (requestData.otherData1) {
         other1 = JSON.parse(requestData.otherData1);
@@ -333,6 +442,20 @@ export class OnlineMethodComponent implements OnInit {
       if (requestData.paymentData) {
         payment = JSON.parse(requestData.paymentData);
       }
+      payment.referenceNo = this.transactionRef;
+      requestData.paymentData = JSON.stringify(payment);
+      other1.payment = payment;
+      requestData.otherData1 = JSON.stringify(other1);
+    } else if (this.workflowStageCode == SearchRequestWorkflowStages.SEARCH_REQ_INITIALIZED_FOR_ARL ||
+      this.workflowStageCode == ExtractRequestWorkflowStages.EXTRACT_REQ_INITIALIZED_FOR_ARL) {
+
+      if (requestData.otherData1) {
+        other1 = JSON.parse(requestData.otherData1);
+      }
+      if (requestData.paymentData) {
+        payment = JSON.parse(requestData.paymentData);
+      }
+
       payment.referenceNo = this.transactionRef;
       requestData.paymentData = JSON.stringify(payment);
       other1.payment = payment;

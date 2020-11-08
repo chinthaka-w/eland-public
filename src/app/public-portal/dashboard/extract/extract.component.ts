@@ -43,6 +43,11 @@ import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
  import * as moment from 'moment';
  import {SystemService} from '../../../shared/service/system.service';
  import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+ import {TokenStorageService} from '../../../shared/auth/token-storage.service';
+ import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
+ import {CommonStatus} from '../../../shared/enum/common-status.enum';
+ import {TempData} from '../../../shared/dto/temp-data.model';
+ import {RequestData} from '../../../shared/dto/request-data.model';
 
 @Component({
   selector: 'app-extract',
@@ -55,6 +60,7 @@ export class ExtractComponent implements OnInit {
   Parameters = Parameters;
   WorkflowCode = Workflow;
   FolioStatus = FolioStatus;
+  ExtractRequestWorkflowStages =ExtractRequestWorkflowStages;
 
   public isContinueToPayment: boolean = false;
 
@@ -101,6 +107,8 @@ export class ExtractComponent implements OnInit {
     private snackBarService: SnackBarService,
     private location: Location,
     private datePipe: DatePipe,
+    private tokenStorageService: TokenStorageService,
+    private authorizeRequestService: AuthorizeRequestService,
     private systemService: SystemService) {
 
     let data = this.router.getCurrentNavigation().extras.state;
@@ -113,8 +121,8 @@ export class ExtractComponent implements OnInit {
   ngOnInit() {
 
     this.searchRequestForm = new FormGroup({
-      'landRegistryId': new FormControl('', Validators.required),
       'requestType': new FormControl(SearchRequestType.FOLIO_DOCUMENT, Validators.required),
+      'landRegistryId': new FormControl('', Validators.required),
       'attestedByNotaryName': new FormControl(''),
       'practicedLocation': new FormControl('',[
         Validators.pattern(PatternValidation.CHARACTES_PATTERN),
@@ -162,15 +170,34 @@ export class ExtractComponent implements OnInit {
     this.loadDSDivision();
     this.loadReasonForSearch();
     this.onChangeFolioFormController();
+    this.getTempData();
 
     this.form.get('probablePeriodFrom').valueChanges.subscribe(
       value => {
         if (value) this.minDate = moment(value).format('YYYY-MM-DD');
       }
     );
+
+    // set online payment
+    this.userType = this.sessionService.getUser().type;
+    this.userId = this.sessionService.getUser().id;
+
   }
 
   // Api call
+
+  getTempData() {
+    let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.EXTRACT_REQUEST_KEY);
+    if (tempDataId) {
+      this.authorizeRequestService.getTempDataById(tempDataId).subscribe(
+        (tempData:TempData) => {
+          if(tempData){
+            let requestData:RequestData = JSON.parse(tempData.tempData);
+            this.searchRequestForm.patchValue(JSON.parse(requestData.formData));
+          }
+        });
+    }
+  }
 
   loadLandRegistries(): void {
     this.landRegistryService.getAllLandRegistry().subscribe(
@@ -249,13 +276,17 @@ export class ExtractComponent implements OnInit {
         if (this.paymentDto.paymentMethod == PaymentMethod.ONLINE) {
           this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.EXTRACT_PROCEED_ONLINE'))
           this.statusOnlinePayment = true;
-          this.returnURl = 'requests/' + btoa(Workflow.EXTRACT_REQUEST);
           this.userType = this.sessionService.getUser().type;
           this.userId = this.sessionService.getUser().id;
         } else {
           this.isContinueToPayment = false;
           this.resetForm();
           this.snackBarService.success(this.systemService.getTranslation('ALERT.MESSAGE.EXTARCT_REQ_SUCCESS'));
+        }
+        let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.EXTRACT_REQUEST_KEY);
+        if (tempDataId) {
+          this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+          this.tokenStorageService.removeFormData(this.tokenStorageService.EXTRACT_REQUEST_KEY);
         }
       }
     );
@@ -379,8 +410,12 @@ export class ExtractComponent implements OnInit {
   }
 
   onChangeFolioFormController() {
+    this.form.get('requestType').valueChanges.subscribe(value => {
+      if (value) this.onChangeRequestType();
+    });
     this.form.get('landRegistryId').valueChanges.subscribe(value => {
       this.folioStatus = null;
+      if (value) this.loadLRDivision(value);
     });
     this.form.get('lrDivisionId').valueChanges.subscribe(value => {
       this.folioStatus = null;
@@ -390,6 +425,15 @@ export class ExtractComponent implements OnInit {
     });
     this.form.get('folioNo').valueChanges.subscribe(value => {
       this.folioStatus = null;
+    });
+    this.form.get('koraleId').valueChanges.subscribe(value => {
+      if (value) this.loadPaththu(value);
+    });
+    this.form.get('dsDivisionId').valueChanges.subscribe(value => {
+      if (value)this.loadGNDivision(value);
+    });
+    this.form.get('gnDivisionId').valueChanges.subscribe(value => {
+      if (value) this.loadVillage(value)
     });
     this.form.valueChanges.subscribe(value => {
       this.errorSearch = undefined;
@@ -500,7 +544,25 @@ export class ExtractComponent implements OnInit {
       this.paymentDto.deliveryAmount = data.deliveryAmount;
       this.searchRequest.payment = this.paymentDto;
       this.searchRequest.workflowStageCode = ExtractRequestWorkflowStages.EXTRACT_REQ_INITIALIZED_FOR_ARL;
-      this.saveRequest(this.searchRequest);
+
+      let requestData = new RequestData();
+      requestData.formData = JSON.stringify(this.searchRequestForm.value);
+      requestData.paymentData = JSON.stringify(this.paymentDto);
+      requestData.otherData1 = JSON.stringify(this.searchRequest);
+
+      let tempData = new TempData();
+      tempData.tempData = JSON.stringify(requestData);
+      tempData.status = CommonStatus.ACTIVE;
+      this.returnURl = 'requests/' + btoa(Workflow.EXTRACT_REQUEST);
+      console.log('returnURl',this.returnURl);
+      this.authorizeRequestService.saveTempData(tempData).subscribe(
+        (tempData: TempData) => {
+          this.tokenStorageService.saveFormData(this.tokenStorageService.EXTRACT_REQUEST_KEY, tempData.tempDataId);
+          this.statusOnlinePayment = true;
+        }
+      );
+
+      // this.saveRequest(this.searchRequest);
     }
 
   }

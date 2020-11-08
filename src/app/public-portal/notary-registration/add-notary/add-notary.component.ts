@@ -747,9 +747,13 @@ export class AddNotaryComponent implements OnInit {
         (notaryId: any) => {
           this.userId = notaryId;
           if (this.paymentMethod !== PaymentMethod.ONLINE) {
+            let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
+            if (tempDataId) {
+              this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+              this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
+            }
             this.snackBar.success(this.systemService.getTranslation('ALERT.MESSAGE.REGISTRATION_SUCCESS'));
             this.router.navigate(['/login']);
-            this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_REGISTRATION_KEY);
           } else {
             this.snackBar.error('Operation failed');
           }

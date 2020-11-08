@@ -14,7 +14,12 @@ export class TokenStorageService {
   private loggedUser: string;
 
   public NEW_NOTARY_REGISTRATION_KEY = 'NewNotaryRegistration';
+  public NEW_NOTARY_NAME_CHANGE_KEY = 'NewNotaryNameChange';
+  public NEW_NOTARY_JUDICIAL_CHANGE_KEY = 'NewNotaryJudicialChange';
+  public NEW_NOTARY_LANGUAGE_CHANGE_KEY = 'NewNotaryLanguageChange';
   public CITIZEN_REGISTRATION_KEY = 'CitizenRegistration';
+  public SEARCH_REQUEST_KEY = 'SearchRequest';
+  public EXTRACT_REQUEST_KEY = 'ExtractRequest';
 
   constructor(private sessionService: SessionService) {
   }
