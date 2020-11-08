@@ -47,6 +47,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   public paymentForm: FormGroup;
 
   public applicationAmount: number = 0;
+  public issueType: number = 0;
   public issueAmount: number = 0;
   public totalAmount: number = 0;
   public newReturnUrl;
@@ -131,6 +132,7 @@ export class PaymentComponent implements OnInit, OnChanges {
 
   onChangeIssueMethod(data: MatRadioChange) {
     this.paymentResponse.deliveryType = data.value;
+    this.issueType = data.value;
     switch (data.value) {
       case this.DocumentIssueMethod.BY_POST_NORMAL: {
         if (this.workflowCode == this.Workflow.NOTARY_REGISTRATION) {
@@ -138,7 +140,7 @@ export class PaymentComponent implements OnInit, OnChanges {
         } else if (this.workflowCode == this.Workflow.EXTRACT_REQUEST) {
           this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_NORMAL_AMOUNT);
         } else if (this.workflowCode == this.Workflow.NOTARY_NAME_CHANGE) {
-          this.getIssueOptionAmount(this.Parameter.NOTARY_NAME_CHG);
+          this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_NORMAL_AMOUNT);
         }
         break;
       }
@@ -147,6 +149,8 @@ export class PaymentComponent implements OnInit, OnChanges {
           this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_REGISTERED_AMOUNT);
         } else if (this.workflowCode == this.Workflow.EXTRACT_REQUEST) {
           this.getIssueOptionAmount(this.Parameter.EXTRACT_REQ_POST_REGISTERED_AMOUNT);
+        } else if (this.workflowCode == this.Workflow.NOTARY_NAME_CHANGE) {
+          this.getIssueOptionAmount(this.Parameter.NOTARY_REG_POST_REGISTERED_AMOUNT);
         }
         break;
       }
@@ -178,7 +182,7 @@ export class PaymentComponent implements OnInit, OnChanges {
 
     if (isValid) {
       this.showSpinner = true;
-      this.paymentDTO.deliveryType = this.isDocumentCollect ? this.paymentForm.get('licenseMethod').value : 0;
+      this.paymentDTO.deliveryType = this.isDocumentCollect ? this.issueMethod : 0;
       this.paymentDTO.deliveryAmount = this.issueAmount;
       this.paymentDTO.applicationAmount = this.applicationAmount;
       this.paymentDTO.totalAmount = this.totalAmount;
@@ -192,7 +196,7 @@ export class PaymentComponent implements OnInit, OnChanges {
         const paymentResponse = new PaymentResponse();
         paymentResponse.paymentMethod = PaymentMethod.ONLINE;
         paymentResponse.applicationAmount = this.totalAmount.toString();
-        paymentResponse.deliveryType = this.paymentForm.get('licenseMethod').value;
+        paymentResponse.deliveryType = this.isDocumentCollect ? this.issueMethod : 0;
         paymentResponse.deliveryAmount = this.issueAmount;
         // genereate uuid with service code's department as a prefix
         paymentResponse.transactionRef = this.onlinePaymentServiceCode.substring(0, 4) + uuid();

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {NotaryNameChangeModel} from "../dto/notary-name-change.model";
+import {Notary} from '../dto/notary.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,14 @@ export class ChangeNameService {
   }
 
   /** save Name Change Request */
-  save(formData: FormData): Observable<any> {
+  save(fileList: any, nameChangeModel: any): Observable<any> {
+
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(nameChangeModel));
+    fileList.forEach(doc => {
+      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+    });
+
     return this.httpClient.post(this.BASE_URL + '/submitChangeRequest/' , formData );
   }
 

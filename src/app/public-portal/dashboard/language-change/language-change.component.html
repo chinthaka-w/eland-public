@@ -21,13 +21,13 @@
                 <div class="default-input-wrapper m0 rac-col">
                   <label>{{'LANGUAGE_CHANGE.LANGUAGE'|translate}} <span class="redtxt">*</span></label>
                   <div class="default-input-feild">
-                    <mat-checkbox formControlName="langSin" [(ngModel)]="langSinCheck" (change)="languageChange(langMode.SINHALA)">
+                    <mat-checkbox formControlName="langSin" [(ngModel)]="langSinCheck" >
                       {{'LANGUAGE_CHANGE.SINHALA'|translate}}
                     </mat-checkbox>
-                    <mat-checkbox formControlName="langEng" (change)="languageChange(langMode.ENGLISH)">
+                    <mat-checkbox formControlName="langEng" >
                       {{'LANGUAGE_CHANGE.ENGLISH'|translate}}
                     </mat-checkbox>
-                    <mat-checkbox formControlName="langTam"  [(ngModel)]="langTamCheck" (change)="languageChange(langMode.TAMIL)">
+                    <mat-checkbox formControlName="langTam"  [(ngModel)]="langTamCheck" >
                       {{'LANGUAGE_CHANGE.TAMIL'|translate}}
                     </mat-checkbox>
                   </div>
@@ -390,121 +390,6 @@
 
             <div class="separator">&nbsp;</div>
 
-            <!-- <div class="pg-inner-row mb-20">
-              <div class="pg-inner-col">
-                <div class="default-input-wrapper full-row">
-                  <label>Starting Date of Notarial Work:</label>
-                  <div class="default-input-feild date-feild">
-                    <mat-form-field appearance="outline">
-                      <input
-                        matInput
-                        [matDatepicker]="startDate"
-                        formControlName="startingDate"
-                      />
-                      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                      <mat-datepicker #startDate></mat-datepicker>
-                    </mat-form-field>
-                    <button mat-raised-button (click)="startDate.open()">
-                      <i class="material-icons">calendar_today</i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>In which year, you get the certificate of High Court lastly?</label>
-                        <div class="default-input-feild ">
-                            <mat-form-field appearance="outline">
-                                <input
-                                  matInput
-                                  class="formControl"
-                                  formControlName="highCourtCertificateYear"
-                                />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-<!--
-            <div class="pg-inner-row mb-20">
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>Name of the LR handed over duplicates currently?</label>
-                        <div class="default-input-feild ">
-                            <mat-form-field appearance="outline">
-                                <input
-                                  matInput
-                                  class="formControl"
-                                  formControlName="lrName"
-                                />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>Have you handed over all duplicate returns attested by you?</label>
-                        <div class="default-input-feild ">
-                            <mat-form-field appearance="outline">
-                                <input
-                                  matInput
-                                  class="formControl"
-                                  formControlName="returnAttestedStatus"
-                                />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- <div class="pg-inner-row mb-20">
-                <div class="pg-inner-col">
-                    <div class="default-input-wrapper full-row">
-                        <label>If you have stopped stop Notarial Work temporarily, Please specify the period:</label>
-                        <div class="default-input-feild ">
-                            <mat-form-field appearance="outline">
-                                <input
-                                  matInput
-                                  class="formControl"
-                                  formControlName="unavailableTimePeriod"
-                                />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-                <div class="pg-inner-col"></div>
-            </div> -->
-
-            <!-- <div class="separator">&nbsp;</div> -->
-
-            <!--<div class="pg-inner-row mb-20">-->
-                <!--<div class="pg-inner-col">-->
-                    <!--<div class="default-input-wrapper full-row" *ngFor="let doc of supportingDocs">-->
-                        <!--<label> {{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}} </label>-->
-                        <!--<file-upload-input (response)="setFiles($event,doc.docTypeId)"></file-upload-input>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--&lt;!&ndash; <div class="pg-inner-col">-->
-                    <!--<div class="default-input-wrapper full-row">-->
-                        <!--<label>Date:</label>-->
-                        <!--<div class="default-input-feild date-feild">-->
-                            <!--<mat-form-field appearance="outline">-->
-                                <!--<input-->
-                                  <!--matInput-->
-                                  <!--[matDatepicker]="date"-->
-                                  <!--formControlName="date"-->
-                                <!--/>-->
-                              <!--<mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>-->
-                              <!--<mat-datepicker #date></mat-datepicker>-->
-                            <!--</mat-form-field>-->
-                            <!--<button mat-raised-button (click)="date.open()">-->
-                                <!--<i class="material-icons">calendar_today</i>-->
-                            <!--</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div> &ndash;&gt;-->
-            <!--</div>-->
-
               <div class="pg-inner-row mb-20 upload-col-3">
                 <ng-container *ngFor="let document of supportingDocs">
                   <div class="pg-inner-col-3">
@@ -546,7 +431,8 @@
                 [applicationFeeCode]="parameters.NOTARY_REG_LANGUAGE_CHANGE"
                 [hasFrontCounterPayment]="false"
                 [isDocumentCollect]="true"
-                [workflowCode]="workflowStage.LANGUAGE_CHANGE_REQUEST_INIT"
+                [workflowStageCode]="LanguageChangeWorkflowStages.LANGUAGE_CHANGE_REQUEST_INIT"
+                [workflowCode]="Workflow.LANGUAGE_CHANGE"
                 [userType]="userType"
                 [userId]="userId"
                 ></app-payment>

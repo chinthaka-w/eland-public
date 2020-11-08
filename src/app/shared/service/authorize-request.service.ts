@@ -11,6 +11,8 @@ import {LandRegistriesDTO} from '../dto/land-registries-dto';
 import {WorkflowStageDocTypeDTO} from '../dto/workflow-stage-doc-type-dto';
 import {CitizenDTO} from '../dto/citizen-dto';
 import {PublicUserDTO} from '../dto/public-user-dto';
+import {Notary} from '../dto/notary.model';
+import {TempData} from '../dto/temp-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,14 @@ export class AuthorizeRequestService {
   }
 
   // tslint:disable-next-line:ban-types
-  saveNotaryDetails(formData: FormData): Observable<any> {
+  saveNotaryDetails(fileList: any, notaryDTO: Notary): Observable<any> {
+    const formData: FormData = new FormData();
+
+    fileList.forEach(doc => {
+      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
+    });
+    formData.append('data', JSON.stringify(notaryDTO));
+
     return this.httpClient.post(this.BASE_URL + 'new-notary/', formData);
   }
 
@@ -42,14 +51,14 @@ export class AuthorizeRequestService {
     return this.httpClient.get(this.BASE_URL + 'new-notary/find/email/' + email, {headers: this.headersJson});
   }
 
-/** Public User Controller **/
+  /** Public User Controller **/
 
   checkIfUsernameExists(username: any): Observable<Object> {
     return this.httpClient.get(`${this.BASE_URL}publicUser/existUserName/${username}`);
   }
 
   checkForValidUsername(publicUserDTO: PublicUserDTO): Observable<boolean> {
-    return this.httpClient.post<boolean>(this.BASE_URL + 'publicUser/username', publicUserDTO,{headers: this.headersJson} );
+    return this.httpClient.post<boolean>(this.BASE_URL + 'publicUser/username', publicUserDTO, {headers: this.headersJson});
   }
 
   /** GN Division Controller **/
@@ -72,13 +81,13 @@ export class AuthorizeRequestService {
   }
 
   getAllLandRegistries(): Observable<Array<LandRegistriesDTO>> {
-    return this.httpClient.get<Array<LandRegistriesDTO>>(this.BASE_URL + 'landRegistries/find', {headers: this.headersJson} );
+    return this.httpClient.get<Array<LandRegistriesDTO>>(this.BASE_URL + 'landRegistries/find', {headers: this.headersJson});
   }
 
   /** JudicialZone Controller **/
 
   getAllJudicialZone(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL + 'judicial-zone/', {headers: this.headersJson} );
+    return this.httpClient.get(this.BASE_URL + 'judicial-zone/', {headers: this.headersJson});
   }
 
   /** NameTitle Controller **/
@@ -90,17 +99,17 @@ export class AuthorizeRequestService {
   /** SupportingDocument Controller **/
 
   getDocuments(workflowCode: string): Observable<any> {
-    return this.httpClient.get(this.BASE_URL + 'supportingDocument/' +  workflowCode );
+    return this.httpClient.get(this.BASE_URL + 'supportingDocument/' + workflowCode);
   }
 
   getRelatedDocTypes(code: string): Observable<any> {
-    return this.httpClient.get<any>(this.BASE_URL + 'supportingDocument/' + code, {headers: this.headersJson} );
+    return this.httpClient.get<any>(this.BASE_URL + 'supportingDocument/' + code, {headers: this.headersJson});
   }
 
   /** Parameter Controller **/
 
   getParameterizedAmountByCode(code: string) {
-    return this.httpClient.get(this.BASE_URL + 'parameter/' + code, {headers: this.headersJson} );
+    return this.httpClient.get(this.BASE_URL + 'parameter/' + code, {headers: this.headersJson});
   }
 
   /** Payment Controller **/
@@ -129,11 +138,11 @@ export class AuthorizeRequestService {
   /** Bank Controller **/
 
   findAllBanks(): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL + 'bank/bankList', {headers: this.headersJson} );
+    return this.httpClient.get(this.BASE_URL + 'bank/bankList', {headers: this.headersJson});
   }
 
   getAllBanks(): Observable<Array<BankDTO>> {
-    return this.httpClient.get<Array<BankDTO>>(this.BASE_URL + 'bank/bankList', {headers: this.headersJson} );
+    return this.httpClient.get<Array<BankDTO>>(this.BASE_URL + 'bank/bankList', {headers: this.headersJson});
   }
 
   findBankBranches(bankId: number): Observable<Object> {
@@ -143,7 +152,7 @@ export class AuthorizeRequestService {
   /** Bank Branch Controller **/
 
   findAllByBankId(bankId: number): Observable<Object> {
-    return this.httpClient.get(this.BASE_URL + 'bankBranch/bank/' + bankId , {headers: this.headersJson} );
+    return this.httpClient.get(this.BASE_URL + 'bankBranch/bank/' + bankId, {headers: this.headersJson});
   }
 
   /** System Users Controller **/
@@ -153,7 +162,7 @@ export class AuthorizeRequestService {
   }
 
   sendPasswordResetEmail(email): Observable<Array<any>> {
-    return this.httpClient.post<Array<any>>(this.BASE_URL + 'systemUsers/passwordReset', email, {headers: this.headersJson} );
+    return this.httpClient.post<Array<any>>(this.BASE_URL + 'systemUsers/passwordReset', email, {headers: this.headersJson});
   }
 
   /** Citizen Controller **/
@@ -161,18 +170,31 @@ export class AuthorizeRequestService {
   saveCitizenAndFormData(fileList: any, citizen: CitizenDTO): Observable<CitizenDTO> {
 
     const formData: FormData = new FormData();
-    // const keys = Object.keys(fileList);
-    // for (const key in keys) {
-    //   for (const file of fileList[keys[key]]) {
-    //     formData.append('file', file, keys[key] + '/' + keys[key] + file.name);
-    //   }
-    // }
+
     fileList.forEach(doc => {
       formData.append('file', doc.files, doc.fileType + '/' + doc.fileType + doc.files.name);
     });
     formData.append('model', JSON.stringify(citizen));
-    return this.httpClient.post<CitizenDTO>(this.BASE_URL + 'citizen/', formData,{headers: this.headers});
+    return this.httpClient.post<CitizenDTO>(this.BASE_URL + 'citizen/', formData, {headers: this.headers});
 
+  }
+
+  /** Temp Data Controller **/
+
+  getTempDataById(id: any) : Observable<Object>{
+    return this.httpClient.get(`${this.BASE_URL}tempData/${id}`, {headers: this.headersJson});
+  }
+
+  saveTempData(tempData: TempData): Observable<Object>{
+    return this.httpClient.post(`${this.BASE_URL}tempData/`,tempData, {headers: this.headersJson});
+  }
+
+  updateTempData(tempData: TempData): Observable<Object>{
+    return this.httpClient.put(`${this.BASE_URL}tempData/`,tempData, {headers: this.headersJson});
+  }
+
+  deleteTempData(id: any): Observable<Object>{
+    return this.httpClient.delete(`${this.BASE_URL}tempData/${id}`, {headers: this.headersJson})
   }
 
 }

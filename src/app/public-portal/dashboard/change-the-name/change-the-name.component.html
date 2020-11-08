@@ -190,14 +190,9 @@
           <div class="separator">&nbsp;</div>
 
           <div class="pg-inner-row mb-0">
-            <!--<div class="pg-inner-col">-->
-              <!--<re-captcha formControlName="recaptcha" class="form-control"></re-captcha>-->
-            <!--</div>-->
             <div class="pg-inner-col float-right" *ngIf="!isPaymentSuccess">
-              <!--<button mat-raised-button class="lg-button" (click)="onClickSubmitSearchRequest()">-->
-                <!--{{'BUTTONS.CONTINUE_BUTTON'|translate}}-->
-              <!--</button>-->
-              <button [disabled]="!isDataChanged || notaryForm.invalid || checkDocumentValidation()" mat-raised-button class="lg-button float-right" (click)="onClickSubmitSearchRequest()">
+              <button [disabled]="!isDataChanged || notaryForm.invalid || checkDocumentValidation()"
+                      mat-raised-button class="lg-button float-right" (click)="onClickSubmitSearchRequest()">
                 {{'BUTTONS.CONTINUE_BUTTON'|translate}}
               </button>
             </div>
@@ -218,7 +213,8 @@
              [applicationFeeCode]="Parameters.NOTARY_NAME_CHANGE_FEE"
              [hasFrontCounterPayment]="false"
              [isDocumentCollect]="true"
-             [workflowCode]="WorkflowCode.NAME_CHANGE_REQUEST_INITIALIZED"
+             [workflowCode]="Workflow.NOTARY_NAME_CHANGE"
+             [workflowStageCode]="NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED"
              [userType]="userType"
              [userId]="notaryId"
              >

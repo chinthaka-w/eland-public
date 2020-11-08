@@ -1,14 +1,14 @@
-import { CommonStatus } from 'src/app/shared/enum/common-status.enum';
-import { Workflow } from './../../../shared/enum/workflow.enum';
-import { Router } from '@angular/router';
-import { PatternValidation } from './../../../shared/enum/pattern-validation.enum';
+import {CommonStatus} from 'src/app/shared/enum/common-status.enum';
+import {Workflow} from './../../../shared/enum/workflow.enum';
+import {Router} from '@angular/router';
+import {PatternValidation} from './../../../shared/enum/pattern-validation.enum';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Location} from '@angular/common';
 import {JudicialZoneModel} from '../../../shared/dto/judicial-zone.model';
 import {JudicialService} from '../../../shared/service/change-judicial-service';
 import {DsDivision} from '../../../shared/dto/ds-division.model';
 import {LandRegistryModel} from '../../../shared/dto/land-registry.model.';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {WorkflowStageDocDto} from '../../../shared/dto/workflow-stage-doc-dto';
 import {Languages} from '../../../shared/enum/languages.enum';
 import {JudicialChange} from '../../../shared/dto/judicial-change-model';
@@ -18,11 +18,15 @@ import {PaymentResponse} from '../../../shared/dto/payment-response.model';
 import {Parameters} from '../../../shared/enum/parameters.enum';
 import {DocumentDto} from '../../../shared/dto/document-list';
 import {JudicialChangeWorkflowStagesEnum} from '../../../shared/enum/judicial-change-workflow-stages.enum';
-import {GnDivisionDTO} from "../../../shared/dto/gn-division.dto";
+import {GnDivisionDTO} from '../../../shared/dto/gn-division.dto';
 import {SessionService} from '../../../shared/service/session.service';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
 import {PaymentDto} from '../../../shared/dto/payment-dto';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {TokenStorageService} from '../../../shared/auth/token-storage.service';
+import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
+import {TempData} from '../../../shared/dto/temp-data.model';
+import {RequestData} from '../../../shared/dto/request-data.model';
 
 @Component({
   selector: 'app-change-judicial',
@@ -52,6 +56,7 @@ export class ChangeJudicialComponent implements OnInit {
   public isContinueToPayment: boolean = false;
   Parameters = Parameters;
   WorkflowCode = JudicialChangeWorkflowStagesEnum;
+  Workflow = Workflow;
   public paymentId: number;
   public isPaymentSuccess: boolean;
   public files: File[] = [];
@@ -85,53 +90,6 @@ export class ChangeJudicialComponent implements OnInit {
     }
   ];
 
-
-  constructor(
-    private judicialService: JudicialService,
-    private location: Location,
-    private snackBar: SnackBarService,
-    private sessionService: SessionService,
-    private sysMethodsService: SysMethodsService,
-    private formBuilder: FormBuilder,
-    private router: Router) {
-  }
-
-  ngOnInit() {
-    this.judicialChangeForm = this.formBuilder.group({
-      addressEng: ['', [
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-      ]],
-      addressSin: ['', [
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-      ]],
-      addressTam: ['', [
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
-      ]],
-      judicialZoneId: ['', [
-        Validators.required
-      ]],
-      landRegistry: ['', [Validators.required]],
-      dsDivision: ['', [Validators.required]],
-      gnDivision: ['', [Validators.required]],
-      recaptcha: ['', [Validators.required]]
-    });
-
-    this.notaryId = this.sessionService.getUser().id;
-    this.getJudicialZone();
-    this.getDocumentList();
-    this.locationList.push(this.locationDto);
-    this.getLanguages();
-    this.isPaymentSuccess = false;
-    this.isContinueToPayment = false;
-    this.userType = this.sessionService.getUser().type;
-    this.userId = this.sessionService.getUser().id;
-    this.workflowStageCode = JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIATED;
-
-  }
-
   get addressEng() {
     return this.judicialChangeForm.get('addressEng');
   }
@@ -160,7 +118,93 @@ export class ChangeJudicialComponent implements OnInit {
     return this.judicialChangeForm.get('gnDivision');
   }
 
+  get recaptcha() {
+    return this.judicialChangeForm.get('recaptcha');
+  }
 
+  constructor(
+    private judicialService: JudicialService,
+    private location: Location,
+    private snackBar: SnackBarService,
+    private sessionService: SessionService,
+    private sysMethodsService: SysMethodsService,
+    private formBuilder: FormBuilder,
+    private authorizeRequestService: AuthorizeRequestService,
+    private tokenStorageService: TokenStorageService,
+    private router: Router) {
+  }
+
+  ngOnInit() {
+    this.judicialChangeForm = this.formBuilder.group({
+      addressEng: ['', [
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]],
+      addressSin: ['', [
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]],
+      addressTam: ['', [
+        Validators.maxLength(255),
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+      ]],
+      judicialZoneId: ['', [
+        Validators.required
+      ]],
+      landRegistry: ['', [Validators.required]],
+      dsDivision: ['', [Validators.required]],
+      gnDivision: ['', [Validators.required]],
+      recaptcha: ['', [Validators.required]]
+    });
+
+    this.notaryId = this.sessionService.getUser().id;
+    this.getJudicialZone();
+    this.locationList.push(this.locationDto);
+    this.judicialZoneId.valueChanges.subscribe(value => {
+      if (value) this.onSelectJudicial(value);
+    });
+    this.landRegistry.valueChanges.subscribe(value => {
+      if (value) this.getDsDivisions(value);
+    });
+    this.dsDivision.valueChanges.subscribe(value => {
+      if (value) this.selectGsDivision(value);
+    });
+    this.getLanguages();
+    this.isPaymentSuccess = false;
+    this.isContinueToPayment = false;
+    this.userType = this.sessionService.getUser().type;
+    this.userId = this.sessionService.getUser().id;
+    this.workflowStageCode = JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIATED;
+
+  }
+
+  getTempData() {
+
+    let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_JUDICIAL_CHANGE_KEY);
+    if (tempDataId) {
+      this.authorizeRequestService.getTempDataById(tempDataId).subscribe(
+        (tempData: TempData) => {
+          if (tempData) {
+            let requestData: RequestData = JSON.parse(tempData.tempData);
+            this.judicialChangeForm.patchValue(JSON.parse(requestData.formData));
+            this.recaptcha.setValue('');
+            if (requestData.documentData)
+              this.documentList = JSON.parse(requestData.documentData);
+            if(requestData.otherData1){
+              let judicialChange: JudicialChange = JSON.parse(requestData.otherData1);
+             this.dsGnList = judicialChange.dsGnList;
+              this.gnDivision.setValue(this.dsGnList.map(a => a.gnDivision));
+            }
+          }
+        }, (error) => {
+        },
+        () => {
+          this.getDocumentList();
+        });
+    } else {
+      this.getDocumentList();
+    }
+  }
 
   getDsDivisions(landRegistryId: number): void {
     this.judicialService.getDsDivisionsByLR(landRegistryId).subscribe(
@@ -206,6 +250,21 @@ export class ChangeJudicialComponent implements OnInit {
     this.judicialService.getDocuments(JudicialChangeWorkflowStagesEnum.JUDICIAL_CHANGE_REQUEST_INITIALIZED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
+      }, (error) => {
+      },
+      () => {
+        if (this.documentList.length > 0) {
+          for (let document of this.documentList) {
+            for (let doc of this.docList) {
+              if (document.fileType == doc.docTypeId) {
+                doc.file = this.sysMethodsService.getFileFromDocumentDTO(document);
+                document.files = doc.file;
+                break;
+              }
+            }
+          }
+          this.checkDocumentValidation();
+        }
       }
     );
   }
@@ -249,6 +308,10 @@ export class ChangeJudicialComponent implements OnInit {
             this.isAddTamMandatory = true;
           }
         }
+      }, (error) => {
+      },
+      () => {
+        this.getTempData();
       }
     );
   }
@@ -269,18 +332,18 @@ export class ChangeJudicialComponent implements OnInit {
     this.previousSelections.splice(index, 1);
   }
 
-  selectGsDivision(gsDivisionId, index) {
+  selectGsDivision(gsDivisionId) {
     this.dsDivisionId = gsDivisionId;
     this.getGnDivision(gsDivisionId);
-    this.gsDivisions.forEach(gsDivision => {
-      if (gsDivision.dsDivisionId === gsDivisionId) {
-        this.isSelected = true;
-      }
-      if (gsDivision.dsDivisionId === this.previousSelections[index]) {
-        this.isSelected = false;
-      }
-    });
-    this.previousSelections[index] = gsDivisionId;
+    // this.gsDivisions.forEach(gsDivision => {
+    //   if (gsDivision.dsDivisionId === gsDivisionId) {
+    //     this.isSelected = true;
+    //   }
+    //   if (gsDivision.dsDivisionId === this.previousSelections[index]) {
+    //     this.isSelected = false;
+    //   }
+    // });
+    // this.previousSelections[index] = gsDivisionId;
   }
 
 
@@ -290,41 +353,67 @@ export class ChangeJudicialComponent implements OnInit {
       this.dsGnList.push(new DsGnDivisionDTO(+this.dsDivisionId, +gsDivision));
     });
   }
-  setFiles(data: any, docTyprId: number, status: boolean) {
+
+  setFiles(data: any, doc: any) {
+    doc.selected = true;
     this.files = data;
-    const document = new DocumentDto(this.files[0], docTyprId);
-    document.status = status ? CommonStatus.REQUIRED : CommonStatus.OPTIONAL;
-    if (document.files) {
-      this.documentList.push(document);
-    } else {
-      this.documentList.forEach((doc, index) => {
-        if (doc.fileType === document.fileType) {
-          this.documentList.splice(index, 1);
-        }
+    let document = this.isDocumentAvailable(doc.docTypeId);
+    if (document) {
+      let index = this.documentList.findIndex((data: DocumentDto) => {
+        return data == document
       });
+      if (data.length != 0) {
+        this.documentList[index].files = this.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        let this2 = this;
+        this2.documentList[index].fileName = this.files[0].name;
+        this2.documentList[index].fileFormats = this.files[0].type;
+        reader.onload = function () {
+          this2.documentList[index].fileBase64 = reader.result;
+        };
+      } else {
+        this.documentList.splice(index, 1);
+      }
+    } else {
+
+      let newDoc = new DocumentDto(this.files[0], doc.docTypeId);
+      newDoc.fileName = this.files[0].name;
+      newDoc.fileFormats = this.files[0].type;
+
+      let reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.onload = function () {
+        newDoc.fileBase64 = reader.result;
+      };
+
+      this.documentList.push(newDoc);
     }
+    this.checkDocumentValidation();
+  }
 
-    let workflowManatoryDocs = 0;
-    let uploadedMandatoryDocs = 0;
-
-    this.docList.forEach(doc => {
-      if  (doc.required) {
-        workflowManatoryDocs += 1;
+  checkDocumentValidation() {
+    let invalid = false;
+    this.docList.forEach((item: WorkflowStageDocDto) => {
+      if (item.required && !this.isDocumentAvailable(item.docTypeId)) {
+        item.invalid = true;
+        invalid = true;
+      } else {
+        item.invalid = false;
       }
     });
+    return invalid;
+  }
 
-    this.documentList.forEach(doc => {
-      if (doc.status === CommonStatus.REQUIRED) {
-        uploadedMandatoryDocs += 1;
+  isDocumentAvailable(docTypeId: any): any {
+    return this.documentList.find((data: DocumentDto) => {
+        return data.fileType == docTypeId;
       }
-    });
-
-    if (workflowManatoryDocs === uploadedMandatoryDocs) {
-      this.isRequiredDocsUpload = true;
-    } else {this.isRequiredDocsUpload = false; }
+    );
   }
 
   submitForm() {
+
     this.judicialChange.judicialZoneId = this.judicialChangeForm.value.judicialZoneId;
     this.judicialChange.addressEng = this.judicialChangeForm.value.addressEng;
     this.judicialChange.addressSin = this.judicialChangeForm.value.addressSin;
@@ -334,24 +423,45 @@ export class ChangeJudicialComponent implements OnInit {
     this.judicialChange.dsGnList = this.dsGnList;
     this.judicialChange.paymentId = this.paymentId;
 
-    const formData = new FormData();
-    formData.append('data', JSON.stringify(this.judicialChange));
-    this.documentList.forEach(doc => {
-      formData.append('file', doc.files, doc.files.name + '|' + doc.fileType);
-    });
+    if (this.paymentMethod === PaymentMethod.ONLINE) {
 
-    this.judicialService.save(formData).subscribe((result) => {
-      if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
-        this.snackBar.success('Judicial Change Request Success');
-        this.router.navigate(['/requests', this.getBase64Url(Workflow.JUDICIAL_ZONE_CHANGE)]);
-      } else if (this.paymentMethod === PaymentMethod.ONLINE) {
-        this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
-        this.isContinue = true;
-        this.statusOnlinePayment = true;
-      } else {
-        this.snackBar.error('Operation failed');
-      }
-    });
+      let requestData = new RequestData();
+      requestData.formData = JSON.stringify(this.judicialChangeForm.value);
+      requestData.documentData = JSON.stringify(this.documentList);
+      requestData.paymentData = JSON.stringify(this.paymentDto);
+      requestData.otherData1 = JSON.stringify(this.judicialChange);
+
+      let tempData = new TempData();
+      tempData.tempData = JSON.stringify(requestData);
+      tempData.status = CommonStatus.ACTIVE;
+
+      this.authorizeRequestService.saveTempData(tempData).subscribe(
+        (tempData: TempData) => {
+          this.tokenStorageService.saveFormData(this.tokenStorageService.NEW_NOTARY_JUDICIAL_CHANGE_KEY, tempData.tempDataId);
+          this.isContinue = true;
+          this.statusOnlinePayment = true;
+        }
+      );
+
+    }else {
+      this.judicialService.save(this.documentList, this.judicialChange).subscribe((result) => {
+        if (result && this.paymentMethod !== PaymentMethod.ONLINE) {
+          this.snackBar.success('Judicial Change Request Success');
+          let tempDataId = this.tokenStorageService.getFormData(this.tokenStorageService.NEW_NOTARY_JUDICIAL_CHANGE_KEY);
+          if (tempDataId) {
+            this.authorizeRequestService.deleteTempData(tempDataId).subscribe();
+            this.tokenStorageService.removeFormData(this.tokenStorageService.NEW_NOTARY_JUDICIAL_CHANGE_KEY);
+          }
+          this.router.navigate(['/requests', this.getBase64Url(Workflow.JUDICIAL_ZONE_CHANGE)]);
+        } else if (this.paymentMethod === PaymentMethod.ONLINE) {
+          this.snackBar.success('Judicial Change Request Success, Proceed to online payment');
+          this.isContinue = true;
+          this.statusOnlinePayment = true;
+        } else {
+          this.snackBar.error('Operation failed');
+        }
+      });
+    }
   }
 
   saveDate(event: any) {
@@ -403,7 +513,7 @@ export class ChangeJudicialComponent implements OnInit {
     this.isContinue = true;
   }
 
-  onSelectJudicial(judicialCode: number) {
+  onSelectJudicial(judicialCode: any) {
     this.getLandRegistriesByJudicial(judicialCode);
     this.gsDivisions = [];
     this.gnDivisions = [];

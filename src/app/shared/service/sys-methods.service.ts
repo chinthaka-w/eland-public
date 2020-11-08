@@ -1,20 +1,22 @@
 import {Injectable} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import * as moment from 'moment';
+import {DocumentDto} from '../dto/document-list';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SysMethodsService {
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer,) {
   }
 
- public getBTOA(value: string): string {
+  public getBTOA(value: string): string {
     return btoa(value);
   }
 
- public getATOB(value: string): string {
+  public getATOB(value: string): string {
     return atob(value);
   }
 
@@ -133,6 +135,39 @@ export class SysMethodsService {
       console.log('Error: ', error);
     };
     return '';
+  }
+
+  public getFileFromDocumentDTO(document: DocumentDto | any): File {
+    let base64;
+    if (document.fileBase64.split(',').length == 2)
+      base64 = document.fileBase64.split(',')[1];
+    else
+      base64 = document.fileBase64.split(',')[0];
+
+    const byteString = window.atob(base64);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], {type: document.fileFormats});
+
+    const file:any = new File([blob], document.fileName, {type: document.fileFormats});
+    file.objectURL = this.sanitizer.bypassSecurityTrustUrl(
+      window.URL.createObjectURL(file)
+    );
+    return file;
+  }
+
+  public getDocumentListWithFileFromDocumentListFileBase64(documentList: DocumentDto[]): DocumentDto[] {
+    let documents: DocumentDto[] = [];
+    if (documentList) {
+      for (let document of documentList) {
+        document.files = this.getFileFromDocumentDTO(document);
+        documents.push(document);
+      }
+    }
+    return documents;
   }
 
 }
