@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="action!=ActionMode.VIEW && addPayment" class="pg-inner-col float-right">
+  <div *ngIf="action!= ActionMode.VIEW && addPayment" class="pg-inner-col float-right">
     <button mat-raised-button class="button float-right" (click)="continuePayments()">{{'PAYMENT.ADD_PAYMENT'| translate}}</button>
   </div>
 

@@ -86,7 +86,6 @@ import {ChangeLandRegistryRequestViewComponent} from './dashboard/change-land-re
 import {SearchDocumentResultComponent} from './dashboard/search-document/search-document-view/search-document-application/search-document-result/search-document-result.component';
 import {NotaryRequestViewComponent} from './dashboard/notary-request-view/notary-request-view.component';
 import {SharedModule} from '../shared/shared.module';
-import {ImageViewerModule} from 'ngx-image-viewer';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {Application1Component} from './dashboard/change-land-registry/change-land-registry-request-view/application1/application1.component';
 import {DocumentViewerComponent} from '../shared/components/document-viewer/document-viewer.component';
@@ -95,6 +94,7 @@ import {ResetPasswordComponent} from './reset-password/reset-password.component'
 import {PasswordStrengthMeterComponent, PasswordStrengthMeterModule} from 'angular-password-strength-meter';
 import {TranslateService} from '@ngx-translate/core';
 import {transition} from '@angular/animations';
+import {AngularImageViewerModule} from 'angular-x-image-viewer';
 
 
 @NgModule({
@@ -193,7 +193,7 @@ import {transition} from '@angular/animations';
     MatNativeDateModule,
     SatDatepickerModule,
     SatNativeDateModule,
-    ImageViewerModule,
+    AngularImageViewerModule,
     MatSlideToggleModule,
     MatListModule,
     MatSlideToggleModule,

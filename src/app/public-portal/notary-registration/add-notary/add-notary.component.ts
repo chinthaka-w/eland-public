@@ -601,7 +601,7 @@ export class AddNotaryComponent implements OnInit {
     }
   }
 
-  selectDsDivision(dsDivisionId, index) {
+  selectDsDivision(dsDivisionId) {
     if (dsDivisionId) this.getGnDivisions(dsDivisionId);
 
   }

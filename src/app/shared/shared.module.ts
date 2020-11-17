@@ -31,7 +31,6 @@ import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from "@angular/material/card";
-import {ImageViewerModule} from "ngx-image-viewer";
 import { LastRemarkComponent } from './components/request-view/last-remark/last-remark.component';
 import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { RemarkHistoryComponent } from './components/remark-history/remark-history.component';
@@ -71,6 +70,7 @@ import {InputLowercaseLetterOnlyDirective} from './directives/input-lowercase-le
 import {InputUppercaseAndLowercaseLetterOnlyDirective} from './directives/input-uppercase-and-lowercase-letter-only.directive';
 import {InputDotOnlyDirective} from './directives/input-dot-only.directive';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import {AngularImageViewerModule} from 'angular-x-image-viewer';
 
 @NgModule({
   declarations: [
@@ -150,7 +150,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     RecaptchaModule,
     RecaptchaFormsModule,
     MatIconModule,
-    ImageViewerModule,
+    AngularImageViewerModule,
     MatProgressSpinnerModule,
     MatTabsModule,
     MatCardModule,

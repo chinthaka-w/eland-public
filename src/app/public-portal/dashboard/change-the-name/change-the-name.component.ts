@@ -214,7 +214,7 @@ export class ChangeTheNameComponent implements OnInit {
 
   }
 
-  private addLanguageList(id: number): void {
+  public addLanguageList(id: number): void {
     if (id === Languages.SINHALA) {
       this.isSinhala = (!this.isSinhala);
     }
@@ -413,7 +413,7 @@ export class ChangeTheNameComponent implements OnInit {
       });
   }
 
-  private getJudicialZones(): void {
+  public getJudicialZones(): void {
     this.judicialZoneService.getAllJudicialZone().subscribe(
       (data: JudicialZoneModel[]) => {
         this.judicialZones = data;
@@ -421,7 +421,7 @@ export class ChangeTheNameComponent implements OnInit {
     );
   }
 
-  private getLandRegistries(): void {
+  public getLandRegistries(): void {
     this.landRegistryService.getAllLandRegistry().subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistry = data;
@@ -429,7 +429,7 @@ export class ChangeTheNameComponent implements OnInit {
     );
   }
 
-  private getGnDivisions(): void {
+  public getGnDivisions(): void {
     this.gnDivisionService.getAllGnDivisions().subscribe(
       (data: GnDivision[]) => {
         this.gnDivision = data ;
@@ -437,7 +437,7 @@ export class ChangeTheNameComponent implements OnInit {
     );
   }
 
-  private getDsDivisions(): void {
+  public getDsDivisions(): void {
     this.dsDivisionService.getAllDsDivisions().subscribe(
       (data: DsDivision[]) => {
         this.dsDivision = data;

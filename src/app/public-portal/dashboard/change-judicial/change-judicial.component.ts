@@ -214,7 +214,7 @@ export class ChangeJudicialComponent implements OnInit {
     );
   }
 
-  private getGnDivision(dsDivId: number): void {
+  public getGnDivision(dsDivId: number): void {
     this.judicialService.getGnDivision(dsDivId).subscribe(
       (data: GnDivisionDTO[]) => {
         this.gnDivisions = data;
@@ -222,7 +222,7 @@ export class ChangeJudicialComponent implements OnInit {
     );
   }
 
-  private getLandRegistries(judicialCode: number): void {
+  public getLandRegistries(judicialCode: number): void {
     this.judicialService.getAllLandRegistries().subscribe(
       (data: LandRegistryModel[]) => {
         this.landRegistries = data;
@@ -238,7 +238,7 @@ export class ChangeJudicialComponent implements OnInit {
     );
   }
 
-  private getJudicialZone(): void {
+  public getJudicialZone(): void {
     this.judicialService.getAllJudicialZoneWithoutNotaryReg(this.notaryId).subscribe(
       (data: JudicialZoneModel[]) => {
         this.judicialZone = data;
@@ -269,7 +269,7 @@ export class ChangeJudicialComponent implements OnInit {
     );
   }
 
-  private getLanguages(): void {
+  public getLanguages(): void {
     this.judicialService.getLanguages(this.notaryId).subscribe(
       (data: number[]) => {
         this.langArr = data;

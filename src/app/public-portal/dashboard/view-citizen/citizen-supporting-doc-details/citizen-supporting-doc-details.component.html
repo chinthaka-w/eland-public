@@ -6,12 +6,13 @@
         {{doc.name| listTranslate: doc.nameSinhala: doc.nameTamil}}
       </mat-card-title>
     </mat-card-header>
-    
+
     <div class="pg-inner-row mb-20">
       <div class="pg-inner-col">
-        <ngx-image-viewer
+        <angular-image-viewer
+          [screenHeightOccupied]='0'
         [src]="doc.pages"
-        [config]="{
+          [config]="{
           btnIcons: {
             zoomIn: 'fa fa-plus',
             zoomOut: 'fa fa-minus',
@@ -29,7 +30,7 @@
           }
         }"
       >
-      </ngx-image-viewer>
+      </angular-image-viewer>
       </div>
     </div>
   </mat-card>

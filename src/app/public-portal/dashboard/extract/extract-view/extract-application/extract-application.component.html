@@ -10,7 +10,6 @@
           <mat-form-field appearance="outline">
             <select matNativeControl
                     required
-                    (change)="onChangeLandRegistry($event.target.value)"
                     class="form-control"
                     formControlName="landRegistryId">
               <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
@@ -295,7 +294,6 @@
           <mat-form-field appearance="outline">
             <select matNativeControl
                     class="form-control"
-                    (change)="onChangeKorale($event.target.value)"
                     formControlName="koraleId">
               <option value="">--Select--</option>
               <option *ngFor="let item of korales" [value]="item.koraleId">{{item.descriptionEng|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
@@ -335,7 +333,6 @@
           <mat-form-field appearance="outline">
             <select matNativeControl
                     class="form-control"
-                    (change)="onChangeDsDivision($event.target.value)"
                     formControlName="dsDivisionId">
               <option value="">{{'SEARCH_DOC.SELECT'|translate}}</option>
               <option *ngFor="let item of dsDivisions" [value]="item.dsDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
@@ -354,7 +351,6 @@
           <mat-form-field appearance="outline">
             <select matNativeControl
                     class="form-control"
-                    (change)="onChangeGnDivision($event.target.value)"
                     formControlName="gnDivisionId">
               <option value="">--Select--</option>
               <option *ngFor="let item of gnDivisions" [value]="item.gnDivisionId">{{item.description|listTranslate:item.descriptionSin:item.descriptionTam}}</option>
@@ -555,16 +551,16 @@
         </mat-chip-list>
       </div>
     </div>
-    <div *ngIf="false">
-      <div class="pg-inner-row mb-10">
-        <div class="pg-inner-col float-right ">
-          <button [disabled]="folioStatus" mat-raised-button
-                  (click)="onClickSearch()"
-                  class="button float-right">{{'BUTTONS.SEARCH_BUTTON'|translate}}
-          </button>
-        </div>
-      </div>
-    </div>
+    <!--<div *ngIf="false">-->
+      <!--<div class="pg-inner-row mb-10">-->
+        <!--<div class="pg-inner-col float-right ">-->
+          <!--<button [disabled]="folioStatus" mat-raised-button-->
+                  <!--(click)="onClickSearch()"-->
+                  <!--class="button float-right">{{'BUTTONS.SEARCH_BUTTON'|translate}}-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </form>
 
