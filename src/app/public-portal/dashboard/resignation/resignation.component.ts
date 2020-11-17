@@ -29,7 +29,7 @@ export class ResignationComponent implements OnInit {
               private snackBar: SnackBarService,
               private sessionService: SessionService,
               private sysMethodsService: SysMethodsService,
-              private router: Router,
+              public router: Router,
               private systemService: SystemService) { }
 
   ngOnInit() {

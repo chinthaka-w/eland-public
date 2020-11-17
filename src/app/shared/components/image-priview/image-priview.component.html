@@ -4,7 +4,7 @@
       <mat-card-header>
         <h6 class="ml-2">{{file.name}}</h6>
       </mat-card-header>
-      <ngx-image-viewer [src]="file.pages" [config]="viewerConfig"></ngx-image-viewer>
+      <angular-image-viewer [screenHeightOccupied]='0' [src]="file.pages" [config]="viewerConfig"></angular-image-viewer>
       <mat-card-actions>
         <span *ngIf="file.pages.length > 1">Pages <strong>{{file.pages.length}}</strong></span>
         <!-- <a class="text-dark" [href]="file.transformedContent" download>

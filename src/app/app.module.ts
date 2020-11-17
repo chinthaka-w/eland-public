@@ -37,12 +37,12 @@ import {NewNotaryDataVarificationService} from './shared/service/new-notary-data
 import {RequestForCorrectionService} from './shared/service/request-for-correction.service';
 import {ChangeNameService} from './shared/service/change-name.service';
 import {MatCardModule, MatTableModule} from '@angular/material';
-import {ImageViewerModule} from 'ngx-image-viewer';
 import {NotaryRequestService} from './shared/service/notary-request.service';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
 import {ErrorInterceptorService} from './shared/auth/error-interceptor.service';
+import {AngularImageViewerModule} from 'angular-x-image-viewer';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -71,7 +71,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PublicPortalModule,
     HttpModule,
     HttpClientModule,
-    ImageViewerModule,
+    AngularImageViewerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

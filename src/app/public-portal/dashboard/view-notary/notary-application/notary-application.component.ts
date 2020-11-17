@@ -546,7 +546,7 @@ export class NotaryApplicationComponent implements OnInit {
     }
   }
 
-  selectDsDivision(dsDivisionId, index) {
+  selectDsDivision(dsDivisionId) {
     if (dsDivisionId) this.getGnDivisions(dsDivisionId);
 
   }

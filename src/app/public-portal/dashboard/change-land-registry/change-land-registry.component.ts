@@ -51,6 +51,7 @@ export class ChangeLandRegistryComponent implements OnInit {
   userType: string;
   userId: number;
   isRequiredDocsUpload = false;
+  isContinueToPayment:boolean;
 
 
 
