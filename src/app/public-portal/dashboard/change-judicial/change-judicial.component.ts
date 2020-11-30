@@ -502,6 +502,7 @@ export class ChangeJudicialComponent implements OnInit {
 
   onBack(data: boolean) {
     this.isContinue = !data;
+    this.recaptcha.setValue(null);
   }
 
   goBack(): any {
