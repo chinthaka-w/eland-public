@@ -15,10 +15,11 @@
         <app-supporting-doc-detail [enableDocUpload]="enableFormEdit" [workflow]="workflowCode" [id]="id"></app-supporting-doc-detail>
         </mat-tab>
       <mat-tab label="{{'CITIZEN.PAYMENT_INFO'| translate}}">
-        <app-notary-payment-info 
-        [addPayment]="enableFormEdit" 
+        <app-notary-payment-info
+        [addPayment]="enableFormEdit"
         [requestDetailPayment]="requestDetailPayment"
         [workflowStage]="workflow"
+        [hasOnlinePayment]="false"
         [applicationFeeCode]="paymentParameter"
         >
       </app-notary-payment-info>
@@ -27,6 +28,7 @@
         <app-notary-remark [workflow]="workflowCode" [id]="id"></app-notary-remark>
       </mat-tab>
     </mat-tab-group>
+    <div class="separator">&nbsp;</div>
     <button *ngIf="enableFormEdit" mat-raised-button class="lg-button"  (click)="onFormSubmit()">{{'BUTTONS.SUBMIT_BUTTON'| translate}}</button>
   </div>
 </div>

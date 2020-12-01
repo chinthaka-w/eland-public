@@ -121,7 +121,7 @@ export class RequestDataComponent implements OnInit {
       landRegistry: ['', [Validators.required]],
       dsDivision: ['', [Validators.required]],
       gnDivision: ['', [Validators.required]],
-      recaptcha: ['', [Validators.required]]
+      // recaptcha: ['', [Validators.required]]
 
     });
     this.notaryId = this.sessionService.getUser().id;

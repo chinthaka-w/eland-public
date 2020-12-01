@@ -41,6 +41,8 @@ export class PaymentComponent implements OnInit, OnChanges {
   @Input() userType: string;
   @Input() userId: number;
   @Input() requestItemCount: number = 1;
+  @Input() hasOnlinePayment: boolean = true;
+
   showSpinner: boolean;
   public isContinueToPayment: boolean = false;
 
