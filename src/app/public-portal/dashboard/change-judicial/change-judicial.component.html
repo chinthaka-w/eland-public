@@ -43,7 +43,7 @@
               </mat-form-field>
               <div *ngIf="addressEng.invalid && (addressEng.dirty || addressEng.touched)">
                 <mat-error *ngIf="addressEng.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
-                <mat-error *ngIf="addressEng.errors.maxLength" class="errors">{{'CHG_JUD_ZONE.VALID_ADDRESS'|translate}}</mat-error>
+                <mat-error *ngIf="addressEng.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
                 <mat-error *ngIf="addressEng.errors.pattern" class="errors">{{'CHG_JUD_ZONE.VALID_ADDRESS'|translate}}</mat-error>
               </div>
             </div>
@@ -58,7 +58,7 @@
               </mat-form-field>
               <div *ngIf="addressSin.invalid && (addressSin.dirty || addressSin.touched)">
                 <mat-error *ngIf="addressSin.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
-                <mat-error *ngIf="addressSin.errors.maxLength" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_SIN'|translate}}</mat-error>
+                <mat-error *ngIf="addressSin.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
                 <mat-error *ngIf="addressSin.errors.pattern" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_SIN'|translate}}</mat-error>
               </div>
             </div>
@@ -73,7 +73,7 @@
               </mat-form-field>
               <div *ngIf="addressTam.invalid && (addressTam.dirty || addressTam.touched)">
                 <mat-error *ngIf="addressTam.errors.required" class="errors">{{'CHG_JUD_ZONE.FILL_REQUIRED'|translate}}</mat-error>
-                <mat-error *ngIf="addressTam.errors.maxLength" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_TAM'|translate}}</mat-error>
+                <mat-error *ngIf="addressTam.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
                 <mat-error *ngIf="addressTam.errors.pattern" class="errors">{{'CHG_JUD_ZONE.VALID_ADD_TAM'|translate}}</mat-error>
               </div>
             </div>
