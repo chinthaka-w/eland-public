@@ -53,7 +53,7 @@ export class ExtractViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.action = this.workflowStage != ExtractRequestWorkflowStages.EXTRACT_REQ_REJECTED_BY_ARL ? ActionMode.VIEW : ActionMode.UPDATE;
+    this.action = this.workflowStage != ExtractRequestWorkflowStages.EXTRACT_REQ_RETURN_BY_ARL ? ActionMode.VIEW : ActionMode.UPDATE;
   }
 
   goBack(): any {
