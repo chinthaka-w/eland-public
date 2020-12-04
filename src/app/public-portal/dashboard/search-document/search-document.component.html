@@ -326,7 +326,7 @@
                   </option>
                 </select>
               </mat-form-field>
-              <div *ngIf="FormControls.paththuId.touched && !paththuwas?.length"
+              <div *ngIf="FormControls.paththuId.touched && !FormControls.koraleId.value"
                    class="invalid-feedback">
                 <mat-error>{{'SEARCH_DOC.SELECT_KORALE'|translate}}</mat-error>
               </div>
@@ -369,7 +369,7 @@
                   </option>
                 </select>
               </mat-form-field>
-              <div *ngIf="FormControls.gnDivisionId.touched && !gnDivisions?.length"
+              <div *ngIf="FormControls.gnDivisionId.touched && !FormControls.dsDivisionId.value"
                    class="invalid-feedback">
                 <mat-error>{{'SEARCH_DOC.SELECT_DS'|translate}}</mat-error>
               </div>
@@ -393,7 +393,7 @@
                   </option>
                 </select>
               </mat-form-field>
-              <div *ngIf="FormControls.villageId.touched && !villages?.length"
+              <div *ngIf="FormControls.villageId.touched && !FormControls.gnDivisionId.value"
                    class="invalid-feedback">
                 <mat-error>{{'SEARCH_DOC.SELECT_GN'|translate}}</mat-error>
               </div>
