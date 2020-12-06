@@ -57,6 +57,7 @@
             <div *ngIf="FormControls.reason.touched && FormControls.reason.errors" class="invalid-feedback">
               <mat-error *ngIf="FormControls.reason.errors.required" class="errors">{{'LEAVE_REQUEST.REASON_REQ'|translate}}</mat-error>
               <mat-error *ngIf="FormControls.reason.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
+              <mat-error *ngIf="FormControls.reason.errors.pattern" class="errors">{{'LEAVE_REQUEST.REASON_VALID'|translate}}</mat-error>
             </div>
           </div>
         </div>

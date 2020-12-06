@@ -11,6 +11,7 @@ import {WorkflowStageDocTypeDTO} from '../../../shared/dto/workflow-stage-doc-ty
 import {Location, DatePipe} from '@angular/common';
 import {SystemService} from '../../../shared/service/system.service';
 import {SysMethodsService} from '../../../shared/service/sys-methods.service';
+import {PatternValidation} from '../../../shared/enum/pattern-validation.enum';
 
 @Component({
   selector: 'app-leave-request',
@@ -51,6 +52,7 @@ export class LeaveRequestComponent implements OnInit {
       toDate: new FormControl('', [Validators.required]),
       reason: new FormControl('', [Validators.required,
         this.sysMethodsService.noWhitespaceValidator,
+      Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN),
       Validators.maxLength(255)]),
       recaptcha: new FormControl('', [Validators.required])
     });

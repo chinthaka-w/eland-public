@@ -1292,6 +1292,7 @@
     "TO_REQ":"To date is required",
     "LEAVE_REASON":"Leave Reason:",
     "REASON_REQ":"Reason for leave Required",
+    "REASON_VALID":"Please enter valid Reason for leave",
     "IF_ANY":"(if any)",
     "SUBMIT":"Submit"
   },
