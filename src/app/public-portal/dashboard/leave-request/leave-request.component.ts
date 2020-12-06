@@ -49,7 +49,9 @@ export class LeaveRequestComponent implements OnInit {
     this.notaryLeaveRequestForm = new FormGroup({
       fromDate: new FormControl('', [Validators.required]),
       toDate: new FormControl('', [Validators.required]),
-      reason: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator]),
+      reason: new FormControl('', [Validators.required,
+        this.sysMethodsService.noWhitespaceValidator,
+      Validators.maxLength(255)]),
       recaptcha: new FormControl('', [Validators.required])
     });
     this.route.params.subscribe(param => {

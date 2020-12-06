@@ -55,15 +55,15 @@
               <textarea matInput rows="5" formControlName="reason"></textarea>
             </mat-form-field>
             <div *ngIf="FormControls.reason.touched && FormControls.reason.errors" class="invalid-feedback">
-              <mat-error *ngIf="FormControls.reason.errors.required" class="errors">{{'LEAVE_REQUEST.REASON_REQ'|translate}}
-              </mat-error>
+              <mat-error *ngIf="FormControls.reason.errors.required" class="errors">{{'LEAVE_REQUEST.REASON_REQ'|translate}}</mat-error>
+              <mat-error *ngIf="FormControls.reason.errors.maxlength" class="errors">{{'VALIDATION.MAX_LENGTH_255_ERR'|translate}}</mat-error>
             </div>
           </div>
         </div>
 
 
 
-      
+
 
       <div class="default-input-wrapper full-row" *ngFor="let doc of workflowStageDocTypes">
         <label>{{doc.description|listTranslate:doc.descriptionSin:doc.descriptionTam}} {{'LEAVE_REQUEST.IF_ANY'|translate}}</label>
