@@ -922,6 +922,7 @@
        "REQUEST_APPROVED": "අනුමත කර ඇත",
        "RESIGN": "ඉල්ලා අස්විය",
        "INACTIVE": "අක්‍රීයයි",
+      "NOTARY_PROFILE_DEACTIVATED": "නොතාරිස් පැතිකඩ අක්‍රිය කර ඇත",
        "PARTIALLY_ACTIVE": "අර්ධ වශයෙන් සක්‍රීයයි",
        "FURTHER_DOC_SUBMISSION": "වැඩි විස්තර ඉදිරිපත් කිරීම"
     },

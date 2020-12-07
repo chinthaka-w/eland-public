@@ -922,6 +922,7 @@
        "REQUEST_APPROVED": "Approved",
        "RESIGN": "Resigned",
        "INACTIVE": "Inactive",
+       "NOTARY_PROFILE_DEACTIVATED": "Notary profile deactivated",
        "PARTIALLY_ACTIVE": "Partially Active",
        "FURTHER_DOC_SUBMISSION": "Further Details Submission"
 

@@ -919,6 +919,7 @@
        "REQUEST_APPROVED": "அங்கீகரிக்கப்பட்டது",
        "RESIGN": "ராஜினாமா செய்தார்",
        "INACTIVE": "செயலற்றது",
+      "NOTARY_PROFILE_DEACTIVATED": "நோட்டரி சுயவிவரம் செயலிழக்கப்பட்டது",
       "PARTIALLY_ACTIVE": "ஓரளவு செயலில்",
        "FURTHER_DOC_SUBMISSION": "மேலும் விவரங்கள் சமர்ப்பிப்பு"
     },
