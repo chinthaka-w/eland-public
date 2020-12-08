@@ -17,6 +17,9 @@
                   </option>
                 </select>
               </mat-form-field>
+                <mat-error *ngIf="bank.invalid && (bank.touched || bank.dirty)">
+                  {{'VALIDATION.BANK_TRANSFER_OR_DEPOSIT.REQUIRED_BANK_ERR'|translate}}
+                </mat-error>
             </div>
           </div>
           <div class="default-input-wrapper full-row">
@@ -30,6 +33,9 @@
                   </option>
                 </select>
               </mat-form-field>
+              <mat-error *ngIf="branch.invalid && (branch.touched || branch.dirty)">
+                {{'VALIDATION.BANK_TRANSFER_OR_DEPOSIT.REQUIRED_BRANCH_ERR'|translate}}
+              </mat-error>
             </div>
           </div>
           <div class="default-input-wrapper full-row">
@@ -40,6 +46,9 @@
                        formControlName="date" class="form-control">
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
+                <mat-error *ngIf="date.invalid && (date.touched || date.dirty)">
+                  {{'VALIDATION.BANK_TRANSFER_OR_DEPOSIT.REQUIRED_DATE_ERR'|translate}}
+                </mat-error>
               <button mat-raised-button (click)="picker.open()">
                 <i class="material-icons">calendar_today</i>
               </button>
@@ -51,10 +60,12 @@
               <mat-form-field appearance="outline">
                 <input matInput formControlName="referenceNo" class="form-control">
               </mat-form-field>
-              <div *ngIf="paymentMethodForm.get('referenceNo').touched &&
-              paymentMethodForm.get('referenceNo').invalid">
-                <mat-error *ngIf="paymentMethodForm.get('referenceNo').errors.maxlength">
+              <div *ngIf="referenceNo.invalid && (referenceNo.touched || referenceNo.dirty)">
+                <mat-error *ngIf="referenceNo.errors.maxlength">
                   {{'VALIDATION.MAX_LENGTH_25_ERR'|translate}}
+                </mat-error>
+                <mat-error *ngIf="referenceNo.errors.required">
+                  {{'VALIDATION.BANK_TRANSFER_OR_DEPOSIT.REQUIRED_REFERENCE_NO_ERR'|translate}}
                 </mat-error>
               </div>
             </div>

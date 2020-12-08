@@ -799,6 +799,12 @@
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"Please Enter Location"
        },
+      "BANK_TRANSFER_OR_DEPOSIT":{
+        "REQUIRED_BANK_ERR":"Please Select Bank",
+        "REQUIRED_BRANCH_ERR":"Please Select Branch",
+        "REQUIRED_DATE_ERR":"Please Select Date",
+        "REQUIRED_REFERENCE_NO_ERR":"Please Enter Reference No"
+      },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"Please Enter Designation Code",
           "DESIGNATION_EMPTY_ERR":"Please Enter Designation",

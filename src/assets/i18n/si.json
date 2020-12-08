@@ -799,6 +799,12 @@
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"කරුණාකර ස්ථානය ඇතුළත් කරන්න"
        },
+      "BANK_TRANSFER_OR_DEPOSIT":{
+        "REQUIRED_BANK_ERR":"කරුණාකර බැංකුව තෝරන්න",
+        "REQUIRED_BRANCH_ERR":"කරුණාකර ශාඛාව තෝරන්න",
+        "REQUIRED_DATE_ERR":"කරුණාකර දිනය තෝරන්න",
+        "REQUIRED_REFERENCE_NO_ERR":"කරුණාකර යොමු අංකය ඇතුළත් කරන්න"
+      },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"කරුණාකර තනතුරු කේතය ඇතුළත් කරන්න",
           "DESIGNATION_EMPTY_ERR":"කරුණාකර තනතුර ඇතුළත් කරන්න",

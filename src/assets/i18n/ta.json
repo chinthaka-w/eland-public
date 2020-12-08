@@ -796,6 +796,12 @@
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"இருப்பிடத்தை உள்ளிடவும்"
        },
+      "BANK_TRANSFER_OR_DEPOSIT":{
+        "REQUIRED_BANK_ERR":"தயவுசெய்து வங்கியைத் தேர்ந்தெடுக்கவும்",
+        "REQUIRED_BRANCH_ERR":"கிளையைத் தேர்ந்தெடுக்கவும்",
+        "REQUIRED_DATE_ERR":"தேதியைத் தேர்ந்தெடுக்கவும்",
+        "REQUIRED_REFERENCE_NO_ERR":"குறிப்பு எண் உள்ளிடவும்"
+      },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"பதவி குறியீட்டை உள்ளிடவும்",
           "DESIGNATION_EMPTY_ERR":"தயவுசெய்து பதவியை உள்ளிடவும்",
