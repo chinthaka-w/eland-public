@@ -61,6 +61,8 @@ import * as moment from 'moment';
 import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
 import {RequestData} from '../../../shared/dto/request-data.model';
 import {TempData} from '../../../shared/dto/temp-data.model';
+import {ConfirmationDialogComponent} from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-add-notary',
@@ -208,6 +210,7 @@ export class AddNotaryComponent implements OnInit {
               private router: Router,
               private systemService: SystemService,
               private notaryService: NotaryService,
+              public dialog: MatDialog,
               private authorizeRequestService: AuthorizeRequestService,
               private cdr: ChangeDetectorRef,
               private sysMethodsService: SysMethodsService) {
@@ -879,8 +882,24 @@ export class AddNotaryComponent implements OnInit {
   }
 
   onRemoveDSDivision(item: NewNotaryDsDivisionDTO, index: any) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        // title: this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.CONFIRM_LEAVE'),
+        // message: this.systemService.getTranslation('ALERT.MESSAGE.CHANGES_NOT_SAVED'),
+        buttonText: {
+          ok: this.systemService.getTranslation('BUTTONS.YES_BUTTON'),
+          cancel: this.systemService.getTranslation('BUTTONS.NO_BUTTON')
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+
     this.dsDivision[this.dsDivision.indexOf(this.getLocalDSDivisionById(item.dsDivisionId))].selected = false;
     this.dsGnList.splice(index, 1);
+      }
+    });
   }
 
   onBack() {
