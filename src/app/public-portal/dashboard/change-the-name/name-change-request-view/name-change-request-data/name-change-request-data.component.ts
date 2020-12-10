@@ -211,7 +211,7 @@ export class NameChangeRequestDataComponent implements OnInit {
   }
 
   private getDocumentList(): void {
-    this.documetService.getDocuments(NameChangeWorkflowStagesEnum.NAME_CHANGE_REQUEST_INITIALIZED).subscribe(
+    this.documetService.getDocuments(NameChangeWorkflowStagesEnum.NOTARY_NAME_CHANGE_DATA_VERIFICATION_CLERK_REJECTED).subscribe(
       (data: WorkflowStageDocDto[]) => {
         this.docList = data;
       }
