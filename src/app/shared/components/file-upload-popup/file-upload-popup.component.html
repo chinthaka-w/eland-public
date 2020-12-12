@@ -1,3 +1,6 @@
+<button type="button" class="close" aria-label="Close" [mat-dialog-close]>
+  <span aria-hidden="true">&times;</span>
+</button>
 <mat-dialog-content>
   <h3 mat-dialog-title>{{'BUTTONS.DOCUMENT_UPLOAD_BUTTON'| translate}}</h3>
   <div class="full-row mb-5" *ngFor="let document of workflowDocuments">
