@@ -1104,7 +1104,11 @@
       "NATURE_CORREC":"திருத்தத்தின் இயல்பு",
       "REQ_CORE_MAD":"திருத்தம் செய்யுமாறு கோரப்பட்டது",
       "ACTION":"செயல்",
-      "SUBMIT":"சமர்ப்பிக்கவும் "
+      "SUBMIT":"சமர்ப்பிக்கவும் ",
+      "LR_REQUIRED": "நிலப் பதிவு தேவை",
+      "FOLIO_NO_REQUIRED": "ஃபோலியோ எண் தேவை",
+      "CORRECTION_NATURE_REQUIRED": "திருத்தம் இயற்கை தேவை",
+      "REQUESTED_CORRECTION_REQUIRED": "கோரப்பட்ட திருத்தம் தேவை"
     }
   },
   "HOME_PAGE":{

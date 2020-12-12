@@ -1101,7 +1101,11 @@
          "NATURE_CORREC": "Nature of Correction",
          "REQ_CORE_MAD": "Requested correction to be made",
          "ACTION": "Action",
-         "SUBMIT": "Submit"
+         "SUBMIT": "Submit",
+         "LR_REQUIRED": "Land Registry is required",
+         "FOLIO_NO_REQUIRED": "Folio Number is required",
+         "CORRECTION_NATURE_REQUIRED": "Nature of the Correction is required",
+         "REQUESTED_CORRECTION_REQUIRED": "Requested Correction is required"
       }
    },
    "HOME_PAGE": {

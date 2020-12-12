@@ -1104,7 +1104,11 @@
       "NATURE_CORREC":"නිවැරදි කිරීමේ ස්වභාවය ",
       "REQ_CORE_MAD":"නිවැරදි කිරීම ඉල්ලා ඇත",
       "ACTION":"කටයුතු",
-      "SUBMIT":"ඉදිරිපත් කරන්න "
+      "SUBMIT":"ඉදිරිපත් කරන්න ",
+      "LR_REQUIRED": "ඉඩම් රෙජිස්ට්රි අවශ්යයි",
+      "FOLIO_NO_REQUIRED": "ෆෝලියෝ අංකය අවශ්‍යයි",
+      "CORRECTION_NATURE_REQUIRED": "නිවැරදි කිරීම ස්වභාවය",
+      "REQUESTED_CORRECTION_REQUIRED": "ඉල්ලූ නිවැරදි කිරීම අවශ්‍යයි"
 
     }
   },
