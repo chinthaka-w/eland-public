@@ -54,7 +54,7 @@ export class JudicialChangeRequestViewComponent implements OnInit {
   public workflowCode = Workflow.JUDICIAL_ZONE_CHANGE;
   showSpinner = false;
   paymentParameter = Parameters.JUDICIAL_CHANGE_FEE;
-  requestDetailPayment = new RequestSearchDetailDTO(null, null, null, null, null, null, null, null, null);
+  requestDetailPayment = new RequestSearchDetailDTO(null, null,null,null,null, null, null, null, null, null, null);
 
   constructor(private route: ActivatedRoute,
               private newNotaryService: NotaryService,
