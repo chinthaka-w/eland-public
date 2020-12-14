@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+.mat-dialog-container {
+  overflow: hidden !important;
+}
+
 html {
   width: 100%;
   min-height: 100%;
@@ -3303,18 +3307,18 @@ button.close {
   font-size: 14px;
 }
 
-@media (max-width: 992px) { 
+@media (max-width: 992px) {
   .bo-row {
     display: block;
     width: 100%;
   }
-  
+
   .bo-col-8,
   .bo-col-12 {
     display: block;
     width: 100%;
   }
-  
+
   .bo-col-4 {
     display: block;
     width: 100%;

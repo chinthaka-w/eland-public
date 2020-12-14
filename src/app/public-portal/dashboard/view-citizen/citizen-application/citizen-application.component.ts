@@ -121,8 +121,6 @@ export class CitizenApplicationComponent implements OnInit {
       ]),
       reason: new FormControl('', [
         Validators.required,this.sysMethodsService.noWhitespaceValidator,
-        Validators.maxLength(255),
-        Validators.pattern(PatternValidation.nameValidation)
       ]),
       officersDesignation: new FormControl('', []),
       stateInstitutionName: new FormControl('', []),

@@ -24,6 +24,8 @@ import {SystemService} from '../../service/system.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import {JudicialChangeWorkflowStagesEnum} from '../../enum/judicial-change-workflow-stages.enum';
 import { LandRegistryChangeWorkflowStagesEnum } from '../../enum/land-registry-change-workflow-stages.enum';
+import {NameChangeWorkflowStagesEnum} from '../../enum/name-change-workflow-stages.enum';
+import {LanguageChangeWorkflowStages} from '../../enum/language-change-workflow-stages.enum';
 
 @Component({
   selector: 'app-change-judicial-request-list',
@@ -216,6 +218,13 @@ export class ChangeJudicialRequestListComponent implements OnInit {
         this.newButtonURL = '/requests/' + btoa(this.flag);
       }
     }
+
+    if (this.flag === Workflow.LANGUAGE_CHANGE) {
+      if (this.exist) {
+        this.snackBar.warn(this.systemService.getTranslation('ALERT.MESSAGE.REQUEST_PENDING'));
+        this.newButtonURL = '/requests/' + btoa(this.flag);
+      }
+    }
   }
 
   loadSearchRequests() {
@@ -259,6 +268,8 @@ export class ChangeJudicialRequestListComponent implements OnInit {
       },
       (error) => {
         this.snackBar.error('Failed');
+      },()=>{
+
       }
     );
   }
@@ -269,12 +280,18 @@ export class ChangeJudicialRequestListComponent implements OnInit {
   loadLanguageChangeRequests() {
     this.langChangeService.getLanguageChangeRequests(this.sessionService.getUser().id).subscribe(
       (result: LanguageRequest[]) => {
-        this.dataSource = new MatTableDataSource(result);
+        this.requests = result;
+        this.dataSource = new MatTableDataSource(this.requests);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       (error) => {
         this.snackBar.error('Failed');
+      },()=>{
+        if (this.requests.length > 0 &&
+          (this.requests[0].workflowStageCode !== LanguageChangeWorkflowStages.NOTARY_ADDITIONAL_LANGUAGE_ISSUED_BY_ISSUANCE_CLERK)) {
+          this.exist = true;
+        }
       }
     );
   }

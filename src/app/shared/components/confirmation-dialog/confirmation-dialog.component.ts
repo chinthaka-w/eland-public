@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {SystemService} from '../../service/system.service';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -9,11 +10,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class ConfirmationDialogComponent implements OnInit {
 
   title: string;
-  message: string = "Are you sure?";
-  confirmButtonText = "Yes";
-  cancelButtonText = "Cancel";
+  message: string = this.systemService.getTranslation('ALERT.CONFIRM_MESSAGE.SUBMIT');
+  confirmButtonText = this.systemService.getTranslation('BUTTONS.YES_BUTTON');
+  cancelButtonText = this.systemService.getTranslation('BUTTONS.CANCEL_BUTTON');
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
+    private systemService: SystemService,
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>) {
     if(data){
       this.message = data.message || this.message;

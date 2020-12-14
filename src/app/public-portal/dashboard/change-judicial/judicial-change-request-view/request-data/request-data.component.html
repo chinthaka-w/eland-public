@@ -131,10 +131,10 @@
           <div class="default-input-wrapper full-row">
             <label>{{'SEARCH_DOC.GN_DIV'| translate}}</label>
             <div class="default-input-feild">
-              <mat-select multiple class="form-control" formControlName="gnDivision" (selectionChange)="selectGnDivision($event)">                
+              <mat-select multiple class="form-control" formControlName="gnDivision" (selectionChange)="selectGnDivision($event)">
                   <mat-option *ngFor="let gnDivision of gnDivisions" value="{{gnDivision.gnDivisionId}}">
                     {{ gnDivision.description| listTranslate: gnDivision.descriptionSin: gnDivision.descriptionTam}}
-                  </mat-option>                
+                  </mat-option>
               </mat-select>
               <div *ngIf="gnDivision.invalid && (gnDivision.touched || gnDivision.dirty)">
                 <mat-error *ngIf="gnDivision.errors.required" class="error">{{'VALIDATION.REQUIRED_FIELD_ERR'| translate}}</mat-error>
@@ -152,16 +152,16 @@
 
       <div class="separator">&nbsp;</div>
 
-      <div class="pg-inner-row mb-0 pg-form-bottom-3-col" *ngIf="enbleFormEdit">
+      <div class="pg-inner-row mb-0 " *ngIf="enbleFormEdit">
         <div class="pg-inner-col">
-          <re-captcha formControlName="recaptcha"></re-captcha>
+          <!--<re-captcha formControlName="recaptcha"></re-captcha>-->
         </div>
-        <div class="pg-inner-col middle">
-          {{'CHG_JUD_ZONE.TITLE5'| translate}}
-          <a href="#">{{'CHG_JUD_ZONE.TITLE6'| translate}}</a>, <a href="#">{{'CHG_JUD_ZONE.TITLE7'| translate}}</a> {{'COMMON.AND'| translate}} <a
-            href="#">{{'CHG_JUD_ZONE.TITLE8'| translate}}</a>.
-        </div>
-        <div class="pg-inner-col right">
+        <!--<div class="pg-inner-col middle">-->
+          <!--{{'CHG_JUD_ZONE.TITLE5'| translate}}-->
+          <!--<a href="#">{{'CHG_JUD_ZONE.TITLE6'| translate}}</a>, <a href="#">{{'CHG_JUD_ZONE.TITLE7'| translate}}</a> {{'COMMON.AND'| translate}} <a-->
+            <!--href="#">{{'CHG_JUD_ZONE.TITLE8'| translate}}</a>.-->
+        <!--</div>-->
+        <div class="pg-inner-col right float-right">
           <button [disabled]="!requestForm.valid || showSpinner" mat-raised-button class="button" type="button" (click)="submitForm()">
             {{'BUTTONS.UPDATE_BUTTON'| translate}}
           </button>

@@ -53,7 +53,7 @@
             <label>{{'CHANGE_NAME.NWI_E'|translate}}: <span class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <input matInput class="form-control" formControlName="newInitialNameInEnglish" maxlength="255">
+                <input matInput class="form-control" formControlName="newInitialNameInEnglish" >
               </mat-form-field>
               <div *ngIf="FormControls.newInitialNameInEnglish.touched && FormControls.newInitialNameInEnglish.errors"
                    class="invalid-feedback">
@@ -73,7 +73,7 @@
                 <label>{{'CHANGE_NAME.FULL_NAME_E'|translate}}: <span class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control" formControlName="newFullNameInEnglish" maxlength="255">
+                        <input matInput class="form-control" formControlName="newFullNameInEnglish" >
                     </mat-form-field>
                   <div *ngIf="FormControls.newFullNameInEnglish.touched && FormControls.newFullNameInEnglish.errors"
                        class="invalid-feedback">
@@ -93,7 +93,7 @@
             <label>{{'CHANGE_NAME.NWI_S'|translate}}: <span *ngIf="isSinhalaCertificate" class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <input matInput class="form-control" formControlName="newInitialNameInSinhala" maxlength="255">
+                <input matInput class="form-control" formControlName="newInitialNameInSinhala">
               </mat-form-field>
               <div *ngIf="FormControls.newInitialNameInSinhala.touched && FormControls.newInitialNameInSinhala.errors"
                    class="invalid-feedback">
@@ -113,7 +113,7 @@
                 <label>{{'CHANGE_NAME.FULL_NAME_S'|translate}}: <span *ngIf="isSinhalaCertificate" class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control" formControlName="newFullNameInSinhala" maxlength="255">
+                        <input matInput class="form-control" formControlName="newFullNameInSinhala">
                     </mat-form-field>
                   <div *ngIf="FormControls.newFullNameInSinhala.touched && FormControls.newFullNameInSinhala.errors"
                        class="invalid-feedback">
@@ -133,7 +133,7 @@
             <label>{{'CHANGE_NAME.NWI_T'|translate}}: <span *ngIf="isTamilCertificate" class="redtxt">*</span></label>
             <div class="default-input-feild">
               <mat-form-field appearance="outline">
-                <input matInput class="form-control" formControlName="newInitialNameInTamil" maxlength="255">
+                <input matInput class="form-control" formControlName="newInitialNameInTamil">
               </mat-form-field>
               <div *ngIf="FormControls.newInitialNameInTamil.touched && FormControls.newInitialNameInTamil.errors"
                    class="invalid-feedback">
@@ -153,7 +153,7 @@
                 <label>{{'CHANGE_NAME.FULL_NAME_T'|translate}}: <span *ngIf="isTamilCertificate" class="redtxt">*</span></label>
                 <div class="default-input-feild">
                     <mat-form-field appearance="outline">
-                        <input matInput class="form-control" formControlName="newFullNameInTamil" maxlength="255">
+                        <input matInput class="form-control" formControlName="newFullNameInTamil">
                     </mat-form-field>
                   <div *ngIf="FormControls.newFullNameInTamil.touched && FormControls.newFullNameInTamil.errors"
                        class="invalid-feedback">

@@ -4,5 +4,6 @@ export class NewNotaryPaymentDetailDto {
     public amount: string;
     public paymentId: number;
     public paymentDate: string;
+    public paymentMethodCode: any;
     public status: string;
 }

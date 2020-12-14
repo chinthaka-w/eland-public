@@ -799,6 +799,12 @@
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"Please Enter Location"
        },
+      "BANK_TRANSFER_OR_DEPOSIT":{
+        "REQUIRED_BANK_ERR":"Please Select Bank",
+        "REQUIRED_BRANCH_ERR":"Please Select Branch",
+        "REQUIRED_DATE_ERR":"Please Select Date",
+        "REQUIRED_REFERENCE_NO_ERR":"Please Enter Reference No"
+      },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"Please Enter Designation Code",
           "DESIGNATION_EMPTY_ERR":"Please Enter Designation",
@@ -920,8 +926,9 @@
        "PENDING_APPROVAL": "Pending Approval",
        "REQUEST_REJECT": "Request Rejected",
        "REQUEST_APPROVED": "Approved",
-       "RESIGN": "Resign",
+       "RESIGN": "Resigned",
        "INACTIVE": "Inactive",
+       "NOTARY_PROFILE_DEACTIVATED": "Notary profile deactivated",
        "PARTIALLY_ACTIVE": "Partially Active",
        "FURTHER_DOC_SUBMISSION": "Further Details Submission"
 
@@ -1094,7 +1101,11 @@
          "NATURE_CORREC": "Nature of Correction",
          "REQ_CORE_MAD": "Requested correction to be made",
          "ACTION": "Action",
-         "SUBMIT": "Submit"
+         "SUBMIT": "Submit",
+         "LR_REQUIRED": "Land Registry is required",
+         "FOLIO_NO_REQUIRED": "Folio Number is required",
+         "CORRECTION_NATURE_REQUIRED": "Nature of the Correction is required",
+         "REQUESTED_CORRECTION_REQUIRED": "Requested Correction is required"
       }
    },
    "HOME_PAGE": {
@@ -1292,6 +1303,7 @@
     "TO_REQ":"To date is required",
     "LEAVE_REASON":"Leave Reason:",
     "REASON_REQ":"Reason for leave Required",
+    "REASON_VALID":"Please enter valid Reason for leave",
     "IF_ANY":"(if any)",
     "SUBMIT":"Submit"
   },

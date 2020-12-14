@@ -12,7 +12,7 @@
             <input matInput formControlName="folioNo" class="form-control">
           </mat-form-field>
           <div *ngIf="folioNo.invalid && (folioNo.dirty || folioNo.touched)">
-            <mat-error *ngIf="folioNo.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="folioNo.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.FOLIO_NO_REQUIRED'| translate}}</mat-error>
             <mat-error *ngIf="folioNo.errors.maxlength" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
             <mat-error *ngIf="folioNo.errors.pattern" class="errors">{{'VALIDATION.FOLIO_NO.INVALID_ERR'| translate}}</mat-error>
           </div>
@@ -32,7 +32,7 @@
           </mat-select>
           <mat-spinner *ngIf="!isLrLoaded && !isReadonly" [diameter]="16" class="spinner-input"></mat-spinner>
           <div *ngIf="landRegId.invalid && (landRegId.dirty || landRegId.touched)">
-            <mat-error *ngIf="landRegId.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="landRegId.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.LR_REQUIRED'| translate}}</mat-error>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@
             <textarea matInput formControlName="correctionNature" class="form-control"></textarea>
           </mat-form-field>
           <div *ngIf="correctionNature.invalid && (correctionNature.dirty || correctionNature.touched)">
-            <mat-error *ngIf="correctionNature.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="correctionNature.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.CORRECTION_NATURE_REQUIRED'| translate}}</mat-error>
             <mat-error *ngIf="correctionNature.errors.maxlength" class="errors">{{'VALIDATION.SECTION35.NATURE_INVALID_ERR'| translate}}</mat-error>
           </div>
         </div>
@@ -121,7 +121,7 @@
             <textarea matInput formControlName="requestedCorrection" class="form-control"></textarea>
           </mat-form-field>
           <div *ngIf="requestedCorrection.invalid && (requestedCorrection.dirty || requestedCorrection.touched)">
-            <mat-error *ngIf="requestedCorrection.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.PLS_FILL_FORM'| translate}}</mat-error>
+            <mat-error *ngIf="requestedCorrection.errors.required" class="errors">{{'CITIZEN.CITIZEN_CORRECTION.REQUESTED_CORRECTION_REQUIRED'| translate}}</mat-error>
             <!-- removed with rgd comment -->
             <!-- <mat-error *ngIf="requestedCorrection.errors.maxlength || requestedCorrection.errors.pattern" class="errors">{{'VALIDATION.SECTION35.CORRECTION_INVALID_ERR'| translate}}</mat-error> -->
           </div>

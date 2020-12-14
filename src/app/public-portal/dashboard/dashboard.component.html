@@ -21,6 +21,7 @@
                 <span class="{{searchDetails?.status === commonStatus.ACTIVE? 'status-success':'status-pending'}}">
                   {{searchDetails?.status === commonStatus.PENDING ? ('DASHBOARD.PENDING_APPROVAL' | translate):
                                     searchDetails?.status === commonStatus.RESIGN? ('DASHBOARD.RESIGN'| translate):
+                                    searchDetails?.status === commonStatus.DEACTIVATED? ('DASHBOARD.NOTARY_PROFILE_DEACTIVATED'| translate):
                                     searchDetails?.status === commonStatus.RETURN? ('DASHBOARD.FURTHER_DOC_SUBMISSION'| translate):
                                     searchDetails?.status === commonStatus.REJECT? ('DASHBOARD.REQUEST_REJECT'| translate):
                                     searchDetails?.status === commonStatus.PACTIVE? ('DASHBOARD.PARTIALLY_ACTIVE'| translate):
@@ -43,7 +44,7 @@
           </dl>
           <dl class="db-card-info">
             <dt>{{'DASOBOARD.PAYMENT'|translate}}</dt>
-            <dd>{{searchDetails?.paymentMethod}}</dd>
+            <dd>{{searchDetails?.paymentMethod|listTranslate:searchDetails?.paymentMethodSin:searchDetails?.paymentMethodTam}}</dd>
           </dl>
           <div class="clear">&nbsp;</div>
         </div>

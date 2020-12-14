@@ -46,22 +46,30 @@ export class ApplicationComponent implements OnInit {
       nameIniTam: new FormControl(''),
       perAddEng: new FormControl('', [
         Validators.required,this.sysMethodsService.noWhitespaceValidator,
-        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)
       ]),
-      perAddSin: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      perAddTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      perAddSin: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)]),
+      perAddTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)]),
       curAddressEng: new FormControl('', [
         Validators.required,this.sysMethodsService.noWhitespaceValidator,
-        Validators.pattern(PatternValidation.ADDRESS_PATTERN)
+        Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)
       ]),
-      curAddressSin: new FormControl('', [Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
-      curAddressTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN)]),
+      curAddressSin: new FormControl('', [Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)]),
+      curAddressTam: new FormControl('', [ Validators.pattern(PatternValidation.ADDRESS_PATTERN),
+        Validators.maxLength(255)]),
       isWarLang: new FormControl(''),
       dob: new FormControl(''),
       nic: new FormControl(''),
       contact: new FormControl('', [Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.contactNumberValidation)]),
       mobile: new FormControl('', [ Validators.pattern(PatternValidation.contactNumberValidation)]),
-      email: new FormControl('', [ Validators.required,this.sysMethodsService.noWhitespaceValidator, Validators.pattern(PatternValidation.emailValidation)]),
+      email: new FormControl('', [ Validators.required,this.sysMethodsService.noWhitespaceValidator,
+        Validators.pattern(PatternValidation.emailValidation),
+        Validators.maxLength(255)]),
       judicial: new FormControl(''),
       lRegistry: new FormControl(''),
       clerkName: new FormControl(''),

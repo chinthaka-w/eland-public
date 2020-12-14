@@ -34,6 +34,7 @@ export class NotaryPaymentInfoComponent implements OnInit {
   @Input() action: any;
   @Input() isDocumentCollect: boolean;
   @Input() hasFrontCounterPayment: boolean;
+  @Input() hasOnlinePayment: boolean;
   @Input() addPayment: boolean = true;
   @Input() applicationFeeCode: string = Parameters.NOTARY_REG_FEE;
   @Output() paymentResponse = new EventEmitter<PaymentResponse>();

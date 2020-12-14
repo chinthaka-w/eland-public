@@ -20,7 +20,10 @@
 
                 <ng-container matColumnDef="Payment Date">
                     <th mat-header-cell *matHeaderCellDef>Payment Date</th>
-                    <td mat-cell *matCellDef="let row"> {{row.paymentDate}}</td>
+                  <td mat-cell *matCellDef="let row">
+                    <span *ngIf="row.paymentMethodCode==PaymentMode.BANK_DEPOSITED">{{row.paymentDate|date:'longDate'}}</span>
+                    <span *ngIf="row.paymentMethodCode!=PaymentMode.BANK_DEPOSITED">{{row.paymentDate}}</span>
+                  </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Status">

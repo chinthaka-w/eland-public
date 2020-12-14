@@ -80,6 +80,22 @@ export class PaymentMethodComponent implements OnInit {
     this.loadBanks();
   }
 
+  get bank(){
+    return this.paymentMethodForm.get('bank');
+  }
+
+  get branch(){
+    return this.paymentMethodForm.get('branch');
+  }
+
+  get date(){
+    return this.paymentMethodForm.get('date');
+  }
+
+  get referenceNo(){
+    return this.paymentMethodForm.get('referenceNo');
+  }
+
   savePayment() {
     this.showSpinner = true;
     this.isButtonClick = true;

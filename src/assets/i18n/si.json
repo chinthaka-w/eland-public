@@ -519,7 +519,7 @@
        "MR":"මයා",
        "MRS":"මිය​",
        "MISS":"මෙනවිය",
-       "TITLE_REQUIRED":"මාතෘකාව අවශ්‍යයි",
+       "TITLE_REQUIRED":"ශීර්ෂය අවශ්‍යයි",
        "JUDICIAL_ZONE":"අධිකරණ කලාපය",
        "LAND_REGISTRY":"ඉඩම් රෙජිස්ට්රි",
        "HIGH_COURT_ZONE_REQ":"මහාධිකරණ කලාපය අවශ්‍යයි",
@@ -799,6 +799,12 @@
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"කරුණාකර ස්ථානය ඇතුළත් කරන්න"
        },
+      "BANK_TRANSFER_OR_DEPOSIT":{
+        "REQUIRED_BANK_ERR":"කරුණාකර බැංකුව තෝරන්න",
+        "REQUIRED_BRANCH_ERR":"කරුණාකර ශාඛාව තෝරන්න",
+        "REQUIRED_DATE_ERR":"කරුණාකර දිනය තෝරන්න",
+        "REQUIRED_REFERENCE_NO_ERR":"කරුණාකර යොමු අංකය ඇතුළත් කරන්න"
+      },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"කරුණාකර තනතුරු කේතය ඇතුළත් කරන්න",
           "DESIGNATION_EMPTY_ERR":"කරුණාකර තනතුර ඇතුළත් කරන්න",
@@ -922,6 +928,7 @@
        "REQUEST_APPROVED": "අනුමත කර ඇත",
        "RESIGN": "ඉල්ලා අස්විය",
        "INACTIVE": "අක්‍රීයයි",
+      "NOTARY_PROFILE_DEACTIVATED": "නොතාරිස් පැතිකඩ අක්‍රිය කර ඇත",
        "PARTIALLY_ACTIVE": "අර්ධ වශයෙන් සක්‍රීයයි",
        "FURTHER_DOC_SUBMISSION": "වැඩි විස්තර ඉදිරිපත් කිරීම"
     },
@@ -1097,7 +1104,11 @@
       "NATURE_CORREC":"නිවැරදි කිරීමේ ස්වභාවය ",
       "REQ_CORE_MAD":"නිවැරදි කිරීම ඉල්ලා ඇත",
       "ACTION":"කටයුතු",
-      "SUBMIT":"ඉදිරිපත් කරන්න "
+      "SUBMIT":"ඉදිරිපත් කරන්න ",
+      "LR_REQUIRED": "ඉඩම් රෙජිස්ට්රි අවශ්යයි",
+      "FOLIO_NO_REQUIRED": "ෆෝලියෝ අංකය අවශ්‍යයි",
+      "CORRECTION_NATURE_REQUIRED": "නිවැරදි කිරීම ස්වභාවය",
+      "REQUESTED_CORRECTION_REQUIRED": "ඉල්ලූ නිවැරදි කිරීම අවශ්‍යයි"
 
     }
   },
@@ -1298,6 +1309,7 @@
     "TO_REQ":"දිනය අවශ්‍යයි",
     "LEAVE_REASON":"නිවාඩු සඳහා හේතුව",
     "REASON_REQ":"නිවාඩු සඳහා හේතුව අවශ්‍යයි",
+    "REASON_VALID":"නිවාඩු සඳහා වලංගු හේතුව කරුණාකර ඇතුළත් කරන්න",
     "IF_ANY":"(යම්)",
     "SUBMIT":"ඉදිරිපත් කරන්න"
   },

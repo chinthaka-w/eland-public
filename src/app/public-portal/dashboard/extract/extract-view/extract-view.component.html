@@ -11,7 +11,7 @@
       <mat-tab-group>
         <mat-tab label="{{'SEARCH_DOC.APPLICATION'|translate}}">
           <app-last-remark
-            *ngIf="workflowStage==ExtractWorkflowStages.EXTRACT_REQ_REJECTED_BY_ARL"
+            *ngIf="workflowStage==ExtractWorkflowStages.EXTRACT_REQ_RETURN_BY_ARL"
             [workflow]="workflow"
             [requestId]="requestId"></app-last-remark>
           <app-extract-application
@@ -27,6 +27,7 @@
             [workflow]="workflow"
             [id]="requestId"
             [addPayment]="true"
+            [hasOnlinePayment]="false"
             [hasFrontCounterPayment]="false"
             [isDocumentCollect]="false"
             [action]="action"

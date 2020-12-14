@@ -2,6 +2,7 @@ import { NewNotaryPaymentDetailDto } from './../../dto/new-notary-payment-detail
 import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import {PaymentMode} from '../../enum/payment-mode.enum';
 
 /**
  * View Payment history information
@@ -20,6 +21,8 @@ export class PaymentHistoryComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['Payment ID', 'Payment Method', 'Payment Date', 'Amount', 'Status'];
   dataSource = new MatTableDataSource<NewNotaryPaymentDetailDto>(this.paymentHistory);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  PaymentMode = PaymentMode;
 
   constructor() { }
 

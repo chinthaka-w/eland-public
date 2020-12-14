@@ -28,7 +28,8 @@
             <mat-radio-group formControlName="paymentMethod" class="form-control"
                              (change)="onChangePaymentMethod($event);">
               <!--(change)="setPaymentMethod(this.paymentForm.value.paymentMethod)"-->
-              <mat-radio-button class="example-margin" [value]="PaymentMethod.ONLINE">{{'PAYMENT.ONLINE'|translate}}
+              <mat-radio-button *ngIf="hasOnlinePayment" class="example-margin"
+                                [value]="PaymentMethod.ONLINE">{{'PAYMENT.ONLINE'|translate}}
               </mat-radio-button>
               <mat-radio-button class="example-margin" [value]="PaymentMethod.BANK_TRANSFER_OR_DIPOSIT">
                 {{'PAYMENT.BANK_TR_DE'|translate}}

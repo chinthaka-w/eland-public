@@ -796,6 +796,12 @@
        "LOCATION":{
           "LOCATION_EMPTY_ERR":"இருப்பிடத்தை உள்ளிடவும்"
        },
+      "BANK_TRANSFER_OR_DEPOSIT":{
+        "REQUIRED_BANK_ERR":"தயவுசெய்து வங்கியைத் தேர்ந்தெடுக்கவும்",
+        "REQUIRED_BRANCH_ERR":"கிளையைத் தேர்ந்தெடுக்கவும்",
+        "REQUIRED_DATE_ERR":"தேதியைத் தேர்ந்தெடுக்கவும்",
+        "REQUIRED_REFERENCE_NO_ERR":"குறிப்பு எண் உள்ளிடவும்"
+      },
        "DESIGNATION":{
           "DESIGNATION_CODE_ERR":"பதவி குறியீட்டை உள்ளிடவும்",
           "DESIGNATION_EMPTY_ERR":"தயவுசெய்து பதவியை உள்ளிடவும்",
@@ -919,6 +925,7 @@
        "REQUEST_APPROVED": "அங்கீகரிக்கப்பட்டது",
        "RESIGN": "ராஜினாமா செய்தார்",
        "INACTIVE": "செயலற்றது",
+      "NOTARY_PROFILE_DEACTIVATED": "நோட்டரி சுயவிவரம் செயலிழக்கப்பட்டது",
       "PARTIALLY_ACTIVE": "ஓரளவு செயலில்",
        "FURTHER_DOC_SUBMISSION": "மேலும் விவரங்கள் சமர்ப்பிப்பு"
     },
@@ -1097,7 +1104,11 @@
       "NATURE_CORREC":"திருத்தத்தின் இயல்பு",
       "REQ_CORE_MAD":"திருத்தம் செய்யுமாறு கோரப்பட்டது",
       "ACTION":"செயல்",
-      "SUBMIT":"சமர்ப்பிக்கவும் "
+      "SUBMIT":"சமர்ப்பிக்கவும் ",
+      "LR_REQUIRED": "நிலப் பதிவு தேவை",
+      "FOLIO_NO_REQUIRED": "ஃபோலியோ எண் தேவை",
+      "CORRECTION_NATURE_REQUIRED": "திருத்தம் இயற்கை தேவை",
+      "REQUESTED_CORRECTION_REQUIRED": "கோரப்பட்ட திருத்தம் தேவை"
     }
   },
   "HOME_PAGE":{
@@ -1292,6 +1303,7 @@
     "TO_REQ":"காலத்தை விடுங்கள் (க்கு)",
     "LEAVE_REASON":"விடுப்பு காரணம்:",
     "REASON_REQ":"விடுப்புக்கான காரணம் தேவை",
+    "REASON_VALID":"விடுப்புக்கான சரியான காரணத்தை உள்ளிடவும்",
     "IF_ANY":"(ஏதாவது)",
     "SUBMIT":"சமர்ப்பிக்கவும்"
   },
