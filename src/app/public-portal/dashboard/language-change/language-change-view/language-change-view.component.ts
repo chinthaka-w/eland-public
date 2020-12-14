@@ -50,7 +50,7 @@ export class LanguageChangeViewComponent implements OnInit {
         'LAN_REQ_INI',
         null,
         null,
-        null
+        null,null,null
         );
 
       this.paymentAction = this.configPaymentOption();

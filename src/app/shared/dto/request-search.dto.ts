@@ -8,11 +8,11 @@ export class RequestSearchDetailDTO {
     public notaryCode: string,
     public name: string,
     public paymentMethod: string,
-    public paymentMethodSin: string,
-    public paymentMethodTam: string,
     public workflow: string,
     public status: string,
     public statusDescription: string,
     public date: Date,
+    public paymentMethodSin: string,
+    public paymentMethodTam: string,
   ){}
 }

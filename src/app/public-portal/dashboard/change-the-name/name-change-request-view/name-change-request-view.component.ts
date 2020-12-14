@@ -72,7 +72,7 @@ export class NameChangeRequestViewComponent implements OnInit {
   ngOnInit() {
     this.getRequestDetails();
     // set payment request details
-    this.requestDetailPayment = new RequestSearchDetailDTO(null, this.id, null, null, null, Workflow.NOTARY_NAME_CHANGE, null, null, null);
+    this.requestDetailPayment = new RequestSearchDetailDTO(null, this.id, null, null, null, Workflow.NOTARY_NAME_CHANGE, null, null, null,null,null);
     this.requestDetailPayment.workflowStage = this.workflowStageCode;
   }
 
