@@ -21,13 +21,13 @@
                 <div class="default-input-wrapper m0 rac-col">
                   <label>{{'LANGUAGE_CHANGE.LANGUAGE'|translate}} <span class="redtxt">*</span></label>
                   <div class="default-input-feild">
-                    <mat-checkbox formControlName="langSin" [(ngModel)]="langSinCheck" >
+                    <mat-checkbox formControlName="langSin"  (change)="languageSinChange($event)">
                       {{'LANGUAGE_CHANGE.SINHALA'|translate}}
                     </mat-checkbox>
                     <mat-checkbox formControlName="langEng" >
                       {{'LANGUAGE_CHANGE.ENGLISH'|translate}}
                     </mat-checkbox>
-                    <mat-checkbox formControlName="langTam"  [(ngModel)]="langTamCheck" >
+                    <mat-checkbox formControlName="langTam" (change)="languageTamChange($event)">
                       {{'LANGUAGE_CHANGE.TAMIL'|translate}}
                     </mat-checkbox>
                   </div>
