@@ -10,7 +10,7 @@ import {WorkflowStageDocDto} from './../../../shared/dto/workflow-stage-doc-dto'
 import {Languages} from './../../../shared/enum/languages.enum';
 import {NameTitleDTO} from './../../../shared/dto/name-title.dto';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SessionService} from '../../../shared/service/session.service';
 import {LanguageChange} from '../../../shared/dto/language-change.model';
 import {PaymentMethod} from '../../../shared/enum/payment-method.enum';
@@ -23,6 +23,8 @@ import {TempData} from '../../../shared/dto/temp-data.model';
 import {RequestData} from '../../../shared/dto/request-data.model';
 import {TokenStorageService} from '../../../shared/auth/token-storage.service';
 import {AuthorizeRequestService} from '../../../shared/service/authorize-request.service';
+import {log} from 'util';
+import {MatCheckboxChange} from '@angular/material';
 
 
 @Component({
@@ -30,7 +32,7 @@ import {AuthorizeRequestService} from '../../../shared/service/authorize-request
   templateUrl: './language-change.component.html',
   styleUrls: ['./language-change.component.css']
 })
-export class LanguageChangeComponent implements OnInit {
+export class LanguageChangeComponent implements OnInit,AfterViewChecked {
   backUrl: string;
   nameTitles: NameTitleDTO[] = [];
   languageChangForm: FormGroup;
@@ -68,6 +70,7 @@ export class LanguageChangeComponent implements OnInit {
               private router: Router,
               private authorizeRequestService: AuthorizeRequestService,
               private tokenStorageService: TokenStorageService,
+              private cdr: ChangeDetectorRef,
               private systemService: SystemService) {
   }
 
@@ -76,20 +79,13 @@ export class LanguageChangeComponent implements OnInit {
     this.getNameTitles();
     this.loadForm();
 
-    this.langEngCheckbox.valueChanges.subscribe(value => {
-        this.languageChange(Languages.ENGLISH,value);
-    });
-
-    this.langSinhalaCheckbox.valueChanges.subscribe(value => {
-        this.languageChange(Languages.SINHALA,value);
-    });
-
-    this.langTamilCheckbox.valueChanges.subscribe(value => {
-        this.languageChange(Languages.TAMIL,value);
-    });
-
     this.userType = this.sessionService.getUser().type;
     this.userId = this.sessionService.getUser().id;
+  }
+
+  ngAfterViewChecked(){
+    //your code to update the model
+    this.cdr.detectChanges();
   }
 
   getTempData() {
@@ -118,31 +114,31 @@ export class LanguageChangeComponent implements OnInit {
    * Load language change application form
    */
   private loadForm(): void {
-    this.languageChangForm = this.formBulder.group({
+    this.languageChangForm = new FormGroup({
       title: new FormControl(0, null),
-      langEng: new FormControl('', null),
+      langEng: new FormControl({value:null,disabled:true}),
       langSin: new FormControl('', null),
       langTam: new FormControl('', null),
       fullNameEng: new FormControl({value:'',disabled:true},
         [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
-      fullNameSin: new FormControl('', null),
-      fullNameTam: new FormControl('', null),
+      fullNameSin: new FormControl(null),
+      fullNameTam: new FormControl(null),
       nameWithInitEng: new FormControl({value:'',disabled:true},
         [Validators.pattern(PatternValidation.WITHOUT_SPECIAL_CHARACTES_WITH_SPACE_PATTERN)]),
-      nameWithInitSin: new FormControl('', null),
-      nameWithInitTam: new FormControl('', null),
+      nameWithInitSin: new FormControl(null),
+      nameWithInitTam: new FormControl(null),
       addPermanentEng: new FormControl({value:'',disabled:true}, null),
-      addPermanentSin: new FormControl('', null),
-      addPermanentTam: new FormControl('', null),
+      addPermanentSin: new FormControl(null),
+      addPermanentTam: new FormControl(null),
       addressEng: new FormControl({value:'',disabled:true}, null),
-      addressSin: new FormControl('', null),
-      addressTam: new FormControl('', null),
-      startingDate: new FormControl('', null),
-      highCourtCertificateYear: new FormControl('', null),
-      lrName: new FormControl('', null),
-      returnAttestedStatus: new FormControl('', null),
-      unavailableTimePeriod: new FormControl('', null),
-      date: new FormControl('', null),
+      addressSin: new FormControl(null),
+      addressTam: new FormControl(null),
+      startingDate: new FormControl({value:null,disabled:false}),
+      highCourtCertificateYear: new FormControl({value:null,disabled:false}),
+      lrName: new FormControl({value:null,disabled:false}),
+      returnAttestedStatus: new FormControl({value:null,disabled:false}),
+      unavailableTimePeriod: new FormControl({value:null,disabled:false}),
+      date: new FormControl({value:null,disabled:false}),
     });
     this.getRegistrationDetails(this.sessionService.getUser().id);
   }
@@ -210,35 +206,30 @@ export class LanguageChangeComponent implements OnInit {
       (result: LanguageChange) => {
         this.languageChangForm.patchValue(result);
 
-        // this.languageChangForm.get('nameWithInitEng').disable();
-        // this.languageChangForm.get('fullNameEng').disable();
-        // this.languageChangForm.get('addPermanentEng').disable();
-        // this.languageChangForm.get('addressEng').disable();
-
-        if(result.fullNameSin != null) {
+        if(!result.fullNameSin && result.fullNameSin !== "") {
           this.languageChangForm.get('fullNameSin').disable();
         }
 
-        if(result.fullNameTam != null) {
+        if(!result.fullNameTam && result.fullNameTam !== "") {
           this.languageChangForm.get('fullNameTam').disable();
         }
 
 
-        if(result.nameWithInitSin != null) {
+        if(!result.nameWithInitSin && result.nameWithInitSin !== "") {
           this.languageChangForm.get('nameWithInitSin').disable();
         }
 
-        if(result.nameWithInitTam != null) {
+        if(!result.nameWithInitTam && result.nameWithInitTam !== "") {
           this.languageChangForm.get('nameWithInitTam').disable();
         }
 
-        if(result.addressSin != null) this.currentAddressSinhala.disable();
+        if(!result.addressSin && result.addressSin !== "") this.currentAddressSinhala.disable();
 
-        if(result.addressTam!= null) this.currentAddressTamil.disable();
+        if(!result.addressTam && result.addressTam !== "") this.currentAddressTamil.disable();
 
-        if(result.addPermanentSin!= null) this.permanentAddressSinhala.disable();
+        if(!result.addPermanentSin && result.addPermanentSin !== "") this.permanentAddressSinhala.disable();
 
-        if(result.addPermanentTam!= null) this.permanentAddressTamil.disable();
+        if(!result.addPermanentTam && result.addPermanentTam !== "") this.permanentAddressTamil.disable();
 
         if (result.langEng) {
           this.languageChangForm.get('langEng').disable();
@@ -331,7 +322,8 @@ export class LanguageChangeComponent implements OnInit {
     this.langTamCheck = value;
     if (this.langSinhalaCheckbox.enabled) {
       this.langSinCheck = false;
-      this.languageChangForm.value.langSin = false;
+      this.langSinhalaCheckbox.patchValue(false);
+      this.langSinhalaCheckbox.updateValueAndValidity();
     }
     if (this.langTamCheck) {
       this.fullNameTamil.setValidators([
@@ -386,7 +378,8 @@ export class LanguageChangeComponent implements OnInit {
     this.langSinCheck = value;
     if (this.langTamilCheckbox.enabled) {
       this.langTamCheck = false;
-      this.languageChangForm.value.langTam = false;
+      this.langTamilCheckbox.patchValue(false);
+      this.langTamilCheckbox.updateValueAndValidity();
     }
 
     if (this.langSinCheck) {
@@ -580,4 +573,11 @@ export class LanguageChangeComponent implements OnInit {
     this.showPayment = false;
   }
 
+  languageTamChange(value: MatCheckboxChange) {
+    this.languageChange(Languages.TAMIL,value.checked);
+  }
+
+  languageSinChange(value: MatCheckboxChange) {
+    this.languageChange(Languages.SINHALA,value.checked);
+  }
 }
