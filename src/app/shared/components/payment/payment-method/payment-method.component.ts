@@ -106,6 +106,7 @@ export class PaymentMethodComponent implements OnInit {
       isValid = false;
       errorMassage = this.systemService.getTranslation('ALERT.MESSAGE.FILL_APP_FORM3');
       this.showSpinner = false;
+      this.validateAllFormFields(this.paymentMethodForm);
       return;
     }
 
@@ -134,6 +135,7 @@ export class PaymentMethodComponent implements OnInit {
         }
       );
     } else {
+      this.validateAllFormFields(this.paymentMethodForm);
       this.snackBar.error(errorMassage);
     }
   }
@@ -179,6 +181,17 @@ export class PaymentMethodComponent implements OnInit {
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         this.back.emit(true);
+      }
+    });
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {         //{1}
+    Object.keys(formGroup.controls).forEach(field => {  //{2}
+      const control = formGroup.get(field);             //{3}
+      if (control instanceof FormControl) {             //{4}
+        control.markAsDirty({onlySelf: true});
+      } else if (control instanceof FormGroup) {        //{5}
+        this.validateAllFormFields(control);            //{6}
       }
     });
   }
