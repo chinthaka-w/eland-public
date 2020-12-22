@@ -10,7 +10,7 @@ export class SysConfigService {
   public static APP_ENDPOINT2 = "authorize/";
   public static APP_IP = `${window.location.href.split('/')[2].split(':')[0]}:`;
   public static APP_PROTOCOL = "http://";
-  public static APP_PORT = "9696/";
+  public static APP_PORT = "9393/";
   // online payment configs
   public static LGPS_PAYMENT_URL = 'https://testlgps.lankagate.gov.lk/lgps/accesslgps?clientPaymentRequest=';
   // public static LGPS_PAYMENT_URL = 'https://lgps.lankagate.gov.lk/lgps/accesslgps?clientPaymentRequest=';
